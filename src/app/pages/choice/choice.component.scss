@@ -1,0 +1,69 @@
+:host {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  background-color: #fafafa;
+}
+.cloud {
+  width: 90%;
+  height: 90%;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  .word {
+    font-size: 40px;
+    font-style: italic;
+    padding: 10px;
+    margin: 44px;
+    color: #838b95;
+    animation-duration: 1s;
+    animation-name: zoomIn;
+    -webkit-animation-name: zoomIn;
+  }
+}
+
+.more {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background-color: #427db8;
+  padding: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 3px #000000;
+  color: #ffffff;
+  display: flex;
+  .mat-icon {
+    height: 50px;
+    width: 50px;
+    font-size: 50px;
+  }
+}
+
+// Animation
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes zoomIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}

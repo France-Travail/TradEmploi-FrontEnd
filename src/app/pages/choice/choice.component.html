@@ -1,0 +1,9 @@
+<div class="cloud">
+  <div class="word" *ngFor="let word of words; let i=index" [ngStyle]="{'padding-top': word.padding+'px'}"
+    (click)="selectLanguage(word.value.audioLanguage, word.value.writtenLanguage)">
+    {{ word.displayedValue }}
+  </div>
+</div>
+<div class="more" (click)="moreLanguage()">
+  <mat-icon aria-hidden="false" aria-label="Choix de la langue">add</mat-icon>
+</div>

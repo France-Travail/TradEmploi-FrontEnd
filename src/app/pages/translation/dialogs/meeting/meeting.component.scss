@@ -1,0 +1,72 @@
+.dialogContent {
+  margin: 50px 0;
+  box-shadow: 0 0 3px #cccccc;
+  padding: 20px 0;
+  .calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 480px;
+    .navigation {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      width: 400px;
+      margin-bottom: 20px;
+      .before, .after {
+        .mat-icon {
+          font-size: 30px;
+          height: 30px;
+          width: 30px;
+          color: #427db8;
+        }
+      }
+      .present {
+        font-size: 20px
+      }
+    }
+    .week {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      .day {
+        padding: 10px;
+        margin: 3px;
+        width: 60px;
+        height: 45px;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:hover {
+          background-color: #f2f2f2;
+          cursor: pointer;
+        }
+      }
+      .noBorder {
+        &:hover {
+          background-color: #ffffff;
+          cursor: default;
+        }
+      }
+      .today {
+        background-color: #404040;
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+.actions {
+  button {
+    border: none;
+    margin: 0 auto;
+    background-color: #427db8;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px;
+    outline: none;
+    box-shadow: 0 0 3px #aaaaaa;
+  }
+}

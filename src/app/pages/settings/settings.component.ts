@@ -1,0 +1,100 @@
+import { Component, AfterViewInit } from '@angular/core';
+import { HistoryService } from 'src/app/services/history.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SettingsService } from 'src/app/services/settings.service';
+import { ToastService } from 'src/app/services/toast.service';
+
+@Component({
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss']
+})
+export class SettingsComponent implements AfterViewInit {
+  public audio: boolean = false;
+  public guest: { firstname: string; lastname: string } = { firstname: '', lastname: '' };
+  public advisor: { firstname: string; lastname: string } = { firstname: '', lastname: '' };
+  public isNewConversation: boolean = true; // Hide elements when new conversation is started
+
+  constructor(private historyService: HistoryService, private toastService: ToastService, private settingsService: SettingsService, private route: ActivatedRoute, private router: Router) {}
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.historyService.conversation === undefined) {
+        this.router.navigate(['start']);
+      } else {
+        this.guest.firstname = this.historyService.conversation.guest.firstname;
+        this.guest.lastname = this.historyService.conversation.guest.lastname;
+        this.advisor.firstname = this.historyService.conversation.advisor.firstname;
+        this.advisor.lastname = this.historyService.conversation.advisor.lastname;
+        this.audio = this.settingsService.audio;
+        this.isNewConversation = this.settingsService.newConversation;
+      }
+    });
+  }
+
+  /**
+   * Redirect to a page
+   */
+  public goto(where: string): void {
+    if (where === 'return') {
+      this.route.params.subscribe(params => {
+        this.router.navigate([params.from]);
+      });
+    } else {
+      this.router.navigate([where]);
+    }
+  }
+
+  /**
+   * Set firstname and lastname for users
+   */
+  public setInformation(value: string, id: string): void {
+    switch (id) {
+      case 'guestF':
+        this.historyService.conversation.guest.firstname = value;
+        break;
+
+      case 'guestL':
+        this.historyService.conversation.guest.lastname = value;
+        break;
+
+      case 'advisorF':
+        this.historyService.conversation.advisor.firstname = value;
+        break;
+
+      case 'advisorL':
+        this.historyService.conversation.advisor.lastname = value;
+        break;
+    }
+  }
+
+  /**
+   * Allow user to enabled audio after translation
+   */
+  public switchAudio(): void {
+    this.settingsService.audio = !this.audio;
+  }
+
+  /**
+   * Validate form and redirect
+   */
+  public validateInformations(): void {
+    if (this.checkFields()) {
+      this.settingsService.newConversation = false;
+      this.router.navigate(['choice']);
+    } else {
+      this.toastService.showToast('Merci de remplir tous les champs.');
+    }
+  }
+
+  /**
+   * Check if firstname and lastname are not empty
+   */
+  private checkFields(): boolean {
+    if (this.advisor.firstname === '' || this.advisor.lastname === '') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+}

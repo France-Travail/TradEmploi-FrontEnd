@@ -1,0 +1,62 @@
+<div class="buttons">
+  <div class="logo">
+    <img src="assets/images/logo.png" alt="Logo Pôle Emploi">
+    <div class="title">Traduction Instantanée</div>
+  </div>
+  <div class="buttonsList">
+    <button (click)="goto('translation')">
+      <mat-icon aria-hidden="false" aria-label="Historique">keyboard_return</mat-icon>
+    </button>
+    <button (click)="switchLanguage()">
+      <mat-icon aria-hidden="false" aria-label="Choix de la langue">compare_arrows</mat-icon>
+    </button>
+    <button (click)="goto('settings/conversation')">
+      <mat-icon aria-hidden="false" aria-label="Paramètres">settings</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="interfaces">
+  <h1>Historique de la conversation</h1>
+  <ng-container *ngIf="conversation == undefined; else history">
+    <mat-spinner class="spinner"></mat-spinner>
+  </ng-container>
+
+  <ng-template #history>
+    <div class="conversation">
+      <div class="sentence" *ngFor="let i of conversation.conversation; let i=index" [ngClass]="{'advisor': i.isAdvisorMessage}">
+        <div class="time">
+          <span *ngIf="i.isAdvisorMessage">Conseiller - </span>
+          <span *ngIf="!i.isAdvisorMessage">
+            <ng-container *ngIf="conversation.guest.firstname == ''; else name">
+              Demandeur d'emploi - 
+            </ng-container>
+            <ng-template #name>
+              {{ conversation.guest.firstname }} {{ conversation.guest.lastname }} - 
+            </ng-template>
+          </span>
+          {{ formatTime(i.time) }}
+        </div>
+        <div class="element">
+          <ng-container *ngIf="showTranslation; else message">
+            <ng-container *ngIf="i.isAdvisorMessage; else elseTemplate">
+              {{ i.message.translation }}
+            </ng-container>
+            <ng-template #elseTemplate>
+              {{ i.message.raw }}
+            </ng-template>
+          </ng-container>
+          <ng-template #message>
+            <ng-container *ngIf="i.isAdvisorMessage; else elseTemplate">
+              {{ i.message.raw }}
+            </ng-container>
+            <ng-template #elseTemplate>
+              {{ i.message.translation }}
+            </ng-template>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+</div>

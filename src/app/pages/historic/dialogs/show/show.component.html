@@ -1,0 +1,42 @@
+<div class="actions">
+  <div class="infos">
+    <mat-icon aria-hidden="false" aria-label="Choix de la langue">personn</mat-icon> : {{ data.guest.firstname }}
+    {{ data.guest.lastname }}
+  </div>
+  <div class="date">
+    De <span>{{ formatTime(data.startDate.seconds) }}</span> à <span>{{ formatTime(data.endDate.seconds) }}</span>
+  </div>
+  <button (click)="switchLanguage()">
+    <mat-icon aria-hidden="false" aria-label="Choix de la langue">compare_arrows</mat-icon>
+  </button>
+</div>
+
+<div mat-dialog-content class="dialogContent">
+  <div class="conversation">
+    <div class="sentence" *ngFor="let i of data.conversation; let i=index" [ngClass]="{'advisor': i.isAdvisorMessage}">
+      <div class="time">
+        <span *ngIf="i.isAdvisorMessage">Conseiller - </span>
+        <span *ngIf="!i.isAdvisorMessage">{{ data.guest.firstname }} {{ data.guest.lastname }} - </span>
+        {{ formatTime(i.time.seconds) }}
+      </div>
+      <div class="element">
+        <ng-container *ngIf="showTranslation; else message">
+          <ng-container *ngIf="i.isAdvisorMessage; else elseTemplate">
+            {{ i.message.translation }}
+          </ng-container>
+          <ng-template #elseTemplate>
+            {{ i.message.raw }}
+          </ng-template>
+        </ng-container>
+        <ng-template #message>
+          <ng-container *ngIf="i.isAdvisorMessage; else elseTemplate">
+            {{ i.message.raw }}
+          </ng-container>
+          <ng-template #elseTemplate>
+            {{ i.message.translation }}
+          </ng-template>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

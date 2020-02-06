@@ -1,0 +1,127 @@
+.equaliser-container {
+  height: 50px;
+  width: 110px;
+  margin: 0 0;
+  padding: 0 0 0 0;
+  position: relative;
+  align-items: center;
+  display: flex;
+}
+
+.colour-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+}
+
+.blue {
+  background: #427db8;
+}
+
+.grey {
+  background: #dadada;
+}
+
+.black {
+  background: #404040;
+}
+
+.equaliser-column {
+  width: 8px;
+  float: left;
+  margin: 0 1px 0 0;
+  padding: 0;
+  height: 10px;
+  position: relative;
+  list-style-type: none;
+}
+
+.equaliser-column:nth-child(1) .colour-bar {
+  animation: color-bar 2.5s 1s ease-out alternate infinite;
+}
+.equaliser-column:nth-child(2) .colour-bar {
+  animation: color-bar 2.5s 0.5s ease-out alternate infinite;
+}
+.equaliser-column:nth-child(3) .colour-bar {
+  animation: color-bar 2.5s 1.5s ease-out alternate infinite;
+}
+.equaliser-column:nth-child(4) .colour-bar {
+  animation: color-bar 2.5s 0.25s ease-out alternate infinite;
+}
+.equaliser-column:nth-child(5) .colour-bar {
+  animation: color-bar 2.5s 2s ease-out alternate infinite;
+}
+.equaliser-column:nth-child(6) .colour-bar {
+  animation: color-bar 2.5s 1.8s ease-out alternate infinite;
+}
+.equaliser-column:nth-child(7) .colour-bar {
+  animation: color-bar 2.5s 0.7s ease-out alternate infinite;
+}
+.equaliser-column:nth-child(8) .colour-bar {
+  animation: color-bar 2.5s 1s ease-out alternate infinite;
+}
+.equaliser-column:nth-child(9) .colour-bar {
+  animation: color-bar 2.5s 2s ease-out alternate infinite;
+}
+.equaliser-column:nth-child(10) .colour-bar {
+  animation: color-bar 2.5s 1.4s ease-out alternate infinite;
+}
+.equaliser-column:nth-child(11) .colour-bar {
+  animation: color-bar 2.5s 0.5s ease-out alternate infinite;
+}
+.equaliser-column:nth-child(12) .colour-bar {
+  animation: color-bar 2.5s 1s ease-out alternate infinite;
+}
+
+.equaliser-column:last-child {
+  margin-right: 0;
+}
+
+@keyframes color-bar {
+  0% {
+    height: 2px;
+    // background: #999797;
+  }
+  10% {
+    height: 12px;
+    // background: #999797;
+  }
+  20% {
+    height: 20px;
+    // background: #999797;
+  }
+  30% {
+    height: 8px;
+    // background: #999797;
+  }
+  40% {
+    height: 28px;
+    // background: #999797;
+  }
+  50% {
+    height: 36px;
+    // background: #999797;
+  }
+  60% {
+    height: 12px;
+    // background: #999797;
+  }
+  70% {
+    height: 32px;
+    // background: #999797;
+  }
+  80% {
+    height: 20px;
+    // background: #999797;
+  }
+  90% {
+    height: 12px;
+    // background: #999797;
+  }
+  100% {
+    height: 4px;
+    // background: #999797;
+  }
+}

@@ -1,0 +1,108 @@
+* {
+  box-sizing: border-box;
+}
+
+:host {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fafafa;
+}
+
+.buttons {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+  .logo {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    img {
+      width: 143px;
+    }
+    .title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #bf5858;
+    }
+  }
+  .buttonsList {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    button {
+      background-color: #404040;
+      color: #ffffff;
+      padding: 12px;
+      border: none;
+      box-shadow: 0 0 3px #000000;
+      font-size: 18px;
+      border-radius: 50%;
+      display: flex;
+      margin: 0 10px;
+      &:focus {
+        outline: 0;
+      }
+      &:active {
+        outline: 0;
+      }
+    }
+  }
+}
+
+.interfaces {
+  display: flex;
+  background-color: #ffffff;
+  width: 100%;
+  flex: 1;
+  padding: 20px;
+  flex-direction: column;
+  h1 {
+    text-align: center;
+    color: #404040;
+  }
+  .conversation {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 10px;
+    max-height: 500px;
+    overflow: auto;
+    .time {
+      font-size: 13px;
+      margin-bottom: 3px;
+      font-style: italic;
+    }
+    .sentence {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-self: flex-end;
+      margin: 10px 0;
+      .element {
+        background-color: #dddddd;
+        padding: 10px 20px;
+        border-radius: 5px;
+        max-width: 400px;
+        box-shadow: 1px 1px 3px #ccc;
+      }
+    }
+    .advisor {
+      align-self: flex-start;
+      .element {
+        color: #ffffff;
+        background-color: #427db8;
+        box-shadow: 1px 1px 3px #aaaaaa;
+      }
+    }
+  }
+}
+
+.spinner {
+  margin: 100px auto;
+}

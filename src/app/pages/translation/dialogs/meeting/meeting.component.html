@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>Prise de Rendez-vous</h1>
+
+<div mat-dialog-content class="dialogContent">
+  <div class="calendar">
+    <div class="navigation">
+      <div class="before" (click)="changeMonth('before')">
+        <mat-icon aria-hidden="false" aria-label="Précédent">arrow_back</mat-icon>
+      </div>
+      <div class="present">{{ monthName }}</div>
+      <div class="after" (click)="changeMonth('next')">
+        <mat-icon aria-hidden="false" aria-label="Suivant">arrow_forward</mat-icon>
+      </div>
+    </div>
+    <div class="week" *ngFor="let week of calendar;">
+      <ng-container *ngIf="week.length == 7; else elseTemplate">
+        <div class="day" (click)="saveConversation()" *ngFor="let day of week; let i=index" [ngClass]="{'today': isTodayFromDay(day)}">
+          {{ day.getDate() }}
+        </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 1) == '', 'today': isTodayFromWeek(week, 1)}">
+          {{ getDay(week, 1) }}</div>
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 2) == '', 'today': isTodayFromWeek(week, 2)}">
+          {{ getDay(week, 2) }}</div>
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 3) == '', 'today': isTodayFromWeek(week, 3)}">
+          {{ getDay(week, 3) }}</div>
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 4) == '', 'today': isTodayFromWeek(week, 4)}">
+          {{ getDay(week, 4) }}</div>
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 5) == '', 'today': isTodayFromWeek(week, 5)}">
+          {{ getDay(week, 5) }}</div>
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 6) == '', 'today': isTodayFromWeek(week, 6)}">
+          {{ getDay(week, 6) }}</div>
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 0) == '', 'today': isTodayFromWeek(week, 0)}">
+          {{ getDay(week, 0) }}</div>
+      </ng-template>
+    </div>
+  </div>
+</div>
