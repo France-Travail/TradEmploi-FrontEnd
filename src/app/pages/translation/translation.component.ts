@@ -11,6 +11,7 @@ import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { HistoryService } from 'src/app/services/history.service';
 import { MeetingComponent } from './dialogs/meeting/meeting.component';
+import { PermissionsService } from 'src/app/services/permissions.service';
 
 // Data
 import { VOCABULARY } from 'src/app/data/vocabulary';
@@ -65,6 +66,7 @@ export class TranslationComponent {
     private toastService: ToastService,
     private historyService: HistoryService,
     private settingsService: SettingsService,
+    private permissionsService: PermissionsService,
     public dialog: MatDialog,
     private router: Router
   ) {
@@ -84,70 +86,83 @@ export class TranslationComponent {
    * This function is called when the speaker wants to talk
    */
   public async talk(user: string): Promise<void> {
-    // Set the language
-    const lang = user === 'advisor' ? this.translateService.advisor : this.translateService.guest.writtenLanguage;
+    // Check if the microphone is enabled
+    if (this.permissionsService.isAllowed === undefined || !this.permissionsService.isAllowed) {
+      try {
+        this.permissionsService.isAllowed = await this.permissionsService.check();
+      } catch (error) {
+        this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
+      }
+    }
 
-    // If the user is not speaking
-    if (!this.isTalking) {
-      this.speechData = '';
-      this.isStopTalking = false;
+    if (this.permissionsService.isAllowed) {
+      // Set the language
+      const lang = user === 'advisor' ? this.translateService.advisor : this.translateService.guest.writtenLanguage;
 
-      // Change Mic button
-      this.isTalking = !this.isTalking;
+      // If the user is not speaking
+      if (!this.isTalking) {
+        this.speechData = '';
+        this.isStopTalking = false;
 
-      // Start audio recording
-      await this.audioRecordingService.record('start');
+        // Change Mic button
+        this.isTalking = !this.isTalking;
 
-      // Start Speech Recognition
-      this.speechRecognitionService.record(lang).subscribe(
-        // listener
-        value => {
-          this.error = false;
-          this.speechData = value;
-        },
-        // error
-        err => {
-          console.log(err);
-          if (err.error === 'no-speech') {
-            console.log('Erreur');
-            this.error = true;
-          }
-        },
-        // completion
-        () => {
-          console.log('Complete');
-          setTimeout(() => {
-            if (this.inProgress) {
-              this.isStopTalking = true;
+        // Start audio recording
+        await this.audioRecordingService.record('start');
+
+        // Start Speech Recognition
+        this.speechRecognitionService.record(lang).subscribe(
+          // listener
+          value => {
+            this.error = false;
+            this.speechData = value;
+          },
+          // error
+          err => {
+            console.log(err);
+            if (err.error === 'no-speech') {
+              console.log('Erreur');
+              this.error = true;
             }
-          }, 3000);
-        }
-      );
+          },
+          // completion
+          () => {
+            console.log('Complete');
+            setTimeout(() => {
+              if (this.inProgress) {
+                this.isStopTalking = true;
+              }
+            }, 3000);
+          }
+        );
+      } else {
+        // Change Mic button
+        this.isTalking = !this.isTalking;
+
+        // Display progressive spinner
+        this.inProgress = true;
+
+        // Stop audio recording
+        await this.audioRecordingService.record('stop');
+
+        const end = setInterval(() => {
+          if (this.speechData !== '') {
+            this.translate(this.speechData, user);
+            clearInterval(end);
+          } else if (!this.isTalking && !this.inProgress) {
+            clearInterval(end);
+          } else if (this.speechData === '' && !this.isTalking && this.isStopTalking) {
+            this.inProgress = false;
+            this.isStopTalking = false;
+            this.toastService.showToast('Erreur, veuillez réessayer');
+            clearInterval(end);
+          }
+        }, 100);
+
+        this.speechRecognitionService.DestroySpeechObject();
+      }
     } else {
-      // Change Mic button
-      this.isTalking = !this.isTalking;
-
-      // Display progressive spinner
-      this.inProgress = true;
-
-      // Stop audio recording
-      await this.audioRecordingService.record('stop');
-
-      const end = setInterval(() => {
-        if (this.speechData !== '') {
-          this.translate(this.speechData, user);
-          clearInterval(end);
-        } else if (!this.isTalking && !this.inProgress) {
-          clearInterval(end);
-        } else if (this.speechData === '' && !this.isTalking && this.isStopTalking) {
-          this.inProgress = false;
-          this.isStopTalking = false;
-          this.toastService.showToast('Erreur, veuillez réessayer');
-          clearInterval(end);
-        }
-      }, 100);
-
-      this.speechRecognitionService.DestroySpeechObject();
+      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
     }
   }
 
