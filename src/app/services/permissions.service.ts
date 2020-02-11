@@ -4,10 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class PermissionsService {
-  public isAllowed: boolean = undefined;
-  private constraints = { audio: true};
-
-  constructor() {}
+  public isAllowed: boolean = false;
+  private constraints = { audio: true };
 
   public check(): Promise<boolean> {
     return new Promise((resolve, reject) => {
