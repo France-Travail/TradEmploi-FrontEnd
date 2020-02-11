@@ -6,11 +6,15 @@ import { MatDialog } from '@angular/material';
 // Services
 import { HistoryService } from 'src/app/services/history.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { RateService } from 'src/app/services/rate.service';
 
 // Dialogs
 import { ShowComponent } from './dialogs/show/show.component';
 import { RemoveComponent } from './dialogs/remove/remove.component';
-import { RateService } from 'src/app/services/rate.service';
+
+// Models
+import { Conversation } from 'src/app/models/conversation';
+import { Rate } from 'src/app/models/rate';
 
 @Component({
   selector: 'app-historic',

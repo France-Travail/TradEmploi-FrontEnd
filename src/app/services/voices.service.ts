@@ -1,7 +1,14 @@
+// Angular
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+
+// Env
 import { environment } from 'src/environments/environment.prod';
+
+// Models
+import { Voice } from '../models/voice';
+import { Lang } from '../models/lang';
 
 @Injectable({
   providedIn: 'root'

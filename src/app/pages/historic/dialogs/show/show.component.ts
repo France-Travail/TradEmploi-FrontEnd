@@ -1,5 +1,9 @@
+// Angular
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+// Models
+import { Conversation } from 'src/app/models/conversation';
 
 @Component({
   selector: 'app-show',

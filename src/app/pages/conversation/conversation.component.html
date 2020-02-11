@@ -24,7 +24,7 @@
 
   <ng-template #history>
     <div class="conversation">
-      <div class="sentence" *ngFor="let i of conversation.conversation; let i=index" [ngClass]="{'advisor': i.isAdvisorMessage}">
+      <div class="sentence" *ngFor="let i of conversation.conversation;" [ngClass]="{'advisor': i.isAdvisorMessage}">
         <div class="time">
           <span *ngIf="i.isAdvisorMessage">Conseiller - </span>
           <span *ngIf="!i.isAdvisorMessage">

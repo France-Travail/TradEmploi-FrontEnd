@@ -80,7 +80,7 @@
           <!-- BUTTONS SECTION -->
           <div class="action">
             <!-- LISTEN -->
-            <button (click)="listenTranslation('guest')">
+            <button (click)="listenTranslation()">
               <mat-icon aria-hidden="false" aria-label="Sons">
                 <ng-container *ngIf="isTranslationListening; else sound">volume_off</ng-container>
                 <ng-template #sound>volume_up</ng-template>
@@ -159,7 +159,7 @@
           <!-- BUTTONS SECTION -->
           <div class="action">
             <!-- LISTEN -->
-            <button (click)="listenTranslation('advisor')">
+            <button (click)="listenTranslation()">
               <mat-icon aria-hidden="false" aria-label="Sons">
                 <ng-container *ngIf="isTranslationListening; else sound">volume_off</ng-container>
                 <ng-template #sound>volume_up</ng-template>

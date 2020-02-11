@@ -11,6 +11,9 @@ import { LanguagesComponent } from './dialog/languages/languages.component';
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 
+// Models
+import { Lang } from 'src/app/models/lang';
+
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',

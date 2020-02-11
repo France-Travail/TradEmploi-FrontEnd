@@ -9,6 +9,9 @@ import { TranslateService } from 'src/app/services/translate.service';
 // Data
 import { COUNTRIES } from 'src/app/data/countries';
 
+// Models
+import { Voice } from 'src/app/models/voice';
+
 @Component({
   selector: 'app-languages',
   templateUrl: './languages.component.html',
