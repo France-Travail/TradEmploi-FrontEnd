@@ -1,4 +1,4 @@
-interface Voice {
+export interface Voice {
   languageCodes: string[];
   name: string;
   ssmlGender: string;

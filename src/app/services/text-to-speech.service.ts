@@ -1,7 +1,15 @@
+// Angular
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+// Services
 import { VoicesService } from './voices.service';
+
+// Env
 import { environment } from 'src/environments/environment.prod';
+
+// Models
+import { Voice } from '../models/voice';
 
 interface Body {
   audioConfig: {

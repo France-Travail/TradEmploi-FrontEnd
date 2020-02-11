@@ -1,7 +1,10 @@
+// Angular
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+// Models
+import { Lang } from '../models/lang';
 
 interface TranslateResult {
   data: {

@@ -1,12 +1,18 @@
+// Angular
 import { Component } from '@angular/core';
 import { RateService } from 'src/app/services/rate.service';
+import { Router } from '@angular/router';
+
+// Services
 import { TranslateService } from 'src/app/services/translate.service';
 import { HistoryService } from 'src/app/services/history.service';
-import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/toast.service';
 
 // Data
 import { VOCABULARY } from 'src/app/data/vocabulary';
+
+// Models
+import { Rate } from 'src/app/models/rate';
 
 @Component({
   selector: 'app-rate',

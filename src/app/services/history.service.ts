@@ -1,6 +1,15 @@
+// Angular
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+
+// Firebase
+import { AngularFirestore } from '@angular/fire/firestore';
+
+// Models
+import { Conversation } from '../models/conversation';
+import { User } from '../models/user';
+import { Message } from '../models/message';
+
 
 @Injectable({
   providedIn: 'root'
