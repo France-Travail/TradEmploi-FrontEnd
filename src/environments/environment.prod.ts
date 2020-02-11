@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: 'AIzaSyBEFAE8iuggUNH1siCM0fZi73vlrwbbLxE',
-    authDomain: 'translate-pe.firebaseapp.com',
-    databaseURL: 'https://translate-pe.firebaseio.com',
-    projectId: 'translate-pe',
-    storageBucket: '',
-    messagingSenderId: '394082876548',
-    appId: '1:394082876548:web:aac7fe3f514dada8'
+    apiKey: "AIzaSyD4ZAtJqO803JkMYvxun7WmiuU22hn97dE",
+    authDomain: "pole-emploi-trad.firebaseapp.com",
+    databaseURL: "https://pole-emploi-trad.firebaseio.com",
+    projectId: "pole-emploi-trad",
+    storageBucket: "pole-emploi-trad.appspot.com",
+    messagingSenderId: "860693433183",
+    appId: "1:860693433183:web:6afdaa4433c69f098204ea"
   },
-  apiKey: 'AIzaSyDV0cp6OlCb3LLqNSAK7DLZruEorbJ3O2A'
+  apiKey: 'AIzaSyD4ZAtJqO803JkMYvxun7WmiuU22hn97dE'
 };
