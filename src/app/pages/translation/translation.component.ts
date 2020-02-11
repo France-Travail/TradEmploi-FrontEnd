@@ -87,7 +87,7 @@ export class TranslationComponent {
    */
   public async talk(user: string): Promise<void> {
     // Check if the microphone is enabled
-    if (this.permissionsService.isAllowed === undefined || !this.permissionsService.isAllowed) {
+    if (!this.permissionsService.isAllowed) {
       try {
         this.permissionsService.isAllowed = await this.permissionsService.check();
       } catch (error) {
