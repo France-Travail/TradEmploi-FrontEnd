@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 
 // Services
 import { HistoryService } from 'src/app/services/history.service';
-import { ToastService } from 'src/app/services/toast.service';
+
+// Models
+import { Conversation } from 'src/app/models/conversation';
 
 @Component({
   selector: 'app-conversation',

@@ -1,5 +1,5 @@
 <div class="cloud">
-  <div class="word" *ngFor="let word of words; let i=index" [ngStyle]="{'padding-top': word.padding+'px'}"
+  <div class="word" *ngFor="let word of words; let i=index;" [ngStyle]="{'padding-top': word.padding+'px'}"
     (click)="selectLanguage(word.value.audioLanguage, word.value.writtenLanguage)">
     {{ word.displayedValue }}
   </div>

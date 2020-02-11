@@ -13,7 +13,7 @@
     </div>
     <div class="week" *ngFor="let week of calendar;">
       <ng-container *ngIf="week.length == 7; else elseTemplate">
-        <div class="day" (click)="saveConversation()" *ngFor="let day of week; let i=index" [ngClass]="{'today': isTodayFromDay(day)}">
+        <div class="day" (click)="saveConversation()" *ngFor="let day of week; let i=index;" [ngClass]="{'today': isTodayFromDay(day)}">
           {{ day.getDate() }}
         </div>
       </ng-container>
