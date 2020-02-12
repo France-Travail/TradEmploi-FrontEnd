@@ -25,6 +25,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 export class TranslationComponent {
   // Number
   public speaker: number = 0;
+  public enterKey: number = 13;
 
   // Boolean
   public isAdvisorTurn: boolean = true; // True if the interface is advisor one
@@ -45,7 +46,6 @@ export class TranslationComponent {
   public keyboardData: string = '';
   public speechData: string = '';
   public speechTranslated: string = '';
-  toto
 
   // Array
   public titles: { displayedValue: { translation: string; request: string }; value: string }[] = [
@@ -282,8 +282,8 @@ export class TranslationComponent {
     this.isKeyboardActivated = !this.isKeyboardActivated;
   }
 
-  public onPressEnter(event, user) {
-    if(event.which === 13 || event.keyCode === 13) {
+  public onPressEnter(event, user): void {
+    if(event.which === this.enterKey || event.keyCode === this.enterKey) {
       this.keyboardData = event.currentTarget.value
       this.translate(this.keyboardData, user)
     }
@@ -293,7 +293,6 @@ export class TranslationComponent {
    * This function is called to send data as text to translation
    */
   private translate(text: string, user: string): void {
-    console.log('text + user :', text, user)
     // Activate the spinner
     this.inProgress = true;
 
