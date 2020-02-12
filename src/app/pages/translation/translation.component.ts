@@ -45,6 +45,7 @@ export class TranslationComponent {
   public keyboardData: string = '';
   public speechData: string = '';
   public speechTranslated: string = '';
+  toto
 
   // Array
   public titles: { displayedValue: { translation: string; request: string }; value: string }[] = [
@@ -281,10 +282,18 @@ export class TranslationComponent {
     this.isKeyboardActivated = !this.isKeyboardActivated;
   }
 
+  public onPressEnter(event, user) {
+    if(event.which === 13 || event.keyCode === 13) {
+      this.keyboardData = event.currentTarget.value
+      this.translate(this.keyboardData, user)
+    }
+  }
+
   /**
    * This function is called to send data as text to translation
    */
   private translate(text: string, user: string): void {
+    console.log('text + user :', text, user)
     // Activate the spinner
     this.inProgress = true;
 
