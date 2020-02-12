@@ -56,7 +56,7 @@ export class TextToSpeechService {
 
   init = async () => {
     this.voices = await this.getVoices();
-  };
+  }
 
   private getVoices(): Promise<SpeechSynthesisVoice[]> {
     return new Promise((resolve, reject) => {
@@ -74,7 +74,7 @@ export class TextToSpeechService {
     if (this.synth.speaking) {
       this.synth.cancel();
     } else {
-      let speech = new SpeechSynthesisUtterance(message);
+      const speech = new SpeechSynthesisUtterance(message);
 
       speech.voice = this.voices.find(voice => voice.lang === language);
       speech.pitch = 1;
@@ -101,7 +101,7 @@ export class TextToSpeechService {
 
       const GENDER = user === 'advisor' ? this.guestVoiceGender : this.advisorVoiceGender;
       const SECOND_GENDER = GENDER === 'MALE' ? 'FEMALE' : 'MALE';
-      let names: Voice[] = [];
+      const names: Voice[] = [];
 
       this.voicesService.voicesList.forEach(voice => {
         if (voice.languageCodes.includes(language) && voice.name.includes('Wavenet')) {
@@ -109,7 +109,7 @@ export class TextToSpeechService {
         }
       });
 
-      let body: Body = {
+      const body: Body = {
         audioConfig: {
           audioEncoding: 'MP3',
           pitch: 0,
@@ -123,7 +123,7 @@ export class TextToSpeechService {
         }
       };
       if (names.length >= 1) {
-        let voice: Voice = names.find(v => v.ssmlGender == GENDER);
+        const voice: Voice = names.find(v => v.ssmlGender === GENDER);
         body.voice.name = voice === undefined ? names.find(v => v.ssmlGender === SECOND_GENDER).name : voice.name;
       } else {
         console.log('NO WAVENET VOICE FOUNDED');

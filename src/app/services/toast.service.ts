@@ -18,5 +18,5 @@ export class ToastService {
       verticalPosition: 'top',
       panelClass: ['design']
     });
-  };
+  }
 }
