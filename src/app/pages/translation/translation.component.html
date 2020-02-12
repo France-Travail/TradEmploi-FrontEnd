@@ -72,9 +72,15 @@
             <input matInput placeholder="{{ getWordTranslation('advisor', 'request') }}" [(ngModel)]="keyboardData"
               type="text" (keyup)="onPressEnter($event, 'advisor')">
               <button mat-button *ngIf="keyboardData" matSuffix mat-icon-button aria-label="Clear" (click)="keyboardData=''">
-                <mat-icon>close</mat-icon>
+                <mat-icon class="clearTextIcon">close</mat-icon>
               </button>
           </mat-form-field>
+          <ng-template #advisorKeyboard>
+            <!-- KEYBOARD -->
+            <button (click)="translateFromKeyboard('advisor')">
+              <mat-icon aria-hidden="false" aria-label="Envoyer la traduction">send</mat-icon>
+            </button>
+          </ng-template>
         </div>
 
         <mat-icon class="arrow" aria-hidden="false" aria-label="Resultat">arrow_downward</mat-icon>
