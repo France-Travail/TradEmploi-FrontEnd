@@ -153,6 +153,9 @@
           <mat-form-field class="input" *ngIf="isKeyboardActivated">
             <input matInput placeholder="{{ getWordTranslation('guest', 'request') }}" [(ngModel)]="keyboardData"
               type="text">
+              <button mat-button *ngIf="keyboardData" matSuffix mat-icon-button aria-label="Clear" (click)="keyboardData=''">
+                <mat-icon>close</mat-icon>
+              </button>
           </mat-form-field>
         </div>
 
