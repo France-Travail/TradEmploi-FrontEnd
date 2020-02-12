@@ -27,7 +27,7 @@ export class RateComponent {
   // tslint:disable-next-line: quotemark
   public rateSentence: string = "Notez l'expérience";
 
-  constructor(private rateService: RateService, private translateService: TranslateService, private historyService: HistoryService, private toastService: ToastService, private _router: Router) {
+  constructor(private rateService: RateService, private translateService: TranslateService, private historyService: HistoryService, private toastService: ToastService, private router: Router) {
     this.send = VOCABULARY.find(v => v.isoCode === this.translateService.guest.writtenLanguage).words.send;
     this.rateSentence = VOCABULARY.find(v => v.isoCode === this.translateService.guest.writtenLanguage).words.rate;
   }
@@ -62,13 +62,13 @@ export class RateComponent {
       this.rateService
         .saveRate()
         .then(() => {
-          this._router.navigate(['thanks']);
+          this.router.navigate(['thanks']);
         })
         .catch(error => {
           // tslint:disable-next-line: quotemark
           this.toastService.showToast("La notation n'a pas pu être envoyée. Redirection en cours.", 3000);
           setTimeout(() => {
-            this._router.navigate(['thanks']);
+            this.router.navigate(['thanks']);
           }, 3500);
         });
     }

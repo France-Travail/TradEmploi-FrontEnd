@@ -15,7 +15,7 @@ export class SettingsService {
 
   constructor() {}
 
-  public reset (): void {
+  public reset(): void {
     this.guest = { firstname: '', lastname: '', language: '' };
   }
 }

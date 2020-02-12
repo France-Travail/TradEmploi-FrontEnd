@@ -5,5 +5,5 @@ export interface Message {
   message: {
     raw: string;
     translation: string
-  }
+  };
 }
