@@ -283,9 +283,9 @@ export class TranslationComponent {
   }
 
   public onPressEnter(event, user): void {
-    if(event.which === this.enterKey || event.keyCode === this.enterKey) {
-      this.keyboardData = event.currentTarget.value
-      this.translate(this.keyboardData, user)
+    if (event.which === this.enterKey || event.keyCode === this.enterKey) {
+      this.keyboardData = event.currentTarget.value;
+      this.translate(this.keyboardData, user);
     }
   }
 
