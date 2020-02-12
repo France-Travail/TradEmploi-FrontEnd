@@ -8,7 +8,7 @@ import { VoicesService } from './services/voices.service';
 })
 export class AppComponent {
   title = 'translation';
-  constructor(private _voicesService: VoicesService) {
-    
+  constructor(private voicesService: VoicesService) {
+
   }
 }

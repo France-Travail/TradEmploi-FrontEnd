@@ -12,13 +12,13 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 xdescribe('TranslationComponent', () => {
   let component: TranslationComponent;
   let fixture: ComponentFixture<TranslationComponent>;
-  let translateService : TranslateService;
+  let translateService: TranslateService;
   let toastService: ToastService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TranslationComponent ],
-      providers:[
+      providers: [
         {provide: TranslateService},
         {provide: ToastService},
       ],

@@ -56,7 +56,7 @@ export class TranslateService {
    * Call Cloud Function to translate an audio
    * !!!! NOT USE FOR NOW !!!!
    */
-  public async sendAudioToTranslation (data: Blob, speaker: string): Promise<any> {
+  public async sendAudioToTranslation(data: Blob, speaker: string): Promise<any> {
     const url = `${this.url}/speech_to_translate`;
 
     const audio: string = await this.convertBlobToBase64(data);
@@ -68,7 +68,7 @@ export class TranslateService {
     };
 
     return this.httpClient.post(url, body, this.httpOptions).toPromise();
-  };
+  }
 
   /**
    * Encode blob into Base64

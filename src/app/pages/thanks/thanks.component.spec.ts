@@ -9,12 +9,12 @@ import { TranslateService } from '../../services/translate.service';
 xdescribe('ThanksComponent', () => {
   let component: ThanksComponent;
   let fixture: ComponentFixture<ThanksComponent>;
-  let translateService : TranslateService;
+  let translateService: TranslateService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ThanksComponent ],
-      providers:[
+      providers: [
         {provide: TranslateService}
       ],
       imports: [
@@ -28,7 +28,7 @@ xdescribe('ThanksComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ThanksComponent);
     component = fixture.componentInstance;
-    translateService = TestBed.get(TranslateService);
+    translateService = TestBed.inject(TranslateService);
     fixture.detectChanges();
   });
 
