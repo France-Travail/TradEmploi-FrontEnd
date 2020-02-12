@@ -1,6 +1,7 @@
 {
   "projects": {
     "default": "pole-emploi-trad",
+    "prod": "pole-emploi-trad",
     "dev": "pole-emploi-trad-dev"
   }
 }

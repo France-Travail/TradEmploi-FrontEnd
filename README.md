@@ -25,3 +25,36 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Deploy on Dev
+
+```
+$ npm run build
+```
+
+deploy on dev
+```
+$ firebase deploy --project dev
+```
+
+wait and go to
+```
+$ https://pole-emploi-trad-dev.firebaseapp.com
+```
+
+## Deploy on Prod
+
+```
+$ npm run build:prod
+```
+
+deploy on prod
+```
+$ firebase deploy --project prod
+```
+
+wait and go to
+```
+$ https://pole-emploi-trad.firebaseapp.com
+```
+
