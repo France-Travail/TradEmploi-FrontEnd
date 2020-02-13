@@ -1,14 +1,8 @@
 // Angular
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-// Services
 import { VoicesService } from './voices.service';
-
-// Env
 import { environment } from 'src/environments/environment.prod';
-
-// Models
 import { Voice } from '../models/voice';
 
 interface Body {
@@ -97,7 +91,7 @@ export class TextToSpeechService {
 
   public async getSpeech(text: string, language: string, user: string, fromKeyboard: boolean): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = `${this.url}?key=${environment.apiKey}`;
+      const url = `${this.url}?key=${environment.gcp.apiKey}`;
 
       const GENDER = user === 'advisor' ? this.guestVoiceGender : this.advisorVoiceGender;
       const SECOND_GENDER = GENDER === 'MALE' ? 'FEMALE' : 'MALE';

@@ -5,15 +5,24 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyBP2bEopJwWiWBleSXgQFg4DW3UMnmfRpE",
-    authDomain: "pole-emploi-trad-dev.firebaseapp.com",
-    databaseURL: "https://pole-emploi-trad-dev.firebaseio.com",
-    projectId: "pole-emploi-trad-dev",
-    storageBucket: "pole-emploi-trad-dev.appspot.com",
-    messagingSenderId: "615733745472",
-    appId: "1:615733745472:web:c14d5ad351090c67044ca5"
+    apiKey: 'AIzaSyBP2bEopJwWiWBleSXgQFg4DW3UMnmfRpE',
+    authDomain: 'pole-emploi-trad-dev.firebaseapp.com',
+    databaseURL: 'https://pole-emploi-trad-dev.firebaseio.com',
+    projectId: 'pole-emploi-trad-dev',
+    storageBucket: 'pole-emploi-trad-dev.appspot.com',
+    messagingSenderId: '615733745472',
+    appId: '1:615733745472:web:c14d5ad351090c67044ca5'
   },
-  apiKey: 'AIzaSyBraAcmG6FhlK4A9hCOfo96_s_OvYXEciQ'
+  gcp: {
+    apiKey: 'AIzaSyBraAcmG6FhlK4A9hCOfo96_s_OvYXEciQ'
+  },
+  api: {
+    graphqlUrl: 'http://35.184.36.125/graphql',
+    login: 'ludo',
+    password: '7YQZQJmmSyab7xT',
+    provider: 'GOOGLE',
+    defaultLanguage: 'fr-FR'
+  }
 };
 
 /*
