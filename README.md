@@ -58,3 +58,8 @@ wait and go to
 $ https://pole-emploi-trad.firebaseapp.com
 ```
 
+## V1.0.0
+
+US_F_02
+US_F_05
+US_A_01
