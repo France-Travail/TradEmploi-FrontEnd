@@ -1,20 +1,4 @@
-<div class="buttons">
-  <div class="logo">
-    <img src="assets/images/logo.png" alt="Logo Pôle Emploi">
-    <div class="title">Traduction Instantanée</div>
-  </div>
-  <div class="buttonsList">
-    <button (click)="goto('return')" *ngIf="!isNewConversation">
-      <mat-icon aria-hidden="false" aria-label="Retour">keyboard_return</mat-icon>
-    </button>
-    <button (click)="goto('start')" *ngIf="!isNewConversation">
-      <mat-icon aria-hidden="false" aria-label="Retour">exit_to_app</mat-icon>
-    </button>
-    <button (click)="goto('history')" *ngIf="isNewConversation">
-      <mat-icon aria-hidden="false" aria-label="Historique">speaker_notes</mat-icon>
-    </button>
-  </div>
-</div>
+<app-navbar [items]="navBar"></app-navbar>
 
 <div class="interfaces">
   <h1>Paramètre de la session</h1>

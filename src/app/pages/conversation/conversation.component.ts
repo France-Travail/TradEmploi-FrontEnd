@@ -7,6 +7,7 @@ import { HistoryService } from 'src/app/services/history.service';
 
 // Models
 import { Conversation } from 'src/app/models/conversation';
+import { NavbarItem } from 'src/app/models/navbar-item';
 
 @Component({
   selector: 'app-conversation',
@@ -16,8 +17,11 @@ import { Conversation } from 'src/app/models/conversation';
 export class ConversationComponent implements AfterViewInit {
   public conversation: Conversation;
   public showTranslation: boolean = false;
+  public navBar: NavbarItem[] = [];
 
-  constructor(private historyService: HistoryService, private router: Router) {}
+  constructor(private historyService: HistoryService, private router: Router) {
+    this.setNavBar();
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -25,18 +29,42 @@ export class ConversationComponent implements AfterViewInit {
     });
   }
 
-  /**
-   * Redirect to a page
-   */
-  public goto(where: string): void {
-    this.router.navigate([where]);
+  public setNavBar(): void {
+    this.navBar = [
+      {
+        icon: 'keyboard_return',
+        infoTitle: 'Retour',
+        link: 'translation',
+        isDisplayed: true
+      },
+      {
+        icon: 'compare_arrows',
+        infoTitle: 'Changer de langue',
+        action: this.switchLanguage,
+        isDisplayed: true
+      },
+      {
+        icon: 'settings',
+        infoTitle: 'Paramètres',
+        link: 'settings/conversation',
+        isDisplayed: true
+      }
+    ];
+  }
+
+  public handleAction(event: any): void {
+    event.call(this);
   }
 
   /**
    * Allow user to change the language of the conversation
    */
   public switchLanguage(): void {
-    this.showTranslation = !this.showTranslation;
+    if (this.showTranslation === undefined) {
+      this.showTranslation = false;
+    } else {
+      this.showTranslation = !this.showTranslation;
+    }
   }
 
   /**

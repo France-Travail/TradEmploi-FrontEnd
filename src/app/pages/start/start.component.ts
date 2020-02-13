@@ -19,7 +19,7 @@ export class StartComponent implements AfterContentInit {
   ngAfterContentInit() {
     this.settingsService.newConversation = true;
     this.settingsService.reset();
-    this.historyService.startConversation(this.settingsService.advisor, this.settingsService.guest);
+    this.historyService.startConversation(this.settingsService.advisor, this.settingsService.guest.value);
 
     const id = setInterval(() => {
       this.opacity = this.opacity + 0.05;

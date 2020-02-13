@@ -1,20 +1,4 @@
-<div class="buttons">
-  <div class="logo">
-    <img src="assets/images/logo.png" alt="Logo Pôle Emploi">
-    <div class="title">Traduction Instantanée</div>
-  </div>
-  <div class="buttonsList">
-    <button (click)="goto('translation')">
-      <mat-icon aria-hidden="false" aria-label="Historique">keyboard_return</mat-icon>
-    </button>
-    <button (click)="switchLanguage()">
-      <mat-icon aria-hidden="false" aria-label="Choix de la langue">compare_arrows</mat-icon>
-    </button>
-    <button (click)="goto('settings/conversation')">
-      <mat-icon aria-hidden="false" aria-label="Paramètres">settings</mat-icon>
-    </button>
-  </div>
-</div>
+<app-navbar [items]="navBar" (perform)="handleAction($event)"></app-navbar>
 
 <div class="interfaces">
   <h1>Historique de la conversation</h1>

@@ -12,10 +12,13 @@ import { ToastService } from 'src/app/services/toast.service';
 import { HistoryService } from 'src/app/services/history.service';
 import { MeetingComponent } from './dialogs/meeting/meeting.component';
 import { PermissionsService } from 'src/app/services/permissions.service';
+import { SettingsService } from 'src/app/services/settings.service';
+
+// Models
+import { NavbarItem } from 'src/app/models/navbar-item';
 
 // Data
 import { VOCABULARY } from 'src/app/data/vocabulary';
-import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-translation',
@@ -59,6 +62,8 @@ export class TranslationComponent {
     { displayedValue: { translation: 'перевод', request: 'Ваш запрос:' }, value: 'ru-RU' } // Russe
   ];
 
+  public navBar: NavbarItem[] = [];
+
   constructor(
     private translateService: TranslateService,
     private speechRecognitionService: SpeechRecognitionService,
@@ -74,6 +79,7 @@ export class TranslationComponent {
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
     }
+    this.setNavBar();
   }
 
   /**
@@ -81,6 +87,45 @@ export class TranslationComponent {
    */
   public goto(where: string): void {
     this.router.navigate([where]);
+  }
+
+  public handleAction(event: any): void {
+    event.call(this);
+  }
+
+  public setNavBar(): void {
+    this.navBar = [
+      {
+        icon: 'home',
+        infoTitle: 'Changer la langue',
+        link: 'choice',
+        isDisplayed: true
+      },
+      {
+        icon: this.isKeyboardActivated ? 'mic' : 'keyboard',
+        infoTitle: this.isKeyboardActivated ? 'Activer le micro' : 'Activer le clavier',
+        action: this.activateKeyboard,
+        isDisplayed: true
+      },
+      {
+        icon: 'date_range',
+        infoTitle: 'Prendre un RDV',
+        action: this.meeting,
+        isDisplayed: true
+      },
+      {
+        icon: 'speaker_notes',
+        infoTitle: 'Historique',
+        link: 'conversation',
+        isDisplayed: true
+      },
+      {
+        icon: 'settings',
+        infoTitle: 'Paramètres',
+        link: 'settings/translation',
+        isDisplayed: true
+      }
+    ];
   }
 
   /**
@@ -163,7 +208,7 @@ export class TranslationComponent {
         this.speechRecognitionService.DestroySpeechObject();
       }
     } else {
-      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
+      this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
     }
   }
 

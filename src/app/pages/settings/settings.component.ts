@@ -1,8 +1,14 @@
+// Angular
 import { Component, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+// Services
 import { HistoryService } from 'src/app/services/history.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ToastService } from 'src/app/services/toast.service';
+
+// Models
+import { NavbarItem } from 'src/app/models/navbar-item';
 
 @Component({
   selector: 'app-settings',
@@ -14,8 +20,11 @@ export class SettingsComponent implements AfterViewInit {
   public guest: { firstname: string; lastname: string } = { firstname: '', lastname: '' };
   public advisor: { firstname: string; lastname: string } = { firstname: '', lastname: '' };
   public isNewConversation: boolean = true; // Hide elements when new conversation is started
+  public navBar: NavbarItem[] = [];
 
-  constructor(private historyService: HistoryService, private toastService: ToastService, private settingsService: SettingsService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private historyService: HistoryService, private toastService: ToastService, private settingsService: SettingsService, public router: Router) {
+    this.setNavBar();
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -28,21 +37,32 @@ export class SettingsComponent implements AfterViewInit {
         this.advisor.lastname = this.historyService.conversation.advisor.lastname;
         this.audio = this.settingsService.audio;
         this.isNewConversation = this.settingsService.newConversation;
+        this.setNavBar();
       }
     });
   }
 
-  /**
-   * Redirect to a page
-   */
-  public goto(where: string): void {
-    if (where === 'return') {
-      this.route.params.subscribe(params => {
-        this.router.navigate([params.from]);
-      });
-    } else {
-      this.router.navigate([where]);
-    }
+  public setNavBar(): void {
+    this.navBar = [
+      {
+        icon: 'keyboard_return',
+        infoTitle: 'Retour',
+        link: 'return',
+        isDisplayed: !this.isNewConversation
+      },
+      {
+        icon: 'exit_to_app',
+        infoTitle: 'Quitter l\'application',
+        link: 'start',
+        isDisplayed: !this.isNewConversation
+      },
+      {
+        icon: 'speaker_notes',
+        infoTitle: 'Voir l\'historique',
+        link: 'history',
+        isDisplayed: this.isNewConversation
+      }
+    ];
   }
 
   /**
