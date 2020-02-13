@@ -1,13 +1,10 @@
-import { TestBed } from '@angular/core/testing';
-
 import { PermissionsService } from './permissions.service';
 
-xdescribe('TestService', () => {
+describe('TestService', () => {
   let service: PermissionsService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(PermissionsService);
+    service = new PermissionsService();
   });
 
   it('should be created', () => {
@@ -15,7 +12,14 @@ xdescribe('TestService', () => {
   });
 
   it('should check if micro is enabled', async () => {
-    const response = await service.check();
-    expect(response).toEqual(true || false);
+    await service
+      .check()
+      .then(result => {
+        if (result) {
+          expect(result).toEqual(true);
+        } else {
+          expect(result).toEqual(false);
+        }
+      });
   });
 });
