@@ -25,6 +25,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 export class TranslationComponent {
   // Number
   public speaker: number = 0;
+  public enterKey: number = 13;
 
   // Boolean
   public isAdvisorTurn: boolean = true; // True if the interface is advisor one
@@ -279,6 +280,13 @@ export class TranslationComponent {
    */
   public activateKeyboard(): void {
     this.isKeyboardActivated = !this.isKeyboardActivated;
+  }
+
+  public onPressEnter(event, user): void {
+    if (event.which === this.enterKey || event.keyCode === this.enterKey) {
+      this.keyboardData = event.currentTarget.value;
+      this.translate(this.keyboardData, user);
+    }
   }
 
   /**
