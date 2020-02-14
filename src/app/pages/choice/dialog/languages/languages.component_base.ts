@@ -1,9 +1,7 @@
 // Angular
-import { Component,ViewChild,OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
-import {MatPaginator} from '@angular/material/paginator';
+
 // Services
 import { VoicesService } from 'src/app/services/voices.service';
 import { TranslateService } from 'src/app/services/translate.service';
@@ -14,42 +12,29 @@ import { COUNTRIES } from 'src/app/data/countries';
 // Models
 import { Voice } from 'src/app/models/voice';
 
-
 @Component({
   selector: 'app-languages',
   templateUrl: './languages.component.html',
   styleUrls: ['./languages.component.scss']
 })
-
-export class LanguagesComponent implements OnInit {
+export class LanguagesComponent {
   private voices: Voice[];
-  public displayedColumns: string[] = ['traduction','country','language','flag'];
-  public Countries: { country: string; traduction: string; code: { audioLanguage: string; writtenLanguage: string }; language: string }[] = COUNTRIES;
-  dataSource = new MatTableDataSource(this.Countries);
-  public list: { country: string; language: string }[] = [];
-  
+
+  public list: { country: string; flag: string; language: string }[] = [];
+
   constructor(public dialogRef: MatDialogRef<LanguagesComponent>, private translateService: TranslateService, private voicesService: VoicesService) {
     this.voices = this.voicesService.voicesList;
+
     for (const voice of COUNTRIES) {
+      let flag = voice.code.audioLanguage.split('-')[1].toLowerCase();
+      flag = flag === 'zh' ? 'cn' : flag === 'hant' ? 'hk' : flag === 'qi' ? 'iq' : flag;
+
       this.list.push({
         country: voice.country,
-        language: voice.language
+        language: voice.language,
+        flag
       });
     }
-  
-  }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-  @ViewChild(MatSort,{static: true}) sort: MatSort;
-  @ViewChild(MatPaginator,{static:true}) paginator:MatPaginator;
- 
-  ngOnInit(){
-    this.sort.direction = 'asc'
-    this.sort.active = 'traduction'
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
   }
 
   /**
@@ -70,5 +55,5 @@ export class LanguagesComponent implements OnInit {
       }
     }
     this.dialogRef.close('chosen');
-  } 
+  }
 }

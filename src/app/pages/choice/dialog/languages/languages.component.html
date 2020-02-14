@@ -1,13 +1,31 @@
 <h1 mat-dialog-title class="dialogTitle">Choix de la langue</h1>
 
-<div mat-dialog-content class="dialogContent">
-  <ul>
-    <li *ngFor="let item of list" (click)="chooseLanguage(item.country)">
-      <span class="flag-icon flag-icon-{{ item.flag }}"></span>
-      <div class="text">
-        <div class="language">{{ item.language }}</div>
-        <div class="country">[{{ item.country }}]</div>
-      </div>
-    </li>
-  </ul>
-</div>
+<mat-form-field>
+    <mat-label>Recherche :</mat-label>
+    <input matInput (keyup)="applyFilter($event)" />
+</mat-form-field>
+<table mat-table [dataSource]="dataSource" matSort matSortStart="asc" class="mat-dialog-content">
+    <ng-container matColumnDef="traduction">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Pays (FR)</th>
+        <td mat-cell *matCellDef="let element" (click)="chooseLanguage(element.country)">{{ element.traduction }}</td>
+    </ng-container>
+    <!-- country Column-->
+    <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef>Pays</th>
+        <td mat-cell *matCellDef="let element" (click)="chooseLanguage(element.country)">{{ element.country }}</td>
+    </ng-container>
+    <ng-container matColumnDef="language">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Langue</th>
+        <td mat-cell *matCellDef="let element" (click)="chooseLanguage(element.country)">{{ element.language }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="flag">
+        <th mat-header-cell *matHeaderCellDef>Drapeau</th>
+        <td mat-cell *matCellDef="let element" (click)="chooseLanguage(element.country)"><span class="flag-icon flag-icon-{{ element.code.audioLanguage.split('-')[1].toLowerCase() }}"></span></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>

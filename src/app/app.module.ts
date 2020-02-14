@@ -18,7 +18,7 @@ import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Allow to use French date format
-import { MAT_DATE_LOCALE } from '@angular/material';
+import { MAT_DATE_LOCALE, MatSortModule, MatTableModule } from '@angular/material';
 
 // Import shared module and components
 import { SharedModule } from './shared/shared.module';
@@ -64,7 +64,9 @@ import { ConversationComponent } from './pages/conversation/conversation.compone
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireFunctionsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSortModule,
+    MatTableModule
   ],
   providers: [
     {
