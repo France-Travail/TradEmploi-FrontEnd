@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 // Models
 import { Lang } from '../models/lang';
+import { ToastService } from './toast.service';
 
 interface TranslateResult {
   data: {
@@ -23,7 +24,7 @@ interface TranslateResult {
 export class TranslateService {
   public guest: Lang = { audioLanguage: '', writtenLanguage: '' };
   public advisor: string = 'fr-FR';
-  private url: string = 'https://translate-pe.firebaseapp.com/api/v1';
+  private url: string = 'https://translate-pe.firebaseapp.com/api/v';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -31,7 +32,7 @@ export class TranslateService {
     })
   };
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private toastService: ToastService) {}
 
   /**
    * Remove the guest language
@@ -42,14 +43,23 @@ export class TranslateService {
 
   public sendTextToTranslation(data: string, speaker: string): Observable<TranslateResult[]> {
     const url = `${this.url}/text_to_translate`;
+    const timeoutMessage = 'Un problème technique ne permet pas d’effectuer la traduction. Merci de réessayer ultérieurement'
 
     const body: any = {
       language_in: speaker === 'advisor' ? this.advisor.split('-')[0] : this.guest.writtenLanguage.split('-')[0],
       language_out: speaker === 'advisor' ? this.guest.writtenLanguage.split('-')[0] : this.advisor.split('-')[0],
       text: data
     };
-
-    return this.httpClient.post<TranslateResult[]>(url, body, this.httpOptions);
+    let response;
+    response = this.httpClient.post<TranslateResult[]>(url, body, this.httpOptions);
+    if( response == null || response == undefined ) {
+      return this.httpClient.post<TranslateResult[]>(url, body, this.httpOptions)
+    }
+    setTimeout(() => { 
+      console.log('timeoutMessage : ', timeoutMessage)
+      this.toastService.showToast(timeoutMessage)
+      return timeoutMessage 
+    }, 3600);
   }
 
   /**

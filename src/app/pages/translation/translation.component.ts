@@ -325,7 +325,8 @@ export class TranslationComponent {
           .catch(error => {
             console.log('Erreur : ', error);
           });
-      } else {
+      }
+      else {
         // If error, display this message
         this.toastService.showToast('Erreur, veuillez réessayer');
         this.speechTranslated = 'Erreur, veuillez réessayer';
