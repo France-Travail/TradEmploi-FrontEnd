@@ -13,7 +13,7 @@ export const environment = {
     apiKey: 'AIzaSyBraAcmG6FhlK4A9hCOfo96_s_OvYXEciQ'
   },
   api: {
-    graphqlUrl: 'http://35.184.36.125/graphql',
+    graphqlUrl: 'https://pole-emploi-trad-server.eu-de.cf.appdomain.cloud/graphql',
     login: 'ludo',
     password: '7YQZQJmmSyab7xT',
     provider: 'GOOGLE',
