@@ -30,7 +30,7 @@ export class VoicesService {
    * Get the voices from Google API
    */
   public getVoices(): Observable<any> {
-    const url = `${this.url}/voices?key=${environment.apiKey}`;
+    const url = `${this.url}/voices?key=${environment.gcp.apiKey}`;
 
     return this.httpClient.get<any>(url);
   }

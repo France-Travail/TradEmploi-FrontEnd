@@ -138,7 +138,7 @@ export class TranslationComponent {
       try {
         this.permissionsService.isAllowed = await this.permissionsService.check();
       } catch (error) {
-        this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
+        this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
       }
     }
 
@@ -209,7 +209,7 @@ export class TranslationComponent {
         this.speechRecognitionService.DestroySpeechObject();
       }
     } else {
-      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
+      this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
     }
   }
 
@@ -345,14 +345,14 @@ export class TranslationComponent {
     this.inProgress = true;
 
     // Send the text to translation
-    this.translateService.sendTextToTranslation(text, user).subscribe(serverResponse => {
+    this.translateService.translate(text, user).subscribe(res => {
       // Set the language
       const lang = user === 'guest' ? this.translateService.advisor : this.translateService.guest.audioLanguage;
 
       // If no error
-      if (serverResponse.find(r => r.translatedText !== '').translatedText !== undefined) {
-        this.speechTranslated = serverResponse.find(r => r.translatedText !== '').translatedText;
-        this.historyService.addMessage(user === 'guest' ? false : true, text, this.speechTranslated);
+      if (res !== undefined) {
+        this.speechTranslated = res;
+        this.historyService.addMessage(user !== 'guest', text, this.speechTranslated);
 
         // Send speech as text to audio conversion
         this.textToSpeechService
