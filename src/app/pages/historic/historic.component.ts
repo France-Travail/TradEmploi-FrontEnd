@@ -25,7 +25,7 @@ import { NavbarItem } from 'src/app/models/navbar-item';
 export class HistoricComponent implements OnInit {
   public conversations: Conversation[] = []; // Contains all the conversations
   public rates: Rate[] = []; // Contains all the rates
-  public navBar: NavbarItem[] = [];
+  public navBarItems: NavbarItem[] = [];
 
   constructor(private toastService: ToastService, private historyService: HistoryService, private rateService: RateService, public dialog: MatDialog, private router: Router) {
     this.setNavBar();
@@ -35,7 +35,8 @@ export class HistoricComponent implements OnInit {
     this.historyService.getConversationForToday().subscribe(
       response => {
         this.conversations = this.sortByDate(response);
-
+        console.log(this.conversations);
+        
         for (const conversation of this.conversations) {
           this.rateService.getRateByHistoricId(conversation.id).subscribe(r => {
             this.rates.push(r[0]);
@@ -49,7 +50,7 @@ export class HistoricComponent implements OnInit {
   }
 
   public setNavBar(): void {
-    this.navBar = [
+    this.navBarItems = [
       {
         icon: 'keyboard_return',
         infoTitle: 'Retour',

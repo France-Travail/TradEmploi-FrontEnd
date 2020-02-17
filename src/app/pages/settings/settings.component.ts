@@ -20,7 +20,7 @@ export class SettingsComponent implements AfterViewInit {
   public guest: { firstname: string; lastname: string } = { firstname: '', lastname: '' };
   public advisor: { firstname: string; lastname: string } = { firstname: '', lastname: '' };
   public isNewConversation: boolean = true; // Hide elements when new conversation is started
-  public navBar: NavbarItem[] = [];
+  public navBarItems: NavbarItem[] = [];
 
   constructor(private historyService: HistoryService, private toastService: ToastService, private settingsService: SettingsService, public router: Router) {
     this.setNavBar();
@@ -43,7 +43,7 @@ export class SettingsComponent implements AfterViewInit {
   }
 
   public setNavBar(): void {
-    this.navBar = [
+    this.navBarItems = [
       {
         icon: 'keyboard_return',
         infoTitle: 'Retour',

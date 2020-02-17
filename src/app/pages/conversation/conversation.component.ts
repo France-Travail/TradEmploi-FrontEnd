@@ -17,7 +17,7 @@ import { NavbarItem } from 'src/app/models/navbar-item';
 export class ConversationComponent implements AfterViewInit {
   public conversation: Conversation;
   public showTranslation: boolean = false;
-  public navBar: NavbarItem[] = [];
+  public navBarItems: NavbarItem[] = [];
 
   constructor(private historyService: HistoryService, private router: Router) {
     this.setNavBar();
@@ -30,7 +30,7 @@ export class ConversationComponent implements AfterViewInit {
   }
 
   public setNavBar(): void {
-    this.navBar = [
+    this.navBarItems = [
       {
         icon: 'keyboard_return',
         infoTitle: 'Retour',

@@ -1,11 +1,5 @@
-* {
-  box-sizing: border-box;
-}
-
-
 nav {
   display: flex;
-  width: 100%;
   padding: 20px;
   justify-content: space-between;
   align-items: center;
@@ -27,7 +21,7 @@ nav {
       display: inline-block;
     }
   }
-  .buttonsList {
+  .buttons {
     display: flex;
     justify-content: flex-end;
     button {
@@ -46,6 +40,30 @@ nav {
       &:active {
         outline: 0;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  nav {
+    flex-direction: column;
+
+    .logo {
+      img {
+        margin: 0 auto;
+      }
+
+      .title {
+        text-align: center;
+      }
+    }
+
+    .language {
+      margin-top: 20px;
+    }
+
+    .buttons {
+      margin-top: 20px;
     }
   }
 }

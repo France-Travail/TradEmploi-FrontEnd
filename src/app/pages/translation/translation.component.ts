@@ -62,7 +62,8 @@ export class TranslationComponent {
     { displayedValue: { translation: 'перевод', request: 'Ваш запрос:' }, value: 'ru-RU' } // Russe
   ];
 
-  public navBar: NavbarItem[] = [];
+  // Navbar
+  public navBarItems: NavbarItem[] = [];
 
   constructor(
     private translateService: TranslateService,
@@ -94,7 +95,7 @@ export class TranslationComponent {
   }
 
   public setNavBar(): void {
-    this.navBar = [
+    this.navBarItems = [
       {
         icon: 'home',
         infoTitle: 'Changer la langue',
@@ -208,7 +209,7 @@ export class TranslationComponent {
         this.speechRecognitionService.DestroySpeechObject();
       }
     } else {
-      this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
+      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
     }
   }
 
@@ -325,6 +326,8 @@ export class TranslationComponent {
    */
   public activateKeyboard(): void {
     this.isKeyboardActivated = !this.isKeyboardActivated;
+    this.navBarItems[1].icon = this.isKeyboardActivated ? 'mic' : 'keyboard';
+    this.navBarItems[1].infoTitle = this.isKeyboardActivated ? 'Activer le micro' : 'Activer le clavier';
   }
 
   public onPressEnter(event, user): void {
