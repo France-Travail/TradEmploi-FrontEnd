@@ -17,3 +17,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-spinner circle {
   stroke: #427db8 !important;
 }
+
+* {
+  box-sizing: border-box;
+}

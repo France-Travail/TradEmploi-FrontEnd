@@ -17,11 +17,15 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatSlideToggleModule,
-  MatIconModule
+  MatIconModule,
+  MatTooltipModule
 } from '@angular/material';
-import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
 
-const COMPONENTS = [AudioAnimationComponent];
+// Custom Components
+import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+
+const COMPONENTS = [AudioAnimationComponent, NavbarComponent];
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -36,7 +40,8 @@ const MATERIAL_MODULES = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatSlideToggleModule,
-  MatIconModule
+  MatIconModule,
+  MatTooltipModule
 ];
 
 const MODULES = [
@@ -47,7 +52,7 @@ const MODULES = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS, AudioAnimationComponent],
+  declarations: [...COMPONENTS],
   imports: [...MODULES],
   exports: [...COMPONENTS, ...MODULES]
 })

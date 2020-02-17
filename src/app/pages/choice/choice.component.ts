@@ -52,7 +52,7 @@ export class ChoiceComponent {
   selectLanguage(audioLanguage: string, writtenLanguage: string): void {
     this.translateService.guest.audioLanguage = audioLanguage;
     this.translateService.guest.writtenLanguage = writtenLanguage;
-    this.settingsService.guest.language = writtenLanguage;
+    this.settingsService.guest.next({ ...this.settingsService.guest.value, language: writtenLanguage });
     this.router.navigate(['translation']);
   }
 
