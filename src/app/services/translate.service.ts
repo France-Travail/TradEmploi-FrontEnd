@@ -17,8 +17,7 @@ export class TranslateService {
       query: `
       {
         translate(text:"${text}",target:"${target}", provider:${provider}) {
-          text,
-          provider
+          text
         }
       }`
     };
