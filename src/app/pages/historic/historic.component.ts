@@ -35,8 +35,6 @@ export class HistoricComponent implements OnInit {
     this.historyService.getConversationForToday().subscribe(
       response => {
         this.conversations = this.sortByDate(response);
-        console.log(this.conversations);
-        
         for (const conversation of this.conversations) {
           this.rateService.getRateByHistoricId(conversation.id).subscribe(r => {
             this.rates.push(r[0]);
