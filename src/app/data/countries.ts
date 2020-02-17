@@ -303,31 +303,31 @@ export const COUNTRIES: { country: string; code: { audioLanguage: string; writte
     country: 'საქართველო',
     code: { audioLanguage: 'ka-GE', writtenLanguage: 'ka-GE' },
     language: 'ქართული',
-    frenchVersion: ''
+    frenchVersion: 'Géorgien'
   },
   {
     country: 'ભારત',
     code: { audioLanguage: 'gu-IN', writtenLanguage: 'gu-IN' },
     language: 'ગુજરાતી',
-    frenchVersion: ''
+    frenchVersion: 'Gujarati'
   },
   {
     country: 'Hrvatska',
     code: { audioLanguage: 'hr-HR', writtenLanguage: 'hr-HR' },
     language: 'Hrvatski',
-    frenchVersion: ''
+    frenchVersion: 'Croate'
   },
   {
     country: 'Ningizimu Afrika',
     code: { audioLanguage: 'zu-ZA', writtenLanguage: 'zu-ZA' },
     language: 'IsiZulu',
-    frenchVersion: ''
+    frenchVersion: 'Zoulou'
   },
   {
     country: 'Ísland',
     code: { audioLanguage: 'is-IS', writtenLanguage: 'is-IS' },
     language: 'Íslenska',
-    frenchVersion: ''
+    frenchVersion: 'Islandais'
   },
   {
     country: 'Italia',
@@ -339,73 +339,73 @@ export const COUNTRIES: { country: string; code: { audioLanguage: string; writte
     country: 'Indonesia',
     code: { audioLanguage: 'jv-ID', writtenLanguage: 'jv-ID' },
     language: 'Jawa',
-    frenchVersion: ''
+    frenchVersion: 'Javanais'
   },
   {
     country: 'ಭಾರತ',
     code: { audioLanguage: 'kn-IN', writtenLanguage: 'kn-IN' },
     language: 'ಕನ್ನಡ',
-    frenchVersion: ''
+    frenchVersion: 'Kannada'
   },
   {
     country: 'កម្ពុជា',
     code: { audioLanguage: 'km-KH', writtenLanguage: 'km-KH' },
     language: 'ភាសាខ្មែរ',
-    frenchVersion: ''
+    frenchVersion: 'Khmer'
   },
   {
     country: 'ລາວ',
     code: { audioLanguage: 'lo-LA', writtenLanguage: 'lo-LA' },
     language: 'ລາວ',
-    frenchVersion: ''
+    frenchVersion: 'Lao'
   },
   {
     country: 'latviešu',
     code: { audioLanguage: 'lv-LV', writtenLanguage: 'lv-LV' },
     language: 'Latviešu',
-    frenchVersion: ''
+    frenchVersion: 'Letton'
   },
   {
     country: 'Lietuva',
     code: { audioLanguage: 'lt-LT', writtenLanguage: 'lt-LT' },
     language: 'Lietuvių',
-    frenchVersion: ''
+    frenchVersion: 'Lituanien'
   },
   {
     country: 'Magyarország',
     code: { audioLanguage: 'hu-HU', writtenLanguage: 'hu-HU' },
     language: 'Magyar',
-    frenchVersion: ''
+    frenchVersion: 'Hongrois'
   },
   {
     country: 'ഇന്ത്യ',
     code: { audioLanguage: 'ml-IN', writtenLanguage: 'ml-IN' },
     language: 'മലയാളം',
-    frenchVersion: ''
+    frenchVersion: 'Malayalam'
   },
   {
     country: 'भारत',
     code: { audioLanguage: 'mr-IN', writtenLanguage: 'mr-IN' },
     language: 'मराठी',
-    frenchVersion: ''
+    frenchVersion: 'Marathi'
   },
   {
     country: 'Nederland',
     code: { audioLanguage: 'nl-NL', writtenLanguage: 'nl-NL' },
     language: 'Nederlands',
-    frenchVersion: ''
+    frenchVersion: 'Néerlandais'
   },
   {
     country: 'नेपाल',
     code: { audioLanguage: 'ne-NP', writtenLanguage: 'ne-NP' },
     language: 'नेपाली',
-    frenchVersion: ''
+    frenchVersion: 'Népalais'
   },
   {
     country: 'Norge',
     code: { audioLanguage: 'nb-NO', writtenLanguage: 'nb-NO' },
     language: 'Norsk bokmål',
-    frenchVersion: ''
+    frenchVersion: 'Norvégien bokmål'
   },
   {
     country: 'Polska',
@@ -435,79 +435,79 @@ export const COUNTRIES: { country: string; code: { audioLanguage: string; writte
     country: 'ශ්රී ලංකාව',
     code: { audioLanguage: 'si-LK', writtenLanguage: 'si-LK' },
     language: 'සිංහල',
-    frenchVersion: ''
+    frenchVersion: 'Cingalais'
   },
   {
     country: 'Slovensko',
     code: { audioLanguage: 'sk-SK', writtenLanguage: 'sk-SK' },
     language: 'Slovenčina',
-    frenchVersion: ''
+    frenchVersion: 'Slovène'
   },
   {
     country: 'Slovenija',
     code: { audioLanguage: 'sl-SI', writtenLanguage: 'sl-SI' },
     language: 'Slovenščina',
-    frenchVersion: ''
+    frenchVersion: 'Slovène'
   },
   {
     country: 'Indonesia',
     code: { audioLanguage: 'su-ID', writtenLanguage: 'su-ID' },
-    language: 'Urang',
-    frenchVersion: ''
+    language: 'Sunda',
+    frenchVersion: 'Soudanais'
   },
   {
     country: 'Tanzania',
     code: { audioLanguage: 'sw-TZ', writtenLanguage: 'sw-TZ' },
     language: 'Swahili',
-    frenchVersion: ''
+    frenchVersion: 'Swahili'
   },
   {
     country: 'Kenya',
     code: { audioLanguage: 'sw-KE', writtenLanguage: 'sw-KE' },
     language: 'Swahili',
-    frenchVersion: ''
+    frenchVersion: 'Swahili'
   },
   {
     country: 'Suomi',
     code: { audioLanguage: 'fi-FI', writtenLanguage: 'fi-FI' },
-    language: 'Suomi',
-    frenchVersion: ''
+    language: 'Suomalainen',
+    frenchVersion: 'Finnois'
   },
   {
     country: 'Sverige',
     code: { audioLanguage: 'sv-SE', writtenLanguage: 'sv-SE' },
     language: 'Svenska',
-    frenchVersion: ''
+    frenchVersion: 'Suédois'
   },
   {
     country: 'இந்தியா',
     code: { audioLanguage: 'ta-IN', writtenLanguage: 'ta-IN' },
     language: 'தமிழ்',
-    frenchVersion: ''
+    frenchVersion: 'Tamoul'
   },
   {
     country: 'சிங்கப்பூர்',
     code: { audioLanguage: 'ta-SG', writtenLanguage: 'ta-SG' },
     language: 'தமிழ்',
-    frenchVersion: ''
+    frenchVersion: 'Tamoul'
   },
   {
     country: 'இலங்கை',
     code: { audioLanguage: 'ta-LK', writtenLanguage: 'ta-LK' },
     language: 'தமிழ்',
-    frenchVersion: ''
+    frenchVersion: 'Tamoul'
   },
   {
     country: 'மலேசியா',
     code: { audioLanguage: 'ta-MY', writtenLanguage: 'ta-MY' },
     language: 'தமிழ்',
-    frenchVersion: ''
+    frenchVersion: 'Tamoul'
   },
   {
     country: 'భారతదేశం',
     code: { audioLanguage: 'te-IN', writtenLanguage: 'te-IN' },
     language: 'తెలుగు',
-    frenchVersion: ''
+    frenchVersion: 'Télougou'
   },
   {
     country: 'Việt Nam',
@@ -525,25 +525,25 @@ export const COUNTRIES: { country: string; code: { audioLanguage: string; writte
     country: 'پاکستان',
     code: { audioLanguage: 'ur-PK', writtenLanguage: 'ur-PK' },
     language: 'اردو',
-    frenchVersion: ''
+    frenchVersion: 'Ourdou'
   },
   {
     country: 'بھارت',
     code: { audioLanguage: 'ur-IN', writtenLanguage: 'ur-IN' },
     language: 'اردو',
-    frenchVersion: ''
+    frenchVersion: 'Ourdou'
   },
   {
     country: 'Ελλάδα',
     code: { audioLanguage: 'el-GR', writtenLanguage: 'el-GR' },
     language: 'Ελληνικά',
-    frenchVersion: ''
+    frenchVersion: 'Grec'
   },
   {
     country: 'България',
     code: { audioLanguage: 'bg-BG', writtenLanguage: 'bg-BG' },
     language: 'Български',
-    frenchVersion: ''
+    frenchVersion: 'Bulgare'
   },
   {
     country: 'Россия',
@@ -555,7 +555,7 @@ export const COUNTRIES: { country: string; code: { audioLanguage: string; writte
     country: 'Србија',
     code: { audioLanguage: 'sr-RS', writtenLanguage: 'sr-RS' },
     language: 'Српски',
-    frenchVersion: ''
+    frenchVersion: 'Serbe'
   },
   {
     country: 'Україна',
@@ -567,115 +567,115 @@ export const COUNTRIES: { country: string; code: { audioLanguage: string; writte
     country: 'ישראל',
     code: { audioLanguage: 'he-IL', writtenLanguage: 'he-IL' },
     language: 'עברית',
-    frenchVersion: ''
+    frenchVersion: 'Hébreu'
   },
   {
     country: 'إسرائيل',
     code: { audioLanguage: 'ar-IL', writtenLanguage: 'ar-IL' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'الأردن',
     code: { audioLanguage: 'ar-JO', writtenLanguage: 'ar-JO' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'الإمارات',
     code: { audioLanguage: 'ar-AE', writtenLanguage: 'ar-AE' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'البحرين',
     code: { audioLanguage: 'ar-BH', writtenLanguage: 'ar-BH' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'الجزائر',
     code: { audioLanguage: 'ar-DZ', writtenLanguage: 'ar-DZ' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'السعودية',
     code: { audioLanguage: 'ar-SA', writtenLanguage: 'ar-SA' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'العراق',
     code: { audioLanguage: 'ar-QI', writtenLanguage: 'ar-QI' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'الكويت',
     code: { audioLanguage: 'ar-KW', writtenLanguage: 'ar-KW' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'المغرب',
     code: { audioLanguage: 'ar-MA', writtenLanguage: 'ar-MA' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'تونس',
     code: { audioLanguage: 'ar-TN', writtenLanguage: 'ar-TN' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'عُمان',
     code: { audioLanguage: 'ar-OM', writtenLanguage: 'ar-OM' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'فلسطين',
     code: { audioLanguage: 'ar-PS', writtenLanguage: 'ar-PS' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'قطر',
     code: { audioLanguage: 'ar-QA', writtenLanguage: 'ar-QA' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'لبنان',
     code: { audioLanguage: 'ar-LB', writtenLanguage: 'ar-LB' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'مصر',
     code: { audioLanguage: 'ar-EG', writtenLanguage: 'ar-EG' },
     language: 'العربية',
-    frenchVersion: ''
+    frenchVersion: 'Arabe'
   },
   {
     country: 'ایران',
     code: { audioLanguage: 'fa-IR', writtenLanguage: 'fa-IR' },
     language: 'فارسی',
-    frenchVersion: ''
+    frenchVersion: 'Persan'
   },
   {
     country: 'भारत',
     code: { audioLanguage: 'hi-IN', writtenLanguage: 'hi-IN' },
     language: 'हिन्दी',
-    frenchVersion: ''
+    frenchVersion: 'Hindi'
   },
   {
     country: 'ประเทศไทย',
     code: { audioLanguage: 'th-TH', writtenLanguage: 'th-TH' },
     language: 'ไทย',
-    frenchVersion: ''
+    frenchVersion: 'Thaï'
   },
   {
     country: '대한민국',
@@ -687,13 +687,13 @@ export const COUNTRIES: { country: string; code: { audioLanguage: string; writte
     country: '台灣',
     code: { audioLanguage: 'zh-TW', writtenLanguage: 'zh-TW' },
     language: '國語',
-    frenchVersion: ''
+    frenchVersion: 'Mandarin'
   },
   {
     country: '香港',
     code: { audioLanguage: 'yue-Hant-HK', writtenLanguage: 'yue-Hant-HK' },
     language: '廣東話',
-    frenchVersion: ''
+    frenchVersion: 'Cantonais'
   },
   {
     country: '日本',
@@ -705,12 +705,12 @@ export const COUNTRIES: { country: string; code: { audioLanguage: string; writte
     country: '香港',
     code: { audioLanguage: 'zh-HK', writtenLanguage: 'zh-HK' },
     language: '普通話',
-    frenchVersion: ''
+    frenchVersion: 'Mandarin'
   },
   {
     country: '中国大陆',
     code: { audioLanguage: 'zh-ZH', writtenLanguage: 'zh-ZH' },
     language: '普通话',
-    frenchVersion: ''
+    frenchVersion: 'Mandarin'
   }
 ];
