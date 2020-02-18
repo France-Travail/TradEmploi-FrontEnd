@@ -11,8 +11,8 @@ export class TranslateService {
   public advisor: string = environment.api.defaultLanguage;
 
   public translate(text: string, speaker: string): Observable<string> {
-    const target = speaker === 'advisor' ? this.guest.writtenLanguage.split('-')[0] : this.advisor.split('-')[0];
-    const provider = environment.api.provider;
+    const target: string = speaker === 'advisor' ? this.guest.writtenLanguage.split('-')[0] : this.advisor.split('-')[0];
+    const provider: string = environment.api.provider;
     const data = {
       query: `
       {
@@ -22,20 +22,21 @@ export class TranslateService {
       }`
     };
 
-    return Observable.create(observer => {
+    return new Observable(observer => {
       axios
         .post(environment.api.graphqlUrl, data, {
           auth: {
             username: environment.api.login,
             password: environment.api.password
-          }
+          },
+          timeout: 5000
         })
         .then(response => {
           observer.next(response.data.data.translate[0].text);
           observer.complete();
         })
         .catch(error => {
-          observer.error(error);
+          observer.error('Traduction indisponible momentanément');
         });
     });
   }

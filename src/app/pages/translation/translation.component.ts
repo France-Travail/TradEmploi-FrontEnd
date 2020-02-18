@@ -211,7 +211,7 @@ export class TranslationComponent {
         this.speechRecognitionService.DestroySpeechObject();
       }
     } else {
-      this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
+      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
     }
   }
 
@@ -382,6 +382,12 @@ export class TranslationComponent {
       }
       // Set translated variable to true
       this.translated = true;
+
+      // Hide the spinner
+      this.inProgress = false;
+    }, (error) => {
+      // Display Error in toast
+      this.toastService.showToast(error);
 
       // Hide the spinner
       this.inProgress = false;
