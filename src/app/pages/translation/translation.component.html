@@ -12,7 +12,7 @@
           <div class="action">
             <ng-container *ngIf="!isKeyboardActivated; else advisorKeyboard">
               <!-- TALK -->
-              <button (click)="talk('advisor')" matTooltip="Appuyez pour parler" matTooltipPosition="below">
+              <button (click)="talk('advisor')" [matTooltip]="toolTips[3]" matTooltipPosition="below">
                 <mat-icon aria-hidden="false" aria-label="Micro">
                   <ng-container *ngIf="isTalking; else micro">mic_off</ng-container>
                   <ng-template #micro>mic</ng-template>
@@ -21,12 +21,12 @@
             </ng-container>
             <ng-template #advisorKeyboard>
               <!-- KEYBOARD -->
-              <button (click)="translateFromKeyboard('advisor')" matTooltip="Appuyez pour envoyer" matTooltipPosition="below">
+              <button (click)="translateFromKeyboard('advisor')" [matTooltip]="toolTips[0]" matTooltipPosition="below">
                 <mat-icon aria-hidden="false" aria-label="Envoyer la traduction">send</mat-icon>
               </button>
             </ng-template>
             <!-- LISTEN -->
-            <button (click)="listen('advisor')" matTooltip="Appuyez pour écouter" matTooltipPosition="below">
+            <button (click)="listen('advisor')" [matTooltip]="toolTips[1]" matTooltipPosition="below">
               <mat-icon aria-hidden="false" aria-label="Sons">
                 <ng-container *ngIf="isListening; else sound">volume_off</ng-container>
                 <ng-template #sound>volume_up</ng-template>
@@ -58,7 +58,7 @@
           <!-- BUTTONS SECTION -->
           <div class="action">
             <!-- LISTEN -->
-            <button (click)="listenTranslation()" matTooltip="Appuyez pour écouter" matTooltipPosition="below">
+            <button (click)="listenTranslation()" [matTooltip]="toolTips[2]" matTooltipPosition="below">
               <mat-icon aria-hidden="false" aria-label="Sons">
                 <ng-container *ngIf="isTranslationListening; else sound">volume_off</ng-container>
                 <ng-template #sound>volume_up</ng-template>
@@ -94,7 +94,7 @@
           <div class="action">
             <ng-container *ngIf="!isKeyboardActivated; else guestKeyboard">
               <!-- TALK -->
-              <button (click)="talk('guest')" matTooltip="Appuyez pour parler" matTooltipPosition="below">
+              <button (click)="talk('guest')" [matTooltip]="toolTips[3]" matTooltipPosition="below">
                 <mat-icon aria-hidden="false" aria-label="Micro">
                   <ng-container *ngIf="isTalking; else micro">mic_off</ng-container>
                   <ng-template #micro>mic</ng-template>
@@ -103,12 +103,12 @@
             </ng-container>
             <ng-template #guestKeyboard>
               <!-- KEYBOARD -->
-              <button (click)="translateFromKeyboard('guest')" matTooltip="Appuyez pour envoyer" matTooltipPosition="below">
+              <button (click)="translateFromKeyboard('guest')" [matTooltip]="toolTips[0]" matTooltipPosition="below">
                 <mat-icon aria-hidden="false" aria-label="Envoyer la traduction">send</mat-icon>
               </button>
             </ng-template>
             <!-- LISTEN -->
-            <button (click)="listen('guest')" matTooltip="Appuyez pour écouter" matTooltipPosition="below">
+            <button (click)="listen('guest')" [matTooltip]="toolTips[1]" matTooltipPosition="below">
               <mat-icon aria-hidden="false" aria-label="Sons">
                 <ng-container *ngIf="isListening; else sound">volume_off</ng-container>
                 <ng-template #sound>volume_up</ng-template>
@@ -140,7 +140,7 @@
           <!-- BUTTONS SECTION -->
           <div class="action">
             <!-- LISTEN -->
-            <button (click)="listenTranslation()" matTooltip="Appuyez pour écouter" matTooltipPosition="below">
+            <button (click)="listenTranslation()" [matTooltip]="toolTips[2]" matTooltipPosition="below">
               <mat-icon aria-hidden="false" aria-label="Sons">
                 <ng-container *ngIf="isTranslationListening; else sound">volume_off</ng-container>
                 <ng-template #sound>volume_up</ng-template>

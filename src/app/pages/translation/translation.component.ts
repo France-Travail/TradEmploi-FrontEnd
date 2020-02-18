@@ -62,6 +62,8 @@ export class TranslationComponent {
     { displayedValue: { translation: 'перевод', request: 'Ваш запрос:' }, value: 'ru-RU' } // Russe
   ];
 
+  public toolTips: string[] = ['Traduire', 'Réécouter', 'Ecouter la traduction', 'Appuyer pour parler'];
+
   // Navbar
   public navBarItems: NavbarItem[] = [];
 
