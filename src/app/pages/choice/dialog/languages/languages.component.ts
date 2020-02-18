@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 // Services
 import { VoicesService } from 'src/app/services/voices.service';
 import { TranslateService } from 'src/app/services/translate.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 // Data
 import { COUNTRIES } from 'src/app/data/countries';
@@ -22,7 +23,7 @@ export class LanguagesComponent {
 
   public list: { country: string; flag: string; language: string }[] = [];
 
-  constructor(public dialogRef: MatDialogRef<LanguagesComponent>, private translateService: TranslateService, private voicesService: VoicesService) {
+  constructor(public dialogRef: MatDialogRef<LanguagesComponent>, private translateService: TranslateService, private voicesService: VoicesService, private settingsService: SettingsService) {
     this.voices = this.voicesService.voicesList;
 
     for (const voice of COUNTRIES) {
@@ -52,6 +53,7 @@ export class LanguagesComponent {
       if (voice.country === country) {
         this.voicesService.guest = voice.code;
         this.translateService.guest = voice.code;
+        this.settingsService.guest.next({ ...this.settingsService.guest.value, language: voice.code.writtenLanguage });
       }
     }
     this.dialogRef.close('chosen');
