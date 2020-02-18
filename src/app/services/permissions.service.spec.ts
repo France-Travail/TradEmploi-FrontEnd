@@ -1,25 +1,25 @@
+import { TestBed } from '@angular/core/testing';
 import { PermissionsService } from './permissions.service';
 
-describe('TestService', () => {
+describe('PermissionsService', () => {
+
   let service: PermissionsService;
-
   beforeEach(() => {
-    service = new PermissionsService();
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(PermissionsService);
+    service = new PermissionsService()
   });
-
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-
-  it('should check if micro is enabled', async () => {
-    await service
-      .check()
-      .then(result => {
-        if (result) {
-          expect(result).toEqual(true);
-        } else {
-          expect(result).toEqual(false);
-        }
-      });
+  it('should check if micro is  enabled', async () => {
+    spyOn(navigator.mediaDevices, "getUserMedia").and.returnValue(new Promise<MediaStream>((resolve, reject) => resolve()));
+    const response = await service.check();
+    expect(response).toEqual(true);
+  });
+  it('should check if micro is not enabled', async () => {
+    spyOn(navigator.mediaDevices, "getUserMedia").and.returnValue(new Promise<MediaStream>((resolve, reject) => reject(false)));
+    const response = await service.check();
+    expect(response).toEqual(false);
   });
 });
