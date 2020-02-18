@@ -211,7 +211,7 @@ export class TranslationComponent {
         this.speechRecognitionService.DestroySpeechObject();
       }
     } else {
-      this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
+      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
     }
   }
 
@@ -375,14 +375,19 @@ export class TranslationComponent {
           .catch(error => {
             console.log('Erreur : ', error);
           });
-      }
-      else {
+      } else {
         // If error, display this message
         this.toastService.showToast('Erreur, veuillez réessayer');
         this.speechTranslated = 'Erreur, veuillez réessayer';
       }
       // Set translated variable to true
       this.translated = true;
+
+      // Hide the spinner
+      this.inProgress = false;
+    }, (error) => {
+      // Display Error in toast
+      this.toastService.showToast(error);
 
       // Hide the spinner
       this.inProgress = false;
