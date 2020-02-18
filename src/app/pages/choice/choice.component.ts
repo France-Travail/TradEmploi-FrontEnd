@@ -40,6 +40,8 @@ export class ChoiceComponent {
     { displayedValue: 'привет', value: { audioLanguage: 'ru-RU', writtenLanguage: 'ru-RU' }, padding: 20 } // Russe
   ];
 
+  public toolTips: string[] = ['Autres langues'];
+
   constructor(private translateService: TranslateService, private historyService: HistoryService, private settingsService: SettingsService, private router: Router, public dialog: MatDialog) {
     if (this.historyService.conversation === undefined) {
       this.router.navigate(['start']);
@@ -52,7 +54,7 @@ export class ChoiceComponent {
   selectLanguage(audioLanguage: string, writtenLanguage: string): void {
     this.translateService.guest.audioLanguage = audioLanguage;
     this.translateService.guest.writtenLanguage = writtenLanguage;
-    this.settingsService.guest.language = writtenLanguage;
+    this.settingsService.guest.next({ ...this.settingsService.guest.value, language: writtenLanguage });
     this.router.navigate(['translation']);
   }
 

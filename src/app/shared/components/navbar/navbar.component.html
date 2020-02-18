@@ -1,0 +1,18 @@
+<nav>
+  <div class="logo">
+    <img src="assets/images/logo.png" alt="Logo Pôle Emploi" />
+  <div class="title">{{ title }}</div>
+  </div>
+
+  <div class="language" *ngIf="language.raw !== ''">
+    <div class="raw">{{ language.raw }}</div> | <div class="french">{{ language.french }}</div>
+  </div>
+
+  <div class="buttons">
+    <ng-container *ngFor="let item of items">
+      <button [matTooltip]="item.infoTitle" matTooltipPosition="below" (click)="onClick(item)" *ngIf="item.isDisplayed">
+        <mat-icon aria-hidden="false">{{ item.icon }}</mat-icon>
+      </button>
+    </ng-container>
+  </div>
+</nav>

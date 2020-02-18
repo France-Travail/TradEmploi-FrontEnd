@@ -3,19 +3,20 @@ import { Injectable } from '@angular/core';
 
 // Models
 import { User } from '../models/user';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsService {
   public advisor: User = { firstname: '', lastname: '', language: 'fr-FR' };
-  public guest: User = { firstname: '', lastname: '', language: '' };
+  public guest: BehaviorSubject<User> = new BehaviorSubject<User>({ firstname: '', lastname: '', language: '' });
   public audio: boolean = false;
   public newConversation: boolean = true;
 
   constructor() {}
 
   public reset(): void {
-    this.guest = { firstname: '', lastname: '', language: '' };
+    this.guest.next({ firstname: '', lastname: '', language: '' });
   }
 }
