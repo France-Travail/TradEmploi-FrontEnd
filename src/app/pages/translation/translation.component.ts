@@ -92,7 +92,7 @@ export class TranslationComponent {
       try {
         this.permissionsService.isAllowed = await this.permissionsService.check();
       } catch (error) {
-        this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
+        this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
       }
     }
 
@@ -163,7 +163,7 @@ export class TranslationComponent {
         this.speechRecognitionService.DestroySpeechObject();
       }
     } else {
-      this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
+      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
     }
   }
 

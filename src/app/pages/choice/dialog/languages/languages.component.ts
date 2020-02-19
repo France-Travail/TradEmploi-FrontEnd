@@ -44,10 +44,10 @@ export class LanguagesComponent implements OnInit {
   /**
    * Set the language for services and close the modal
    */
-  public chooseLanguage(selectedCountry: string) {
-    let voice = this.Countries.filter(country => country.country == selectedCountry)[0];
+  public chooseLanguage(SelectedCountry: string) {
+    const voice = this.Countries.filter(country => country.country === SelectedCountry)[0];
     this.voicesService.guest = voice.code;
     this.translateService.guest = voice.code;
-    this.close();
+    this.dialogRef.close('chosen');
   }
 }

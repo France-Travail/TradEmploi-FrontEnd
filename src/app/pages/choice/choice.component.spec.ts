@@ -8,9 +8,8 @@ xdescribe('ChoiceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChoiceComponent ]
-    })
-    .compileComponents();
+      declarations: [ChoiceComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
