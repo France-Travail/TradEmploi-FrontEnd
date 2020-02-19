@@ -42,6 +42,9 @@ export class ChoiceComponent {
 
   public toolTips: string[] = ['Autres langues'];
 
+  public otherLanguageFr: string = 'AUTRES LANGUES';
+  public otherLanguageEn: string = 'OTHER LANGUAGES';
+
   constructor(private translateService: TranslateService, private historyService: HistoryService, private settingsService: SettingsService, private router: Router, public dialog: MatDialog) {
     if (this.historyService.conversation === undefined) {
       this.router.navigate(['start']);
