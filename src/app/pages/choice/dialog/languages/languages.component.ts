@@ -11,10 +11,6 @@ import { TranslateService } from 'src/app/services/translate.service';
 // Data
 import { COUNTRIES } from 'src/app/data/countries';
 
-// Models
-import { Voice } from 'src/app/models/voice';
-
-
 @Component({
   selector: 'app-languages',
   templateUrl: './languages.component.html',
@@ -22,22 +18,15 @@ import { Voice } from 'src/app/models/voice';
 })
 
 export class LanguagesComponent implements OnInit {
-  private voices: Voice[];
+
   public displayedColumns: string[] = ['traduction','country','language','flag'];
   public Countries: { country: string; traduction: string; code: { audioLanguage: string; writtenLanguage: string }; language: string }[] = COUNTRIES;
   dataSource = new MatTableDataSource(this.Countries);
-  public list: { country: string; language: string }[] = [];
+ 
   
   constructor(public dialogRef: MatDialogRef<LanguagesComponent>, private translateService: TranslateService, private voicesService: VoicesService) {
-    this.voices = this.voicesService.voicesList;
-    for (const voice of COUNTRIES) {
-      this.list.push({
-        country: voice.country,
-        language: voice.language
-      });
-    }
-  
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -62,13 +51,10 @@ export class LanguagesComponent implements OnInit {
   /**
    * Set the language for services and close the modal
    */
-  public chooseLanguage(country: string) {
-    for (const voice of COUNTRIES) {
-      if (voice.country === country) {
-        this.voicesService.guest = voice.code;
-        this.translateService.guest = voice.code;
-      }
-    }
-    this.dialogRef.close('chosen');
+  public chooseLanguage(selectedCountry: string) {
+    let voice = this.Countries.filter(country => country.country == selectedCountry)[0]
+    this.voicesService.guest = voice.code;
+    this.translateService.guest = voice.code;
+    this.close()
   } 
 }
