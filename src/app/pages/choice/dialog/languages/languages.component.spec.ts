@@ -1,14 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { LanguagesComponent } from './languages.component';
-
-xdescribe('LanguagesComponent', () => {
+import { MatDialogRef, MatSort, MatPaginator } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+fdescribe('LanguagesComponent', () => {
   let component: LanguagesComponent;
   let fixture: ComponentFixture<LanguagesComponent>;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LanguagesComponent]
+      imports: [HttpClientModule],
+      declarations: [LanguagesComponent, MatSort, MatPaginator],
+      providers: [{ provide: MatDialogRef, useValue: {} }]
     }).compileComponents();
   }));
   beforeEach(() => {
@@ -16,6 +17,7 @@ xdescribe('LanguagesComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
