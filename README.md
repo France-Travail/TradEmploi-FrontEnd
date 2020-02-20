@@ -82,6 +82,8 @@ $ firebase deploy --project prod
 $ https://pole-emploi-trad.firebaseapp.com
 ```
 
-6 - MERGE on master
+## V1.0.0
 
-
+US_F_02
+US_F_05
+US_A_01
