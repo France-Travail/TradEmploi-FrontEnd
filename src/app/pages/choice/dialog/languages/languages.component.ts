@@ -1,16 +1,18 @@
-// Angular
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { MatSort } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
-// Services
 import { VoicesService } from 'src/app/services/voices.service';
 import { TranslateService } from 'src/app/services/translate.service';
-
-// Data
 import { COUNTRIES } from 'src/app/data/countries';
 
+export interface Countries {
+  country: string;
+  traduction: string;
+  code: { audioLanguage: string; writtenLanguage: string };
+  language: string;
+}
 @Component({
   selector: 'app-languages',
   templateUrl: './languages.component.html',
@@ -18,34 +20,28 @@ import { COUNTRIES } from 'src/app/data/countries';
 })
 export class LanguagesComponent implements OnInit {
   public displayedColumns: string[] = ['traduction', 'country', 'language', 'flag'];
-  public Countries: { country: string; traduction: string; code: { audioLanguage: string; writtenLanguage: string }; language: string }[] = COUNTRIES;
-  dataCountriesSource = new MatTableDataSource(this.Countries);
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  public countries: Countries[] = COUNTRIES;
+  public dataCountriesSource: MatTableDataSource<Countries> = new MatTableDataSource(this.countries);
+
+  @ViewChild(MatSort, { static: true }) sorting: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(public dialogRef: MatDialogRef<LanguagesComponent>, private translateService: TranslateService, private voicesService: VoicesService) {}
   ngOnInit() {
-    this.sort.direction = 'asc';
-    this.sort.active = 'traduction';
-    this.dataCountriesSource.sort = this.sort;
+    this.sorting.direction = 'asc';
+    this.sorting.active = 'traduction';
+    this.dataCountriesSource.sort = this.sorting;
     this.dataCountriesSource.paginator = this.paginator;
   }
-  applyFilter(event: Event) {
+  public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataCountriesSource.filter = filterValue.trim().toLowerCase();
   }
-  /**
-   * Method called when user close the modal
-   */
   public close(): void {
     this.dialogRef.close('closed');
   }
-
-  /**
-   * Set the language for services and close the modal
-   */
   public chooseLanguage(SelectedCountry: string) {
-    const voice = this.Countries.filter(country => country.country === SelectedCountry)[0];
+    const voice = this.countries.filter(country => country.country === SelectedCountry)[0];
     this.voicesService.guest = voice.code;
     this.translateService.guest = voice.code;
     this.dialogRef.close('chosen');
