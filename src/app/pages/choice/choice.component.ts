@@ -66,7 +66,7 @@ export class ChoiceComponent {
    */
   moreLanguage(): void {
     this.dialog
-      .open(LanguagesComponent, { width: '800px' })
+      .open(LanguagesComponent, { width: '900px', height: '900px' })
       .afterClosed()
       .subscribe(response => {
         if (response === 'chosen') {

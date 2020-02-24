@@ -21,7 +21,7 @@ export class NavbarComponent {
       if (user.language !== '') {
         this.language = {
           raw: COUNTRIES.find(c => c.code.writtenLanguage === user.language).language,
-          french: COUNTRIES.find(c => c.code.writtenLanguage === user.language).frenchVersion
+          french: COUNTRIES.find(c => c.code.writtenLanguage === user.language).LanguageFr
         };
       }
     });
