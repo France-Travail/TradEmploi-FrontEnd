@@ -52,8 +52,6 @@
           </mat-form-field>
         </div>
 
-        <mat-icon class="arrow" aria-hidden="false" aria-label="Resultat">arrow_downward</mat-icon>
-
         <div class="speaker">
           <!-- BUTTONS SECTION -->
           <div class="action">
@@ -66,7 +64,7 @@
             </button>
           </div>
           <!-- TEXT SECTION -->
-          <div class="text">
+          <div [ngClass]="{'text textSpeaker':true}">
             <!-- ANIMATION -->
             <ng-container *ngIf="inProgress && !error; else translation">
               <mat-spinner class="spinner"></mat-spinner>
@@ -134,8 +132,6 @@
           </mat-form-field>
         </div>
 
-        <mat-icon class="arrow" aria-hidden="false" aria-label="Resultat">arrow_downward</mat-icon>
-
         <div class="speaker">
           <!-- BUTTONS SECTION -->
           <div class="action">
@@ -148,7 +144,7 @@
             </button>
           </div>
           <!-- TEXT SECTION -->
-          <div class="text">
+        <div [ngClass]="{'text textSpeaker':true}">
             <!-- ANIMATION -->
             <ng-container *ngIf="inProgress && !error; else translation">
               <mat-spinner class="spinner"></mat-spinner>
