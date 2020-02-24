@@ -64,7 +64,7 @@
             </button>
           </div>
           <!-- TEXT SECTION -->
-          <div class="text">
+          <div [ngClass]="{'text textSpeaker':true}">
             <!-- ANIMATION -->
             <ng-container *ngIf="inProgress && !error; else translation">
               <mat-spinner class="spinner"></mat-spinner>
@@ -144,7 +144,7 @@
             </button>
           </div>
           <!-- TEXT SECTION -->
-          <div class="text">
+        <div [ngClass]="{'text textSpeaker':true}">
             <!-- ANIMATION -->
             <ng-container *ngIf="inProgress && !error; else translation">
               <mat-spinner class="spinner"></mat-spinner>
