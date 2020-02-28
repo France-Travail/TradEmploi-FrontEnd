@@ -114,3 +114,17 @@ $ https://pole-emploi-trad.firebaseapp.com
 US_F_02
 US_F_05
 US_A_01
+
+## V1.0.1
+
+US_T_02
+US_F_07
+US_F_06
+US_F_04
+US_A_03
+US_F_03
+US_A_04
+US_A_02
+US_F_01
+US_F_08
+US_T_04
