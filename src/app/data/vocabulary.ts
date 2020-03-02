@@ -1,3 +1,5 @@
+import { Vocabulary } from '../models/vocabulary';
+
 export const VOCABULARY: { isoCode: string, words: { translate: string, request: string, rate: string, send: string, thanks: string } }[] = [
   { isoCode: 'af-ZA', words: { translate: 'vertaling', request: 'U versoek:', rate: 'Is u tevrede met u onderhoud?', send: 'stuur', thanks: 'Pôle Emploi dankie' } },
   { isoCode: 'am-ET', words: { translate: 'ትርጉም', request: 'የእርስዎ ጥያቄ', rate: 'በቃለ መጠይቅዎ ረክተዋል?', send: 'ላክ', thanks: 'ፖሌ አራይ አመሰግናለሁ ፡፡' } },
@@ -119,4 +121,29 @@ export const VOCABULARY: { isoCode: string, words: { translate: string, request:
   { isoCode: 'ja-JP', words: { translate: '翻訳', request: 'あなたのリクエスト：', rate: 'インタビューに満足していますか？', send: '送ります', thanks: 'ポール・エンプロイ、ありがとう' } },
   { isoCode: 'zh-HK', words: { translate: '翻译', request: '您的要求：', rate: '你对面试满意吗？', send: '发送', thanks: 'PôleEmploi谢谢你' } },
   { isoCode: 'zh-ZH', words: { translate: '翻译', request: '您的要求：', rate: '你对面试满意吗？', send: '发送', thanks: 'PôleEmploi谢谢你' } },
+];
+
+export const VOCABULARY_V2: Vocabulary[] = [
+  {
+    isoCode: 'fr-FR', sentences: [
+      { key: 'application-name', value: 'Traduction instantanée' },
+      { key: 'send', value: 'Envoyer' },
+      { key: 'translate', value: 'Traduction' },
+      { key: 'translation-h2', value: 'Saisir un texte en français' },
+      { key: 'rate', value: 'Êtes-vous satisfait de votre entretien ?' },
+      { key: 'thanks', value: 'Pôle Emploi vous remercie' },
+      { key: 'listen', value: 'Ecouter' },
+    ]
+  },
+  {
+    isoCode: 'en-EN', sentences: [
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Saisir un texte en français' },
+      { key: 'rate', value: 'Êtes-vous satisfait de votre entretien ?' },
+      { key: 'thanks', value: 'Pôle Emploi vous remercie' },
+      { key: 'listen', value: 'Ecouter' },
+    ]
+  },
 ];
