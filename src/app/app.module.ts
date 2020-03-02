@@ -39,6 +39,7 @@ import { RemoveComponent } from './pages/historic/dialogs/remove/remove.componen
 import { ShowComponent } from './pages/historic/dialogs/show/show.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
+import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ConversationComponent } from './pages/conversation/conversation.compone
     RemoveComponent,
     ShowComponent,
     ThanksComponent,
-    ConversationComponent
+    ConversationComponent,
+    MessageWrapperComponent
   ],
   imports: [
     BrowserModule,

@@ -24,7 +24,12 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["node_modules/flag-icon-css/sass/flag-icon.scss", "src/styles.scss"],
+            "styles": ["node_modules/flag-icon-css/sass/flag-icon.scss", "src/sass/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/sass"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -90,7 +95,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": ["src/sass/styles.scss"],
             "scripts": []
           }
         },
