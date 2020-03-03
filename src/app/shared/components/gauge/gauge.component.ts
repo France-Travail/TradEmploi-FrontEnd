@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
 import { SettingsService } from 'src/app/services/settings.service';
+import { AudioRecordingService } from 'src/app/services/audio-recording.service';
+import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
 
 @Component({
   selector: 'app-gauge',
@@ -21,7 +22,7 @@ export class GaugeComponent implements OnInit {
 
   private intervalId: any;
 
-  constructor(private settingsService: SettingsService) {}
+  constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService) {}
 
   ngOnInit(): void {
     if (this.user === 'advisor') {
@@ -35,9 +36,11 @@ export class GaugeComponent implements OnInit {
   /**
    * Starts filling the bar
    */
-  public start(): void {
+  public async start(): Promise<void> {
     const value: number = 100 / (this.duration * 10);
     let time: number = 0;
+
+    await this.audioRecordingService.record('start');
 
     this.intervalId = setInterval(() => {
       if (!this.isPaused) {
@@ -70,24 +73,34 @@ export class GaugeComponent implements OnInit {
   /**
    * Called when user clicks the send button
    */
-  public sendEvent(): void {
+  public async sendEvent(): Promise<void> {
     clearInterval(this.intervalId);
+    this.intervalId = undefined;
+    await this.audioRecordingService.record('stop');
     this.send.emit(false);
   }
 
   /**
    * Called when user clicks the exit button
    */
-  public exitEvent(): void {
-    clearInterval(this.intervalId);
+  public async exitEvent(): Promise<void> {
+    if (this.intervalId !== undefined) {
+      clearInterval(this.intervalId);
+      this.intervalId = undefined;
+      await this.audioRecordingService.record('stop');
+    }
     this.exit.emit();
   }
 
   /**
    * Called when user wants to retry the record
    */
-  public retry(): void {
-    clearInterval(this.intervalId);
+  public async retry(): Promise<void> {
+    if (this.intervalId !== undefined) {
+      clearInterval(this.intervalId);
+      this.intervalId = undefined;
+      await this.audioRecordingService.record('stop');
+    }
     this.width = 0;
     this.seconds = 0;
     this.start();
@@ -96,8 +109,10 @@ export class GaugeComponent implements OnInit {
   /**
    * Called when the gauge is full
    */
-  private timeOut(): void {
+  private async timeOut(): Promise<void> {
     clearInterval(this.intervalId);
+    this.intervalId = undefined;
+    await this.audioRecordingService.record('stop');
     this.send.emit(true);
   }
 }
