@@ -7,7 +7,6 @@
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   background-color: #fafafa;
 }
 
@@ -57,7 +56,12 @@
   display: flex;
   background-color: #ffffff;
   width: 100%;
+  margin-top: 5%;
   justify-content: center;
+  .interface-wrapper {
+    width: 50%;
+    padding: 0px 20px 0px 10px;
+  }
   .mat-tab-group {
     width: 100%;
   }
