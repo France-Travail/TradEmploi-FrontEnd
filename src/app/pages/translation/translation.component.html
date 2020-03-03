@@ -1,7 +1,13 @@
 <navbar [items]="navBarItems" (perform)="handleAction($event)"></navbar>
-<!--
-<div class="interfaces">
 
+<div class="interfaces">
+  <div class="interface-wrapper">
+    <app-message-wrapper user="advisor" title="Saisir un texte en français"></app-message-wrapper>
+  </div>
+  <div class="interface-wrapper">
+    <app-message-wrapper user="guest" title="Saisir un texte en français"></app-message-wrapper>
+  </div>
+<!--
   <mat-tab-group mat-stretch-tabs (selectedTabChange)="changeUser($event)" headerPosition="below">
     <mat-tab label="Conseiller" [disabled]="disableSwitch()">
       <div class="advisor size">
@@ -161,8 +167,5 @@
 
       </div>
     </mat-tab>
-  </mat-tab-group>
-</div> -->
-<div class="interfaces">
-  <app-message-wrapper user="advisor" title="Saisir un texte en français"></app-message-wrapper>
+  </mat-tab-group>-->
 </div>

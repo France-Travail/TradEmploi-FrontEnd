@@ -27,6 +27,9 @@ export class MessageWrapperComponent implements OnInit {
   public sendBtnValue: string = 'ENVOYER';
   public listenBtnValue: string = 'ECOUTER';
 
+  // Boolean
+  public micro: boolean = false
+
   constructor(private translateService: TranslateService) {}
 
   ngOnInit(): void {}
@@ -35,22 +38,19 @@ export class MessageWrapperComponent implements OnInit {
     console.log('findLanguage');
   }
 
-  public talk(): void {}
-
-  public delete(): void {}
-
-  public send(user: string): void {
-    console.log('input : ', this.text, this.user)
-    this.translateService.translate(this.text, this.user).subscribe(res => {
-      this.translatedValue = res
-    })
+  public talk(): void {
+    this.micro = true;
   }
 
-  public onPressEnter(event): void {
-    if (event.which === this.enterKey || event.keyCode === this.enterKey) {
-      this.text = event.currentTarget.value;
-      this.send(this.user);
-    }
+  public delete(): void {
+    this.text = '';
+  }
+
+  public send(user: string): void {
+    this.translateService.translate(this.text, this.user).subscribe(res => {
+      this.translatedValue = res;
+    })
+    this.text = '';
   }
 
   public listen(value: 'translation' | 'speech'): void {}

@@ -1,11 +1,10 @@
-<h2 class="container">
-
+<div class="container">
+  <h2>{{ title }} :</h2>
   <div class="input-wrapper">
-    <h2>{{ title }} :</h2>
-    <div class="field">
+    <div class="field" *ngIf="micro != true">
       <div class="left">
         <div class="flag-icon flag-icon-{{ flag }}" (click)="findLanguage()"></div>
-        <textarea [(ngModel)]="text" (keyup)="onPressEnter($event)"></textarea>
+        <textarea [(ngModel)]="text" (keydown.enter)="send($event);false"></textarea>
       </div>
       <div class="right">
         <div class="micro" (click)="talk()">
@@ -15,24 +14,24 @@
           <img src="./assets/icons/icon-delete-black.svg" alt="delete text">
         </div>
       </div>
-      <div class="actions">
-        <button class="action-btn" (click)="send($event)">
-          <img src="./assets/icons/icon-send-white.svg" alt="send text">
-          {{ sendBtnValue }}
-        </button>
-        <button class="action-btn" (click)="listen('speech')">
-          <img src="./assets/icons/icon-listen-white.svg" alt="listen speech">
-          {{ listenBtnValue }}
-        </button>
-      </div>
     </div>
+    <div class="actions" *ngIf="micro != true">
+      <button (click)="send($event)">
+        <img src="./assets/icons/icon-send-white.svg" alt="send text">
+        {{ sendBtnValue }}
+      </button>
+      <button (click)="listen('speech')">
+        <img src="./assets/icons/icon-listen-white.svg" alt="listen speech">
+        {{ listenBtnValue }}
+      </button>
+    </div>
+    <app-gauge *ngIf="micro"></app-gauge>
     <div class="translation" >
       <div class="value">{{ translatedValue }}</div>
-      <button class="action-btn listen-translation-btn" (click)="listen('translation')">
+      <button (click)="listen('translation')">
         <img src="./assets/icons/icon-listen-white.svg" alt="listen translation">
         {{ listenBtnValue }}
       </button>
     </div>
   </div>
-
-</h2>
+</div>
