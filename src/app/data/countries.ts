@@ -811,7 +811,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     country: 'العراق',
     traduction: 'Irak',
     flag: 'IQ',
-    code: { audioLanguage: 'ar-QI', writtenLanguage: 'ar-QI' },
+    code: { audioLanguage: 'ar-IQ', writtenLanguage: 'ar-IQ' },
     language: 'العربية',
     LanguageFr: 'Arabe'
   },
