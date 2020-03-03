@@ -1,39 +1,38 @@
 <h2 class="container">
-  <h2>{{ title }}</h2>
 
   <div class="input-wrapper">
+    <h2>{{ title }} :</h2>
     <div class="field">
       <div class="left">
         <div class="flag-icon flag-icon-{{ flag }}" (click)="findLanguage()"></div>
-        <textarea [(ngModel)]="text"></textarea>
+        <textarea [(ngModel)]="text" (keyup)="onPressEnter($event)"></textarea>
       </div>
       <div class="right">
         <div class="micro" (click)="talk()">
-          <img src="" alt="">
+          <img src="./assets/icons/icon-micro-black.svg" alt="activate micro">
         </div>
         <div class="delete" (click)="delete()">
-          <img src="assets/icons/icon-delete.svg" alt="">
+          <img src="./assets/icons/icon-delete-black.svg" alt="delete text">
         </div>
       </div>
+      <div class="actions">
+        <button class="action-btn" (click)="send($event)">
+          <img src="./assets/icons/icon-send-white.svg" alt="send text">
+          {{ sendBtnValue }}
+        </button>
+        <button class="action-btn" (click)="listen('speech')">
+          <img src="./assets/icons/icon-listen-white.svg" alt="listen speech">
+          {{ listenBtnValue }}
+        </button>
+      </div>
     </div>
-    <div class="actions">
-      <button (click)="send()">
-        <img src="" alt="">
-        <!-- Title -->
-      </button>
-      <button (click)="listen('speech')">
-        <img src="" alt="">
-        <!-- Title -->
+    <div class="translation" >
+      <div class="value">{{ translatedValue }}</div>
+      <button class="action-btn listen-translation-btn" (click)="listen('translation')">
+        <img src="./assets/icons/icon-listen-white.svg" alt="listen translation">
+        {{ listenBtnValue }}
       </button>
     </div>
   </div>
 
-  <div class="translation">
-    <div class="value">{{ translatedValue }}</div>
-    <button (click)="listen('translation')">
-      <!-- Ecouter -->
-      <!-- Icone -->
-      <!-- Title -->
-    </button>
-  </div>
 </h2>
