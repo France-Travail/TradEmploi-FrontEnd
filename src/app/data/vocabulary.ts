@@ -127,18 +127,19 @@ export const VOCABULARY_V2: Vocabulary[] = [
   {
     isoCode: 'ar-IL',
     sentences: [
-      { key: 'country-name-raw', value: 'إسرائيل' },
+      { key: 'country-name-raw', value: 'ישראל' },
       { key: 'country-name-fr', value: 'Israël' },
-      { key: 'language-name-raw', value: 'العربية' },
-      { key: 'language-name-fr', value: 'Arabe' },
+      { key: 'language-name-raw', value: 'עברי' },
+      { key: 'language-name-fr', value: 'Hébreu' },
       { key: 'flag', value: 'IL' },
-      { key: 'application-name', value: 'الترجمة الفورية' },
-      { key: 'send', value: 'إرسال' },
-      { key: 'translate', value: 'ترجمة' },
-      { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
-      { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
-      { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'application-name', value: 'תרגום מיידי' },
+      { key: 'send', value: 'שליחה' },
+      { key: 'translate', value: 'תרגום' },
+      { key: 'translation-h2', value: 'הזן טקסט עברי' },
+      { key: 'rate', value: 'האם אתה מרוצה מהראיון שלך?' },
+      { key: 'thanks', value: 'Pôle Emploi תודה' },
+      { key: 'listen', value: 'להקשיב' },
+      { key: 'gauge-text', value: 'דבר עכשיו' }
     ]
   },
   {
@@ -155,7 +156,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -172,7 +174,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -189,7 +192,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -206,7 +210,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -223,7 +228,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -240,7 +246,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -257,7 +264,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -274,7 +282,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -291,7 +300,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -308,7 +318,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -325,7 +336,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -342,7 +354,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -359,7 +372,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -376,7 +390,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-      { key: 'listen', value: 'استمع' }
+      { key: 'listen', value: 'استمع' },
+      { key: 'gauge-text', value: 'تكلم الان' }
     ]
   },
   {
@@ -393,7 +408,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'متن را به فارسی وارد کنید' },
       { key: 'rate', value: 'آیا از مصاحبه خود راضی هستید؟' },
       { key: 'thanks', value: 'Pôle Emploi از شما متشکرم' },
-      { key: 'listen', value: 'گوش دادن' }
+      { key: 'listen', value: 'گوش دادن' },
+      { key: 'gauge-text', value: 'الان صحبت کن' }
     ]
   },
   {
@@ -410,7 +426,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'Saisir un texte en français' },
       { key: 'rate', value: 'Êtes-vous satisfait de votre entretien ?' },
       { key: 'thanks', value: 'Pôle Emploi vous remercie' },
-      { key: 'listen', value: 'Ecouter' }
+      { key: 'listen', value: 'Ecouter' },
+      { key: 'gauge-text', value: 'Parlez maintenant' }
     ]
   },
   {
@@ -427,7 +444,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'Type a text in english' },
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
-      { key: 'listen', value: 'Listen' }
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
     ]
   },
   {
@@ -444,7 +462,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'Ingrese texto en español' },
       { key: 'rate', value: '¿Estás satisfecho con tu entrevista?' },
       { key: 'thanks', value: 'Pôle Emploi te agradece' },
-      { key: 'listen', value: 'Escuchar' }
+      { key: 'listen', value: 'Escuchar' },
+      { key: 'gauge-text', value: 'Habla ahora' }
     ]
   },
   {
@@ -461,7 +480,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: '輸入中文文字' },
       { key: 'rate', value: '您對面試滿意嗎？' },
       { key: 'thanks', value: 'PôleEmploi謝謝' },
-      { key: 'listen', value: '聽' }
+      { key: 'listen', value: '聽' },
+      { key: 'gauge-text', value: '現在說' }
     ]
   }
   // {
@@ -475,7 +495,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
   //     { key: 'translation-h2', value: 'xxxxxxxxxx' },
   //     { key: 'rate', value: 'xxxxxxxxxx' },
   //     { key: 'thanks', value: 'xxxxxxxxxx' },
-  //     { key: 'listen', value: 'xxxxxxxxxx' }
+  //     { key: 'listen', value: 'xxxxxxxxxx' },
+  //     { key: 'gauge-text', value: 'xxxxxxxxxxx' }
   //   ]
   // }
 ];
