@@ -3,11 +3,10 @@
   h2 {
     font-size: 14px;
     color: $black;
-    margin-left: 2%;
   }
   .input-wrapper {
     height: 600px;
-    padding: 10px 20px;
+    width: 95%;
     background: $white;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
     border-radius: 5px;
@@ -26,7 +25,6 @@
         span {
           width: 25px;
           height: 25px;
-          // background: $white;
           border: 1px solid $gray74;
           box-sizing: border-box;
           border-radius: 5px;
@@ -39,6 +37,7 @@
           height: 130px;
           border: none;
           outline: none;
+          resize: none;
         }
       }
       .right {
@@ -60,7 +59,8 @@
       }
     }
     .actions {
-      flex-direction: column;
+      display: flex;
+      justify-content: flex-end;
       padding-left: 64%;
       margin-bottom: 5%;
       .btn-send {
@@ -83,8 +83,9 @@
     }
     .translation {
       display: flex;
+      justify-content: flex-end;
       flex-direction: column;
-      padding: 10px 10px 10px 0px;
+      padding: 10px 0px 10px 0px;
       width: 100%;
       height: 300px;
       background: $white-smoke;
@@ -94,12 +95,12 @@
         background: $white-smoke;
         padding: 10px;
         height: 100%;
-        width: 100%;
+        width: 90%;
       }
       button {
         height: 25px;
-        width: 100px;
         margin-left: 85%;
+        width: 15%;
         background: $primary-color;
         color: $white;
         border: 1px solid $btn-border;
