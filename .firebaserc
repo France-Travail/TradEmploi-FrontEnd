@@ -2,6 +2,7 @@
   "projects": {
     "prod": "pole-emploi-trad",
     "dev": "pole-emploi-trad-dev",
-    "qa": "pole-emploi-trad-qa"
+    "qa": "pole-emploi-trad-recette",
+    "recette": "pole-emploi-traduction-recette"
   }
 }
