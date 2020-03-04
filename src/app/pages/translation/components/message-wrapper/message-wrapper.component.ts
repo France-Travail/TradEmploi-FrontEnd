@@ -1,10 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { COUNTRIES } from 'src/app/data/countries';
 import { TranslateService } from 'src/app/services/translate.service';
+import { COUNTRIES } from '../../../../data/countries';
+import { Router } from '@angular/router';
 
 export interface Countries {
   country: string;
   traduction: string;
+  flag: string;
   code: { audioLanguage: string; writtenLanguage: string };
   language: string;
 }
@@ -15,7 +17,6 @@ export interface Countries {
 })
 export class MessageWrapperComponent implements OnInit {
   @Input() title: string;
-  @Input() flag: string;
   @Input() user: string;
 
   // Number
@@ -26,16 +27,36 @@ export class MessageWrapperComponent implements OnInit {
   public text: string = '';
   public sendBtnValue: string = 'ENVOYER';
   public listenBtnValue: string = 'ECOUTER';
+  public flag : string;
+  public country
 
   // Boolean
-  public micro: boolean = false
+  public micro: boolean = false;
 
-  constructor(private translateService: TranslateService) {}
+  public countries: Countries[] = COUNTRIES;
 
-  ngOnInit(): void {}
+  constructor(private translateService: TranslateService, public router: Router) {}
 
-  public findLanguage(): void {
-    console.log('findLanguage');
+  ngOnInit(): void {
+    this.displayFlag(this.user)
+  }
+
+  public findLanguage(user): void {
+    if (this.user == 'guest') {
+      console.log('access ok')
+      this.router.navigate(['choice']);
+    }
+    else console.log('no access')
+  }
+
+  public displayFlag(user) {
+    if (this.user == 'advisor') {
+      this.country = this.countries.find(element => element.flag == 'FR')
+      this.flag = this.country.flag
+    } else if (this.user == 'guest') {
+      this.country = this.countries.find(element => element.code.writtenLanguage == this.translateService.guest.writtenLanguage)
+      this.flag = this.country.flag
+    }
   }
 
   public talk(): void {
@@ -50,7 +71,6 @@ export class MessageWrapperComponent implements OnInit {
     this.translateService.translate(this.text, this.user).subscribe(res => {
       this.translatedValue = res;
     })
-    this.text = '';
   }
 
   public listen(value: 'translation' | 'speech'): void {}

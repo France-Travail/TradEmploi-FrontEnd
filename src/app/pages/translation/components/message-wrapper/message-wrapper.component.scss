@@ -6,7 +6,7 @@
     margin-left: 2%;
   }
   .input-wrapper {
-    height: 450px;
+    height: 600px;
     padding: 10px 20px;
     background: $white;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
@@ -23,10 +23,10 @@
       .left {
         display: flex;
         width: 240%;
-        .flag-icon {
-          width: 33.91px;
-          height: 24px;
-          background: $white;
+        span {
+          width: 25px;
+          height: 25px;
+          // background: $white;
           border: 1px solid $gray74;
           box-sizing: border-box;
           border-radius: 5px;
@@ -61,11 +61,20 @@
     }
     .actions {
       flex-direction: column;
-      padding-left: 70%;
+      padding-left: 64%;
+      margin-bottom: 5%;
+      .btn-send {
+        background: $white;
+        color: $black;
+        margin-right: 5%;
+      }
       button {
         height: 25px;
         background: $primary-color;
         color: $white;
+        border: 1px solid $btn-border;
+        box-sizing: border-box;
+        border-radius: 5px;
         img {
           width: 13%;
           margin-right: 10px;
@@ -77,7 +86,7 @@
       flex-direction: column;
       padding: 10px 10px 10px 0px;
       width: 100%;
-      height: 250px;
+      height: 300px;
       background: $white-smoke;
       .value {
         color: $black;
@@ -93,8 +102,12 @@
         margin-left: 85%;
         background: $primary-color;
         color: $white;
+        border: 1px solid $btn-border;
+        box-sizing: border-box;
+        border-radius: 5px;
         img {
           width: 13%;
+          margin-right: 10px;
         }
       }
     }
