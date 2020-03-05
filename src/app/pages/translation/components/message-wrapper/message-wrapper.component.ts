@@ -2,11 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { COUNTRIES } from 'src/app/data/countries';
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
-import { AudioRecordingService } from 'src/app/services/audio-recording.service';
 import { TranslateService } from 'src/app/services/translate.service';
-import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { SettingsService } from 'src/app/services/settings.service';
-import { VOCABULARY } from '../../../../data/vocabulary';
+import { PermissionsService } from 'src/app/services/permissions.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { AudioRecordingService } from 'src/app/services/audio-recording.service';
+import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
 
 export interface Countries {
   country: string;
@@ -30,22 +31,25 @@ export class MessageWrapperComponent implements OnInit {
   // String
   public translatedValue: string = '';
   public text: string = '';
-  public sendBtnValue: string = 'ENVOYER';
-  public listenBtnValue: string = 'ECOUTER';
-  public flag : string;
+  public sendBtnValue: string;
+  public listenBtnValue: string;
+  public flag: string;
   public country
 
   // Boolean
   public micro: boolean = false;
+  public error: boolean = false;
 
   // Const
   public countries: Countries[] = COUNTRIES;
 
   constructor(
     private translateService: TranslateService,
-    private textToSpeechService: TextToSpeechService,
-    private audioRecordingService: AudioRecordingService,
     private settingsService: SettingsService,
+    private permissionsService: PermissionsService,
+    private toastService: ToastService,
+    private audioRecordingService: AudioRecordingService,
+    private speechRecognitionService: SpeechRecognitionService,
     public router: Router) {}
 
   ngOnInit(): void {
@@ -79,8 +83,37 @@ export class MessageWrapperComponent implements OnInit {
     }
   }
 
-  public talk(): void {
+  public async talk(user: string): Promise<void> {
     this.micro = true;
+    if (!this.permissionsService.isAllowed) {
+      try {
+        this.permissionsService.isAllowed = await this.permissionsService.check();
+      } catch (error) {
+        this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
+      }
+    }
+
+    if (this.permissionsService.isAllowed) {
+      const lang = user === 'advisor' ? this.translateService.guest.writtenLanguage : this.translateService.advisor;
+
+      await this.audioRecordingService.record('start');
+
+      this.speechRecognitionService.record(lang).subscribe(
+        value => {
+          this.error = false;
+          this.text = value;
+          console.log('result', this.text)
+        },
+        err => {
+          console.log(err);
+          if (err.error === 'no-speech') {
+            console.log('Erreur');
+            this.error = true;
+          }
+        }
+      )
+    }
+
   }
 
   public delete(): void {
@@ -94,10 +127,15 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public listen(value: 'translation' | 'speech'): void {
-    if (this.translatedValue !== '') {
-      console.log('this.translatedValue', this.translatedValue)
-      this.audioRecordingService.audioSpeech.play();
-    }
+
+  }
+
+  public audioSending() {
+    console.log('speech : ', )
+  }
+
+  public exitGauge() {
+    this.micro = false;
   }
 
 }

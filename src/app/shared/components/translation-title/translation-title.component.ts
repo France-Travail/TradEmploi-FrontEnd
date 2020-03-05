@@ -28,6 +28,7 @@ export class TranslationTitleComponent implements OnInit {
       raw: guest.find(s => s.key === 'language-name-raw').value,
       french: guest.find(s => s.key === 'language-name-fr').value,
     };
+
   }
 
   public over(): void {
