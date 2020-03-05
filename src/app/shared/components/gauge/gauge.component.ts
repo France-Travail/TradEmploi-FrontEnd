@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
-import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
+import { VOCABULARY } from 'src/app/data/vocabulary';
 
 @Component({
   selector: 'app-gauge',
@@ -26,9 +26,9 @@ export class GaugeComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.user === 'advisor') {
-      this.text = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'gauge-text').value;
+      this.text = VOCABULARY.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'gauge-text').value;
     } else {
-      this.text = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'gauge-text').value;
+      this.text = VOCABULARY.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'gauge-text').value;
     }
     this.start();
   }
