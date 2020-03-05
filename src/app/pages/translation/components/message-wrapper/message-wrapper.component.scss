@@ -5,11 +5,12 @@
     color: $black;
   }
   .input-wrapper {
-    height: 600px;
+    height: 530px;
     width: 95%;
     background: $white;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
     border-radius: 5px;
+    padding: 10px;
     .field {
       display: flex;
       padding: 10px  10px 10px 10px;
@@ -23,8 +24,8 @@
         display: flex;
         width: 240%;
         span {
-          width: 25px;
-          height: 25px;
+          width: 33.91px;
+          height: 24px;
           border: 1px solid $gray74;
           box-sizing: border-box;
           border-radius: 5px;

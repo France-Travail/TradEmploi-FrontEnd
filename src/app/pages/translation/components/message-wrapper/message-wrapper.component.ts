@@ -1,7 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TranslateService } from 'src/app/services/translate.service';
-import { COUNTRIES } from '../../../../data/countries';
 import { Router } from '@angular/router';
+import { COUNTRIES } from 'src/app/data/countries';
+import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
+import { AudioRecordingService } from 'src/app/services/audio-recording.service';
+import { TranslateService } from 'src/app/services/translate.service';
+import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { SettingsService } from 'src/app/services/settings.service';
+import { VOCABULARY } from '../../../../data/vocabulary';
 
 export interface Countries {
   country: string;
@@ -33,12 +38,27 @@ export class MessageWrapperComponent implements OnInit {
   // Boolean
   public micro: boolean = false;
 
+  // Const
   public countries: Countries[] = COUNTRIES;
 
-  constructor(private translateService: TranslateService, public router: Router) {}
+  constructor(
+    private translateService: TranslateService,
+    private textToSpeechService: TextToSpeechService,
+    private audioRecordingService: AudioRecordingService,
+    private settingsService: SettingsService,
+    public router: Router) {}
 
   ngOnInit(): void {
     this.displayFlag(this.user)
+    if (this.user === 'advisor') {
+      this.title = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'translation-h2').value;
+      this.sendBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'send').value;
+      this.listenBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'listen').value;
+    }  else if (this.user === 'guest'){
+      this.title = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'translation-h2').value;
+      this.sendBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'send').value;
+      this.listenBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'listen').value;
+    }
   }
 
   public findLanguage(user): void {
@@ -73,5 +93,11 @@ export class MessageWrapperComponent implements OnInit {
     })
   }
 
-  public listen(value: 'translation' | 'speech'): void {}
+  public listen(value: 'translation' | 'speech'): void {
+    if (this.translatedValue !== '') {
+      console.log('this.translatedValue', this.translatedValue)
+      this.audioRecordingService.audioSpeech.play();
+    }
+  }
+
 }

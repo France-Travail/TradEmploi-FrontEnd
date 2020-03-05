@@ -471,4 +471,5 @@ export class TranslationComponent {
   public closeConversation(e) {
     this.goto('rate');
   }
+
 }

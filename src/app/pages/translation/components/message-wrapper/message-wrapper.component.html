@@ -18,11 +18,11 @@
     <div class="actions" *ngIf="micro != true">
       <button class="btn-send" (click)="send($event)">
         <img src="./assets/icons/icon-send-black.svg" alt="send text">
-        {{ sendBtnValue }}
+        {{ sendBtnValue | uppercase }}
       </button>
       <button (click)="listen('speech')">
         <img src="./assets/icons/icon-listen-white.svg" alt="listen speech">
-        {{ listenBtnValue }}
+        {{ listenBtnValue | uppercase }}
       </button>
     </div>
     <app-gauge *ngIf="micro" duration="10" user="advisor"></app-gauge>
@@ -30,7 +30,7 @@
       <div class="value">{{ translatedValue }}</div>
       <button (click)="listen('translation')">
         <img src="./assets/icons/icon-listen-white.svg" alt="listen translation">
-        {{ listenBtnValue }}
+        {{ listenBtnValue | uppercase  }}
       </button>
     </div>
   </div>
