@@ -8,12 +8,60 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     LanguageFr: 'Afrikaans'
   },
   {
+    country: 'United Kingdom',
+    traduction: 'Royaume-Uni',
+    flag: 'GB',
+    code: { audioLanguage: 'en-GB', writtenLanguage: 'en-GB' },
+    language: 'English',
+    LanguageFr: 'Anglais'
+  },
+  {
+    country: '中国大陆',
+    traduction: 'Chine',
+    flag: 'CN',
+    code: { audioLanguage: 'zh-ZH', writtenLanguage: 'zh-ZH' },
+    language: '普通话',
+    LanguageFr: 'Mandarin'
+  },
+  {
+    country: 'افغانستان',
+    traduction: 'Afghanistan',
+    flag: 'AF',
+    code: { audioLanguage: 'tw-ob', writtenLanguage: 'tw-ob' },
+    language: 'پښتو',
+    LanguageFr: 'Pachto'
+  },
+  {
+    country: 'España',
+    traduction: 'Espagne',
+    flag: 'ES',
+    code: { audioLanguage: 'es-ES', writtenLanguage: 'es-ES' },
+    language: 'Español',
+    LanguageFr: 'Espagnol'
+  },
+  {
+    country: 'Portugal',
+    traduction: 'Portugal',
+    flag: 'PT',
+    code: { audioLanguage: 'pt-PT', writtenLanguage: 'pt-PT' },
+    language: 'Português',
+    LanguageFr: 'Portugais'
+  },
+  {
     country: 'ኢትዮጵያ',
     traduction: 'Ethiopie',
     flag: 'ET',
     code: { audioLanguage: 'am-ET', writtenLanguage: 'am-ET' },
     language: 'አማርኛ',
     LanguageFr: 'Amharique'
+  },
+  {
+    country: 'الجزائر',
+    traduction: 'Algérie',
+    flag: 'DZ',
+    code: { audioLanguage: 'ar-DZ', writtenLanguage: 'ar-DZ' },
+    language: 'العربية',
+    LanguageFr: 'Arabe'
   },
   {
     country: 'Հայաստան',
@@ -116,14 +164,6 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     traduction: 'Ghana',
     flag: 'GH',
     code: { audioLanguage: 'en-GH', writtenLanguage: 'en-GH' },
-    language: 'English',
-    LanguageFr: 'Anglais'
-  },
-  {
-    country: 'United Kingdom',
-    traduction: 'Royaume-Uni',
-    flag: 'GB',
-    code: { audioLanguage: 'en-GB', writtenLanguage: 'en-GB' },
     language: 'English',
     LanguageFr: 'Anglais'
   },
@@ -263,14 +303,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     language: 'Español',
     LanguageFr: 'Espagnol'
   },
-  {
-    country: 'España',
-    traduction: 'Espagne',
-    flag: 'ES',
-    code: { audioLanguage: 'es-ES', writtenLanguage: 'es-ES' },
-    language: 'Español',
-    LanguageFr: 'Espagnol'
-  },
+
   {
     country: 'Estados Unidos',
     traduction: 'Etats-Unis',
@@ -559,14 +592,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     language: 'Português',
     LanguageFr: 'Portugais'
   },
-  {
-    country: 'Portugal',
-    traduction: 'Portugal',
-    flag: 'PT',
-    code: { audioLanguage: 'pt-PT', writtenLanguage: 'pt-PT' },
-    language: 'Português',
-    LanguageFr: 'Portugais'
-  },
+
   {
     country: 'România',
     traduction: 'Roumanie',
@@ -791,14 +817,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     language: 'العربية',
     LanguageFr: 'Arabe'
   },
-  {
-    country: 'الجزائر',
-    traduction: 'Algérie',
-    flag: 'DZ',
-    code: { audioLanguage: 'ar-DZ', writtenLanguage: 'ar-DZ' },
-    language: 'العربية',
-    LanguageFr: 'Arabe'
-  },
+
   {
     country: 'السعودية',
     traduction: 'Arabie Saoudite',
@@ -811,7 +830,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     country: 'العراق',
     traduction: 'Irak',
     flag: 'IQ',
-    code: { audioLanguage: 'ar-IQ', writtenLanguage: 'ar-IQ' },
+    code: { audioLanguage: 'ar-QI', writtenLanguage: 'ar-QI' },
     language: 'العربية',
     LanguageFr: 'Arabe'
   },
@@ -935,6 +954,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     language: '日本語',
     LanguageFr: 'Japonais'
   },
+
   {
     country: '香港',
     traduction: 'Hong Kong',
@@ -944,11 +964,11 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     LanguageFr: 'Mandarin'
   },
   {
-    country: '中国大陆',
-    traduction: 'Chine',
-    flag: 'CN',
-    code: { audioLanguage: 'zh-ZH', writtenLanguage: 'zh-ZH' },
-    language: '普通话',
-    LanguageFr: 'Mandarin'
+    country: 'Ўзбекистон',
+    traduction: 'Ouzbékistan',
+    flag: 'UZ',
+    code: { audioLanguage: 'ru-RU', writtenLanguage: 'uz-UZ' },
+    language: 'ўзбек',
+    LanguageFr: 'Ouzbek'
   }
 ];

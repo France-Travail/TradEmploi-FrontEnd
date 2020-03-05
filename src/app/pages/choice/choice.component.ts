@@ -2,18 +2,25 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
-
+import { COUNTRIES } from 'src/app/data/countries';
+import { WELCOME } from 'src/app/data/welcomeSentences';
 // Dialogs
-import { LanguagesComponent } from './dialog/languages/languages.component';
+import { LanguagesComponent, Countries } from './dialog/languages/languages.component';
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 
 // Models
 import { Lang } from 'src/app/models/lang';
-
+export interface mainLanguages {
+  country: Countries;
+  hello: string;
+}
+export interface welcomeStruct {
+  country: string;
+  hello: string;
+}
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
@@ -23,6 +30,7 @@ export class ChoiceComponent {
   /**
    * Main languages list
    */
+  /*
   public words: { displayedValue: string; value: Lang; padding: number }[] = [
     { displayedValue: 'سلام', value: { audioLanguage: 'ar-DZ', writtenLanguage: 'ar-DZ' }, padding: 50 }, // Arabe, Pashto, Dari
     { displayedValue: 'Hello', value: { audioLanguage: 'en-GB', writtenLanguage: 'en-GB' }, padding: 0 }, // Anglais
@@ -39,7 +47,11 @@ export class ChoiceComponent {
     { displayedValue: 'Olá', value: { audioLanguage: 'pt-PT', writtenLanguage: 'pt-PT' }, padding: 0 }, // Portugais
     { displayedValue: 'привет', value: { audioLanguage: 'ru-RU', writtenLanguage: 'ru-RU' }, padding: 20 } // Russe
   ];
-
+  */
+  public mainLanguages: mainLanguages[] = [];
+  public countries: Countries[] = COUNTRIES;
+  public welcome: welcomeStruct[] = WELCOME;
+  public selectedLanguages: string[] = ['Arabe', 'Pachto', 'Anglais', 'Tamoul', 'Allemand', 'Ouzbek', 'Ourdou', 'Mandarin', 'Espagnol', 'Amharique', 'Népalais', 'Bengali', 'Portugais', 'Russe'];
   public toolTips: string[] = ['Autres langues'];
 
   public otherLanguageFr: string = 'AUTRES LANGUES';
@@ -60,11 +72,23 @@ export class ChoiceComponent {
     this.settingsService.guest.next({ ...this.settingsService.guest.value, language: writtenLanguage });
     this.router.navigate(['translation']);
   }
+  selectMainLanguages(): void {
+    this.selectedLanguages.forEach(element => {
+      let country = this.countries.filter(country => country.LanguageFr === element)[0];
+      let traduction = country.traduction;
+      let sentence: welcomeStruct = this.welcome.filter(c => c.country === traduction)[0];
+      this.mainLanguages.push({
+        country: country,
+        hello: sentence.hello
+      });
+    });
+  }
 
   /**
    * Open the modal that displays all the available languages
    */
   moreLanguage(): void {
+    this.selectMainLanguages();
     this.dialog
       .open(LanguagesComponent, { width: '900px', height: '900px' })
       .afterClosed()
