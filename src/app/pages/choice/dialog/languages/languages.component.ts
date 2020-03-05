@@ -11,6 +11,8 @@ import { COUNTRIES } from 'src/app/data/countries';
 export interface Countries {
   country: string;
   traduction: string;
+  flag: string;
+  LanguageFr: string;
   code: { audioLanguage: string; writtenLanguage: string };
   language: string;
 }
