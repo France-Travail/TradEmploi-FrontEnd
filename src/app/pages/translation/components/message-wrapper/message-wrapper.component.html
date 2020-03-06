@@ -3,7 +3,7 @@
   <div class="input-wrapper">
     <div class="field" *ngIf="micro != true">
       <div class="left">
-        <span class="flag-icon-{{ flag | lowercase }}" (click)="findLanguage()"></span>
+        <span class="flag-icon flag-icon-{{ flag | lowercase }}" (click)="findLanguage()"></span>
         <textarea [(ngModel)]="text" (keydown.enter)="send($event);false"></textarea>
       </div>
       <div class="right">
@@ -26,7 +26,7 @@
       </button>
     </div>
     <app-gauge *ngIf="micro" duration="10" user="advisor"
-    (send)="audioSending()"
+    (send)="audioSending(text)"
     (exit)="exitGauge()"
     ></app-gauge>
     <div class="translation" >
