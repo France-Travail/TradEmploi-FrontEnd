@@ -464,4 +464,12 @@ export class TranslationComponent {
       return false;
     }
   }
+
+  /**
+   * Close conversation and redirection to rate page
+   */
+  public closeConversation(e) {
+    this.goto('rate');
+  }
+
 }

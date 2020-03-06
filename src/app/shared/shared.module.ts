@@ -25,8 +25,9 @@ import {
 import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { GaugeComponent } from './components/gauge/gauge.component';
+import { TranslationTitleComponent } from './components/translation-title/translation-title.component';
 
-const COMPONENTS = [AudioAnimationComponent, NavbarComponent, GaugeComponent];
+const COMPONENTS = [AudioAnimationComponent, NavbarComponent, GaugeComponent, TranslationTitleComponent];
 
 const MATERIAL_MODULES = [
   MatInputModule,

@@ -1,0 +1,43 @@
+@import 'styles';
+
+.container {
+  h1 {
+    color: $secondary-color;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 0px;
+    b {
+      font-weight: 500;
+    }
+  }
+
+  .sub {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    .languages {
+      display: flex;
+      color: $secondary-color;
+      align-items: center;
+      img {
+        height: 26px;
+      }
+      .text {
+        text-decoration: underline;
+        margin-left: 6px;
+        b {
+        }
+      }
+    }
+
+    button {
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+      outline: none;
+      padding: 10px;
+      font-weight: bold;
+    }
+  }
+}

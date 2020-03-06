@@ -3,7 +3,7 @@
   <div class="input-wrapper">
     <div class="field" *ngIf="micro != true">
       <div class="left">
-        <div class="flag-icon flag-icon-{{ flag }}" (click)="findLanguage()"></div>
+        <span class="flag-icon-{{ flag | lowercase }}" (click)="findLanguage()"></span>
         <textarea [(ngModel)]="text" (keydown.enter)="send($event);false"></textarea>
       </div>
       <div class="right">
@@ -16,21 +16,24 @@
       </div>
     </div>
     <div class="actions" *ngIf="micro != true">
-      <button (click)="send($event)">
-        <img src="./assets/icons/icon-send-white.svg" alt="send text">
-        {{ sendBtnValue }}
+      <button class="btn-send" (click)="send($event)">
+        <img src="./assets/icons/icon-send-black.svg" alt="send text">
+        {{ sendBtnValue | uppercase }}
       </button>
       <button (click)="listen('speech')">
         <img src="./assets/icons/icon-listen-white.svg" alt="listen speech">
-        {{ listenBtnValue }}
+        {{ listenBtnValue | uppercase }}
       </button>
     </div>
-    <app-gauge *ngIf="micro"></app-gauge>
+    <app-gauge *ngIf="micro" duration="10" user="advisor"
+    (send)="audioSending()"
+    (exit)="exitGauge()"
+    ></app-gauge>
     <div class="translation" >
       <div class="value">{{ translatedValue }}</div>
       <button (click)="listen('translation')">
         <img src="./assets/icons/icon-listen-white.svg" alt="listen translation">
-        {{ listenBtnValue }}
+        {{ listenBtnValue | uppercase  }}
       </button>
     </div>
   </div>

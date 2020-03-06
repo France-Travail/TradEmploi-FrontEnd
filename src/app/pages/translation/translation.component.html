@@ -1,5 +1,6 @@
 <navbar [items]="navBarItems" (perform)="handleAction($event)"></navbar>
 
+<app-translation-title (finish)="closeConversation($event)"></app-translation-title>
 <div class="interfaces">
   <div class="interface-wrapper">
     <app-message-wrapper user="advisor" title="Saisir un texte en français"></app-message-wrapper>

@@ -3,14 +3,14 @@
   h2 {
     font-size: 14px;
     color: $black;
-    margin-left: 2%;
   }
   .input-wrapper {
-    height: 450px;
-    padding: 10px 20px;
+    height: 530px;
+    width: 95%;
     background: $white;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
     border-radius: 5px;
+    padding: 10px;
     .field {
       display: flex;
       padding: 10px  10px 10px 10px;
@@ -23,10 +23,9 @@
       .left {
         display: flex;
         width: 240%;
-        .flag-icon {
+        span {
           width: 33.91px;
           height: 24px;
-          background: $white;
           border: 1px solid $gray74;
           box-sizing: border-box;
           border-radius: 5px;
@@ -39,6 +38,7 @@
           height: 130px;
           border: none;
           outline: none;
+          resize: none;
         }
       }
       .right {
@@ -60,12 +60,22 @@
       }
     }
     .actions {
-      flex-direction: column;
-      padding-left: 70%;
+      display: flex;
+      justify-content: flex-end;
+      padding-left: 64%;
+      margin-bottom: 5%;
+      .btn-send {
+        background: $white;
+        color: $black;
+        margin-right: 5%;
+      }
       button {
         height: 25px;
         background: $primary-color;
         color: $white;
+        border: 1px solid $btn-border;
+        box-sizing: border-box;
+        border-radius: 5px;
         img {
           width: 13%;
           margin-right: 10px;
@@ -74,10 +84,11 @@
     }
     .translation {
       display: flex;
+      justify-content: flex-end;
       flex-direction: column;
-      padding: 10px 10px 10px 0px;
+      padding: 10px 0px 10px 0px;
       width: 100%;
-      height: 250px;
+      height: 300px;
       background: $white-smoke;
       .value {
         color: $black;
@@ -85,16 +96,20 @@
         background: $white-smoke;
         padding: 10px;
         height: 100%;
-        width: 100%;
+        width: 90%;
       }
       button {
         height: 25px;
-        width: 100px;
         margin-left: 85%;
+        width: 15%;
         background: $primary-color;
         color: $white;
+        border: 1px solid $btn-border;
+        box-sizing: border-box;
+        border-radius: 5px;
         img {
           width: 13%;
+          margin-right: 10px;
         }
       }
     }
