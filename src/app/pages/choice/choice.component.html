@@ -1,12 +1,21 @@
-<!--
-  <div class="cloud">
-  <div class="word" *ngFor="let word of words; let i=index;" [ngStyle]="{'padding-top': word.padding+'px'}"
-    (click)="selectLanguage(word.value.audioLanguage, word.value.writtenLanguage)">
-    {{ word.displayedValue }}
+<div class="tiles">
+  <div
+    (mouseover)="setBackgroundColor($event.target)"
+    (mouseleave)="removebackgroundColor($event.target)"
+    class="country"
+    *ngFor="let item of mainLanguages"
+    (click)="selectLanguage(item.country.code.audioLanguage, item.country.code.writtenLanguage)"
+  >
+    <div (mouseleave)="removebackgroundColor($event.target)">
+      <span (mouseleave)="removebackgroundColor($event.target)" class="flag-icon flag-icon-{{ item.country.flag.toLowerCase() }}"></span>
+      {{ item.country.traduction }} / {{ item.country.country }}
+    </div>
+    <div (mouseleave)="removebackgroundColor($event.target)" class="sentence">
+      {{ item.hello }}
+    </div>
+    <div (mouseleave)="removebackgroundColor($event.target)" class="choiceLanguage">{{ item.country.language }} / {{ item.country.LanguageFr }}</div>
   </div>
 </div>
--->
-
 <div class="more" (click)="moreLanguage()">
   <img src="assets/icons/icon-uniE926.svg" alt="{{ otherLanguageFr }}" />
   <div class="text">
