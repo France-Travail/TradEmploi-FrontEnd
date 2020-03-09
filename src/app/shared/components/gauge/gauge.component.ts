@@ -13,7 +13,7 @@ export class GaugeComponent implements OnInit {
   @Input() user: 'advisor' | 'guest';
 
   @Output() send: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() exit: EventEmitter<null> = new EventEmitter<null>();
+  @Output() exit: EventEmitter<void> = new EventEmitter<void>();
 
   public text: string = '';
   public width: number = 0;
@@ -73,7 +73,7 @@ export class GaugeComponent implements OnInit {
   /**
    * Called when user clicks the send button
    */
-  public async sendEvent(): Promise<void> {
+  public async sendSpeech(): Promise<void> {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
     await this.audioRecordingService.record('stop');
@@ -83,7 +83,7 @@ export class GaugeComponent implements OnInit {
   /**
    * Called when user clicks the exit button
    */
-  public async exitEvent(): Promise<void> {
+  public async exitAudio(): Promise<void> {
     if (this.intervalId !== undefined) {
       clearInterval(this.intervalId);
       this.intervalId = undefined;
