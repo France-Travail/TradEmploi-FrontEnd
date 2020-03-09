@@ -97,6 +97,7 @@
             "stylePreprocessorOptions": {
               "includePaths": ["src/sass"]
             },
+            "codeCoverage": true,
             "scripts": []
           }
         },
