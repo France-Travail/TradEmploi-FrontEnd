@@ -25,11 +25,8 @@ export class GaugeComponent implements OnInit {
   constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService) {}
 
   ngOnInit(): void {
-    if (this.user === 'advisor') {
-      this.text = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'gauge-text').value;
-    } else {
-      this.text = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'gauge-text').value;
-    }
+    const language = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
+    this.text = VOCABULARY_V2.find(item => item.isoCode === language).sentences.find(s => s.key === 'gauge-text').value;
     this.start();
   }
 
@@ -39,7 +36,7 @@ export class GaugeComponent implements OnInit {
   public async start(): Promise<void> {
     const value: number = 100 / (this.duration * 10);
     let time: number = 0;
-  
+    console.log('START GAUGE');
     await this.audioRecordingService.record('start');
     this.intervalId = setInterval(() => {
       if (!this.isPaused) {
@@ -74,6 +71,7 @@ export class GaugeComponent implements OnInit {
   public async sendSpeech(): Promise<void> {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
+    console.log('STOP GAUGE');
     await this.audioRecordingService.record('stop');
     this.send.emit(false);
   }
@@ -85,6 +83,7 @@ export class GaugeComponent implements OnInit {
     if (this.intervalId !== undefined) {
       clearInterval(this.intervalId);
       this.intervalId = undefined;
+      console.log('STOP GAUGE');
       await this.audioRecordingService.record('stop');
     }
     this.exit.emit();
@@ -97,6 +96,7 @@ export class GaugeComponent implements OnInit {
     if (this.intervalId !== undefined) {
       clearInterval(this.intervalId);
       this.intervalId = undefined;
+      console.log('STOP GAUGE');
       await this.audioRecordingService.record('stop');
     }
     this.width = 0;
@@ -110,6 +110,7 @@ export class GaugeComponent implements OnInit {
   private async timeOut(): Promise<void> {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
+    console.log('STOP GAUGE');
     await this.audioRecordingService.record('stop');
     this.send.emit(true);
   }

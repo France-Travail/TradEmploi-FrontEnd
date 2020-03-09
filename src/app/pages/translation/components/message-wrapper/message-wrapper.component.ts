@@ -34,7 +34,7 @@ export class MessageWrapperComponent implements OnInit {
   public sendBtnValue: string;
   public listenBtnValue: string;
   public flag: string;
-  public country
+  public country;
 
   // Boolean
   public micro: boolean = false;
@@ -50,15 +50,16 @@ export class MessageWrapperComponent implements OnInit {
     private toastService: ToastService,
     private audioRecordingService: AudioRecordingService,
     private speechRecognitionService: SpeechRecognitionService,
-    public router: Router) {}
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.displayFlag(this.user)
+    this.displayFlag(this.user);
     if (this.user === 'advisor') {
       this.title = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'translation-h2').value;
       this.sendBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'send').value;
       this.listenBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'listen').value;
-    }  else if (this.user === 'guest'){
+    } else if (this.user === 'guest') {
       this.title = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'translation-h2').value;
       this.sendBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'send').value;
       this.listenBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'listen').value;
@@ -67,19 +68,18 @@ export class MessageWrapperComponent implements OnInit {
 
   public findLanguage(user): void {
     if (this.user == 'guest') {
-      console.log('access ok')
+      console.log('access ok');
       this.router.navigate(['choice']);
-    }
-    else console.log('no access')
+    } else console.log('no access');
   }
 
   public displayFlag(user) {
     if (this.user == 'advisor') {
-      this.country = this.countries.find(element => element.flag == 'FR')
-      this.flag = this.country.flag
+      this.country = this.countries.find(element => element.flag == 'FR');
+      this.flag = this.country.flag;
     } else if (this.user == 'guest') {
-      this.country = this.countries.find(element => element.code.writtenLanguage == this.translateService.guest.writtenLanguage)
-      this.flag = this.country.flag
+      this.country = this.countries.find(element => element.code.writtenLanguage == this.translateService.guest.writtenLanguage);
+      this.flag = this.country.flag;
     }
   }
 
@@ -93,16 +93,16 @@ export class MessageWrapperComponent implements OnInit {
       }
     }
 
-    if (this.permissionsService.isAllowed) {
+    if (true) {
       const lang = user === 'advisor' ? this.translateService.guest.writtenLanguage : this.translateService.advisor;
-
-      await this.audioRecordingService.record('start');
-
+      console.log('START MessageWrapper -- audio');
+      // await this.audioRecordingService.record('start');
+      console.log('START MessageWrapper -- speechRecognitionService');
       this.speechRecognitionService.record(lang).subscribe(
         value => {
           this.error = false;
           this.text = value;
-          console.log('result', this.text)
+          console.log('result', this.text);
         },
         err => {
           console.log(err);
@@ -111,9 +111,8 @@ export class MessageWrapperComponent implements OnInit {
             this.error = true;
           }
         }
-      )
+      );
     }
-
   }
 
   public delete(): void {
@@ -123,19 +122,16 @@ export class MessageWrapperComponent implements OnInit {
   public send(user: string): void {
     this.translateService.translate(this.text, this.user).subscribe(res => {
       this.translatedValue = res;
-    })
+    });
   }
 
-  public listen(value: 'translation' | 'speech'): void {
-
-  }
+  public listen(value: 'translation' | 'speech'): void {}
 
   public audioSending() {
-    console.log('speech : ', )
+    console.log('speech : ');
   }
 
   public exitGauge() {
     this.micro = false;
   }
-
 }
