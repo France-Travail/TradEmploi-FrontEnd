@@ -99,32 +99,20 @@ export class TranslationComponent {
   public setNavBar(): void {
     this.navBarItems = [
       {
-        icon: 'home',
-        infoTitle: 'Changer la langue',
+        icon: 'assets/icons/icon-languages-black.svg',
+        infoTitle: 'LANGUES',
         link: 'choice',
         isDisplayed: true
       },
       {
-        icon: this.isKeyboardActivated ? 'mic' : 'keyboard',
-        infoTitle: this.isKeyboardActivated ? 'Activer le micro' : 'Activer le clavier',
-        action: this.activateKeyboard,
-        isDisplayed: true
-      },
-      {
-        icon: 'date_range',
-        infoTitle: 'Prendre un RDV',
-        action: this.meeting,
-        isDisplayed: true
-      },
-      {
-        icon: 'speaker_notes',
-        infoTitle: 'Historique',
+        icon: 'assets/icons/icon-chat-black.svg',
+        infoTitle: 'HISTORIQUE',
         link: 'conversation',
         isDisplayed: true
       },
       {
-        icon: 'settings',
-        infoTitle: 'Paramètres',
+        icon: 'assets/icons/icon-settings-black.svg',
+        infoTitle: 'PARAMÈTRES',
         link: 'settings/translation',
         isDisplayed: true
       }
