@@ -84,35 +84,7 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public async talk(user: string): Promise<void> {
-    this.micro = true;
-    if (!this.permissionsService.isAllowed) {
-      try {
-        this.permissionsService.isAllowed = await this.permissionsService.check();
-      } catch (error) {
-        this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
-      }
-    }
-
-    if (true) {
-      const lang = user === 'advisor' ? this.translateService.guest.writtenLanguage : this.translateService.advisor;
-      console.log('START MessageWrapper -- audio');
-      // await this.audioRecordingService.record('start');
-      console.log('START MessageWrapper -- speechRecognitionService');
-      this.speechRecognitionService.record(lang).subscribe(
-        value => {
-          this.error = false;
-          this.text = value;
-          console.log('result', this.text);
-        },
-        err => {
-          console.log(err);
-          if (err.error === 'no-speech') {
-            console.log('Erreur');
-            this.error = true;
-          }
-        }
-      );
-    }
+    this.micro = true
   }
 
   public delete(): void {
@@ -127,8 +99,9 @@ export class MessageWrapperComponent implements OnInit {
 
   public listen(value: 'translation' | 'speech'): void {}
 
-  public audioSending() {
-    console.log('speech : ');
+
+  public audioSending(message: string): void {
+    console.log('message : ', this.text)
   }
 
   public exitGauge() {

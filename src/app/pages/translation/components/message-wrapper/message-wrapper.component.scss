@@ -24,6 +24,7 @@
         display: flex;
         width: 240%;
         span {
+          background-repeat: no-repeat;
           width: 33.91px;
           height: 24px;
           border: 1px solid $gray74;
@@ -67,10 +68,11 @@
       .btn-send {
         background: $white;
         color: $black;
-        margin-right: 5%;
+        margin-right: 10px;
       }
       button {
         height: 25px;
+        width: 110px;
         background: $primary-color;
         color: $white;
         border: 1px solid $btn-border;
@@ -92,7 +94,7 @@
       background: $white-smoke;
       .value {
         color: $black;
-        font-size: $translated-value;
+        font-size: 36px;
         background: $white-smoke;
         padding: 10px;
         height: 100%;
@@ -100,8 +102,8 @@
       }
       button {
         height: 25px;
-        margin-left: 85%;
-        width: 15%;
+        margin-left: 80%;
+        width: 110px;
         background: $primary-color;
         color: $white;
         border: 1px solid $btn-border;
