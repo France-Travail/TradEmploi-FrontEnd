@@ -44,7 +44,7 @@ export class MessageWrapperComponent implements OnInit {
     public router: Router) {}
 
   ngOnInit(): void {
-    
+  
     if (this.user === 'advisor') {
       this.title = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'translation-h2').value;
       this.sendBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'send').value;
@@ -55,7 +55,6 @@ export class MessageWrapperComponent implements OnInit {
       this.sendBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'send').value;
       this.listenBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'listen').value;
       this.flag = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'flag').value.toLowerCase();
-      console.log('flag : ', this.flag)
     }
     this.language = this.settingsService[this.user].language;
   }
@@ -88,7 +87,6 @@ export class MessageWrapperComponent implements OnInit {
       const text = 'bonjour'
       // this.text = await
     }
-
     this.translateService.translate(this.text, this.user).subscribe(async res => {
       this.translatedValue = res;
       this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedValue, this.language, this.user);
