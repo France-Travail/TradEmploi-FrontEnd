@@ -1,12 +1,11 @@
-<navbar [items]="navBarItems" (perform)="handleAction($event)"></navbar>
-
 <app-translation-title (finish)="closeConversation($event)"></app-translation-title>
+
 <div class="interfaces">
   <div class="interface-wrapper">
-    <app-message-wrapper user="advisor" title="Saisir un texte en français"></app-message-wrapper>
+    <app-message-wrapper user="advisor"></app-message-wrapper>
   </div>
   <div class="interface-wrapper">
-    <app-message-wrapper user="guest" title="Saisir un texte en français"></app-message-wrapper>
+    <app-message-wrapper user="guest"></app-message-wrapper>
   </div>
 <!--
   <mat-tab-group mat-stretch-tabs (selectedTabChange)="changeUser($event)" headerPosition="below">

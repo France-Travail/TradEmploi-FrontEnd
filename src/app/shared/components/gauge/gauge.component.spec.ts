@@ -3,6 +3,8 @@ import { GaugeComponent } from './gauge.component';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
 import { By } from '@angular/platform-browser';
 
+import 'zone.js/dist/zone-testing';
+
 describe('GaugeComponent', () => {
   let component: GaugeComponent;
   let fixture: ComponentFixture<GaugeComponent>;
@@ -44,12 +46,21 @@ describe('GaugeComponent', () => {
     expect(component.isPaused).toEqual(true);
   });
 
+  it('text property should equal to Parlez maintenant', async () => {
+    expect(component.text).toEqual('Parlez maintenant');
+  });
+
+  it('should display Parlez maintenant in HTML', async () => {
+    expect(fixture.nativeElement.querySelector('p').textContent).toEqual('Parlez maintenant');
+  });
+
   it('should resume on pauseOrResume', () => {
     component.isPaused = true;
     fixture.detectChanges();
     component.pauseOrResume();
     expect(component.isPaused).toEqual(false);
   });
+
   it('should emit exit on exitAudio', async done => {
     component.intervalId = undefined;
     component.exit.subscribe(value => {
@@ -58,6 +69,7 @@ describe('GaugeComponent', () => {
     });
     component.exitAudio();
   });
+
   xit('should emit send true on timeOut', async done => {
     component.intervalId = undefined;
     component.exit.subscribe(value => {
