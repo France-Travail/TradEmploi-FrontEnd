@@ -3,7 +3,7 @@
   <div class="input-wrapper">
     <div class="field" *ngIf="micro != true">
       <div class="left">
-        <span class="flag-icon flag-icon-{{ flag | lowercase }}" (click)="findLanguage()"></span>
+        <span class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
         <textarea [(ngModel)]="text" (keydown.enter)="send($event);false"></textarea>
       </div>
       <div class="right">
@@ -20,18 +20,18 @@
         <img src="./assets/icons/icon-send-black.svg" alt="send text">
         {{ sendBtnValue | uppercase }}
       </button>
-      <button (click)="listen('speech')">
+      <button (click)="listen('speech')"  [disabled]="!isReady.listenTranslation">
         <img src="./assets/icons/icon-listen-white.svg" alt="listen speech">
         {{ listenBtnValue | uppercase }}
       </button>
     </div>
     <app-gauge *ngIf="micro" duration="10" user="advisor"
-    (send)="audioSending($event)"
+    (send)="audioSending(isTimeOut)"
     (exit)="exitGauge()"
     ></app-gauge>
     <div class="translation" >
       <div class="value">{{ translatedValue }}</div>
-      <button (click)="listen('translation')">
+      <button (click)="listen('translation')" [disabled]="!isReady.listenTranslation">
         <img src="./assets/icons/icon-listen-white.svg" alt="listen translation">
         {{ listenBtnValue | uppercase  }}
       </button>

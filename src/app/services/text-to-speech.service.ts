@@ -89,7 +89,7 @@ export class TextToSpeechService {
     return this.synth.speaking;
   }
 
-  public async getSpeech(text: string, language: string, user: string, fromKeyboard: boolean): Promise<boolean> {
+  public async getSpeech(text: string, language: string, user: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = `${this.url}?key=${environment.gcp.apiKey}`;
 
