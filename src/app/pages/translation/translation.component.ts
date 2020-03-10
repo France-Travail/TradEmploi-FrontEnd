@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
-
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',

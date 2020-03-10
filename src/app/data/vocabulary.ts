@@ -437,7 +437,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'country-name-fr', value: 'Royaume-Uni' },
       { key: 'language-name-raw', value: 'English' },
       { key: 'language-name-fr', value: 'Anglais' },
-      { key: 'flag', value: 'EN' },
+      { key: 'flag', value: 'GB' },
       { key: 'application-name', value: 'Instant Translation' },
       { key: 'send', value: 'Send' },
       { key: 'translate', value: 'Translate' },
