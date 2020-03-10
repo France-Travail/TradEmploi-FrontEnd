@@ -20,7 +20,7 @@ export class GaugeComponent implements OnInit {
   public seconds: number = 0;
   public isPaused: boolean = false;
 
-  private intervalId: any;
+  public intervalId: any;
 
   constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService) {}
 
@@ -39,15 +39,13 @@ export class GaugeComponent implements OnInit {
   public async start(): Promise<void> {
     const value: number = 100 / (this.duration * 10);
     let time: number = 0;
-
+  
     await this.audioRecordingService.record('start');
-
     this.intervalId = setInterval(() => {
       if (!this.isPaused) {
         this.width = this.width + value;
         time += 100;
       }
-
       if (time === 1000) {
         this.seconds++;
         time = 0;

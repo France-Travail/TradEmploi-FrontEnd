@@ -42,7 +42,7 @@ describe('TranslateService', () => {
     );
     service.translate('je suis un test', 'speaker').subscribe({
       error: err => {
-        expect(err).toEqual('An error');
+        expect(err).toEqual('Traduction indisponible momentanément');
       }
     });
     expect(true).toEqual(true);
