@@ -25,10 +25,10 @@
         {{ listenBtnValue | uppercase }}
       </button>
     </div>
-    <app-gauge *ngIf="micro" duration="10" user="advisor"
+    <app-record *ngIf="micro" duration="10" user="advisor"
     (send)="audioSending($event)"
-    (exit)="exitGauge()"
-    ></app-gauge>
+    (exit)="exitRecord()"
+    ></app-record>
     <div class="translation" >
       <div class="value">{{ translatedValue }}</div>
       <button (click)="listen('translation')">

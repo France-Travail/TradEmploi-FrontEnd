@@ -4,11 +4,11 @@ import { AudioRecordingService } from 'src/app/services/audio-recording.service'
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
 
 @Component({
-  selector: 'app-gauge',
-  templateUrl: './gauge.component.html',
-  styleUrls: ['./gauge.component.scss']
+  selector: 'app-record',
+  templateUrl: './record.component.html',
+  styleUrls: ['./record.component.scss']
 })
-export class GaugeComponent implements OnInit {
+export class RecordComponent implements OnInit {
   @Input() duration: number;
   @Input() user: 'advisor' | 'guest';
 
@@ -19,25 +19,34 @@ export class GaugeComponent implements OnInit {
   public width: number = 0;
   public seconds: number = 0;
   public isPaused: boolean = false;
-
+  public recorder: any;
   public intervalId: any;
 
   constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService) {}
 
   ngOnInit(): void {
-    const language = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    this.text = VOCABULARY_V2.find(item => item.isoCode === language).sentences.find(s => s.key === 'gauge-text').value;
     this.start();
   }
 
-  /**
-   * Starts filling the bar
-   */
-  public async start(): Promise<void> {
+  start = async (): Promise<void> => {
+    this.putTitle();
+    this.record();
+    this.recordBarLoad();
+  }
+
+  record = async () => {
+    this.recorder = await this.audioRecordingService.recordAudio();
+    this.recorder.start();
+  }
+
+  putTitle = () => {
+    const language = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
+    this.text = VOCABULARY_V2.find(item => item.isoCode === language).sentences.find(s => s.key === 'record-text').value;
+  }
+
+  private recordBarLoad = () => {
     const value: number = 100 / (this.duration * 10);
     let time: number = 0;
-    console.log('START GAUGE');
-    await this.audioRecordingService.record('start');
     this.intervalId = setInterval(() => {
       if (!this.isPaused) {
         this.width = this.width + value;
@@ -58,60 +67,42 @@ export class GaugeComponent implements OnInit {
     }, 100);
   }
 
-  /**
-   * Pause or resume the filling
-   */
-  public pauseOrResume(): void {
+  pauseOrResume = () => {
     this.isPaused = !this.isPaused;
   }
 
-  /**
-   * Called when user clicks the send button
-   */
-  public async sendSpeech(): Promise<void> {
+  sendSpeech = async (): Promise<void> => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
-    console.log('STOP GAUGE');
-    await this.audioRecordingService.record('stop');
+    this.recorder.stop();
     this.send.emit(false);
   }
 
-  /**
-   * Called when user clicks the exit button
-   */
-  public async exitAudio(): Promise<void> {
+  exitAudio = async (): Promise<void> => {
     if (this.intervalId !== undefined) {
       clearInterval(this.intervalId);
       this.intervalId = undefined;
-      console.log('STOP GAUGE');
-      await this.audioRecordingService.record('stop');
+      await this.recorder.stop();
+      this.audioRecordingService.audio.play();
     }
     this.exit.emit();
   }
 
-  /**
-   * Called when user wants to retry the record
-   */
-  public async retry(): Promise<void> {
+  retry = async (): Promise<void> => {
     if (this.intervalId !== undefined) {
       clearInterval(this.intervalId);
       this.intervalId = undefined;
-      console.log('STOP GAUGE');
-      await this.audioRecordingService.record('stop');
+      this.recorder.stop();
     }
     this.width = 0;
     this.seconds = 0;
     this.start();
   }
 
-  /**
-   * Called when the gauge is full
-   */
-  private async timeOut(): Promise<void> {
+  private timeOut = async (): Promise<void> => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
-    console.log('STOP GAUGE');
-    await this.audioRecordingService.record('stop');
+    this.recorder.stop();
     this.send.emit(true);
   }
 }

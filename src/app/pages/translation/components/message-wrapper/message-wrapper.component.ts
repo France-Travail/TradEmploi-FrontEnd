@@ -70,7 +70,7 @@ export class MessageWrapperComponent implements OnInit {
     if (this.user == 'guest') {
       console.log('access ok');
       this.router.navigate(['choice']);
-    } else console.log('no access');
+    } else { console.log('no access'); }
   }
 
   public displayFlag(user) {
@@ -84,7 +84,7 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public async talk(user: string): Promise<void> {
-    this.micro = true
+    this.micro = true;
   }
 
   public delete(): void {
@@ -99,12 +99,11 @@ export class MessageWrapperComponent implements OnInit {
 
   public listen(value: 'translation' | 'speech'): void {}
 
-
   public audioSending(message: string): void {
-    console.log('message : ', this.text)
+    console.log('message : ', this.text);
   }
 
-  public exitGauge() {
+  public exitRecord() {
     this.micro = false;
   }
 }

@@ -18,8 +18,8 @@ export class SpeechToTextService {
       content: audioBytes
     };
     const request = {
-      config: config,
-      audio: audio
+      config,
+      audio
     };
     return new Observable(observer => {
       axios

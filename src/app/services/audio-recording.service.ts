@@ -4,72 +4,44 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AudioRecordingService {
-  public blob: Blob;
-  public conversation: Blob;
-  private chunks: any[] = [];
-  private conversations: any[] = [];
-  private constraints = { audio: true };
-  private mediaRecorder: MediaRecorder;
-
-  public audioSpeech: HTMLAudioElement;
+  public audio: any;
 
   constructor() {}
 
-  public record(state: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      if (state === 'start') {
-        // Get the audio stream
-        navigator.mediaDevices.getUserMedia(this.constraints).then(stream => {
-          // Create new MediaRecorder
-          this.mediaRecorder = new MediaRecorder(stream);
+  public recordAudio(): Promise<any> {
+    return new Promise(resolve => {
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+        const mediaRecorder = new MediaRecorder(stream);
+        const audioChunks = [];
 
-          // Start recording
-          this.mediaRecorder.start();
-
-          resolve('started');
+        mediaRecorder.addEventListener('dataavailable', event => {
+          audioChunks.push(event.data);
         });
-      } else {
-        this.mediaRecorder.stop();
 
-        this.mediaRecorder.ondataavailable = async e => {
-          // Push data into the chunks Array
-          this.chunks.push(e.data);
-
-          // Add the data into the conversation
-          this.conversations.push(e.data);
-
-          // Create a Blob to be able to listen inside an HTMLAudioElement
-          this.blob = new Blob(this.chunks, { type: 'audio/mp3; codecs=opus' });
-
-          // Convert the Blob into a String because Audio only get String
-          const blobAsString = await this.convertBlobToBase64(this.blob);
-
-          // Create the HTMLAudioElement
-          this.audioSpeech = new Audio(blobAsString);
-
-          // Reset the chunks for the next audio recording
-          this.chunks = [];
-
-          resolve('ended');
+        const start = () => {
+          mediaRecorder.start();
         };
-      }
-    });
-  }
 
-  public setConversation(): void {
-    this.conversation = new Blob(this.conversations, { type: 'audio/mp3; codecs=opus' });
-  }
+        const stop = () => {
+          return new Promise(resolve => {
+            mediaRecorder.addEventListener('stop', () => {
+              const audioBlob = new Blob(audioChunks);
+              const audioUrl = URL.createObjectURL(audioBlob);
+              const audio = new Audio(audioUrl);
+              this.audio = audio;
+              const play = () => {
+                audio.play();
+              };
 
-  /**
-   * Encode blob into Base64
-   */
-  private convertBlobToBase64(blob: Blob): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = () => {
-        resolve(reader.result as string);
-      };
+              resolve({ audioBlob, audioUrl, play });
+            });
+
+            mediaRecorder.stop();
+          });
+        };
+
+        resolve({ start, stop });
+      });
     });
   }
 }
