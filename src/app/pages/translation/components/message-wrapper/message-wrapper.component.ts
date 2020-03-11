@@ -22,11 +22,12 @@ export class MessageWrapperComponent implements OnInit {
 
   // String
   public translatedValue: string = '';
+  public advisorTranslatedValue: string = '';
   public text: string = '';
+  public advisorText: string = '';
   public sendBtnValue: string;
   public listenBtnValue: string;
   public flag: string;
-  public country
   public language: string;
 
   // Boolean
@@ -88,8 +89,16 @@ export class MessageWrapperComponent implements OnInit {
       const text = 'bonjour'
       // this.text = await
     }
+    if (this.user === 'advisor') {
+      this.translateService.translate(this.advisorText, this.user).subscribe(async res => {
+        this.advisorTranslatedValue = res;
+        // console.log('text :', this.advisorText)
+        this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.advisorTranslatedValue, this.language, this.user);
+      })
+    } 
     this.translateService.translate(this.text, this.user).subscribe(async res => {
       this.translatedValue = res;
+      // console.log('text :', this.text)
       this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedValue, this.language, this.user);
     })
   }
