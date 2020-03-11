@@ -50,13 +50,14 @@ export class MessageWrapperComponent implements OnInit {
       this.sendBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'send').value;
       this.listenBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'listen').value;
       this.flag = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'flag').value.toLowerCase();
+      this.language = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode.substr(0, 2);
     }  else if (this.user === 'guest'){
       this.title = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'translation-h2').value;
       this.sendBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'send').value;
       this.listenBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'listen').value;
       this.flag = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'flag').value.toLowerCase();
+      this.language = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode.substr(0, 2);
     }
-    this.language = this.settingsService[this.user].language;
   }
 
   public switchLanguage(): void {
