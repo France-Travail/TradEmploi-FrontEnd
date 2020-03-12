@@ -1,34 +1,43 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
-
+import { Buffer } from 'buffer';
 @Injectable({
   providedIn: 'root'
 })
 export class SpeechToTextService {
-  toText = (audioBytes: any, codeLanguage: string): Promise<string> => {
+  toText = (audioBytes: any, language: string): Promise<string> => {
     const url: string = `https://speech.googleapis.com/v1/speech:recognize?key=${environment.gcp.apiKey}`;
-    const config = {
-      languageCode: codeLanguage,
-      enableWordTimeOffsets: true,
-      enableAutomaticPunctuation: true
+    const audioBinary = this.b64ToBinary(audioBytes);
+
+    const data = {
+      config: {
+        encoding: 'FLAC',
+        sampleRateHertz: 44100,
+        languageCode: language,
+        maxAlternatives: 20
+      },
+      audio: {
+        content: audioBinary
+      }
     };
-    const audio = {
-      content: audioBytes
-    };
-    const request = {
-      config,
-      audio
-    };
-    return axios
-      .post(url, request)
+    console.log('body :', audioBytes);
+    return axios({
+      method: 'post',
+      url: url,
+      data: data
+    })
       .then(response => {
         console.log('response :', response);
         const transcription = response.data.map(result => result.alternatives[0].transcript).join('\n');
         return transcription;
       })
       .catch(error => {
+        console.log('error response:', error.response);
         return 'Traduction indisponible momentanément';
       });
   };
+  b64ToBinary(b64) {
+    return Buffer.from(b64, 'base64');
+  }
 }

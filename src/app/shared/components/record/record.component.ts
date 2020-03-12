@@ -84,6 +84,7 @@ export class RecordComponent implements OnInit {
       this.intervalId = undefined;
       await this.recorder.stop();
       this.audioRecordingService.audio.play();
+      this.audioRecordingService.toText()
     }
     this.exit.emit();
   }
