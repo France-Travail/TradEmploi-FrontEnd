@@ -45,26 +45,13 @@ export class MessageWrapperComponent implements OnInit {
     public router: Router) {}
 
   ngOnInit(): void {
-  
-    if (this.user === 'advisor') {
-      this.title = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'translation-h2').value;
-      this.sendBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'send').value;
-      this.listenBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'listen').value;
-      this.flag = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'flag').value.toLowerCase();
-      this.language = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode.substr(0, 2);
-    }  else if (this.user === 'guest'){
-      this.title = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'translation-h2').value;
-      this.sendBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'send').value;
-      this.listenBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'listen').value;
-      this.flag = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'flag').value.toLowerCase();
-      this.language = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode.substr(0, 2);
-    }
-  }
-
-  public switchLanguage(): void {
-    if (this.user === 'guest') {
-      this.router.navigate(['choice']);
-    }
+    const language: string = (this.user === 'advisor' )  ? this.settingsService.advisor.language : this.settingsService.guest.value.language
+    const sentences = VOCABULARY_V2.find(item => item.isoCode === language).sentences
+    this.title =sentences.find(s => s.key === 'translation-h2').value;
+    this.sendBtnValue =sentences.find(s => s.key === 'send').value;
+    this.listenBtnValue =sentences.find(s => s.key === 'listen').value;
+    this.flag = sentences.find(s => s.key === 'flag').value.toLowerCase();
+    this.language = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode.substr(0, 2);
   }
 
   public async talk(): Promise<void> {
