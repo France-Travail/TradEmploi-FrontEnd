@@ -10,6 +10,8 @@ import { WELCOME } from 'src/app/data/welcomeSentences';
 import { LanguagesComponent, Countries } from './dialog/languages/languages.component';
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { AudioRecordingService } from 'src/app/services/audio-recording.service';
 
 export interface mainLanguages {
   country: Countries;
@@ -34,11 +36,18 @@ export class ChoiceComponent implements OnInit {
   public welcome: welcomeStruct[] = WELCOME;
   public selectedLanguages: string[] = ['Arabe', 'Pachto', 'Anglais', 'Tamoul', 'Allemand', 'Ouzbek', 'Ourdou', 'Mandarin', 'Espagnol', 'Amharique', 'Népalais', 'Bengali', 'Portugais', 'Russe'];
   public toolTips: string[] = ['Autres langues'];
-
+  public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
 
-  constructor(private translateService: TranslateService, private historyService: HistoryService, private settingsService: SettingsService, private router: Router, public dialog: MatDialog) {
+  constructor(
+    private translateService: TranslateService,
+    private textToSpeechService: TextToSpeechService,
+    private historyService: HistoryService,
+    private settingsService: SettingsService,
+    private router: Router,
+    public dialog: MatDialog
+  ) {
     if (this.historyService.conversation === undefined) {
       this.router.navigate(['start']);
     }
@@ -54,6 +63,7 @@ export class ChoiceComponent implements OnInit {
     this.settingsService.guest.next({ ...this.settingsService.guest.value, language: writtenLanguage });
     this.router.navigate(['translation']);
   }
+
   selectMainLanguages(): void {
     this.selectedLanguages.forEach(element => {
       let country = this.countries.filter(country => country.LanguageFr === element)[0];
@@ -66,6 +76,10 @@ export class ChoiceComponent implements OnInit {
     });
   }
 
+  async audioDescription(message: string, lang: string) {
+    await this.textToSpeechService.getSpeech(message, lang, 'advisor', false);
+    this.textToSpeechService.audioSpeech.play();
+  }
   /**
    * Open the modal that displays all the available languages
    */

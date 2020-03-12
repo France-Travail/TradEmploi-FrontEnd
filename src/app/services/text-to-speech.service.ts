@@ -50,7 +50,7 @@ export class TextToSpeechService {
 
   init = async () => {
     this.voices = await this.getVoices();
-  }
+  };
 
   private getVoices(): Promise<SpeechSynthesisVoice[]> {
     return new Promise((resolve, reject) => {

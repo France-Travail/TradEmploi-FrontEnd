@@ -1,5 +1,5 @@
 export const WELCOME: { country: string; hello: string }[] = [
-  { country: 'Algérie', hello: 'سلام' },
+  { country: 'Algérie', hello: 'صباح الخير' },
   { country: 'Afghanistan', hello: 'سلام' },
   { country: 'Iran', hello: 'سلام' },
   { country: 'Royaume-Uni', hello: 'Hello' },
