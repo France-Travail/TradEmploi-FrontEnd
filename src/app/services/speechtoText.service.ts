@@ -8,8 +8,7 @@ import { Buffer } from 'buffer';
 export class SpeechToTextService {
   toText = (audioBytes: any, language: string): Promise<string> => {
     const url: string = `https://speech.googleapis.com/v1/speech:recognize?key=${environment.gcp.apiKey}`;
-    const audioBinary = this.b64ToBinary(audioBytes);
-
+    //const audioBinary = this.b64ToBinary(audioBytes);
     const data = {
       config: {
         encoding: 'FLAC',
@@ -18,17 +17,17 @@ export class SpeechToTextService {
         maxAlternatives: 20
       },
       audio: {
-        content: audioBinary
+        content: audioBytes
       }
     };
-    console.log('body :', audioBytes);
+    console.log('body :', data);
     return axios({
       method: 'post',
       url: url,
       data: data
     })
       .then(response => {
-        console.log('response :', response);
+        console.log('response :', response.data);
         const transcription = response.data.map(result => result.alternatives[0].transcript).join('\n');
         return transcription;
       })
