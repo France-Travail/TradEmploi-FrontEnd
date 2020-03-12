@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material';
 import { TranslateService } from 'src/app/services/translate.service';
 import { COUNTRIES } from 'src/app/data/countries';
 import { WELCOME } from 'src/app/data/welcomeSentences';
+import { ToastService } from 'src/app/services/toast.service';
 // Dialogs
 import { LanguagesComponent, Countries } from './dialog/languages/languages.component';
 import { HistoryService } from 'src/app/services/history.service';
@@ -45,6 +46,7 @@ export class ChoiceComponent implements OnInit {
     private textToSpeechService: TextToSpeechService,
     private historyService: HistoryService,
     private settingsService: SettingsService,
+    private toastService: ToastService,
     private router: Router,
     public dialog: MatDialog
   ) {
@@ -77,8 +79,10 @@ export class ChoiceComponent implements OnInit {
   }
 
   async audioDescription(message: string, lang: string) {
-    await this.textToSpeechService.getSpeech(message, lang, 'advisor', false);
-    this.textToSpeechService.audioSpeech.play();
+    let audio = await this.textToSpeechService.getSpeech(message, lang, 'advisor', false);
+    if (audio != null) {
+      this.textToSpeechService.audioSpeech.play();
+    }
   }
   /**
    * Open the modal that displays all the available languages

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VoicesService } from './voices.service';
 import { environment } from 'src/environments/environment.prod';
 import { Voice } from '../models/voice';
+import { ToastService } from './toast.service';
 
 interface Body {
   audioConfig: {
@@ -44,7 +45,7 @@ export class TextToSpeechService {
     })
   };
 
-  constructor(private httpClient: HttpClient, private voicesService: VoicesService) {
+  constructor(private httpClient: HttpClient, private voicesService: VoicesService, private toastService: ToastService) {
     this.init();
   }
 
@@ -121,6 +122,8 @@ export class TextToSpeechService {
         body.voice.name = voice === undefined ? names.find(v => v.ssmlGender === SECOND_GENDER).name : voice.name;
       } else {
         console.log('NO WAVENET VOICE FOUNDED');
+        this.toastService.showToast("Pas d'audio description possible.");
+        reject(true);
       }
 
       this.httpClient.post<any>(url, body, this.httpOptions).subscribe(
