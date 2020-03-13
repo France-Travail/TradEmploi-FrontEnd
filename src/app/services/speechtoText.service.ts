@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
-import { Buffer } from 'buffer';
 @Injectable({
   providedIn: 'root'
 })
 export class SpeechToTextService {
   toText = (audioBytes: any, language: string): Promise<string> => {
     const url: string = `https://speech.googleapis.com/v1/speech:recognize?key=${environment.gcp.apiKey}`;
-    //const audioBinary = this.b64ToBinary(audioBytes);
     const data = {
       config: {
         encoding: 'FLAC',
@@ -38,7 +36,4 @@ export class SpeechToTextService {
         return 'Traduction indisponible momentanément';
       });
   };
-  b64ToBinary(b64) {
-    return Buffer.from(b64, 'base64');
-  }
 }

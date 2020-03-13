@@ -14,13 +14,9 @@ export class AudioRecordingService {
   private CHANNELS = 1;
   private COMPRESSION = 5;
   private bps: Number = 16;
-  private flac_ok: Number = 1;
-  private INIT: Boolean = false;
   private flacBuffers: Array<any> = [];
   private flacLength = 0;
-  private recording: boolean = false;
   private stream = null;
-  private speechToText = '';
 
   constructor() {}
 
@@ -60,7 +56,6 @@ export class AudioRecordingService {
 
         const start = () => {
           // mediaRecorder.start();
-          this.recording = true;
         };
 
         const stop = () => {
@@ -70,7 +65,6 @@ export class AudioRecordingService {
             for (var i = tracks.length - 1; i >= 0; --i) {
               tracks[i].stop();
             }
-            this.recording = false;
             Flac.FLAC__stream_encoder_finish(this.flac_encoder);
             const data = this.exportFlacFile(this.flacBuffers, this.flacLength);
             const audioUrl = URL.createObjectURL(data);
@@ -89,7 +83,6 @@ export class AudioRecordingService {
                 const speechToTextService = new SpeechToTextService();
                 return speechToTextService.toText(audioOnBase64, 'fr-FR').then(res => {
                   console.log('res :', res);
-                  this.speechToText = res;
                   resolve({res,play});
                   return res;
                 });
@@ -161,7 +154,6 @@ export class AudioRecordingService {
       let status_encoder: any = Flac.init_encoder_stream(this.flac_encoder, this.fillBufferOnFlac);
       //this.flac_ok &= (status_encoder == 0;)
 
-      this.INIT = true;
     } else {
       console.error('Error initializing the encoder.');
     }

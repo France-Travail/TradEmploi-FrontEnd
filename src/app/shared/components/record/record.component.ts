@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
-import { AudioRecordingService } from 'src/app/services/audio-recording.service';
+import { AudioRecordingService3 } from 'src/app/services/audio-recording.service3';
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
+import { AudioRecordingService } from '../../../services/audio-recording.service';
 
 @Component({
   selector: 'app-record',
@@ -19,10 +20,10 @@ export class RecordComponent implements OnInit {
   public width: number = 0;
   public seconds: number = 0;
   public isPaused: boolean = false;
-  public recorder: any;
+  // public recorder: any;
   public intervalId: any;
 
-  constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService) {}
+  constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService3) {}
 
   ngOnInit(): void {
     this.start();
@@ -34,9 +35,9 @@ export class RecordComponent implements OnInit {
     this.recordBarLoad();
   };
 
-  record = async () => {
-    this.recorder = await this.audioRecordingService.recordAudio();
-    this.recorder.start();
+  record = () => {
+    this.audioRecordingService.language = 'fr-FR';
+    this.audioRecordingService.start();
   };
 
   putTitle = () => {
@@ -72,19 +73,21 @@ export class RecordComponent implements OnInit {
   };
 
   sendSpeech = async (): Promise<void> => {
+    console.log('sendSpeech');
     clearInterval(this.intervalId);
     this.intervalId = undefined;
-    this.recorder.stop();
+    // this.recorder.stop();
+    this.audioRecordingService.stop();
     this.send.emit(false);
   };
 
   exitAudio = async () => {
     if (this.intervalId !== undefined) {
-      console.log('EXIT AUDIO');
+      console.log('exitAudio');
       clearInterval(this.intervalId);
       this.intervalId = undefined;
       //this.audioRecordingService.audio.play();
-      const speechToText = await this.recorder.stop();
+      const speechToText = await this.audioRecordingService.end();
       console.log('speechToText before emit:', speechToText);
       this.exit.emit(speechToText);
     } else {
@@ -96,7 +99,8 @@ export class RecordComponent implements OnInit {
     if (this.intervalId !== undefined) {
       clearInterval(this.intervalId);
       this.intervalId = undefined;
-      this.recorder.stop();
+      //this.recorder.stop();
+      this.audioRecordingService.stop();
     }
     this.width = 0;
     this.seconds = 0;
@@ -106,7 +110,8 @@ export class RecordComponent implements OnInit {
   private timeOut = async (): Promise<void> => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
-    this.recorder.stop();
+    //this.recorder.stop();
+    this.audioRecordingService.stop();
     this.send.emit(true);
   };
 }
