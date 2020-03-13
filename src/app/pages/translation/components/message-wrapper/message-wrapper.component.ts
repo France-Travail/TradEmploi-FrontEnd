@@ -70,17 +70,18 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public async talk(): Promise<void> {
-    if (!this.permissionsService.isAllowed) {
-      try {
-        this.permissionsService.isAllowed = await this.permissionsService.check();
-      } catch (error) {
-        this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
-      }
-    }
-    if (this.permissionsService.isAllowed) {
-      this.micro = true;
-    }
-    this.micro = true;
+    // if (!this.permissionsService.isAllowed) {
+    //   try {
+    //     this.permissionsService.isAllowed = await this.permissionsService.check();
+    //   } catch (error) {
+    //     this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
+    //   }
+    // }
+    // if (this.permissionsService.isAllowed) {
+    //   this.micro = true;
+    // }
+    // this.micro = true;
+    this.micro = 'webkitSpeechRecognition' in window
   }
 
   public delete(): void {
@@ -100,7 +101,7 @@ export class MessageWrapperComponent implements OnInit {
 
   public listen(value: 'translation' | 'speech'): void {
     if (value === 'speech') {
-      this.audioRecordingService.audio.play();
+      this.audioRecordingService.audioSpeech.play();
     } else {
       this.textToSpeechService.audioSpeech.play();
     }

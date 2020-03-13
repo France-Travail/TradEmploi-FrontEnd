@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
-import { AudioRecordingService3 } from 'src/app/services/audio-recording.service3';
+import { AudioRecordingService } from 'src/app/services/audio-recording.service';
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
-import { AudioRecordingService } from '../../../services/audio-recording.service';
 
 @Component({
   selector: 'app-record',
@@ -23,7 +22,7 @@ export class RecordComponent implements OnInit {
   // public recorder: any;
   public intervalId: any;
 
-  constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService3) {}
+  constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService) {}
 
   ngOnInit(): void {
     this.start();
@@ -76,7 +75,6 @@ export class RecordComponent implements OnInit {
     console.log('sendSpeech');
     clearInterval(this.intervalId);
     this.intervalId = undefined;
-    // this.recorder.stop();
     this.audioRecordingService.stop();
     this.send.emit(false);
   };
@@ -86,13 +84,10 @@ export class RecordComponent implements OnInit {
       console.log('exitAudio');
       clearInterval(this.intervalId);
       this.intervalId = undefined;
-      //this.audioRecordingService.audio.play();
       const speechToText = await this.audioRecordingService.end();
       console.log('speechToText before emit:', speechToText);
       this.exit.emit(speechToText);
-    } else {
-      this.exit.emit('');
-    }
+    } 
   };
 
   retry = async (): Promise<void> => {
