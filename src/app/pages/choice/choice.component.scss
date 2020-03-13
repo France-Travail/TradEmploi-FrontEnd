@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  height: max-content;
   justify-content: space-evenly;
   background-color: lightblue;
   .countries {
@@ -19,23 +20,23 @@
     animation-name: zoomIn;
     -webkit-animation-name: zoomIn;
     background-color: #fafafa;
-    .selectLanguage {
-      align-self: center;
-      width: max-content;
-      height: max-content;
+    .selectLanguageButton {
+      display: flex;
+      width: 211.83px;
+      height: 50px;
       border: 2px solid;
       padding: 10px;
       border-radius: 10px;
+      .flag-icon {
+        border-radius: 10px;
+        width: 35px;
+        height: 35px;
+        border: 2px solid;
+      }
     }
     .sentence {
       margin-top: 10px;
       font-size: medium;
-    }
-    .flag-icon {
-      border-radius: 10px;
-      width: 35px;
-      height: 35px;
-      border: 2px solid;
     }
   }
 }

@@ -16,11 +16,13 @@ import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { NavbarItem } from 'src/app/models/navbar-item';
 export interface mainLanguages {
   country: Countries;
-  hello: string;
+  displayed: string;
+  readed: string;
 }
 export interface welcomeStruct {
   country: string;
-  hello: string;
+  displayed: string;
+  readed: string;
 }
 @Component({
   selector: 'app-choice',
@@ -46,7 +48,8 @@ export class ChoiceComponent implements OnInit {
     'Ourdou',
     'Portugais',
     'Tamoul',
-    'Turc', //ajouter allemand
+    'Turc',
+    'Allemand',
     'Amharique',
     'Khmer', //cambodge
     'Espagnol',
@@ -105,7 +108,8 @@ export class ChoiceComponent implements OnInit {
       let sentence: welcomeStruct = this.welcome.filter(c => c.country === traduction)[0];
       this.mainLanguages.push({
         country: country,
-        hello: sentence.hello
+        displayed: sentence.displayed,
+        readed: sentence.readed
       });
     });
   }
