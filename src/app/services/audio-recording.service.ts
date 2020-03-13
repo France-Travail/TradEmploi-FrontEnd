@@ -20,6 +20,7 @@ export class AudioRecordingService {
   private flacLength = 0;
   private recording: boolean = false;
   private stream = null;
+  private speechToText = '';
 
   constructor() {}
 
@@ -43,7 +44,6 @@ export class AudioRecordingService {
         }
 
         node.onaudioprocess = e => {
-          console.log('onaudioprocess');
           var channelLeft = e.inputBuffer.getChannelData(0);
           this.doEncodeFlac(channelLeft);
         };
@@ -64,6 +64,7 @@ export class AudioRecordingService {
         };
 
         const stop = () => {
+          console.log("STOP");
           return new Promise(resolve => {
             var tracks = this.stream.getAudioTracks();
             for (var i = tracks.length - 1; i >= 0; --i) {
@@ -72,19 +73,30 @@ export class AudioRecordingService {
             this.recording = false;
             Flac.FLAC__stream_encoder_finish(this.flac_encoder);
             const data = this.exportFlacFile(this.flacBuffers, this.flacLength);
-
+            const audioUrl = URL.createObjectURL(data);
+            const audio = new Audio(audioUrl);
+            this.audio = audio;
+            const play = () => {
+              audio.play();
+            };
             Flac.FLAC__stream_encoder_delete(this.flac_encoder);
             input.disconnect();
             node.disconnect();
 
             if (data != undefined) {
-              this.convertBlobToBase64(data).then(audioOnBase64 => {
+              this.audioOnBlob = data;
+              return this.convertBlobToBase64(data).then(audioOnBase64 => {
                 const speechToTextService = new SpeechToTextService();
-                speechToTextService.toText(audioOnBase64, 'fr-FR').then(res => {
+                return speechToTextService.toText(audioOnBase64, 'fr-FR').then(res => {
                   console.log('res :', res);
+                  this.speechToText = res;
+                  resolve({res,play});
+                  return res;
                 });
               });
+              //resolve({ result, play });
             }
+
             // const speechToTextService = new SpeechToTextService();
             // speechToTextService.toText(data, 'fr-FR').then(res => {
             //   console.log('res :', res);
@@ -110,14 +122,12 @@ export class AudioRecordingService {
     });
   };
 
-  public toText = () => {
+  public toText = async (): Promise<string> => {
     if (this.audioOnBlob != undefined) {
-      this.convertBlobToBase64(this.audioOnBlob).then(audioOnBase64 => {
-        const speechToTextService = new SpeechToTextService();
-        speechToTextService.toText(audioOnBase64, 'fr-FR').then(res => {
-          console.log('res :', res);
-        });
-      });
+      const audioOnBase64 = await this.convertBlobToBase64(this.audioOnBlob);
+      const speechToTextService = new SpeechToTextService();
+      const res = await speechToTextService.toText(audioOnBase64, 'fr-FR');
+      return res;
     }
   };
 
@@ -151,9 +161,6 @@ export class AudioRecordingService {
       let status_encoder: any = Flac.init_encoder_stream(this.flac_encoder, this.fillBufferOnFlac);
       //this.flac_ok &= (status_encoder == 0;)
 
-      console.log('flac init     : ' + this.flac_ok); //DEBUG
-      console.log('status encoder: ' + status_encoder); //DEBUG
-
       this.INIT = true;
     } else {
       console.error('Error initializing the encoder.');
@@ -172,7 +179,6 @@ export class AudioRecordingService {
     }
 
     var flac_return = Flac.FLAC__stream_encoder_process_interleaved(this.flac_encoder, buffer_i32, buffer_i32.length / this.CHANNELS);
-    console.log('flac_return :', flac_return);
     if (flac_return != true) {
       console.log('Error: encode_buffer_pcm_as_flac returned false. ' + flac_return);
     }
@@ -191,7 +197,6 @@ export class AudioRecordingService {
   };
 
   mergeBuffersUint8(channelBuffer, recordingLength) {
-    console.log('mergeBuffersUint8');
     var result = new Uint8Array(recordingLength);
     var offset = 0;
     var lng = channelBuffer.length;
@@ -203,7 +208,6 @@ export class AudioRecordingService {
     return result;
   }
   exportFlacFile(recBuffers, recLength) {
-    console.log('exportFlacFile');
     //convert buffers into one single buffer
     var samples = this.mergeBuffersUint8(recBuffers, recLength);
 

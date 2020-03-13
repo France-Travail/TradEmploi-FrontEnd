@@ -13,7 +13,7 @@ export class RecordComponent implements OnInit {
   @Input() user: 'advisor' | 'guest';
 
   @Output() send: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() exit: EventEmitter<void> = new EventEmitter<void>();
+  @Output() exit: EventEmitter<string> = new EventEmitter<string>();
 
   public text: string = '';
   public width: number = 0;
@@ -32,17 +32,17 @@ export class RecordComponent implements OnInit {
     this.putTitle();
     this.record();
     this.recordBarLoad();
-  }
+  };
 
   record = async () => {
     this.recorder = await this.audioRecordingService.recordAudio();
     this.recorder.start();
-  }
+  };
 
   putTitle = () => {
     const language = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
     this.text = VOCABULARY_V2.find(item => item.isoCode === language).sentences.find(s => s.key === 'record-text').value;
-  }
+  };
 
   private recordBarLoad = () => {
     const value: number = 100 / (this.duration * 10);
@@ -65,29 +65,32 @@ export class RecordComponent implements OnInit {
         this.timeOut();
       }
     }, 100);
-  }
+  };
 
   pauseOrResume = () => {
     this.isPaused = !this.isPaused;
-  }
+  };
 
   sendSpeech = async (): Promise<void> => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
     this.recorder.stop();
     this.send.emit(false);
-  }
+  };
 
-  exitAudio = async (): Promise<void> => {
+  exitAudio = async () => {
     if (this.intervalId !== undefined) {
+      console.log('EXIT AUDIO');
       clearInterval(this.intervalId);
       this.intervalId = undefined;
-      await this.recorder.stop();
-      this.audioRecordingService.audio.play();
-      this.audioRecordingService.toText()
+      //this.audioRecordingService.audio.play();
+      const speechToText = await this.recorder.stop();
+      console.log('speechToText before emit:', speechToText);
+      this.exit.emit(speechToText);
+    } else {
+      this.exit.emit('');
     }
-    this.exit.emit();
-  }
+  };
 
   retry = async (): Promise<void> => {
     if (this.intervalId !== undefined) {
@@ -98,12 +101,12 @@ export class RecordComponent implements OnInit {
     this.width = 0;
     this.seconds = 0;
     this.start();
-  }
+  };
 
   private timeOut = async (): Promise<void> => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
     this.recorder.stop();
     this.send.emit(true);
-  }
+  };
 }

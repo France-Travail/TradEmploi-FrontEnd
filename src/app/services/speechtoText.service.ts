@@ -28,7 +28,9 @@ export class SpeechToTextService {
     })
       .then(response => {
         console.log('response :', response.data);
-        const transcription = response.data.map(result => result.alternatives[0].transcript).join('\n');
+        const transcription = response.data.results[0].alternatives[0].transcript;
+        console.log('transcription :', transcription);
+        //const transcription = response.data.map(result => result.alternatives[0].transcript).join('\n');
         return transcription;
       })
       .catch(error => {

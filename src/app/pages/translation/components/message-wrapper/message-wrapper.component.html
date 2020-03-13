@@ -27,8 +27,8 @@
     </div>
 
     <app-record *ngIf="micro" duration="10" user="advisor"
-    (send)="audioSending(isTimeOut)"
-    (exit)="exitRecord()"
+    (send)="audioSending($event)"
+    (exit)="exitRecord($event)"
     ></app-record>
 
     <div class="translation" >

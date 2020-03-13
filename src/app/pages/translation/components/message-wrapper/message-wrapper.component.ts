@@ -80,6 +80,7 @@ export class MessageWrapperComponent implements OnInit {
     if (this.permissionsService.isAllowed) {
       this.micro = true;
     }
+    this.micro = true;
   }
 
   public delete(): void {
@@ -106,12 +107,15 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public audioSending(isTimeOut: boolean): void {
+    console.log('isTimeOut :', isTimeOut);
     this.micro = false;
     this.isReady.listenSpeech = true;
     this.send();
   }
 
-  public exitRecord() {
+  public exitRecord(message: string) {
     this.micro = false;
+    console.log('message received:', message);
+    this.text = message;
   }
 }
