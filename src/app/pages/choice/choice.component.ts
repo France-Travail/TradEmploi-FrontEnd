@@ -1,5 +1,5 @@
 // Angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 // Services
@@ -12,8 +12,8 @@ import { LanguagesComponent, Countries } from './dialog/languages/languages.comp
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
-import { AudioRecordingService } from 'src/app/services/audio-recording.service';
-
+//Models
+import { NavbarItem } from 'src/app/models/navbar-item';
 export interface mainLanguages {
   country: Countries;
   hello: string;
@@ -30,23 +30,45 @@ export interface welcomeStruct {
 export class ChoiceComponent implements OnInit {
   ngOnInit(): void {
     this.selectMainLanguages();
+    this.setNavbar();
   }
-
+  public navBarItems: NavbarItem[] = [];
   public mainLanguages: mainLanguages[] = [];
   public countries: Countries[] = COUNTRIES;
   public welcome: welcomeStruct[] = WELCOME;
-  public selectedLanguages: string[] = ['Arabe', 'Pachto', 'Anglais', 'Tamoul', 'Allemand', 'Ouzbek', 'Ourdou', 'Mandarin', 'Espagnol', 'Amharique', 'Népalais', 'Bengali', 'Portugais', 'Russe'];
+  public selectedLanguages: string[] = [
+    'Anglais',
+    'Arabe',
+    'Pachto',
+    'Bengali',
+    'Persan',
+    'Mandarin',
+    'Ourdou',
+    'Portugais',
+    'Tamoul',
+    'Turc', //ajouter allemand
+    'Amharique',
+    'Khmer', //cambodge
+    'Espagnol',
+    'Hindi',
+    'Italien',
+    'Mongol',
+    'Népalais',
+    'Ouzbek',
+    'Roumain',
+    'Somali',
+    'Vietnamien'
+  ];
   public toolTips: string[] = ['Autres langues'];
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
-
+  public listenIconSrc: string = 'assets/icons/icon-listen-white.svg';
   constructor(
     private translateService: TranslateService,
     private textToSpeechService: TextToSpeechService,
     private historyService: HistoryService,
     private settingsService: SettingsService,
-    private toastService: ToastService,
     private router: Router,
     public dialog: MatDialog
   ) {
@@ -54,18 +76,28 @@ export class ChoiceComponent implements OnInit {
       this.router.navigate(['start']);
     }
   }
-
-  /**
-   * Initialyze the selected language
+  /*
+   * Set Navbar items
    */
-
+  setNavbar(): void {
+    this.navBarItems = [
+      {
+        icon: 'settings',
+        infoTitle: 'Paramètres',
+        link: 'settings',
+        isDisplayed: true
+      }
+    ];
+  }
+  handleAction(event: any): void {
+    event.call(this);
+  }
   selectLanguage(audioLanguage: string, writtenLanguage: string): void {
     this.translateService.guest.audioLanguage = audioLanguage;
     this.translateService.guest.writtenLanguage = writtenLanguage;
     this.settingsService.guest.next({ ...this.settingsService.guest.value, language: writtenLanguage });
     this.router.navigate(['translation']);
   }
-
   selectMainLanguages(): void {
     this.selectedLanguages.forEach(element => {
       let country = this.countries.filter(country => country.LanguageFr === element)[0];
@@ -77,7 +109,6 @@ export class ChoiceComponent implements OnInit {
       });
     });
   }
-
   async audioDescription(message: string, lang: string) {
     let audio = await this.textToSpeechService.getSpeech(message, lang, 'advisor', false);
     if (audio != null) {
@@ -99,9 +130,11 @@ export class ChoiceComponent implements OnInit {
       });
   }
   setBackgroundColor(item: any): void {
-    item.setAttribute('style', 'background-color:#135dfe;');
+    item.setAttribute('style', 'background-color:#135dfe; color:white;');
+    item.querySelector('img').setAttribute('src', 'assets/icons/icon-listen-white.svg');
   }
   removebackgroundColor(item: any): void {
     item.removeAttribute('style');
+    item.querySelector('img').setAttribute('src', 'assets/icons/icon-listen-black.svg');
   }
 }

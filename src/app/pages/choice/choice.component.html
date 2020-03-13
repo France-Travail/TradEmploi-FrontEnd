@@ -1,15 +1,17 @@
+<navbar class="navbar" [items]="navBarItems" (perform)="handleAction($event)"></navbar>
+
 <div class="tiles">
   <div class="countries" (mouseover)="setBackgroundColor($event.target)" (mouseleave)="removebackgroundColor($event.target)" *ngFor="let item of mainLanguages">
-    <div class="country-data" (mouseleave)="removebackgroundColor($event.target)" (click)="selectLanguage(item.country.code, item.country.code.audioLanguage); this.stopPropagation()">
-      <span class="flag-icon flag-icon-{{ item.country.flag.toLowerCase() }}" (mouseleave)="removebackgroundColor($event.target)"></span>
+    <div class="country-data" (click)="selectLanguage(item.country.code, item.country.code.audioLanguage)" (mouseleave)="removebackgroundColor($event.target)">
       {{ item.country.traduction }} / {{ item.country.country }}
-      {{ item.hello }}
-    </div>
+      <div class="sentence" (mouseleave)="removebackgroundColor($event.target)">{{ item.hello }}</div>
 
-    <img (click)="audioDescription(item.hello, item.country.code.audioLanguage)" (mouseleave)="removebackgroundColor($event.target)" src="assets/icons/icon-listen-black.svg" alt="{{ Ecoutez }}" />
-
-    <div class="selectLanguage" (mouseleave)="removebackgroundColor($event.target)" (click)="selectLanguage(item.country.code, item.country.code.audioLanguage)">
-      {{ item.country.language }} / {{ item.country.LanguageFr }}
+      <img src="assets/icons/icon-listen-black.svg" (click)="audioDescription(item.hello, item.country.code.audioLanguage)" (mouseleave)="removebackgroundColor($event.target)" alt="{{ Ecoutez }}" />
+      <div class="selectLanguage" (click)="selectLanguage(item.country.code, item.country.code.audioLanguage)" (mouseleave)="removebackgroundColor($event.target)">
+        <span class="flag-icon flag-icon-{{ item.country.flag.toLowerCase() }}"></span>
+        {{ item.country.LanguageFr }} <br />
+        {{ item.country.language }}
+      </div>
     </div>
   </div>
 </div>

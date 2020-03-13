@@ -1,21 +1,9 @@
-:host {
-  width: 100%;
-  min-height: 100%;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  background-color: #fafafa;
-}
-
 .tiles {
-  width: 90%;
-  height: 90%;
   position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-
+  background-color: lightblue;
   .countries {
     padding: 20px;
     margin-top: 10px;
@@ -25,15 +13,29 @@
     border: solid;
     grid-template-columns: repeat(auto-fit, 350px);
     color: #838b95;
+
     text-align: center;
     animation-duration: 1s;
     animation-name: zoomIn;
     -webkit-animation-name: zoomIn;
     background-color: #fafafa;
-
+    .selectLanguage {
+      align-self: center;
+      width: max-content;
+      height: max-content;
+      border: 2px solid;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .sentence {
+      margin-top: 10px;
+      font-size: medium;
+    }
     .flag-icon {
-      width: 120px;
-      height: 30px;
+      border-radius: 10px;
+      width: 35px;
+      height: 35px;
+      border: 2px solid;
     }
   }
 }
