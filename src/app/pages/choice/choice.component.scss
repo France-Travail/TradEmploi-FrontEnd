@@ -1,42 +1,49 @@
 .tiles {
   position: relative;
+  align-items: baseline;
   display: flex;
   flex-wrap: wrap;
-  height: max-content;
   justify-content: space-evenly;
   background-color: lightblue;
   .countries {
-    padding: 20px;
-    margin-top: 10px;
     display: grid;
+    color: #666666;
     grid-gap: 15px;
-    border-radius: 15px;
-    border: solid;
-    grid-template-columns: repeat(auto-fit, 350px);
-    color: #838b95;
-
-    text-align: center;
-    animation-duration: 1s;
-    animation-name: zoomIn;
-    -webkit-animation-name: zoomIn;
     background-color: #fafafa;
-    .selectLanguageButton {
-      display: flex;
-      width: 211.83px;
-      height: 50px;
-      border: 2px solid;
-      padding: 10px;
-      border-radius: 10px;
-      .flag-icon {
-        border-radius: 10px;
-        width: 35px;
-        height: 35px;
-        border: 2px solid;
-      }
-    }
+    border: solid;
+    border-radius: 15px;
+    overflow: hidden;
+    grid-template-columns: repeat(auto-fit, 350px);
+    margin: 10px;
+    text-align: center;
+    height: 250px;
     .sentence {
-      margin-top: 10px;
-      font-size: medium;
+      margin: 10px;
+      height: 50px;
+      font-size: 10pt;
+    }
+
+    .hp-icon {
+      height: 40px;
+      margin-bottom: 15px;
+    }
+
+    .selectLanguageButton {
+      align-items: baseline;
+      height: 55px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      border: 2px solid;
+      border-radius: 10px;
+      margin: 10px;
+      .flag-icon {
+        margin: 5px;
+        border-radius: 5px;
+        height: 40px;
+        width: 40px;
+        border: 1px solid;
+      }
     }
   }
 }
