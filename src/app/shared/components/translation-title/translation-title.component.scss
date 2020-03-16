@@ -1,6 +1,11 @@
 @import 'styles';
 
 .container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+
   h1 {
     color: $secondary-color;
     font-size: 22px;
@@ -39,5 +44,17 @@
       padding: 10px;
       font-weight: bold;
     }
+  }
+}
+
+@media screen and (min-width: 1001px) and (max-width: 1300px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    width: 96%;
   }
 }

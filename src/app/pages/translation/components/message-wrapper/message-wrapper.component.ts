@@ -21,19 +21,20 @@ export class MessageWrapperComponent implements OnInit {
   public enterKey: number = 13;
 
   // String
-  public translatedValue: string = '';
-  public advisorTranslatedValue: string = '';
-  public text: string = '';
-  public advisorText: string = '';
   public sendBtnValue: string;
   public listenBtnValue: string;
   public flag: string;
   public language: string;
 
+  public rawSpeech: HTMLAudioElement;
+  public translatedSpeech: HTMLAudioElement;
+  public rawText: string = '';
+  public translatedText: string = '';
+
   // Boolean
   public micro: boolean = false;
   public error: boolean = false;
-  public isReady: {listenTranslation: boolean; listenSpeech: boolean} = {listenTranslation: false, listenSpeech: false}
+  public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
 
   constructor(
     private toastService: ToastService,
@@ -42,16 +43,17 @@ export class MessageWrapperComponent implements OnInit {
     private audioRecordingService: AudioRecordingService,
     public textToSpeechService: TextToSpeechService,
     private permissionsService: PermissionsService,
-    public router: Router) {}
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
-    const language: string = (this.user === 'advisor' )  ? this.settingsService.advisor.language : this.settingsService.guest.value.language
-    const sentences = VOCABULARY_V2.find(item => item.isoCode === language).sentences
-    this.title =sentences.find(s => s.key === 'translation-h2').value;
-    this.sendBtnValue =sentences.find(s => s.key === 'send').value;
-    this.listenBtnValue =sentences.find(s => s.key === 'listen').value;
+    const language: string = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
+    const sentences = VOCABULARY_V2.find(item => item.isoCode === language).sentences;
+    this.title = sentences.find(s => s.key === 'translation-h2').value;
+    this.sendBtnValue = sentences.find(s => s.key === 'send').value;
+    this.listenBtnValue = sentences.find(s => s.key === 'listen').value;
     this.flag = sentences.find(s => s.key === 'flag').value.toLowerCase();
-    this.language = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode.substr(0, 2);
+    this.language = this.user === 'guest' ? 'fr-FR' : VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode;
   }
 
   public async talk(): Promise<void> {
@@ -68,44 +70,43 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public delete(): void {
-    this.text = '';
+    this.rawText = '';
   }
 
-  public async send(): Promise<void> {
-    if (this.text === '') {
-      const text = 'bonjour'
-      // this.text = await
+  public async send(fromKeyBoard?: boolean): Promise<void> {
+    if (fromKeyBoard) {
+      const language = this.user === 'advisor' ? 'fr-FR' : VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode;
+      this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
+      this.rawSpeech = this.textToSpeechService.audioSpeech;
+    } else {
+      if (this.rawText === '') {
+        this.rawText = 'bonjour';
+      }
+      this.rawSpeech = this.audioRecordingService.audioSpeech;
     }
-    if (this.user === 'advisor') {
-      this.translateService.translate(this.advisorText, this.user).subscribe(async res => {
-        this.advisorTranslatedValue = res;
-        // console.log('text :', this.advisorText)
-        this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.advisorTranslatedValue, this.language, this.user);
-      })
-    } 
-    this.translateService.translate(this.text, this.user).subscribe(async res => {
-      this.translatedValue = res;
-      // console.log('text :', this.text)
-      this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedValue, this.language, this.user);
-    })
+  
+    this.translateService.translate(this.rawText, this.user).subscribe(async response => {
+      this.translatedText = response;
+      this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
+      this.translatedSpeech = this.textToSpeechService.audioSpeech;
+    });
   }
 
   public listen(value: 'translation' | 'speech'): void {
     if (value === 'speech') {
-      this.audioRecordingService.audioSpeech.play()
+      this.rawSpeech.play();
     } else {
-      this.textToSpeechService.audioSpeech.play()
+      this.translatedSpeech.play();
     }
   }
 
   public audioSending(isTimeOut: boolean): void {
-    this.micro = false;
+    this.exitGauge();
     this.isReady.listenSpeech = true;
-    this.send()
+    this.send();
   }
 
   public exitGauge() {
     this.micro = false;
   }
-
 }
