@@ -1,11 +1,5 @@
 /// <reference lib="webworker" />
 import Flac from 'libflacjs/dist/libflac.js';
-export enum TASK {
-  INIT = 'init',
-  ENCODE = 'encode',
-  FINISH = 'finish',
-  END = 'end'
-}
 
 let flacBuffers = [];
 let flacLength = 0;
@@ -13,13 +7,13 @@ let flacEncoder;
 let channels = 1;
 
 addEventListener('message', ({ data }) => {
-  if (data.type === TASK.INIT) {
+  if (data.type === 'init') {
     initFlac();
-  } else if (data.type === TASK.ENCODE) {
+  } else if (data.type === 'encode') {
     doEncodeFlac(data.buf);
-  } else if (data.type === TASK.FINISH) {
+  } else if (data.type === 'finish') {
     const blob = finish();
-    postMessage({ type: TASK.END, blob: blob });
+    postMessage({ type: 'end', blob: blob });
   } else {
     postMessage(`worker response to ${data.type}: task not found`);
   }

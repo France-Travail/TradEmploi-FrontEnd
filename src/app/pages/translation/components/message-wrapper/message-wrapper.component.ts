@@ -5,7 +5,6 @@ import { TranslateService } from 'src/app/services/translate.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
-import { PermissionsService } from 'src/app/services/permissions.service';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
@@ -40,7 +39,6 @@ export class MessageWrapperComponent implements OnInit {
     private settingsService: SettingsService,
     private audioRecordingService: AudioRecordingService,
     public textToSpeechService: TextToSpeechService,
-    private permissionsService: PermissionsService,
     public router: Router
   ) {}
 
@@ -70,18 +68,11 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public async talk(): Promise<void> {
-    // if (!this.permissionsService.isAllowed) {
-    //   try {
-    //     this.permissionsService.isAllowed = await this.permissionsService.check();
-    //   } catch (error) {
-    //     this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
-    //   }
-    // }
-    // if (this.permissionsService.isAllowed) {
-    //   this.micro = true;
-    // }
-    // this.micro = true;
-    this.micro = 'webkitSpeechRecognition' in window
+    if ('webkitSpeechRecognition' in window) {
+      this.micro = true;
+    } else {
+      this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
+    }
   }
 
   public delete(): void {
@@ -108,7 +99,6 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public audioSending(isTimeOut: boolean): void {
-    console.log('isTimeOut :', isTimeOut);
     this.micro = false;
     this.isReady.listenSpeech = true;
     this.send();
@@ -116,7 +106,6 @@ export class MessageWrapperComponent implements OnInit {
 
   public exitRecord(message: string) {
     this.micro = false;
-    console.log('message received:', message);
     this.text = message;
   }
 }

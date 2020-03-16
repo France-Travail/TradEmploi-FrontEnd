@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { SpeechToTextService } from './speechtoText.service';
-import { TASK } from './audio-recording.worker';
-
+import { SpeechToTextSyncService } from './speech-to-text-sync.service';
+import { SpeechToTextService } from './speech-to-text.service';
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AudioRecordingService {
   public audioSpeech: HTMLAudioElement;
+  public speechToText: Subject<string> = new Subject<string>();
   public language: string;
 
   private constraints = { audio: true };
@@ -17,7 +18,7 @@ export class AudioRecordingService {
   private worker: Worker;
 
   constructor() {
-    this.worker = new Worker('./audio-recording.worker', { type: 'module' });
+    this.worker = new Worker('../worker/flac.worker', { type: 'module' });
   }
 
   public start() {
@@ -26,10 +27,10 @@ export class AudioRecordingService {
       const audioContext = new AudioContext();
       this.input = audioContext.createMediaStreamSource(stream);
       this.node = this.input.context.createScriptProcessor(4096, 1, 1);
-      this.worker.postMessage({ type: TASK.INIT });
+      this.worker.postMessage({ type: 'init' });
       this.node.onaudioprocess = e => {
         var channelLeft = e.inputBuffer.getChannelData(0);
-        this.worker.postMessage({ type: TASK.ENCODE, buf: channelLeft });
+        this.worker.postMessage({ type: 'encode', buf: channelLeft });
       };
       this.input.connect(this.node);
       this.node.connect(audioContext.destination);
@@ -39,35 +40,31 @@ export class AudioRecordingService {
     });
   }
 
-  public stop() {
-    console.log('STOP');
-    var tracks = this.stream.getAudioTracks();
-    for (var i = tracks.length - 1; i >= 0; --i) {
+  public stop(time: number) {
+    const tracks = this.stream.getAudioTracks();
+    for (let i = tracks.length - 1; i >= 0; --i) {
       tracks[i].stop();
     }
-    this.worker.postMessage({ type: TASK.FINISH });
+    this.worker.postMessage({ type: 'finish' });
     this.worker.onmessage = async ({ data }) => {
-      if (data.type === TASK.END) {
+      if (data.type === 'end') {
         this.audioOnBlob = data.blob;
         const audioUrl = URL.createObjectURL(this.audioOnBlob);
-        this.audioSpeech  = new Audio(audioUrl);
+        this.audioSpeech = new Audio(audioUrl);
+        if (this.audioOnBlob != undefined) {
+          const audioOnBase64 = await this.convertBlobToBase64(this.audioOnBlob);
+          const speechToTextService = new SpeechToTextService();
+          speechToTextService.toText(audioOnBase64, this.language,time).subscribe(
+            resultat => this.speechToText.next(resultat),
+            error => this.speechToText.next(error)
+          );
+        }
       }
     };
     this.input.disconnect();
     this.node.disconnect();
     this.input = null;
     this.node = null;
-  }
-
-  public async end(): Promise<string> {
-    this.stop();
-    console.log('END');
-    if (this.audioOnBlob != undefined) {
-      const audioOnBase64 = await this.convertBlobToBase64(this.audioOnBlob);
-      const speechToTextService = new SpeechToTextService();
-      return await speechToTextService.toText(audioOnBase64, this.language);
-    }
-    return;
   }
 
   private convertBlobToBase64 = (blob: Blob): Promise<any> => {

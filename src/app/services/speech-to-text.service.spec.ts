@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import axios from 'axios';
-import { SpeechToTextService } from './speechtotext.service';
+import { SpeechToTextService } from './speech-to-text.service';
 
 describe('TranslateService', () => {
   let service: SpeechToTextService;

@@ -19,7 +19,6 @@ export class RecordComponent implements OnInit {
   public width: number = 0;
   public seconds: number = 0;
   public isPaused: boolean = false;
-  // public recorder: any;
   public intervalId: any;
 
   constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService) {}
@@ -72,30 +71,29 @@ export class RecordComponent implements OnInit {
   };
 
   sendSpeech = async (): Promise<void> => {
-    console.log('sendSpeech');
     clearInterval(this.intervalId);
     this.intervalId = undefined;
-    this.audioRecordingService.stop();
+    this.audioRecordingService.stop(this.width);
     this.send.emit(false);
   };
 
   exitAudio = async () => {
     if (this.intervalId !== undefined) {
-      console.log('exitAudio');
       clearInterval(this.intervalId);
       this.intervalId = undefined;
-      const speechToText = await this.audioRecordingService.end();
-      console.log('speechToText before emit:', speechToText);
-      this.exit.emit(speechToText);
-    } 
+      this.audioRecordingService.stop(this.width);
+      this.audioRecordingService.speechToText.subscribe(
+        res => this.exit.emit(res),
+        err => this.exit.emit(err)
+      );
+    }
   };
 
   retry = async (): Promise<void> => {
     if (this.intervalId !== undefined) {
       clearInterval(this.intervalId);
       this.intervalId = undefined;
-      //this.recorder.stop();
-      this.audioRecordingService.stop();
+      this.audioRecordingService.stop(this.width);
     }
     this.width = 0;
     this.seconds = 0;
@@ -105,8 +103,7 @@ export class RecordComponent implements OnInit {
   private timeOut = async (): Promise<void> => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
-    //this.recorder.stop();
-    this.audioRecordingService.stop();
+    this.audioRecordingService.stop(this.width);
     this.send.emit(true);
   };
 }
