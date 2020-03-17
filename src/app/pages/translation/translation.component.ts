@@ -23,6 +23,7 @@ export class TranslationComponent {
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
     }
+    this.setNavBar();
   }
 
   /**
@@ -53,6 +54,13 @@ export class TranslationComponent {
         isDisplayed: true
       }
     ];
+  }
+
+  /**
+   * Close conversation and redirection to rate page
+   */
+  public closeConversation() {
+    this.goto('rate');
   }
 
   // /**
@@ -388,13 +396,4 @@ export class TranslationComponent {
   //     return false;
   //   }
   // }
-
-
-  /**
-   * Close conversation and redirection to rate page
-   */
-  public closeConversation(e) {
-    this.goto('rate');
-  }
-
 }

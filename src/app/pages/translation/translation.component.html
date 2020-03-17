@@ -1,4 +1,6 @@
-<app-translation-title (finish)="closeConversation($event)"></app-translation-title>
+<navbar [items]="navBarItems"></navbar>
+
+<app-translation-title (finish)="closeConversation()"></app-translation-title>
 
 <div class="interfaces">
   <app-message-wrapper user="advisor" class="margin"></app-message-wrapper>
