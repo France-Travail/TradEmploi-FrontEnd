@@ -45,19 +45,19 @@ export class SettingsComponent implements AfterViewInit {
   public setNavBar(): void {
     this.navBarItems = [
       {
-        icon: 'keyboard_return',
-        infoTitle: 'Retour',
+        icon: 'assets/icons/icon-return-black.svg',
+        infoTitle: 'RETOUR',
         link: 'return',
         isDisplayed: !this.isNewConversation
       },
+      // {
+      //   icon: 'assets/icons/icon-refresh-black.svg',
+      //   infoTitle: 'Quitter l\'application',
+      //   link: 'start',
+      //   isDisplayed: !this.isNewConversation
+      // },
       {
-        icon: 'exit_to_app',
-        infoTitle: 'Quitter l\'application',
-        link: 'start',
-        isDisplayed: !this.isNewConversation
-      },
-      {
-        icon: 'speaker_notes',
+        icon: 'assets/icons/icon-chat-black.svg',
         infoTitle: 'Voir l\'historique',
         link: 'history',
         isDisplayed: this.isNewConversation

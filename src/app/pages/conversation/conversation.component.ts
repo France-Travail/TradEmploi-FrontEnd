@@ -32,21 +32,21 @@ export class ConversationComponent implements AfterViewInit {
   public setNavBar(): void {
     this.navBarItems = [
       {
-        icon: 'keyboard_return',
-        infoTitle: 'Retour',
+        icon: 'assets/icons/icon-return-black.svg',
+        infoTitle: 'RETOUR',
         link: 'translation',
         isDisplayed: true
       },
       {
-        icon: 'compare_arrows',
-        infoTitle: 'Changer de langue',
-        action: this.switchLanguage,
+        icon: 'assets/icons/icon-double-arrows-black.svg',
+        infoTitle: 'CHANGER DE LANGUE',
+        link: 'choice',
         isDisplayed: true
       },
       {
-        icon: 'settings',
-        infoTitle: 'Paramètres',
-        link: 'settings/conversation',
+        icon: 'assets/icons/icon-settings-black.svg',
+        infoTitle: 'PARAMÈTRES',
+        link: 'settings/translation',
         isDisplayed: true
       }
     ];

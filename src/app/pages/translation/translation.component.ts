@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
+import { NavbarItem } from 'src/app/models/navbar-item';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { TranslateService } from 'src/app/services/translate.service';
   styleUrls: ['./translation.component.scss']
 })
 export class TranslationComponent {
+  public navBarItems: NavbarItem[] = [];
   constructor(
     private translateService: TranslateService,
     public dialog: MatDialog,
@@ -28,6 +30,29 @@ export class TranslationComponent {
    */
   public goto(where: string): void {
     this.router.navigate([where]);
+  }
+
+  public setNavBar(): void {
+    this.navBarItems = [
+      {
+        icon: 'assets/icons/icon-languages-black.svg',
+        infoTitle: 'LANGUES',
+        link: 'choice',
+        isDisplayed: true
+      },
+      {
+        icon: 'assets/icons/icon-chat-black.svg',
+        infoTitle: 'HISTORIQUE',
+        link: 'conversation',
+        isDisplayed: true
+      },
+      {
+        icon: 'assets/icons/icon-settings-black.svg',
+        infoTitle: 'PARAMÈTRES',
+        link: 'settings/translation',
+        isDisplayed: true
+      }
+    ];
   }
 
   // /**
@@ -363,6 +388,7 @@ export class TranslationComponent {
   //     return false;
   //   }
   // }
+
 
   /**
    * Close conversation and redirection to rate page
