@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SpeechToTextSyncService } from './speech-to-text-sync.service';
 import { SpeechToTextService } from './speech-to-text.service';
 import { Subject } from 'rxjs';
 @Injectable({
@@ -54,7 +53,7 @@ export class AudioRecordingService {
         if (this.audioOnBlob != undefined) {
           const audioOnBase64 = await this.convertBlobToBase64(this.audioOnBlob);
           const speechToTextService = new SpeechToTextService();
-          speechToTextService.toText(audioOnBase64, this.language,time).subscribe(
+          speechToTextService.recognizeAsync(audioOnBase64, this.language,time).subscribe(
             resultat => this.speechToText.next(resultat),
             error => this.speechToText.next(error)
           );

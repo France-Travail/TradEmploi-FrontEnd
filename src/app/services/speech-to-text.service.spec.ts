@@ -27,7 +27,7 @@ describe('TranslateService', () => {
     spyOn(axios, 'post').and.returnValue(
       new Promise<any>((resolve, reject) => resolve(response))
     );
-    service.toText('audioBytes', 'fr-Fr').subscribe(res => {
+    service.recognizeAsync('audioBytes', 'fr-Fr').subscribe(res => {
       expect(res).toEqual('how old is the Brooklyn Bridge');
     });
   });
@@ -36,7 +36,7 @@ describe('TranslateService', () => {
     spyOn(axios, 'post').and.returnValue(
       new Promise<String>((resolve, reject) => reject('An error'))
     );
-    service.toText('audioBytes', 'fr-Fr').subscribe({
+    service.recognizeAsync('audioBytes', 'fr-Fr').subscribe({
       error: err => {
         expect(err).toEqual('Traduction indisponible momentanément');
       }

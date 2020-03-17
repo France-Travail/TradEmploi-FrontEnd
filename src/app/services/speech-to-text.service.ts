@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SpeechToTextService {
-  toText = (audioBytes: any, language: string, time: number): Observable<string> => {
+  recognizeAsync = (audioBytes: any, language: string, time: number): Observable<string> => {
     const urlRecognize: string = `https://speech.googleapis.com/v1/speech:longrunningrecognize?key=${environment.gcp.apiKey}`;
     const data = {
       config: {
@@ -22,11 +22,12 @@ export class SpeechToTextService {
     return new Observable(observer => {
       axios({
         method: 'post',
+        headers: { 'content-type': 'application/json; charset=utf-8' },
         url: urlRecognize,
         data: data
       })
-        .then(response => {
-          const url: string = `https://speech.googleapis.com/v1/operations/${response.data.name}?key=${environment.gcp.apiKey}`;
+        .then(operation => {
+          const url: string = `https://speech.googleapis.com/v1/operations/${operation.data.name}?key=${environment.gcp.apiKey}`;
           let speakTimeInSecond = time / 10;
           let minimalTimeOnMS = speakTimeInSecond/2 * 1000
           setTimeout(function() {
