@@ -1,29 +1,27 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { GaugeComponent } from './gauge.component';
+import { RecordComponent } from './record.component';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
 import { By } from '@angular/platform-browser';
 
-import 'zone.js/dist/zone-testing';
-
-describe('GaugeComponent', () => {
-  let component: GaugeComponent;
-  let fixture: ComponentFixture<GaugeComponent>;
-  let audioRecordingService: AudioRecordingService = new AudioRecordingService();
+describe('RecordComponent', () => {
+  let component: RecordComponent;
+  let fixture: ComponentFixture<RecordComponent>;
+  const audioRecordingService: AudioRecordingService = new AudioRecordingService();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [GaugeComponent],
+      declarations: [RecordComponent],
       providers: [AudioRecordingService]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GaugeComponent);
+    fixture = TestBed.createComponent(RecordComponent);
     component = fixture.componentInstance;
     component.duration = 5;
     component.user = 'advisor';
     fixture.detectChanges();
-    spyOn(audioRecordingService, 'record').and.returnValue(
+    spyOn(audioRecordingService, 'recordAudio').and.returnValue(
       new Promise<string>(resolve => resolve())
     );
   });

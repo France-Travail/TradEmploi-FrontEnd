@@ -6,8 +6,6 @@ import { Router } from '@angular/router';
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
 import { NavbarItem } from 'src/app/models/navbar-item';
-
-
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
@@ -15,20 +13,13 @@ import { NavbarItem } from 'src/app/models/navbar-item';
 })
 export class TranslationComponent {
   public navBarItems: NavbarItem[] = [];
-  constructor(
-    private translateService: TranslateService,
-    public dialog: MatDialog,
-    private router: Router
-  ) {
+  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router) {
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
     }
     this.setNavBar();
   }
 
-  /**
-   * Redirect to a page
-   */
   public goto(where: string): void {
     this.router.navigate([where]);
   }

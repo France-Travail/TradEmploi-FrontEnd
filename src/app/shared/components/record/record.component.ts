@@ -4,43 +4,48 @@ import { AudioRecordingService } from 'src/app/services/audio-recording.service'
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
 
 @Component({
-  selector: 'app-gauge',
-  templateUrl: './gauge.component.html',
-  styleUrls: ['./gauge.component.scss']
+  selector: 'app-record',
+  templateUrl: './record.component.html',
+  styleUrls: ['./record.component.scss']
 })
-export class GaugeComponent implements OnInit {
+export class RecordComponent implements OnInit {
   @Input() duration: number;
   @Input() user: 'advisor' | 'guest';
 
   @Output() send: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() exit: EventEmitter<void> = new EventEmitter<void>();
+  @Output() exit: EventEmitter<string> = new EventEmitter<string>();
 
   public text: string = '';
   public width: number = 0;
   public seconds: number = 0;
   public isPaused: boolean = false;
-
   public intervalId: any;
 
   constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService) {}
 
   ngOnInit(): void {
-    if (this.user === 'advisor') {
-      this.text = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'gauge-text').value;
-    } else {
-      this.text = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'gauge-text').value;
-    }
     this.start();
   }
 
-  /**
-   * Starts filling the bar
-   */
-  public async start(): Promise<void> {
+  start = async (): Promise<void> => {
+    this.putTitle();
+    this.record();
+    this.recordBarLoad();
+  };
+
+  record = () => {
+    this.audioRecordingService.language = 'fr-FR';
+    this.audioRecordingService.start();
+  };
+
+  putTitle = () => {
+    const language = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
+    this.text = VOCABULARY_V2.find(item => item.isoCode === language).sentences.find(s => s.key === 'record-text').value;
+  };
+
+  private recordBarLoad = () => {
     const value: number = 100 / (this.duration * 10);
     let time: number = 0;
-  
-    await this.audioRecordingService.record('start');
     this.intervalId = setInterval(() => {
       if (!this.isPaused) {
         this.width = this.width + value;
@@ -59,58 +64,46 @@ export class GaugeComponent implements OnInit {
         this.timeOut();
       }
     }, 100);
-  }
+  };
 
-  /**
-   * Pause or resume the filling
-   */
-  public pauseOrResume(): void {
+  pauseOrResume = () => {
     this.isPaused = !this.isPaused;
-  }
+  };
 
-  /**
-   * Called when user clicks the send button
-   */
-  public async sendSpeech(): Promise<void> {
+  sendSpeech = async (): Promise<void> => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
-    await this.audioRecordingService.record('stop');
+    this.audioRecordingService.stop(this.width);
     this.send.emit(false);
-  }
+  };
 
-  /**
-   * Called when user clicks the exit button
-   */
-  public async exitAudio(): Promise<void> {
+  exitAudio = async () => {
     if (this.intervalId !== undefined) {
       clearInterval(this.intervalId);
       this.intervalId = undefined;
-      await this.audioRecordingService.record('stop');
+      this.audioRecordingService.stop(this.width);
+      this.audioRecordingService.speechToText.subscribe(
+        res => this.exit.emit(res),
+        err => this.exit.emit(err)
+      );
     }
-    this.exit.emit();
-  }
+  };
 
-  /**
-   * Called when user wants to retry the record
-   */
-  public async retry(): Promise<void> {
+  retry = async (): Promise<void> => {
     if (this.intervalId !== undefined) {
       clearInterval(this.intervalId);
       this.intervalId = undefined;
-      await this.audioRecordingService.record('stop');
+      this.audioRecordingService.stop(this.width);
     }
     this.width = 0;
     this.seconds = 0;
     this.start();
-  }
+  };
 
-  /**
-   * Called when the gauge is full
-   */
-  private async timeOut(): Promise<void> {
+  private timeOut = async (): Promise<void> => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
-    await this.audioRecordingService.record('stop');
+    this.audioRecordingService.stop(this.width);
     this.send.emit(true);
-  }
+  };
 }
