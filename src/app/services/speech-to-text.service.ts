@@ -27,24 +27,28 @@ export class SpeechToTextService {
         data: data
       })
         .then(operation => {
-          const url: string = `https://speech.googleapis.com/v1/operations/${operation.data.name}?key=${environment.gcp.apiKey}`;
-          let speakTimeInSecond = time / 10;
-          let minimalTimeOnMS = speakTimeInSecond/2 * 1000
+          const urlOperation: string = `https://speech.googleapis.com/v1/operations/${operation.data.name}?key=${environment.gcp.apiKey}`;
+          let wait = this.getWaitTime(time);
           setTimeout(function() {
             axios({
               method: 'get',
               headers: { 'content-type': 'application/json; charset=utf-8' },
-              url: url
+              url: urlOperation
             }).then(res => {
-              const transcription = res.data.response.results[0].alternatives[0].transcript;
+              const transcription = res.data.response.results === undefined ? 'Enregistrement indisponible momentanément' : res.data.response.results[0].alternatives[0].transcript;
               observer.next(transcription);
               observer.complete();
             });
-          }, minimalTimeOnMS);
+          }, wait);
         })
         .catch(error => {
           observer.error('Enregistrement indisponible momentanément');
         });
     });
+  };
+
+  private getWaitTime = (time: number): number => {
+    let speakTimeInSecond = time / 10;
+    return (speakTimeInSecond / 2) * 1000;
   };
 }
