@@ -79,13 +79,13 @@ function doEncodeFlac(audioData) {
   }
 }
 
-const exportFlacFile = (recBuffers, recLength) => {
+function exportFlacFile(recBuffers, recLength) {
   var samples = mergeBuffersUint8(recBuffers, recLength);
   var the_blob = new Blob([samples], { type: 'audio/flac' });
   return the_blob;
-};
+}
 
-const mergeBuffersUint8 = (channelBuffer, recordingLength) => {
+function mergeBuffersUint8(channelBuffer, recordingLength) {
   var result = new Uint8Array(recordingLength);
   var offset = 0;
   var lng = channelBuffer.length;
@@ -95,4 +95,4 @@ const mergeBuffersUint8 = (channelBuffer, recordingLength) => {
     offset += buffer.length;
   }
   return result;
-};
+}

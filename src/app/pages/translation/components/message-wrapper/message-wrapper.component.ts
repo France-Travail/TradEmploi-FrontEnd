@@ -24,6 +24,7 @@ export class MessageWrapperComponent implements OnInit {
   public listenBtnValue: string;
   public flag: string;
   public language: string;
+  public languageOrigin: string;
 
   public rawSpeech: HTMLAudioElement;
   public translatedSpeech: HTMLAudioElement;
@@ -45,8 +46,8 @@ export class MessageWrapperComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const language: string = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    const sentences = VOCABULARY_V2.find(item => item.isoCode === language).sentences;
+    this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
+    const sentences = VOCABULARY_V2.find(item => item.isoCode === this.languageOrigin).sentences;
     this.title = sentences.find(s => s.key === 'translation-h2').value;
     this.sendBtnValue = sentences.find(s => s.key === 'send').value;
     this.listenBtnValue = sentences.find(s => s.key === 'listen').value;
@@ -66,18 +67,16 @@ export class MessageWrapperComponent implements OnInit {
     this.rawText = '';
   }
 
-  public async send(fromKeyBoard?: boolean): Promise<void> {
+  public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
     if (fromKeyBoard) {
       const language = this.user === 'advisor' ? 'fr-FR' : VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode;
       this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
       this.rawSpeech = this.textToSpeechService.audioSpeech;
     } else {
-      if (this.rawText === '') {
-        this.rawText = 'bonjour';
-      }
+      this.rawText = message;
       this.rawSpeech = this.audioRecordingService.audioSpeech;
     }
-  
+
     this.translateService.translate(this.rawText, this.user).subscribe(async response => {
       this.translatedText = response;
       this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
@@ -87,20 +86,19 @@ export class MessageWrapperComponent implements OnInit {
 
   public listen(value: 'translation' | 'speech'): void {
     if (value === 'speech') {
-      this.rawSpeech.play();
+      this.audioRecordingService.audioSpeech.play();
     } else {
       this.translatedSpeech.play();
     }
   }
 
-  public audioSending(isTimeOut: boolean): void {
-    this.exitRecord('');
+  public audioSending(message: string): void {
+    this.micro = false;
     this.isReady.listenSpeech = true;
-    this.send();
+    this.send(false, message);
   }
 
-  public exitRecord(message: string) {
+  public exitRecord() {
     this.micro = false;
-    //this.text = message;
   }
 }

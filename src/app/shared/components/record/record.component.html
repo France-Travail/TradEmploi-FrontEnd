@@ -3,26 +3,21 @@
     <div class="record">
       <div class="title">
         <p>{{ text }}</p>
-        <img src="assets/icons/icon-micro-white.svg" alt="Microphone">
+        <img src="assets/icons/icon-micro-white.svg" alt="Microphone" />
       </div>
-  
+
       <div class="progress-bar">
-        <div class="bar" [ngStyle]="{'width': width + '%'}"></div>
+        <div class="bar" [ngStyle]="{ width: width + '%' }"></div>
       </div>
     </div>
-  
+
     <div class="actions">
-      <button (click)="exitAudio()"><img src="assets/icons/icon-delete-white.svg" alt="Fermer"></button>
-      <button (click)="retry()"><img src="assets/icons/icon-refresh-white.svg" alt="Relancer"></button>
-      <!-- <button (click)="pauseOrResume()">
-        <img *ngIf="!isPaused" src="assets/icons/icon-pause-white.svg" alt="Pause" >
-        <img *ngIf="isPaused" src="assets/icons/icon-play-white.svg" alt="Reprendre">
-      </button> -->
-      <button (click)="sendSpeech()"><img src="assets/icons/icon-send-white.svg" alt="Envoyer"></button>
+      <button (click)="exitAudio()"><img src="assets/icons/icon-delete-white.svg" alt="Fermer" /></button>
+      <button (click)="retry()"><img src="assets/icons/icon-refresh-white.svg" alt="Relancer" /></button>
+      <button (click)="sendSpeech()" [disabled]="!canSend"><img src="assets/icons/icon-send-white.svg" alt="Envoyer" /></button>
     </div>
   </div>
   <div class="bottom">
     {{ seconds }}
   </div>
 </div>
-

@@ -35,7 +35,8 @@ export class SpeechToTextService {
               headers: { 'content-type': 'application/json; charset=utf-8' },
               url: urlOperation
             }).then(res => {
-              const transcription = res.data.response.results === undefined ? 'Enregistrement indisponible momentanément' : res.data.response.results[0].alternatives[0].transcript;
+              const transcription =
+                res.data.response === undefined || res.data.response.results === undefined ? '' : res.data.response.results[0].alternatives[0].transcript;
               observer.next(transcription);
               observer.complete();
             });
@@ -49,6 +50,6 @@ export class SpeechToTextService {
 
   private getWaitTime = (time: number): number => {
     let speakTimeInSecond = time / 10;
-    return (speakTimeInSecond / 2) * 1000;
+    return (speakTimeInSecond/2) * 1000;
   };
 }
