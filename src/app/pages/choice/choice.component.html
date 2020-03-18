@@ -1,21 +1,21 @@
 <navbar class="navbar" [items]="navBarItems" (perform)="handleAction($event)"></navbar>
 
 <div class="tiles">
-  <div class="countries" (mouseover)="setBackgroundColor($event.target)" (mouseleave)="removebackgroundColor($event.target)" *ngFor="let item of mainLanguages">
+  <div class="countries" *ngFor="let item of selectedCountriesData" (mouseover)="setBackgroundColor($event.target)" (mouseleave)="removebackgroundColor($event.target)">
     <div class="country-data" (mouseleave)="removebackgroundColor($event.target)">
-      {{ item.country.traduction }} / {{ item.country.country }}
-      <div class="sentence" (mouseleave)="removebackgroundColor($event.target)">{{ item.displayed }}</div>
+      {{ item.countryNameFR }} / {{ item.countryName }}
+      <div class="sentence" (mouseleave)="removebackgroundColor($event.target)">{{ item.displayedWelcome }}</div>
       <img
         class="hp-icon"
         src="assets/icons/icon-listen-black.svg"
-        (click)="audioDescription(item.readed, item.country.code.audioLanguage)"
+        (click)="audioDescription(item.readedWelcome, item.isoCode)"
         (mouseleave)="removebackgroundColor($event.target)"
         alt="{{ Ecoutez }}"
       />
-      <div class="selectLanguageButton" (click)="selectLanguage(item.country.code, item.country.code.audioLanguage)" (mouseleave)="removebackgroundColor($event.target)">
-        <span class="flag-icon flag-icon-{{ item.country.flag.toLowerCase() }}" (mouseleave)="removebackgroundColor($event.target)"></span>
-        <span class="trad" (mouseleave)="removebackgroundColor($event.target)">{{ item.country.LanguageFr }}</span>
-        <span class="origin" (mouseleave)="removebackgroundColor($event.target)">{{ item.country.language }}</span>
+      <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)" (mouseleave)="removebackgroundColor($event.target)">
+        <span class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}" (mouseleave)="removebackgroundColor($event.target)"></span>
+        <span class="trad" (mouseleave)="removebackgroundColor($event.target)">{{ item.languageFR }}</span>
+        <span class="origin" (mouseleave)="removebackgroundColor($event.target)">{{ item.languageRaw }}</span>
       </div>
     </div>
   </div>

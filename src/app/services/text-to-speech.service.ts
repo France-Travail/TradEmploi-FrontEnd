@@ -31,7 +31,6 @@ interface Body {
 })
 export class TextToSpeechService {
   private url: string = 'https://texttospeech.googleapis.com/v1beta1/text:synthesize';
-
   public guestVoiceGender: string = 'MALE';
   public advisorVoiceGender: string = 'MALE';
   public audioSpeech: HTMLAudioElement;
@@ -42,17 +41,7 @@ export class TextToSpeechService {
     })
   };
 
-<<<<<<< HEAD
-  constructor(private httpClient: HttpClient, private voicesService: VoicesService, private toastService: ToastService) {
-    this.init();
-  }
-
-  init = async () => {
-    this.voices = await this.getVoices();
-  };
-=======
-  constructor(private httpClient: HttpClient, private voicesService: VoicesService) { }
->>>>>>> origin/us_t_05
+  constructor(private httpClient: HttpClient, private voicesService: VoicesService, private toastService: ToastService) {}
 
   public async getSpeech(text: string, language: string, user: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
@@ -87,7 +76,7 @@ export class TextToSpeechService {
         body.voice.name = voice === undefined ? names.find(v => v.ssmlGender === SECOND_GENDER).name : voice.name;
       } else {
         console.log('NO WAVENET VOICE FOUNDED');
-        this.toastService.showToast("Pas d'audio description possible.");
+        this.toastService.showToast('Merci de réessayer plus tard.');
         reject(true);
       }
 

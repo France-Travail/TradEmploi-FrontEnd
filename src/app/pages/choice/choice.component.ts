@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
-import { COUNTRIES } from 'src/app/data/countries';
-import { WELCOME } from 'src/app/data/welcomeSentences';
-
+// import { COUNTRIES } from 'src/app/data/countries';
+// import { WELCOME } from 'src/app/data/welcomeSentences';
+import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
 // Dialogs
 import { LanguagesComponent, Countries } from './dialog/languages/languages.component';
 import { HistoryService } from 'src/app/services/history.service';
@@ -14,15 +14,16 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 //Models
 import { NavbarItem } from 'src/app/models/navbar-item';
-export interface mainLanguages {
-  country: Countries;
-  displayed: string;
-  readed: string;
-}
-export interface welcomeStruct {
-  country: string;
-  displayed: string;
-  readed: string;
+import { Vocabulary } from 'src/app/models/vocabulary';
+interface selectedCountry {
+  isoCode: string;
+  countryName: string;
+  countryNameFR: string;
+  flag: string;
+  displayedWelcome: string;
+  readedWelcome: string;
+  languageRaw: string;
+  languageFR: string;
 }
 @Component({
   selector: 'app-choice',
@@ -31,37 +32,37 @@ export interface welcomeStruct {
 })
 export class ChoiceComponent implements AfterContentInit {
   ngAfterContentInit(): void {
-    this.selectMainLanguages();
+    this.showMainLanguages();
     this.setNavbar();
   }
   public navBarItems: NavbarItem[] = [];
-  public mainLanguages: mainLanguages[] = [];
-  public countries: Countries[] = COUNTRIES;
-  public welcome: welcomeStruct[] = WELCOME;
-  public selectedLanguages: string[] = [
-    'Anglais',
-    'Arabe',
-    'Pachto',
-    'Bengali',
-    'Persan',
-    'Mandarin',
-    'Ourdou',
-    'Portugais',
-    'Tamoul',
-    'Turc',
-    'Allemand',
-    'Amharique',
-    'Khmer', //cambodge
-    'Espagnol',
-    'Hindi',
-    'Italien',
-    'Mongol',
-    'Népalais',
-    'Ouzbek',
-    'Roumain',
-    'Somali',
-    'Vietnamien'
-  ];
+  public vocabulary: Vocabulary[] = VOCABULARY_V2;
+  public selectedCountriesData: selectedCountry[] = [];
+  // public selectedLanguages: string[] = [
+  //   'Anglais',
+  //   'Arabe',
+  //   'Pachto',
+  //   'Bengali',
+  //   'Persan',
+  //   'Mandarin',
+  //   'Ourdou',
+  //   'Portugais',
+  //   'Tamoul',
+  //   'Turc',
+  //   'Allemand',
+  //   'Amharique',
+  //   'Khmer', //cambodge
+  //   'Espagnol',
+  //   'Hindi',
+  //   'Italien',
+  //   'Mongol',
+  //   'Népalais',
+  //   'Ouzbek',
+  //   'Roumain',
+  //   'Somali',
+  //   'Vietnamien'
+  // ];
+  public selectedCountries: string[] = ['ar-XA', 'en-GB', 'es-ES', 'zh-ZH', 'fr-FR'];
   public toolTips: string[] = ['Autres langues'];
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
@@ -85,9 +86,9 @@ export class ChoiceComponent implements AfterContentInit {
   setNavbar(): void {
     this.navBarItems = [
       {
-        icon: 'settings',
-        infoTitle: 'Paramètres',
-        link: 'settings',
+        icon: 'assets/icons/icon-settings-black.svg',
+        infoTitle: 'PARAMÈTRES',
+        link: 'settings/translation',
         isDisplayed: true
       }
     ];
@@ -101,20 +102,23 @@ export class ChoiceComponent implements AfterContentInit {
     this.settingsService.guest.next({ ...this.settingsService.guest.value, language: writtenLanguage });
     this.router.navigate(['translation']);
   }
-  selectMainLanguages(): void {
-    this.selectedLanguages.forEach(element => {
-      let country = this.countries.filter(country => country.LanguageFr === element)[0];
-      let traduction = country.traduction;
-      let sentence: welcomeStruct = this.welcome.filter(c => c.country === traduction)[0];
-      this.mainLanguages.push({
-        country: country,
-        displayed: sentence.displayed,
-        readed: sentence.readed
+  showMainLanguages(): void {
+    this.selectedCountries.forEach(country => {
+      let sentences = this.vocabulary.find(item => item.isoCode === country).sentences;
+      this.selectedCountriesData.push({
+        displayedWelcome: sentences.find(s => s.key === 'displayed-welcome').value,
+        readedWelcome: sentences.find(s => s.key === 'readed-welcome').value,
+        flag: sentences.find(s => s.key === 'flag').value,
+        isoCode: country,
+        countryName: sentences.find(s => s.key === 'country-name-raw').value,
+        countryNameFR: sentences.find(s => s.key === 'country-name-fr').value,
+        languageFR: sentences.find(s => s.key === 'language-name-fr').value,
+        languageRaw: sentences.find(s => s.key === 'language-name-raw').value
       });
     });
   }
   async audioDescription(message: string, lang: string) {
-    let audio = await this.textToSpeechService.getSpeech(message, lang, 'advisor', false);
+    let audio = await this.textToSpeechService.getSpeech(message, lang, 'advisor');
     if (audio != null) {
       this.textToSpeechService.audioSpeech.play();
     }
@@ -123,7 +127,6 @@ export class ChoiceComponent implements AfterContentInit {
    * Open the modal that displays all the available languages
    */
   moreLanguage(): void {
-    this.selectMainLanguages();
     this.dialog
       .open(LanguagesComponent, { width: '900px', height: '900px' })
       .afterClosed()
