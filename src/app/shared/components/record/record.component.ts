@@ -58,7 +58,7 @@ export class RecordComponent implements OnInit {
         this.seconds++;
         time = 0;
       }
-      if (this.width > 30) {
+      if (this.seconds > 3) {
         this.canSend = true;
       }
       if (this.width > 100) {
@@ -66,7 +66,7 @@ export class RecordComponent implements OnInit {
       }
 
       if (this.width >= 100) {
-        this.sendSpeech();
+        this.exitAudio();
       }
     }, 100);
   };
@@ -92,14 +92,12 @@ export class RecordComponent implements OnInit {
   };
 
   sendSpeech = async (): Promise<void> => {
-    this.seconds = 100
-    this.width = 100
-    this.inProgress = true
+    this.inProgress = true;
     if (this.intervalId !== undefined) {
       this.stopRecord();
       this.audioRecordingService.speechToText.subscribe(
         res => {
-          this.inProgress = false
+          this.inProgress = false;
           this.send.emit(res);
         },
         err => this.send.emit(err)
@@ -110,6 +108,6 @@ export class RecordComponent implements OnInit {
   private stopRecord = () => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
-    this.audioRecordingService.stop(this.width);
+    this.audioRecordingService.stop(this.seconds);
   };
 }

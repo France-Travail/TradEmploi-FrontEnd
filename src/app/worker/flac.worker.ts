@@ -44,7 +44,7 @@ function createFlac() {
   }
 }
 
-function fillBufferOnFlac(buffer, bytes) {
+function fillBufferOnFlac(buffer) {
   flacBuffers.push(buffer);
   flacLength += buffer.byteLength;
 }

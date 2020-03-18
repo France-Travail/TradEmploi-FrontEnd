@@ -33,13 +33,10 @@ export class AudioRecordingService {
       };
       this.input.connect(this.node);
       this.node.connect(audioContext.destination);
-      this.worker.onmessage = ({ data }) => {
-        console.log(`page got message AUDIO: ${data.message}`);
-      };
     });
   }
 
-  public stop(time: number) {
+  public stop(time:number) {
     const tracks = this.stream.getAudioTracks();
     for (let i = tracks.length - 1; i >= 0; --i) {
       tracks[i].stop();
@@ -53,7 +50,7 @@ export class AudioRecordingService {
         if (this.audioOnBlob != undefined) {
           const audioOnBase64 = await this.convertBlobToBase64(this.audioOnBlob);
           const speechToTextService = new SpeechToTextService();
-          speechToTextService.recognizeAsync(audioOnBase64, this.language,time).subscribe(
+          speechToTextService.recognizeAsync(audioOnBase64, this.language, time).subscribe(
             resultat => this.speechToText.next(resultat),
             error => this.speechToText.next(error)
           );
