@@ -52,7 +52,7 @@ export class TextToSpeechService {
       const names: Voice[] = [];
 
       this.voicesService.voicesList.forEach(voice => {
-        if (voice.languageCodes.includes(language) && voice.name.includes('Wavenet')) {
+        if (voice.languageCodes.includes(language) /*&& voice.name.includes('Wavenet')*/) {
           names.push(voice);
         }
       });

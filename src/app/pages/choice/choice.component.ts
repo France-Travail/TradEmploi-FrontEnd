@@ -118,7 +118,7 @@ export class ChoiceComponent implements AfterContentInit {
     });
   }
   async audioDescription(message: string, lang: string) {
-    let audio = await this.textToSpeechService.getSpeech(message, lang, 'advisor');
+    let audio = await this.textToSpeechService.getSpeech(message, lang, 'MALE');
     if (audio != null) {
       this.textToSpeechService.audioSpeech.play();
     }
