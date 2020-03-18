@@ -3,6 +3,7 @@ nav {
   padding: 20px;
   justify-content: space-between;
   align-items: center;
+  background-color: #ffffff;
   .logo {
     display: flex;
     flex-direction: column;
@@ -16,32 +17,48 @@ nav {
       color: #bf5858;
     }
   }
-  .language {
-    font-weight: bold;
-    font-size: 20px;
-    .raw, .french {
-      color: #427db8;
-      display: inline-block;
-    }
-  }
+  // .language {
+  //   font-weight: bold;
+  //   font-size: 20px;
+  //   .raw, .french {
+  //     color: #427db8;
+  //     display: inline-block;
+  //   }
+  // }
   .buttons {
     display: flex;
     justify-content: flex-end;
     button {
-      background-color: #404040;
-      color: #ffffff;
-      padding: 12px;
       border: none;
-      box-shadow: 0 0 3px #000000;
-      font-size: 18px;
-      border-radius: 50%;
       display: flex;
       margin: 0 10px;
+      background: transparent;
+      align-items: center;
+      margin-right: 20px;
+      // background-color: #404040;
+      // padding: 12px;
+      // box-shadow: 0 0 3px #000000;
+      // font-size: 18px;
+      // border-radius: 50%;
       &:focus {
         outline: 0;
       }
       &:active {
         outline: 0;
+      }
+
+      img {
+        width: 26px;
+      }
+
+      .name {
+        color: #333333;
+        font-size: 14px;
+        margin-left: 10px;
+      }
+
+      &:last-child {
+        margin-right: 0;
       }
     }
   }

@@ -30,14 +30,11 @@ interface Body {
   providedIn: 'root'
 })
 export class TextToSpeechService {
-  private synth: SpeechSynthesis = window.speechSynthesis;
-  private voices: SpeechSynthesisVoice[];
   private url: string = 'https://texttospeech.googleapis.com/v1beta1/text:synthesize';
 
   public guestVoiceGender: string = 'MALE';
   public advisorVoiceGender: string = 'MALE';
   public audioSpeech: HTMLAudioElement;
-  public keyboardSpeech: HTMLAudioElement;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -45,6 +42,7 @@ export class TextToSpeechService {
     })
   };
 
+<<<<<<< HEAD
   constructor(private httpClient: HttpClient, private voicesService: VoicesService, private toastService: ToastService) {
     this.init();
   }
@@ -52,45 +50,11 @@ export class TextToSpeechService {
   init = async () => {
     this.voices = await this.getVoices();
   };
+=======
+  constructor(private httpClient: HttpClient, private voicesService: VoicesService) { }
+>>>>>>> origin/us_t_05
 
-  private getVoices(): Promise<SpeechSynthesisVoice[]> {
-    return new Promise((resolve, reject) => {
-      let id: any;
-      id = setInterval(() => {
-        if (this.synth.getVoices().length !== 0) {
-          resolve(this.synth.getVoices());
-          clearInterval(id);
-        }
-      }, 10);
-    });
-  }
-
-  public speak(message: string, language: string): void {
-    if (this.synth.speaking) {
-      this.synth.cancel();
-    } else {
-      const speech = new SpeechSynthesisUtterance(message);
-
-      speech.voice = this.voices.find(voice => voice.lang === language);
-      speech.pitch = 1;
-      speech.rate = 0.9;
-      speech.volume = 1;
-
-      this.synth.speak(speech);
-    }
-  }
-
-  public stopSpeaking(): void {
-    if (this.synth.speaking) {
-      this.synth.cancel();
-    }
-  }
-
-  public isSpeaking(): boolean {
-    return this.synth.speaking;
-  }
-
-  public async getSpeech(text: string, language: string, user: string, fromKeyboard: boolean): Promise<boolean> {
+  public async getSpeech(text: string, language: string, user: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = `${this.url}?key=${environment.gcp.apiKey}`;
 
@@ -117,6 +81,7 @@ export class TextToSpeechService {
           languageCode: language
         }
       };
+
       if (names.length >= 1) {
         const voice: Voice = names.find(v => v.ssmlGender === GENDER);
         body.voice.name = voice === undefined ? names.find(v => v.ssmlGender === SECOND_GENDER).name : voice.name;
@@ -128,11 +93,7 @@ export class TextToSpeechService {
 
       this.httpClient.post<any>(url, body, this.httpOptions).subscribe(
         response => {
-          if (fromKeyboard) {
-            this.keyboardSpeech = new Audio('data:audio/mp3;base64,' + response.audioContent);
-          } else {
-            this.audioSpeech = new Audio('data:audio/mp3;base64,' + response.audioContent);
-          }
+          this.audioSpeech = new Audio('data:audio/mp3;base64,' + response.audioContent);
           resolve(true);
         },
         error => {

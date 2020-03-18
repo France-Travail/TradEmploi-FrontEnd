@@ -1,21 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { COUNTRIES } from 'src/app/data/countries';
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
 import { TranslateService } from 'src/app/services/translate.service';
 import { SettingsService } from 'src/app/services/settings.service';
-import { PermissionsService } from 'src/app/services/permissions.service';
-import { ToastService } from 'src/app/services/toast.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
-import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
+import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { ToastService } from 'src/app/services/toast.service';
 
-export interface Countries {
-  country: string;
-  traduction: string;
-  flag: string;
-  code: { audioLanguage: string; writtenLanguage: string };
-  language: string;
-}
 @Component({
   selector: 'app-message-wrapper',
   templateUrl: './message-wrapper.component.html',
@@ -29,113 +20,85 @@ export class MessageWrapperComponent implements OnInit {
   public enterKey: number = 13;
 
   // String
-  public translatedValue: string = '';
-  public text: string = '';
   public sendBtnValue: string;
   public listenBtnValue: string;
   public flag: string;
-  public country
+  public language: string;
+  public languageOrigin: string;
+
+  public rawSpeech: HTMLAudioElement;
+  public translatedSpeech: HTMLAudioElement;
+  public rawText: string = '';
+  public translatedText: string = '';
 
   // Boolean
   public micro: boolean = false;
   public error: boolean = false;
-
-  // Const
-  public countries: Countries[] = COUNTRIES;
+  public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
 
   constructor(
+    private toastService: ToastService,
     private translateService: TranslateService,
     private settingsService: SettingsService,
-    private permissionsService: PermissionsService,
-    private toastService: ToastService,
     private audioRecordingService: AudioRecordingService,
-    private speechRecognitionService: SpeechRecognitionService,
-    public router: Router) {}
+    public textToSpeechService: TextToSpeechService,
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.displayFlag(this.user)
-    if (this.user === 'advisor') {
-      this.title = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'translation-h2').value;
-      this.sendBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'send').value;
-      this.listenBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences.find(s => s.key === 'listen').value;
-    }  else if (this.user === 'guest'){
-      this.title = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'translation-h2').value;
-      this.sendBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'send').value;
-      this.listenBtnValue = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'listen').value;
-    }
+    this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
+    const sentences = VOCABULARY_V2.find(item => item.isoCode === this.languageOrigin).sentences;
+    this.title = sentences.find(s => s.key === 'translation-h2').value;
+    this.sendBtnValue = sentences.find(s => s.key === 'send').value;
+    this.listenBtnValue = sentences.find(s => s.key === 'listen').value;
+    this.flag = sentences.find(s => s.key === 'flag').value.toLowerCase();
+    this.language = this.user === 'guest' ? 'fr-FR' : VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode;
   }
 
-  public findLanguage(user): void {
-    if (this.user == 'guest') {
-      console.log('access ok')
-      this.router.navigate(['choice']);
+  public async talk(): Promise<void> {
+    if ('webkitSpeechRecognition' in window) {
+      this.micro = true;
+    } else {
+      this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
     }
-    else console.log('no access')
-  }
-
-  public displayFlag(user) {
-    if (this.user == 'advisor') {
-      this.country = this.countries.find(element => element.flag == 'FR')
-      this.flag = this.country.flag
-    } else if (this.user == 'guest') {
-      this.country = this.countries.find(element => element.code.writtenLanguage == this.translateService.guest.writtenLanguage)
-      this.flag = this.country.flag
-    }
-  }
-
-  public async talk(user: string): Promise<void> {
-    this.micro = true;
-    if (!this.permissionsService.isAllowed) {
-      try {
-        this.permissionsService.isAllowed = await this.permissionsService.check();
-      } catch (error) {
-        this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
-      }
-    }
-
-    if (this.permissionsService.isAllowed) {
-      const lang = user === 'advisor' ? this.translateService.guest.writtenLanguage : this.translateService.advisor;
-
-      await this.audioRecordingService.record('start');
-
-      this.speechRecognitionService.record(lang).subscribe(
-        value => {
-          this.error = false;
-          this.text = value;
-          console.log('result', this.text)
-        },
-        err => {
-          console.log(err);
-          if (err.error === 'no-speech') {
-            console.log('Erreur');
-            this.error = true;
-          }
-        }
-      )
-    }
-
   }
 
   public delete(): void {
-    this.text = '';
+    this.rawText = '';
   }
 
-  public send(user: string): void {
-    this.translateService.translate(this.text, this.user).subscribe(res => {
-      this.translatedValue = res;
-    })
+  public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
+    if (fromKeyBoard) {
+      const language = this.user === 'advisor' ? 'fr-FR' : VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode;
+      this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
+      this.rawSpeech = this.textToSpeechService.audioSpeech;
+    } else {
+      this.rawText = message;
+      this.rawSpeech = this.audioRecordingService.audioSpeech;
+    }
+
+    this.translateService.translate(this.rawText, this.user).subscribe(async response => {
+      this.translatedText = response;
+      this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
+      this.translatedSpeech = this.textToSpeechService.audioSpeech;
+    });
   }
 
   public listen(value: 'translation' | 'speech'): void {
-
+    if (value === 'speech') {
+      this.audioRecordingService.audioSpeech.play();
+    } else {
+      this.translatedSpeech.play();
+    }
   }
 
-  public audioSending() {
-    console.log('speech : ', )
+  public audioSending(message: string): void {
+    this.micro = false;
+    this.isReady.listenSpeech = true;
+    this.send(false, message);
   }
 
-  public exitGauge() {
+  public exitRecord() {
     this.micro = false;
   }
-
 }

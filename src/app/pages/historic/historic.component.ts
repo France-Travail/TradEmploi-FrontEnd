@@ -50,8 +50,8 @@ export class HistoricComponent implements OnInit {
   public setNavBar(): void {
     this.navBarItems = [
       {
-        icon: 'keyboard_return',
-        infoTitle: 'Retour',
+        icon: 'assets/icons/icon-return-black.svg',
+        infoTitle: 'RETOUR',
         link: 'settings/start',
         isDisplayed: true
       }

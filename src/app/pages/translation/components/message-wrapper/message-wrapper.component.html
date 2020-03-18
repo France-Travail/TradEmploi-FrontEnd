@@ -1,39 +1,35 @@
 <div class="container">
   <h2>{{ title }} :</h2>
   <div class="input-wrapper">
-    <div class="field" *ngIf="micro != true">
-      <div class="left">
-        <span class="flag-icon flag-icon-{{ flag | lowercase }}" (click)="findLanguage()"></span>
-        <textarea [(ngModel)]="text" (keydown.enter)="send($event);false"></textarea>
+    <div class="field" *ngIf="!micro">
+      <div class="flag">
+        <span class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
       </div>
-      <div class="right">
-        <div class="micro" (click)="talk()">
-          <img src="./assets/icons/icon-micro-black.svg" alt="activate micro">
-        </div>
-        <div class="delete" (click)="delete()">
-          <img src="./assets/icons/icon-delete-black.svg" alt="delete text">
-        </div>
+
+      <textarea [(ngModel)]="rawText" (keydown.enter)="send(true); (false)"></textarea>
+
+      <div class="buttons">
+        <img class="micro" src="./assets/icons/icon-micro-black.svg" alt="activate micro" (click)="talk()" />
+        <img class="delete" src="./assets/icons/icon-delete-black.svg" alt="delete text" (click)="delete()" />
       </div>
     </div>
-    <div class="actions" *ngIf="micro != true">
-      <button class="btn-send" (click)="send($event)">
-        <img src="./assets/icons/icon-send-black.svg" alt="send text">
+
+    <div class="actions" *ngIf="!micro">
+      <button class="btn-send" (click)="send(true)">
+        <img src="./assets/icons/icon-send-black.svg" alt="send text" />
         {{ sendBtnValue | uppercase }}
       </button>
-      <button (click)="listen('speech')">
-        <img src="./assets/icons/icon-listen-white.svg" alt="listen speech">
+      <button (click)="listen('speech')" [disabled]="!isReady.listenSpeech">
+        <img src="./assets/icons/icon-listen-white.svg" alt="listen speech" />
         {{ listenBtnValue | uppercase }}
       </button>
     </div>
-    <app-gauge *ngIf="micro" duration="10" user="advisor"
-    (send)="audioSending(text)"
-    (exit)="exitGauge()"
-    ></app-gauge>
-    <div class="translation" >
-      <div class="value">{{ translatedValue }}</div>
-      <button (click)="listen('translation')">
-        <img src="./assets/icons/icon-listen-white.svg" alt="listen translation">
-        {{ listenBtnValue | uppercase  }}
+    <app-record class="margin" *ngIf="micro" duration="50" user="advisor" [language]="languageOrigin" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
+    <div class="translation">
+      <div class="value">{{ translatedText }}</div>
+      <button (click)="listen('translation')" [disabled]="!isReady.listenTranslation">
+        <img src="./assets/icons/icon-listen-white.svg" alt="listen translation" />
+        {{ listenBtnValue | uppercase }}
       </button>
     </div>
   </div>

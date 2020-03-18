@@ -11,7 +11,7 @@
   .top {
     display: flex;
 
-    .gauge {
+    .record {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -30,7 +30,7 @@
           margin-left: 40px;
         }
       }
-  
+
       .progress-bar {
         background-color: #ffffff;
         padding: 3px;
@@ -43,7 +43,7 @@
         }
       }
     }
-  
+
     .actions {
       display: flex;
       flex-direction: column;
@@ -59,11 +59,11 @@
         margin-bottom: 8px;
         outline: none;
         cursor: pointer;
-  
+
         &:last-child {
           margin-bottom: 0;
         }
-  
+
         img {
           height: 20px;
         }
@@ -75,4 +75,15 @@
     display: flex;
     justify-content: center;
   }
+}
+
+.loading {
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #bdbdbd;
+  height: 142px;
+  padding: 20px;
+}
+.spinner {
+  margin: auto;
 }

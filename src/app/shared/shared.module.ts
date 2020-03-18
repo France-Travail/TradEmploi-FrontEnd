@@ -24,10 +24,10 @@ import {
 // Custom Components
 import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { GaugeComponent } from './components/gauge/gauge.component';
+import { RecordComponent } from './components/record/record.component';
 import { TranslationTitleComponent } from './components/translation-title/translation-title.component';
 
-const COMPONENTS = [AudioAnimationComponent, NavbarComponent, GaugeComponent, TranslationTitleComponent];
+const COMPONENTS = [AudioAnimationComponent, NavbarComponent, RecordComponent, TranslationTitleComponent];
 
 const MATERIAL_MODULES = [
   MatInputModule,

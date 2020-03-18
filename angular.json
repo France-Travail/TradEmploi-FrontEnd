@@ -26,11 +26,10 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["node_modules/flag-icon-css/sass/flag-icon.scss", "src/sass/styles.scss"],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "src/sass"
-              ]
+              "includePaths": ["src/sass"]
             },
-            "scripts": []
+            "scripts": [],
+            "webWorkerTsConfig": "tsconfig.worker.json"
           },
           "configurations": {
             "production": {
@@ -96,13 +95,17 @@
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/sass/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/sass"]
+            },
+            "codeCoverage": true,
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
+            "tsConfig": ["tsconfig.app.json","tsconfig.spec.json","e2e/tsconfig.json","tsconfig.worker.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
