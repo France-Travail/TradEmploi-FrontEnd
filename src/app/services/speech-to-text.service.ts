@@ -50,6 +50,6 @@ export class SpeechToTextService {
 
   private getWaitTime = (time: number): number => {
     let speakTimeInSecond = time / 10;
-    return (speakTimeInSecond/2) * 1000;
+    return (speakTimeInSecond/4) * 1000;
   };
 }

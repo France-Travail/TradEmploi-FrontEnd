@@ -22,6 +22,7 @@ export class RecordComponent implements OnInit {
   public isPaused: boolean = false;
   public intervalId: any;
   public canSend: boolean = false;
+  public inProgress: boolean = false;
 
   constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService) {}
 
@@ -93,10 +94,12 @@ export class RecordComponent implements OnInit {
   sendSpeech = async (): Promise<void> => {
     this.seconds = 100
     this.width = 100
+    this.inProgress = true
     if (this.intervalId !== undefined) {
       this.stopRecord();
       this.audioRecordingService.speechToText.subscribe(
         res => {
+          this.inProgress = false
           this.send.emit(res);
         },
         err => this.send.emit(err)
