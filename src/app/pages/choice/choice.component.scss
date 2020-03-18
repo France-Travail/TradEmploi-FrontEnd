@@ -17,12 +17,14 @@
     margin: 10px;
     text-align: center;
     height: 250px;
+    .country-data {
+      margin-top: 10px;
+    }
     .sentence {
       margin: 10px;
       height: 50px;
       font-size: 10pt;
     }
-
     .hp-icon {
       height: 40px;
       margin-bottom: 15px;
@@ -40,10 +42,18 @@
       .flag-icon {
         margin: 5px;
         border-radius: 5px;
-        height: 40px;
-        width: 40px;
-        border: 1px solid;
+        height: 60px;
+        width: 60px;
       }
+    }
+  }
+}
+@media screen and (max-width: 361px) {
+  .tiles {
+    .countries {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
     }
   }
 }

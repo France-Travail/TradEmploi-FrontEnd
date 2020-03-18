@@ -1,5 +1,5 @@
 // Angular
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 // Services
@@ -29,8 +29,8 @@ export interface welcomeStruct {
   templateUrl: './choice.component.html',
   styleUrls: ['./choice.component.scss']
 })
-export class ChoiceComponent implements OnInit {
-  ngOnInit(): void {
+export class ChoiceComponent implements AfterContentInit {
+  ngAfterContentInit(): void {
     this.selectMainLanguages();
     this.setNavbar();
   }
