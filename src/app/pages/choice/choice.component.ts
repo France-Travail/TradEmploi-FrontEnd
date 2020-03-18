@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material';
 import { TranslateService } from 'src/app/services/translate.service';
 import { COUNTRIES } from 'src/app/data/countries';
 import { WELCOME } from 'src/app/data/welcomeSentences';
-import { ToastService } from 'src/app/services/toast.service';
+
 // Dialogs
 import { LanguagesComponent, Countries } from './dialog/languages/languages.component';
 import { HistoryService } from 'src/app/services/history.service';
@@ -134,11 +134,11 @@ export class ChoiceComponent implements AfterContentInit {
       });
   }
   setBackgroundColor(item: any): void {
-    item.setAttribute('style', 'background-color:#135dfe; color:white;');
-    item.querySelector('img').setAttribute('src', 'assets/icons/icon-listen-white.svg');
+    item.setAttribute('style', 'background:#135dfe; color:white;');
+    item.querySelector('img')?.setAttribute('src', 'assets/icons/icon-listen-white.svg');
   }
   removebackgroundColor(item: any): void {
     item.removeAttribute('style');
-    item.querySelector('img').setAttribute('src', 'assets/icons/icon-listen-black.svg');
+    item.querySelector('img')?.setAttribute('src', 'assets/icons/icon-listen-black.svg');
   }
 }
