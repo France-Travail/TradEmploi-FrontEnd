@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
+import { ToastService } from 'src/app/services/toast.service';
 // import { COUNTRIES } from 'src/app/data/countries';
 // import { WELCOME } from 'src/app/data/welcomeSentences';
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
@@ -15,6 +16,7 @@ import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 //Models
 import { NavbarItem } from 'src/app/models/navbar-item';
 import { Vocabulary } from 'src/app/models/vocabulary';
+
 interface selectedCountry {
   isoCode: string;
   countryName: string;
@@ -65,7 +67,7 @@ export class ChoiceComponent implements AfterContentInit {
   public selectedCountries: string[] = [
     'en-GB',
     'ar-XA',
-    'tw-ob',
+    'ps-PS',
     'bn-BD',
     'fa-IR',
     'zh-ZH',
@@ -98,7 +100,8 @@ export class ChoiceComponent implements AfterContentInit {
     private historyService: HistoryService,
     private settingsService: SettingsService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toastService: ToastService
   ) {
     if (this.historyService.conversation === undefined) {
       this.router.navigate(['start']);
@@ -139,14 +142,16 @@ export class ChoiceComponent implements AfterContentInit {
         languageFR: sentences.find(s => s.key === 'language-name-fr').value,
         languageRaw: sentences.find(s => s.key === 'language-name-raw').value
       });
-      console.log(country);
     });
   }
   async audioDescription(message: string, lang: string) {
     let audio = await this.textToSpeechService.getSpeech(message, lang, 'MALE');
-    if (audio != null) {
+    if (audio) {
       this.textToSpeechService.audioSpeech.play();
     }
+    // } else {
+    //   this.toastService.showToast('Lecture audio indisponible');
+    // }
   }
   /**
    * Open the modal that displays all the available languages
