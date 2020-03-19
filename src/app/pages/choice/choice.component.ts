@@ -45,9 +45,8 @@ export class ChoiceComponent implements AfterContentInit {
     'en-GB',
     'ar-XA',
     'ps-AF',
-    'fa-AF',
-    'bn-BD',
     'fa-IR',
+    'bn-BD',
     'zh-ZH',
     'ur-PK',
     'pt-PT',
@@ -64,8 +63,7 @@ export class ChoiceComponent implements AfterContentInit {
     'uz-UZ',
     'ro-RO',
     'so-SO',
-    'vi-VN',
-    'fr-FR'
+    'vi-VN'
   ];
   public toolTips: string[] = ['Autres langues'];
   public audioSpeech: HTMLAudioElement;

@@ -59,7 +59,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     country: 'الجزائر',
     traduction: 'Algérie',
     flag: 'DZ',
-    code: { audioLanguage: 'ar-XA', writtenLanguage: 'ar-DZ' },
+    code: { audioLanguage: 'ar-XA', writtenLanguage: 'ar-XA' },
     language: 'العربية',
     LanguageFr: 'Arabe'
   },

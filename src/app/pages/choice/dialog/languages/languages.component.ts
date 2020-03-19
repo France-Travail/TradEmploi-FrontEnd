@@ -22,7 +22,7 @@ export interface Countries {
   styleUrls: ['./languages.component.scss']
 })
 export class LanguagesComponent implements OnInit {
-  public displayedColumns: string[] = ['traduction', 'country', 'language', 'flag'];
+  public displayedColumns: string[] = ['country', 'flag', 'traduction', 'language'];
   public countries: Countries[] = COUNTRIES;
   public dataCountriesSource: MatTableDataSource<Countries> = new MatTableDataSource(this.countries);
 
