@@ -76,6 +76,7 @@ export class TextToSpeechService {
         body.voice.name = voice === undefined ? names.find(v => v.ssmlGender === SECOND_GENDER).name : voice.name;
       } else {
         console.log('NO WAVENET VOICE FOUNDED');
+        resolve(false);
       }
 
       this.httpClient.post<any>(url, body, this.httpOptions).subscribe(

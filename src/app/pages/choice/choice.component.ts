@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
-import { ToastService } from 'src/app/services/toast.service';
+
 // import { COUNTRIES } from 'src/app/data/countries';
 // import { WELCOME } from 'src/app/data/welcomeSentences';
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
@@ -26,6 +26,7 @@ interface selectedCountry {
   readedWelcome: string;
   languageRaw: string;
   languageFR: string;
+  audioSupported: string;
 }
 @Component({
   selector: 'app-choice',
@@ -67,7 +68,8 @@ export class ChoiceComponent implements AfterContentInit {
   public selectedCountries: string[] = [
     'en-GB',
     'ar-XA',
-    'ps-PS',
+    'ps-AF',
+    'fa-AF',
     'bn-BD',
     'fa-IR',
     'zh-ZH',
@@ -100,8 +102,7 @@ export class ChoiceComponent implements AfterContentInit {
     private historyService: HistoryService,
     private settingsService: SettingsService,
     private router: Router,
-    public dialog: MatDialog,
-    private toastService: ToastService
+    public dialog: MatDialog
   ) {
     if (this.historyService.conversation === undefined) {
       this.router.navigate(['start']);
@@ -140,7 +141,8 @@ export class ChoiceComponent implements AfterContentInit {
         countryName: sentences.find(s => s.key === 'country-name-raw').value,
         countryNameFR: sentences.find(s => s.key === 'country-name-fr').value,
         languageFR: sentences.find(s => s.key === 'language-name-fr').value,
-        languageRaw: sentences.find(s => s.key === 'language-name-raw').value
+        languageRaw: sentences.find(s => s.key === 'language-name-raw').value,
+        audioSupported: sentences.find(s => s.key === 'audioSupported')?.value
       });
     });
   }
@@ -149,9 +151,6 @@ export class ChoiceComponent implements AfterContentInit {
     if (audio) {
       this.textToSpeechService.audioSpeech.play();
     }
-    // } else {
-    //   this.toastService.showToast('Lecture audio indisponible');
-    // }
   }
   /**
    * Open the modal that displays all the available languages

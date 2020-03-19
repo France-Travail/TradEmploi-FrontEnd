@@ -5,13 +5,15 @@
     <div class="country-data" (mouseleave)="removebackgroundColor($event.target)">
       {{ item.countryNameFR }} / {{ item.countryName }}
       <div class="sentence" (mouseleave)="removebackgroundColor($event.target)">{{ item.displayedWelcome }}</div>
-      <img
-        class="hp-icon"
-        src="assets/icons/icon-listen-black.svg"
-        (click)="audioDescription(item.readedWelcome, item.isoCode)"
-        (mouseleave)="removebackgroundColor($event.target)"
-        alt="{{ Ecoutez }}"
-      />
+      <div class="hp-icon" (mouseleave)="removebackgroundColor($event.target)">
+        <img
+          *ngIf="item.audioSupported"
+          src="assets/icons/icon-listen-black.svg"
+          (click)="audioDescription(item.readedWelcome, item.isoCode)"
+          (mouseleave)="removebackgroundColor($event.target)"
+          alt="{{ Ecoutez }}"
+        />
+      </div>
       <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)" (mouseleave)="removebackgroundColor($event.target)">
         <span class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}" (mouseleave)="removebackgroundColor($event.target)"></span>
         <span class="trad" (mouseleave)="removebackgroundColor($event.target)">{{ item.languageFR }}</span>
