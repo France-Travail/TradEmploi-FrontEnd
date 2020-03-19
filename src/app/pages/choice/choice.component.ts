@@ -41,30 +41,6 @@ export class ChoiceComponent implements AfterContentInit {
   public navBarItems: NavbarItem[] = [];
   public vocabulary: Vocabulary[] = VOCABULARY_V2;
   public selectedCountriesData: selectedCountry[] = [];
-  // public selectedLanguages: string[] = [
-  //   'Anglais',
-  //   'Arabe',
-  //   'Pachto',
-  //   'Bengali',
-  //   'Persan',
-  //   'Mandarin',
-  //   'Ourdou',
-  //   'Portugais',
-  //   'Tamoul',
-  //   'Turc',
-  //   'Allemand',
-  //   'Amharique',
-  //   'Khmer', //cambodge
-  //   'Espagnol',
-  //   'Hindi',
-  //   'Italien',
-  //   'Mongol',
-  //   'Népalais',
-  //   'Ouzbek',
-  //   'Roumain',
-  //   'Somali',
-  //   'Vietnamien'
-  // ];
   public selectedCountries: string[] = [
     'en-GB',
     'ar-XA',
