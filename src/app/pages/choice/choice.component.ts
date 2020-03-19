@@ -62,7 +62,31 @@ export class ChoiceComponent implements AfterContentInit {
   //   'Somali',
   //   'Vietnamien'
   // ];
-  public selectedCountries: string[] = ['ar-XA', 'en-GB', 'es-ES', 'zh-ZH', 'bn-BD', 'fr-FR'];
+  public selectedCountries: string[] = [
+    'en-GB',
+    'ar-XA',
+    'tw-ob',
+    'bn-BD',
+    'fa-IR',
+    'zh-ZH',
+    'ur-PK',
+    'pt-PT',
+    'ta-IN',
+    'tr-TR',
+    'de-DE',
+    'am-ET',
+    'km-KH',
+    'es-ES',
+    'hi-IN',
+    'it-IT',
+    'mn-MN',
+    'ne-NP',
+    'uz-UZ',
+    'ro-RO',
+    'so-SO',
+    'vi-VN',
+    'fr-FR'
+  ];
   public toolTips: string[] = ['Autres langues'];
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
@@ -115,6 +139,7 @@ export class ChoiceComponent implements AfterContentInit {
         languageFR: sentences.find(s => s.key === 'language-name-fr').value,
         languageRaw: sentences.find(s => s.key === 'language-name-raw').value
       });
+      console.log(country);
     });
   }
   async audioDescription(message: string, lang: string) {

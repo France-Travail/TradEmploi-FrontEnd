@@ -767,8 +767,236 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'listen', value: 'শোনা' },
       { key: 'gauge-text', value: 'এখন কথা বলুন' }
     ]
+  },
+  {
+    isoCode: 'tw-ob',
+    sentences: [
+      { key: 'country-name-raw', value: 'افغانستان' },
+      { key: 'country-name-fr', value: 'Afghanistan' },
+      { key: 'language-name-fr', value: 'Pachto' },
+      { key: 'language-name-raw', value: 'پښتو' },
+      { key: 'flag', value: 'AF' },
+      { key: 'displayed-welcome', value: '.سلام ، زه به ستاسو ترجمان شم چې ستاسو د مشاور سره په اسانۍ سره تبادله وکړم' },
+      { key: 'readed-welcome', value: 'ایا تاسو غواړئ پدې ژبه کې تبادله وکړئ؟' }
+    ]
+  },
+  {
+    isoCode: 'ur-PK',
+    sentences: [
+      { key: 'country-name-raw', value: 'پاکستان' },
+      { key: 'country-name-fr', value: 'Pakistan' },
+      { key: 'language-name-fr', value: 'Ourdou' },
+      { key: 'language-name-raw', value: 'اردو' },
+      { key: 'flag', value: 'PK' },
+      { key: 'displayed-welcome', value: 'ہیلو ، میں آپ کے مشیر سے آسانی سے تبادلہ کرنے کے لئے آپ کا ترجمان ہوں گا۔' },
+      { key: 'readed-welcome', value: 'کیا آپ اس زبان میں تبادلہ کرنا چاہیں گے؟' }
+    ]
+  },
+  {
+    isoCode: 'pt-PT',
+    sentences: [
+      { key: 'country-name-raw', value: 'Portugal' },
+      { key: 'country-name-fr', value: 'Portugal' },
+      { key: 'language-name-fr', value: 'Portugais' },
+      { key: 'language-name-raw', value: 'Português' },
+      { key: 'flag', value: 'PT' },
+      { key: 'displayed-welcome', value: 'Olá, eu seria seu intérprete para trocar facilmente com seu orientador.' },
+      { key: 'readed-welcome', value: 'Deseja trocar neste idioma?' }
+    ]
+  },
+  {
+    isoCode: 'tr-TR',
+    sentences: [
+      { key: 'country-name-raw', value: 'Türkiye' },
+      { key: 'country-name-fr', value: 'Turquie' },
+      { key: 'language-name-fr', value: 'Turc' },
+      { key: 'language-name-raw', value: 'Türkçe' },
+      { key: 'flag', value: 'TR' },
+      { key: 'displayed-welcome', value: 'Merhaba, danışmanınızla kolayca alışveriş yapmak için tercümanınız olurum.' },
+      { key: 'readed-welcome', value: 'Bu dilde takas yapmak ister misiniz?' }
+    ]
+  },
+  {
+    isoCode: 'de-DE',
+    sentences: [
+      { key: 'country-name-raw', value: 'Deutschland' },
+      { key: 'country-name-fr', value: 'Allemange' },
+      { key: 'language-name-fr', value: 'Allemand' },
+      { key: 'language-name-raw', value: 'Deutsch' },
+      { key: 'flag', value: 'DE' },
+      { key: 'displayed-welcome', value: 'Hallo, ich wäre Ihr Dolmetscher, um mich problemlos mit Ihrem Berater auszutauschen.' },
+      { key: 'readed-welcome', value: 'Möchten Sie in dieser Sprache austauschen?' }
+    ]
+  },
+  {
+    isoCode: 'am-ET',
+    sentences: [
+      { key: 'country-name-raw', value: 'ኢትዮጵያ' },
+      { key: 'country-name-fr', value: 'Ethiopie' },
+      { key: 'language-name-fr', value: 'Amharique' },
+      { key: 'language-name-raw', value: 'አማርኛ' },
+      { key: 'flag', value: 'ET' },
+      { key: 'displayed-welcome', value: 'ጤና ይስጥልኝ ፣ ከአማካሪህ ጋር በቀላሉ ለመቀየር አስተርጓሚ እሆን ነበር' },
+      { key: 'readed-welcome', value: 'በዚህ ቋንቋ መለወጥ ይፈልጋሉ?' }
+    ]
+  },
+  {
+    isoCode: 'km-KH',
+    sentences: [
+      { key: 'country-name-raw', value: 'កម្ពុជា' },
+      { key: 'country-name-fr', value: 'Cambodge' },
+      { key: 'language-name-fr', value: 'Amharique' },
+      { key: 'language-name-raw', value: 'Khmer' },
+      { key: 'flag', value: 'KH' },
+      { key: 'displayed-welcome', value: 'ជំរាបសួរ, ខ្ញុំនឹងក្លាយជាអ្នកបកប្រែរបស់អ្នកដើម្បីផ្លាស់ប្តូរយ៉ាងងាយស្រួលជាមួយទីប្រឹក្សារបស់អ្នក។' },
+      { key: 'readed-welcome', value: 'តើអ្នកចង់ផ្លាស់ប្តូរភាសានេះទេ?' }
+    ]
+  },
+  {
+    isoCode: 'es-ES',
+    sentences: [
+      { key: 'country-name-raw', value: 'España' },
+      { key: 'country-name-fr', value: 'Espagne' },
+      { key: 'language-name-fr', value: 'Espagnol' },
+      { key: 'language-name-raw', value: 'Español' },
+      { key: 'flag', value: 'ES' },
+      { key: 'displayed-welcome', value: 'Hola, sería tu intérprete para intercambiar fácilmente con tu asesor.' },
+      { key: 'readed-welcome', value: '¿Te gustaría intercambiar en este idioma?' }
+    ]
+  },
+  {
+    isoCode: 'es-ES',
+    sentences: [
+      { key: 'country-name-raw', value: 'España' },
+      { key: 'country-name-fr', value: 'Espagne' },
+      { key: 'language-name-fr', value: 'Espagnol' },
+      { key: 'language-name-raw', value: 'Español' },
+      { key: 'flag', value: 'ES' },
+      { key: 'displayed-welcome', value: 'Hola, sería tu intérprete para intercambiar fácilmente con tu asesor.' },
+      { key: 'readed-welcome', value: '¿Te gustaría intercambiar en este idioma?' }
+    ]
+  },
+  {
+    isoCode: 'hi-IN',
+    sentences: [
+      { key: 'country-name-raw', value: 'भारत' },
+      { key: 'country-name-fr', value: 'Inde' },
+      { key: 'language-name-fr', value: 'Hindi' },
+      { key: 'language-name-raw', value: 'हिन्दी' },
+      { key: 'flag', value: 'IN' },
+      { key: 'displayed-welcome', value: 'नमस्कार, मैं आपके सलाहकार के साथ आसानी से आदान-प्रदान करने वाला आपका दुभाषिया बनूंगा।' },
+      { key: 'readed-welcome', value: 'क्या आप इस भाषा में विनिमय करना चाहेंगे?' }
+    ]
+  },
+  {
+    isoCode: 'ta-IN',
+    sentences: [
+      { key: 'country-name-raw', value: 'இந்தியா' },
+      { key: 'country-name-fr', value: 'Inde' },
+      { key: 'language-name-fr', value: 'Tamoul' },
+      { key: 'language-name-raw', value: 'தமிழ்' },
+      { key: 'flag', value: 'IN' },
+      { key: 'displayed-welcome', value: 'வணக்கம், உங்கள் ஆலோசகருடன் எளிதாக பரிமாறிக்கொள்ள உங்கள் மொழிபெயர்ப்பாளராக இருப்பேன்.' },
+      { key: 'readed-welcome', value: 'இந்த மொழியில் பரிமாற விரும்புகிறீர்களா?' }
+    ]
+  },
+  {
+    isoCode: 'it-IT',
+    sentences: [
+      { key: 'country-name-raw', value: 'Italia' },
+      { key: 'country-name-fr', value: 'Italie' },
+      { key: 'language-name-fr', value: 'Italien' },
+      { key: 'language-name-raw', value: 'Italiano' },
+      { key: 'flag', value: 'IT' },
+      { key: 'displayed-welcome', value: 'Ciao, sarei il tuo interprete per scambiare facilmente con il tuo consulente.' },
+      { key: 'readed-welcome', value: 'Ti piacerebbe scambiare in questa lingua?' }
+    ]
+  },
+  {
+    isoCode: 'mn-MN',
+    sentences: [
+      { key: 'country-name-raw', value: 'Монгол Улс' },
+      { key: 'country-name-fr', value: 'Mongolie' },
+      { key: 'language-name-fr', value: 'Mongol' },
+      { key: 'language-name-raw', value: 'Монгол' },
+      { key: 'flag', value: 'MN' },
+      { key: 'displayed-welcome', value: 'Сайн байна уу, би зөвлөхтэйгээ хялбархан солилцох орчуулагч болно.' },
+      { key: 'readed-welcome', value: 'Та энэ хэлээр солилцохыг хүсч байна уу?' }
+    ]
+  },
+  {
+    isoCode: 'ne-NP',
+    sentences: [
+      { key: 'country-name-raw', value: 'नेपाल' },
+      { key: 'country-name-fr', value: 'Népal' },
+      { key: 'language-name-fr', value: 'Népalais' },
+      { key: 'language-name-raw', value: 'नेपाली' },
+      { key: 'flag', value: 'NP' },
+      { key: 'displayed-welcome', value: 'नमस्कार, म तपाईको दोभाषे बन्ने छ तपाईंको सल्लाहकार संग सजिलै साटासाट गर्न।' },
+      { key: 'readed-welcome', value: 'के तपाईं यस भाषामा आदान प्रदान गर्न चाहनुहुन्छ?' }
+    ]
+  },
+  {
+    isoCode: 'uz-UZ',
+    sentences: [
+      { key: 'country-name-raw', value: 'Ўзбекистон' },
+      { key: 'country-name-fr', value: 'Ouzbékistan' },
+      { key: 'language-name-fr', value: 'Ouzbek' },
+      { key: 'language-name-raw', value: 'ўзбек' },
+      { key: 'flag', value: 'UZ' },
+      { key: 'displayed-welcome', value: "Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo'lardim." },
+      { key: 'readed-welcome', value: 'Ushbu tilda almashishni xohlaysizmi?' }
+    ]
+  },
+  {
+    isoCode: 'ro-RO',
+    sentences: [
+      { key: 'country-name-raw', value: 'România' },
+      { key: 'country-name-fr', value: 'Roumanie' },
+      { key: 'language-name-fr', value: 'Roumain' },
+      { key: 'language-name-raw', value: 'Română' },
+      { key: 'flag', value: 'RO' },
+      { key: 'displayed-welcome', value: 'Buna ziua, eu as fi interpretul tau pentru a schimba usor cu consilierul tau.' },
+      { key: 'readed-welcome', value: 'Buna ziua, eu as fi interpretul tau pentru a schimba usor cu consilierul tau.' }
+    ]
+  },
+  {
+    isoCode: 'so-SO',
+    sentences: [
+      { key: 'country-name-raw', value: 'Soomaaliya' },
+      { key: 'country-name-fr', value: 'Somalie' },
+      { key: 'language-name-fr', value: 'Somali' },
+      { key: 'language-name-raw', value: 'Af-Soomaali' },
+      { key: 'flag', value: 'SO' },
+      { key: 'displayed-welcome', value: 'Salaan, waxaan noqon lahaa turjubaankaaga si aan si fudud ula beddelo la-taliyahaaga.' },
+      { key: 'readed-welcome', value: 'Ma jeceshahay inaad ku badasho luqadan?' }
+    ]
+  },
+  {
+    isoCode: 'vi-VN',
+    sentences: [
+      { key: 'country-name-raw', value: 'Việt Nam' },
+      { key: 'country-name-fr', value: 'Vietnam' },
+      { key: 'language-name-fr', value: 'Vietnamien' },
+      { key: 'language-name-raw', value: 'Tiếng Việt' },
+      { key: 'flag', value: 'VN' },
+      { key: 'displayed-welcome', value: 'Xin chào, tôi sẽ là thông dịch viên của bạn để trao đổi dễ dàng với cố vấn của bạn.' },
+      { key: 'readed-welcome', value: 'Bạn có muốn trao đổi bằng ngôn ngữ này?' }
+    ]
   }
 
+  //  {
+  //    isoCode: '',
+  //    sentences: [
+  //      { key: 'country-name-raw', value: '' },
+  //      { key: 'country-name-fr', value: '' },
+  //      { key: 'language-name-fr', value: '' },
+  //      { key: 'language-name-raw', value: '' },
+  //      { key: 'flag', value: '' },
+  //      { key: 'displayed-welcome', value: '' },
+  //      { key: 'readed-welcome', value: '' }
+  //    ]
+  //  }
   // {
   //   isoCode: 'xxxxxxxxxx',
   //   sentences: [
