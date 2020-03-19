@@ -495,7 +495,280 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'displayed-welcome', value: '您好，我将是您的翻译，可以轻松地与您的顾问交流。' },
       { key: 'readed-welcome', value: '您想用这种语言交流吗？' }
     ]
+  },
+  {
+    isoCode: 'en-AU',
+    sentences: [
+      { key: 'country-name-raw', value: 'Australia' },
+      { key: 'country-name-fr', value: 'Australie' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'AU' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'en-GH',
+    sentences: [
+      { key: 'country-name-raw', value: 'Ghana' },
+      { key: 'country-name-fr', value: 'Ghana' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'GH' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'en-CA',
+    sentences: [
+      { key: 'country-name-raw', value: 'Canada' },
+      { key: 'country-name-fr', value: 'Canada-Uni' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'CA' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'en-IN',
+    sentences: [
+      { key: 'country-name-raw', value: 'India' },
+      { key: 'country-name-fr', value: 'Inde' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'IN' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'en-ZA',
+    sentences: [
+      { key: 'country-name-raw', value: 'South Africa' },
+      { key: 'country-name-fr', value: 'Afrique du Sud' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'ZA' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'en-IE',
+    sentences: [
+      { key: 'country-name-raw', value: 'Ireland' },
+      { key: 'country-name-fr', value: 'Irelande' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'IE' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'en-KE',
+    sentences: [
+      { key: 'country-name-raw', value: 'Kenya' },
+      { key: 'country-name-fr', value: 'Kenya' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'KE' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'en-NZ',
+    sentences: [
+      { key: 'country-name-raw', value: 'New Zealand' },
+      { key: 'country-name-fr', value: 'Nouvelle-Zélande' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'NZ' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'en-SG',
+    sentences: [
+      { key: 'country-name-raw', value: 'Singapore' },
+      { key: 'country-name-fr', value: 'Singapour' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'SG' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'en-PH',
+    sentences: [
+      { key: 'country-name-raw', value: 'Philippines' },
+      { key: 'country-name-fr', value: 'Philippines' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'PH' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'en-NG',
+    sentences: [
+      { key: 'country-name-raw', value: 'Nigeria' },
+      { key: 'country-name-fr', value: 'Nigeria' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'NG' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'en-TZ',
+    sentences: [
+      { key: 'country-name-raw', value: 'Tanzania' },
+      { key: 'country-name-fr', value: 'Tanzanie' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'TZ' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'us-US',
+    sentences: [
+      { key: 'country-name-raw', value: 'United-States' },
+      { key: 'country-name-fr', value: 'Etats-Unis' },
+      { key: 'language-name-raw', value: 'English' },
+      { key: 'language-name-fr', value: 'Anglais' },
+      { key: 'flag', value: 'US' },
+      { key: 'application-name', value: 'Instant Translation' },
+      { key: 'send', value: 'Send' },
+      { key: 'translate', value: 'Translate' },
+      { key: 'translation-h2', value: 'Type a text in english' },
+      { key: 'rate', value: 'Are you satisfied with your interview?' },
+      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'listen', value: 'Listen' },
+      { key: 'gauge-text', value: 'Speak now' }
+    ]
+  },
+  {
+    isoCode: 'bn-BD',
+    sentences: [
+      { key: 'country-name-raw', value: 'বাংলাদেশ' },
+      { key: 'country-name-fr', value: 'Bangladesh' },
+      { key: 'language-name-raw', value: 'বাংলা' },
+      { key: 'language-name-fr', value: 'Bengali' },
+      { key: 'flag', value: 'BD' },
+      { key: 'application-name', value: 'তাত্ক্ষণিক অনুবাদ' },
+      { key: 'send', value: 'পাঠান' },
+      { key: 'translate', value: 'অনুবাদ' },
+      { key: 'translation-h2', value: 'ফরাসী ভাষায় একটি পাঠ্য প্রবেশ করান' },
+      { key: 'rate', value: 'আপনি কি আপনার সাক্ষাত্কারে সন্তুষ্ট?' },
+      { key: 'thanks', value: 'পোলে কর্মচারী আপনাকে ধন্যবাদ' },
+      { key: 'listen', value: 'শোনা' },
+      { key: 'gauge-text', value: 'এখন কথা বলুন' },
+      { key: 'displayed-welcome', value: 'হ্যালো, আমি আপনার পরামর্শদাতার সাথে সহজেই বিনিময় করার জন্য আপনার দোভাষী হব।' },
+      { key: 'readed-welcome', value: 'আপনি কি এই ভাষায় বিনিময় করতে চান?' }
+    ]
+  },
+  {
+    isoCode: 'bn-IN',
+    sentences: [
+      { key: 'country-name-raw', value: 'ভারত' },
+      { key: 'country-name-fr', value: 'Inde' },
+      { key: 'language-name-raw', value: 'Bengali' },
+      { key: 'language-name-fr', value: 'বাংলা' },
+      { key: 'flag', value: 'IN' },
+      { key: 'application-name', value: 'তাত্ক্ষণিক অনুবাদ' },
+      { key: 'send', value: 'পাঠান' },
+      { key: 'translate', value: 'অনুবাদ' },
+      { key: 'translation-h2', value: 'ফরাসী ভাষায় একটি পাঠ্য প্রবেশ করান' },
+      { key: 'rate', value: 'আপনি কি আপনার সাক্ষাত্কারে সন্তুষ্ট?' },
+      { key: 'thanks', value: 'পোলে কর্মচারী আপনাকে ধন্যবাদ' },
+      { key: 'listen', value: 'শোনা' },
+      { key: 'gauge-text', value: 'এখন কথা বলুন' }
+    ]
   }
+
   // {
   //   isoCode: 'xxxxxxxxxx',
   //   sentences: [
@@ -508,7 +781,9 @@ export const VOCABULARY_V2: Vocabulary[] = [
   //     { key: 'rate', value: 'xxxxxxxxxx' },
   //     { key: 'thanks', value: 'xxxxxxxxxx' },
   //     { key: 'listen', value: 'xxxxxxxxxx' },
-  //     { key: 'record-text', value: 'xxxxxxxxxxx' }
+  //     { key: 'record-text', value: 'xxxxxxxxxxx' },
+  //     { key: 'displayed-welcome', value: 'xxxx' },
+  //     { key: 'readed-welcome', value: 'xxx' }
   //   ]
   // }
 ];

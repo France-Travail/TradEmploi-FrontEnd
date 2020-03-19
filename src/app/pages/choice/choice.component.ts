@@ -62,7 +62,7 @@ export class ChoiceComponent implements AfterContentInit {
   //   'Somali',
   //   'Vietnamien'
   // ];
-  public selectedCountries: string[] = ['ar-XA', 'en-GB', 'es-ES', 'zh-ZH', 'fr-FR'];
+  public selectedCountries: string[] = ['ar-XA', 'en-GB', 'es-ES', 'zh-ZH', 'bn-BD', 'fr-FR'];
   public toolTips: string[] = ['Autres langues'];
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
@@ -137,7 +137,7 @@ export class ChoiceComponent implements AfterContentInit {
       });
   }
   setBackgroundColor(item: any): void {
-    item.setAttribute('style', 'background:#135dfe; color:white;');
+    item.setAttribute('style', 'background-color:#135dfe; color:white;');
     item.querySelector('img')?.setAttribute('src', 'assets/icons/icon-listen-white.svg');
   }
   removebackgroundColor(item: any): void {
