@@ -13,6 +13,7 @@ import { NavbarItem } from 'src/app/models/navbar-item';
 })
 export class TranslationComponent {
   public navBarItems: NavbarItem[] = [];
+  sentMessage: string
   constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router) {
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
@@ -45,6 +46,11 @@ export class TranslationComponent {
         isDisplayed: true
       }
     ];
+  }
+
+  getMessage(message: string) {
+    this.sentMessage = message;
+    console.log('message : ', this.sentMessage)
   }
 
   /**

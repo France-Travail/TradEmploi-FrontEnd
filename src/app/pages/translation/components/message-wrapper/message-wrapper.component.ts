@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
 import { TranslateService } from 'src/app/services/translate.service';
@@ -15,6 +15,7 @@ import { ToastService } from 'src/app/services/toast.service';
 export class MessageWrapperComponent implements OnInit {
   @Input() title: string;
   @Input() user: string;
+  @Output() rawTextToEmit = new EventEmitter();
 
   // Number
   public enterKey: number = 13;
@@ -72,6 +73,7 @@ export class MessageWrapperComponent implements OnInit {
       const language = this.user === 'advisor' ? 'fr-FR' : VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode;
       this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
       this.rawSpeech = this.textToSpeechService.audioSpeech;
+      this.rawTextToEmit.emit(this.rawText);
     } else {
       this.rawText = message;
       this.rawSpeech = this.audioRecordingService.audioSpeech;
@@ -82,6 +84,8 @@ export class MessageWrapperComponent implements OnInit {
       this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
       this.translatedSpeech = this.textToSpeechService.audioSpeech;
     });
+    
+    this.rawText = '';
   }
 
   public listen(value: 'translation' | 'speech'): void {

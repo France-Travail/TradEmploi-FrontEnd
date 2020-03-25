@@ -16,10 +16,97 @@
   margin: 0 auto;
   max-width: 1200px;
 
-  .margin {
-    margin-right: 10px;
+  .msg {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+      margin-right: 10px;
+  }
+  .conversation {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    height: 880px;
+    width: 100%;
+    .head-conversation {
+      display: flex;
+      flex-direction: row;
+      h2 {
+        font-size: 14px;
+        line-height: 15px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .auto-listen {
+        width: 85%;
+        text-align: end;
+        vertical-align: text-bottom;
+        padding-top: 5px;
+        a {
+          text-decoration: none;
+          color: #4171DA;
+          margin-right: 10px;
+        }
+      }
+    }
+    .value {
+      display: flex;
+      padding: 10px;
+      color: $black;
+      font-size: 24px;
+      min-height: 140px;
+      height: auto;
+      width: 100%;
+      text-align: justify;
+      overflow-y: auto;
+      background-color: #F5F5F5;
+      .translation {
+        width: 94%;
+        height: auto;
+        margin: auto;
+      }
+      button {
+        border: none;
+        background-color: transparent;
+        margin-left: 10px;
+        img {
+          width: 22px;
+        }
+      }
+    }
+    .entered-text {
+      display: flex;
+      flex-direction: row;
+      margin-top: 10px;
+      .flag {
+        .flag-icon {
+          width: 34px;
+          height: 24px;
+          border: 1px solid $gray74;
+          box-sizing: border-box;
+          border-radius: 5px;
+          background-size: cover;
+        }
+      }
+      .text {
+        width: 90%;
+        padding: 0px 10px;
+        text-align: justify;
+        font-size: 16px;
+        a {
+          text-decoration: none;
+        }
+      }
+      .delete {
+        height: 30px;
+      }
+    }
   }
 }
+
 
 @media screen and (min-width: 1001px) and (max-width: 1300px) {
   .interfaces {
