@@ -5,8 +5,6 @@ import { MatDialog } from '@angular/material';
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
 
-// import { COUNTRIES } from 'src/app/data/countries';
-// import { WELCOME } from 'src/app/data/welcomeSentences';
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
 // Dialogs
 import { LanguagesComponent, Countries } from './dialog/languages/languages.component';
@@ -46,24 +44,20 @@ export class ChoiceComponent implements AfterContentInit {
     'ar-XA',
     'ps-AF',
     'fa-IR',
-    'bn-BD',
     'zh-ZH',
     'ur-PK',
     'pt-PT',
-    'ta-IN',
     'tr-TR',
     'de-DE',
-    'am-ET',
-    'km-KH',
-    'es-ES',
-    'hi-IN',
-    'it-IT',
-    'mn-MN',
-    'ne-NP',
-    'uz-UZ',
     'ro-RO',
-    'so-SO',
-    'vi-VN'
+    'es-ES',
+    'it-IT'
+    // 'mn-MN',
+    // 'ne-NP',
+    // 'uz-UZ',
+    // 'ro-RO',
+    // 'so-SO',
+    // 'vi-VN'
   ];
   public toolTips: string[] = ['Autres langues'];
   public audioSpeech: HTMLAudioElement;
@@ -138,13 +132,5 @@ export class ChoiceComponent implements AfterContentInit {
           this.router.navigate(['translation']);
         }
       });
-  }
-  setBackgroundColor(item: any): void {
-    item.setAttribute('style', 'background-color:#135dfe; color:white;');
-    item.querySelector('img')?.setAttribute('src', 'assets/icons/icon-listen-white.svg');
-  }
-  removebackgroundColor(item: any): void {
-    item.removeAttribute('style');
-    item.querySelector('img')?.setAttribute('src', 'assets/icons/icon-listen-black.svg');
   }
 }

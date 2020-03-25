@@ -1,32 +1,24 @@
 <navbar class="navbar" [items]="navBarItems" (perform)="handleAction($event)"></navbar>
-
+<h2>Choix de langues / Choice of language</h2>
 <div class="tiles">
-  <div class="countries" *ngFor="let item of selectedCountriesData" (mouseover)="setBackgroundColor($event.target)" (mouseleave)="removebackgroundColor($event.target)">
-    <div class="country-data" (mouseleave)="removebackgroundColor($event.target)">
-      {{ item.countryNameFR }} / {{ item.countryName }}
-      <div class="sentence" (mouseleave)="removebackgroundColor($event.target)">{{ item.displayedWelcome }}</div>
-      <div class="hp-icon" (mouseleave)="removebackgroundColor($event.target)">
-        <img
-          *ngIf="item.audioSupported"
-          src="assets/icons/icon-listen-black.svg"
-          (click)="audioDescription(item.readedWelcome, item.isoCode)"
-          (mouseleave)="removebackgroundColor($event.target)"
-          alt="{{ Ecoutez }}"
-        />
+  <div class="countries" *ngFor="let item of selectedCountriesData">
+    <div class="country-data">
+      <div class="sentence" [ngStyle]="{ width: item.audioSupported ? '200px' : '250px' }">
+        {{ item.displayedWelcome }}
       </div>
-      <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)" (mouseleave)="removebackgroundColor($event.target)">
-        <span class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}" (mouseleave)="removebackgroundColor($event.target)"></span>
-        <span class="trad" (mouseleave)="removebackgroundColor($event.target)">{{ item.languageFR }}</span>
-        <span class="origin" (mouseleave)="removebackgroundColor($event.target)">{{ item.languageRaw }}</span>
+      <div class="speaker" *ngIf="item.audioSupported" (click)="audioDescription(item.readedWelcome, item.isoCode)"></div>
+      <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)">
+        <span class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}"></span>
+        <div class="trad">{{ item.languageFR }}</div>
+        <div class="origin">{{ item.languageRaw }}</div>
       </div>
     </div>
   </div>
-</div>
-
-<div class="more" (click)="moreLanguage()">
-  <img src="assets/icons/icon-more-black.svg" alt="{{ otherLanguageFr }}" />
-  <div class="text">
-    <span class="fr">{{ otherLanguageFr }}</span>
-    <span class="en">{{ otherLanguageEn }}</span>
+  <div class="more" (click)="moreLanguage()">
+    <img src="assets/icons/icon-more-black.svg" alt="{{ otherLanguageFr }}" />
+    <div class="text">
+      <span class="fr">{{ otherLanguageFr }}</span>
+      <span class="en">{{ otherLanguageEn }}</span>
+    </div>
   </div>
 </div>
