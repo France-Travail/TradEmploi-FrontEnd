@@ -9,8 +9,7 @@
       <div class="speaker" *ngIf="item.audioSupported" (click)="audioDescription(item.readedWelcome, item.isoCode)"></div>
       <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)">
         <span class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}"></span>
-        <div class="trad">{{ item.languageFR }}</div>
-        <div class="origin">{{ item.languageRaw }}</div>
+        <div class="buttonSentence">{{ item.buttonSentence }}</div>
       </div>
     </div>
   </div>

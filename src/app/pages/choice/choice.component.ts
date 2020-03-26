@@ -22,8 +22,7 @@ interface selectedCountry {
   flag: string;
   displayedWelcome: string;
   readedWelcome: string;
-  languageRaw: string;
-  languageFR: string;
+  buttonSentence: string;
   audioSupported: string;
 }
 @Component({
@@ -108,8 +107,7 @@ export class ChoiceComponent implements AfterContentInit {
         isoCode: country,
         countryName: sentences.find(s => s.key === 'country-name-raw').value,
         countryNameFR: sentences.find(s => s.key === 'country-name-fr').value,
-        languageFR: sentences.find(s => s.key === 'language-name-fr').value,
-        languageRaw: sentences.find(s => s.key === 'language-name-raw').value,
+        buttonSentence: sentences.find(s => s.key === 'button-sentence').value,
         audioSupported: sentences.find(s => s.key === 'audioSupported')?.value
       });
     });
