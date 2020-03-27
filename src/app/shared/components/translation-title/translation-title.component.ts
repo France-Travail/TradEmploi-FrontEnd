@@ -25,10 +25,12 @@ export class TranslationTitleComponent implements OnInit {
       french: advisor.find(s => s.key === 'application-name').value
     };
 
-    this.languages = {
-      raw: guest.find(s => s.key === 'language-name-raw').value,
-      french: guest.find(s => s.key === 'language-name-fr').value
-    };
+    if (!guest.some(item => item.key === 'showLanguage')) {
+      this.languages = {
+        raw: guest.find(s => s.key === 'language-name-raw').value,
+        french: guest.find(s => s.key === 'language-name-fr').value
+      };
+    }
   }
 
   public over(): void {
@@ -37,6 +39,7 @@ export class TranslationTitleComponent implements OnInit {
   public generateSentence(language: string): { key: string; value: string }[] {
     return [
       { key: 'application-name', value: 'Instant Translation' },
+      { key: 'showLanguage', value: 'nok' },
       { key: 'language-name-raw', value: 'NaL' },
       { key: 'language-name-fr', value: 'NaL' }
     ];
