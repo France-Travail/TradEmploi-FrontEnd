@@ -3,9 +3,9 @@
   <div class="input-wrapper">
     <div class="field" *ngIf="!micro">
       <div class="flag">
-        <span class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
+        <span *ngIf="flag !== 'naf'" class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
+        <img *ngIf="flag === 'naf'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" routerLink="/choice" />
       </div>
-
       <textarea [(ngModel)]="rawText" (keydown.enter)="send(true); (false)"></textarea>
 
       <div class="buttons">

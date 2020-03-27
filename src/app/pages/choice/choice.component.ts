@@ -24,6 +24,7 @@ interface selectedCountry {
   readedWelcome: string;
   buttonSentence: string;
   audioSupported: string;
+  buttonSentenceFR: string;
 }
 @Component({
   selector: 'app-choice',
@@ -43,14 +44,15 @@ export class ChoiceComponent implements AfterContentInit {
     'ar-XA',
     'ps-AF',
     'fa-IR',
-    'zh-ZH',
-    'ur-PK',
-    'pt-PT',
-    'tr-TR',
-    'de-DE',
-    'ro-RO',
+    'bn-BD',
     'es-ES',
-    'it-IT'
+    'de-DE',
+    'pt-PT',
+    'it-IT',
+    'zh-ZH',
+    'ru-RU',
+    'ro-RO'
+
     // 'mn-MN',
     // 'ne-NP',
     // 'uz-UZ',
@@ -108,6 +110,7 @@ export class ChoiceComponent implements AfterContentInit {
         countryName: sentences.find(s => s.key === 'country-name-raw').value,
         countryNameFR: sentences.find(s => s.key === 'country-name-fr').value,
         buttonSentence: sentences.find(s => s.key === 'button-sentence').value,
+        buttonSentenceFR: sentences.find(s => s.key === 'button-sentence-fr').value,
         audioSupported: sentences.find(s => s.key === 'audioSupported')?.value
       });
     });

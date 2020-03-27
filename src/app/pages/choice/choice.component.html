@@ -1,23 +1,34 @@
 <navbar class="navbar" [items]="navBarItems" (perform)="handleAction($event)"></navbar>
-<h2>Choix de langues / Choice of language</h2>
+<h2><strong>Choix de langues </strong>/ Choice of language</h2>
 <div class="tiles">
   <div class="countries" *ngFor="let item of selectedCountriesData">
     <div class="country-data">
-      <div class="sentence" [ngStyle]="{ width: item.audioSupported ? '200px' : '250px' }">
+      <div class="country">
+        <strong>{{ item.countryNameFR }} </strong> / {{ item.countryName }}
+      </div>
+      <div class="sentence" [ngStyle]="{ width: item.audioSupported ? '260px' : '300px' }">
         {{ item.displayedWelcome }}
       </div>
       <div class="speaker" *ngIf="item.audioSupported" (click)="audioDescription(item.readedWelcome, item.isoCode)"></div>
       <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)">
-        <span class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}"></span>
-        <div class="buttonSentence">{{ item.buttonSentence }}</div>
+        <span *ngIf="item.flag !== 'NaF'" class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}"></span>
+        <img *ngIf="item.flag === 'NaF'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag" />
+        <div class="sentences">
+          <div class="buttonSentenceFR">
+            <strong>{{ item.buttonSentenceFR }}</strong>
+          </div>
+          <div class="buttonSentence">
+            {{ item.buttonSentence }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="more" (click)="moreLanguage()">
-    <img src="assets/icons/icon-more-black.svg" alt="{{ otherLanguageFr }}" />
-    <div class="text">
-      <span class="fr">{{ otherLanguageFr }}</span>
-      <span class="en">{{ otherLanguageEn }}</span>
-    </div>
+</div>
+<div class="more" (click)="moreLanguage()">
+  <img src="assets/icons/icon-more-black.svg" alt="{{ otherLanguageFr }}" />
+  <div class="text">
+    <span class="fr">{{ otherLanguageFr }}</span>
+    <span class="en">{{ otherLanguageEn }}</span>
   </div>
 </div>

@@ -28,16 +28,19 @@ h2 {
     margin-bottom: 10px;
     border-radius: 5px;
     background-color: $white-smoke;
-    grid-template-columns: repeat(auto-fit, 280px);
+    grid-template-columns: repeat(auto-fit, 300px);
     padding: 10px;
     .country-data {
       margin: 0 auto;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      .country {
+        width: 250px;
+        margin: auto 0;
+      }
       .sentence {
-        margin: auto;
-        height: 80px;
+        height: 50px;
       }
       .speaker {
         background-image: url('../../../assets/icons/icon-listen-blue.svg');
@@ -50,26 +53,31 @@ h2 {
       }
       .selectLanguageButton {
         display: flex;
-        flex: 1 1 250px;
+        width: 200px;
         flex-direction: column;
         flex-wrap: wrap;
-        margin: 10px 10px;
+        margin: 10px auto;
         align-items: baseline;
-        height: 40px;
+        height: 50px;
         border: 1px solid $gray74;
         border-radius: 10px;
-      }
-      .flag-icon {
-        margin: auto;
-        border-radius: 5px;
-        height: 20px;
-        width: 28px;
-      }
-      .buttonSentence {
-        margin: auto;
+        .flag-icon {
+          width: 28px;
+          height: 20px;
+          margin: auto;
+        }
+        .sentences {
+          margin: inherit;
+          display: flex;
+          flex-direction: column;
+          .buttonSentence {
+            font-size: smaller;
+          }
+        }
       }
     }
   }
+
   .countries:hover {
     color: white;
     background: $primary-color;
