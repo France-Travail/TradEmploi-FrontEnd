@@ -25,12 +25,12 @@
       </button>
     </div>
     <app-record class="margin" *ngIf="micro" duration="50" user="advisor" [language]="languageOrigin" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
-    <div class="translation">
+    <!-- <div class="translation">
       <div class="value">{{ translatedText }}</div>
       <button (click)="listen('translation')" [disabled]="!isReady.listenTranslation">
         <img src="./assets/icons/icon-listen-white.svg" alt="listen translation" />
         {{ listenBtnValue | uppercase }}
       </button>
-    </div>
+    </div> -->
   </div>
 </div>

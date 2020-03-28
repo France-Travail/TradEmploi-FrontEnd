@@ -15,7 +15,9 @@ import { ToastService } from 'src/app/services/toast.service';
 export class MessageWrapperComponent implements OnInit {
   @Input() title: string;
   @Input() user: string;
+  @Input()  rawText: string = '';
   @Output() rawTextToEmit = new EventEmitter();
+  @Output() translatedTextToEmit = new EventEmitter();
 
   // Number
   public enterKey: number = 13;
@@ -29,7 +31,6 @@ export class MessageWrapperComponent implements OnInit {
 
   public rawSpeech: HTMLAudioElement;
   public translatedSpeech: HTMLAudioElement;
-  public rawText: string = '';
   public translatedText: string = '';
 
   // Boolean
@@ -81,10 +82,10 @@ export class MessageWrapperComponent implements OnInit {
 
     this.translateService.translate(this.rawText, this.user).subscribe(async response => {
       this.translatedText = response;
+      this.translatedTextToEmit.emit(this.translatedText);
       this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
       this.translatedSpeech = this.textToSpeechService.audioSpeech;
     });
-    
     this.rawText = '';
   }
 

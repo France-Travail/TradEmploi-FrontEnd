@@ -3,8 +3,8 @@
 <app-translation-title (finish)="closeConversation()"></app-translation-title>
 <div class="interfaces">
   <div class="msg">
-    <app-message-wrapper user="advisor" class="margin" (rawTextToEmit)="getMessage($event)"></app-message-wrapper>
-    <app-message-wrapper user="guest"></app-message-wrapper>
+    <app-message-wrapper user="advisor" class="margin" (rawTextToEmit)="getMessage($event)" (translatedTextToEmit)="getTranslation($event)" [rawText]="messageToEdit"></app-message-wrapper>
+    <app-message-wrapper user="guest" class="margin" (rawTextToEmit)="getMessage($event)" (translatedTextToEmit)="getTranslation($event)"></app-message-wrapper>
   </div>
   <div class="conversation">
     <div class="head-conversation">
@@ -15,7 +15,7 @@
     </div>
     <div class="value">
       <div class="translation">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque magni.
+        {{ translatedMessage }}
       </div>
       <button class="listen">
         <img src="../../../assets/icons/icon-listen-black.svg" alt="listen translation">
@@ -26,7 +26,14 @@
         <span class="flag-icon flag-icon-fr" routerLink="/choice"></span>
       </div>
       <div class="text">
-        <a href="#">{{ this.sentMessage }}</a>
+        <span *ngIf="!showLongMessage">
+          <a (click)="editMessage(sentMessage)">{{ sentMessage }}</a>&nbsp;
+          <span *ngIf="sentMessage && sentMessage.length >= 120"><a (click)="showLongText(sentMessage)">...</a></span>
+        </span>
+        <span *ngIf="showLongMessage">
+          <a (click)="editMessage(longText)">{{ longText }}</a>&nbsp;
+          <button *ngIf="longText" (click)="sliceText(longText)">Réduire</button>
+        </span>
         </div>
       <div class="delete">
         <img src="./assets/icons/icon-delete-black.svg" alt="delete text" />

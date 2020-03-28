@@ -22,6 +22,7 @@
     width: 100%;
       margin-right: 10px;
   }
+
   .conversation {
     display: flex;
     flex-direction: column;
@@ -31,15 +32,18 @@
     padding: 15px;
     height: 880px;
     width: 100%;
+
     .head-conversation {
       display: flex;
       flex-direction: row;
+
       h2 {
         font-size: 14px;
         line-height: 15px;
         font-weight: bold;
         margin-bottom: 20px;
       }
+
       .auto-listen {
         width: 85%;
         text-align: end;
@@ -63,24 +67,29 @@
       text-align: justify;
       overflow-y: auto;
       background-color: #F5F5F5;
+
       .translation {
         width: 94%;
         height: auto;
         margin: auto;
       }
+
       button {
         border: none;
         background-color: transparent;
         margin-left: 10px;
+
         img {
           width: 22px;
         }
       }
     }
+
     .entered-text {
       display: flex;
       flex-direction: row;
       margin-top: 10px;
+
       .flag {
         .flag-icon {
           width: 34px;
@@ -91,13 +100,33 @@
           background-size: cover;
         }
       }
+
       .text {
         width: 90%;
         padding: 0px 10px;
         text-align: justify;
         font-size: 16px;
-        a {
-          text-decoration: none;
+        span {
+          a {
+            text-decoration: none;
+            color: #4171DA;
+          }
+        }
+        span {
+          a {
+            text-decoration: none;
+            color: #4171DA;
+          }
+          button {
+            display: flex;
+            align-items: flex-end;
+            padding: 4px;
+            min-width: 60px;
+            background: $white;
+            color: $black;
+            border: 1px solid $btn-border;
+            border-radius: 5px;
+          }
         }
       }
       .delete {
