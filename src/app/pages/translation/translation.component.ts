@@ -7,9 +7,6 @@ import { Router } from '@angular/router';
 import { TranslateService } from 'src/app/services/translate.service';
 import { NavbarItem } from 'src/app/models/navbar-item';
 
-import { Thread } from 'src/app/models/thread';
-import { Observable, of, Subject, BehaviorSubject, Subscription } from 'rxjs';
-
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
@@ -17,28 +14,16 @@ import { Observable, of, Subject, BehaviorSubject, Subscription } from 'rxjs';
 })
 export class TranslationComponent {
   public navBarItems: NavbarItem[] = [];
+
   public sentMessage: string;
   public translatedMessage: string;
-
-  public friendAge = 25;
-  
-  public rawMsg: Observable<{message: string}>;
-  public translatedMsg: Observable<{message: string}>;
-  
-  firstSubscription: Subscription;
-  secondSubscription: Subscription;
-  public rawText: string;
   public slicedText: string;
   public longText: string;
-  public shortRaw: boolean;
-  public longRaw: boolean;
-  public translation: string;
-  public conversation: string;
-
   public messageToEdit: string;
+
   public showLongMessage: boolean = false;
-  public guestLanguage: string;
-  public advisorLanguage: string;
+  
+  public translatedSpeech: HTMLAudioElement;
  
 
   constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router) {
@@ -75,11 +60,6 @@ export class TranslationComponent {
     ];
   }
 
-  protected unsubscribe() {
-    this.firstSubscription.unsubscribe();
-    this.secondSubscription.unsubscribe();
-  }
-
   public getMessage(message: string): string {
     if (message.length >= 130) {
       this.longText = message;
@@ -93,21 +73,39 @@ export class TranslationComponent {
     return
   }
 
-  public editMessage(sentMessage): string {
-    this.messageToEdit = sentMessage
+  public editMessage(): string {
+    console.log('long edit : ', this.longText )
+    this.messageToEdit = this.longText
     this.sentMessage = '';
     this.translatedMessage = '';
     this.showLongMessage = false;
     return
   }
 
-  public sliceText(text) {
+  public sliceText(text): string {
     return this.slicedText = text.slice(0, 120);
   }
 
   public showLongText(text) {
     this.sentMessage = null;
     this.showLongMessage = true;
+  }
+
+  public deleteMessage() {
+    if (this.sentMessage) {
+      this.sentMessage = '';
+      this.translatedMessage = '';
+    }
+    this.longText = '';
+    this.translatedMessage = '';
+  }
+
+  public getTranslatedSpeech(message) {
+    this.translatedSpeech = message;
+  }
+
+  public listen(value: 'translation' | 'speech') {
+    this.translatedSpeech.play()
   }
 
   /**

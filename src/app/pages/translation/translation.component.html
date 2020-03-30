@@ -3,7 +3,12 @@
 <app-translation-title (finish)="closeConversation()"></app-translation-title>
 <div class="interfaces">
   <div class="msg">
-    <app-message-wrapper user="advisor" class="margin" (rawTextToEmit)="getMessage($event)" (translatedTextToEmit)="getTranslation($event)" [rawText]="messageToEdit"></app-message-wrapper>
+    <app-message-wrapper user="advisor" class="margin" 
+    (rawTextToEmit)="getMessage($event)" 
+    (translatedTextToEmit)="getTranslation($event)" 
+    (translatedSpeechToEmit)="getTranslatedSpeech($event)"
+    [rawText]="messageToEdit">
+  </app-message-wrapper>
     <app-message-wrapper user="guest" class="margin" (rawTextToEmit)="getMessage($event)" (translatedTextToEmit)="getTranslation($event)"></app-message-wrapper>
   </div>
   <div class="conversation">
@@ -13,21 +18,21 @@
         <a href="#">Ecouter automatiquement</a><mat-slide-toggle></mat-slide-toggle>
       </div>
     </div>
-    <div class="value">
+    <div class="value" *ngIf="translatedMessage">
       <div class="translation">
         {{ translatedMessage }}
       </div>
-      <button class="listen">
+      <button class="listen" (click)="listen('translation')" *ngIf=(translatedMessage)>
         <img src="../../../assets/icons/icon-listen-black.svg" alt="listen translation">
       </button>
     </div>
-    <div class="entered-text">
+    <div class="entered-text" *ngIf="translatedMessage">
       <div class="flag">
         <span class="flag-icon flag-icon-fr" routerLink="/choice"></span>
       </div>
-      <div class="text">
+      <div class="text" *ngIf="translatedMessage">
         <span *ngIf="!showLongMessage">
-          <a (click)="editMessage(sentMessage)">{{ sentMessage }}</a>&nbsp;
+          <a (click)="editMessage()">{{ sentMessage }}</a>&nbsp;
           <span *ngIf="sentMessage && sentMessage.length >= 120"><a (click)="showLongText(sentMessage)">...</a></span>
         </span>
         <span *ngIf="showLongMessage">
@@ -35,7 +40,7 @@
           <button *ngIf="longText" (click)="sliceText(longText)">Réduire</button>
         </span>
         </div>
-      <div class="delete">
+      <div class="delete" (click)="deleteMessage()">
         <img src="./assets/icons/icon-delete-black.svg" alt="delete text" />
       </div>
     </div>

@@ -18,6 +18,7 @@ export class MessageWrapperComponent implements OnInit {
   @Input()  rawText: string = '';
   @Output() rawTextToEmit = new EventEmitter();
   @Output() translatedTextToEmit = new EventEmitter();
+  @Output() translatedSpeechToEmit = new EventEmitter();
 
   // Number
   public enterKey: number = 13;
@@ -85,6 +86,7 @@ export class MessageWrapperComponent implements OnInit {
       this.translatedTextToEmit.emit(this.translatedText);
       this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
       this.translatedSpeech = this.textToSpeechService.audioSpeech;
+      this.translatedSpeechToEmit.emit(this.translatedSpeech);
     });
     this.rawText = '';
   }
