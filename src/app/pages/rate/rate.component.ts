@@ -35,24 +35,24 @@ export class RateComponent {
   /**
    *
    */
-  public eval(value: number) {
-    this.rate = {
-      grade: value + 1,
-      language: this.translateService.guest.writtenLanguage,
-      date: new Date(),
-      historyId: this.historyService.conversation.id
-    };
+  // public eval(value: number) {
+  //   this.rate = {
+  //     grade: value + 1,
+  //     language: this.translateService.guest.writtenLanguage,
+  //     date: new Date(),
+  //     historyId: this.historyService.conversation.id
+  //   };
 
-    this.rateService.rateConversation(this.rate);
+  //   this.rateService.rateConversation(this.rate);
 
-    this.rates.forEach((r, i) => {
-      if (value >= i) {
-        this.rates[i] = true;
-      } else {
-        this.rates[i] = false;
-      }
-    });
-  }
+  //   this.rates.forEach((r, i) => {
+  //     if (value >= i) {
+  //       this.rates[i] = true;
+  //     } else {
+  //       this.rates[i] = false;
+  //     }
+  //   });
+  // }
 
   /**
    *

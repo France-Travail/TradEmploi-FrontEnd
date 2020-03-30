@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
 import { NavbarItem } from 'src/app/models/navbar-item';
+import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
@@ -47,11 +48,16 @@ export class TranslationComponent {
     ];
   }
 
+
   /**
    * Close conversation and redirection to rate page
    */
   public closeConversation() {
-    this.goto('rate');
+    this.dialog.open(RateDialogComponent, {
+      width: '800px',
+      height: '600px',
+      panelClass: 'customDialog'
+    });
   }
 
   // /**

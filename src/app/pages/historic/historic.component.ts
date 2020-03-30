@@ -115,7 +115,7 @@ export class HistoricComponent implements OnInit {
   /**
    * Return the grade for a conversation
    */
-  public getRateById(id: string): number {
-    return this.rates.find(r => r.historyId === id).grade;
-  }
+  // public getRateById(id: string): number {
+  //   return this.rates.find(r => r.historyId === id).grade;
+  // }
 }
