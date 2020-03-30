@@ -7,9 +7,14 @@
     (rawTextToEmit)="getMessage($event)" 
     (translatedTextToEmit)="getTranslation($event)" 
     (translatedSpeechToEmit)="getTranslatedSpeech($event)"
+    (languageToEmit)="getLanguage($event)"
     [rawText]="messageToEdit">
   </app-message-wrapper>
-    <app-message-wrapper user="guest" class="margin" (rawTextToEmit)="getMessage($event)" (translatedTextToEmit)="getTranslation($event)"></app-message-wrapper>
+    <app-message-wrapper user="guest" class="margin" 
+    (rawTextToEmit)="getMessage($event)" 
+    (translatedTextToEmit)="getTranslation($event)"
+    (languageToEmit)="getLanguage($event)"
+    ></app-message-wrapper>
   </div>
   <div class="conversation">
     <div class="head-conversation">
@@ -18,31 +23,35 @@
         <a href="#">Ecouter automatiquement</a><mat-slide-toggle></mat-slide-toggle>
       </div>
     </div>
-    <div class="value" *ngIf="translatedMessage">
-      <div class="translation">
-        {{ translatedMessage }}
-      </div>
-      <button class="listen" (click)="listen('translation')" *ngIf=(translatedMessage)>
-        <img src="../../../assets/icons/icon-listen-black.svg" alt="listen translation">
-      </button>
-    </div>
-    <div class="entered-text" *ngIf="translatedMessage">
-      <div class="flag">
-        <span class="flag-icon flag-icon-fr" routerLink="/choice"></span>
-      </div>
-      <div class="text" *ngIf="translatedMessage">
-        <span *ngIf="!showLongMessage">
-          <a (click)="editMessage()">{{ sentMessage }}</a>&nbsp;
-          <span *ngIf="sentMessage && sentMessage.length >= 120"><a (click)="showLongText(sentMessage)">...</a></span>
-        </span>
-        <span *ngIf="showLongMessage">
-          <a (click)="editMessage(longText)">{{ longText }}</a>&nbsp;
-          <button *ngIf="longText" (click)="sliceText(longText)">Réduire</button>
-        </span>
-        </div>
-      <div class="delete" (click)="deleteMessage()">
-        <img src="./assets/icons/icon-delete-black.svg" alt="delete text" />
-      </div>
+    <div class="thread">
+      <ng-container *ngFor="let message of messages; let i = index">
+          <div class="value">
+            <div class="translation" *ngIf="!isSendToEdit">
+              {{ message.translation }}
+            </div>
+            <button class="listen" (click)="listen('translation')" *ngIf=(message.translation)>
+              <img src="../../../assets/icons/icon-listen-black.svg" alt="listen translation">
+            </button>
+          </div>
+          <div class="entered-text" *ngIf="message.translation">
+            <div class="flag">
+              <span class="flag-icon flag-icon-{{ message.language }}" routerLink="/choice"></span>
+            </div>
+            <div class="text" *ngIf="message.translation">
+              <span *ngIf="!showLongMessage && !isSendToEdit">
+                <a (click)="editMessage(message.message)">{{ message.message }}</a>&nbsp;
+                <span *ngIf="message.message && message.message.length >= 120"><a (click)="showLongText(message.message)">...</a></span>
+              </span>
+              <span *ngIf="showLongMessage">
+                <a (click)="editMessage($event , message.longMessage)">{{ message.longMessage }}</a>&nbsp;
+                <button *ngIf="message.longMessag" (click)="sliceText(message.longMessage)">Réduire</button>
+              </span>
+              </div>
+            <div class="delete" (click)="deleteMessage()">
+              <img src="./assets/icons/icon-delete-black.svg" alt="delete text" />
+            </div>
+          </div>
+      </ng-container>
     </div>
   </div>
 </div>

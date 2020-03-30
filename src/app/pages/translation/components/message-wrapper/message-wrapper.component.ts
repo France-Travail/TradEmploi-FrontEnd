@@ -19,6 +19,7 @@ export class MessageWrapperComponent implements OnInit {
   @Output() rawTextToEmit = new EventEmitter();
   @Output() translatedTextToEmit = new EventEmitter();
   @Output() translatedSpeechToEmit = new EventEmitter();
+  @Output() languageToEmit = new EventEmitter();
 
   // Number
   public enterKey: number = 13;
@@ -73,6 +74,7 @@ export class MessageWrapperComponent implements OnInit {
   public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
     if (fromKeyBoard) {
       const language = this.user === 'advisor' ? 'fr-FR' : VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode;
+      this.languageToEmit.emit(language)
       this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
       this.rawSpeech = this.textToSpeechService.audioSpeech;
       this.rawTextToEmit.emit(this.rawText);

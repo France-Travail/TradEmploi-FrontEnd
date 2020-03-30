@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { TranslateService } from 'src/app/services/translate.service';
 import { NavbarItem } from 'src/app/models/navbar-item';
 
+import { NewMessage } from 'src/app/models/new-message';
+
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
@@ -20,8 +22,14 @@ export class TranslationComponent {
   public slicedText: string;
   public longText: string;
   public messageToEdit: string;
+  public language: string;
+
+  public messages = [];
+
+  public newMessage: NewMessage;
 
   public showLongMessage: boolean = false;
+  public isSendToEdit: boolean = false;
   
   public translatedSpeech: HTMLAudioElement;
  
@@ -61,20 +69,24 @@ export class TranslationComponent {
   }
 
   public getMessage(message: string): string {
+    this.isSendToEdit = false;
     if (message.length >= 130) {
       this.longText = message;
-      return this.sentMessage = this.sliceText(message);
+      this.sentMessage = this.sliceText(message);
+      return 
     }
     return this.sentMessage = message;
   }
     
   public getTranslation(message: string): string {
     this.translatedMessage = message;
+    this.addToThread(this.sentMessage, this.translatedMessage, this.slicedText, this.longText, this.language)
     return
   }
 
-  public editMessage(): string {
-    console.log('long edit : ', this.longText )
+  public editMessage(e, message: string): string {
+    this.isSendToEdit = true;
+    console.log('event : ', e)
     this.messageToEdit = this.longText
     this.sentMessage = '';
     this.translatedMessage = '';
@@ -104,8 +116,18 @@ export class TranslationComponent {
     this.translatedSpeech = message;
   }
 
+  public getLanguage(e): string {
+    this.language = e.slice(0, 2)
+    return
+  } 
+
   public listen(value: 'translation' | 'speech') {
     this.translatedSpeech.play()
+  }
+
+  public addToThread(message, translation, slicedMessage, longMessage, language) {
+    this.newMessage = { message, translation, slicedMessage, longMessage, language }
+    this.messages.push(this.newMessage)
   }
 
   /**
