@@ -40,6 +40,7 @@ import { ShowComponent } from './pages/historic/dialogs/show/show.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
+import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { MessageWrapperComponent } from './pages/translation/components/message-
     ShowComponent,
     ThanksComponent,
     ConversationComponent,
-    MessageWrapperComponent
+    MessageWrapperComponent,
+    RateDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +80,6 @@ import { MessageWrapperComponent } from './pages/translation/components/message-
     { provide: FUNCTIONS_ORIGIN, useValue: 'https://translate-pe.firebaseapp.com' }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent]
+  entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent]
 })
 export class AppModule {}
