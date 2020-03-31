@@ -2,8 +2,8 @@
 
 <div mat-dialog-content>
   <div class="question">
-    <div class="french">{{ sentences.french[0] }}</div>
-    <div class="foreign">{{ sentences.foreign[0] }}</div>
+    <div class="french">{{ sentences.questionOne.french }}</div>
+    <div class="foreign">{{ sentences.questionOne.foreign }}</div>
     <div class="stars">
       <div class="star" (click)="eval(0, 0)" [ngClass]="{'chosen': rates[0][0]}">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_rates</mat-icon>
@@ -24,8 +24,8 @@
   </div>
 
   <div class="question">
-    <div class="french">{{ sentences.french[1] }}</div>
-    <div class="foreign">{{ sentences.foreign[1] }}</div>
+    <div class="french">{{ sentences.questionTwo.french }}</div>
+    <div class="foreign">{{ sentences.questionTwo.foreign }}</div>
     <div class="stars">
       <div class="star" (click)="eval(0, 1)" [ngClass]="{'chosen': rates[1][0]}">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_rates</mat-icon>
@@ -46,8 +46,8 @@
   </div>
 
   <div class="question">
-    <div class="french">{{ sentences.french[2] }}</div>
-    <div class="foreign">{{ sentences.foreign[2] }}</div>
+    <div class="french">{{ sentences.questionThree.french }}</div>
+    <div class="foreign">{{ sentences.questionThree.foreign }}</div>
     <textarea [(ngModel)]="rate.comment"></textarea>
   </div>
 </div>

@@ -7,6 +7,12 @@ import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
 import { Rate } from 'src/app/models/rate';
 import { MatDialogRef } from '@angular/material';
 
+interface Sentences {
+  questionOne: { french: string; foreign: string; };
+  questionTwo: { french: string; foreign: string; };
+  questionThree: { french: string; foreign: string; };
+};
+
 @Component({
   selector: 'app-rate-dialog',
   templateUrl: './rate-dialog.component.html',
@@ -18,29 +24,42 @@ export class RateDialogComponent implements OnInit {
     [false, false, false, false, false],
     [false, false, false, false, false]
   ];
-  public sentences: { french: string[]; foreign: string[] } = { french: [], foreign: [] };
+  public sentences: Sentences = {
+    questionOne : {
+      french: '',
+      foreign: ''
+    },
+    questionTwo : {
+      french: '',
+      foreign: ''
+    },
+    questionThree : {
+      french: '',
+      foreign: ''
+    }
+  }
 
   constructor(private dialogRef: MatDialogRef<RateDialogComponent>, private rateService: RateService, private settingsService: SettingsService, private toastService: ToastService, private router: Router) {
     VOCABULARY_V2.find(v => v.isoCode === 'fr-FR').sentences.forEach(s => {
       if (s.key === 'rate-easyToUse') {
-        this.sentences.french[0] = s.value;
+        this.sentences.questionOne.french = s.value;
       }
       if (s.key === 'rate-understand') {
-        this.sentences.french[1] = s.value;
+        this.sentences.questionTwo.french = s.value;
       }
       if (s.key === 'rate-comment') {
-        this.sentences.french[2] = s.value;
+        this.sentences.questionThree.french = s.value;
       }
     });
     VOCABULARY_V2.find(v => v.isoCode === this.settingsService.guest.value.language).sentences.forEach(s => {
       if (s.key === 'rate-easyToUse') {
-        this.sentences.foreign[0] = s.value;
+        this.sentences.questionOne.foreign = s.value;
       }
       if (s.key === 'rate-understand') {
-        this.sentences.foreign[1] = s.value;
+        this.sentences.questionTwo.foreign = s.value;
       }
       if (s.key === 'rate-comment') {
-        this.sentences.foreign[2] = s.value;
+        this.sentences.questionThree.foreign = s.value;
       }
     });
   }
@@ -52,7 +71,6 @@ export class RateDialogComponent implements OnInit {
       grades: [undefined, undefined],
       comment: ''
     };
-    console.log(this.sentences);
   }
 
   public eval(value: number, question: number) {
@@ -62,11 +80,7 @@ export class RateDialogComponent implements OnInit {
     this.rateService.rateConversation(this.rate);
 
     this.rates[question].forEach((r, i) => {
-      if (value >= i) {
-        this.rates[question][i] = true;
-      } else {
-        this.rates[question][i] = false;
-      }
+      this.rates[question][i] = value >= i ? true : false;
     });
   }
 
