@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SpeechToTextService {
-  constructor(){}
 
   recognizeAsync = (audioBytes: any, language: string, time: number): Observable<string> => {
     const urlRecognize: string = `https://speech.googleapis.com/v1/speech:longrunningrecognize?key=${environment.gcp.apiKey}`;
