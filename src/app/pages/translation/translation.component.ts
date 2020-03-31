@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
@@ -14,7 +15,14 @@ import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component
 })
 export class TranslationComponent {
   public navBarItems: NavbarItem[] = [];
-  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router) {
+  public isMobile: boolean;
+
+  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver) {
+    // Start watching screen size modication
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
+      this.isMobile = result.matches;
+    });
+
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
     }
@@ -48,14 +56,13 @@ export class TranslationComponent {
     ];
   }
 
-
   /**
    * Close conversation and redirection to rate page
    */
   public closeConversation() {
     this.dialog.open(RateDialogComponent, {
-      width: '800px',
-      height: '600px',
+      width: this.isMobile ? '100%' : '800px',
+      height: this.isMobile ? '100%' : '600px',
       panelClass: 'customDialog'
     });
   }

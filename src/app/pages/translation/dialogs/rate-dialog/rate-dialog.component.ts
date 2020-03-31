@@ -47,6 +47,7 @@ export class RateDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.rate = {
+      language: VOCABULARY_V2.find(v => v.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'language-name-fr').value,
       date: new Date(),
       grades: [undefined, undefined],
       comment: ''
