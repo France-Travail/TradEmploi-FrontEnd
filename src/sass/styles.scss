@@ -1,14 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-@import "colors";
-@import "reset";
-@import "media";
-@import "fonts";
+@import 'colors';
+@import 'reset';
+@import 'media';
+@import 'fonts';
 
 .mat-progress-spinner circle,
 .mat-spinner circle {
   stroke: $primary-color !important;
 }
 
+.customDialog {
+  max-width: 100vw !important;
+}
 
+.customDialog > .mat-dialog-container {
+  padding: 0;
+  border-radius: 0;
+}
