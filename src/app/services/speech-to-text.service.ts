@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SpeechToTextService {
+
   recognizeAsync = (audioBytes: any, language: string, time: number): Observable<string> => {
     const urlRecognize: string = `https://speech.googleapis.com/v1/speech:longrunningrecognize?key=${environment.gcp.apiKey}`;
     const data = {
@@ -39,11 +40,15 @@ export class SpeechToTextService {
                 res.data.response === undefined || res.data.response.results === undefined ? '' : res.data.response.results.map(result => result.alternatives[0].transcript).join('');
               observer.next(transcription);
               observer.complete();
+            }).catch(error => {
+              observer.error('Enregistrement indisponible momentanément');
+              throw new Error("An error occurred when api speech to text get operation called")
             });
           }, wait);
         })
         .catch(error => {
           observer.error('Enregistrement indisponible momentanément');
+          throw new Error("An error occurred when api async speech to text longrunningrecognize called")
         });
     });
   };

@@ -1,6 +1,6 @@
 // Angular
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 // Handle Navigation Tree
@@ -42,6 +42,7 @@ import { ConversationComponent } from './pages/conversation/conversation.compone
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
 
+import { SentryErrorHandler} from './utils/sentry-error-handler'
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +78,8 @@ import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rat
       provide: MAT_DATE_LOCALE,
       useValue: 'fr-FR'
     },
-    { provide: FUNCTIONS_ORIGIN, useValue: 'https://translate-pe.firebaseapp.com' }
+    { provide: FUNCTIONS_ORIGIN, useValue: 'https://translate-pe.firebaseapp.com' },
+    { provide: ErrorHandler, useClass: SentryErrorHandler }
   ],
   bootstrap: [AppComponent],
   entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent]
