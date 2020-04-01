@@ -75,6 +75,19 @@
     border: none;
     box-shadow: 0 0 3px #cccccc;
     padding: 8px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .logout {
+    width: fit-content;
+    background-color: #bf5858;
+    margin: 0 auto;
+  }
+  .export {
+    width: fit-content;
+    background-color: #2a9981;
+    margin: 0 auto;
   }
   .parameters {
     display: flex;

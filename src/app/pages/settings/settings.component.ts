@@ -9,6 +9,8 @@ import { ToastService } from 'src/app/services/toast.service';
 
 // Models
 import { NavbarItem } from 'src/app/models/navbar-item';
+import { AuthService } from 'src/app/services/auth.service';
+import { AngularFireFunctions } from '@angular/fire/functions';
 
 @Component({
   selector: 'app-settings',
@@ -21,9 +23,22 @@ export class SettingsComponent implements AfterViewInit {
   public advisor: { firstname: string; lastname: string } = { firstname: '', lastname: '' };
   public isNewConversation: boolean = true; // Hide elements when new conversation is started
   public navBarItems: NavbarItem[] = [];
+  public isAdmin: boolean = false;
 
-  constructor(private historyService: HistoryService, private toastService: ToastService, private settingsService: SettingsService, public router: Router) {
+  constructor(
+    private historyService: HistoryService,
+    private toastService: ToastService,
+    private settingsService: SettingsService,
+    public router: Router,
+    private authService: AuthService,
+    private fireFunction: AngularFireFunctions
+  ) {
     this.setNavBar();
+    this.authService.auth.subscribe(auth => {
+      if (auth !== null) {
+        this.isAdmin = auth.role === 'ADMIN' ? true : false;
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -58,7 +73,7 @@ export class SettingsComponent implements AfterViewInit {
       // },
       {
         icon: 'assets/icons/icon-chat-black.svg',
-        infoTitle: 'Voir l\'historique',
+        infoTitle: "Voir l'historique",
         link: 'history',
         isDisplayed: this.isNewConversation
       }
@@ -116,5 +131,16 @@ export class SettingsComponent implements AfterViewInit {
     } else {
       return true;
     }
+  }
+
+  public export(): void {
+    const exportRate = this.fireFunction.httpsCallable('helloWorld');
+    exportRate({}).subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  public logout(): void {
+    this.authService.logout();
   }
 }

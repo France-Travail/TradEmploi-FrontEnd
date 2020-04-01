@@ -3,6 +3,9 @@
 <div class="interfaces">
   <h1>Paramètre de la session</h1>
 
+  <button class="logout" (click)="logout()">Se déconnecter</button>
+  <button class="export" (click)="export()" *ngIf="isAdmin">Exporter</button>
+
   <div class="parameters">
     <mat-slide-toggle [(ngModel)]="audio" (click)="switchAudio()">Activation de l'audio après traduction
     </mat-slide-toggle>
