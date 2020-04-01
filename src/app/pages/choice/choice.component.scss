@@ -21,71 +21,87 @@ h2 {
   flex-wrap: wrap;
   justify-content: space-evenly;
   background-color: $white;
-  .countries {
-    display: grid;
-    color: #666666;
-    gap: 20px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    background-color: $white-smoke;
-    grid-template-columns: repeat(auto-fit, 300px);
-    padding: 10px;
-    .country-data {
-      margin: 0 auto;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      .country {
-        width: 250px;
-        margin: auto 0;
-      }
-      .sentence {
-        height: 50px;
-      }
-      .speaker {
-        background-image: url('../../../assets/icons/icon-listen-blue.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        border-radius: 40px;
-        background-color: white;
-        width: 40px;
-        height: 40px;
-      }
-      .selectLanguageButton {
-        display: flex;
-        width: 200px;
-        flex-direction: column;
-        flex-wrap: wrap;
-        margin: 10px auto;
-        align-items: baseline;
-        height: 50px;
-        border: 1px solid $gray74;
-        border-radius: 10px;
-        .flag-icon {
-          width: 28px;
-          height: 20px;
-          margin: auto;
+}
+.country {
+  width: 250px;
+  margin: 10px 0px;
+}
+.sentence {
+  flex: auto;
+  max-width: 300px;
+  width: 260px;
+  height: 50px;
+}
+.speaker {
+  background-image: url('../../../assets/icons/icon-listen-blue.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 40px;
+  background-color: white;
+  width: 40px;
+  height: 40px;
+}
+.flag-icon {
+  width: 28px;
+  height: 20px;
+  margin: auto;
+}
+.sentences {
+  margin: inherit;
+  display: flex;
+  flex-direction: column;
+  .buttonSentence {
+    font-size: smaller;
+  }
+}
+.selectLanguageButton {
+  display: flex;
+  width: 200px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 10px auto;
+  align-items: baseline;
+  height: 50px;
+  border: 1px solid $gray74;
+  border-radius: 10px;
+}
+.countries {
+  display: grid;
+  color: #666666;
+  gap: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: $white-smoke;
+  grid-template-columns: repeat(auto-fit, 300px);
+  padding: 10px;
+}
+.country-data {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.countries:hover {
+  color: white;
+  background: $primary-color;
+}
+@media screen and (max-width: 720px) {
+  h2 {
+    font-size: 12pt;
+  }
+  .tiles {
+    .countries {
+      .country-data {
+        .sentence {
+          max-width: 290px;
+          height: 40px;
+          overflow-y: scroll;
         }
-        .sentences {
-          margin: inherit;
-          display: flex;
-          flex-direction: column;
-          .buttonSentence {
-            font-size: smaller;
-          }
+        .country {
+          display: none;
         }
       }
     }
-  }
-
-  .countries:hover {
-    color: white;
-    background: $primary-color;
-  }
-}
-@media screen and (max-width: 320px) {
-  .tiles {
-    width: 315px;
   }
 }
 

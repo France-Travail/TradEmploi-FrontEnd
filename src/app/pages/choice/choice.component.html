@@ -6,7 +6,7 @@
       <div class="country">
         <strong>{{ item.countryNameFR }} </strong> / {{ item.countryName }}
       </div>
-      <div class="sentence" [ngStyle]="{ width: item.audioSupported ? '260px' : '300px' }">
+      <div class="sentence">
         {{ item.displayedWelcome }}
       </div>
       <div class="speaker" *ngIf="item.audioSupported" (click)="audioDescription(item.readedWelcome, item.isoCode)"></div>
