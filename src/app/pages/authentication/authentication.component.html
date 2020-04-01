@@ -1,0 +1,16 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field [color]="email.valid && 'accent'" class="input">
+    <input matInput type="email" formControlName="email" placeholder="Adresse Email" autocomplete="off" />
+    <mat-error *ngIf="email.hasError('required')">L'adresse email est requise.</mat-error>
+    <mat-error *ngIf="email.invalid && email.dirty">Vous devez entrer une adresse email valide.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field [color]="password.valid && 'accent'" class="input">
+    <input matInput type="password" formControlName="password" placeholder="Mot de passe" autocomplete="off" />
+    <mat-error *ngIf="password.hasError('required')">Le mot de passe est requis.</mat-error>
+    <mat-error *ngIf="password.invalid && password.dirty">Le mot de passe doit faire au moins 6 caractères.
+    </mat-error>
+  </mat-form-field>
+
+  <button type="submit" [disabled]="form.invalid">Connexion</button>
+</form>
