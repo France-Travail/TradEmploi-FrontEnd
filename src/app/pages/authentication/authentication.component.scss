@@ -8,6 +8,7 @@
   justify-content: center;
   align-items: center;
   background-color: #fafafa;
+  background-color: $light-blue;
 }
 
 form {
@@ -15,10 +16,19 @@ form {
   flex-direction: column;
   justify-content: space-between;
   width: 450px;
+  padding: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 0 3px #aaaaaa;
+
+  h1 {
+    font-size: 20px;
+  }
 
   button {
+    width: fit-content;
+    margin: 0 auto;
     margin-top: 30px;
-    padding: 7px 10px;
+    padding: 10px 30px;
     background: $primary-color;
     color: #ffffff;
     border: 1px solid #dddddd;

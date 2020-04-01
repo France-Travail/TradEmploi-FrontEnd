@@ -118,7 +118,7 @@ export class SettingsComponent implements AfterViewInit {
       this.settingsService.newConversation = false;
       this.router.navigate(['choice']);
     } else {
-      this.toastService.showToast('Merci de remplir tous les champs.');
+      this.toastService.showToast('Merci de remplir tous les champs.', 'toast-info');
     }
   }
 
@@ -142,5 +142,6 @@ export class SettingsComponent implements AfterViewInit {
 
   public logout(): void {
     this.authService.logout();
+    this.router.navigateByUrl('/auth');
   }
 }

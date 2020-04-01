@@ -7,7 +7,6 @@ import { ChoiceComponent } from './pages/choice/choice.component';
 import { HistoricComponent } from './pages/historic/historic.component';
 import { TranslationComponent } from './pages/translation/translation.component';
 import { StartComponent } from './pages/start/start.component';
-import { RateComponent } from './pages/rate/rate.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
@@ -42,11 +41,6 @@ const routes: Routes = [
   {
     path: 'translation',
     component: TranslationComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'rate',
-    component: RateComponent,
     canActivate: [AuthGuard]
   },
   {

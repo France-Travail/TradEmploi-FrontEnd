@@ -42,7 +42,7 @@ export class HistoricComponent implements OnInit {
         }
       },
       error => {
-        this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.');
+        this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.', 'toast-error');
       }
     );
   }
@@ -83,9 +83,9 @@ export class HistoricComponent implements OnInit {
       .afterClosed()
       .subscribe(response => {
         if (response === 'removed') {
-          this.toastService.showToast('La conversation a été supprimée.');
+          this.toastService.showToast('La conversation a été supprimée.', 'toast-info');
         } else if (response === 'error') {
-          this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.');
+          this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.', 'toast-error');
         }
       });
   }

@@ -30,7 +30,6 @@ import { StartComponent } from './pages/start/start.component';
 import { ChoiceComponent } from './pages/choice/choice.component';
 import { TranslationComponent } from './pages/translation/translation.component';
 import { HistoricComponent } from './pages/historic/historic.component';
-import { RateComponent } from './pages/rate/rate.component';
 
 // Dialogs
 import { LanguagesComponent } from './pages/choice/dialog/languages/languages.component';
@@ -53,7 +52,6 @@ import { AuthenticationComponent } from './pages/authentication/authentication.c
     TranslationComponent,
     LanguagesComponent,
     StartComponent,
-    RateComponent,
     MeetingComponent,
     SettingsComponent,
     RemoveComponent,
@@ -82,7 +80,7 @@ import { AuthenticationComponent } from './pages/authentication/authentication.c
       provide: MAT_DATE_LOCALE,
       useValue: 'fr-FR'
     },
-    { provide: FUNCTIONS_ORIGIN, useValue: 'https://translate-pe.firebaseapp.com' },
+    // { provide: FUNCTIONS_ORIGIN, useValue: 'https://translate-pe.firebaseapp.com' },
     { provide: ErrorHandler, useClass: SentryErrorHandler }
   ],
   bootstrap: [AppComponent],
