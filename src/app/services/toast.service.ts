@@ -19,4 +19,31 @@ export class ToastService {
       panelClass: ['design']
     });
   }
+
+  public displayInfo(message: string, duration: number = 3000, button: string = 'OK'): void {
+    this.snackBar.open(message, button == null ? button : button, {
+      duration: duration == null ? duration : duration,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['toast-info']
+    });
+  }
+
+  public displayError(message: string, duration: number = 3000, button: string = 'OK'): void {
+    this.snackBar.open(message, button == null ? button : button, {
+      duration: duration == null ? duration : duration,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['toast-error']
+    });
+  }
+
+  public displaySuccess(message: string, duration: number = 3000, button: string = 'OK'): void {
+    this.snackBar.open(message, button == null ? button : button, {
+      duration: duration == null ? duration : duration,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['toast-success']
+    });
+  }
 }
