@@ -12,17 +12,32 @@ h2 {
   font-size: 22px;
   font-weight: 400;
 }
-.tiles {
+.country {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  color: #666666;
+  border-radius: 5px;
+  background-color: $white-smoke;
+  &:hover {
+    color: white;
+    background: $primary-color;
+  }
+}
+.countries {
+  margin: auto;
   padding: 20px;
   width: 90%;
-  display: flex;
-  flex-direction: row;
-  margin: auto;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  //flex-direction: row;
+
+  //flex-wrap: wrap;
   justify-content: space-evenly;
   background-color: $white;
 }
-.country {
+.title {
   width: 250px;
   margin: 10px 0px;
 }
@@ -64,40 +79,24 @@ h2 {
   height: 50px;
   border: 1px solid $gray74;
   border-radius: 10px;
+  cursor: pointer;
 }
-.countries {
-  display: grid;
-  color: #666666;
-  gap: 20px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  background-color: $white-smoke;
-  grid-template-columns: repeat(auto-fit, 300px);
-  padding: 10px;
-}
-.country-data {
-  margin: 0 auto;
+.middle {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  justify-content: space-between;
 }
-.countries:hover {
-  color: white;
-  background: $primary-color;
-}
+
 @media screen and (max-width: 720px) {
   .tiles {
     width: max(320px, 90%);
     .countries {
-      .country-data {
-        .sentence {
-          max-width: 290px;
-          height: 40px;
-          overflow-y: scroll;
-        }
-        .country {
-          display: none;
-        }
+      .sentence {
+        max-width: 290px;
+        height: 40px;
+        overflow-y: scroll;
+      }
+      .country {
+        display: none;
       }
     }
   }

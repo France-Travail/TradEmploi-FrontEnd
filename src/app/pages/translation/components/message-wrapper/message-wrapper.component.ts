@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
+import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { TranslateService } from 'src/app/services/translate.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
@@ -30,7 +30,7 @@ export class MessageWrapperComponent implements OnInit {
   public translatedSpeech: HTMLAudioElement;
   public rawText: string = '';
   public translatedText: string = '';
-  public isSetLanguage = VOCABULARY_V2.some(item => item.isoCode === this.settingsService.guest.value.language);
+  public isLanguageExist = VOCABULARY_V2.some(item => item.isoCode === this.settingsService.guest.value.language);
   // Boolean
   public micro: boolean = false;
   public error: boolean = false;
@@ -47,11 +47,11 @@ export class MessageWrapperComponent implements OnInit {
 
   ngOnInit(): void {
     this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    let sentences = this.isSetLanguage || this.user === 'advisor' ? VOCABULARY_V2.find(item => item.isoCode === this.languageOrigin).sentences : this.generateSentence(this.languageOrigin);
+    let sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find(item => item.isoCode === this.languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
     this.title = sentences.find(s => s.key === 'translation-h2').value;
     this.sendBtnValue = sentences.find(s => s.key === 'send').value;
     this.listenBtnValue = sentences.find(s => s.key === 'listen').value;
-    this.flag = sentences.find(s => s.key === 'flag').value.toLowerCase();
+    this.flag = this.isLanguageExist ? sentences.find(s => s.key === 'flag').value.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
     this.language = this.user === 'guest' ? 'fr-FR' : this.settingsService.guest.value.language;
   }
 
@@ -100,18 +100,5 @@ export class MessageWrapperComponent implements OnInit {
 
   public exitRecord() {
     this.micro = false;
-  }
-  public generateSentence(language: string): { key: string; value: string }[] {
-    return [
-      { key: 'flag', value: language.split('-')[1] },
-      { key: 'application-name', value: 'Instant Translation' },
-      { key: 'send', value: 'Send' },
-      { key: 'translate', value: 'Translate' },
-      { key: 'translation-h2', value: 'Type a text' },
-      { key: 'rate', value: 'Are you satisfied with your interview?' },
-      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
-      { key: 'listen', value: 'Listen' },
-      { key: 'record-text', value: 'Speak now' }
-    ];
   }
 }

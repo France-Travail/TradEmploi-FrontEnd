@@ -39,32 +39,11 @@ export class ChoiceComponent implements AfterContentInit {
   public navBarItems: NavbarItem[] = [];
   public vocabulary: Vocabulary[] = VOCABULARY_V2;
   public selectedCountriesData: selectedCountry[] = [];
-  public selectedCountries: string[] = [
-    'en-GB',
-    'ar-XA',
-    'ps-AF',
-    'fa-IR',
-    'bn-BD',
-    'es-ES',
-    'de-DE',
-    'pt-PT',
-    'it-IT',
-    'zh-ZH',
-    'ru-RU',
-    'ro-RO'
-
-    // 'mn-MN',
-    // 'ne-NP',
-    // 'uz-UZ',
-    // 'ro-RO',
-    // 'so-SO',
-    // 'vi-VN'
-  ];
+  public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU', 'ro-RO'];
   public toolTips: string[] = ['Autres langues'];
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
-  public listenIconSrc: string = 'assets/icons/icon-listen-white.svg';
   constructor(
     private translateService: TranslateService,
     private textToSpeechService: TextToSpeechService,

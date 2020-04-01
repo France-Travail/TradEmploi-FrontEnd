@@ -1,25 +1,25 @@
 <navbar class="navbar" [items]="navBarItems" (perform)="handleAction($event)"></navbar>
 <h2><strong>Choix de langues </strong>/ Choice of language</h2>
-<div class="tiles">
-  <div class="countries" *ngFor="let item of selectedCountriesData">
-    <div class="country-data">
-      <div class="country">
-        <strong>{{ item.countryNameFR }} </strong> / {{ item.countryName }}
-      </div>
+<div class="countries">
+  <div class="country" *ngFor="let item of selectedCountriesData">
+    <div class="title">
+      <strong>{{ item.countryNameFR }} </strong> / {{ item.countryName }}
+    </div>
+    <div class="middle">
       <div class="sentence">
         {{ item.displayedWelcome }}
       </div>
       <div class="speaker" *ngIf="item.audioSupported" (click)="audioDescription(item.readedWelcome, item.isoCode)"></div>
-      <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)">
-        <span *ngIf="item.flag !== 'NaF'" class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}"></span>
-        <img *ngIf="item.flag === 'NaF'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag" />
-        <div class="sentences">
-          <div class="buttonSentenceFR">
-            <strong>{{ item.buttonSentenceFR }}</strong>
-          </div>
-          <div class="buttonSentence">
-            {{ item.buttonSentence }}
-          </div>
+    </div>
+    <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)">
+      <span *ngIf="item.flag !== 'arabic'" class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}"></span>
+      <img *ngIf="item.flag === 'arabic'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag" />
+      <div class="sentences">
+        <div class="buttonSentenceFR">
+          <strong>{{ item.buttonSentenceFR }}</strong>
+        </div>
+        <div class="buttonSentence">
+          {{ item.buttonSentence }}
         </div>
       </div>
     </div>

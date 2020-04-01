@@ -122,7 +122,19 @@ export const VOCABULARY: { isoCode: string; words: { translate: string; request:
   { isoCode: 'zh-HK', words: { translate: '翻译', request: '您的要求：', rate: '你对面试满意吗？', send: '发送', thanks: 'PôleEmploi谢谢你' } },
   { isoCode: 'zh-ZH', words: { translate: '翻译', request: '您的要求：', rate: '你对面试满意吗？', send: '发送', thanks: 'PôleEmploi谢谢你' } }
 ];
-
+export const VOCABULARY_DEFAULT: Vocabulary = {
+  isoCode: 'default',
+  sentences: [
+    { key: 'application-name', value: 'Instant Translation' },
+    { key: 'send', value: 'Send' },
+    { key: 'translate', value: 'Translate' },
+    { key: 'translation-h2', value: 'Type a text' },
+    { key: 'rate', value: 'Are you satisfied with your interview?' },
+    { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+    { key: 'listen', value: 'Listen' },
+    { key: 'record-text', value: 'Speak now' }
+  ]
+};
 export const VOCABULARY_V2: Vocabulary[] = [
   {
     isoCode: 'ar-IL',
@@ -206,7 +218,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'country-name-fr', value: 'Pays arabes' },
       { key: 'language-name-raw', value: 'العربية' },
       { key: 'language-name-fr', value: 'Arabe' },
-      { key: 'flag', value: 'NaF' },
+      { key: 'flag', value: 'arabic' },
       { key: 'audioSupported', value: 'ok' },
       { key: 'application-name', value: 'الترجمة الفورية' },
       { key: 'send', value: 'إرسال' },
