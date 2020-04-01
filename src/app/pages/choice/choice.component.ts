@@ -5,8 +5,6 @@ import { MatDialog } from '@angular/material';
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
 
-// import { COUNTRIES } from 'src/app/data/countries';
-// import { WELCOME } from 'src/app/data/welcomeSentences';
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
 // Dialogs
 import { LanguagesComponent, Countries } from './dialog/languages/languages.component';
@@ -24,9 +22,9 @@ interface selectedCountry {
   flag: string;
   displayedWelcome: string;
   readedWelcome: string;
-  languageRaw: string;
-  languageFR: string;
+  buttonSentence: string;
   audioSupported: string;
+  buttonSentenceFR: string;
 }
 @Component({
   selector: 'app-choice',
@@ -41,35 +39,11 @@ export class ChoiceComponent implements AfterContentInit {
   public navBarItems: NavbarItem[] = [];
   public vocabulary: Vocabulary[] = VOCABULARY_V2;
   public selectedCountriesData: selectedCountry[] = [];
-  public selectedCountries: string[] = [
-    'en-GB',
-    'ar-XA',
-    'ps-AF',
-    'fa-IR',
-    'bn-BD',
-    'zh-ZH',
-    'ur-PK',
-    'pt-PT',
-    'ta-IN',
-    'tr-TR',
-    'de-DE',
-    'am-ET',
-    'km-KH',
-    'es-ES',
-    'hi-IN',
-    'it-IT',
-    'mn-MN',
-    'ne-NP',
-    'uz-UZ',
-    'ro-RO',
-    'so-SO',
-    'vi-VN'
-  ];
+  public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU', 'ro-RO'];
   public toolTips: string[] = ['Autres langues'];
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
-  public listenIconSrc: string = 'assets/icons/icon-listen-white.svg';
   constructor(
     private translateService: TranslateService,
     private textToSpeechService: TextToSpeechService,
@@ -114,8 +88,8 @@ export class ChoiceComponent implements AfterContentInit {
         isoCode: country,
         countryName: sentences.find(s => s.key === 'country-name-raw').value,
         countryNameFR: sentences.find(s => s.key === 'country-name-fr').value,
-        languageFR: sentences.find(s => s.key === 'language-name-fr').value,
-        languageRaw: sentences.find(s => s.key === 'language-name-raw').value,
+        buttonSentence: sentences.find(s => s.key === 'button-sentence').value,
+        buttonSentenceFR: sentences.find(s => s.key === 'button-sentence-fr').value,
         audioSupported: sentences.find(s => s.key === 'audioSupported')?.value
       });
     });
@@ -138,13 +112,5 @@ export class ChoiceComponent implements AfterContentInit {
           this.router.navigate(['translation']);
         }
       });
-  }
-  setBackgroundColor(item: any): void {
-    item.setAttribute('style', 'background-color:#135dfe; color:white;');
-    item.querySelector('img')?.setAttribute('src', 'assets/icons/icon-listen-white.svg');
-  }
-  removebackgroundColor(item: any): void {
-    item.removeAttribute('style');
-    item.querySelector('img')?.setAttribute('src', 'assets/icons/icon-listen-black.svg');
   }
 }
