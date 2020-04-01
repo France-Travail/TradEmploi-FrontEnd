@@ -40,6 +40,8 @@ import { ShowComponent } from './pages/historic/dialogs/show/show.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
+import { ConversationThreadComponent } from './pages/translation/components/conversation-thread/conversation-thread.component';
+
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { MessageWrapperComponent } from './pages/translation/components/message-
     ShowComponent,
     ThanksComponent,
     ConversationComponent,
-    MessageWrapperComponent
+    MessageWrapperComponent,
+    ConversationThreadComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 export interface NewMessage {
     message: string;
     translation: string;
-    slicedMessage: string;
-    longMessage: string;
+    user: string;
     language: string;
+    translatedSpeech: HTMLAudioElement;
 }

@@ -1,5 +1,5 @@
 // Angular
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -8,6 +8,8 @@ import { TranslateService } from 'src/app/services/translate.service';
 import { NavbarItem } from 'src/app/models/navbar-item';
 
 import { NewMessage } from 'src/app/models/new-message';
+import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-translation',
@@ -16,25 +18,13 @@ import { NewMessage } from 'src/app/models/new-message';
 })
 export class TranslationComponent {
   public navBarItems: NavbarItem[] = [];
-
-  public sentMessage: string;
-  public translatedMessage: string;
-  public slicedText: string;
-  public longText: string;
-  public messageToEdit: string;
-  public language: string;
-
-  public messages = [];
-
-  public newMessage: NewMessage;
-
-  public showLongMessage: boolean = false;
-  public isSendToEdit: boolean = false;
   
-  public translatedSpeech: HTMLAudioElement;
- 
+  public sentMessage: string;
+  public messages: any[] = [];
+  public newMessage: NewMessage;
+  public textToEdit: string;
 
-  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router) {
+  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private settingsService: SettingsService) {
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
     }
@@ -68,66 +58,15 @@ export class TranslationComponent {
     ];
   }
 
-  public getMessage(message: string): string {
-    this.isSendToEdit = false;
-    if (message.length >= 130) {
-      this.longText = message;
-      this.sentMessage = this.sliceText(message);
-      return 
-    }
-    return this.sentMessage = message;
-  }
-    
-  public getTranslation(message: string): string {
-    this.translatedMessage = message;
-    this.addToThread(this.sentMessage, this.translatedMessage, this.slicedText, this.longText, this.language)
+  public toEdit(message) {
+    this.textToEdit = message
     return
   }
 
-  public editMessage(e, message: string): string {
-    this.isSendToEdit = true;
-    console.log('event : ', e)
-    this.messageToEdit = this.longText
-    this.sentMessage = '';
-    this.translatedMessage = '';
-    this.showLongMessage = false;
-    return
-  }
-
-  public sliceText(text): string {
-    return this.slicedText = text.slice(0, 120);
-  }
-
-  public showLongText(text) {
-    this.sentMessage = null;
-    this.showLongMessage = true;
-  }
-
-  public deleteMessage() {
-    if (this.sentMessage) {
-      this.sentMessage = '';
-      this.translatedMessage = '';
-    }
-    this.longText = '';
-    this.translatedMessage = '';
-  }
-
-  public getTranslatedSpeech(message) {
-    this.translatedSpeech = message;
-  }
-
-  public getLanguage(e): string {
-    this.language = e.slice(0, 2)
-    return
-  } 
-
-  public listen(value: 'translation' | 'speech') {
-    this.translatedSpeech.play()
-  }
-
-  public addToThread(message, translation, slicedMessage, longMessage, language) {
-    this.newMessage = { message, translation, slicedMessage, longMessage, language }
+  public addToThread(event) {
+    this.newMessage = event;
     this.messages.push(this.newMessage)
+    return
   }
 
   /**

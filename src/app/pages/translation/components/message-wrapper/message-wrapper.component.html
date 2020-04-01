@@ -5,15 +5,12 @@
       <div class="flag">
         <span class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
       </div>
-
-      <textarea [(ngModel)]="rawText" (keydown.enter)="send(true); (false)"></textarea>
-
+      <textarea [(ngModel)]="rawText" (keydown.enter)="send(true); (false);"></textarea>
       <div class="buttons">
         <img class="micro" src="./assets/icons/icon-micro-black.svg" alt="activate micro" (click)="talk()" />
         <img class="delete" src="./assets/icons/icon-delete-black.svg" alt="delete text" (click)="delete()" />
       </div>
     </div>
-
     <div class="actions" *ngIf="!micro">
       <button class="btn-send" (click)="send(true)">
         <img src="./assets/icons/icon-send-white.svg" alt="send text" />

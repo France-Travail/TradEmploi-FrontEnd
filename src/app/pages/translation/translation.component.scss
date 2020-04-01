@@ -30,16 +30,16 @@
     border-radius: 5px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
     padding: 15px;
+    padding-left: 20px;
     height: 880px;
     width: 100%;
-    // overflow-y: overlay;
 
     .head-conversation {
       display: flex;
       flex-direction: row;
       background-color: white;
       z-index: 10;
-      height: 60px;
+      height: 45px;
       h2 {
         font-size: 14px;
         line-height: 15px;
@@ -56,6 +56,7 @@
           text-decoration: none;
           color: #4171DA;
           margin-right: 10px;
+          font-size: 14px;
         }
       }
     }
@@ -71,84 +72,87 @@
         background-color: $black;
         border-radius: 3px;
       }
-      .value {
-        display: flex;
-        padding: 10px;
-        color: $black;
-        font-size: 24px;
-        min-height: 140px;
-        height: auto;
-        width: 98%;
-        text-align: justify;
-        overflow-y: auto;
-        background-color: #F5F5F5;
+      // .value {
+      //   display: flex;
+      //   padding: 10px;
+      //   color: $black;
+      //   font-size: 24px;
+      //   min-height: auto;
+      //   height: auto;
+      //   width: 98%;
+      //   text-align: justify;
+      //   overflow-y: auto;
+      //   background-color: #F5F5F5;
   
-        .translation {
-          width: 94%;
-          height: auto;
-          margin: auto;
-        }
+      //   .translation {
+      //     width: 94%;
+      //     height: auto;
+      //     margin: auto;
+      //     font-size: 20px;
+      //   }
   
-        button {
-          border: none;
-          background-color: transparent;
-          margin-left: 10px;
+      //   button {
+      //     border: none;
+      //     background-color: transparent;
+      //     margin-left: 10px;
   
-          img {
-            width: 22px;
-          }
-        }
-      }
+      //     img {
+      //       width: 22px;
+      //     }
+      //   }
+      // }
   
-      .entered-text {
-        display: flex;
-        flex-direction: row;
-        margin-top: 22px;
-        margin-bottom: 25px;
+      // .entered-text {
+      //   display: flex;
+      //   flex-direction: row;
+      //   margin-top: 10px;
+      //   margin-bottom: 25px;
   
-        .flag {
-          .flag-icon {
-            width: 34px;
-            height: 24px;
-            border: 1px solid $gray74;
-            box-sizing: border-box;
-            border-radius: 5px;
-            background-size: cover;
-          }
-        }
+      //   .flag {
+      //     padding-top: 2px;
+      //     .flag-icon {
+      //       width: 34px;
+      //       height: 24px;
+      //       border: 1px solid $gray74;
+      //       box-sizing: border-box;
+      //       border-radius: 5px;
+      //       background-size: cover;
+      //     }
+      //   }
   
-        .text {
-          width: 87%;
-          padding: 0px 10px;
-          text-align: justify;
-          font-size: 16px;
-          span {
-            a {
-              text-decoration: none;
-              color: #4171DA;
-            }
-          }
-          span {
-            a {
-              text-decoration: none;
-              color: #4171DA;
-            }
-            button {
-              display: flex;
-              align-items: flex-end;
-              padding: 4px;
-              min-width: 60px;
-              background: $white;
-              color: $black;
-              border: 1px solid $btn-border;
-              border-radius: 5px;
-            }
-          }
-        }
-        .delete {
-          height: 30px;
-        }
-      }
+      //   .text {
+      //     width: 84%;
+      //     padding: 0px 10px;
+      //     text-align: justify;
+      //     font-size: 16px;
+      //     span {
+      //       a {
+      //         text-decoration: none;
+      //         color: #4171DA;
+      //         cursor: pointer;
+      //       }
+      //     }
+      //     span {
+      //       a {
+      //         text-decoration: none;
+      //         color: #4171DA;
+      //       }
+      //       button {
+      //         display: flex;
+      //         align-items: flex-end;
+      //         padding: 4px;
+      //         min-width: 60px;
+      //         background: $white;
+      //         color: $black;
+      //         border: 1px solid $btn-border;
+      //         border-radius: 5px;
+      //       }
+      //     }
+      //   }
+      //   .delete {
+      //     height: 30px;
+      //   }
+      // }
     }
   }
 }
