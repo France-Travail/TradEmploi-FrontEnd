@@ -1,28 +1,30 @@
 <navbar class="navbar" [items]="navBarItems" (perform)="handleAction($event)"></navbar>
-
-<div class="tiles">
-  <div class="countries" *ngFor="let item of selectedCountriesData" (mouseover)="setBackgroundColor($event.target)" (mouseleave)="removebackgroundColor($event.target)">
-    <div class="country-data" (mouseleave)="removebackgroundColor($event.target)">
-      {{ item.countryNameFR }} / {{ item.countryName }}
-      <div class="sentence" (mouseleave)="removebackgroundColor($event.target)">{{ item.displayedWelcome }}</div>
-      <div class="hp-icon" (mouseleave)="removebackgroundColor($event.target)">
-        <img
-          *ngIf="item.audioSupported"
-          src="assets/icons/icon-listen-black.svg"
-          (click)="audioDescription(item.readedWelcome, item.isoCode)"
-          (mouseleave)="removebackgroundColor($event.target)"
-          alt="{{ Ecoutez }}"
-        />
+<h2><strong>Choix de langues </strong>/ Choice of language</h2>
+<div class="countries">
+  <div class="country" *ngFor="let item of selectedCountriesData">
+    <div class="title">
+      <strong>{{ item.countryNameFR }} </strong> / {{ item.countryName }}
+    </div>
+    <div class="middle">
+      <div class="sentence">
+        {{ item.displayedWelcome }}
       </div>
-      <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)" (mouseleave)="removebackgroundColor($event.target)">
-        <span class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}" (mouseleave)="removebackgroundColor($event.target)"></span>
-        <span class="trad" (mouseleave)="removebackgroundColor($event.target)">{{ item.languageFR }}</span>
-        <span class="origin" (mouseleave)="removebackgroundColor($event.target)">{{ item.languageRaw }}</span>
+      <div class="speaker" *ngIf="item.audioSupported" (click)="audioDescription(item.readedWelcome, item.isoCode)"></div>
+    </div>
+    <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)">
+      <span *ngIf="item.flag !== 'arabic'" class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}"></span>
+      <img *ngIf="item.flag === 'arabic'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag" />
+      <div class="sentences">
+        <div class="buttonSentenceFR">
+          <strong>{{ item.buttonSentenceFR }}</strong>
+        </div>
+        <div class="buttonSentence">
+          {{ item.buttonSentence }}
+        </div>
       </div>
     </div>
   </div>
 </div>
-
 <div class="more" (click)="moreLanguage()">
   <img src="assets/icons/icon-more-black.svg" alt="{{ otherLanguageFr }}" />
   <div class="text">

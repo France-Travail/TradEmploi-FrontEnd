@@ -122,7 +122,19 @@ export const VOCABULARY: { isoCode: string; words: { translate: string; request:
   { isoCode: 'zh-HK', words: { translate: '翻译', request: '您的要求：', rate: '你对面试满意吗？', send: '发送', thanks: 'PôleEmploi谢谢你' } },
   { isoCode: 'zh-ZH', words: { translate: '翻译', request: '您的要求：', rate: '你对面试满意吗？', send: '发送', thanks: 'PôleEmploi谢谢你' } }
 ];
-
+export const VOCABULARY_DEFAULT: Vocabulary = {
+  isoCode: 'default',
+  sentences: [
+    { key: 'application-name', value: 'Instant Translation' },
+    { key: 'send', value: 'Send' },
+    { key: 'translate', value: 'Translate' },
+    { key: 'translation-h2', value: 'Type a text' },
+    { key: 'rate', value: 'Are you satisfied with your interview?' },
+    { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+    { key: 'listen', value: 'Listen' },
+    { key: 'record-text', value: 'Speak now' }
+  ]
+};
 export const VOCABULARY_V2: Vocabulary[] = [
   {
     isoCode: 'ar-IL',
@@ -139,7 +151,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'האם אתה מרוצה מהראיון שלך?' },
       { key: 'thanks', value: 'Pôle Emploi תודה' },
       { key: 'listen', value: 'להקשיב' },
-      { key: 'record-text', value: 'דבר עכשיו' }
+      { key: 'record-text', value: 'דבר עכשיו' },
+      { key: 'displayed-welcome', value: 'אני המתרגם שלך להחליף בקלות עם היועץ שלך.' },
+      { key: 'readed-welcome', value: 'האם אתה רוצה להמשיך בשפה זו?' },
+      { key: 'rate-easyToUse', value: 'האם כלי זה קל לשימוש?' },
+      { key: 'rate-understand', value: 'האם כלי זה עזר לנו להבין אחד את השני?' },
+      { key: 'rate-comment', value: 'תגובה חינם' }
     ]
   },
   {
@@ -158,7 +175,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
@@ -177,7 +199,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
@@ -196,17 +223,22 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
     isoCode: 'ar-XA',
     sentences: [
-      { key: 'country-name-raw', value: 'الجزائر' },
-      { key: 'country-name-fr', value: 'Algérie' },
+      { key: 'country-name-raw', value: 'الدول العربية' },
+      { key: 'country-name-fr', value: 'Pays arabes' },
       { key: 'language-name-raw', value: 'العربية' },
       { key: 'language-name-fr', value: 'Arabe' },
-      { key: 'flag', value: 'DZ' },
+      { key: 'flag', value: 'arabic' },
       { key: 'audioSupported', value: 'ok' },
       { key: 'application-name', value: 'الترجمة الفورية' },
       { key: 'send', value: 'إرسال' },
@@ -216,10 +248,39 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
       { key: 'record-text', value: 'تكلم الان' },
+      { key: 'button-sentence', value: 'اختر اللغة العربية' },
+      { key: 'button-sentence-fr', value: "Choisir l'arabe " },
       { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
-      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' }
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
+  // {
+  //   isoCode: 'ar-XA',
+  //   sentences: [
+  //     { key: 'country-name-raw', value: 'الجزائر' },
+  //     { key: 'country-name-fr', value: 'Algérie' },
+  //     { key: 'language-name-raw', value: 'العربية' },
+  //     { key: 'language-name-fr', value: 'Arabe' },
+  //     { key: 'flag', value: 'DZ' },
+  //     { key: 'audioSupported', value: 'ok' },
+  //     { key: 'application-name', value: 'الترجمة الفورية' },
+  //     { key: 'send', value: 'إرسال' },
+  //     { key: 'translate', value: 'ترجمة' },
+  //     { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
+  //     { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
+  //     { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
+  //     { key: 'listen', value: 'استمع' },
+  //     { key: 'record-text', value: 'تكلم الان' },
+  //     { key: 'button-sentence', value: 'اختر اللغة العربية' },
+  //     { key: 'button-sentence-fr', value: "Choisir l'arabe " },
+  //     { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+  //     { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' }
+  //   ]
+  // },
+
   {
     isoCode: 'ar-SA',
     sentences: [
@@ -236,7 +297,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
@@ -255,7 +321,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
@@ -274,7 +345,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
@@ -293,7 +369,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
@@ -312,7 +393,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
@@ -331,7 +417,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
@@ -350,7 +441,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
@@ -369,7 +465,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
@@ -388,7 +489,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
@@ -407,7 +513,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
       { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
       { key: 'listen', value: 'استمع' },
-      { key: 'record-text', value: 'تكلم الان' }
+      { key: 'record-text', value: 'تكلم الان' },
+      { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
+      { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
+      { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
+      { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
+      { key: 'rate-comment', value: 'تعليق مجاني' }
     ]
   },
   {
@@ -425,9 +536,14 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'آیا از مصاحبه خود راضی هستید؟' },
       { key: 'thanks', value: 'Pôle Emploi از شما متشکرم' },
       { key: 'listen', value: 'گوش دادن' },
+      { key: 'button-sentence-fr', value: 'Choisir le persan' },
+      { key: 'button-sentence', value: 'فارسی را انتخاب کنید' },
       { key: 'record-text', value: 'الان صحبت کن' },
       { key: 'displayed-welcome', value: '.سلام ، من مترجم شما خواهم بود تا با مشاور شما به راحتی تبادل شوید' },
-      { key: 'readed-welcome', value: 'آیا می خواهید به این زبان ادامه دهید؟' }
+      { key: 'readed-welcome', value: 'آیا می خواهید به این زبان ادامه دهید؟' },
+      { key: 'rate-easyToUse', value: 'آیا این ابزار آسان است؟' },
+      { key: 'rate-understand', value: 'آیا این ابزار به ما در درک یکدیگر کمک کرده است؟' },
+      { key: 'rate-comment', value: 'نظر رایگان' }
     ]
   },
   {
@@ -448,7 +564,10 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'listen', value: 'Ecouter' },
       { key: 'record-text', value: 'Parlez maintenant' },
       { key: 'displayed-welcome', value: 'Je suis votre traducteur pour échanger facilement avec votre conseiller.' },
-      { key: 'readed-welcome', value: 'Voulez-vous continuer dans cette langue ?' }
+      { key: 'readed-welcome', value: 'Voulez-vous continuer dans cette langue ?' },
+      { key: 'rate-easyToUse', value: 'Est-ce que cet outil est facile à utiliser ?' },
+      { key: 'rate-understand', value: 'Est-ce que cet outil nous a aidé à nous comprendre ?' },
+      { key: 'rate-comment', value: 'Commentaire libre' }
     ]
   },
   {
@@ -467,9 +586,14 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'button-sentence', value: 'Choose english' },
+      { key: 'button-sentence-fr', value: "Choisir l'anglais" },
       { key: 'record-text', value: 'Speak now' },
       { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
-      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' }
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -489,8 +613,13 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'thanks', value: 'Pôle Emploi te agradece' },
       { key: 'listen', value: 'Escuchar' },
       { key: 'record-text', value: 'Habla ahora' },
+      { key: 'button-sentence', value: 'Elige español' },
+      { key: 'button-sentence-fr', value: "Choisir l'espagnol" },
       { key: 'displayed-welcome', value: 'Hola, sería tu intérprete para intercambiar fácilmente con tu asesor.' },
-      { key: 'readed-welcome', value: '¿Te gustaría intercambiar en este idioma?' }
+      { key: 'readed-welcome', value: '¿Te gustaría intercambiar en este idioma?' },
+      { key: 'rate-easyToUse', value: '¿Es esta herramienta fácil de usar?' },
+      { key: 'rate-understand', value: '¿Esta herramienta nos ayudó a entendernos?' },
+      { key: 'rate-comment', value: 'Comentario gratis' }
     ]
   },
   {
@@ -508,9 +637,14 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: '您對面試滿意嗎？' },
       { key: 'thanks', value: 'PôleEmploi謝謝' },
       { key: 'listen', value: '聽' },
+      { key: 'button-sentence', value: '选择普通话' },
+      { key: 'button-sentence-fr', value: 'Choisir le mandarin' },
       { key: 'record-text', value: '現在說' },
       { key: 'displayed-welcome', value: '您好，我将是您的翻译，可以轻松地与您的顾问交流。' },
-      { key: 'readed-welcome', value: '您想用这种语言交流吗？' }
+      { key: 'readed-welcome', value: '您想用这种语言交流吗？' },
+      { key: 'rate-easyToUse', value: '这个工具好用吗？' },
+      { key: 'rate-understand', value: '此工具是否有助于我们彼此了解？' },
+      { key: 'rate-comment', value: '自由评论' }
     ]
   },
   {
@@ -521,7 +655,6 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'language-name-raw', value: 'English' },
       { key: 'language-name-fr', value: 'Anglais' },
       { key: 'flag', value: 'AU' },
-
       { key: 'application-name', value: 'Instant Translation' },
       { key: 'send', value: 'Send' },
       { key: 'translate', value: 'Translate' },
@@ -529,7 +662,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -547,7 +685,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -565,7 +708,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -583,7 +731,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -601,7 +754,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -619,7 +777,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -637,7 +800,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -655,7 +823,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -673,7 +846,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -691,7 +869,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -709,7 +892,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -727,7 +915,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -745,7 +938,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'record-text', value: 'Speak now' },
+      { key: 'displayed-welcome', value: 'Hello, I would be your interpreter to exchange easily with your advisor.' },
+      { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
+      { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
+      { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
+      { key: 'rate-comment', value: 'Free Comment' }
     ]
   },
   {
@@ -763,9 +961,15 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'আপনি কি আপনার সাক্ষাত্কারে সন্তুষ্ট?' },
       { key: 'thanks', value: 'পোলে কর্মচারী আপনাকে ধন্যবাদ' },
       { key: 'listen', value: 'শোনা' },
+      { key: 'button-sentence', value: 'বেঙ্গালি নির্বাচন করুন' },
+      { key: 'button-sentence-fr', value: 'Choisir le bengali' },
       { key: 'gauge-text', value: 'এখন কথা বলুন' },
+      { key: 'record-text', value: 'এখন কথা বলুন' },
       { key: 'displayed-welcome', value: 'হ্যালো, আমি আপনার পরামর্শদাতার সাথে সহজেই বিনিময় করার জন্য আপনার দোভাষী হব।' },
-      { key: 'readed-welcome', value: 'আপনি কি এই ভাষায় বিনিময় করতে চান?' }
+      { key: 'readed-welcome', value: 'আপনি কি এই ভাষায় বিনিময় করতে চান?' },
+      { key: 'rate-easyToUse', value: 'এই সরঞ্জামটি কি সহজে ব্যবহার করা যায়?' },
+      { key: 'rate-understand', value: 'এই সরঞ্জামটি কি একে অপরকে বুঝতে সাহায্য করেছিল?' },
+      { key: 'rate-comment', value: 'ফ্রি মন্তব্য' }
     ]
   },
   {
@@ -783,7 +987,12 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'আপনি কি আপনার সাক্ষাত্কারে সন্তুষ্ট?' },
       { key: 'thanks', value: 'পোলে কর্মচারী আপনাকে ধন্যবাদ' },
       { key: 'listen', value: 'শোনা' },
-      { key: 'gauge-text', value: 'এখন কথা বলুন' }
+      { key: 'record-text', value: 'এখন কথা বলুন' },
+      { key: 'displayed-welcome', value: 'হ্যালো, আমি আপনার পরামর্শদাতার সাথে সহজেই বিনিময় করার জন্য আপনার দোভাষী হব।' },
+      { key: 'readed-welcome', value: 'আপনি কি এই ভাষায় বিনিময় করতে চান?' },
+      { key: 'rate-easyToUse', value: 'এই সরঞ্জামটি কি সহজে ব্যবহার করা যায়?' },
+      { key: 'rate-understand', value: 'এই সরঞ্জামটি কি একে অপরকে বুঝতে সাহায্য করেছিল?' },
+      { key: 'rate-comment', value: 'ফ্রি মন্তব্য' }
     ]
   },
   {
@@ -803,7 +1012,10 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'listen', value: 'گوش دادن' },
       { key: 'record-text', value: 'الان صحبت کن' },
       { key: 'displayed-welcome', value: '.سلام ، من مترجم شما خواهم بود تا با مشاور شما به راحتی تبادل شوید' },
-      { key: 'readed-welcome', value: 'آیا می خواهید به این زبان ادامه دهید؟' }
+      { key: 'readed-welcome', value: 'آیا می خواهید به این زبان ادامه دهید؟' },
+      { key: 'rate-easyToUse', value: 'todo' },
+      { key: 'rate-understand', value: 'todo' },
+      { key: 'rate-comment', value: 'todo' }
     ]
   },
   {
@@ -816,13 +1028,21 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'flag', value: 'AF' },
       { key: 'displayed-welcome', value: '.سلام ، زه به ستاسو ترجمان شم چې ستاسو د مشاور سره په اسانۍ سره تبادله وکړم' },
       { key: 'readed-welcome', value: 'ایا تاسو غواړئ پدې ژبه کې تبادله وکړئ؟' },
-      { key: 'application-name', value: 'Instant Translation' },
-      { key: 'send', value: 'Send' },
-      { key: 'translate', value: 'Translate' },
-      { key: 'translation-h2', value: 'Type a text in english' },
-      { key: 'rate', value: 'Are you satisfied with your interview?' },
-      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
-      { key: 'listen', value: 'Listen' },
+      { key: 'application-name', value: 'فوري ژباړه' },
+      { key: 'send', value: 'ولېږئ' },
+      { key: 'translate', value: 'ژباړه' },
+      { key: 'translation-h2', value: 'په پښتو ژبه متن ولیکئ' },
+      { key: 'rate', value: 'ایا تاسو د خپلې مرکې څخه راضي یاست؟' },
+      { key: 'thanks', value: 'پویل کارمند له تاسو څخه مننه' },
+      { key: 'listen', value: 'واورئ' },
+      { key: 'record-text', value: 'اوس خبره وکړه' },
+      { key: 'displayed-welcome', value: 'زه ستاسو ژباړونکی یم چې ستاسو د مشاور سره په اسانۍ سره تبادله وکړم.' },
+      { key: 'readed-welcome', value: 'ایا تاسو غواړئ چې دې ژبې ته دوام ورکړئ؟' },
+      { key: 'rate-easyToUse', value: 'ایا دا وسیله کارول اسانه ده؟' },
+      { key: 'rate-understand', value: 'ایا دا وسیله موږ سره د یو بل په پوهیدو کې مرسته کړې؟' },
+      { key: 'rate-comment', value: 'وړیا نظر' },
+      { key: 'button-sentence', value: 'پښتو غوره کړه' },
+      { key: 'button-sentence-fr', value: 'Choisir le pachto' },
       { key: 'gauge-text', value: 'Speak now' }
     ]
   },
@@ -840,6 +1060,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'send', value: 'Send' },
       { key: 'translate', value: 'Translate' },
       { key: 'translation-h2', value: 'Type a text in Ourdou' },
+      { key: 'button-sentence', value: 'اردو منتخب کریں' },
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
@@ -855,12 +1076,14 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'language-name-raw', value: 'Português' },
       { key: 'flag', value: 'PT' },
       { key: 'audioSupported', value: 'ok' },
+      { key: 'button-sentence', value: 'Escolha portugues' },
       { key: 'displayed-welcome', value: 'Olá, eu seria seu intérprete para trocar facilmente com seu orientador.' },
       { key: 'readed-welcome', value: 'Deseja trocar neste idioma?' },
       { key: 'application-name', value: 'Instant Translation' },
       { key: 'send', value: 'Send' },
       { key: 'translate', value: 'Translate' },
       { key: 'translation-h2', value: 'Type a text in Português' },
+      { key: 'button-sentence-fr', value: 'Choisir le portugais' },
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
@@ -881,6 +1104,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'application-name', value: 'Instant Translation' },
       { key: 'send', value: 'Send' },
       { key: 'translate', value: 'Translate' },
+      { key: 'button-sentence', value: 'Türkçe Seçin' },
       { key: 'translation-h2', value: 'Type a text in Türkçe' },
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
@@ -902,7 +1126,9 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'application-name', value: 'Instant Translation' },
       { key: 'send', value: 'Send' },
       { key: 'translate', value: 'Translate' },
+      { key: 'button-sentence', value: 'Wähle Deutsch' },
       { key: 'translation-h2', value: 'Type a text in Deutsch' },
+      { key: 'button-sentence-fr', value: "Choisir l'allemand" },
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
@@ -949,28 +1175,6 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'gauge-text', value: 'Speak now' }
     ]
   },
-  {
-    isoCode: 'es-ES',
-    sentences: [
-      { key: 'country-name-raw', value: 'España' },
-      { key: 'country-name-fr', value: 'Espagne' },
-      { key: 'language-name-fr', value: 'Espagnol' },
-      { key: 'language-name-raw', value: 'Español' },
-      { key: 'flag', value: 'ES' },
-      { key: 'audioSupported', value: 'ok' },
-      { key: 'displayed-welcome', value: 'Hola, sería tu intérprete para intercambiar fácilmente con tu asesor.' },
-      { key: 'readed-welcome', value: '¿Te gustaría intercambiar en este idioma?' },
-      { key: 'application-name', value: 'Instant Translation' },
-      { key: 'send', value: 'Send' },
-      { key: 'translate', value: 'Translate' },
-      { key: 'translation-h2', value: 'Type a text in Español' },
-      { key: 'rate', value: 'Are you satisfied with your interview?' },
-      { key: 'thanks', value: 'Pôle Emploi thanks you.' },
-      { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
-  },
-
   {
     isoCode: 'hi-IN',
     sentences: [
@@ -1028,6 +1232,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'translation-h2', value: 'Type a text in Italiano' },
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
+      { key: 'button-sentence', value: "Scegli l'italiano" },
+      { key: 'button-sentence-fr', value: "Choisir l'italien " },
       { key: 'listen', value: 'Listen' },
       { key: 'gauge-text', value: 'Speak now' }
     ]
@@ -1073,6 +1279,29 @@ export const VOCABULARY_V2: Vocabulary[] = [
     ]
   },
   {
+    isoCode: 'ru-RU',
+    sentences: [
+      { key: 'country-name-raw', value: 'Россия' },
+      { key: 'country-name-fr', value: 'Russie' },
+      { key: 'language-name-fr', value: 'Russe' },
+      { key: 'language-name-raw', value: 'Русский' },
+      { key: 'flag', value: 'RU' },
+      { key: 'audioSupported', value: 'ok' },
+      { key: 'displayed-welcome', value: 'Я ваш переводчик, чтобы легко обмениваться с вашим советником.' },
+      { key: 'readed-welcome', value: 'Вы хотите продолжить на этом языке?' },
+      { key: 'application-name', value: 'Мгновенный перевод' },
+      { key: 'send', value: 'Отправить' },
+      { key: 'translate', value: 'перевод' },
+      { key: 'translation-h2', value: 'напиши текст на русском' },
+      { key: 'button-sentence', value: 'выбрать русский' },
+      { key: 'button-sentence-fr', value: 'Choisir le russe.' },
+      { key: 'rate', value: 'Довольны ли вы своим интервью?' },
+      { key: 'thanks', value: 'Pôle emploi Спасибо вам.' },
+      { key: 'listen', value: 'Слушать' },
+      { key: 'gauge-text', value: 'Говорите сейчас' }
+    ]
+  },
+  {
     isoCode: 'uz-UZ',
     sentences: [
       { key: 'country-name-raw', value: 'Ўзбекистон' },
@@ -1105,6 +1334,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'application-name', value: 'Instant Translation' },
       { key: 'send', value: 'Send' },
       { key: 'translate', value: 'Translate' },
+      { key: 'button-sentence', value: 'Alegeți limba română' },
+      { key: 'button-sentence-fr', value: 'Choisir le roumain' },
       { key: 'translation-h2', value: 'Type a text in Română' },
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
@@ -1153,33 +1384,4 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'gauge-text', value: 'Speak now' }
     ]
   }
-
-  //  {
-  //    isoCode: '',
-  //    sentences: [
-  //      { key: 'country-name-raw', value: '' },
-  //      { key: 'country-name-fr', value: '' },
-  //      { key: 'language-name-fr', value: '' },
-  //      { key: 'language-name-raw', value: '' },
-  //      { key: 'flag', value: '' },
-  //      { key: 'displayed-welcome', value: '' },
-  //      { key: 'readed-welcome', value: '' }
-  //    ]
-  //  }
-  // {
-  //   isoCode: 'xxxxxxxxxx',
-  //   sentences: [
-  //     { key: 'country-name-raw', value: 'xxxxxxxxxx' }
-  //     { key: 'country-name-fr', value: 'xxxxxxxxxx' }
-  //     { key: 'application-name', value: 'xxxxxxxxxx' },
-  //     { key: 'send', value: 'xxxxxxxxxx' },
-  //     { key: 'translate', value: 'xxxxxxxxxx' },
-  //     { key: 'translation-h2', value: 'xxxxxxxxxx' },
-  //     { key: 'rate', value: 'xxxxxxxxxx' },
-  //     { key: 'thanks', value: 'xxxxxxxxxx' },
-  //     { key: 'listen', value: 'xxxxxxxxxx' },
-  //     { key: 'record-text', value: 'xxxxxxxxxxx' },
-  //     { key: 'displayed-welcome', value: 'xxxx' },
-  //     { key: 'readed-welcome', value: 'xxx' }
-  //   ]
 ];

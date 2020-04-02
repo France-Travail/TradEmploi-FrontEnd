@@ -41,7 +41,7 @@ export class TextToSpeechService {
     })
   };
 
-  constructor(private httpClient: HttpClient, private voicesService: VoicesService, private toastService: ToastService) {}
+  constructor(private httpClient: HttpClient, private voicesService: VoicesService) {}
 
   public async getSpeech(text: string, language: string, user: string): Promise<boolean> {
     return new Promise((resolve, reject) => {

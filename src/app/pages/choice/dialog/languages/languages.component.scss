@@ -1,36 +1,42 @@
 .mat-form-field {
-    font-size: 14px;
-    width: 100%;
+  font-size: 14px;
+  width: 100%;
 }
 
 .mat-paginator {
-    width: 100%;
+  width: 100%;
 }
 
 .flag-icon {
-    width: 86px;
-    height: 64px;
+  width: 86px;
+  height: 64px;
 }
 
 .mat-table {
-    height: 800px;
+  height: 800px;
 }
 
 @media screen and (max-width: 750px) {
-    .mat-column-traduction {
-        font-size: 8pt;
-        padding: 0 35px 0 0;
-    }
-    .mat-column-country {
-        font-size: 8pt;
-        padding: 0 50px 0 0;
-    }
-    .mat-column-language {
-        font-size: 8pt;
-        padding: 0 25px 0 0;
-    }
-    .flag-icon {
-        width: 36px;
-        height: 50px;
-    }
+  .mat-cell:first-of-type,
+  .mat-header-cell:first-of-type {
+    padding-left: 0;
+  }
+
+  .mat-header-cell:last-of-type {
+    padding-right: 0px;
+  }
+  .mat-column-country,
+  .mat-column-traduction {
+    padding-right: 20px;
+    font-size: 8pt;
+  }
+
+  .flag-icon {
+    margin-right: 10px;
+    width: 56px;
+    height: 40px;
+  }
+  .mat-column-language {
+    font-size: 8pt;
+  }
 }

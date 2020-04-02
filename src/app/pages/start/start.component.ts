@@ -12,7 +12,7 @@ import { HistoryService } from 'src/app/services/history.service';
   styleUrls: ['./start.component.scss']
 })
 export class StartComponent implements AfterContentInit {
-  public opacity: number = 0;
+  public opacity: number = 0; //0
 
   constructor(private historyService: HistoryService, private settingsService: SettingsService, private router: Router) {}
 
@@ -28,8 +28,9 @@ export class StartComponent implements AfterContentInit {
     //   }
     // }, 100);
 
-    // setTimeout(() => {
+    setTimeout(() => {
       this.router.navigate(['settings/start']);
-    // }, 3000);
+
+    }, 3000); //3000
   }
 }

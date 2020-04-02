@@ -1,4 +1,5 @@
 export const environment = {
+  name:"qualification",
   production: false,
   firebaseConfig: {
     apiKey: "AIzaSyBvoKDYur2Gfaq9MUvWM2vv7ki6eCooShk",
@@ -18,5 +19,8 @@ export const environment = {
     password: '7YQZQJmmSyab7xT',
     provider: 'GOOGLE',
     defaultLanguage: 'fr-FR'
+  },
+  sentry:{
+    url:'https://953593ebcd8a40b4a2e743176c9488b8@sentry.io/5180549'
   }
 };

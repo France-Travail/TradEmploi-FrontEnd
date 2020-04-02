@@ -1,6 +1,6 @@
 // Angular
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 // Handle Navigation Tree
@@ -41,8 +41,8 @@ import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
 import { ConversationThreadComponent } from './pages/translation/components/conversation-thread/conversation-thread.component';
-
-
+import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
+import { SentryErrorHandler} from './utils/sentry-error-handler'
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +59,8 @@ import { ConversationThreadComponent } from './pages/translation/components/conv
     ThanksComponent,
     ConversationComponent,
     MessageWrapperComponent,
-    ConversationThreadComponent
+    ConversationThreadComponent,
+    RateDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,9 +79,10 @@ import { ConversationThreadComponent } from './pages/translation/components/conv
       provide: MAT_DATE_LOCALE,
       useValue: 'fr-FR'
     },
-    { provide: FUNCTIONS_ORIGIN, useValue: 'https://translate-pe.firebaseapp.com' }
+    { provide: FUNCTIONS_ORIGIN, useValue: 'https://translate-pe.firebaseapp.com' },
+    { provide: ErrorHandler, useClass: SentryErrorHandler }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent]
+  entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent]
 })
 export class AppModule {}

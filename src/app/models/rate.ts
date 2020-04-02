@@ -1,6 +1,6 @@
 export interface Rate {
-  grade: number;
+  grades?: number[];
   language: string;
-  date: Date | any;
-  historyId: string;
+  comment?: string;
+  date?: Date | any;
 }
