@@ -15,8 +15,8 @@ export class ConversationThreadComponent {
 
   @Output() textToEdit: any = new EventEmitter<{}>();
 
-  public messages = [];
-  public flag: string;
+  // public messages = [];
+  // public flag: string;
   public translatedSpeech: HTMLAudioElement;
   public speech: HTMLAudioElement;
   public message: string;
@@ -24,7 +24,7 @@ export class ConversationThreadComponent {
   public element: NewMessage;
   public expandMessage: string;
   
-  constructor(private toastService: ToastService) { }
+  constructor(private toastService: ToastService) {}
 
   public toggleDiv(value) {
     this.visible = !this.visible;
@@ -52,6 +52,7 @@ export class ConversationThreadComponent {
         this.element = this.conversationThread[index];
         this.message = this.element.message;
         this.user = this.element.user;
+        console.log('language : ', this.element)
         this.textToEdit.emit({message: this.message, user: this.user});
         this.removeElement(this.conversationThread, index);
         return

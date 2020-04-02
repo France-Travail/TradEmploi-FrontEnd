@@ -4,4 +4,5 @@ export interface NewMessage {
     user: string;
     language: string;
     translatedSpeech: HTMLAudioElement;
+    flag: string;
 }

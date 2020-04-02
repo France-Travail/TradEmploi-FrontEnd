@@ -1,6 +1,6 @@
 <ng-container *ngFor="let message of conversationThread; let i = index;">
   <div class="value">
-    <div class="translation">
+    <div class="translation" [ngStyle]="{'text-align': message.flag == 'dz' ? 'start' : 'end'}">
         {{ message.translation }}
     </div>
     <button class="listen" (click)="listen(i)">
@@ -9,9 +9,9 @@
   </div>
   <div class="entered-text">
     <div class="flag">
-      <span class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
+      <span class="flag-icon flag-icon-{{ message.flag }}" routerLink="/choice"></span>
     </div>
-    <div class="text">
+    <div class="text" [ngStyle]="{'text-align': message.flag == 'dz' ? 'end' : 'start'}">
       <span>
         <div *ngIf="!visible; then longText else shortText"></div>
         <ng-template #shortText>

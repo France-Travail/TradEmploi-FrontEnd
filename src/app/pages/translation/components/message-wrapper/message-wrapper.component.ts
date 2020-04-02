@@ -47,6 +47,7 @@ export class MessageWrapperComponent implements OnInit {
   public senderInterceptor: string;
   public languageInterceptor: string;
   public speechInterceptor: HTMLAudioElement;
+  public flagInterceptor: string;
 
   constructor(
     private toastService: ToastService,
@@ -98,12 +99,14 @@ export class MessageWrapperComponent implements OnInit {
       this.senderInterceptor = this.user;
       this.languageInterceptor = this.languageOrigin;
       this.speechInterceptor = this.translatedSpeech;
+      this.flagInterceptor = this.flag;
       this.newMessage = {
         message: this.messageInterceptor,
         translation: this.translationInterceptor,
         user: this.senderInterceptor,
         language: this.languageInterceptor,
-        translatedSpeech: this.speechInterceptor
+        translatedSpeech: this.speechInterceptor,
+        flag: this.flagInterceptor
       };
       this.newMessagesToEmit.emit(this.newMessage);
     });
