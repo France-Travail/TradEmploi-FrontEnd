@@ -1,12 +1,12 @@
 <div class="container">
-  <h2 [ngStyle]="{'text-align': flag == 'dz | ar' ? 'end' : 'start'}">{{ title }} :</h2>
+  <h2 [ngStyle]="{'text-align': flag == 'arabic' ? 'end' : 'start'}">{{ title }} :</h2>
   <div class="input-wrapper">
     <div class="field" *ngIf="!micro">
       <div class="flag">
         <span *ngIf="flag !== 'arabic'" class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
         <img *ngIf="flag === 'arabic'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" routerLink="/choice" />
       </div>
-      <textarea [(ngModel)]="rawText" (keydown.enter)="send(true); (false);" [ngStyle]="{'text-align': flag == 'dz | ar' ? 'end' : 'start'}"></textarea>
+      <textarea [(ngModel)]="rawText" (keydown.enter)="send(true); (false);" [ngStyle]="{'text-align': flag == 'arabic' ? 'end' : 'start'}"></textarea>
       <div class="buttons">
         <img class="micro" src="./assets/icons/icon-micro-black.svg" alt="activate micro" (click)="talk()" />
         <img class="delete" src="./assets/icons/icon-delete-black.svg" alt="delete text" (click)="delete()" />
