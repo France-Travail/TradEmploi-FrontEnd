@@ -1,8 +1,12 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <h1>Formulaire de connexion</h1>
+  <div class="title">
+    <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
+    <h1 class="t2">Connexion</h1>
+    <p class="t3">Accédez au service de <span class="text-app">traduction instantanée</span></p>
+  </div>
 
   <mat-form-field [color]="email.valid && 'accent'" class="input">
-    <input matInput type="email" formControlName="email" placeholder="Adresse Email" autocomplete="off" />
+    <input matInput class="text" type="email" formControlName="email" placeholder="Identifiant" autocomplete="off" />
     <mat-error *ngIf="email.hasError('required')">L'adresse email est requise.</mat-error>
     <mat-error *ngIf="email.invalid && email.dirty">Vous devez entrer une adresse email valide.</mat-error>
   </mat-form-field>
