@@ -42,6 +42,12 @@ export class MessageWrapperComponent implements OnInit {
   public error: boolean = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
 
+  public messageInterceptor: string;
+  public translationInterceptor: string;
+  public senderInterceptor: string;
+  public languageInterceptor: string;
+  public speechInterceptor: HTMLAudioElement;
+
   constructor(
     private toastService: ToastService,
     private translateService: TranslateService,
@@ -74,12 +80,11 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
-    let msg, translation, sender, language, speech; 
     if (fromKeyBoard) {
       const language = this.user === 'advisor' ? 'fr-FR' : VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).isoCode;
       this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
       this.rawSpeech = this.textToSpeechService.audioSpeech;
-      msg = this.rawText
+      this.messageInterceptor = this.rawText;
     } else {
       this.rawText = message;
       this.rawSpeech = this.audioRecordingService.audioSpeech;
@@ -89,12 +94,18 @@ export class MessageWrapperComponent implements OnInit {
       this.translatedText = response;
       this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
       this.translatedSpeech = this.textToSpeechService.audioSpeech;
-      translation = this.translatedText;
-      sender= this.user;
-      language = this.languageOrigin
-      speech = this.translatedSpeech;
-      this.newMessage = { message: msg, translation: translation, user: sender, language: language, translatedSpeech: speech};
-      this.newMessagesToEmit.emit(this.newMessage)
+      this.translationInterceptor = this.translatedText;
+      this.senderInterceptor = this.user;
+      this.languageInterceptor = this.languageOrigin;
+      this.speechInterceptor = this.translatedSpeech;
+      this.newMessage = {
+        message: this.messageInterceptor,
+        translation: this.translationInterceptor,
+        user: this.senderInterceptor,
+        language: this.languageInterceptor,
+        translatedSpeech: this.speechInterceptor
+      };
+      this.newMessagesToEmit.emit(this.newMessage);
     });
     this.rawText = '';
   }
@@ -108,6 +119,7 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public audioSending(message: string): void {
+    this.messageInterceptor = message;
     this.micro = false;
     this.isReady.listenSpeech = true;
     this.send(false, message);
