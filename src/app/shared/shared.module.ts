@@ -26,6 +26,7 @@ import { AudioAnimationComponent } from './components/audio-animation/audio-anim
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RecordComponent } from './components/record/record.component';
 import { TranslationTitleComponent } from './components/translation-title/translation-title.component';
+import { RouterModule } from '@angular/router';
 
 const COMPONENTS = [AudioAnimationComponent, NavbarComponent, RecordComponent, TranslationTitleComponent];
 
@@ -47,6 +48,7 @@ const MATERIAL_MODULES = [
 ];
 
 const MODULES = [
+  RouterModule,
   CommonModule,
   ReactiveFormsModule,
   FormsModule,
@@ -58,4 +60,4 @@ const MODULES = [
   imports: [...MODULES ],
   exports: [...COMPONENTS, ...MODULES]
 })
-export class SharedModule {}
+export class SharedModule {} 

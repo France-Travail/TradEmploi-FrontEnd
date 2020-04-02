@@ -29,8 +29,11 @@
         height: 26px;
       }
       .text {
-        text-decoration: underline;
-        margin-left: 6px;
+        a {
+          color: #4171DA;
+          text-decoration: underline;
+          margin-left: 6px;
+        }
         b {
         }
       }
