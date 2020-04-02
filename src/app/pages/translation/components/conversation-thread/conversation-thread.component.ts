@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NewMessage } from 'src/app/models/new-message';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-conversation-thread',
@@ -12,7 +13,7 @@ export class ConversationThreadComponent {
   @Input() rawText: string;
   @Input() conversationThread: [];
 
-  @Output() textToEdit = new EventEmitter();
+  @Output() textToEdit: any = new EventEmitter<{}>();
 
   public messages = [];
   public flag: string;
@@ -23,7 +24,7 @@ export class ConversationThreadComponent {
   public element: NewMessage;
   public expandMessage: string;
   
-  constructor() { }
+  constructor(private toastService: ToastService) { }
 
   public toggleDiv(value) {
     this.visible = !this.visible;
@@ -42,18 +43,17 @@ export class ConversationThreadComponent {
   }
 
   public removeElement(array, index) {
-    array.splice(index, 1) ? (index > -1) : console.log('message not found')
+    array.splice(index, 1) ? (index > -1) : this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer.');
 }
 
   public editMessage(index) {
-    console.log('edit : ', index)
     for (let i = 0; i < this.conversationThread.length; i++) {
       if (this.conversationThread.hasOwnProperty(index)) {
-        this.element = this.conversationThread[index]
-        this.message = this.element.message
-        console.log('message to edit : ', this.message)
-        this.textToEdit.emit(this.message)
-        this.removeElement(this.conversationThread, index)
+        this.element = this.conversationThread[index];
+        this.message = this.element.message;
+        this.user = this.element.user;
+        this.textToEdit.emit({message: this.message, user: this.user});
+        this.removeElement(this.conversationThread, index);
         return
       }
     }

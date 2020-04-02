@@ -22,9 +22,10 @@ export class TranslationComponent {
   public sentMessage: string;
   public messages: any[] = [];
   public newMessage: NewMessage;
-  public textToEdit: string;
+  public guestTextToEdit: string;
+  public advisorTextToEdit: string;
 
-  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private settingsService: SettingsService) {
+  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router) {
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
     }
@@ -59,13 +60,12 @@ export class TranslationComponent {
   }
 
   public toEdit(message) {
-    this.textToEdit = message
-    return
+    return message.user == 'guest' ? this.guestTextToEdit = message.message : this.advisorTextToEdit = message.message;
   }
 
   public addToThread(event) {
     this.newMessage = event;
-    this.messages.push(this.newMessage)
+    this.messages.push(this.newMessage);
     return
   }
 

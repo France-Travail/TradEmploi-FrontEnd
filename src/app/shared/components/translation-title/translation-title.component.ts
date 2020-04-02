@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-translation-title',
@@ -13,7 +14,7 @@ export class TranslationTitleComponent implements OnInit {
   public title: { raw: string; french: string };
   public languages: { raw: string; french: string };
 
-  constructor(private settingsService: SettingsService) {}
+  constructor(private settingsService: SettingsService, public router: Router) {}
 
   ngOnInit(): void {
     const advisor = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences;
