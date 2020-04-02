@@ -18,9 +18,9 @@ export class ConversationThreadComponent {
   public messages = [];
   public flag: string;
   public translatedSpeech: HTMLAudioElement;
-  public speech;
+  public speech: HTMLAudioElement;
   public message: string;
-  public visible = false;
+  public visible: boolean = false;
   public element: NewMessage;
   public expandMessage: string;
   
