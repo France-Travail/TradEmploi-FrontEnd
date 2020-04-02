@@ -42,12 +42,7 @@ export class MessageWrapperComponent implements OnInit {
   public error: boolean = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
 
-  public messageInterceptor: string;
-  public translationInterceptor: string;
-  public senderInterceptor: string;
-  public languageInterceptor: string;
-  public speechInterceptor: HTMLAudioElement;
-  public flagInterceptor: string;
+  private messageInterceptor: string;
 
   constructor(
     private toastService: ToastService,
@@ -95,18 +90,13 @@ export class MessageWrapperComponent implements OnInit {
       this.translatedText = response;
       this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
       this.translatedSpeech = this.textToSpeechService.audioSpeech;
-      this.translationInterceptor = this.translatedText;
-      this.senderInterceptor = this.user;
-      this.languageInterceptor = this.languageOrigin;
-      this.speechInterceptor = this.translatedSpeech;
-      this.flagInterceptor = this.flag;
       this.newMessage = {
         message: this.messageInterceptor,
-        translation: this.translationInterceptor,
-        user: this.senderInterceptor,
-        language: this.languageInterceptor,
-        translatedSpeech: this.speechInterceptor,
-        flag: this.flagInterceptor
+        translation: this.translatedText,
+        user: this.user,
+        language: this.languageOrigin,
+        translatedSpeech: this.translatedSpeech,
+        flag: this.flag
       };
       this.newMessagesToEmit.emit(this.newMessage);
     });
