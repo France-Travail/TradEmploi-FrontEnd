@@ -1,10 +1,12 @@
 <div class="container">
-  <h1><b>{{ title.french }}</b> / {{ title.raw }}</h1>
+  <h1>
+    <strong>{{ title.french }}</strong> / {{ title.raw }}
+  </h1>
   <div class="sub">
     <div class="languages">
-      <img src="/assets/icons/icon-languages-blue.svg" alt="Langues">
-      <div class="text">
-        < <b>{{ languages.french }}</b> / {{ languages.raw }}
+      <img src="/assets/icons/icon-languages-blue.svg" alt="Langues" />
+      <div class="text" *ngIf="languages">
+        <strong>{{ languages.french }}</strong> / {{ languages.raw }}
       </div>
     </div>
 

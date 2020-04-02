@@ -3,17 +3,15 @@
   <div class="input-wrapper">
     <div class="field" *ngIf="!micro">
       <div class="flag">
-        <span class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
+        <span *ngIf="flag !== 'arabic'" class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
+        <img *ngIf="flag === 'arabic'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" routerLink="/choice" />
       </div>
-
       <textarea [(ngModel)]="rawText" (keydown.enter)="send(true); (false)"></textarea>
-
       <div class="buttons">
         <img class="micro" src="./assets/icons/icon-micro-black.svg" alt="activate micro" (click)="talk()" />
         <img class="delete" src="./assets/icons/icon-delete-black.svg" alt="delete text" (click)="delete()" />
       </div>
     </div>
-
     <div class="actions" *ngIf="!micro">
       <button class="btn-send" (click)="send(true)">
         <img src="./assets/icons/icon-send-black.svg" alt="send text" />
