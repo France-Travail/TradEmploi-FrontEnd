@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NewMessage } from 'src/app/models/new-message';
-import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-conversation-thread',
@@ -8,65 +7,35 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./conversation-thread.component.scss']
 })
 export class ConversationThreadComponent {
-  
+
   @Input() user: string;
   @Input() rawText: string;
   @Input() conversationThread: [];
 
   @Output() textToEdit: any = new EventEmitter<{}>();
 
-  // public messages = [];
-  // public flag: string;
-  public translatedSpeech: HTMLAudioElement;
-  public speech: HTMLAudioElement;
-  public message: string;
   public visible: boolean = false;
-  public element: NewMessage;
-  public expandMessage: string;
-  
-  constructor(private toastService: ToastService) {}
 
-  public toggleDiv(value) {
+  public extand() {
     this.visible = !this.visible;
-    for (let i = 0; i < this.conversationThread.length; i++) {
-      if (this.conversationThread.hasOwnProperty(value)) {
-        this.element = this.conversationThread[value]
-        this.expandMessage = this.element.message
-        return this.expandMessage
-      }
-    }
   }
 
   public deleteMessage(index) {
-    this.removeElement(this.conversationThread, index)
-    return this.conversationThread
+    this.conversationThread.splice(index, 1);
   }
 
-  public removeElement(array, index) {
-    array.splice(index, 1) ? (index > -1) : this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer.');
-}
-
   public editMessage(index) {
-    for (let i = 0; i < this.conversationThread.length; i++) {
-      if (this.conversationThread.hasOwnProperty(index)) {
-        this.element = this.conversationThread[index];
-        this.message = this.element.message;
-        this.user = this.element.user;
-        console.log('language : ', this.element)
-        this.textToEdit.emit({message: this.message, user: this.user});
-        this.removeElement(this.conversationThread, index);
-        return
-      }
+    const sentMessage: NewMessage = this.conversationThread[index];
+    if (sentMessage) {
+      this.textToEdit.emit({message: sentMessage.message, user: sentMessage.user});
+      this.conversationThread.splice(index, 1);
     }
   }
 
-  public listen(value) {
-    for (let i = 0; i < this.conversationThread.length; i++) {
-      if (this.conversationThread.hasOwnProperty(value)) {
-        this.element = this.conversationThread[value]
-        this.speech = this.element.translatedSpeech
-        return this.speech.play()
-      }
+  public listen(index) {
+    const sentMessage: NewMessage = this.conversationThread[index];
+    if (sentMessage) {
+      sentMessage.translatedSpeech.play();
     }
   }
 

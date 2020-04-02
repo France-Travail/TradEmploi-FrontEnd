@@ -1,29 +1,28 @@
 <ng-container *ngFor="let message of conversationThread; let i = index;">
-  <div class="value">
-    <div class="translation" [ngStyle]="{'text-align': message.flag == 'arabic' ? 'start' : 'end'}">
+  <div class="translation">
+    <div class="sentence" [ngStyle]="{'text-align': message.language === 'ar-XA' ? 'start' : 'end'}">
         {{ message.translation }}
     </div>
     <button class="listen" (click)="listen(i)">
-      <img src="../../../assets/icons/icon-listen-black.svg" alt="listen translation">
+      <img src="../../../assets/icons/icon-listen-black.svg" alt="Ecoute de la traduction">
     </button>
   </div>
-  <div class="entered-text">
+  <div class="message-sended">
     <div class="flag">
-      <span class="flag-icon flag-icon-{{ message.flag }}" routerLink="/choice"></span>
+      <span *ngIf="message.flag !== 'arabic'"class="flag-icon flag-icon-{{ message.flag }}" routerLink="/choice"></span>
+      <img *ngIf="message.flag === 'arabic'" class="flag-icon" src="assets/images/arab-flag.png" alt="drapeau" />
     </div>
     <div class="text" [ngStyle]="{'text-align': message.flag == 'arabic' ? 'end' : 'start'}">
       <span>
         <div *ngIf="!visible; then longText else shortText"></div>
         <ng-template #shortText>
           <a (click)="editMessage(i)">{{ message.message }}</a>
-          <button *ngIf="message.message.length > 120" (click)="toggleDiv(i)">REDUIRE</button>
+          <button *ngIf="message.message.length > 120" (click)="extand(i)">REDUIRE</button>
         </ng-template>
         <ng-template #longText>
           <a (click)="editMessage(i)">{{ message.message | slice:0:120 }}</a>
-          <button *ngIf="message.message.length > 120" (click)="toggleDiv(i)">...</button>
+          <button *ngIf="message.message.length > 120" (click)="extand(i)">...</button>
         </ng-template>
-      </span>
-      <span>
       </span>
       </div>
     <div class="delete" (click)="deleteMessage(i)">
