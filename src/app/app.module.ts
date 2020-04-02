@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 // Handle firebase connection
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule, FUNCTIONS_ORIGIN } from '@angular/fire/functions';
 
 // Environment loaded
@@ -43,7 +43,7 @@ import { MessageWrapperComponent } from './pages/translation/components/message-
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
 
 import { SentryErrorHandler} from './utils/sentry-error-handler';
-import { AuthenticationComponent } from './pages/authentication/authentication.component'
+import { AuthenticationComponent } from './pages/authentication/authentication.component';
 @NgModule({
   declarations: [
     AppComponent,

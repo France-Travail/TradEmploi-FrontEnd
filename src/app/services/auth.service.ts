@@ -15,7 +15,7 @@ export class AuthService {
       if (state !== null) {
         this.auth.next({ user: state });
         this.db.collection('config').valueChanges().subscribe((config: any) => {
-          this.auth.next({ user: state, role: config[0].adminList.includes(state.email) ? 'ADMIN': 'USER' });
+          this.auth.next({ user: state, role: config[0].adminList.includes(state.email) ? 'ADMIN' : 'USER' });
         });
       }
     });

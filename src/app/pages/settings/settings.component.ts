@@ -73,7 +73,7 @@ export class SettingsComponent implements AfterViewInit {
       // },
       {
         icon: 'assets/icons/icon-chat-black.svg',
-        infoTitle: "Voir l'historique",
+        infoTitle: 'Voir l\'historique',
         link: 'history',
         isDisplayed: this.isNewConversation
       }

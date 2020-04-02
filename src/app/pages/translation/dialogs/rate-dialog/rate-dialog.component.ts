@@ -11,7 +11,7 @@ interface Sentences {
   questionOne: { french: string; foreign: string; };
   questionTwo: { french: string; foreign: string; };
   questionThree: { french: string; foreign: string; };
-};
+}
 
 @Component({
   selector: 'app-rate-dialog',
@@ -37,7 +37,7 @@ export class RateDialogComponent implements OnInit {
       french: '',
       foreign: ''
     }
-  }
+  };
 
   constructor(private dialogRef: MatDialogRef<RateDialogComponent>, private rateService: RateService, private settingsService: SettingsService, private toastService: ToastService, private router: Router) {
     VOCABULARY_V2.find(v => v.isoCode === 'fr-FR').sentences.forEach(s => {
@@ -94,7 +94,7 @@ export class RateDialogComponent implements OnInit {
         })
         .catch(error => {
           this.dialogRef.close();
-          this.toastService.showToast("La notation n'a pas pu être envoyée. Redirection en cours.", 'toast-error');
+          this.toastService.showToast('La notation n\'a pas pu être envoyée. Redirection en cours.', 'toast-error');
           setTimeout(() => {
             this.router.navigate(['thanks']);
           }, 3500);
