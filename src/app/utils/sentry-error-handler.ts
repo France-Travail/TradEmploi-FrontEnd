@@ -10,7 +10,7 @@ Sentry.init({
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
   handleError(error) {
-    if (environment.name !== 'development') {
+    if (environment.name !== 'local') {
       Sentry.captureException(error.originalError || error);
     }
   }

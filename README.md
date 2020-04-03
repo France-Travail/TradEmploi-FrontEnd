@@ -35,7 +35,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 3 - Build
 
 ```
-$ npm run build
+$ npm run build:dev
 ```
 
 4 - TEST on local

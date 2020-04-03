@@ -78,7 +78,6 @@ import { SentryErrorHandler} from './utils/sentry-error-handler'
       provide: MAT_DATE_LOCALE,
       useValue: 'fr-FR'
     },
-    { provide: FUNCTIONS_ORIGIN, useValue: 'https://translate-pe.firebaseapp.com' },
     { provide: ErrorHandler, useClass: SentryErrorHandler }
   ],
   bootstrap: [AppComponent],
