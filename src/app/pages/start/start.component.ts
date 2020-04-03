@@ -21,12 +21,12 @@ export class StartComponent implements AfterContentInit {
     this.settingsService.reset();
     this.historyService.startConversation(this.settingsService.advisor, this.settingsService.guest.value);
 
-    // const id = setInterval(() => {
-    //   this.opacity = this.opacity + 0.05;
-    //   if (this.opacity > 1) {
-    //     clearInterval(id);
-    //   }
-    // }, 100);
+    const id = setInterval(() => {
+      this.opacity = this.opacity + 0.05;
+      if (this.opacity > 1) {
+        clearInterval(id);
+      }
+    }, 100);
 
     setTimeout(() => {
       this.router.navigate(['settings/start']);
