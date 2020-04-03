@@ -40,8 +40,8 @@ import { ShowComponent } from './pages/historic/dialogs/show/show.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
+import { ConversationThreadComponent } from './pages/translation/components/conversation-thread/conversation-thread.component';
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
-
 import { SentryErrorHandler} from './utils/sentry-error-handler'
 @NgModule({
   declarations: [
@@ -59,6 +59,7 @@ import { SentryErrorHandler} from './utils/sentry-error-handler'
     ThanksComponent,
     ConversationComponent,
     MessageWrapperComponent,
+    ConversationThreadComponent,
     RateDialogComponent
   ],
   imports: [
