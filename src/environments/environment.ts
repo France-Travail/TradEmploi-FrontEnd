@@ -22,5 +22,8 @@ export const environment = {
   },
   sentry: {
     url: 'https://953593ebcd8a40b4a2e743176c9488b8@sentry.io/5180549'
+  },
+  firefunction:{
+    url:'http://localhost:5001'
   }
 };

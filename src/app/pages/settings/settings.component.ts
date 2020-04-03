@@ -1,16 +1,15 @@
-// Angular
 import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-// Services
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ToastService } from 'src/app/services/toast.service';
 
-// Models
 import { NavbarItem } from 'src/app/models/navbar-item';
 import { AuthService } from 'src/app/services/auth.service';
 import { AngularFireFunctions } from '@angular/fire/functions';
+import { environment } from '../../../environments/environment';
+import { Parser } from 'json2csv';
 
 @Component({
   selector: 'app-settings',
@@ -21,7 +20,7 @@ export class SettingsComponent implements AfterViewInit {
   public audio: boolean = false;
   public guest: { firstname: string; lastname: string } = { firstname: '', lastname: '' };
   public advisor: { firstname: string; lastname: string } = { firstname: '', lastname: '' };
-  public isNewConversation: boolean = true; // Hide elements when new conversation is started
+  public isNewConversation: boolean = true;
   public navBarItems: NavbarItem[] = [];
   public isAdmin: boolean = false;
 
@@ -65,24 +64,15 @@ export class SettingsComponent implements AfterViewInit {
         link: 'return',
         isDisplayed: !this.isNewConversation
       },
-      // {
-      //   icon: 'assets/icons/icon-refresh-black.svg',
-      //   infoTitle: 'Quitter l\'application',
-      //   link: 'start',
-      //   isDisplayed: !this.isNewConversation
-      // },
       {
         icon: 'assets/icons/icon-chat-black.svg',
-        infoTitle: 'Voir l\'historique',
+        infoTitle: "Voir l'historique",
         link: 'history',
         isDisplayed: this.isNewConversation
       }
     ];
   }
 
-  /**
-   * Set firstname and lastname for users
-   */
   public setInformation(value: string, id: string): void {
     switch (id) {
       case 'guestF':
@@ -103,16 +93,10 @@ export class SettingsComponent implements AfterViewInit {
     }
   }
 
-  /**
-   * Allow user to enabled audio after translation
-   */
   public switchAudio(): void {
     this.settingsService.audio = !this.audio;
   }
 
-  /**
-   * Validate form and redirect
-   */
   public validateInformations(): void {
     if (this.checkFields()) {
       this.settingsService.newConversation = false;
@@ -122,26 +106,39 @@ export class SettingsComponent implements AfterViewInit {
     }
   }
 
-  /**
-   * Check if firstname and lastname are not empty
-   */
   private checkFields(): boolean {
-    if (this.advisor.firstname === '' || this.advisor.lastname === '') {
-      return false;
-    } else {
-      return true;
-    }
+    return !(this.advisor.firstname === '' || this.advisor.lastname === '');
   }
 
   public export(): void {
-    const exportRate = this.fireFunction.httpsCallable('helloWorld');
-    exportRate({}).subscribe(result => {
-      console.log(result);
-    });
+    if (environment.name === 'local') {
+      this.fireFunction.functions.useFunctionsEmulator(environment.firefunction.url);
+    }
+    this.fireFunction
+      .httpsCallable('rates')({})
+      .toPromise()
+      .then(response => {
+        this.exportCsv(response)
+      })
+      .catch(err => console.error('error', err));
   }
 
   public logout(): void {
     this.authService.logout();
     this.router.navigateByUrl('/auth');
+  }
+
+  private exportCsv(rates){
+    const json2csvParser = new Parser();
+    const data = json2csvParser.parse(rates);
+    const blob = new Blob([data], { type: 'text/csv' });
+    var url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'petraduction.csv');
+    document.body.append(a);
+    a.click();
+    document.body.removeChild(a);
   }
 }
