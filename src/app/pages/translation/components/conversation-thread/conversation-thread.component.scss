@@ -1,0 +1,111 @@
+@import 'styles';
+
+.translation {
+  display: flex;
+  padding: 10px;
+  font-size: 24px;
+  min-height: auto;
+  height: auto;
+  width: 98%;
+  text-align: justify;
+  overflow-y: auto;
+  background-color: #F5F5F5;
+
+  .sentence {
+    width: 94%;
+    height: auto;
+    margin: auto;
+    font-size: 20px;
+  }
+
+  button {
+    border: none;
+    background-color: transparent;
+    margin-left: 10px;
+
+    img {
+      width: 22px;
+    }
+  }
+}
+
+.message-sended {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 25px;
+
+  .flag {
+    padding-top: 2px;
+    .flag-icon {
+      width: 34px;
+      height: 24px;
+      border: 1px solid $gray74;
+      box-sizing: border-box;
+      border-radius: 5px;
+      background-size: cover;
+    }
+  }
+
+  .text {
+    width: 84%;
+    padding: 0px 10px;
+    text-align: justify;
+    font-size: 16px;
+    span {
+      a {
+        text-decoration: none;
+        color: #4171DA;
+        cursor: pointer;
+      }
+      button {
+        display: flex;
+        align-items: flex-end;
+        padding: 4px;
+        min-width: 60px;
+        background: $white;
+        color: $black;
+        border: 1px solid $btn-border;
+        border-radius: 5px;
+      }
+    }
+  }
+  .delete {
+    height: 30px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .translation {
+  
+    .sentence {
+    }
+  
+    button {
+  
+      img {
+      }
+    }
+  }
+  
+  .message-sended {
+  
+    .flag {
+
+      .flag-icon {
+      }
+    }
+  
+    .text {
+      span {
+        a {
+        }
+        button {
+        }
+      }
+    }
+    .delete {
+
+    }
+  }
+}

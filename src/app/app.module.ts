@@ -40,10 +40,11 @@ import { ShowComponent } from './pages/historic/dialogs/show/show.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
+import { ConversationThreadComponent } from './pages/translation/components/conversation-thread/conversation-thread.component';
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
-
 import { SentryErrorHandler} from './utils/sentry-error-handler';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,8 @@ import { AuthenticationComponent } from './pages/authentication/authentication.c
     ConversationComponent,
     MessageWrapperComponent,
     RateDialogComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    ConversationThreadComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +82,6 @@ import { AuthenticationComponent } from './pages/authentication/authentication.c
       provide: MAT_DATE_LOCALE,
       useValue: 'fr-FR'
     },
-    // { provide: FUNCTIONS_ORIGIN, useValue: 'https://translate-pe.firebaseapp.com' },
     { provide: ErrorHandler, useClass: SentryErrorHandler }
   ],
   bootstrap: [AppComponent],
