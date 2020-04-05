@@ -1,9 +1,5 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
-  name: 'development',
+  name: 'local',
   production: false,
   firebaseConfig: {
     apiKey: 'AIzaSyBP2bEopJwWiWBleSXgQFg4DW3UMnmfRpE',
@@ -12,21 +8,21 @@ export const environment = {
     projectId: 'pole-emploi-trad-dev',
     storageBucket: 'pole-emploi-trad-dev.appspot.com',
     messagingSenderId: '615733745472',
-    appId: '1:615733745472:web:c14d5ad351090c67044ca5'
+    appId: '1:615733745472:web:c14d5ad351090c67044ca5',
   },
   gcp: {
-    apiKey: 'AIzaSyBraAcmG6FhlK4A9hCOfo96_s_OvYXEciQ'
+    apiKey: 'AIzaSyBraAcmG6FhlK4A9hCOfo96_s_OvYXEciQ',
   },
   api: {
     graphqlUrl: 'https://pole-emploi-trad-server.eu-de.cf.appdomain.cloud/graphql',
     login: 'ludo',
     password: '7YQZQJmmSyab7xT',
     provider: 'GOOGLE',
-    defaultLanguage: 'fr-FR'
-  }
-  // sentry:{
-  //   url:'https://953593ebcd8a40b4a2e743176c9488b8@sentry.io/5180549'
-  // }
+    defaultLanguage: 'fr-FR',
+  },
+  sentry: {
+    url: 'https://953593ebcd8a40b4a2e743176c9488b8@sentry.io/5180549',
+  },
 };
 
 /*

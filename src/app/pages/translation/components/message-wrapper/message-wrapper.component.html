@@ -1,13 +1,20 @@
 <div class="container">
-  <h2>{{ title }} :</h2>
+  <h2 [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }">{{ title }} :</h2>
   <div class="input-wrapper">
     <div class="field" *ngIf="!micro">
       <div class="flag">
         <span *ngIf="flag !== 'arabic'" class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
         <img *ngIf="flag === 'arabic'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" routerLink="/choice" />
       </div>
-      <textarea *ngIf="user == 'advisor'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)"></textarea>
-      <textarea *ngIf="user !== 'advisor'" [matKeyboard]="languageKb" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)"></textarea>
+      <textarea *ngIf="user == 'advisor'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"></textarea>
+      <textarea
+        *ngIf="user !== 'advisor'"
+        [matKeyboard]="languageKb"
+        [(ngModel)]="rawText"
+        (keydown.enter)="send(true); (false)"
+        [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"
+      ></textarea>
+
       <div class="buttons">
         <img class="micro" src="./assets/icons/icon-micro-black.svg" alt="activate micro" (click)="talk()" />
         <img class="delete" src="./assets/icons/icon-delete-black.svg" alt="delete text" (click)="delete()" />
@@ -15,21 +22,10 @@
     </div>
     <div class="actions" *ngIf="!micro">
       <button class="btn-send" (click)="send(true)">
-        <img src="./assets/icons/icon-send-black.svg" alt="send text" />
+        <img src="./assets/icons/icon-send-white.svg" alt="send text" />
         {{ sendBtnValue | uppercase }}
-      </button>
-      <button (click)="listen('speech')" [disabled]="!isReady.listenSpeech">
-        <img src="./assets/icons/icon-listen-white.svg" alt="listen speech" />
-        {{ listenBtnValue | uppercase }}
       </button>
     </div>
     <app-record class="margin" *ngIf="micro" duration="50" user="advisor" [language]="languageOrigin" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
-    <div class="translation">
-      <div class="value">{{ translatedText }}</div>
-      <button (click)="listen('translation')" [disabled]="!isReady.listenTranslation">
-        <img src="./assets/icons/icon-listen-white.svg" alt="listen translation" />
-        {{ listenBtnValue | uppercase }}
-      </button>
-    </div>
   </div>
 </div>

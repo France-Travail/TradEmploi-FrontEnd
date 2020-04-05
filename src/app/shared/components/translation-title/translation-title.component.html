@@ -4,12 +4,11 @@
   </h1>
   <div class="sub">
     <div class="languages">
-      <img src="/assets/icons/icon-languages-blue.svg" alt="Langues" />
+      <img src="/assets/icons/icon-languages-blue.svg" alt="Langues">
       <div class="text" *ngIf="languages">
-        <strong>{{ languages.french }}</strong> / {{ languages.raw }}
+        <strong><a routerLink="/choice">< <b>{{ languages.french }}</b> / {{ languages.raw }}</a></strong>
       </div>
     </div>
-
     <button (click)="over()">TERMINER</button>
   </div>
 </div>

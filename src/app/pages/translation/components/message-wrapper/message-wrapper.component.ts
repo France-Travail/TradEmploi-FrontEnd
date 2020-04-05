@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { TranslateService } from 'src/app/services/translate.service';
@@ -7,6 +7,7 @@ import { AudioRecordingService } from 'src/app/services/audio-recording.service'
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { NgControl } from '@angular/forms';
+import { NewMessage } from 'src/app/models/new-message';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -16,10 +17,13 @@ import { NgControl } from '@angular/forms';
 export class MessageWrapperComponent implements OnInit {
   @Input() title: string;
   @Input() user: string;
-  @ViewChild('virtualKb')
-  private textarea: ElementRef;
-  @ViewChild('virtualKb')
-  private textareaControl: NgControl;
+  @Input() rawText: string;
+
+  @Output() newMessagesToEmit = new EventEmitter();
+
+  public messages = [];
+  public newMessage: NewMessage;
+
   // Number
   public enterKey: number = 13;
 
@@ -32,7 +36,6 @@ export class MessageWrapperComponent implements OnInit {
 
   public rawSpeech: HTMLAudioElement;
   public translatedSpeech: HTMLAudioElement;
-  public rawText: string = '';
   public translatedText: string = '';
   public isLanguageExist = VOCABULARY_V2.some((item) => item.isoCode === this.settingsService.guest.value.language);
   // Boolean
@@ -40,7 +43,9 @@ export class MessageWrapperComponent implements OnInit {
   public error: boolean = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
   //keyboard
-  private languageKb: string = '';
+  private languageKb: string;
+
+  private messageInterceptor: string;
 
   constructor(
     private toastService: ToastService,
@@ -79,6 +84,7 @@ export class MessageWrapperComponent implements OnInit {
       const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
       this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
       this.rawSpeech = this.textToSpeechService.audioSpeech;
+      this.messageInterceptor = this.rawText;
     } else {
       this.rawText = message;
       this.rawSpeech = this.audioRecordingService.audioSpeech;
@@ -88,7 +94,17 @@ export class MessageWrapperComponent implements OnInit {
       this.translatedText = response;
       this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
       this.translatedSpeech = this.textToSpeechService.audioSpeech;
+      this.newMessage = {
+        message: this.messageInterceptor,
+        translation: this.translatedText,
+        user: this.user,
+        language: this.languageOrigin,
+        translatedSpeech: this.translatedSpeech,
+        flag: this.flag,
+      };
+      this.newMessagesToEmit.emit(this.newMessage);
     });
+    this.rawText = '';
   }
 
   public listen(value: 'translation' | 'speech'): void {
@@ -100,6 +116,7 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public audioSending(message: string): void {
+    this.messageInterceptor = message;
     this.micro = false;
     this.isReady.listenSpeech = true;
     this.send(false, message);
@@ -108,10 +125,4 @@ export class MessageWrapperComponent implements OnInit {
   public exitRecord() {
     this.micro = false;
   }
-
-  // public closeCurrentKeyboard() {
-  //   if (this.keyboardReference) {
-  //     this.keyboardReference.dismiss();
-  //   }
-  // }
 }
