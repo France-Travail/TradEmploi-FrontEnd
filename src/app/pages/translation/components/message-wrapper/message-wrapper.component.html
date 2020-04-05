@@ -6,7 +6,8 @@
         <span *ngIf="flag !== 'arabic'" class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
         <img *ngIf="flag === 'arabic'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" routerLink="/choice" />
       </div>
-      <textarea [(ngModel)]="rawText" (keydown.enter)="send(true); (false)"></textarea>
+      <textarea *ngIf="user == 'advisor'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)"></textarea>
+      <textarea *ngIf="user !== 'advisor'" [matKeyboard]="languageKb" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)"></textarea>
       <div class="buttons">
         <img class="micro" src="./assets/icons/icon-micro-black.svg" alt="activate micro" (click)="talk()" />
         <img class="delete" src="./assets/icons/icon-delete-black.svg" alt="delete text" (click)="delete()" />

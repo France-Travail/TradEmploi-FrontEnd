@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { TranslateService } from 'src/app/services/translate.service';
@@ -6,16 +6,20 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { NgControl } from '@angular/forms';
 
 @Component({
   selector: 'app-message-wrapper',
   templateUrl: './message-wrapper.component.html',
-  styleUrls: ['./message-wrapper.component.scss']
+  styleUrls: ['./message-wrapper.component.scss'],
 })
 export class MessageWrapperComponent implements OnInit {
   @Input() title: string;
   @Input() user: string;
-
+  @ViewChild('virtualKb')
+  private textarea: ElementRef;
+  @ViewChild('virtualKb')
+  private textareaControl: NgControl;
   // Number
   public enterKey: number = 13;
 
@@ -30,11 +34,13 @@ export class MessageWrapperComponent implements OnInit {
   public translatedSpeech: HTMLAudioElement;
   public rawText: string = '';
   public translatedText: string = '';
-  public isLanguageExist = VOCABULARY_V2.some(item => item.isoCode === this.settingsService.guest.value.language);
+  public isLanguageExist = VOCABULARY_V2.some((item) => item.isoCode === this.settingsService.guest.value.language);
   // Boolean
   public micro: boolean = false;
   public error: boolean = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
+  //keyboard
+  private languageKb: string = '';
 
   constructor(
     private toastService: ToastService,
@@ -47,12 +53,13 @@ export class MessageWrapperComponent implements OnInit {
 
   ngOnInit(): void {
     this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    let sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find(item => item.isoCode === this.languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
-    this.title = sentences.find(s => s.key === 'translation-h2').value;
-    this.sendBtnValue = sentences.find(s => s.key === 'send').value;
-    this.listenBtnValue = sentences.find(s => s.key === 'listen').value;
-    this.flag = this.isLanguageExist ? sentences.find(s => s.key === 'flag').value.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
+    let sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find((item) => item.isoCode === this.languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
+    this.title = sentences.find((s) => s.key === 'translation-h2').value;
+    this.sendBtnValue = sentences.find((s) => s.key === 'send').value;
+    this.listenBtnValue = sentences.find((s) => s.key === 'listen').value;
+    this.flag = this.isLanguageExist ? sentences.find((s) => s.key === 'flag').value.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
     this.language = this.user === 'guest' ? 'fr-FR' : this.settingsService.guest.value.language;
+    this.languageKb = this.languageOrigin.split('-')[0];
   }
 
   public async talk(): Promise<void> {
@@ -77,7 +84,7 @@ export class MessageWrapperComponent implements OnInit {
       this.rawSpeech = this.audioRecordingService.audioSpeech;
     }
 
-    this.translateService.translate(this.rawText, this.user).subscribe(async response => {
+    this.translateService.translate(this.rawText, this.user).subscribe(async (response) => {
       this.translatedText = response;
       this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
       this.translatedSpeech = this.textToSpeechService.audioSpeech;
@@ -101,4 +108,10 @@ export class MessageWrapperComponent implements OnInit {
   public exitRecord() {
     this.micro = false;
   }
+
+  // public closeCurrentKeyboard() {
+  //   if (this.keyboardReference) {
+  //     this.keyboardReference.dismiss();
+  //   }
+  // }
 }

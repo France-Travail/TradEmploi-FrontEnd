@@ -1,14 +1,12 @@
 // Angular
-import { Component, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
-
+// Models
+import { NavbarItem } from 'src/app/models/navbar-item';
 // Services
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ToastService } from 'src/app/services/toast.service';
-
-// Models
-import { NavbarItem } from 'src/app/models/navbar-item';
 
 @Component({
   selector: 'app-settings',
@@ -50,15 +48,9 @@ export class SettingsComponent implements AfterViewInit {
         link: 'return',
         isDisplayed: !this.isNewConversation
       },
-      // {
-      //   icon: 'assets/icons/icon-refresh-black.svg',
-      //   infoTitle: 'Quitter l\'application',
-      //   link: 'start',
-      //   isDisplayed: !this.isNewConversation
-      // },
       {
         icon: 'assets/icons/icon-chat-black.svg',
-        infoTitle: 'Voir l\'historique',
+        infoTitle: "Voir l'historique",
         link: 'history',
         isDisplayed: this.isNewConversation
       }

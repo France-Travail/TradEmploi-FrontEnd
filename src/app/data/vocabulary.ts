@@ -120,7 +120,7 @@ export const VOCABULARY: { isoCode: string; words: { translate: string; request:
   { isoCode: 'yue-Ha', words: { translate: '翻譯', request: '您的要求：', rate: '你對面試滿意嗎？', send: '發送', thanks: 'PôleEmploi謝謝你' } },
   { isoCode: 'ja-JP', words: { translate: '翻訳', request: 'あなたのリクエスト：', rate: 'インタビューに満足していますか？', send: '送ります', thanks: 'ポール・エンプロイ、ありがとう' } },
   { isoCode: 'zh-HK', words: { translate: '翻译', request: '您的要求：', rate: '你对面试满意吗？', send: '发送', thanks: 'PôleEmploi谢谢你' } },
-  { isoCode: 'zh-ZH', words: { translate: '翻译', request: '您的要求：', rate: '你对面试满意吗？', send: '发送', thanks: 'PôleEmploi谢谢你' } }
+  { isoCode: 'zh-ZH', words: { translate: '翻译', request: '您的要求：', rate: '你对面试满意吗？', send: '发送', thanks: 'PôleEmploi谢谢你' } },
 ];
 export const VOCABULARY_DEFAULT: Vocabulary = {
   isoCode: 'default',
@@ -132,8 +132,8 @@ export const VOCABULARY_DEFAULT: Vocabulary = {
     { key: 'rate', value: 'Are you satisfied with your interview?' },
     { key: 'thanks', value: 'Pôle Emploi thanks you.' },
     { key: 'listen', value: 'Listen' },
-    { key: 'record-text', value: 'Speak now' }
-  ]
+    { key: 'record-text', value: 'Speak now' },
+  ],
 };
 export const VOCABULARY_V2: Vocabulary[] = [
   {
@@ -156,8 +156,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'האם אתה רוצה להמשיך בשפה זו?' },
       { key: 'rate-easyToUse', value: 'האם כלי זה קל לשימוש?' },
       { key: 'rate-understand', value: 'האם כלי זה עזר לנו להבין אחד את השני?' },
-      { key: 'rate-comment', value: 'תגובה חינם' }
-    ]
+      { key: 'rate-comment', value: 'תגובה חינם' },
+    ],
   },
   {
     isoCode: 'ar-JO',
@@ -180,8 +180,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'ar-AE',
@@ -204,8 +204,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'ar-BH',
@@ -228,8 +228,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'ar-XA',
@@ -254,8 +254,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   // {
   //   isoCode: 'ar-XA',
@@ -302,8 +302,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'ar-IQ',
@@ -326,8 +326,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'ar-KW',
@@ -350,8 +350,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'ar-MA',
@@ -374,8 +374,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'ar-TN',
@@ -398,8 +398,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'ar-OM',
@@ -422,8 +422,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'ar-PS',
@@ -446,8 +446,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'ar-QA',
@@ -470,8 +470,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'ar-LB',
@@ -494,8 +494,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'ar-EG',
@@ -518,8 +518,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
-    ]
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+    ],
   },
   {
     isoCode: 'fa-IR',
@@ -543,8 +543,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'آیا می خواهید به این زبان ادامه دهید؟' },
       { key: 'rate-easyToUse', value: 'آیا این ابزار آسان است؟' },
       { key: 'rate-understand', value: 'آیا این ابزار به ما در درک یکدیگر کمک کرده است؟' },
-      { key: 'rate-comment', value: 'نظر رایگان' }
-    ]
+      { key: 'rate-comment', value: 'نظر رایگان' },
+    ],
   },
   {
     isoCode: 'fr-FR',
@@ -567,8 +567,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Voulez-vous continuer dans cette langue ?' },
       { key: 'rate-easyToUse', value: 'Est-ce que cet outil est facile à utiliser ?' },
       { key: 'rate-understand', value: 'Est-ce que cet outil nous a aidé à nous comprendre ?' },
-      { key: 'rate-comment', value: 'Commentaire libre' }
-    ]
+      { key: 'rate-comment', value: 'Commentaire libre' },
+    ],
   },
   {
     isoCode: 'en-GB',
@@ -593,8 +593,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'es-ES',
@@ -619,8 +619,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: '¿Te gustaría intercambiar en este idioma?' },
       { key: 'rate-easyToUse', value: '¿Es esta herramienta fácil de usar?' },
       { key: 'rate-understand', value: '¿Esta herramienta nos ayudó a entendernos?' },
-      { key: 'rate-comment', value: 'Comentario gratis' }
-    ]
+      { key: 'rate-comment', value: 'Comentario gratis' },
+    ],
   },
   {
     isoCode: 'zh-ZH',
@@ -644,8 +644,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: '您想用这种语言交流吗？' },
       { key: 'rate-easyToUse', value: '这个工具好用吗？' },
       { key: 'rate-understand', value: '此工具是否有助于我们彼此了解？' },
-      { key: 'rate-comment', value: '自由评论' }
-    ]
+      { key: 'rate-comment', value: '自由评论' },
+    ],
   },
   {
     isoCode: 'en-AU',
@@ -667,8 +667,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'en-GH',
@@ -690,8 +690,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'en-CA',
@@ -713,8 +713,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'en-IN',
@@ -736,8 +736,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'en-ZA',
@@ -759,8 +759,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'en-IE',
@@ -782,8 +782,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'en-KE',
@@ -805,8 +805,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'en-NZ',
@@ -828,8 +828,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'en-SG',
@@ -851,8 +851,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'en-PH',
@@ -874,8 +874,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'en-NG',
@@ -897,8 +897,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'en-TZ',
@@ -920,8 +920,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'us-US',
@@ -943,8 +943,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
-    ]
+      { key: 'rate-comment', value: 'Free Comment' },
+    ],
   },
   {
     isoCode: 'bn-BD',
@@ -969,8 +969,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'আপনি কি এই ভাষায় বিনিময় করতে চান?' },
       { key: 'rate-easyToUse', value: 'এই সরঞ্জামটি কি সহজে ব্যবহার করা যায়?' },
       { key: 'rate-understand', value: 'এই সরঞ্জামটি কি একে অপরকে বুঝতে সাহায্য করেছিল?' },
-      { key: 'rate-comment', value: 'ফ্রি মন্তব্য' }
-    ]
+      { key: 'rate-comment', value: 'ফ্রি মন্তব্য' },
+    ],
   },
   {
     isoCode: 'bn-IN',
@@ -992,8 +992,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'আপনি কি এই ভাষায় বিনিময় করতে চান?' },
       { key: 'rate-easyToUse', value: 'এই সরঞ্জামটি কি সহজে ব্যবহার করা যায়?' },
       { key: 'rate-understand', value: 'এই সরঞ্জামটি কি একে অপরকে বুঝতে সাহায্য করেছিল?' },
-      { key: 'rate-comment', value: 'ফ্রি মন্তব্য' }
-    ]
+      { key: 'rate-comment', value: 'ফ্রি মন্তব্য' },
+    ],
   },
   {
     isoCode: 'fa-AF',
@@ -1015,8 +1015,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'آیا می خواهید به این زبان ادامه دهید؟' },
       { key: 'rate-easyToUse', value: 'todo' },
       { key: 'rate-understand', value: 'todo' },
-      { key: 'rate-comment', value: 'todo' }
-    ]
+      { key: 'rate-comment', value: 'todo' },
+    ],
   },
   {
     isoCode: 'ps-AF',
@@ -1043,8 +1043,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate-comment', value: 'وړیا نظر' },
       { key: 'button-sentence', value: 'پښتو غوره کړه' },
       { key: 'button-sentence-fr', value: 'Choisir le pachto' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'ur-PK',
@@ -1064,8 +1064,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'pt-PT',
@@ -1087,8 +1087,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'tr-TR',
@@ -1109,14 +1109,14 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'de-DE',
     sentences: [
       { key: 'country-name-raw', value: 'Deutschland' },
-      { key: 'country-name-fr', value: 'Allemange' },
+      { key: 'country-name-fr', value: 'Allemagne' },
       { key: 'language-name-fr', value: 'Allemand' },
       { key: 'language-name-raw', value: 'Deutsch' },
       { key: 'flag', value: 'DE' },
@@ -1132,8 +1132,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'am-ET',
@@ -1152,8 +1152,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'km-KH',
@@ -1172,8 +1172,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'hi-IN',
@@ -1192,8 +1192,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'ta-IN',
@@ -1212,8 +1212,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'it-IT',
@@ -1235,8 +1235,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'button-sentence', value: "Scegli l'italiano" },
       { key: 'button-sentence-fr', value: "Choisir l'italien " },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'mn-MN',
@@ -1255,8 +1255,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'ne-NP',
@@ -1275,8 +1275,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'ru-RU',
@@ -1298,8 +1298,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Довольны ли вы своим интервью?' },
       { key: 'thanks', value: 'Pôle emploi Спасибо вам.' },
       { key: 'listen', value: 'Слушать' },
-      { key: 'gauge-text', value: 'Говорите сейчас' }
-    ]
+      { key: 'gauge-text', value: 'Говорите сейчас' },
+    ],
   },
   {
     isoCode: 'uz-UZ',
@@ -1318,8 +1318,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'ro-RO',
@@ -1340,8 +1340,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'so-SO',
@@ -1360,8 +1360,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
   },
   {
     isoCode: 'vi-VN',
@@ -1381,7 +1381,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
-    ]
-  }
+      { key: 'gauge-text', value: 'Speak now' },
+    ],
+  },
 ];

@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  name:"development",
+  name: 'development',
   production: false,
   firebaseConfig: {
     apiKey: 'AIzaSyBP2bEopJwWiWBleSXgQFg4DW3UMnmfRpE',
@@ -23,10 +23,10 @@ export const environment = {
     password: '7YQZQJmmSyab7xT',
     provider: 'GOOGLE',
     defaultLanguage: 'fr-FR'
-  },
-  sentry:{
-    url:'https://953593ebcd8a40b4a2e743176c9488b8@sentry.io/5180549'
   }
+  // sentry:{
+  //   url:'https://953593ebcd8a40b4a2e743176c9488b8@sentry.io/5180549'
+  // }
 };
 
 /*

@@ -4,30 +4,24 @@
   <h1>Paramètre de la session</h1>
 
   <div class="parameters">
-    <mat-slide-toggle [(ngModel)]="audio" (click)="switchAudio()">Activation de l'audio après traduction
-    </mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="audio" (click)="switchAudio()">Activation de l'audio après traduction </mat-slide-toggle>
 
     <div class="group" *ngIf="!isNewConversation">
       <h2>Demandeur d'emploi</h2>
       <mat-form-field>
-        <input matInput (keyup)="setInformation($event.target.value, 'guestF')" [(ngModel)]="guest.firstname"
-          placeholder="Prénom" value="{{ guest.firstname }}">
+        <input matInput (keyup)="setInformation($event.target.value, 'guestF')" [(ngModel)]="guest.firstname" placeholder="Prénom" value="{{ guest.firstname }}" />
       </mat-form-field>
       <mat-form-field>
-        <input matInput (keyup)="setInformation($event.target.value, 'guestL')" [(ngModel)]="guest.lastname"
-          placeholder="Nom" value="{{ guest.lastname }}">
+        <input matInput (keyup)="setInformation($event.target.value, 'guestL')" [(ngModel)]="guest.lastname" placeholder="Nom" value="{{ guest.lastname }}" />
       </mat-form-field>
     </div>
-
     <div class="group">
       <h2>Conseiller</h2>
       <mat-form-field>
-        <input matInput (keyup)="setInformation($event.target.value, 'advisorF')" [(ngModel)]="advisor.firstname"
-          placeholder="Prénom" value="{{ advisor.firstname }}">
+        <input matInput (keyup)="setInformation($event.target.value, 'advisorF')" [(ngModel)]="advisor.firstname" placeholder="Prénom" value="{{ advisor.firstname }}" />
       </mat-form-field>
       <mat-form-field>
-        <input matInput (keyup)="setInformation($event.target.value, 'advisorL')" [(ngModel)]="advisor.lastname"
-          placeholder="Nom" value="{{ advisor.lastname }}">
+        <input matInput (keyup)="setInformation($event.target.value, 'advisorL')" [(ngModel)]="advisor.lastname" placeholder="Nom" value="{{ advisor.lastname }}" />
       </mat-form-field>
     </div>
   </div>

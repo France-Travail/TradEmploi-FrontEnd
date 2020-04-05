@@ -2,7 +2,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
+//Keyboard
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatKeyboardModule } from 'angular-onscreen-material-keyboard';
 // Handle Navigation Tree
 import { AppRoutingModule } from './app-routing.module';
 
@@ -42,7 +45,8 @@ import { ConversationComponent } from './pages/conversation/conversation.compone
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
 
-import { SentryErrorHandler} from './utils/sentry-error-handler'
+//import { SentryErrorHandler } from './utils/sentry-error-handler';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +63,7 @@ import { SentryErrorHandler} from './utils/sentry-error-handler'
     ThanksComponent,
     ConversationComponent,
     MessageWrapperComponent,
-    RateDialogComponent
+    RateDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,17 +75,20 @@ import { SentryErrorHandler} from './utils/sentry-error-handler'
     AngularFireFunctionsModule,
     HttpClientModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    FormsModule,
+    MatButtonModule,
+    MatKeyboardModule,
   ],
   providers: [
     {
       provide: MAT_DATE_LOCALE,
-      useValue: 'fr-FR'
+      useValue: 'fr-FR',
     },
     { provide: FUNCTIONS_ORIGIN, useValue: 'https://translate-pe.firebaseapp.com' },
-    { provide: ErrorHandler, useClass: SentryErrorHandler }
+    //  { provide: ErrorHandler, useClass: SentryErrorHandler }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent]
+  entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent],
 })
 export class AppModule {}
