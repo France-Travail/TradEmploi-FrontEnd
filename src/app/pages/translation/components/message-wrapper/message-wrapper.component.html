@@ -8,6 +8,7 @@
       </div>
       <textarea *ngIf="user == 'advisor'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"></textarea>
       <textarea
+        inputmode="none"
         *ngIf="user !== 'advisor'"
         [matKeyboard]="languageKb"
         [(ngModel)]="rawText"
