@@ -132,7 +132,8 @@ export const VOCABULARY_DEFAULT: Vocabulary = {
     { key: 'rate', value: 'Are you satisfied with your interview?' },
     { key: 'thanks', value: 'Pôle Emploi thanks you.' },
     { key: 'listen', value: 'Listen' },
-    { key: 'record-text', value: 'Speak now' }
+    { key: 'record-text', value: 'Speak now' },
+    { key: 'auto-listen', value: 'Automatically listen' }
   ]
 };
 export const VOCABULARY_V2: Vocabulary[] = [
@@ -156,7 +157,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'האם אתה רוצה להמשיך בשפה זו?' },
       { key: 'rate-easyToUse', value: 'האם כלי זה קל לשימוש?' },
       { key: 'rate-understand', value: 'האם כלי זה עזר לנו להבין אחד את השני?' },
-      { key: 'rate-comment', value: 'תגובה חינם' }
+      { key: 'rate-comment', value: 'תגובה חינם' },
+      { key: 'auto-listen', value: 'האזן אוטומטית' }
     ]
   },
   {
@@ -180,7 +182,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -204,7 +207,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -228,7 +232,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -254,7 +259,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   // {
@@ -302,7 +308,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -326,7 +333,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -350,7 +358,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -374,7 +383,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -398,7 +408,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -422,7 +433,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -446,7 +458,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -470,7 +483,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -494,7 +508,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -518,7 +533,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' },
       { key: 'rate-easyToUse', value: 'هل هذه الأداة سهلة الاستخدام؟' },
       { key: 'rate-understand', value: 'هل ساعدتنا هذه الأداة على فهم بعضنا البعض؟' },
-      { key: 'rate-comment', value: 'تعليق مجاني' }
+      { key: 'rate-comment', value: 'تعليق مجاني' },
+      { key: 'auto-listen', value: 'استمع تلقائيا' }
     ]
   },
   {
@@ -543,7 +559,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'آیا می خواهید به این زبان ادامه دهید؟' },
       { key: 'rate-easyToUse', value: 'آیا این ابزار آسان است؟' },
       { key: 'rate-understand', value: 'آیا این ابزار به ما در درک یکدیگر کمک کرده است؟' },
-      { key: 'rate-comment', value: 'نظر رایگان' }
+      { key: 'rate-comment', value: 'نظر رایگان' },
+      { key: 'auto-listen', value: 'به طور خودکار گوش دهید' }
     ]
   },
   {
@@ -567,7 +584,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Voulez-vous continuer dans cette langue ?' },
       { key: 'rate-easyToUse', value: 'Est-ce que cet outil est facile à utiliser ?' },
       { key: 'rate-understand', value: 'Est-ce que cet outil nous a aidé à nous comprendre ?' },
-      { key: 'rate-comment', value: 'Commentaire libre' }
+      { key: 'rate-comment', value: 'Commentaire libre' },
+      { key: 'auto-listen', value: 'Ecouter automatiquement' }
     ]
   },
   {
@@ -593,7 +611,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -619,7 +638,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: '¿Te gustaría intercambiar en este idioma?' },
       { key: 'rate-easyToUse', value: '¿Es esta herramienta fácil de usar?' },
       { key: 'rate-understand', value: '¿Esta herramienta nos ayudó a entendernos?' },
-      { key: 'rate-comment', value: 'Comentario gratis' }
+      { key: 'rate-comment', value: 'Comentario gratis' },
+      { key: 'auto-listen', value: 'Escuchar automáticamente' }
     ]
   },
   {
@@ -644,7 +664,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: '您想用这种语言交流吗？' },
       { key: 'rate-easyToUse', value: '这个工具好用吗？' },
       { key: 'rate-understand', value: '此工具是否有助于我们彼此了解？' },
-      { key: 'rate-comment', value: '自由评论' }
+      { key: 'rate-comment', value: '自由评论' },
+      { key: 'auto-listen', value: '自动聆听' }
     ]
   },
   {
@@ -667,7 +688,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -690,7 +712,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -713,7 +736,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -736,7 +760,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -759,7 +784,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -782,7 +808,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -805,7 +832,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -828,7 +856,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -851,7 +880,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -874,7 +904,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -897,7 +928,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -920,7 +952,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -943,7 +976,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'Would you like to exchange in this language?' },
       { key: 'rate-easyToUse', value: 'Is this tool easy to use?' },
       { key: 'rate-understand', value: 'Did this tool help us understand each orther?' },
-      { key: 'rate-comment', value: 'Free Comment' }
+      { key: 'rate-comment', value: 'Free Comment' },
+      { key: 'auto-listen', value: 'Automatically listen' }
     ]
   },
   {
@@ -969,7 +1003,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'আপনি কি এই ভাষায় বিনিময় করতে চান?' },
       { key: 'rate-easyToUse', value: 'এই সরঞ্জামটি কি সহজে ব্যবহার করা যায়?' },
       { key: 'rate-understand', value: 'এই সরঞ্জামটি কি একে অপরকে বুঝতে সাহায্য করেছিল?' },
-      { key: 'rate-comment', value: 'ফ্রি মন্তব্য' }
+      { key: 'rate-comment', value: 'ফ্রি মন্তব্য' },
+      { key: 'auto-listen', value: 'স্বয়ংক্রিয়ভাবে শুনুন' }
     ]
   },
   {
@@ -992,7 +1027,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'আপনি কি এই ভাষায় বিনিময় করতে চান?' },
       { key: 'rate-easyToUse', value: 'এই সরঞ্জামটি কি সহজে ব্যবহার করা যায়?' },
       { key: 'rate-understand', value: 'এই সরঞ্জামটি কি একে অপরকে বুঝতে সাহায্য করেছিল?' },
-      { key: 'rate-comment', value: 'ফ্রি মন্তব্য' }
+      { key: 'rate-comment', value: 'ফ্রি মন্তব্য' },
+      { key: 'auto-listen', value: 'স্বয়ংক্রিয়ভাবে শুনুন' }
     ]
   },
   {
@@ -1015,7 +1051,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'readed-welcome', value: 'آیا می خواهید به این زبان ادامه دهید؟' },
       { key: 'rate-easyToUse', value: 'todo' },
       { key: 'rate-understand', value: 'todo' },
-      { key: 'rate-comment', value: 'todo' }
+      { key: 'rate-comment', value: 'todo' },
+      { key: 'auto-listen', value: 'پخپله غوږ شه' }
     ]
   },
   {
@@ -1043,7 +1080,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate-comment', value: 'وړیا نظر' },
       { key: 'button-sentence', value: 'پښتو غوره کړه' },
       { key: 'button-sentence-fr', value: 'Choisir le pachto' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'پخپله غوږ شه' }
     ]
   },
   {
@@ -1064,7 +1102,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'پخپله غوږ شه' }
     ]
   },
   {
@@ -1087,7 +1126,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'Ouvir automaticamente' }
     ]
   },
   {
@@ -1109,7 +1149,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'Otomatik olarak dinle' }
     ]
   },
   {
@@ -1132,7 +1173,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'Automatisch zuhören' }
     ]
   },
   {
@@ -1152,7 +1194,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'በራስ-ሰር ያዳምጡ' }
     ]
   },
   {
@@ -1172,7 +1215,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'ស្តាប់ដោយស្វ័យប្រវត្តិ' }
     ]
   },
   {
@@ -1192,7 +1236,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'स्वचालित रूप से सुनो' }
     ]
   },
   {
@@ -1212,7 +1257,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'தானாகவே கேளுங்கள்' }
     ]
   },
   {
@@ -1235,7 +1281,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'button-sentence', value: "Scegli l'italiano" },
       { key: 'button-sentence-fr', value: "Choisir l'italien " },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'Ascolta automaticamente' }
     ]
   },
   {
@@ -1255,7 +1302,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'Автоматаар сонс' }
     ]
   },
   {
@@ -1275,7 +1323,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'स्वचालित रूपमा सुन्नुहोस्' }
     ]
   },
   {
@@ -1298,7 +1347,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Довольны ли вы своим интервью?' },
       { key: 'thanks', value: 'Pôle emploi Спасибо вам.' },
       { key: 'listen', value: 'Слушать' },
-      { key: 'gauge-text', value: 'Говорите сейчас' }
+      { key: 'gauge-text', value: 'Говорите сейчас' },
+      { key: 'auto-listen', value: 'Автоматически слушать' }
     ]
   },
   {
@@ -1318,7 +1368,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'Avtomatik tinglash' }
     ]
   },
   {
@@ -1340,7 +1391,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'Ascultă automat' }
     ]
   },
   {
@@ -1360,7 +1412,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'Si toos ah u dhagayso' }
     ]
   },
   {
@@ -1381,7 +1434,8 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
-      { key: 'gauge-text', value: 'Speak now' }
+      { key: 'gauge-text', value: 'Speak now' },
+      { key: 'auto-listen', value: 'Tự động nghe' }
     ]
   }
 ];
