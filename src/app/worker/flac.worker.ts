@@ -1,10 +1,10 @@
 /// <reference lib="webworker" />
 import Flac from 'libflacjs/dist/libflac.js';
 
-let flacBuffers = [];
+const flacBuffers = [];
 let flacLength = 0;
 let flacEncoder;
-let channels = 1;
+const channels = 1;
 
 addEventListener('message', ({ data }) => {
   if (data.type === 'init') {
@@ -13,7 +13,7 @@ addEventListener('message', ({ data }) => {
     doEncodeFlac(data.buf);
   } else if (data.type === 'finish') {
     const blob = finish();
-    postMessage({ type: 'end', blob: blob });
+    postMessage({ type: 'end', blob });
   } else {
     postMessage(`worker response to ${data.type}: task not found`);
   }
@@ -63,34 +63,34 @@ function clear() {
 }
 
 function doEncodeFlac(audioData) {
-  var buf_length = audioData.length;
-  var buffer_i32 = new Uint32Array(buf_length);
-  var view = new DataView(buffer_i32.buffer);
-  var volume = 1;
-  var index = 0;
-  for (var i = 0; i < buf_length; i++) {
+  const buf_length = audioData.length;
+  const buffer_i32 = new Uint32Array(buf_length);
+  const view = new DataView(buffer_i32.buffer);
+  const volume = 1;
+  let index = 0;
+  for (let i = 0; i < buf_length; i++) {
     view.setInt32(index, audioData[i] * (0x7fff * volume), true);
     index += 4;
   }
 
-  var flac_return = Flac.FLAC__stream_encoder_process_interleaved(flacEncoder, buffer_i32, buffer_i32.length / channels);
+  const flac_return = Flac.FLAC__stream_encoder_process_interleaved(flacEncoder, buffer_i32, buffer_i32.length / channels);
   if (flac_return != true) {
     console.log('Error: encode_buffer_pcm_as_flac returned false. ' + flac_return);
   }
 }
 
 function exportFlacFile(recBuffers, recLength) {
-  var samples = mergeBuffersUint8(recBuffers, recLength);
-  var the_blob = new Blob([samples], { type: 'audio/flac' });
+  const samples = mergeBuffersUint8(recBuffers, recLength);
+  const the_blob = new Blob([samples], { type: 'audio/flac' });
   return the_blob;
 }
 
 function mergeBuffersUint8(channelBuffer, recordingLength) {
-  var result = new Uint8Array(recordingLength);
-  var offset = 0;
-  var lng = channelBuffer.length;
-  for (var i = 0; i < lng; i++) {
-    var buffer = channelBuffer[i];
+  const result = new Uint8Array(recordingLength);
+  let offset = 0;
+  const lng = channelBuffer.length;
+  for (let i = 0; i < lng; i++) {
+    const buffer = channelBuffer[i];
     result.set(buffer, offset);
     offset += buffer.length;
   }

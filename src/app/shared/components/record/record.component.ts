@@ -34,17 +34,17 @@ export class RecordComponent implements OnInit {
     this.putTitle();
     this.record();
     this.recordBarLoad();
-  };
+  }
 
   record = () => {
     this.audioRecordingService.language = this.language;
     this.audioRecordingService.start();
-  };
+  }
 
   putTitle = () => {
     const language = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
     this.text = VOCABULARY_V2.find(item => item.isoCode === language).sentences.find(s => s.key === 'record-text').value;
-  };
+  }
 
   private recordBarLoad = () => {
     const value: number = 100 / (this.duration * 10);
@@ -69,18 +69,18 @@ export class RecordComponent implements OnInit {
         this.exitAudio();
       }
     }, 100);
-  };
+  }
 
   pauseOrResume = () => {
     this.isPaused = !this.isPaused;
-  };
+  }
 
   exitAudio = async () => {
     if (this.intervalId !== undefined) {
       this.stopRecord();
       this.exit.emit();
     }
-  };
+  }
 
   retry = async (): Promise<void> => {
     if (this.intervalId !== undefined) {
@@ -89,7 +89,7 @@ export class RecordComponent implements OnInit {
     this.width = 0;
     this.seconds = 0;
     this.start();
-  };
+  }
 
   sendSpeech = async (): Promise<void> => {
     this.inProgress = true;
@@ -103,11 +103,11 @@ export class RecordComponent implements OnInit {
         err => this.send.emit(err)
       );
     }
-  };
+  }
 
   private stopRecord = () => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
     this.audioRecordingService.stop(this.seconds);
-  };
+  }
 }

@@ -1,6 +1,6 @@
 <ng-container *ngFor="let message of conversationThread; let i = index;">
   <div class="translation">
-    <div class="sentence" [ngStyle]="{'text-align': message.language === 'ar-XA' ? 'start' : 'end'}">
+    <div class="sentence" [ngStyle]="{'text-align': message.language === 'ar-XA' ? 'end' : 'start'}">
         {{ message.translation }}
     </div>
     <button class="listen" (click)="listen(i)">

@@ -11,7 +11,7 @@ import { LanguagesComponent, Countries } from './dialog/languages/languages.comp
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
-//Models
+// Models
 import { NavbarItem } from 'src/app/models/navbar-item';
 import { Vocabulary } from 'src/app/models/vocabulary';
 
@@ -32,18 +32,6 @@ interface selectedCountry {
   styleUrls: ['./choice.component.scss']
 })
 export class ChoiceComponent implements AfterContentInit {
-  ngAfterContentInit(): void {
-    this.showMainLanguages();
-    this.setNavbar();
-  }
-  public navBarItems: NavbarItem[] = [];
-  public vocabulary: Vocabulary[] = VOCABULARY_V2;
-  public selectedCountriesData: selectedCountry[] = [];
-  public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU', 'ro-RO'];
-  public toolTips: string[] = ['Autres langues'];
-  public audioSpeech: HTMLAudioElement;
-  public otherLanguageFr: string = 'AUTRES LANGUES';
-  public otherLanguageEn: string = 'OTHER LANGUAGES';
   constructor(
     private translateService: TranslateService,
     private textToSpeechService: TextToSpeechService,
@@ -55,6 +43,18 @@ export class ChoiceComponent implements AfterContentInit {
     if (this.historyService.conversation === undefined) {
       this.router.navigate(['start']);
     }
+  }
+  public navBarItems: NavbarItem[] = [];
+  public vocabulary: Vocabulary[] = VOCABULARY_V2;
+  public selectedCountriesData: selectedCountry[] = [];
+  public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU', 'ro-RO'];
+  public toolTips: string[] = ['Autres langues'];
+  public audioSpeech: HTMLAudioElement;
+  public otherLanguageFr: string = 'AUTRES LANGUES';
+  public otherLanguageEn: string = 'OTHER LANGUAGES';
+  ngAfterContentInit(): void {
+    this.showMainLanguages();
+    this.setNavbar();
   }
   /*
    * Set Navbar items
@@ -80,7 +80,7 @@ export class ChoiceComponent implements AfterContentInit {
   }
   showMainLanguages(): void {
     this.selectedCountries.forEach(country => {
-      let sentences = this.vocabulary.find(item => item.isoCode === country).sentences;
+      const sentences = this.vocabulary.find(item => item.isoCode === country).sentences;
       this.selectedCountriesData.push({
         displayedWelcome: sentences.find(s => s.key === 'displayed-welcome').value,
         readedWelcome: sentences.find(s => s.key === 'readed-welcome').value,
@@ -95,7 +95,7 @@ export class ChoiceComponent implements AfterContentInit {
     });
   }
   async audioDescription(message: string, lang: string) {
-    let audio = await this.textToSpeechService.getSpeech(message, lang, 'MALE');
+    const audio = await this.textToSpeechService.getSpeech(message, lang, 'MALE');
     if (audio) {
       this.textToSpeechService.audioSpeech.play();
     }

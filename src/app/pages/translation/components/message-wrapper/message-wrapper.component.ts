@@ -55,7 +55,7 @@ export class MessageWrapperComponent implements OnInit {
 
   ngOnInit(): void {
     this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    let sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find(item => item.isoCode === this.languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
+    const sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find(item => item.isoCode === this.languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
     this.title = sentences.find(s => s.key === 'translation-h2').value;
     this.sendBtnValue = sentences.find(s => s.key === 'send').value;
     this.listenBtnValue = sentences.find(s => s.key === 'listen').value;
@@ -67,7 +67,7 @@ export class MessageWrapperComponent implements OnInit {
     if ('webkitSpeechRecognition' in window) {
       this.micro = true;
     } else {
-      this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
+      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
     }
   }
 
