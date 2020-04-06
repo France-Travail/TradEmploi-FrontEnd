@@ -25,8 +25,8 @@ export class TranslationComponent {
   public advisorTextToEdit: string;
   public isMobile: boolean;
   public isLanguageExist = VOCABULARY_V2.some(item => item.isoCode === this.settingsService.guest.value.language);
-  @Input() user: string;
   public autoListenValue: string;
+  @Input() user: string;
 
   constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver, private settingsService: SettingsService) {
     // Start watching screen size modication
@@ -34,7 +34,7 @@ export class TranslationComponent {
       this.isMobile = result.matches;
     });
 
-    
+
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
     }
@@ -42,7 +42,7 @@ export class TranslationComponent {
   }
   ngOnInit(): void {
     const languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    let sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find(item => item.isoCode === languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
+    const sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find(item => item.isoCode === languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
     this.autoListenValue = sentences.find(s => s.key === 'auto-listen').value;
   }
 

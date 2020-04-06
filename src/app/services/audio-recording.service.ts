@@ -28,7 +28,7 @@ export class AudioRecordingService {
       this.node = this.input.context.createScriptProcessor(4096, 1, 1);
       this.worker.postMessage({ type: 'init' });
       this.node.onaudioprocess = e => {
-        var channelLeft = e.inputBuffer.getChannelData(0);
+        const channelLeft = e.inputBuffer.getChannelData(0);
         this.worker.postMessage({ type: 'encode', buf: channelLeft });
       };
       this.input.connect(this.node);
@@ -36,7 +36,7 @@ export class AudioRecordingService {
     });
   }
 
-  public stop(time:number) {
+  public stop(time: number) {
     const tracks = this.stream.getAudioTracks();
     for (let i = tracks.length - 1; i >= 0; --i) {
       tracks[i].stop();
@@ -73,5 +73,5 @@ export class AudioRecordingService {
         resolve(audioData);
       };
     });
-  };
+  }
 }

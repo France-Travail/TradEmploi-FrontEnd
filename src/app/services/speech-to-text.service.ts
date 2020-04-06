@@ -25,11 +25,11 @@ export class SpeechToTextService {
         method: 'post',
         headers: { 'content-type': 'application/json; charset=utf-8' },
         url: urlRecognize,
-        data: data
+        data
       })
         .then(operation => {
           const urlOperation: string = `https://speech.googleapis.com/v1/operations/${operation.data.name}?key=${environment.gcp.apiKey}`;
-          let wait = this.getWaitTime(time);
+          const wait = this.getWaitTime(time);
           setTimeout(function() {
             axios({
               method: 'get',
@@ -42,18 +42,18 @@ export class SpeechToTextService {
               observer.complete();
             }).catch(error => {
               observer.error('Enregistrement indisponible momentanément');
-              throw new Error("An error occurred when api speech to text get operation called")
+              throw new Error('An error occurred when api speech to text get operation called');
             });
           }, wait);
         })
         .catch(error => {
           observer.error('Enregistrement indisponible momentanément');
-          throw new Error("An error occurred when api async speech to text longrunningrecognize called")
+          throw new Error('An error occurred when api async speech to text longrunningrecognize called');
         });
     });
-  };
+  }
 
   private getWaitTime = (time: number): number => {
     return (time / 2) * 1000;
-  };
+  }
 }

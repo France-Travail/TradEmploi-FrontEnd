@@ -42,7 +42,7 @@ import { ConversationComponent } from './pages/conversation/conversation.compone
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
 import { ConversationThreadComponent } from './pages/translation/components/conversation-thread/conversation-thread.component';
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
-import { SentryErrorHandler} from './utils/sentry-error-handler'
+import { SentryErrorHandler} from './utils/sentry-error-handler';
 @NgModule({
   declarations: [
     AppComponent,

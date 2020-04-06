@@ -23,7 +23,7 @@ export class ConversationThreadComponent {
   public deleteMessage(index) {
     this.conversationThread.splice(index, 1);
   }
-  
+
   public editMessage(index) {
     const sentMessage: NewMessage = this.conversationThread[index];
     if (sentMessage) {
