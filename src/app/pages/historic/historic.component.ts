@@ -52,7 +52,7 @@ export class HistoricComponent implements OnInit {
       {
         icon: 'assets/icons/icon-return-black.svg',
         infoTitle: 'RETOUR',
-        link: 'settings/start',
+        link: 'login',
         isDisplayed: true
       }
     ];

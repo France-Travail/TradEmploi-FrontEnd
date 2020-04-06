@@ -8,6 +8,7 @@ import { HistoricComponent } from './pages/historic/historic.component';
 import { TranslationComponent } from './pages/translation/translation.component';
 import { StartComponent } from './pages/start/start.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { LoginComponent } from './pages/login/login.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
@@ -46,6 +47,11 @@ const routes: Routes = [
   {
     path: 'thanks',
     component: ThanksComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
     canActivate: [AuthGuard]
   },
   {
