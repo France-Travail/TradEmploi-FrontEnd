@@ -18,6 +18,8 @@ import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
   styleUrls: ['./translation.component.scss']
 })
 export class TranslationComponent {
+  @Input() user: string;
+  
   public navBarItems: NavbarItem[] = [];
   public sentMessage: string;
   public messages: any[] = [];
@@ -26,7 +28,6 @@ export class TranslationComponent {
   public isMobile: boolean;
   public isLanguageExist = VOCABULARY_V2.some(item => item.isoCode === this.settingsService.guest.value.language);
   public autoListenValue: string;
-  @Input() user: string;
   public audio: boolean;
 
   constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver, private settingsService: SettingsService) {
@@ -34,8 +35,6 @@ export class TranslationComponent {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
       this.isMobile = result.matches;
     });
-
-
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
     }
