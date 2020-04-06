@@ -5,7 +5,7 @@
   <div class="parameter">
     <div>
       <h4>Mode de saisie vocal</h4>
-        <!-- <div class="option">
+      <!-- <div class="option">
           <div class="option-item">
             <input id="vocal-stream" type="radio" name="vocal" value="stream"  (change)="onItemChange($event.target.value)" disabled/>
           </div>
@@ -16,17 +16,17 @@
             </p>
           </div>
         </div> -->
-        <div class="option">
-          <div class="option-item">
-            <input id="vocal-record" type="radio" name="vocal" value="record" (change)="onItemChange($event.target.value)" checked/>
-          </div>
-          <div class="option-item">
-            <p class="option-text">
-              <strong>Saisie avancée</strong><br />
-              Permet de saisir des phrases plus longues.<br />Attention, temps de traitement plus importants.
-            </p>
-          </div>
+      <div class="option">
+        <div class="option-item">
+          <input id="vocal-record" type="radio" name="vocal" value="record" (change)="onItemChange($event.target.value)" checked />
         </div>
+        <div class="option-item">
+          <p class="option-text">
+            <strong>Saisie avancée</strong><br />
+            Permet de saisir des phrases plus longues.<br />Attention, temps de traitement plus importants.
+          </p>
+        </div>
+      </div>
     </div>
     <div *ngIf="isAdmin">
       <h4>Résultat de l'enquêtes</h4>
@@ -36,5 +36,6 @@
         </div>
         <div class="export-item-text"><span class="export-description">Télécharger</span></div>
       </div>
+    </div>
   </div>
 </div>
