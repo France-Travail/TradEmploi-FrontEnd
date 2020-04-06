@@ -19,7 +19,7 @@ import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 })
 export class TranslationComponent {
   @Input() user: string;
-  
+
   public navBarItems: NavbarItem[] = [];
   public sentMessage: string;
   public messages: any[] = [];
@@ -28,7 +28,7 @@ export class TranslationComponent {
   public isMobile: boolean;
   public isLanguageExist = VOCABULARY_V2.some(item => item.isoCode === this.settingsService.guest.value.language);
   public autoListenValue: string;
-  public audio: boolean;
+  private audio: boolean;
 
   constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver, private settingsService: SettingsService) {
     // Start watching screen size modication
