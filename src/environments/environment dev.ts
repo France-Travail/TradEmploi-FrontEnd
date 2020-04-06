@@ -1,5 +1,5 @@
 export const environment = {
-  name: 'local',
+  name: 'development',
   production: false,
   firebaseConfig: {
     apiKey: 'AIzaSyBP2bEopJwWiWBleSXgQFg4DW3UMnmfRpE',
