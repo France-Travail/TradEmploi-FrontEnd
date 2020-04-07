@@ -28,7 +28,7 @@ export class TranslationComponent {
   public isMobile: boolean;
   public isLanguageExist = VOCABULARY_V2.some(item => item.isoCode === this.settingsService.guest.value.language);
   public autoListenValue: string;
-  private audio: boolean = true;
+  private audio: boolean;
 
   constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver, private settingsService: SettingsService) {
     // Start watching screen size modication
@@ -44,6 +44,7 @@ export class TranslationComponent {
     const languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
     const sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find(item => item.isoCode === languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
     this.autoListenValue = sentences.find(s => s.key === 'auto-listen').value;
+    this.audio = true;
   }
 
   public goto(where: string): void {
@@ -81,7 +82,9 @@ export class TranslationComponent {
     this.messages.push(event);
       const lastIndex = this.messages.length -1
       const lastSpeech = this.messages[lastIndex].translatedSpeech;
-      lastSpeech.play();
+      if (this.audio && lastSpeech !== undefined) {
+        lastSpeech.play();
+      }
   }
 
   public closeConversation() {
