@@ -26,8 +26,7 @@ export class TranslationComponent {
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
-  public isLanguageExist = VOCABULARY_V2.some(item => item.isoCode === this.settingsService.guest.value.language);
-  public autoListenValue: string;
+  public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
 
   constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver, private settingsService: SettingsService) {
@@ -41,9 +40,6 @@ export class TranslationComponent {
     this.setNavBar();
   }
   ngOnInit(): void {
-    const languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    const sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find(item => item.isoCode === languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
-    this.autoListenValue = sentences.find(s => s.key === 'auto-listen').value;
     this.audio = true;
   }
 
