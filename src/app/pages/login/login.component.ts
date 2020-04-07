@@ -59,6 +59,11 @@ export class LoginComponent implements AfterViewInit {
         infoTitle: "Voir l'historique",
         link: 'history',
         isDisplayed: true
+      },{
+        icon: 'assets/icons/icon-logout.svg',
+        infoTitle: 'Déconnexion',
+        link: 'logout',
+        isDisplayed: true,
       }
     ];
   }
@@ -98,11 +103,6 @@ export class LoginComponent implements AfterViewInit {
 
   private checkFields(): boolean {
     return !(this.advisor.firstname === '' || this.advisor.lastname === '');
-  }
-
-  public logout(): void {
-    this.authService.logout();
-    this.router.navigateByUrl('/auth');
   }
 
 }

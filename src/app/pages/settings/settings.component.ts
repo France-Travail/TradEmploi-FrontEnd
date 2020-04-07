@@ -15,29 +15,16 @@ import { Parser } from 'json2csv';
 export class SettingsComponent {
   public navBarItems: NavbarItem[] = [];
   public isAdmin: boolean = false;
+  public path:string
 
-  constructor(
-    public router: Router,
-    private authService: AuthService,
-    private fireFunction: AngularFireFunctions
-  ) {
-    this.setNavBar();
+  constructor(public router: Router, private authService: AuthService, private fireFunction: AngularFireFunctions) {
     this.authService.auth.subscribe((auth) => {
       if (auth !== null) {
         this.isAdmin = auth.role === 'ADMIN';
       }
     });
-  }
-
-  public setNavBar(): void {
-    this.navBarItems = [
-      {
-        icon: 'assets/icons/icon-return-black.svg',
-        infoTitle: 'RETOUR',
-        link: 'return',
-        isDisplayed: true
-      }
-    ];
+    const url = this.router.url
+    this.path = url.substring(url.lastIndexOf('/'))
   }
 
   public export(): void {
@@ -50,7 +37,9 @@ export class SettingsComponent {
       .then((response) => {
         this.exportCsv(response);
       })
-      .catch((err) => console.error('error', err));
+      .catch((err) => {
+        throw new Error('An error occurred when export csv file');
+      });
   }
 
   public logout(): void {
@@ -73,6 +62,5 @@ export class SettingsComponent {
   }
 
   onItemChange(value) {
-    console.log(' Value is : ', value);
   }
 }

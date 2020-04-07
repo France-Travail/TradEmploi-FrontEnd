@@ -23,6 +23,7 @@ import { MAT_DATE_LOCALE, MatSortModule, MatTableModule } from '@angular/materia
 
 // Import shared module and components
 import { SharedModule } from './shared/shared.module';
+import { LogoutComponent } from './shared/components/logout/logout.component';
 
 // Main Components
 import { AppComponent } from './app.component';
@@ -63,6 +64,7 @@ import { AuthenticationComponent } from './pages/authentication/authentication.c
     ConversationComponent,
     MessageWrapperComponent,
     RateDialogComponent,
+    LogoutComponent,
     AuthenticationComponent,
     ConversationThreadComponent,
   ],
