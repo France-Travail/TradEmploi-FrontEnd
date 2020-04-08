@@ -8,26 +8,26 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TranslateService } from 'src/app/services/translate.service';
 
 import { NavbarItem } from 'src/app/models/navbar-item';
-import { NewMessage } from 'src/app/models/new-message';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
-  styleUrls: ['./translation.component.scss']
+  styleUrls: ['./translation.component.scss'],
 })
 export class TranslationComponent {
   public navBarItems: NavbarItem[] = [];
-  
+
   public sentMessage: string;
   public messages: any[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
 
-  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver) {
+  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver, private settingsService: SettingsService) {
     // Start watching screen size modication
-    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
 
@@ -35,6 +35,7 @@ export class TranslationComponent {
       this.goto('choice');
     }
     this.setNavBar();
+    console.log('this.settingsService.recordMode :', this.settingsService.recordMode);
   }
 
   public goto(where: string): void {
@@ -47,25 +48,25 @@ export class TranslationComponent {
         icon: 'assets/icons/icon-languages-black.svg',
         infoTitle: 'LANGUES',
         link: 'choice',
-        isDisplayed: true
+        isDisplayed: true,
       },
       {
         icon: 'assets/icons/icon-chat-black.svg',
         infoTitle: 'HISTORIQUE',
         link: 'conversation',
-        isDisplayed: true
+        isDisplayed: true,
       },
       {
         icon: 'assets/icons/icon-settings-black.svg',
         infoTitle: 'PARAMÈTRES',
         link: 'settings/translation',
-        isDisplayed: true
-      }
+        isDisplayed: true,
+      },
     ];
   }
 
   public toEdit(message) {
-    message.user == 'guest' ? this.guestTextToEdit = message.message : this.advisorTextToEdit = message.message;
+    message.user == 'guest' ? (this.guestTextToEdit = message.message) : (this.advisorTextToEdit = message.message);
   }
 
   public addToThread(event) {
@@ -76,8 +77,7 @@ export class TranslationComponent {
     this.dialog.open(RateDialogComponent, {
       width: this.isMobile ? '100%' : '800px',
       height: this.isMobile ? '100%' : '600px',
-      panelClass: 'customDialog'
+      panelClass: 'customDialog',
     });
   }
-
 }

@@ -7,6 +7,7 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 import { environment } from '../../../environments/environment';
 import { Parser } from 'json2csv';
 import { ToastService } from 'src/app/services/toast.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -18,7 +19,7 @@ export class SettingsComponent {
   public isAdmin: boolean = false;
   public path: string;
 
-  constructor(public router: Router, private authService: AuthService, private fireFunction: AngularFireFunctions, private toastService: ToastService) {
+  constructor(public router: Router, private authService: AuthService, private fireFunction: AngularFireFunctions, private toastService: ToastService, private settingService: SettingsService) {
     this.authService.auth.subscribe((auth) => {
       if (auth !== null) {
         this.isAdmin = auth.role === 'ADMIN';
@@ -58,5 +59,7 @@ export class SettingsComponent {
     document.body.removeChild(a);
   }
 
-  onItemChange(value) {}
+  onItemChange(value) {
+    this.settingService.recordMode = value ==='record';
+  }
 }
