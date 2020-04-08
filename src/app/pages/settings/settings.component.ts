@@ -44,11 +44,6 @@ export class SettingsComponent {
       });
   }
 
-  public logout(): void {
-    this.authService.logout();
-    this.router.navigateByUrl('/auth');
-  }
-
   private exportCsv(rates) {
     const json2csvParser = new Parser();
     const data = json2csvParser.parse(rates);

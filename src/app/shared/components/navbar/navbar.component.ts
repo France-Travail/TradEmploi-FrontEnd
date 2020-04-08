@@ -26,7 +26,6 @@ export class NavbarComponent {
     public router: Router,
     private settingsService: SettingsService,
     public dialog: MatDialog,
-    private authService: AuthService,
     private breakpointObserver: BreakpointObserver
   ) {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
@@ -43,7 +42,12 @@ export class NavbarComponent {
   }
 
   ngAfterContentInit(): void {
-    this.isConnected();
+    this.items.push({
+      icon: 'assets/icons/icon-logout.svg',
+      infoTitle: 'DECONNEXION',
+      link: 'logout',
+      isDisplayed: true,
+    });
   }
 
   public onClick(item: NavbarItem): void {
@@ -72,20 +76,4 @@ export class NavbarComponent {
     }
   }
 
-  private isConnected() {
-    this.authService.auth.subscribe((auth) => {
-      if (auth !== null && this.checkItemHaveNotLogoutElement()) {
-        this.items.push({
-          icon: 'assets/icons/icon-logout.svg',
-          infoTitle: 'DECONNEXION',
-          link: 'logout',
-          isDisplayed: true,
-        });
-      }
-    });
-  }
-
-  private checkItemHaveNotLogoutElement() {
-    return !this.items.some((i) => i.link === 'logout');
-  }
 }
