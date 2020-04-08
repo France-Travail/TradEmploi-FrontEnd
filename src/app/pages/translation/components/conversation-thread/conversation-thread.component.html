@@ -3,9 +3,9 @@
     <div class="sentence" [ngStyle]="{'text-align': message.language === 'ar-XA' ? 'end' : 'start'}">
         {{ message.translation }}
     </div>
-    <button class="listen" (click)="listen(i)">
+    <a class="listen" (click)="listen(i)">
       <img src="../../../assets/icons/icon-listen-black.svg" alt="Ecoute de la traduction">
-    </button>
+    </a>
   </div>
   <div class="message-sended">
     <div class="flag">
@@ -22,7 +22,7 @@
           </a>
         </ng-template>
         <ng-template #longText>
-          <a class="incoming-message" (click)="editMessage(i)">{{ message.message | slice:0:98 }}...</a>
+          <a class="incoming-message" (click)="editMessage(i)">{{ message.message | slice:0:98 }}&nbsp;<strong *ngIf="message.message.length > 98">...</strong></a>
           <a class="extand" *ngIf="message.message !== undefined && message.message.length > 98" (click)="extand()">
             <img src="./assets/icons/icon-chevron-open-blue.svg" alt="étendre le texte" />
           </a>

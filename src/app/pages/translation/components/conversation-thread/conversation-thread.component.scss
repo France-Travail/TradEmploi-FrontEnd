@@ -19,13 +19,9 @@
     padding-left: 5px;
   }
 
-  button {
-    border: none;
-    background-color: transparent;
-    margin-left: 10px;
-
+  a {
     img {
-      width: 22px;
+      width: 20px;
     }
   }
 }
@@ -55,10 +51,8 @@
     padding: 0 5px 0 10px;
     text-align: justify;
     font-size: 16px;
-    // padding-top: 5px;
     span {
       display: flex;
-      // flex-direction: row;
       .incoming-message {
         text-decoration: none;
         color: #4171DA;
@@ -69,8 +63,8 @@
       }
       .extand {
         img {
-          width: 40px;
-          height: 40px;
+          width: 30px;
+          height: 30px;
           background: #F5F5F5; 
           -moz-border-radius: 70px; 
           -webkit-border-radius: 70px; 
@@ -83,9 +77,9 @@
     margin-right: 15px;
     margin-left: 15px;
     img {
-      margin-right: 5px;
-      width: 40px;
-      height: 40px;
+      margin-right: 3px;
+      width: 30px;
+      height: 30px;
       background: #F5F5F5; 
       -moz-border-radius: 70px; 
       -webkit-border-radius: 70px; 

@@ -20,7 +20,7 @@
         <mat-slide-toggle (click)="switchAudio()" checked labelPosition="before" >{{ autoListenValue }}</mat-slide-toggle>
       </div>
     </div>
-    <div class="thread">
+    <div class="thread" #scrollMe [scrollTop]="scrollMe.scrollHeight">
       <app-conversation-thread
       [rawText]="sentMessage"
       [conversationThread]="messages"

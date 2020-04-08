@@ -87,20 +87,20 @@ export class MessageWrapperComponent implements OnInit {
         this.rawSpeech = this.audioRecordingService.audioSpeech;
       }
   
-          this.translateService.translate(this.rawText, this.user).subscribe(async response => {
-            this.translatedText = response;
-            this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
-            this.translatedSpeech = this.textToSpeechService.audioSpeech;
-            this.newMessage = {
-              message: this.messageInterceptor,
-              translation: this.translatedText,
-              user: this.user,
-              language: this.languageOrigin,
-              translatedSpeech: this.translatedSpeech,
-              flag: this.flag
-            };
-            this.newMessagesToEmit.emit(this.newMessage);
-          });
+      this.translateService.translate(this.rawText, this.user).subscribe(async response => {
+        this.translatedText = response;
+        this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
+        this.translatedSpeech = this.textToSpeechService.audioSpeech;
+        this.newMessage = {
+          message: this.messageInterceptor,
+          translation: this.translatedText,
+          user: this.user,
+          language: this.languageOrigin,
+          translatedSpeech: this.translatedSpeech,
+          flag: this.flag
+        };
+        this.newMessagesToEmit.emit(this.newMessage);
+      });
       this.rawText = '';
     }
   }
