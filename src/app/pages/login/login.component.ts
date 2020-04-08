@@ -56,12 +56,12 @@ export class LoginComponent implements AfterViewInit {
     this.navBarItems = [
       {
         icon: 'assets/icons/icon-chat-black.svg',
-        infoTitle: "Voir l'historique",
+        infoTitle: "HISTORIQUE",
         link: 'history',
         isDisplayed: true
       },{
         icon: 'assets/icons/icon-logout.svg',
-        infoTitle: 'Déconnexion',
+        infoTitle: 'DECONNEXION',
         link: 'logout',
         isDisplayed: true,
       }

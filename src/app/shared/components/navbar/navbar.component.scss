@@ -17,14 +17,6 @@ nav {
       color: #bf5858;
     }
   }
-  // .language {
-  //   font-weight: bold;
-  //   font-size: 20px;
-  //   .raw, .french {
-  //     color: #427db8;
-  //     display: inline-block;
-  //   }
-  // }
   .buttons {
     display: flex;
     justify-content: flex-end;
@@ -35,11 +27,7 @@ nav {
       background: transparent;
       align-items: center;
       margin-right: 20px;
-      // background-color: #404040;
-      // padding: 12px;
-      // box-shadow: 0 0 3px #000000;
-      // font-size: 18px;
-      // border-radius: 50%;
+      cursor: pointer;
       &:focus {
         outline: 0;
       }
@@ -48,7 +36,7 @@ nav {
       }
 
       img {
-        width: 26px;
+        width: 24px;
       }
 
       .name {
