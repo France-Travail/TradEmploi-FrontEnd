@@ -67,7 +67,7 @@ export class MessageWrapperComponent implements OnInit {
     if ('webkitSpeechRecognition' in window) {
       this.micro = true;
     } else {
-      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
+      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.', 'toast-info');
     }
   }
 

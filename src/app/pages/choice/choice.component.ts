@@ -64,7 +64,7 @@ export class ChoiceComponent implements AfterContentInit {
       {
         icon: 'assets/icons/icon-settings-black.svg',
         infoTitle: 'PARAMÈTRES',
-        link: 'settings/translation',
+        link: 'settings/choice',
         isDisplayed: true
       }
     ];

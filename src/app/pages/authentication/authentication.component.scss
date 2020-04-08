@@ -1,0 +1,80 @@
+@import 'styles';
+
+:host {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fafafa;
+  background-color: $light-blue;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 600px;
+  padding: 30px;
+  background-color: #ffffff;
+  box-shadow: 0 0 3px #aaaaaa;
+  color: #333333;
+
+
+  .title {
+    margin-bottom: 20px;
+    text-align: center;
+
+    .t2 {
+      font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+      font-weight: 100;
+      font-size: 28px;
+      letter-spacing: 0.05em;
+      color: #666
+    }
+    .t3 {
+      font-size: 16px;
+      line-height: 19px;
+      text-align: center;
+    }
+    .text-app {
+      color: #ff5950;
+    }
+  }
+
+  .input{
+    margin:10px;
+    .text{
+      color:red
+    }
+  }
+
+  button {
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 10px 30px;
+    background: $primary-color;
+    color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    outline: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: Roboto;
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+}
+
+@media screen and (max-width: 720px) {
+  form {
+    width: 90%;
+  }
+}
+

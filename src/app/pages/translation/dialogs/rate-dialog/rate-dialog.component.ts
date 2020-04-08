@@ -94,7 +94,7 @@ export class RateDialogComponent implements OnInit {
         })
         .catch(error => {
           this.dialogRef.close();
-          this.toastService.showToast('La notation n\'a pas pu être envoyée. Redirection en cours.', 3000);
+          this.toastService.showToast('La notation n\'a pas pu être envoyée. Redirection en cours.', 'toast-error');
           setTimeout(() => {
             this.router.navigate(['thanks']);
           }, 3500);

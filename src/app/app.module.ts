@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 // Handle firebase connection
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule, FUNCTIONS_ORIGIN } from '@angular/fire/functions';
 
 // Environment loaded
@@ -22,6 +23,7 @@ import { MAT_DATE_LOCALE, MatSortModule, MatTableModule } from '@angular/materia
 
 // Import shared module and components
 import { SharedModule } from './shared/shared.module';
+import { LogoutComponent } from './shared/components/logout/logout.component';
 
 // Main Components
 import { AppComponent } from './app.component';
@@ -29,7 +31,6 @@ import { StartComponent } from './pages/start/start.component';
 import { ChoiceComponent } from './pages/choice/choice.component';
 import { TranslationComponent } from './pages/translation/translation.component';
 import { HistoricComponent } from './pages/historic/historic.component';
-import { RateComponent } from './pages/rate/rate.component';
 
 // Dialogs
 import { LanguagesComponent } from './pages/choice/dialog/languages/languages.component';
@@ -42,7 +43,9 @@ import { ConversationComponent } from './pages/conversation/conversation.compone
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
 import { ConversationThreadComponent } from './pages/translation/components/conversation-thread/conversation-thread.component';
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
-import { SentryErrorHandler} from './utils/sentry-error-handler';
+import { SentryErrorHandler } from './utils/sentry-error-handler';
+import { AuthenticationComponent } from './pages/authentication/authentication.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +54,6 @@ import { SentryErrorHandler} from './utils/sentry-error-handler';
     TranslationComponent,
     LanguagesComponent,
     StartComponent,
-    RateComponent,
     MeetingComponent,
     SettingsComponent,
     RemoveComponent,
@@ -59,8 +61,10 @@ import { SentryErrorHandler} from './utils/sentry-error-handler';
     ThanksComponent,
     ConversationComponent,
     MessageWrapperComponent,
+    RateDialogComponent,
+    LogoutComponent,
+    AuthenticationComponent,
     ConversationThreadComponent,
-    RateDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -70,18 +74,19 @@ import { SentryErrorHandler} from './utils/sentry-error-handler';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireFunctionsModule,
+    AngularFireAuthModule,
     HttpClientModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
   ],
   providers: [
     {
       provide: MAT_DATE_LOCALE,
-      useValue: 'fr-FR'
+      useValue: 'fr-FR',
     },
-    { provide: ErrorHandler, useClass: SentryErrorHandler }
+    { provide: ErrorHandler, useClass: SentryErrorHandler },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent]
+  entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent],
 })
 export class AppModule {}
