@@ -16,6 +16,7 @@
     height: auto;
     margin: auto;
     font-size: 20px;
+    padding-left: 5px;
   }
 
   button {
@@ -52,25 +53,40 @@
     padding: 0px 10px;
     text-align: justify;
     font-size: 16px;
+    padding-top: 5px;
     span {
-      a {
+      display: flex;
+      flex-direction: row;
+      .incoming-message {
         text-decoration: none;
         color: #4171DA;
         cursor: pointer;
+        padding-right: 25px;
+        text-align: justify;
       }
-      button {
-        display: flex;
-        align-items: flex-end;
-        padding: 4px;
-        min-width: 60px;
-        background: $white;
-        color: $black;
-        border: 1px solid $btn-border;
-        border-radius: 5px;
+      a {
+        img {
+          width: 40px;
+          height: 40px;
+          background: #F5F5F5; 
+          -moz-border-radius: 70px; 
+          -webkit-border-radius: 70px; 
+          border-radius: 70px;
+        }
       }
     }
   }
   .delete {
-    height: 30px;
+    padding-bottom: 10px;
+    height: 55px;
+    margin-right: 20px;
+    img {
+      width: 40px;
+      height: 40px;
+      background: #F5F5F5; 
+      -moz-border-radius: 70px; 
+      -webkit-border-radius: 70px; 
+      border-radius: 70px;
+    }
   }
 }

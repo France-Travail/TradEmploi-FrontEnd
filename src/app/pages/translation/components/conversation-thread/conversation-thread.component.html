@@ -16,17 +16,21 @@
       <span>
         <div *ngIf="!visible; then longText else shortText"></div>
         <ng-template #shortText>
-          <a (click)="editMessage(i)">{{ message.message }}</a>
-          <button *ngIf="message.message.length > 120" (click)="extand(i)">REDUIRE</button>
+          <a class="incoming-message" (click)="editMessage(i)">{{ message.message }}</a>
+          <a *ngIf="message.message !== undefined && message.message.length > 105" (click)="extand(i)">
+            <img src="./assets/icons/icon-chevron-close-blue.svg" alt="réduire le texte" />
+          </a>
         </ng-template>
         <ng-template #longText>
-          <a (click)="editMessage(i)">{{ message.message | slice:0:120 }}</a>
-          <button *ngIf="message.message.length > 120" (click)="extand(i)">...</button>
+          <a class="incoming-message" (click)="editMessage(i)">{{ message.message | slice:0:105 }}...</a>
+          <a *ngIf="message.message !== undefined && message.message.length > 105" (click)="extand(i)">
+            <img src="./assets/icons/icon-chevron-open-blue.svg" alt="étendre le texte" />
+          </a>
         </ng-template>
       </span>
       </div>
     <div class="delete" (click)="deleteMessage(i)">
-      <img src="./assets/icons/icon-delete-black.svg" alt="delete text" />
+      <img src="./assets/icons/icon-remove-blue.svg" alt="supprimer le texte" />
     </div>
   </div>
 </ng-container>

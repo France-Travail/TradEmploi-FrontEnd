@@ -18,32 +18,29 @@ import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
   styleUrls: ['./translation.component.scss']
 })
 export class TranslationComponent {
+  @Input() user: string;
+
   public navBarItems: NavbarItem[] = [];
   public sentMessage: string;
   public messages: any[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
-  public isLanguageExist = VOCABULARY_V2.some(item => item.isoCode === this.settingsService.guest.value.language);
-  public autoListenValue: string;
-  @Input() user: string;
+  public autoListenValue: string = 'Ecouter automatiquement';
+  private audio: boolean;
 
   constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver, private settingsService: SettingsService) {
     // Start watching screen size modication
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
       this.isMobile = result.matches;
     });
-
-
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
     }
     this.setNavBar();
   }
   ngOnInit(): void {
-    const languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    const sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find(item => item.isoCode === languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
-    this.autoListenValue = sentences.find(s => s.key === 'auto-listen').value;
+    this.audio = true;
   }
 
   public goto(where: string): void {
@@ -79,6 +76,11 @@ export class TranslationComponent {
 
   public addToThread(event) {
     this.messages.push(event);
+      const lastIndex = this.messages.length -1
+      const lastSpeech = this.messages[lastIndex].translatedSpeech;
+      if (this.audio && lastSpeech !== undefined) {
+        lastSpeech.play();
+      }
   }
 
   public closeConversation() {
@@ -87,6 +89,10 @@ export class TranslationComponent {
       height: this.isMobile ? '100%' : '600px',
       panelClass: 'customDialog'
     });
+  }
+
+  public switchAudio() {
+    this.audio = !this.audio;
   }
 
 }
