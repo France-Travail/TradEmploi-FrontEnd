@@ -24,6 +24,8 @@ export const environment = {
     url: 'https://953593ebcd8a40b4a2e743176c9488b8@sentry.io/5180549'
   },
   firefunction:{
-    url:'http://localhost:5001'
+    url:'http://localhost:5001',
+    login: 'ludo', 
+    password: '_#Q5g_1i9Z6lRFC'
   }
 };

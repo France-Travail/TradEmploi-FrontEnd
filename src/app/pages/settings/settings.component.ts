@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { environment } from '../../../environments/environment';
 import { Parser } from 'json2csv';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-settings',
@@ -15,16 +16,16 @@ import { Parser } from 'json2csv';
 export class SettingsComponent {
   public navBarItems: NavbarItem[] = [];
   public isAdmin: boolean = false;
-  public path:string
+  public path: string;
 
-  constructor(public router: Router, private authService: AuthService, private fireFunction: AngularFireFunctions) {
+  constructor(public router: Router, private authService: AuthService, private fireFunction: AngularFireFunctions, private toastService: ToastService) {
     this.authService.auth.subscribe((auth) => {
       if (auth !== null) {
         this.isAdmin = auth.role === 'ADMIN';
       }
     });
-    const url = this.router.url
-    this.path = url.substring(url.lastIndexOf('/'))
+    const url = this.router.url;
+    this.path = url.substring(url.lastIndexOf('/'));
   }
 
   public export(): void {
@@ -32,12 +33,13 @@ export class SettingsComponent {
       this.fireFunction.functions.useFunctionsEmulator(environment.firefunction.url);
     }
     this.fireFunction
-      .httpsCallable('rates')({})
+      .httpsCallable('rates')({ login: environment.firefunction.login, password: environment.firefunction.password })
       .toPromise()
       .then((response) => {
         this.exportCsv(response);
       })
       .catch((err) => {
+        this.toastService.showToast("Erreur lors de l'export du fichier", 'toast-error');
         throw new Error('An error occurred when export csv file');
       });
   }
@@ -61,6 +63,5 @@ export class SettingsComponent {
     document.body.removeChild(a);
   }
 
-  onItemChange(value) {
-  }
+  onItemChange(value) {}
 }

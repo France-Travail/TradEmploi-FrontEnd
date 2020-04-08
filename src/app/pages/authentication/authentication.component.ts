@@ -15,7 +15,7 @@ export class AuthenticationComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private toastService: ToastService) {
     this.authService.auth.subscribe(user => {
       if (user !== null) {
-        this.router.navigateByUrl('login');
+        this.router.navigateByUrl('choice');
       }
     });
   }
@@ -39,7 +39,7 @@ export class AuthenticationComponent implements OnInit {
     try {
       const auth = await this.authService.login(this.email.value, this.password.value);
       this.toastService.showToast(auth.message, 'toast-success');
-      this.router.navigateByUrl('login');
+      this.router.navigateByUrl('choice');
     } catch (error) {
       this.toastService.showToast(error.message, 'toast-error');
     }

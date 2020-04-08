@@ -36,7 +36,6 @@ import { HistoricComponent } from './pages/historic/historic.component';
 import { LanguagesComponent } from './pages/choice/dialog/languages/languages.component';
 import { MeetingComponent } from './pages/translation/dialogs/meeting/meeting.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { LoginComponent } from './pages/login/login.component';
 import { RemoveComponent } from './pages/historic/dialogs/remove/remove.component';
 import { ShowComponent } from './pages/historic/dialogs/show/show.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
@@ -57,7 +56,6 @@ import { AuthenticationComponent } from './pages/authentication/authentication.c
     StartComponent,
     MeetingComponent,
     SettingsComponent,
-    LoginComponent,
     RemoveComponent,
     ShowComponent,
     ThanksComponent,

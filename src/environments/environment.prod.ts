@@ -22,5 +22,10 @@ export const environment = {
   },
   sentry: {
     url: 'https://953593ebcd8a40b4a2e743176c9488b8@sentry.io/5180549'
+  },
+  firefunction:{
+    url:'https://us-central1-pole-emploi-trad-dev.cloudfunctions.net/rates',
+    login: 'ludo', 
+    password: '_#Q5g_1i9Z6lRFC'
   }
 };
