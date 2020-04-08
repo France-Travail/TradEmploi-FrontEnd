@@ -1102,6 +1102,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'اب بولو' },
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'پخپله غوږ شه' }
     ]
@@ -1126,6 +1127,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'Fale agora'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'Ouvir automaticamente' }
     ]
@@ -1149,6 +1151,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'Şimdi konuşun'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'Otomatik olarak dinle' }
     ]
@@ -1173,6 +1176,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'Sprich jetzt'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'Automatisch zuhören' }
     ]
@@ -1194,6 +1198,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'አሁን መናገር ጀምር'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'በራስ-ሰር ያዳምጡ' }
     ]
@@ -1215,6 +1220,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'សូម​និយាយ​ភ្លាម'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'ស្តាប់ដោយស្វ័យប្រវត្តិ' }
     ]
@@ -1236,6 +1242,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'अब बोलो'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'स्वचालित रूप से सुनो' }
     ]
@@ -1257,6 +1264,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'இப்பொழுது பேசவும்'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'தானாகவே கேளுங்கள்' }
     ]
@@ -1281,6 +1289,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'button-sentence', value: 'Scegli l\'italiano' },
       { key: 'button-sentence-fr', value: 'Choisir l\'italien ' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'Parla adesso'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'Ascolta automaticamente' }
     ]
@@ -1302,6 +1311,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'Одоо ярь'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'Автоматаар сонс' }
     ]
@@ -1323,6 +1333,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'अहिले बोल्नुस्'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'स्वचालित रूपमा सुन्नुहोस्' }
     ]
@@ -1347,6 +1358,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Довольны ли вы своим интервью?' },
       { key: 'thanks', value: 'Pôle emploi Спасибо вам.' },
       { key: 'listen', value: 'Слушать' },
+      { key: 'record-text', value: 'Говорите сейчас'},
       { key: 'gauge-text', value: 'Говорите сейчас' },
       { key: 'auto-listen', value: 'Автоматически слушать' }
     ]
@@ -1368,6 +1380,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'Hozir gapiring'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'Avtomatik tinglash' }
     ]
@@ -1391,6 +1404,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'Vorbește acum'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'Ascultă automat' }
     ]
@@ -1412,6 +1426,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'Hadda hadal'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'Si toos ah u dhagayso' }
     ]
@@ -1434,6 +1449,7 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate', value: 'Are you satisfied with your interview?' },
       { key: 'thanks', value: 'Pôle Emploi thanks you.' },
       { key: 'listen', value: 'Listen' },
+      { key: 'record-text', value: 'Nói đi'},
       { key: 'gauge-text', value: 'Speak now' },
       { key: 'auto-listen', value: 'Tự động nghe' }
     ]
