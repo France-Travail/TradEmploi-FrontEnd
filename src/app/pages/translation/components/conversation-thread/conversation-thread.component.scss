@@ -49,22 +49,25 @@
   }
 
   .text {
-    width: 84%;
-    padding: 0px 10px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0 5px 0 10px;
     text-align: justify;
     font-size: 16px;
-    padding-top: 5px;
+    // padding-top: 5px;
     span {
       display: flex;
-      flex-direction: row;
+      // flex-direction: row;
       .incoming-message {
         text-decoration: none;
         color: #4171DA;
+        padding-top: 5px;
         cursor: pointer;
         padding-right: 25px;
         text-align: justify;
       }
-      a {
+      .extand {
         img {
           width: 40px;
           height: 40px;
@@ -77,10 +80,10 @@
     }
   }
   .delete {
-    padding-bottom: 10px;
-    height: 55px;
-    margin-right: 20px;
+    margin-right: 15px;
+    margin-left: 15px;
     img {
+      margin-right: 5px;
       width: 40px;
       height: 40px;
       background: #F5F5F5; 
