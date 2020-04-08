@@ -39,5 +39,7 @@ e2e/*.map
 .runtimeconfig.json
 .firebase/
 
+.DS_Store
+src/assets/.DS_Store
 
 # End of https://www.gitignore.io/api/angular

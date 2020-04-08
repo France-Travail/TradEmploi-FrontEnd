@@ -19,3 +19,51 @@
   padding: 0;
   border-radius: 0;
 }
+
+// .mat-form-field-empty.mat-form-field-label {
+//   color: green;
+// }
+
+// .mat-form-field-underline {
+//   background-color: green;
+// }
+
+// .mat-form-field-invalid .mat-input-element {
+//   caret-color: $primary-color;
+// }
+
+.mat-accent .mat-input-element {
+  caret-color: $primary-color !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple.mat-accent {
+  background-color: $primary-color !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label.mat-accent {
+  color: $primary-color !important;
+}
+
+.toast-error {
+  background-color: #c93939;
+  color: #ffffff;
+  button {
+    color: #ffffff !important;
+  }
+}
+
+.toast-success {
+  background-color: #42bd44;
+  color: #ffffff;
+  button {
+    color: #ffffff !important;
+  }
+}
+
+.toast-info {
+  background-color: $primary-color;
+  color: #ffffff;
+  button {
+    color: #ffffff !important;
+  }
+}
