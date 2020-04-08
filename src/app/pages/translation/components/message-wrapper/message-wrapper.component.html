@@ -8,9 +8,16 @@
       </div>
       <textarea *ngIf="user == 'advisor'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"></textarea>
       <textarea
+        *ngIf="user !== 'advisor' && showKeyboard"
         inputmode="none"
-        *ngIf="user !== 'advisor'"
-        [matKeyboard]="languageKb"
+        [matKeyboard]="languageKeyboard"
+        [(ngModel)]="rawText"
+        (keydown.enter)="send(true); (false)"
+        [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"
+      ></textarea>
+      <textarea
+        *ngIf="user !== 'advisor' && !showKeyboard"
+        inputmode="text"
         [(ngModel)]="rawText"
         (keydown.enter)="send(true); (false)"
         [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"

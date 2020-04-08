@@ -6,7 +6,6 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { NgControl } from '@angular/forms';
 import { NewMessage } from 'src/app/models/new-message';
 
 @Component({
@@ -43,10 +42,9 @@ export class MessageWrapperComponent implements OnInit {
   public error: boolean = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
   //keyboard
-  private languageKb: string;
-
+  private languageKeyboard: string;
   private messageInterceptor: string;
-
+  public showKeyboard: boolean;
   constructor(
     private toastService: ToastService,
     private translateService: TranslateService,
@@ -64,7 +62,9 @@ export class MessageWrapperComponent implements OnInit {
     this.listenBtnValue = sentences.find((s) => s.key === 'listen').value;
     this.flag = this.isLanguageExist ? sentences.find((s) => s.key === 'flag').value.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
     this.language = this.user === 'guest' ? 'fr-FR' : this.settingsService.guest.value.language;
-    this.languageKb = this.languageOrigin.split('-')[0];
+    this.languageKeyboard = this.languageOrigin.split('-')[0];
+    this.showKeyboard = window.innerWidth > 720;
+    console.log(this.showKeyboard);
   }
 
   public async talk(): Promise<void> {

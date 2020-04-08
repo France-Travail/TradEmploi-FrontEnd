@@ -3,23 +3,25 @@
 <div class="countries">
   <div class="country" *ngFor="let item of selectedCountriesData">
     <div class="title">
-      <strong>{{ item.countryNameFR }} </strong> / {{ item.countryName }}
+      <strong>{{ item.languageFR }} </strong> / {{ item.languageRAW }}
     </div>
     <div class="middle">
       <div class="sentence">
         {{ item.displayedWelcome }}
       </div>
-      <div class="speaker" *ngIf="item.audioSupported" (click)="audioDescription(item.readedWelcome, item.isoCode)"></div>
+      <div class="speaker" *ngIf="item.audioSupported" (click)="audioDescription(item.readedWelcome, item.isoCode)">
+        <!-- <img src="assets/icons/icon-listen-blue.svg" alt="Ecouter" /> -->
+      </div>
     </div>
     <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)">
       <span *ngIf="item.flag !== 'arabic'" class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}"></span>
       <img *ngIf="item.flag === 'arabic'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag" />
       <div class="sentences">
         <div class="buttonSentenceFR">
-          <strong>{{ item.buttonSentenceFR }}</strong>
+          <strong>{{ item.languageFR.toUpperCase() }}</strong>
         </div>
-        <div class="buttonSentence">
-          {{ item.buttonSentence }}
+        <div class="buttonSentenceRAW">
+          {{ item.languageRAW.toUpperCase() }}
         </div>
       </div>
     </div>

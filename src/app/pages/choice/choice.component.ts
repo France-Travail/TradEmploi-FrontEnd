@@ -17,19 +17,17 @@ import { Vocabulary } from 'src/app/models/vocabulary';
 
 interface selectedCountry {
   isoCode: string;
-  countryName: string;
-  countryNameFR: string;
+  languageRAW: string;
+  languageFR: string;
   flag: string;
   displayedWelcome: string;
   readedWelcome: string;
-  buttonSentence: string;
   audioSupported: string;
-  buttonSentenceFR: string;
 }
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
-  styleUrls: ['./choice.component.scss']
+  styleUrls: ['./choice.component.scss'],
 })
 export class ChoiceComponent implements AfterContentInit {
   ngAfterContentInit(): void {
@@ -39,7 +37,7 @@ export class ChoiceComponent implements AfterContentInit {
   public navBarItems: NavbarItem[] = [];
   public vocabulary: Vocabulary[] = VOCABULARY_V2;
   public selectedCountriesData: selectedCountry[] = [];
-  public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU', 'ro-RO'];
+  public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU'];
   public toolTips: string[] = ['Autres langues'];
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
@@ -65,8 +63,8 @@ export class ChoiceComponent implements AfterContentInit {
         icon: 'assets/icons/icon-settings-black.svg',
         infoTitle: 'PARAMÈTRES',
         link: 'settings/translation',
-        isDisplayed: true
-      }
+        isDisplayed: true,
+      },
     ];
   }
   handleAction(event: any): void {
@@ -79,18 +77,16 @@ export class ChoiceComponent implements AfterContentInit {
     this.router.navigate(['translation']);
   }
   showMainLanguages(): void {
-    this.selectedCountries.forEach(country => {
-      let sentences = this.vocabulary.find(item => item.isoCode === country).sentences;
+    this.selectedCountries.forEach((country) => {
+      let sentences = this.vocabulary.find((item) => item.isoCode === country).sentences;
       this.selectedCountriesData.push({
-        displayedWelcome: sentences.find(s => s.key === 'displayed-welcome').value,
-        readedWelcome: sentences.find(s => s.key === 'readed-welcome').value,
-        flag: sentences.find(s => s.key === 'flag').value,
+        displayedWelcome: sentences.find((s) => s.key === 'displayed-welcome').value,
+        readedWelcome: sentences.find((s) => s.key === 'readed-welcome').value,
+        flag: sentences.find((s) => s.key === 'flag').value,
         isoCode: country,
-        countryName: sentences.find(s => s.key === 'country-name-raw').value,
-        countryNameFR: sentences.find(s => s.key === 'country-name-fr').value,
-        buttonSentence: sentences.find(s => s.key === 'button-sentence').value,
-        buttonSentenceFR: sentences.find(s => s.key === 'button-sentence-fr').value,
-        audioSupported: sentences.find(s => s.key === 'audioSupported')?.value
+        languageRAW: sentences.find((s) => s.key === 'language-name-raw').value,
+        languageFR: sentences.find((s) => s.key === 'language-name-fr').value,
+        audioSupported: sentences.find((s) => s.key === 'audioSupported')?.value,
       });
     });
   }
@@ -107,7 +103,7 @@ export class ChoiceComponent implements AfterContentInit {
     this.dialog
       .open(LanguagesComponent, { width: '900px', height: '900px' })
       .afterClosed()
-      .subscribe(response => {
+      .subscribe((response) => {
         if (response === 'chosen') {
           this.router.navigate(['translation']);
         }

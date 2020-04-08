@@ -12,17 +12,8 @@ h2 {
   font-size: 22px;
   font-weight: 400;
 }
-.country {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  color: #666666;
-  border-radius: 5px;
-  background-color: $white-smoke;
-  &:hover {
-    color: white;
-    background: $primary-color;
-  }
+strong {
+  font-weight: 500;
 }
 .countries {
   margin: auto;
@@ -31,72 +22,69 @@ h2 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  //flex-direction: row;
-
-  //flex-wrap: wrap;
   justify-content: space-evenly;
   background-color: $white;
-}
-.title {
-  width: 250px;
-  margin: 10px 0px;
-}
-.sentence {
-  flex: auto;
-  max-width: 300px;
-  width: 260px;
-  height: 50px;
-}
-.speaker {
-  background-image: url('../../../assets/icons/icon-listen-blue.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  border-radius: 40px;
-  background-color: white;
-  width: 40px;
-  height: 40px;
-}
-.flag-icon {
-  width: 28px;
-  height: 20px;
-  margin: auto;
-}
-.sentences {
-  margin: inherit;
-  display: flex;
-  flex-direction: column;
-  .buttonSentence {
-    font-size: smaller;
-  }
-}
-.selectLanguageButton {
-  display: flex;
-  width: 200px;
-  flex-direction: column;
-  flex-wrap: wrap;
-  margin: 10px auto;
-  align-items: baseline;
-  height: 50px;
-  border: 1px solid $gray74;
-  border-radius: 10px;
-  cursor: pointer;
-}
-.middle {
-  display: flex;
-  justify-content: space-between;
-}
 
-@media screen and (max-width: 720px) {
-  .tiles {
-    width: max(320px, 90%);
-    .countries {
-      .sentence {
-        max-width: 290px;
+  .country {
+    width: 300px;
+    padding: 10px;
+    flex-direction: column;
+    color: #666666;
+    border-radius: 5px;
+    background-color: $white-smoke;
+    .title {
+      width: 300px;
+    }
+    .middle {
+      margin-top: 15px;
+      height: 40px;
+      display: flex;
+      justify-content: space-between;
+      .speaker {
+        background-image: url('../../../assets/icons/icon-listen-blue.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 40px;
+        background-color: white;
+        background-size: 20px;
+        width: 40px;
         height: 40px;
-        overflow-y: scroll;
       }
-      .country {
-        display: none;
+    }
+    .selectLanguageButton {
+      align-items: baseline;
+      display: flex;
+      color: $button-black;
+      width: 170px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin: auto;
+      align-items: baseline;
+      height: 35px;
+      border: 1px solid $gray74;
+      border-radius: 10px;
+      cursor: pointer;
+      .flag-icon {
+        width: 29px;
+        height: auto;
+        margin: auto;
+      }
+      .sentences {
+        margin: auto;
+        flex-direction: column;
+        .buttonSentenceFR {
+          font-size: 11px;
+        }
+        .buttonSentenceRAW {
+          font-size: 9px;
+        }
+      }
+    }
+    &:hover {
+      color: white;
+      background: $primary-color;
+      .selectLanguageButton {
+        color: white;
       }
     }
   }
