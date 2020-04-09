@@ -25,11 +25,10 @@ import {
 import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RecordComponent } from './components/record/record.component';
-import { StreamComponent } from './components/stream/stream.component';
 import { TranslationTitleComponent } from './components/translation-title/translation-title.component';
 import { RouterModule } from '@angular/router';
 
-const COMPONENTS = [AudioAnimationComponent, NavbarComponent, RecordComponent, StreamComponent, TranslationTitleComponent];
+const COMPONENTS = [AudioAnimationComponent, NavbarComponent, RecordComponent, TranslationTitleComponent];
 
 const MATERIAL_MODULES = [
   MatInputModule,

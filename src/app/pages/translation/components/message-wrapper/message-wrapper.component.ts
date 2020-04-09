@@ -7,6 +7,7 @@ import { AudioRecordingService } from 'src/app/services/audio-recording.service'
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { NewMessage } from 'src/app/models/new-message';
+import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -21,7 +22,7 @@ export class MessageWrapperComponent implements OnInit {
   @Output() newMessagesToEmit = new EventEmitter();
 
   public newMessage: NewMessage;
-  public sendBtnWording: string;
+  public sendBtnValue: string;
   public flag: string;
   public languageOrigin: string;
   public rawSpeech: HTMLAudioElement;
@@ -29,6 +30,7 @@ export class MessageWrapperComponent implements OnInit {
 
   public micro: boolean = false;
   public recordMode: boolean = false;
+  public speak: boolean = false;
 
   private isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
   private language: string;
@@ -41,6 +43,7 @@ export class MessageWrapperComponent implements OnInit {
     private settingsService: SettingsService,
     private audioRecordingService: AudioRecordingService,
     public textToSpeechService: TextToSpeechService,
+    private speechRecognitionService: SpeechRecognitionService,
     public router: Router
   ) {}
 
@@ -48,24 +51,44 @@ export class MessageWrapperComponent implements OnInit {
     this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
     const sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find((item) => item.isoCode === this.languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
     this.title = sentences.find((s) => s.key === 'translation-h2').value;
-    this.sendBtnWording = sentences.find((s) => s.key === 'send').value;
+    this.sendBtnValue = sentences.find((s) => s.key === 'send').value;
     this.flag = this.isLanguageExist ? sentences.find((s) => s.key === 'flag').value.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
     this.language = this.user === 'guest' ? 'fr-FR' : this.settingsService.guest.value.language;
-    console.log('this.settingsService.recordMode :', this.settingsService.recordMode);
   }
 
   public async talk(): Promise<void> {
     if ('webkitSpeechRecognition' in window) {
-      //1er cas init micro apparaisse
       this.micro = true;
       this.recordMode = this.settingsService.recordMode;
-      //2 cas  micro et stream
-      //3 cas micro et record => c le seul cas ou le micro disparait
+      if (!this.recordMode) {
+        this.rawText =''
+        this.stream();
+      }
+
+      this.speak = true;
     } else {
       this.toastService.showToast("L'accès au microphone n'est pas autorisé.", 'toast-info');
     }
   }
 
+  private stream() {
+    this.speechRecognitionService.record(this.languageOrigin).subscribe(
+      (value) => {
+        this.rawText += value;
+      },
+      (err) => {
+        console.log(err);
+      },
+      () => {
+        console.log('Complete');
+      }
+    );
+  }
+
+  public exitStream() {
+    this.speechRecognitionService.DestroySpeechObject();
+    this.speak = false;
+  }
   public delete(): void {
     this.rawText = '';
   }
