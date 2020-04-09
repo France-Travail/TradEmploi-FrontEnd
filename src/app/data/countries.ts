@@ -5,7 +5,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'ZA',
     code: { audioLanguage: 'af-ZA', writtenLanguage: 'af-ZA' },
     language: 'Afrikaans',
-    LanguageFr: 'Afrikaans'
+    LanguageFr: 'Afrikaans',
   },
   {
     country: 'United Kingdom',
@@ -13,7 +13,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'GB',
     code: { audioLanguage: 'en-GB', writtenLanguage: 'en-GB' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: '中国大陆',
@@ -21,7 +21,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'CN',
     code: { audioLanguage: 'zh-ZH', writtenLanguage: 'zh-ZH' },
     language: '普通话',
-    LanguageFr: 'Mandarin'
+    LanguageFr: 'Mandarin',
   },
   {
     country: 'افغانستان',
@@ -29,7 +29,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'AF',
     code: { audioLanguage: 'tw-ob', writtenLanguage: 'tw-ob' },
     language: 'پښتو',
-    LanguageFr: 'Pachto'
+    LanguageFr: 'Pachto',
   },
   {
     country: 'España',
@@ -37,7 +37,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'ES',
     code: { audioLanguage: 'es-ES', writtenLanguage: 'es-ES' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Portugal',
@@ -45,7 +45,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'PT',
     code: { audioLanguage: 'pt-PT', writtenLanguage: 'pt-PT' },
     language: 'Português',
-    LanguageFr: 'Portugais'
+    LanguageFr: 'Portugais',
   },
   {
     country: 'ኢትዮጵያ',
@@ -53,7 +53,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'ET',
     code: { audioLanguage: 'am-ET', writtenLanguage: 'am-ET' },
     language: 'አማርኛ',
-    LanguageFr: 'Amharique'
+    LanguageFr: 'Amharique',
   },
   {
     country: 'الجزائر',
@@ -61,7 +61,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'DZ',
     code: { audioLanguage: 'ar-XA', writtenLanguage: 'ar-XA' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'Հայաստան',
@@ -69,7 +69,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'AM',
     code: { audioLanguage: 'hy-AM', writtenLanguage: 'hy-AM' },
     language: 'Հայ',
-    LanguageFr: 'Arménien'
+    LanguageFr: 'Arménien',
   },
   {
     country: 'Azərbaycan',
@@ -77,7 +77,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'AZ',
     code: { audioLanguage: 'az-AZ', writtenLanguage: 'az-AZ' },
     language: 'Azərbaycan',
-    LanguageFr: 'Azerbaïdjan'
+    LanguageFr: 'Azerbaïdjan',
   },
   {
     country: 'Монгол Улс',
@@ -85,7 +85,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'mn',
     code: { audioLanguage: 'mn-MN', writtenLanguage: 'mn-MN' },
     language: 'Монгол',
-    LanguageFr: 'Mongol'
+    LanguageFr: 'Mongol',
   },
   {
     country: 'Indonesia',
@@ -93,7 +93,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'ID',
     code: { audioLanguage: 'id-ID', writtenLanguage: 'id-ID' },
     language: 'Bahasa Indonesia',
-    LanguageFr: 'Indonésien'
+    LanguageFr: 'Indonésien',
   },
   {
     country: 'Malaysia',
@@ -101,7 +101,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'MY',
     code: { audioLanguage: 'ms-MY', writtenLanguage: 'ms-MY' },
     language: 'Bahasa Melayu',
-    LanguageFr: 'Malais'
+    LanguageFr: 'Malais',
   },
   {
     country: 'বাংলাদেশ',
@@ -109,7 +109,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'BD',
     code: { audioLanguage: 'bn-BD', writtenLanguage: 'bn-BD' },
     language: 'বাংলা',
-    LanguageFr: 'Bengali'
+    LanguageFr: 'Bengali',
   },
   {
     country: 'ভারত',
@@ -117,7 +117,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IN',
     code: { audioLanguage: 'bn-IN', writtenLanguage: 'bn-IN' },
     language: 'বাংলা',
-    LanguageFr: 'Bengali'
+    LanguageFr: 'Bengali',
   },
   {
     country: 'Espanya',
@@ -125,7 +125,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'ES',
     code: { audioLanguage: 'ca-ES', writtenLanguage: 'ca-ES' },
     language: 'Català',
-    LanguageFr: 'Catalan'
+    LanguageFr: 'Catalan',
   },
   {
     country: 'Česká republika',
@@ -133,7 +133,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'CZ',
     code: { audioLanguage: 'cs-CZ', writtenLanguage: 'cs-CZ' },
     language: 'Čeština',
-    LanguageFr: 'Tchèque'
+    LanguageFr: 'Tchèque',
   },
   {
     country: 'Danmark',
@@ -141,7 +141,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'DK',
     code: { audioLanguage: 'da-DK', writtenLanguage: 'da-DK' },
     language: 'Dansk',
-    LanguageFr: 'Danois'
+    LanguageFr: 'Danois',
   },
   {
     country: 'Deutschland',
@@ -149,7 +149,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'DE',
     code: { audioLanguage: 'de-DE', writtenLanguage: 'de-DE' },
     language: 'Deutsch',
-    LanguageFr: 'Allemand'
+    LanguageFr: 'Allemand',
   },
   {
     country: 'Australia',
@@ -157,7 +157,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'AU',
     code: { audioLanguage: 'en-AU', writtenLanguage: 'en-AU' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'Canada',
@@ -165,7 +165,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'CA',
     code: { audioLanguage: 'en-CA', writtenLanguage: 'en-CA' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'Ghana',
@@ -173,7 +173,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'GH',
     code: { audioLanguage: 'en-GH', writtenLanguage: 'en-GH' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'India',
@@ -181,7 +181,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IN',
     code: { audioLanguage: 'en-IN', writtenLanguage: 'en-IN' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'Ireland',
@@ -189,7 +189,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IE',
     code: { audioLanguage: 'en-IE', writtenLanguage: 'en-IE' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'Kenya',
@@ -197,7 +197,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'KE',
     code: { audioLanguage: 'en-KE', writtenLanguage: 'en-KE' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'New Zealand',
@@ -205,7 +205,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'NZ',
     code: { audioLanguage: 'en-NZ', writtenLanguage: 'en-NZ' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'Nigeria',
@@ -213,7 +213,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'NG',
     code: { audioLanguage: 'en-NG', writtenLanguage: 'en-NG' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'Philippines',
@@ -221,7 +221,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'PH',
     code: { audioLanguage: 'en-PH', writtenLanguage: 'en-PH' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'Singapore',
@@ -229,7 +229,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'SG',
     code: { audioLanguage: 'en-SG', writtenLanguage: 'en-SG' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'Soomaaliya',
@@ -237,7 +237,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'SO',
     code: { audioLanguage: 'so-SO', writtenLanguage: 'so-SO' },
     language: 'Af-Soomaali',
-    LanguageFr: 'Somali'
+    LanguageFr: 'Somali',
   },
   {
     country: 'South Africa',
@@ -245,7 +245,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'ZA',
     code: { audioLanguage: 'en-ZA', writtenLanguage: 'en-ZA' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'Tanzania',
@@ -253,7 +253,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'TZ',
     code: { audioLanguage: 'en-TZ', writtenLanguage: 'en-TZ' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'United States',
@@ -261,7 +261,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'US',
     code: { audioLanguage: 'us-US', writtenLanguage: 'us-US' },
     language: 'English',
-    LanguageFr: 'Anglais'
+    LanguageFr: 'Anglais',
   },
   {
     country: 'Argentina',
@@ -269,7 +269,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'AR',
     code: { audioLanguage: 'es-AR', writtenLanguage: 'es-AR' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Bolivia',
@@ -277,7 +277,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'BO',
     code: { audioLanguage: 'es-BO', writtenLanguage: 'es-BO' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Chile',
@@ -285,7 +285,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'CL',
     code: { audioLanguage: 'es-CL', writtenLanguage: 'es-CL' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Colombia',
@@ -293,7 +293,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'CO',
     code: { audioLanguage: 'es-CO', writtenLanguage: 'es-CO' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Costa Rica',
@@ -301,7 +301,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'CR',
     code: { audioLanguage: 'es-CR', writtenLanguage: 'es-CR' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Ecuador',
@@ -309,7 +309,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'EC',
     code: { audioLanguage: 'es-EC', writtenLanguage: 'es-EC' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'El Salvador',
@@ -317,7 +317,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'SV',
     code: { audioLanguage: 'es-SV', writtenLanguage: 'es-SV' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
 
   {
@@ -326,7 +326,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'US',
     code: { audioLanguage: 'es-US', writtenLanguage: 'es-US' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Guatemala',
@@ -334,7 +334,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'GT',
     code: { audioLanguage: 'es-GT', writtenLanguage: 'es-GT' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Honduras',
@@ -342,7 +342,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'HN',
     code: { audioLanguage: 'es-HN', writtenLanguage: 'es-HN' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'México',
@@ -350,7 +350,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'MX',
     code: { audioLanguage: 'es-MX', writtenLanguage: 'es-MX' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Nicaragua',
@@ -358,7 +358,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'NI',
     code: { audioLanguage: 'es-NI', writtenLanguage: 'es-NI' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Panamá',
@@ -366,7 +366,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'PA',
     code: { audioLanguage: 'es-PA', writtenLanguage: 'es-PA' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Paraguay',
@@ -374,7 +374,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'PY',
     code: { audioLanguage: 'es-PY', writtenLanguage: 'es-PY' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Perú',
@@ -382,7 +382,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'PE',
     code: { audioLanguage: 'es-PE', writtenLanguage: 'es-PE' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Puerto Rico',
@@ -390,7 +390,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'PR',
     code: { audioLanguage: 'es-PR', writtenLanguage: 'es-PR' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'República Dominicana',
@@ -398,7 +398,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'DO',
     code: { audioLanguage: 'es-DO', writtenLanguage: 'es-DO' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Uruguay',
@@ -406,7 +406,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'UY',
     code: { audioLanguage: 'es-UY', writtenLanguage: 'es-UY' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Venezuela',
@@ -414,7 +414,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'VE',
     code: { audioLanguage: 'es-VE', writtenLanguage: 'es-VE' },
     language: 'Español',
-    LanguageFr: 'Espagnol'
+    LanguageFr: 'Espagnol',
   },
   {
     country: 'Espainia',
@@ -422,7 +422,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'ES',
     code: { audioLanguage: 'eu-ES', writtenLanguage: 'eu-ES' },
     language: 'Euskara',
-    LanguageFr: 'Basque'
+    LanguageFr: 'Basque',
   },
   {
     country: 'Canada',
@@ -430,7 +430,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'CA',
     code: { audioLanguage: 'fr-CA', writtenLanguage: 'fr-CA' },
     language: 'Français',
-    LanguageFr: 'Français'
+    LanguageFr: 'Français',
   },
   {
     country: 'France',
@@ -438,7 +438,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'FR',
     code: { audioLanguage: 'fr-FR', writtenLanguage: 'fr-FR' },
     language: 'Français',
-    LanguageFr: 'Français'
+    LanguageFr: 'Français',
   },
   {
     country: 'España',
@@ -446,7 +446,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'ES',
     code: { audioLanguage: 'gl-ES', writtenLanguage: 'gl-ES' },
     language: 'Galego',
-    LanguageFr: 'Galicien'
+    LanguageFr: 'Galicien',
   },
   {
     country: 'საქართველო',
@@ -454,7 +454,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'GE',
     code: { audioLanguage: 'ka-GE', writtenLanguage: 'ka-GE' },
     language: 'ქართული',
-    LanguageFr: 'Géorgien'
+    LanguageFr: 'Géorgien',
   },
   {
     country: 'ભારત',
@@ -462,7 +462,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IN',
     code: { audioLanguage: 'gu-IN', writtenLanguage: 'gu-IN' },
     language: 'ગુજરાતી',
-    LanguageFr: 'Gujarati'
+    LanguageFr: 'Gujarati',
   },
   {
     country: 'Hrvatska',
@@ -470,7 +470,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'HR',
     code: { audioLanguage: 'hr-HR', writtenLanguage: 'hr-HR' },
     language: 'Hrvatski',
-    LanguageFr: 'Croate'
+    LanguageFr: 'Croate',
   },
   {
     country: 'Ningizimu Afrika',
@@ -478,7 +478,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'ZA',
     code: { audioLanguage: 'zu-ZA', writtenLanguage: 'zu-ZA' },
     language: 'IsiZulu',
-    LanguageFr: 'Zoulou'
+    LanguageFr: 'Zoulou',
   },
   {
     country: 'Ísland',
@@ -486,7 +486,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IS',
     code: { audioLanguage: 'is-IS', writtenLanguage: 'is-IS' },
     language: 'Íslenska',
-    LanguageFr: 'Islandais'
+    LanguageFr: 'Islandais',
   },
   {
     country: 'Italia',
@@ -494,7 +494,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IT',
     code: { audioLanguage: 'it-IT', writtenLanguage: 'it-IT' },
     language: 'Italiano',
-    LanguageFr: 'Italien'
+    LanguageFr: 'Italien',
   },
   {
     country: 'Indonesia',
@@ -502,7 +502,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'ID',
     code: { audioLanguage: 'jv-ID', writtenLanguage: 'jv-ID' },
     language: 'Jawa',
-    LanguageFr: 'Javanais'
+    LanguageFr: 'Javanais',
   },
   {
     country: 'ಭಾರತ',
@@ -510,7 +510,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IN',
     code: { audioLanguage: 'kn-IN', writtenLanguage: 'kn-IN' },
     language: 'ಕನ್ನಡ',
-    LanguageFr: 'Kannada'
+    LanguageFr: 'Kannada',
   },
   {
     country: 'កម្ពុជា',
@@ -518,7 +518,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'KH',
     code: { audioLanguage: 'km-KH', writtenLanguage: 'km-KH' },
     language: 'ភាសាខ្មែរ',
-    LanguageFr: 'Khmer'
+    LanguageFr: 'Khmer',
   },
   {
     country: 'ລາວ',
@@ -526,7 +526,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'LA',
     code: { audioLanguage: 'lo-LA', writtenLanguage: 'lo-LA' },
     language: 'ລາວ',
-    LanguageFr: 'Lao'
+    LanguageFr: 'Lao',
   },
   {
     country: 'latviešu',
@@ -534,7 +534,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'LV',
     code: { audioLanguage: 'lv-LV', writtenLanguage: 'lv-LV' },
     language: 'Latviešu',
-    LanguageFr: 'Letton'
+    LanguageFr: 'Letton',
   },
   {
     country: 'Lietuva',
@@ -542,7 +542,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'LT',
     code: { audioLanguage: 'lt-LT', writtenLanguage: 'lt-LT' },
     language: 'Lietuvių',
-    LanguageFr: 'Lituanien'
+    LanguageFr: 'Lituanien',
   },
   {
     country: 'Magyarország',
@@ -550,7 +550,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'HU',
     code: { audioLanguage: 'hu-HU', writtenLanguage: 'hu-HU' },
     language: 'Magyar',
-    LanguageFr: 'Hongrois'
+    LanguageFr: 'Hongrois',
   },
   {
     country: 'ഇന്ത്യ',
@@ -558,7 +558,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IN',
     code: { audioLanguage: 'ml-IN', writtenLanguage: 'ml-IN' },
     language: 'മലയാളം',
-    LanguageFr: 'Malayalam'
+    LanguageFr: 'Malayalam',
   },
   {
     country: 'भारत',
@@ -566,7 +566,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IN',
     code: { audioLanguage: 'mr-IN', writtenLanguage: 'mr-IN' },
     language: 'मराठी',
-    LanguageFr: 'Marathi'
+    LanguageFr: 'Marathi',
   },
   {
     country: 'Nederland',
@@ -574,7 +574,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'NL',
     code: { audioLanguage: 'nl-NL', writtenLanguage: 'nl-NL' },
     language: 'Nederlands',
-    LanguageFr: 'Néerlandais'
+    LanguageFr: 'Néerlandais',
   },
   {
     country: 'नेपाल',
@@ -582,7 +582,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'NP',
     code: { audioLanguage: 'ne-NP', writtenLanguage: 'ne-NP' },
     language: 'नेपाली',
-    LanguageFr: 'Népalais'
+    LanguageFr: 'Népalais',
   },
   {
     country: 'Norge',
@@ -590,7 +590,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'NO',
     code: { audioLanguage: 'nb-NO', writtenLanguage: 'nb-NO' },
     language: 'Norsk bokmål',
-    LanguageFr: 'Norvégien bokmål'
+    LanguageFr: 'Norvégien bokmål',
   },
   {
     country: 'Polska',
@@ -598,7 +598,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'PL',
     code: { audioLanguage: 'pl-PL', writtenLanguage: 'pl-PL' },
     language: 'Polski',
-    LanguageFr: 'Polonais'
+    LanguageFr: 'Polonais',
   },
   {
     country: 'Brasil',
@@ -606,7 +606,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'BR',
     code: { audioLanguage: 'pt-BR', writtenLanguage: 'pt-BR' },
     language: 'Português',
-    LanguageFr: 'Portugais'
+    LanguageFr: 'Portugais',
   },
 
   {
@@ -615,7 +615,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'RO',
     code: { audioLanguage: 'ro-RO', writtenLanguage: 'ro-RO' },
     language: 'Română',
-    LanguageFr: 'Roumain'
+    LanguageFr: 'Roumain',
   },
   {
     country: 'ශ්රී ලංකාව',
@@ -623,7 +623,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'LK',
     code: { audioLanguage: 'si-LK', writtenLanguage: 'si-LK' },
     language: 'සිංහල',
-    LanguageFr: 'Cingalais'
+    LanguageFr: 'Cingalais',
   },
   {
     country: 'Slovensko',
@@ -631,7 +631,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'SK',
     code: { audioLanguage: 'sk-SK', writtenLanguage: 'sk-SK' },
     language: 'Slovenčina',
-    LanguageFr: 'Slovène'
+    LanguageFr: 'Slovène',
   },
   {
     country: 'Slovenija',
@@ -639,7 +639,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'SI',
     code: { audioLanguage: 'sl-SI', writtenLanguage: 'sl-SI' },
     language: 'Slovenščina',
-    LanguageFr: 'Slovène'
+    LanguageFr: 'Slovène',
   },
   {
     country: 'Indonesia',
@@ -647,7 +647,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'ID',
     code: { audioLanguage: 'su-ID', writtenLanguage: 'su-ID' },
     language: 'Sunda',
-    LanguageFr: 'Soudanais'
+    LanguageFr: 'Soudanais',
   },
   {
     country: 'Tanzania',
@@ -655,7 +655,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'TZ',
     code: { audioLanguage: 'sw-TZ', writtenLanguage: 'sw-TZ' },
     language: 'Swahili',
-    LanguageFr: 'Swahili'
+    LanguageFr: 'Swahili',
   },
   {
     country: 'Kenya',
@@ -663,7 +663,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'KE',
     code: { audioLanguage: 'sw-KE', writtenLanguage: 'sw-KE' },
     language: 'Swahili',
-    LanguageFr: 'Swahili'
+    LanguageFr: 'Swahili',
   },
   {
     country: 'Suomi',
@@ -671,7 +671,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'FI',
     code: { audioLanguage: 'fi-FI', writtenLanguage: 'fi-FI' },
     language: 'Suomalainen',
-    LanguageFr: 'Finnois'
+    LanguageFr: 'Finnois',
   },
   {
     country: 'Sverige',
@@ -679,7 +679,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'SE',
     code: { audioLanguage: 'sv-SE', writtenLanguage: 'sv-SE' },
     language: 'Svenska',
-    LanguageFr: 'Suédois'
+    LanguageFr: 'Suédois',
   },
   {
     country: 'இந்தியா',
@@ -687,7 +687,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IN',
     code: { audioLanguage: 'ta-IN', writtenLanguage: 'ta-IN' },
     language: 'தமிழ்',
-    LanguageFr: 'Tamoul'
+    LanguageFr: 'Tamoul',
   },
   {
     country: 'சிங்கப்பூர்',
@@ -695,7 +695,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'SG',
     code: { audioLanguage: 'ta-SG', writtenLanguage: 'ta-SG' },
     language: 'தமிழ்',
-    LanguageFr: 'Tamoul'
+    LanguageFr: 'Tamoul',
   },
   {
     country: 'இலங்கை',
@@ -703,7 +703,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'LK',
     code: { audioLanguage: 'ta-LK', writtenLanguage: 'ta-LK' },
     language: 'தமிழ்',
-    LanguageFr: 'Tamoul'
+    LanguageFr: 'Tamoul',
   },
   {
     country: 'மலேசியா',
@@ -711,7 +711,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'MY',
     code: { audioLanguage: 'ta-MY', writtenLanguage: 'ta-MY' },
     language: 'தமிழ்',
-    LanguageFr: 'Tamoul'
+    LanguageFr: 'Tamoul',
   },
   {
     country: 'భారతదేశం',
@@ -719,7 +719,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IN',
     code: { audioLanguage: 'te-IN', writtenLanguage: 'te-IN' },
     language: 'తెలుగు',
-    LanguageFr: 'Télougou'
+    LanguageFr: 'Télougou',
   },
   {
     country: 'Việt Nam',
@@ -727,7 +727,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'VN',
     code: { audioLanguage: 'vi-VN', writtenLanguage: 'vi-VN' },
     language: 'Tiếng Việt',
-    LanguageFr: 'Vietnamien'
+    LanguageFr: 'Vietnamien',
   },
   {
     country: 'Türkiye',
@@ -735,7 +735,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'TR',
     code: { audioLanguage: 'tr-TR', writtenLanguage: 'tr-TR' },
     language: 'Türkçe',
-    LanguageFr: 'Turc'
+    LanguageFr: 'Turc',
   },
   {
     country: 'پاکستان',
@@ -743,7 +743,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'PK',
     code: { audioLanguage: 'ur-PK', writtenLanguage: 'ur-PK' },
     language: 'اردو',
-    LanguageFr: 'Ourdou'
+    LanguageFr: 'Ourdou',
   },
   {
     country: 'بھارت',
@@ -751,7 +751,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IN',
     code: { audioLanguage: 'ur-IN', writtenLanguage: 'ur-IN' },
     language: 'اردو',
-    LanguageFr: 'Ourdou'
+    LanguageFr: 'Ourdou',
   },
   {
     country: 'Ελλάδα',
@@ -759,7 +759,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'GR',
     code: { audioLanguage: 'el-GR', writtenLanguage: 'el-GR' },
     language: 'Ελληνικά',
-    LanguageFr: 'Grec'
+    LanguageFr: 'Grec',
   },
   {
     country: 'България',
@@ -767,7 +767,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'BG',
     code: { audioLanguage: 'bg-BG', writtenLanguage: 'bg-BG' },
     language: 'Български',
-    LanguageFr: 'Bulgare'
+    LanguageFr: 'Bulgare',
   },
   {
     country: 'Россия',
@@ -775,7 +775,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'RU',
     code: { audioLanguage: 'ru-RU', writtenLanguage: 'ru-RU' },
     language: 'Русский',
-    LanguageFr: 'Russe'
+    LanguageFr: 'Russe',
   },
   {
     country: 'Србија',
@@ -783,7 +783,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'RS',
     code: { audioLanguage: 'sr-RS', writtenLanguage: 'sr-RS' },
     language: 'Српски',
-    LanguageFr: 'Serbe'
+    LanguageFr: 'Serbe',
   },
   {
     country: 'Україна',
@@ -791,7 +791,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'UA',
     code: { audioLanguage: 'uk-UA', writtenLanguage: 'uk-UA' },
     language: 'Українська',
-    LanguageFr: 'Ukrénien'
+    LanguageFr: 'Ukrénien',
   },
   {
     country: 'ישראל',
@@ -799,7 +799,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IL',
     code: { audioLanguage: 'he-IL', writtenLanguage: 'he-IL' },
     language: 'עברית',
-    LanguageFr: 'Hébreu'
+    LanguageFr: 'Hébreu',
   },
   {
     country: 'إسرائيل',
@@ -807,7 +807,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IL',
     code: { audioLanguage: 'ar-IL', writtenLanguage: 'ar-IL' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'الأردن',
@@ -815,7 +815,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'JO',
     code: { audioLanguage: 'ar-JO', writtenLanguage: 'ar-JO' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'الإمارات',
@@ -823,7 +823,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'AE',
     code: { audioLanguage: 'ar-AE', writtenLanguage: 'ar-AE' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'البحرين',
@@ -831,7 +831,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'BH',
     code: { audioLanguage: 'ar-BH', writtenLanguage: 'ar-BH' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
 
   {
@@ -840,7 +840,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'SA',
     code: { audioLanguage: 'ar-SA', writtenLanguage: 'ar-SA' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'العراق',
@@ -848,7 +848,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IQ',
     code: { audioLanguage: 'ar-QI', writtenLanguage: 'ar-QI' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'الكويت',
@@ -856,7 +856,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'KW',
     code: { audioLanguage: 'ar-KW', writtenLanguage: 'ar-KW' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'المغرب',
@@ -864,7 +864,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'MA',
     code: { audioLanguage: 'ar-MA', writtenLanguage: 'ar-MA' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'تونس',
@@ -872,7 +872,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'TN',
     code: { audioLanguage: 'ar-TN', writtenLanguage: 'ar-TN' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'عُمان',
@@ -880,7 +880,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'OM',
     code: { audioLanguage: 'ar-OM', writtenLanguage: 'ar-OM' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'فلسطين',
@@ -888,7 +888,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'PS',
     code: { audioLanguage: 'ar-PS', writtenLanguage: 'ar-PS' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'قطر',
@@ -896,7 +896,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'QA',
     code: { audioLanguage: 'ar-QA', writtenLanguage: 'ar-QA' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'لبنان',
@@ -904,7 +904,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'LB',
     code: { audioLanguage: 'ar-LB', writtenLanguage: 'ar-LB' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'مصر',
@@ -912,7 +912,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'EG',
     code: { audioLanguage: 'ar-EG', writtenLanguage: 'ar-EG' },
     language: 'العربية',
-    LanguageFr: 'Arabe'
+    LanguageFr: 'Arabe',
   },
   {
     country: 'ایران',
@@ -920,7 +920,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IR',
     code: { audioLanguage: 'fa-IR', writtenLanguage: 'fa-IR' },
     language: 'فارسی',
-    LanguageFr: 'Persan'
+    LanguageFr: 'Persan',
   },
   {
     country: 'भारत',
@@ -928,7 +928,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'IN',
     code: { audioLanguage: 'hi-IN', writtenLanguage: 'hi-IN' },
     language: 'हिन्दी',
-    LanguageFr: 'Hindi'
+    LanguageFr: 'Hindi',
   },
   {
     country: 'ประเทศไทย',
@@ -936,7 +936,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'TH',
     code: { audioLanguage: 'th-TH', writtenLanguage: 'th-TH' },
     language: 'ไทย',
-    LanguageFr: 'Thaï'
+    LanguageFr: 'Thaï',
   },
   {
     country: '대한민국',
@@ -944,7 +944,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'KR',
     code: { audioLanguage: 'ko-KR', writtenLanguage: 'ko-KR' },
     language: '한국어',
-    LanguageFr: 'Coréen'
+    LanguageFr: 'Coréen',
   },
   {
     country: '台灣',
@@ -952,15 +952,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'TW',
     code: { audioLanguage: 'zh-TW', writtenLanguage: 'zh-TW' },
     language: '國語',
-    LanguageFr: 'Mandarin'
-  },
-  {
-    country: '香港',
-    traduction: 'Hong Kong',
-    flag: 'HK',
-    code: { audioLanguage: 'yue-Hant-HK', writtenLanguage: 'yue-Hant-HK' },
-    language: '廣東話',
-    LanguageFr: 'Cantonais'
+    LanguageFr: 'Mandarin',
   },
   {
     country: '日本',
@@ -968,7 +960,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'JP',
     code: { audioLanguage: 'ja-JP', writtenLanguage: 'ja-JP' },
     language: '日本語',
-    LanguageFr: 'Japonais'
+    LanguageFr: 'Japonais',
   },
 
   {
@@ -977,7 +969,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'HK',
     code: { audioLanguage: 'zh-HK', writtenLanguage: 'zh-HK' },
     language: '普通話',
-    LanguageFr: 'Mandarin'
+    LanguageFr: 'Mandarin',
   },
   {
     country: 'Ўзбекистон',
@@ -985,6 +977,6 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     flag: 'UZ',
     code: { audioLanguage: 'ru-RU', writtenLanguage: 'uz-UZ' },
     language: 'ўзбек',
-    LanguageFr: 'Ouzbek'
-  }
+    LanguageFr: 'Ouzbek',
+  },
 ];

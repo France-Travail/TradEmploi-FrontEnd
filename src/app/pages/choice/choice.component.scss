@@ -64,11 +64,17 @@ strong {
       border: 1px solid $gray74;
       border-radius: 10px;
       cursor: pointer;
+
       .flag-icon {
         width: 29px;
-        height: auto;
+        height: 20px;
+        border: 1px solid $gray74;
+        box-sizing: border-box;
+        border-radius: 5px;
+        background-size: cover;
         margin: auto;
       }
+
       .sentences {
         margin: auto;
         flex-direction: column;

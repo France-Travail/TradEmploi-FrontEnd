@@ -9,9 +9,7 @@
       <div class="sentence">
         {{ item.displayedWelcome }}
       </div>
-      <div class="speaker" *ngIf="item.audioSupported" (click)="audioDescription(item.readedWelcome, item.isoCode)">
-        <!-- <img src="assets/icons/icon-listen-blue.svg" alt="Ecouter" /> -->
-      </div>
+      <div class="speaker" *ngIf="item.audioSupported" (click)="audioDescription(item.readedWelcome, item.isoCode)"></div>
     </div>
     <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)">
       <span *ngIf="item.flag !== 'arabic'" class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}"></span>

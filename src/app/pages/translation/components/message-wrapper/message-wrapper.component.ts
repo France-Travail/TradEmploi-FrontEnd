@@ -64,7 +64,6 @@ export class MessageWrapperComponent implements OnInit {
     this.language = this.user === 'guest' ? 'fr-FR' : this.settingsService.guest.value.language;
     this.languageKeyboard = this.languageOrigin.split('-')[0];
     this.showKeyboard = window.innerWidth > 720;
-    console.log(this.showKeyboard);
   }
 
   public async talk(): Promise<void> {
@@ -80,31 +79,32 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
-    if (fromKeyBoard) {
-      const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
-      this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
-      this.rawSpeech = this.textToSpeechService.audioSpeech;
-      this.messageInterceptor = this.rawText;
-    } else {
-      this.rawText = message;
-      this.rawSpeech = this.audioRecordingService.audioSpeech;
+    if (this.rawText && this.rawText !== '') {
+      if (fromKeyBoard) {
+        const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
+        this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
+        this.rawSpeech = this.textToSpeechService.audioSpeech;
+        this.messageInterceptor = this.rawText;
+      } else {
+        this.rawText = message;
+        this.rawSpeech = this.audioRecordingService.audioSpeech;
+      }
+      this.translateService.translate(this.rawText, this.user).subscribe(async (response) => {
+        this.translatedText = response;
+        this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
+        this.translatedSpeech = this.textToSpeechService.audioSpeech;
+        this.newMessage = {
+          message: this.messageInterceptor,
+          translation: this.translatedText,
+          user: this.user,
+          language: this.languageOrigin,
+          translatedSpeech: this.translatedSpeech,
+          flag: this.flag,
+        };
+        this.newMessagesToEmit.emit(this.newMessage);
+      });
+      this.rawText = '';
     }
-
-    this.translateService.translate(this.rawText, this.user).subscribe(async (response) => {
-      this.translatedText = response;
-      this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
-      this.translatedSpeech = this.textToSpeechService.audioSpeech;
-      this.newMessage = {
-        message: this.messageInterceptor,
-        translation: this.translatedText,
-        user: this.user,
-        language: this.languageOrigin,
-        translatedSpeech: this.translatedSpeech,
-        flag: this.flag,
-      };
-      this.newMessagesToEmit.emit(this.newMessage);
-    });
-    this.rawText = '';
   }
 
   public listen(value: 'translation' | 'speech'): void {
