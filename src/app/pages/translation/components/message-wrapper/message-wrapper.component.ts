@@ -61,7 +61,7 @@ export class MessageWrapperComponent implements OnInit {
       this.micro = true;
       this.recordMode = this.settingsService.recordMode;
       if (!this.recordMode) {
-        this.rawText =''
+        this.rawText = '';
         this.stream();
       }
 
@@ -72,22 +72,15 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   private stream() {
-    this.speechRecognitionService.record(this.languageOrigin).subscribe(
-      (value) => {
-        this.rawText += value;
-      },
-      (err) => {
-        console.log(err);
-      },
-      () => {
-        console.log('Complete');
-      }
-    );
+    this.speechRecognitionService.record(this.languageOrigin).subscribe((value) => {
+      this.rawText += value;
+    });
   }
 
   public exitStream() {
     this.speechRecognitionService.DestroySpeechObject();
     this.speak = false;
+    this.send(false, this.rawText);
   }
   public delete(): void {
     this.rawText = '';
@@ -103,7 +96,7 @@ export class MessageWrapperComponent implements OnInit {
       this.rawText = message;
       this.rawSpeech = this.audioRecordingService.audioSpeech;
     }
-
+    // a voir pour gerer le cas du stream
     this.translateService.translate(this.rawText, this.user).subscribe(async (response) => {
       this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language, this.user);
       this.translatedSpeech = this.textToSpeechService.audioSpeech;
@@ -118,6 +111,7 @@ export class MessageWrapperComponent implements OnInit {
       this.newMessagesToEmit.emit(this.newMessage);
     });
     this.rawText = '';
+    this.speak = false;
   }
 
   public listen(value: 'translation' | 'speech'): void {
@@ -131,6 +125,7 @@ export class MessageWrapperComponent implements OnInit {
   public audioSending(message: string): void {
     this.messageInterceptor = message;
     this.micro = false;
+    this.speak = false;
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.send(false, message);
@@ -138,6 +133,7 @@ export class MessageWrapperComponent implements OnInit {
 
   public exitRecord() {
     this.micro = false;
+    this.speak = false;
     this.recordMode = false;
   }
 }
