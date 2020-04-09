@@ -25,7 +25,7 @@
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
     padding: 15px;
     padding-left: 20px;
-    height: 700px;
+    height: 550px;
     width: 100%;
 
     .head-conversation {
@@ -74,6 +74,10 @@
     flex-direction: column-reverse;
     width: 100%;
     margin-left: 10px;
+
+    #advisor-wrapper {
+      margin-bottom: 10px;
+    }
   }
 }
 
@@ -81,6 +85,9 @@
 @media screen and (min-width: 1001px) and (max-width: 1300px) {
   .interfaces {
     width: 90%;
+    .conversation {
+      height: 550px
+    }
   }
 }
 
@@ -88,8 +95,7 @@
   .interfaces {
     width: 98%;
     .conversation {
-      height: 555px;
-      margin-bottom: 30px;
+      height: 550px;
     }
   }
 }
@@ -98,15 +104,33 @@
   .interfaces {
     width: 96%;
     flex-direction: column;
+    margin-bottom: 10px;
 
     .margin {
-      margin-bottom: 20px;
+      margin-bottom: 0;
       margin-right: 0;
     }
-    
+
     .conversation {
-      height: 600px;
-      margin-bottom: 30px;
+      height: 360px;
+      margin-bottom: 10px;
+      .head-conversation {
+        width: 98%;
+        h2 {
+
+        }
+
+        .auto-listen {
+          width: 90%;
+          .auto-listen-btn {
+            margin-right: 0px;
+          }
+        }
+      }
+    }
+
+    .msg {
+      margin-left: 0px;
     }
   }
 }
