@@ -52,7 +52,7 @@
         text-align: end;
         vertical-align: text-bottom;
         padding-top: 5px;
-        a {
+        .auto-listen-btn {
           text-decoration: none;
           color: #4171DA;
           margin-right: 10px;
@@ -80,15 +80,12 @@
 @media screen and (min-width: 1001px) and (max-width: 1300px) {
   .interfaces {
     width: 90%;
-    .msg {}
-    .conversation {}
   }
 }
 
 @media screen and (min-width: 801px) and (max-width: 1000px) {
   .interfaces {
     width: 98%;
-    .msg {}
     .conversation {
       height: 555px;
       margin-bottom: 30px;
@@ -105,9 +102,7 @@
       margin-bottom: 20px;
       margin-right: 0;
     }
-
-    .msg {}
-
+    
     .conversation {
       height: 600px;
       margin-bottom: 30px;

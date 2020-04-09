@@ -1,11 +1,11 @@
 <ng-container *ngFor="let message of conversationThread; let i = index;">
   <div class="translation">
-    <div class="sentence" [ngStyle]="{'text-align': message.language === 'ar-XA' ? 'start' : 'end'}">
+    <div class="sentence" [ngStyle]="{'text-align': message.language === 'ar-XA' ? 'end' : 'start'}">
         {{ message.translation }}
     </div>
-    <button class="listen" (click)="listen(i)">
+    <a class="listen" (click)="listen(i)">
       <img src="../../../assets/icons/icon-listen-black.svg" alt="Ecoute de la traduction">
-    </button>
+    </a>
   </div>
   <div class="message-sended">
     <div class="flag">
@@ -16,17 +16,21 @@
       <span>
         <div *ngIf="!visible; then longText else shortText"></div>
         <ng-template #shortText>
-          <a (click)="editMessage(i)">{{ message.message }}</a>
-          <button *ngIf="message.message.length > 120" (click)="extand(i)">REDUIRE</button>
+          <a class="incoming-message" (click)="editMessage(i)">{{ message.message }}</a>
+          <a class="extand" *ngIf="message.message !== undefined && message.message.length > 98" (click)="extand()">
+            <img src="./assets/icons/icon-chevron-close-blue.svg" alt="réduire le texte" />
+          </a>
         </ng-template>
         <ng-template #longText>
-          <a (click)="editMessage(i)">{{ message.message | slice:0:120 }}</a>
-          <button *ngIf="message.message.length > 120" (click)="extand(i)">...</button>
+          <a class="incoming-message" (click)="editMessage(i)">{{ message.message | slice:0:98 }}&nbsp;<strong *ngIf="message.message.length > 98">...</strong></a>
+          <a class="extand" *ngIf="message.message !== undefined && message.message.length > 98" (click)="extand()">
+            <img src="./assets/icons/icon-chevron-open-blue.svg" alt="étendre le texte" />
+          </a>
         </ng-template>
       </span>
-      </div>
+    </div>
     <div class="delete" (click)="deleteMessage(i)">
-      <img src="./assets/icons/icon-delete-black.svg" alt="delete text" />
+      <img src="./assets/icons/icon-remove-blue.svg" alt="supprimer le texte" />
     </div>
   </div>
 </ng-container>
