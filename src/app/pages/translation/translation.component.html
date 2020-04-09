@@ -2,17 +2,6 @@
 
 <app-translation-title (finish)="closeConversation()"></app-translation-title>
 <div class="interfaces">
-  <div class="msg">
-    <app-message-wrapper user="advisor" class="margin"
-    (newMessagesToEmit)="addToThread($event)"
-    [rawText]="advisorTextToEdit"
-    >
-  </app-message-wrapper>
-    <app-message-wrapper user="guest" class="margin"
-    (newMessagesToEmit)="addToThread($event)"
-    [rawText]="guestTextToEdit"
-    ></app-message-wrapper>
-  </div>
   <div class="conversation">
     <div class="head-conversation">
       <h2>Conversation</h2>
@@ -27,5 +16,15 @@
       (textToEdit)="toEdit($event)"
       ></app-conversation-thread>
     </div>
+  </div>
+  <div class="msg">
+    <app-message-wrapper user="guest" class="margin"
+    (newMessagesToEmit)="addToThread($event)"
+    [rawText]="guestTextToEdit"
+    ></app-message-wrapper>
+    <app-message-wrapper user="advisor" class="margin"
+    (newMessagesToEmit)="addToThread($event)"
+    [rawText]="advisorTextToEdit"
+    ></app-message-wrapper>
   </div>
 </div>

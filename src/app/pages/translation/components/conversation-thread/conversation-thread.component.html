@@ -9,7 +9,7 @@
   </div>
   <div class="message-sended">
     <div class="flag">
-      <span *ngIf="message.flag !== 'arabic'"class="flag-icon flag-icon-{{ message.flag }}" routerLink="/choice"></span>
+      <span *ngIf="message.flag !== 'arabic'"class="flag-icon flag-icon-{{ message.flag }}"></span>
       <img *ngIf="message.flag === 'arabic'" class="flag-icon" src="assets/images/arab-flag.png" alt="drapeau" />
     </div>
     <div class="text" [ngStyle]="{'text-align': message.flag == 'arabic' ? 'end' : 'start'}">

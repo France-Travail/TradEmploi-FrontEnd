@@ -17,12 +17,13 @@
     height: auto;
     margin: auto;
     font-size: 20px;
-    padding-left: 5px;
+    padding-left: 5px; 
   }
 
   a {
     img {
       width: 20px;
+      cursor: pointer;
     }
   }
 }
@@ -42,6 +43,7 @@
       box-sizing: border-box;
       border-radius: 5px;
       background-size: cover;
+      cursor: default;
     }
   }
 
@@ -70,6 +72,7 @@
           -moz-border-radius: 70px; 
           -webkit-border-radius: 70px; 
           border-radius: 70px;
+          cursor: pointer;
         }
       }
     }
@@ -85,6 +88,7 @@
       -moz-border-radius: 70px; 
       -webkit-border-radius: 70px; 
       border-radius: 70px;
+      cursor: pointer;
     }
   }
 }
