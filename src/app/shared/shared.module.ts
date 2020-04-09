@@ -18,17 +18,18 @@ import {
   MatNativeDateModule,
   MatSlideToggleModule,
   MatIconModule,
-  MatTooltipModule
+  MatTooltipModule,
 } from '@angular/material';
 
 // Custom Components
 import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RecordComponent } from './components/record/record.component';
+import { StreamComponent } from './components/stream/stream.component';
 import { TranslationTitleComponent } from './components/translation-title/translation-title.component';
 import { RouterModule } from '@angular/router';
 
-const COMPONENTS = [AudioAnimationComponent, NavbarComponent, RecordComponent, TranslationTitleComponent];
+const COMPONENTS = [AudioAnimationComponent, NavbarComponent, RecordComponent, StreamComponent, TranslationTitleComponent];
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -44,20 +45,14 @@ const MATERIAL_MODULES = [
   MatNativeDateModule,
   MatSlideToggleModule,
   MatIconModule,
-  MatTooltipModule
+  MatTooltipModule,
 ];
 
-const MODULES = [
-  RouterModule,
-  CommonModule,
-  ReactiveFormsModule,
-  FormsModule,
-  ...MATERIAL_MODULES
-];
+const MODULES = [RouterModule, CommonModule, ReactiveFormsModule, FormsModule, ...MATERIAL_MODULES];
 
 @NgModule({
   declarations: [...COMPONENTS],
-  imports: [...MODULES ],
-  exports: [...COMPONENTS, ...MODULES]
+  imports: [...MODULES],
+  exports: [...COMPONENTS, ...MODULES],
 })
-export class SharedModule {} 
+export class SharedModule {}

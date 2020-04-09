@@ -18,8 +18,9 @@ export class SettingsComponent {
   public navBarItems: NavbarItem[] = [];
   public isAdmin: boolean = false;
   public path: string;
+  public recordMode:boolean =false;
 
-  constructor(public router: Router, private authService: AuthService, private fireFunction: AngularFireFunctions, private toastService: ToastService, private settingService: SettingsService) {
+  constructor(public router: Router, private authService: AuthService, private fireFunction: AngularFireFunctions, private toastService: ToastService, private settingsService: SettingsService) {
     this.authService.auth.subscribe((auth) => {
       if (auth !== null) {
         this.isAdmin = auth.role === 'ADMIN';
@@ -27,6 +28,7 @@ export class SettingsComponent {
     });
     const url = this.router.url;
     this.path = url.substring(url.lastIndexOf('/'));
+    this.recordMode = this.settingsService.recordMode
   }
 
   public export(): void {
@@ -60,6 +62,6 @@ export class SettingsComponent {
   }
 
   onItemChange(value) {
-    this.settingService.recordMode = value ==='record';
+    this.settingsService.recordMode = value ==='record';
   }
 }

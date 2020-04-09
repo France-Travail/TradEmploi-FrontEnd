@@ -7,7 +7,7 @@
       <h4>Mode de saisie vocal</h4>
       <div class="option">
         <div class="option-item">
-          <input id="vocal-stream" type="radio" name="vocal" value="stream" (change)="onItemChange($event.target.value)" checked />
+          <input id="vocal-stream" type="radio" name="vocal" value="stream" (change)="onItemChange($event.target.value)" [checked]="!recordMode" />
         </div>
         <div class="option-item">
           <p class="option-text">
@@ -18,7 +18,7 @@
       </div>
       <div class="option">
         <div class="option-item">
-          <input id="vocal-record" type="radio" name="vocal" value="record" (change)="onItemChange($event.target.value)" />
+          <input id="vocal-record" type="radio" name="vocal" value="record" (change)="onItemChange($event.target.value)" [checked]="recordMode"/>
         </div>
         <div class="option-item">
           <p class="option-text">
