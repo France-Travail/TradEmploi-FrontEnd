@@ -74,6 +74,10 @@
     flex-direction: column-reverse;
     width: 100%;
     margin-left: 10px;
+
+    #advisor-wrapper {
+      margin-bottom: 10px;
+    }
   }
 }
 
@@ -81,6 +85,9 @@
 @media screen and (min-width: 1001px) and (max-width: 1300px) {
   .interfaces {
     width: 90%;
+    .conversation {
+      height: 700px
+    }
   }
 }
 
@@ -88,7 +95,7 @@
   .interfaces {
     width: 98%;
     .conversation {
-      height: 555px;
+      height: 550px;
       margin-bottom: 30px;
     }
   }
@@ -98,15 +105,20 @@
   .interfaces {
     width: 96%;
     flex-direction: column;
+    margin-bottom: 10px;
 
     .margin {
-      margin-bottom: 20px;
+      margin-bottom: 0;
       margin-right: 0;
     }
     
     .conversation {
-      height: 600px;
-      margin-bottom: 30px;
+      height: 400px;
+      margin-bottom: 10px;
+    }
+
+    .msg {
+      margin-left: 0px;
     }
   }
 }

@@ -14,7 +14,6 @@
   padding: 15px;
   height: 270px;
   width: 100%;
-  margin-top: 15px;
 
   h2 {
     font-size: 14px;
@@ -174,6 +173,12 @@
     height: 270px !important;
     .input-wrapper {
       height: 140px;
+      .flag {
+        margin-right: 10px;
+      }
+      textarea {
+        padding: 0px
+      }
     }
     .margin {
       margin-bottom: 60px !important;
