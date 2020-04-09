@@ -10,7 +10,6 @@ import { TranslateService } from 'src/app/services/translate.service';
 import { NavbarItem } from 'src/app/models/navbar-item';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
 import { SettingsService } from 'src/app/services/settings.service';
-import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 
 @Component({
   selector: 'app-translation',
