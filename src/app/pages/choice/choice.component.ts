@@ -7,7 +7,7 @@ import { TranslateService } from 'src/app/services/translate.service';
 
 import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
 // Dialogs
-import { LanguagesComponent, Countries } from './dialog/languages/languages.component';
+import { LanguagesComponent } from './dialog/languages/languages.component';
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
@@ -23,6 +23,8 @@ interface selectedCountry {
   displayedWelcome: string;
   readedWelcome: string;
   audioSupported: string;
+  languageButtonRAW: string;
+  languageButtonFR: string;
 }
 @Component({
   selector: 'app-choice',
@@ -78,7 +80,7 @@ export class ChoiceComponent implements AfterContentInit {
   }
   showMainLanguages(): void {
     this.selectedCountries.forEach((country) => {
-      let sentences = this.vocabulary.find((item) => item.isoCode === country).sentences;
+      const sentences = this.vocabulary.find((item) => item.isoCode === country).sentences;
       this.selectedCountriesData.push({
         displayedWelcome: sentences.find((s) => s.key === 'displayed-welcome').value,
         readedWelcome: sentences.find((s) => s.key === 'readed-welcome').value,
@@ -87,6 +89,8 @@ export class ChoiceComponent implements AfterContentInit {
         languageRAW: sentences.find((s) => s.key === 'language-name-raw').value,
         languageFR: sentences.find((s) => s.key === 'language-name-fr').value,
         audioSupported: sentences.find((s) => s.key === 'audioSupported')?.value,
+        languageButtonRAW: sentences.find((s) => s.key === 'languageButtonRAW')?.value.toUpperCase(),
+        languageButtonFR: sentences.find((s) => s.key === 'languageButtonFR')?.value.toUpperCase(),
       });
     });
   }
