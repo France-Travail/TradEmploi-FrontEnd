@@ -12,12 +12,12 @@
   border-radius: 5px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
   padding: 15px;
-  height: 270px;
+  height: 210px;
   width: 100%;
 
   h2 {
     font-size: 14px;
-    line-height: 15px;
+    line-height: 10px;
     font-weight: bold;
     margin-bottom: 20px;
   }
@@ -33,6 +33,7 @@
       padding: 5px;
       border-radius: 5px;
       border: 1px solid #bdbdbd;
+      height: 100px;
 
       .flag {
         cursor: default;
@@ -51,7 +52,7 @@
         color: $black;
         font-size: 18px;
         padding: 0 10px;
-        height: 130px;
+        height: 90px;
         border: none;
         outline: none;
         resize: none;
@@ -60,7 +61,7 @@
           width: 5px;
           background-color: #e0e0e0;
         }
-    
+
         &::-webkit-scrollbar-thumb {
           background-color: $black;
           border-radius: 3px;
@@ -88,7 +89,7 @@
     }
 
     .actions {
-      padding: 20px 0;
+      padding: 12px 0;
       display: flex;
       justify-content: flex-end;
       button {
@@ -118,7 +119,7 @@
     .margin {
       margin-bottom: 75px;
     }
-  
+
     .translation {
       position: relative;
       height: 300px;
@@ -136,7 +137,7 @@
           width: 5px;
           background-color: #e0e0e0;
         }
-    
+
         &::-webkit-scrollbar-thumb {
           background-color: $secondary-color;
           border-radius: 3px;
@@ -170,7 +171,7 @@
 
 @media screen and (max-width: 800px) {
   .container {
-    height: 270px !important;
+    height: 210px !important;
     .input-wrapper {
       height: 140px;
       .flag {
