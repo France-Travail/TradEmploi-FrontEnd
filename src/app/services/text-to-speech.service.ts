@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VoicesService } from './voices.service';
 import { environment } from 'src/environments/environment.prod';
 import { Voice } from '../models/voice';
-import { ToastService } from './toast.service';
 
 interface Body {
   audioConfig: {
