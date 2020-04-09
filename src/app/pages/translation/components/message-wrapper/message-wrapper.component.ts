@@ -7,6 +7,7 @@ import { AudioRecordingService } from 'src/app/services/audio-recording.service'
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { NewMessage } from 'src/app/models/new-message';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -51,7 +52,8 @@ export class MessageWrapperComponent implements OnInit {
     private settingsService: SettingsService,
     private audioRecordingService: AudioRecordingService,
     public textToSpeechService: TextToSpeechService,
-    public router: Router
+    public router: Router,
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +65,9 @@ export class MessageWrapperComponent implements OnInit {
     this.flag = this.isLanguageExist ? sentences.find((s) => s.key === 'flag').value.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
     this.language = this.user === 'guest' ? 'fr-FR' : this.settingsService.guest.value.language;
     this.languageKeyboard = this.languageOrigin.split('-')[0];
-    this.showKeyboard = window.innerWidth > 720;
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
+      this.showKeyboard = !result.matches;
+    });
   }
 
   public async talk(): Promise<void> {

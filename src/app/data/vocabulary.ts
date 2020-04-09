@@ -259,30 +259,6 @@ export const VOCABULARY_V2: Vocabulary[] = [
       { key: 'rate-comment', value: 'تعليق مجاني' },
     ],
   },
-  // {
-  //   isoCode: 'ar-XA',
-  //   sentences: [
-  //     { key: 'country-name-raw', value: 'الجزائر' },
-  //     { key: 'country-name-fr', value: 'Algérie' },
-  //     { key: 'language-name-raw', value: 'العربية' },
-  //     { key: 'language-name-fr', value: 'Arabe' },
-  //     { key: 'flag', value: 'DZ' },
-  //     { key: 'audioSupported', value: 'ok' },
-  //     { key: 'application-name', value: 'الترجمة الفورية' },
-  //     { key: 'send', value: 'إرسال' },
-  //     { key: 'translate', value: 'ترجمة' },
-  //     { key: 'translation-h2', value: 'أدخل النص باللغة العربية' },
-  //     { key: 'rate', value: 'هل أنت راض عن مقابلتك؟' },
-  //     { key: 'thanks', value: 'بول إمبلوي شكرا لك' },
-  //     { key: 'listen', value: 'استمع' },
-  //     { key: 'record-text', value: 'تكلم الان' },
-  //     { key: 'button-sentence', value: 'اختر اللغة العربية' },
-  //     { key: 'button-sentence-fr', value: "Choisir l'arabe " },
-  //     { key: 'displayed-welcome', value: 'مرحباً ، سأكون مترجمك الخاص للتبادل بسهولة مع مستشارك.' },
-  //     { key: 'readed-welcome', value: 'هل ترغب في التبادل بهذه اللغة؟' }
-  //   ]
-  // },
-
   {
     isoCode: 'ar-SA',
     sentences: [
