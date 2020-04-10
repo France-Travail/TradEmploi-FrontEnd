@@ -23,7 +23,7 @@ nav {
     button {
       border: none;
       display: flex;
-      margin: 0 10px;
+      margin: 0 5px;
       background: transparent;
       align-items: center;
       margin-right: 20px;
@@ -52,9 +52,31 @@ nav {
   }
 }
 
+@media screen and (max-width: 400px) {
+   nav {
+    flex-direction: column;
+
+    .buttons {
+      .button {
+        margin: 0 5px;
+      }
+    }
+  }
+}
 @media screen and (max-width: 700px) {
   nav {
     flex-direction: column;
+
+    .buttons {
+      .button {
+        margin: 0 5px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  nav {
 
     .logo {
       img {
