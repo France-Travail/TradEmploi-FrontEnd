@@ -76,7 +76,7 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
-    if (this.rawText && this.rawText !== undefined && this.rawText !== '') {
+    if (this.rawText !== undefined || this.rawText !== '') {
       if (fromKeyBoard) {
         const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
         this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
@@ -86,7 +86,6 @@ export class MessageWrapperComponent implements OnInit {
         this.rawText = message;
         this.rawSpeech = this.audioRecordingService.audioSpeech;
       }
-  
       this.translateService.translate(this.rawText, this.user).subscribe(async response => {
         this.translatedText = response;
         this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);

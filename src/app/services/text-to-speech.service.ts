@@ -26,7 +26,7 @@ interface Body {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TextToSpeechService {
   private url: string = 'https://texttospeech.googleapis.com/v1beta1/text:synthesize';
@@ -36,8 +36,8 @@ export class TextToSpeechService {
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+      'Content-Type': 'application/json',
+    }),
   };
 
   constructor(private httpClient: HttpClient, private voicesService: VoicesService) {}
@@ -50,7 +50,7 @@ export class TextToSpeechService {
       const SECOND_GENDER = GENDER === 'MALE' ? 'FEMALE' : 'MALE';
       const names: Voice[] = [];
 
-      this.voicesService.voicesList.forEach(voice => {
+      this.voicesService.voicesList.forEach((voice) => {
         if (voice.languageCodes.includes(language) /*&& voice.name.includes('Wavenet')*/) {
           names.push(voice);
         }
@@ -60,33 +60,33 @@ export class TextToSpeechService {
         audioConfig: {
           audioEncoding: 'MP3',
           pitch: 0,
-          speakingRate: 1
+          speakingRate: 1,
         },
         input: {
-          text
+          text,
         },
         voice: {
-          languageCode: language
-        }
+          languageCode: language,
+        },
       };
 
       if (names.length >= 1) {
-        const voice: Voice = names.find(v => v.ssmlGender === GENDER);
-        body.voice.name = voice === undefined ? names.find(v => v.ssmlGender === SECOND_GENDER).name : voice.name;
+        const voice: Voice = names.find((v) => v.ssmlGender === GENDER);
+        body.voice.name = voice === undefined ? names.find((v) => v.ssmlGender === SECOND_GENDER).name : voice.name
+        this.httpClient.post<any>(url, body, this.httpOptions).subscribe(
+          (response) => {
+            this.audioSpeech = new Audio('data:audio/mp3;base64,' + response.audioContent);
+            resolve(true);
+          },
+          (error) => {
+            resolve(false);
+            throw new Error(error.message)
+          }
+        );
       } else {
         console.log('NO WAVENET VOICE FOUNDED');
         resolve(false);
       }
-
-      this.httpClient.post<any>(url, body, this.httpOptions).subscribe(
-        response => {
-          this.audioSpeech = new Audio('data:audio/mp3;base64,' + response.audioContent);
-          resolve(true);
-        },
-        error => {
-          resolve(false);
-        }
-      );
     });
   }
 }
