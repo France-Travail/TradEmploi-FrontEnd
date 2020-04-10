@@ -76,14 +76,11 @@ export class MessageWrapperComponent implements OnInit {
   private stream() {
     let saveText = '';
     this.speechRecognitionService.record(this.languageOrigin).subscribe((value: Stream) => {
-      console.log('value :', value);
-      //si interim
-      //afficher le text + interim
       if (value.interim != '') {
-        this.rawText += value.interim;
+        this.rawText += '  ...';
       } else {
         this.rawText = saveText + value.final;
-        saveText = value.final;
+        saveText = this.rawText;
       }
     });
   }

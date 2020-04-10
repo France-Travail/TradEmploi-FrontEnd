@@ -35,31 +35,10 @@ export class SpeechRecognitionService {
             interim_transcript += event.results[i][0].transcript;
           }
         }
-        console.log('final_transcript :', final_transcript);
-        console.log('interim_transcript :', interim_transcript);
         this.zone.run(() => {
           observer.next({ final: final_transcript, interim: interim_transcript });
         });
       };
-
-      // this.speechRecognition.onresult = speech => {
-      //   let term: string = '';
-      //   if (speech.results) {
-      //     const result = speech.results[speech.resultIndex];
-      //     const transcript = result[0].transcript;
-
-      //     if (result.isFinal) {
-      //       if (result[0].confidence < 0.3) {
-      //         console.log('Unrecognized result - Please try again');
-      //       } else {
-      //         term = transcript;
-      //       }
-      //     }
-      //   }
-      //   this.zone.run(() => {
-      //     observer.next(term);
-      //   });
-      // };
 
       this.speechRecognition.onerror = (error) => {
         observer.error(error);
