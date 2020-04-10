@@ -53,6 +53,7 @@ strong {
       }
     }
     .selectLanguageButton {
+      background-color: $white;
       align-items: baseline;
       display: flex;
       color: $button-black;
@@ -65,7 +66,6 @@ strong {
       border: 1px solid $gray74;
       border-radius: 10px;
       cursor: pointer;
-
       .flag-icon {
         width: 29px;
         height: 20px;
@@ -73,11 +73,11 @@ strong {
         box-sizing: border-box;
         border-radius: 5px;
         background-size: cover;
-        margin: auto;
+        margin: auto 10px;
       }
 
       .sentences {
-        margin: auto;
+        margin: auto 0;
         flex-direction: column;
         .buttonSentenceFR {
           font-size: 11px;
@@ -92,6 +92,7 @@ strong {
       background: $primary-color;
       .selectLanguageButton {
         color: white;
+        background-color: $primary-color;
       }
     }
   }
