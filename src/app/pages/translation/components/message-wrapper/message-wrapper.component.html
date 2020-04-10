@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="actions" *ngIf="!micro || !recordMode">
-      <button class="btn-send" (click)="send(true)">
+      <button class="btn-send" [ngClass]="{'btn-send-disabled': speak && !recordMode}" (click)="send(true)" [disabled]="speak && !recordMode" >
         <img src="./assets/icons/icon-send-white.svg" alt="send text" />
         {{ sendBtnValue | uppercase }}
       </button>

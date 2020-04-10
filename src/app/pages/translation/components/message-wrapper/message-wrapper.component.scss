@@ -122,6 +122,9 @@
         background: $primary-color;
         color: $white;
       }
+      .btn-send-disabled {
+        background: $white-smoke;
+      }
     }
 
     .margin {
