@@ -11,15 +11,15 @@
   background-color: #ffffff;
   border-radius: 5px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
-  padding: 15px;
-  height: 210px;
+  padding: 10px 15px;
+  height: 180px;
   width: 100%;
 
   h2 {
     font-size: 14px;
-    line-height: 10px;
+    line-height: 15px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
   .input-wrapper {
@@ -33,7 +33,7 @@
       padding: 5px;
       border-radius: 5px;
       border: 1px solid #bdbdbd;
-      height: 100px;
+      height: 80px;
 
       .flag {
         cursor: default;
@@ -52,7 +52,7 @@
         color: $black;
         font-size: 18px;
         padding: 0 10px;
-        height: 90px;
+        height: 65px;
         border: none;
         outline: none;
         resize: none;
