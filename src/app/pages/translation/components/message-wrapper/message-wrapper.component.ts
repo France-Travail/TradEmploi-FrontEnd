@@ -104,7 +104,6 @@ export class MessageWrapperComponent implements OnInit {
       this.rawText = message;
       this.rawSpeech = this.audioRecordingService.audioSpeech;
     }
-    // a voir pour gerer le cas du stream
     this.translateService.translate(this.rawText, this.user).subscribe(async (response) => {
       this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language, this.user);
       this.translatedSpeech = this.textToSpeechService.audioSpeech;
