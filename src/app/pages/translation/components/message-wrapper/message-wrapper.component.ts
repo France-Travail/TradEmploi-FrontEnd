@@ -76,7 +76,7 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
-    if (this.rawText !== undefined || this.rawText !== '') {
+    if (this.rawText && this.rawText !== undefined || this.rawText !== '') {
       if (fromKeyBoard) {
         const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
         this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
