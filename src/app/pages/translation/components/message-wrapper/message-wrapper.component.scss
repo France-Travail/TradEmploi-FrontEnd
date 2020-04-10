@@ -60,7 +60,7 @@
           width: 5px;
           background-color: #e0e0e0;
         }
-    
+
         &::-webkit-scrollbar-thumb {
           background-color: $black;
           border-radius: 3px;
@@ -79,6 +79,14 @@
         .micro {
           height: 24px;
           width: 30px;
+        }
+
+        .micro-stream {
+          height: 24px;
+          width: 30px;
+          border-radius: 50px;
+          box-shadow: 1px 1px 5px #888888;
+          margin-top: 1px;
         }
 
         .delete {
@@ -118,7 +126,7 @@
     .margin {
       margin-bottom: 75px;
     }
-  
+
     .translation {
       position: relative;
       height: 300px;
@@ -136,7 +144,7 @@
           width: 5px;
           background-color: #e0e0e0;
         }
-    
+
         &::-webkit-scrollbar-thumb {
           background-color: $secondary-color;
           border-radius: 3px;
@@ -166,7 +174,6 @@
     }
   }
 }
-
 
 @media screen and (max-width: 800px) {
   .container {

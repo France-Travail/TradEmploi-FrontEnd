@@ -6,10 +6,11 @@
         <span *ngIf="flag !== 'arabic'" class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
         <img *ngIf="flag === 'arabic'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" routerLink="/choice" />
       </div>
-      <textarea [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"></textarea>
+      <span>interim = {{interim}}</span>
+      <textarea [(ngModel)]="rawText" [placeholder]="interim" (keydown.enter)="send(true); (false)" [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"></textarea>
       <div class="buttons">
         <img class="micro" *ngIf="!speak" src="./assets/icons/icon-micro-black.svg" alt="activate micro" (click)="talk()" />
-        <img class="micro" *ngIf="speak && !recordMode" src="./assets/icons/icon-micro-red.svg" alt="activate micro" (click)="exitStream()" />
+        <img class="micro-stream" *ngIf="speak && !recordMode" src="./assets/icons/icon-micro-red.svg" alt="activate micro" (click)="exitStream()" />
         <img class="delete" src="./assets/icons/icon-delete-black.svg" alt="delete text" (click)="delete()" />
       </div>
     </div>

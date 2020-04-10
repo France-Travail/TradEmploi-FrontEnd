@@ -7,6 +7,7 @@ import { AudioRecordingService } from 'src/app/services/audio-recording.service'
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { NewMessage } from 'src/app/models/new-message';
+import { Stream } from 'src/app/models/stream';
 import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
 
 @Component({
@@ -27,6 +28,7 @@ export class MessageWrapperComponent implements OnInit {
   public languageOrigin: string;
   public rawSpeech: HTMLAudioElement;
   public translatedSpeech: HTMLAudioElement;
+  public interim: string = '';
 
   public micro: boolean = false;
   public recordMode: boolean = false;
@@ -72,8 +74,17 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   private stream() {
-    this.speechRecognitionService.record(this.languageOrigin).subscribe((value) => {
-      this.rawText += value;
+    let saveText = '';
+    this.speechRecognitionService.record(this.languageOrigin).subscribe((value: Stream) => {
+      console.log('value :', value);
+      //si interim
+      //afficher le text + interim
+      if (value.interim != '') {
+        this.rawText += value.interim;
+      } else {
+        this.rawText = saveText + value.final;
+        saveText = value.final;
+      }
     });
   }
 
