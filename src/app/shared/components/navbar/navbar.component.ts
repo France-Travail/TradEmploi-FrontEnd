@@ -2,8 +2,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsService } from 'src/app/services/settings.service';
 import { NavbarItem } from 'src/app/models/navbar-item';
-import { COUNTRIES } from 'src/app/data/countries';
-import { AuthService } from 'src/app/services/auth.service';
 import { LogoutComponent } from '../logout/logout.component';
 import { MatDialog } from '@angular/material';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -18,7 +16,6 @@ export class NavbarComponent {
   @Output() perform: EventEmitter<any> = new EventEmitter<any>();
 
   public title: string = 'Traduction Instantanée';
-  public language: { raw: string; french: string } = { raw: '', french: '' };
   private isMobile: boolean = false;
 
   constructor(
@@ -30,14 +27,6 @@ export class NavbarComponent {
   ) {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
-    });
-    this.settingsService.guest.subscribe((user) => {
-      if (user.language !== '') {
-        this.language = {
-          raw: COUNTRIES.find((c) => c.code.writtenLanguage === user.language).language,
-          french: COUNTRIES.find((c) => c.code.writtenLanguage === user.language).LanguageFr,
-        };
-      }
     });
   }
 

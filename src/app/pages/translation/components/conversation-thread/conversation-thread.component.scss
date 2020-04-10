@@ -10,21 +10,20 @@
   text-align: justify;
   overflow-y: auto;
   background-color: #F5F5F5;
+  border-radius: 5px;
 
   .sentence {
     width: 94%;
     height: auto;
     margin: auto;
     font-size: 20px;
+    padding-left: 5px; 
   }
 
-  button {
-    border: none;
-    background-color: transparent;
-    margin-left: 10px;
-
+  a {
     img {
-      width: 22px;
+      width: 20px;
+      cursor: pointer;
     }
   }
 }
@@ -44,68 +43,52 @@
       box-sizing: border-box;
       border-radius: 5px;
       background-size: cover;
+      cursor: default;
     }
   }
 
   .text {
-    width: 84%;
-    padding: 0px 10px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0 5px 0 10px;
     text-align: justify;
     font-size: 16px;
     span {
-      a {
+      display: flex;
+      .incoming-message {
         text-decoration: none;
         color: #4171DA;
+        padding-top: 5px;
         cursor: pointer;
+        padding-right: 25px;
+        text-align: justify;
       }
-      button {
-        display: flex;
-        align-items: flex-end;
-        padding: 4px;
-        min-width: 60px;
-        background: $white;
-        color: $black;
-        border: 1px solid $btn-border;
-        border-radius: 5px;
+      .extand {
+        img {
+          width: 30px;
+          height: 30px;
+          background: #F5F5F5; 
+          -moz-border-radius: 70px; 
+          -webkit-border-radius: 70px; 
+          border-radius: 70px;
+          cursor: pointer;
+        }
       }
     }
   }
   .delete {
-    height: 30px;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .translation {
-  
-    .sentence {
-    }
-  
-    button {
-  
-      img {
-      }
-    }
-  }
-  
-  .message-sended {
-  
-    .flag {
-
-      .flag-icon {
-      }
-    }
-  
-    .text {
-      span {
-        a {
-        }
-        button {
-        }
-      }
-    }
-    .delete {
-
+    margin-right: 15px;
+    margin-left: 15px;
+    img {
+      margin-right: 3px;
+      width: 30px;
+      height: 30px;
+      background: #F5F5F5; 
+      -moz-border-radius: 70px; 
+      -webkit-border-radius: 70px; 
+      border-radius: 70px;
+      cursor: pointer;
     }
   }
 }

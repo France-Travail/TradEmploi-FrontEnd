@@ -2,30 +2,29 @@
 
 <app-translation-title (finish)="closeConversation()"></app-translation-title>
 <div class="interfaces">
-  <div class="msg">
-    <app-message-wrapper user="advisor" class="margin"
-    (newMessagesToEmit)="addToThread($event)"
-    [rawText]="advisorTextToEdit"
-    >
-  </app-message-wrapper>
-    <app-message-wrapper user="guest" class="margin"
-    (newMessagesToEmit)="addToThread($event)"
-    [rawText]="guestTextToEdit"
-    ></app-message-wrapper>
-  </div>
   <div class="conversation">
     <div class="head-conversation">
       <h2>Conversation</h2>
       <div class="auto-listen">
-        <a href="#">Ecouter automatiquement</a><mat-slide-toggle></mat-slide-toggle>
+        <mat-slide-toggle class="auto-listen-btn" (click)="switchAudio()" checked labelPosition="before" color="primary">{{ autoListenValue }}</mat-slide-toggle>
       </div>
     </div>
-    <div class="thread">
+    <div class="thread" #scrollMe [scrollTop]="scrollMe.scrollHeight">
       <app-conversation-thread
       [rawText]="sentMessage"
       [conversationThread]="messages"
       (textToEdit)="toEdit($event)"
       ></app-conversation-thread>
     </div>
+  </div>
+  <div class="msg">
+    <app-message-wrapper user="guest" class="margin"
+    (newMessagesToEmit)="addToThread($event)"
+    [rawText]="guestTextToEdit"
+    ></app-message-wrapper>
+    <app-message-wrapper id="advisor-wrapper" user="advisor" class="margin"
+    (newMessagesToEmit)="addToThread($event)"
+    [rawText]="advisorTextToEdit"
+    ></app-message-wrapper>
   </div>
 </div>
