@@ -74,7 +74,7 @@ export class MessageWrapperComponent implements OnInit {
     if ('webkitSpeechRecognition' in window) {
       this.micro = true;
     } else {
-      this.toastService.showToast("L'accès au microphone n'est pas autorisé.");
+      this.toastService.showToast("L'accès au microphone n'est pas autorisé.", 'toast-info');
     }
   }
 
@@ -93,6 +93,7 @@ export class MessageWrapperComponent implements OnInit {
         this.rawText = message;
         this.rawSpeech = this.audioRecordingService.audioSpeech;
       }
+
       this.translateService.translate(this.rawText, this.user).subscribe(async (response) => {
         this.translatedText = response;
         this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);

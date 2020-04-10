@@ -1,30 +1,30 @@
 <navbar [items]="navBarItems"></navbar>
-
-<div class="interfaces">
-  <h1>Paramètre de la session</h1>
-
-  <div class="parameters">
-    <mat-slide-toggle [(ngModel)]="audio" (click)="switchAudio()">Activation de l'audio après traduction </mat-slide-toggle>
-
-    <div class="group" *ngIf="!isNewConversation">
-      <h2>Demandeur d'emploi</h2>
-      <mat-form-field>
-        <input matInput (keyup)="setInformation($event.target.value, 'guestF')" [(ngModel)]="guest.firstname" placeholder="Prénom" value="{{ guest.firstname }}" />
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput (keyup)="setInformation($event.target.value, 'guestL')" [(ngModel)]="guest.lastname" placeholder="Nom" value="{{ guest.lastname }}" />
-      </mat-form-field>
+<div class="parameter-panel">
+  <h2><strong>Paramètres</strong></h2>
+  <a routerLink="{{ path }}"> < retour</a>
+  <div class="parameter">
+    <div>
+      <h4>Mode de saisie vocal</h4>
+      <div class="option">
+        <div class="option-item">
+          <input id="vocal-record" type="radio" name="vocal" value="record" (change)="onItemChange($event.target.value)" checked />
+        </div>
+        <div class="option-item">
+          <p class="option-text">
+            <strong>Saisie avancée</strong><br />
+            Permet de saisir des phrases plus longues.<br />Attention, temps de traitement plus importants.
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="group">
-      <h2>Conseiller</h2>
-      <mat-form-field>
-        <input matInput (keyup)="setInformation($event.target.value, 'advisorF')" [(ngModel)]="advisor.firstname" placeholder="Prénom" value="{{ advisor.firstname }}" />
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput (keyup)="setInformation($event.target.value, 'advisorL')" [(ngModel)]="advisor.lastname" placeholder="Nom" value="{{ advisor.lastname }}" />
-      </mat-form-field>
+    <div *ngIf="isAdmin">
+      <h4>Résultat de l'enquêtes</h4>
+      <div class="export" (click)="export()">
+        <div class="export-item-img">
+          <img src="assets/icons/icon-export-black.svg" alt="Télécharger" />
+        </div>
+        <div class="export-item-text"><span class="export-description">Télécharger</span></div>
+      </div>
     </div>
   </div>
-
-  <button *ngIf="isNewConversation" (click)="validateInformations()">Valider</button>
 </div>

@@ -23,13 +23,9 @@ export const environment = {
   sentry: {
     url: 'https://953593ebcd8a40b4a2e743176c9488b8@sentry.io/5180549',
   },
+  firefunction: {
+    url: 'http://localhost:5001',
+    login: 'ludo',
+    password: '_#Q5g_1i9Z6lRFC',
+  },
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

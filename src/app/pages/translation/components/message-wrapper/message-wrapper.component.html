@@ -3,8 +3,8 @@
   <div class="input-wrapper">
     <div class="field" *ngIf="!micro">
       <div class="flag">
-        <span *ngIf="flag !== 'arabic'" class="flag-icon flag-icon-{{ flag }}" routerLink="/choice"></span>
-        <img *ngIf="flag === 'arabic'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" routerLink="/choice" />
+        <span *ngIf="flag !== 'arabic'" class="flag-icon flag-icon-{{ flag }}"></span>
+        <img *ngIf="flag === 'arabic'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" />
       </div>
       <textarea *ngIf="user == 'advisor'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"></textarea>
       <textarea
@@ -24,8 +24,8 @@
       ></textarea>
 
       <div class="buttons">
-        <img class="micro" src="./assets/icons/icon-micro-black.svg" alt="activate micro" (click)="talk()" />
-        <img class="delete" src="./assets/icons/icon-delete-black.svg" alt="delete text" (click)="delete()" />
+        <img class="micro" src="./assets/icons/icon-micro-blue.svg" alt="activate micro" (click)="talk()" />
+        <img class="delete" src="./assets/icons/icon-remove-blue.svg" alt="delete text" (click)="delete()" />
       </div>
     </div>
     <div class="actions" *ngIf="!micro">
@@ -34,6 +34,6 @@
         {{ sendBtnValue | uppercase }}
       </button>
     </div>
-    <app-record class="margin" *ngIf="micro" duration="50" user="advisor" [language]="languageOrigin" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
+    <app-record class="margin" *ngIf="micro" duration="50" [user]="user" [language]="languageOrigin" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
   </div>
 </div>

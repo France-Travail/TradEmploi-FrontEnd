@@ -31,7 +31,7 @@ export class MeetingComponent {
         this.dialogRef.close('saved');
       });
     } else {
-      this.toastService.showToast('Merci de démarer une conversation avant de prendre un rendez-vous.');
+      this.toastService.showToast('Merci de démarer une conversation avant de prendre un rendez-vous.', 'toast-info');
     }
   }
 

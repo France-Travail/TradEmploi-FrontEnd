@@ -1,0 +1,59 @@
+@import 'styles';
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mat-dialog-title {
+  background-color: $secondary-color;
+  color: #ffffff;
+  padding: 35px 30px;
+  font-size: 20px;
+  margin: 0;
+}
+.mat-dialog-content {
+  margin: 0;
+  padding: 0 30px;
+}
+
+.mat-dialog-actions {
+  margin-bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 30px;
+
+  .logout-btn {
+    padding: 7px 10px;
+    background: $primary-color;
+    color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    outline: none;
+    cursor: pointer;
+    font-size: 12px;
+    width: 130px;
+    height: 40px;
+    margin: 5px;
+  }
+  .cancel-btn {
+    padding: 7px 10px;
+    background: white;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    outline: none;
+    cursor: pointer;
+    font-size: 12px;
+    width: 130px;
+    height: 40px;
+    margin: 5px;
+  }
+}

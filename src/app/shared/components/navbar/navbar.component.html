@@ -4,14 +4,9 @@
   <div class="title">{{ title }}</div>
   </div>
 
-  <!-- <div class="language" *ngIf="language.raw !== ''">
-    <div class="raw">{{ language.raw }}</div> | <div class="french">{{ language.french }}</div>
-  </div> -->
-
   <div class="buttons">
     <ng-container *ngFor="let item of items">
       <button (click)="onClick(item)" *ngIf="item.isDisplayed">
-        <!-- <mat-icon aria-hidden="false">{{ item.icon }}</mat-icon> -->
         <img [src]="item.icon" [alt]="item.infoTitle">
         <span class="name">{{item.infoTitle}}</span>
       </button>

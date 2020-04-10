@@ -14,7 +14,7 @@
   padding: 15px;
   height: 270px;
   width: 100%;
-  margin-bottom: 15px;
+  margin-top: 15px;
 
   h2 {
     font-size: 14px;
@@ -36,6 +36,7 @@
       border: 1px solid #bdbdbd;
 
       .flag {
+        cursor: default;
         .flag-icon {
           width: 34px;
           height: 24px;
@@ -78,11 +79,11 @@
 
         .micro {
           height: 24px;
-          width: 30px;
+          width: 36px;
         }
 
         .delete {
-          height: 30px;
+          height: 35px;
         }
       }
     }
