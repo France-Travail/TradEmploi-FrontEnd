@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { TranslateService } from 'src/app/services/translate.service';
@@ -8,13 +8,16 @@ import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { NewMessage } from 'src/app/models/new-message';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Subscription, BehaviorSubject, Observable } from 'rxjs';
+import { MatKeyboardRef, MatKeyboardComponent, MatKeyboardService } from 'angular-onscreen-material-keyboard';
+import { NgControl, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-message-wrapper',
   templateUrl: './message-wrapper.component.html',
   styleUrls: ['./message-wrapper.component.scss'],
 })
-export class MessageWrapperComponent implements OnInit {
+export class MessageWrapperComponent implements OnInit, AfterViewInit {
   @Input() title: string;
   @Input() user: string;
   @Input() rawText: string;
@@ -46,6 +49,18 @@ export class MessageWrapperComponent implements OnInit {
   private languageKeyboard: string;
   private messageInterceptor: string;
   public showKeyboard: boolean;
+  private _enterSubscription: Subscription;
+
+  private _keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
+
+  private _submittedForms = new BehaviorSubject<{ control: string; value: string }[][]>([]);
+
+  @ViewChild('attachTo')
+  private _attachToElement: ElementRef;
+
+  @ViewChild('attachTo')
+  private _attachToControl: NgControl;
+
   constructor(
     private toastService: ToastService,
     private translateService: TranslateService,
@@ -53,9 +68,12 @@ export class MessageWrapperComponent implements OnInit {
     private audioRecordingService: AudioRecordingService,
     public textToSpeechService: TextToSpeechService,
     public router: Router,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private _keyboardService: MatKeyboardService
   ) {}
-
+  ngAfterViewInit() {
+    console.log(this._attachToElement);
+  }
   ngOnInit(): void {
     this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
     let sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find((item) => item.isoCode === this.languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
@@ -83,6 +101,7 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
+    console.log(this.rawText);
     if (this.rawText && this.rawText !== '') {
       if (fromKeyBoard) {
         const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
@@ -129,5 +148,44 @@ export class MessageWrapperComponent implements OnInit {
 
   public exitRecord() {
     this.micro = false;
+  }
+  get submittedForms(): Observable<{ control: string; value: string }[][]> {
+    return this._submittedForms.asObservable();
+  }
+  submitForm(form?: NgForm) {
+    const submittedForms = this._submittedForms.getValue();
+    const submittedForm = Object.keys(form.controls).map((control: string) => ({
+      control,
+      value: form.controls[control].value,
+    }));
+    submittedForms.push(submittedForm);
+    this._submittedForms.next(submittedForms);
+  }
+
+  openKeyboard(locale = this.languageKeyboard) {
+    this._keyboardRef = this._keyboardService.open(locale);
+    this._enterSubscription = this._keyboardRef.instance.enterClick.subscribe(() => {
+      this.submitForm();
+    });
+  }
+
+  closeCurrentKeyboard() {
+    if (this._keyboardRef) {
+      this._keyboardRef.dismiss();
+    }
+
+    if (this._enterSubscription) {
+      this._enterSubscription.unsubscribe();
+    }
+  }
+
+  openAttachedKeyboard(locale = this.languageKeyboard) {
+    this._keyboardRef = this._keyboardService.open(locale);
+
+    // reference the input element
+    this._keyboardRef.instance.setInputInstance(this._attachToElement);
+
+    // set control
+    this._keyboardRef.instance.attachControl(this._attachToControl.control);
   }
 }

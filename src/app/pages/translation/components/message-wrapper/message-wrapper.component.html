@@ -6,11 +6,16 @@
         <span *ngIf="flag !== 'arabic'" class="flag-icon flag-icon-{{ flag }}"></span>
         <img *ngIf="flag === 'arabic'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" />
       </div>
+
       <textarea *ngIf="user == 'advisor'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"></textarea>
       <textarea
+        #attachTo
+        (click)="openAttachedKeyboard()"
         *ngIf="user !== 'advisor' && showKeyboard"
+        matInput
+        matKeyboard
+        ngModel
         inputmode="none"
-        [matKeyboard]="languageKeyboard"
         [(ngModel)]="rawText"
         (keydown.enter)="send(true); (false)"
         [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"
