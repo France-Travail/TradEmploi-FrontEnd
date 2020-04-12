@@ -105,9 +105,10 @@ export class TranslationComponent {
   }
 
   @HostListener('window:click', ['$event.target.id'])
+  @HostListener('mousemove')
   public MesssagesBoxActions(userAreaElement: string) {
     this.marginKeyboard = this.keyboardService.isOpened ? '500px' : '0';
-    if (userAreaElement !== 'user-area') {
+    if (!this.keyboardService.isOpened) {
       this.marginKeyboard = '0';
     }
   }
