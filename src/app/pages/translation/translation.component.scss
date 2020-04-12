@@ -15,7 +15,7 @@
   width: 80%;
   margin: 0 auto;
   max-width: 1200px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 
   .conversation {
     display: flex;
@@ -25,7 +25,7 @@
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
     padding: 15px;
     padding-left: 20px;
-    height: 700px;
+    height: 530px;
     width: 100%;
 
     .head-conversation {
@@ -36,7 +36,6 @@
       height: 45px;
       h2 {
         font-size: 14px;
-        line-height: 15px;
         font-weight: bold;
         margin-bottom: 20px;
       }
@@ -48,7 +47,7 @@
         padding-top: 5px;
         .auto-listen-btn {
           text-decoration: none;
-          color: #4171DA;
+          color: #4171da;
           margin-right: 10px;
           font-size: 14px;
         }
@@ -74,13 +73,20 @@
     flex-direction: column-reverse;
     width: 100%;
     margin-left: 10px;
+    transition-duration: 0.7s;
+    #advisor-wrapper {
+      margin-bottom: 10px;
+    }
   }
 }
-
 
 @media screen and (min-width: 1001px) and (max-width: 1300px) {
   .interfaces {
     width: 90%;
+    margin-bottom: 10px;
+    .conversation {
+      height: 550px;
+    }
   }
 }
 
@@ -88,8 +94,7 @@
   .interfaces {
     width: 98%;
     .conversation {
-      height: 555px;
-      margin-bottom: 30px;
+      height: 550px;
     }
   }
 }
@@ -98,15 +103,30 @@
   .interfaces {
     width: 96%;
     flex-direction: column;
+    margin-bottom: 10px;
 
     .margin {
-      margin-bottom: 20px;
+      margin-bottom: 0;
       margin-right: 0;
     }
-    
+
     .conversation {
-      height: 600px;
-      margin-bottom: 30px;
+      height: 360px;
+      margin-bottom: 10px;
+      .head-conversation {
+        width: 98%;
+
+        .auto-listen {
+          width: 90%;
+          .auto-listen-btn {
+            margin-right: 0px;
+          }
+        }
+      }
+    }
+
+    .msg {
+      margin-left: 0px;
     }
   }
 }

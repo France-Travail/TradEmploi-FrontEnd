@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, AfterViewInit, HostListener, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { TranslateService } from 'src/app/services/translate.service';
@@ -8,9 +8,9 @@ import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { NewMessage } from 'src/app/models/new-message';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Subscription, BehaviorSubject, Observable } from 'rxjs';
-import { MatKeyboardRef, MatKeyboardComponent, MatKeyboardService } from 'angular-onscreen-material-keyboard';
-import { NgControl, NgForm } from '@angular/forms';
+import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
+import { Stream } from 'src/app/models/stream';
+import { MatKeyboardService } from 'angular-onscreen-material-keyboard';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -24,42 +24,31 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
 
   @Output() newMessagesToEmit = new EventEmitter();
 
-  public messages = [];
   public newMessage: NewMessage;
-
-  // Number
-  public enterKey: number = 13;
-
-  // String
   public sendBtnValue: string;
-  public listenBtnValue: string;
   public flag: string;
-  public language: string;
   public languageOrigin: string;
-
   public rawSpeech: HTMLAudioElement;
   public translatedSpeech: HTMLAudioElement;
   public translatedText: string = '';
-  public isLanguageExist = VOCABULARY_V2.some((item) => item.isoCode === this.settingsService.guest.value.language);
+
   // Boolean
   public micro: boolean = false;
   public error: boolean = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
   //keyboard
   private languageKeyboard: string;
+
   private messageInterceptor: string;
   public showKeyboard: boolean;
-  private _enterSubscription: Subscription;
 
-  private _keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
+  public interim: string = '';
 
-  private _submittedForms = new BehaviorSubject<{ control: string; value: string }[][]>([]);
+  public recordMode: boolean = false;
+  public speak: boolean = false;
 
-  @ViewChild('attachTo')
-  private _attachToElement: ElementRef;
-
-  @ViewChild('attachTo')
-  private _attachToControl: NgControl;
+  private language: string;
+  private isLanguageExist = VOCABULARY_V2.some((item) => item.isoCode === this.settingsService.guest.value.language);
 
   constructor(
     private toastService: ToastService,
@@ -69,17 +58,15 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
     public textToSpeechService: TextToSpeechService,
     public router: Router,
     private breakpointObserver: BreakpointObserver,
-    private _keyboardService: MatKeyboardService
+    private speechRecognitionService: SpeechRecognitionService,
+    private keyboardService: MatKeyboardService
   ) {}
-  ngAfterViewInit() {
-    console.log(this._attachToElement);
-  }
+  ngAfterViewInit() {}
   ngOnInit(): void {
     this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    let sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find((item) => item.isoCode === this.languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
+    const sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find((item) => item.isoCode === this.languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
     this.title = sentences.find((s) => s.key === 'translation-h2').value;
     this.sendBtnValue = sentences.find((s) => s.key === 'send').value;
-    this.listenBtnValue = sentences.find((s) => s.key === 'listen').value;
     this.flag = this.isLanguageExist ? sentences.find((s) => s.key === 'flag').value.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
     this.language = this.user === 'guest' ? 'fr-FR' : this.settingsService.guest.value.language;
     this.languageKeyboard = this.languageOrigin.split('-')[0];
@@ -91,18 +78,40 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
   public async talk(): Promise<void> {
     if ('webkitSpeechRecognition' in window) {
       this.micro = true;
+      this.recordMode = this.settingsService.recordMode;
+      if (!this.recordMode) {
+        this.rawText = '';
+        this.stream();
+      }
+
+      this.speak = true;
     } else {
       this.toastService.showToast("L'accès au microphone n'est pas autorisé.", 'toast-info');
     }
   }
 
+  private stream() {
+    let saveText = '';
+    this.speechRecognitionService.record(this.languageOrigin).subscribe((value: Stream) => {
+      if (value.interim != '') {
+        this.rawText += '  ...';
+      } else {
+        this.rawText = saveText + value.final;
+        saveText = this.rawText;
+      }
+    });
+  }
+
+  public exitStream() {
+    this.speechRecognitionService.DestroySpeechObject();
+    this.speak = false;
+  }
   public delete(): void {
     this.rawText = '';
   }
 
   public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
-    console.log(this.rawText);
-    if (this.rawText && this.rawText !== '') {
+    if (this.rawText && this.rawText !== undefined && this.rawText !== '') {
       if (fromKeyBoard) {
         const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
         this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
@@ -114,12 +123,11 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
       }
 
       this.translateService.translate(this.rawText, this.user).subscribe(async (response) => {
-        this.translatedText = response;
-        this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(this.translatedText, this.language, this.user);
+        this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language, this.user);
         this.translatedSpeech = this.textToSpeechService.audioSpeech;
         this.newMessage = {
           message: this.messageInterceptor,
-          translation: this.translatedText,
+          translation: response,
           user: this.user,
           language: this.languageOrigin,
           translatedSpeech: this.translatedSpeech,
@@ -128,6 +136,7 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
         this.newMessagesToEmit.emit(this.newMessage);
       });
       this.rawText = '';
+      this.speak = false;
     }
   }
 
@@ -142,50 +151,21 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
   public audioSending(message: string): void {
     this.messageInterceptor = message;
     this.micro = false;
+    this.speak = false;
+    this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.send(false, message);
   }
 
   public exitRecord() {
     this.micro = false;
-  }
-  get submittedForms(): Observable<{ control: string; value: string }[][]> {
-    return this._submittedForms.asObservable();
-  }
-  submitForm(form?: NgForm) {
-    const submittedForms = this._submittedForms.getValue();
-    const submittedForm = Object.keys(form.controls).map((control: string) => ({
-      control,
-      value: form.controls[control].value,
-    }));
-    submittedForms.push(submittedForm);
-    this._submittedForms.next(submittedForms);
+    this.speak = false;
+    this.recordMode = false;
   }
 
-  openKeyboard(locale = this.languageKeyboard) {
-    this._keyboardRef = this._keyboardService.open(locale);
-    this._enterSubscription = this._keyboardRef.instance.enterClick.subscribe(() => {
-      this.submitForm();
-    });
-  }
-
-  closeCurrentKeyboard() {
-    if (this._keyboardRef) {
-      this._keyboardRef.dismiss();
-    }
-
-    if (this._enterSubscription) {
-      this._enterSubscription.unsubscribe();
-    }
-  }
-
-  openAttachedKeyboard(locale = this.languageKeyboard) {
-    this._keyboardRef = this._keyboardService.open(locale);
-
-    // reference the input element
-    this._keyboardRef.instance.setInputInstance(this._attachToElement);
-
-    // set control
-    this._keyboardRef.instance.attachControl(this._attachToControl.control);
-  }
+  // @HostListener('click', ['$event'])
+  // public updateUI() {
+  //   console.log(this.keyboardService.isOpened);
+  //   console.log(this.el);
+  // }
 }

@@ -21,9 +21,6 @@ describe('RecordComponent', () => {
     component.duration = 5;
     component.user = 'advisor';
     fixture.detectChanges();
-    spyOn(audioRecordingService, 'recordAudio').and.returnValue(
-      new Promise<string>(resolve => resolve())
-    );
   });
 
   it('text property should equal to Parlez maintenant', async () => {

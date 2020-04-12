@@ -1,5 +1,5 @@
 // Angular
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener, ViewChild, ElementRef, Host, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -9,12 +9,13 @@ import { TranslateService } from 'src/app/services/translate.service';
 
 import { NavbarItem } from 'src/app/models/navbar-item';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
-import { SettingsService } from 'src/app/services/settings.service';
+
+import { MatKeyboardService } from 'angular-onscreen-material-keyboard';
 
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
-  styleUrls: ['./translation.component.scss']
+  styleUrls: ['./translation.component.scss'],
 })
 export class TranslationComponent {
   @Input() user: string;
@@ -27,10 +28,17 @@ export class TranslationComponent {
   public isMobile: boolean;
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
+  public marginKeyboard: string;
 
-  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver, private settingsService: SettingsService) {
+  constructor(
+    private translateService: TranslateService,
+    public dialog: MatDialog,
+    private router: Router,
+    private breakpointObserver: BreakpointObserver,
+    private keyboardService: MatKeyboardService
+  ) {
     // Start watching screen size modication
-    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
     if (this.translateService.guest.audioLanguage === '') {
@@ -41,6 +49,7 @@ export class TranslationComponent {
   ngOnInit(): void {
     this.audio = true;
   }
+  ngAfterViewInit(): void {}
 
   public goto(where: string): void {
     this.router.navigate([where]);
@@ -52,41 +61,42 @@ export class TranslationComponent {
         icon: 'assets/icons/icon-languages-black.svg',
         infoTitle: 'LANGUES',
         link: 'choice',
-        isDisplayed: true
+        isDisplayed: true,
       },
       {
         icon: 'assets/icons/icon-chat-black.svg',
         infoTitle: 'HISTORIQUE',
         link: 'conversation',
-        isDisplayed: true
+        isDisplayed: true,
       },
       {
         icon: 'assets/icons/icon-settings-black.svg',
         infoTitle: 'PARAMÈTRES',
         link: 'settings/translation',
-        isDisplayed: true
-      }
+        isDisplayed: true,
+      },
     ];
   }
 
   public toEdit(message) {
-    message.user == 'guest' ? this.guestTextToEdit = message.message : this.advisorTextToEdit = message.message;
+    message.user == 'guest' ? (this.guestTextToEdit = message.message) : (this.advisorTextToEdit = message.message);
   }
 
   public addToThread(event) {
+    this.marginKeyboard = this.keyboardService.isOpened ? '500px' : '0';
     this.messages.push(event);
-      const lastIndex = this.messages.length -1
-      const lastSpeech = this.messages[lastIndex].translatedSpeech;
-      if (this.audio && lastSpeech !== undefined) {
-        lastSpeech.play();
-      }
+    const lastIndex = this.messages.length - 1;
+    const lastSpeech = this.messages[lastIndex].translatedSpeech;
+    if (this.audio && lastSpeech !== undefined) {
+      lastSpeech.play();
+    }
   }
 
   public closeConversation() {
     this.dialog.open(RateDialogComponent, {
       width: this.isMobile ? '100%' : '800px',
       height: this.isMobile ? '100%' : '600px',
-      panelClass: 'customDialog'
+      panelClass: 'customDialog',
     });
   }
 
@@ -94,4 +104,11 @@ export class TranslationComponent {
     this.audio = !this.audio;
   }
 
+  @HostListener('window:click', ['$event.target.id'])
+  public MesssagesBoxActions(userAreaElement: string) {
+    this.marginKeyboard = this.keyboardService.isOpened ? '500px' : '0';
+    if (userAreaElement !== 'user-area') {
+      this.marginKeyboard = '0';
+    }
+  }
 }

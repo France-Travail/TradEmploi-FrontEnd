@@ -18,7 +18,7 @@ import {
   MatNativeDateModule,
   MatSlideToggleModule,
   MatIconModule,
-  MatTooltipModule
+  MatTooltipModule,
 } from '@angular/material';
 
 // Custom Components
@@ -44,20 +44,14 @@ const MATERIAL_MODULES = [
   MatNativeDateModule,
   MatSlideToggleModule,
   MatIconModule,
-  MatTooltipModule
+  MatTooltipModule,
 ];
 
-const MODULES = [
-  RouterModule,
-  CommonModule,
-  ReactiveFormsModule,
-  FormsModule,
-  ...MATERIAL_MODULES
-];
+const MODULES = [RouterModule, CommonModule, ReactiveFormsModule, FormsModule, ...MATERIAL_MODULES];
 
 @NgModule({
   declarations: [...COMPONENTS],
-  imports: [...MODULES ],
-  exports: [...COMPONENTS, ...MODULES]
+  imports: [...MODULES],
+  exports: [...COMPONENTS, ...MODULES],
 })
 export class SharedModule {}

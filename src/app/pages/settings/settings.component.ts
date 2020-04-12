@@ -7,6 +7,7 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 import { environment } from '../../../environments/environment';
 import { Parser } from 'json2csv';
 import { ToastService } from 'src/app/services/toast.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -17,8 +18,9 @@ export class SettingsComponent {
   public navBarItems: NavbarItem[] = [];
   public isAdmin: boolean = false;
   public path: string;
+  public recordMode:boolean =false;
 
-  constructor(public router: Router, private authService: AuthService, private fireFunction: AngularFireFunctions, private toastService: ToastService) {
+  constructor(public router: Router, private authService: AuthService, private fireFunction: AngularFireFunctions, private toastService: ToastService, private settingsService: SettingsService) {
     this.authService.auth.subscribe((auth) => {
       if (auth !== null) {
         this.isAdmin = auth.role === 'ADMIN';
@@ -26,6 +28,7 @@ export class SettingsComponent {
     });
     const url = this.router.url;
     this.path = url.substring(url.lastIndexOf('/'));
+    this.recordMode = this.settingsService.recordMode
   }
 
   public export(): void {
@@ -58,5 +61,7 @@ export class SettingsComponent {
     document.body.removeChild(a);
   }
 
-  onItemChange(value) {}
+  onItemChange(value) {
+    this.settingsService.recordMode = value ==='record';
+  }
 }
