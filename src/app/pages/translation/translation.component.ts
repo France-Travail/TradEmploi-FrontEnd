@@ -1,23 +1,20 @@
 // Angular
-import { Component, Input, HostListener, ViewChild, ElementRef, Host, AfterViewInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-
+import { MatKeyboardService } from 'angular-onscreen-material-keyboard';
+import { NavbarItem } from 'src/app/models/navbar-item';
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
-
-import { NavbarItem } from 'src/app/models/navbar-item';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
-
-import { MatKeyboardService } from 'angular-onscreen-material-keyboard';
 
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
   styleUrls: ['./translation.component.scss'],
 })
-export class TranslationComponent {
+export class TranslationComponent implements OnInit {
   @Input() user: string;
 
   public navBarItems: NavbarItem[] = [];
@@ -26,6 +23,7 @@ export class TranslationComponent {
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
+  public isTablet: boolean;
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
   public marginKeyboard: string;
@@ -41,6 +39,9 @@ export class TranslationComponent {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
+    this.breakpointObserver.observe([Breakpoints.Tablet]).subscribe((result) => {
+      this.isTablet = result.matches;
+    });
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
     }
@@ -49,7 +50,6 @@ export class TranslationComponent {
   ngOnInit(): void {
     this.audio = true;
   }
-  ngAfterViewInit(): void {}
 
   public goto(where: string): void {
     this.router.navigate([where]);
@@ -104,12 +104,10 @@ export class TranslationComponent {
     this.audio = !this.audio;
   }
 
-  @HostListener('window:click', ['$event.target.id'])
+  @HostListener('window:click')
   @HostListener('mousemove')
-  public MesssagesBoxActions(userAreaElement: string) {
-    this.marginKeyboard = this.keyboardService.isOpened ? '500px' : '0';
-    if (!this.keyboardService.isOpened) {
-      this.marginKeyboard = '0';
-    }
+  public MesssagesBoxActions() {
+    const marginSize = this.isTablet ? '250px' : '500px';
+    this.marginKeyboard = this.keyboardService.isOpened ? marginSize : '0';
   }
 }

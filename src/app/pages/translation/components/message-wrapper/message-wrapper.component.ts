@@ -93,7 +93,7 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
   private stream() {
     let saveText = '';
     this.speechRecognitionService.record(this.languageOrigin).subscribe((value: Stream) => {
-      if (value.interim != '') {
+      if (value.interim !== '') {
         this.rawText += '  ...';
       } else {
         this.rawText = saveText + value.final;

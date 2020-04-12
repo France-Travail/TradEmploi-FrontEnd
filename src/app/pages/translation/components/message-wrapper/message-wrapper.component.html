@@ -15,7 +15,6 @@
         [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"
       ></textarea>
       <textarea
-        id="user-area"
         *ngIf="user != 'advisor'"
         [matKeyboard]="languageKeyboard"
         [placeholder]="interim"
