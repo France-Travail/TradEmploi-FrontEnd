@@ -77,7 +77,7 @@ export class MessageWrapperComponent implements OnInit {
     let saveText = '';
     this.speechRecognitionService.record(this.languageOrigin).subscribe((value: Stream) => {
       if (value.interim != '') {
-        this.rawText += '  ...';
+        this.rawText += '  .';
       } else {
         this.rawText = saveText + value.final;
         saveText = this.rawText;
@@ -88,6 +88,9 @@ export class MessageWrapperComponent implements OnInit {
   public exitStream() {
     this.speechRecognitionService.DestroySpeechObject();
     this.speak = false;
+    setTimeout(() => {
+      this.send(false,this.rawText)
+    },1000);
   }
   public delete(): void {
     this.rawText = '';
@@ -95,7 +98,6 @@ export class MessageWrapperComponent implements OnInit {
 
   public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
     if ((this.rawText && this.rawText !== undefined) || this.rawText !== '') {
-
       if (fromKeyBoard) {
         const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
         this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
