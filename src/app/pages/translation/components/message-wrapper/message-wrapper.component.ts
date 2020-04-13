@@ -9,6 +9,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { NewMessage } from 'src/app/models/new-message';
 import { Stream } from 'src/app/models/stream';
 import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -38,6 +39,7 @@ export class MessageWrapperComponent implements OnInit {
   private language: string;
   private messageInterceptor: string;
   private isLanguageExist = VOCABULARY_V2.some((item) => item.isoCode === this.settingsService.guest.value.language);
+  private isMobile: boolean = false;
 
   constructor(
     private toastService: ToastService,
@@ -46,6 +48,7 @@ export class MessageWrapperComponent implements OnInit {
     private audioRecordingService: AudioRecordingService,
     public textToSpeechService: TextToSpeechService,
     private speechRecognitionService: SpeechRecognitionService,
+    private breakpointObserver: BreakpointObserver,
     public router: Router
   ) {}
 
@@ -56,6 +59,9 @@ export class MessageWrapperComponent implements OnInit {
     this.sendBtnValue = sentences.find((s) => s.key === 'send').value;
     this.flag = this.isLanguageExist ? sentences.find((s) => s.key === 'flag').value.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
     this.language = this.user === 'guest' ? 'fr-FR' : this.settingsService.guest.value.language;
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
+      this.isMobile = result.matches;
+    });
   }
 
   public async talk(): Promise<void> {
@@ -75,14 +81,23 @@ export class MessageWrapperComponent implements OnInit {
 
   private stream() {
     let saveText = '';
-    this.speechRecognitionService.record(this.languageOrigin).subscribe((value: Stream) => {
-      if (value.interim != '') {
-        this.rawText += '  .';
-      } else {
-        this.rawText = saveText + value.final;
-        saveText = this.rawText;
-      }
-    });
+    if(this.isMobile){
+      this.speechRecognitionService.recordOnMobile(this.languageOrigin).subscribe(
+        value => {
+          this.rawText = value;
+        }
+      );
+    }else{
+      this.speechRecognitionService.record(this.languageOrigin).subscribe((value: Stream) => {
+        if (value.interim != '') {
+          this.rawText += '  .';
+        } else {
+          this.rawText = saveText + value.final;
+          saveText = this.rawText;
+        }
+      });
+    }
+
   }
 
   public exitStream() {
