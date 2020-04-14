@@ -29,7 +29,6 @@ export class MessageWrapperComponent implements OnInit {
   public languageOrigin: string;
   public rawSpeech: HTMLAudioElement;
   public translatedSpeech: HTMLAudioElement;
-  public interim: string = '';
 
   public micro: boolean = false;
   public recordMode: boolean = false;
@@ -59,7 +58,7 @@ export class MessageWrapperComponent implements OnInit {
     this.sendBtnValue = sentences.find((s) => s.key === 'send').value;
     this.flag = this.isLanguageExist ? sentences.find((s) => s.key === 'flag').value.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
     this.language = this.user === 'guest' ? 'fr-FR' : this.settingsService.guest.value.language;
-    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
   }
@@ -81,31 +80,26 @@ export class MessageWrapperComponent implements OnInit {
 
   private stream() {
     let saveText = '';
-    if(this.isMobile){
-      this.speechRecognitionService.recordOnMobile(this.languageOrigin).subscribe(
-        value => {
-          this.rawText = value;
-        }
-      );
-    }else{
-      this.speechRecognitionService.record(this.languageOrigin).subscribe((value: Stream) => {
+    this.speechRecognitionService.record(this.languageOrigin).subscribe((value: Stream) => {
+      if (this.isMobile) {
+        this.rawText = value.final;
+      } else {
         if (value.interim != '') {
           this.rawText += '  .';
         } else {
           this.rawText = saveText + value.final;
           saveText = this.rawText;
         }
-      });
-    }
-
+      }
+    });
   }
 
   public exitStream() {
     this.speechRecognitionService.DestroySpeechObject();
     this.speak = false;
     setTimeout(() => {
-      this.send(false,this.rawText)
-    },1000);
+      this.send(false, this.rawText);
+    }, 1000);
   }
   public delete(): void {
     this.rawText = '';
