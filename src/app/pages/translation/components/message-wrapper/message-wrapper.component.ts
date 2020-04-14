@@ -12,6 +12,7 @@ import { SpeechRecognitionService } from 'src/app/services/speech-recognition.se
 import { Stream } from 'src/app/models/stream';
 import { MatKeyboardService } from 'angular-onscreen-material-keyboard';
 
+
 @Component({
   selector: 'app-message-wrapper',
   templateUrl: './message-wrapper.component.html',
@@ -49,6 +50,7 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
 
   private language: string;
   private isLanguageExist = VOCABULARY_V2.some((item) => item.isoCode === this.settingsService.guest.value.language);
+  private isMobile: boolean = false;
 
   constructor(
     private toastService: ToastService,
@@ -60,6 +62,7 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
     private breakpointObserver: BreakpointObserver,
     private speechRecognitionService: SpeechRecognitionService,
     private keyboardService: MatKeyboardService
+
   ) {}
   ngAfterViewInit() {}
   ngOnInit(): void {
@@ -72,6 +75,9 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
     this.languageKeyboard = this.languageOrigin.split('-')[0];
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.showKeyboard = !result.matches;
+    });
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
+      this.isMobile = result.matches;
     });
   }
 
@@ -93,11 +99,15 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
   private stream() {
     let saveText = '';
     this.speechRecognitionService.record(this.languageOrigin).subscribe((value: Stream) => {
-      if (value.interim !== '') {
-        this.rawText += '  ...';
+      if (this.isMobile) {
+        this.rawText = value.final;
       } else {
-        this.rawText = saveText + value.final;
-        saveText = this.rawText;
+        if (value.interim != '') {
+          this.rawText += '  .';
+        } else {
+          this.rawText = saveText + value.final;
+          saveText = this.rawText;
+        }
       }
     });
   }
@@ -105,13 +115,16 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
   public exitStream() {
     this.speechRecognitionService.DestroySpeechObject();
     this.speak = false;
+    setTimeout(() => {
+      this.send(false, this.rawText);
+    }, 1000);
   }
   public delete(): void {
     this.rawText = '';
   }
 
   public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
-    if (this.rawText && this.rawText !== undefined && this.rawText !== '') {
+    if ((this.rawText && this.rawText !== undefined) || this.rawText !== '') {
       if (fromKeyBoard) {
         const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
         this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
@@ -162,10 +175,4 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
     this.speak = false;
     this.recordMode = false;
   }
-
-  // @HostListener('click', ['$event'])
-  // public updateUI() {
-  //   console.log(this.keyboardService.isOpened);
-  //   console.log(this.el);
-  // }
 }

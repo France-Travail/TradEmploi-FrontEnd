@@ -16,7 +16,6 @@ export class SpeechRecognitionService {
   constructor(private zone: NgZone) {}
 
   record(lang: string): Observable<Stream> {
-    // tslint:disable-next-line: deprecation
     return Observable.create((observer) => {
       const { webkitSpeechRecognition }: IWindow = (window as unknown) as IWindow;
       this.speechRecognition = new webkitSpeechRecognition();
