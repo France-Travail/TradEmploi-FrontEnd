@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
-import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
+import { VOCABULARY_NEW } from 'src/app/data/vocabulary-refacto';
 
 @Component({
   selector: 'app-record',
   templateUrl: './record.component.html',
-  styleUrls: ['./record.component.scss']
+  styleUrls: ['./record.component.scss'],
 })
 export class RecordComponent implements OnInit {
   @Input() duration: number;
@@ -43,7 +43,7 @@ export class RecordComponent implements OnInit {
 
   putTitle = () => {
     const language = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    this.text = VOCABULARY_V2.find(item => item.isoCode === language).sentences.find(s => s.key === 'record-text').value;
+    this.text = VOCABULARY_NEW.find((item) => item.isoCode === language).sentences.recordText;
   }
 
   private recordBarLoad = () => {
@@ -96,11 +96,11 @@ export class RecordComponent implements OnInit {
     if (this.intervalId !== undefined) {
       this.stopRecord();
       this.audioRecordingService.speechToText.subscribe(
-        res => {
+        (res) => {
           this.inProgress = false;
           this.send.emit(res);
         },
-        err => this.send.emit(err)
+        (err) => this.send.emit(err)
       );
     }
   }

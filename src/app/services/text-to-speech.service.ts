@@ -72,7 +72,7 @@ export class TextToSpeechService {
 
       if (names.length >= 1) {
         const voice: Voice = names.find((v) => v.ssmlGender === GENDER);
-        body.voice.name = voice === undefined ? names.find((v) => v.ssmlGender === SECOND_GENDER).name : voice.name
+        body.voice.name = voice === undefined ? names.find((v) => v.ssmlGender === SECOND_GENDER).name : voice.name;
         this.httpClient.post<any>(url, body, this.httpOptions).subscribe(
           (response) => {
             this.audioSpeech = new Audio('data:audio/mp3;base64,' + response.audioContent);
@@ -80,7 +80,7 @@ export class TextToSpeechService {
           },
           (error) => {
             resolve(false);
-            throw new Error(error.message)
+            throw new Error(error.message);
           }
         );
       } else {

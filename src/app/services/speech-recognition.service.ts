@@ -27,7 +27,7 @@ export class SpeechRecognitionService {
       this.speechRecognition.onresult = (event) => {
         let interim_transcript = '';
         let final_transcript = '';
-        for (var i = event.resultIndex; i < event.results.length; ++i) {
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
           if (event.results[i].isFinal) {
             final_transcript += event.results[i][0].transcript;
           } else {
@@ -59,9 +59,9 @@ export class SpeechRecognitionService {
   }
 
   capitalize = (s) => {
-    let first_char = /\S/;
-    return s.replace(first_char, function (m) {
+    const first_char = /\S/;
+    return s.replace(first_char, function(m) {
       return m.toUpperCase();
     });
-  };
+  }
 }

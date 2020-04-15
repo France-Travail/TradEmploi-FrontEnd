@@ -18,7 +18,7 @@ export class SettingsComponent {
   public navBarItems: NavbarItem[] = [];
   public isAdmin: boolean = false;
   public path: string;
-  public recordMode:boolean =false;
+  public recordMode: boolean = false;
 
   constructor(public router: Router, private authService: AuthService, private fireFunction: AngularFireFunctions, private toastService: ToastService, private settingsService: SettingsService) {
     this.authService.auth.subscribe((auth) => {
@@ -28,7 +28,7 @@ export class SettingsComponent {
     });
     const url = this.router.url;
     this.path = url.substring(url.lastIndexOf('/'));
-    this.recordMode = this.settingsService.recordMode
+    this.recordMode = this.settingsService.recordMode;
   }
 
   public export(): void {
@@ -42,7 +42,7 @@ export class SettingsComponent {
         this.exportCsv(response);
       })
       .catch((err) => {
-        this.toastService.showToast("Erreur lors de l'export du fichier", 'toast-error');
+        this.toastService.showToast('Erreur lors de l\'export du fichier', 'toast-error');
         throw new Error('An error occurred when export csv file');
       });
   }
@@ -51,7 +51,7 @@ export class SettingsComponent {
     const json2csvParser = new Parser();
     const data = json2csvParser.parse(rates);
     const blob = new Blob([data], { type: 'text/csv' });
-    var url = window.URL.createObjectURL(blob);
+    let url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.setAttribute('hidden', '');
     a.setAttribute('href', url);
@@ -62,6 +62,6 @@ export class SettingsComponent {
   }
 
   onItemChange(value) {
-    this.settingsService.recordMode = value ==='record';
+    this.settingsService.recordMode = value === 'record';
   }
 }
