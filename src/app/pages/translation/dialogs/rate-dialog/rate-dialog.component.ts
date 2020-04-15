@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SettingsService } from 'src/app/services/settings.service';
 import { RateService } from 'src/app/services/rate.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { VOCABULARY_NEW } from 'src/app/data/vocabulary-refacto';
+import { VOCABULARY_NEW } from 'src/app/data/vocabulary';
 import { Rate } from 'src/app/models/rate';
 import { MatDialogRef } from '@angular/material';
 

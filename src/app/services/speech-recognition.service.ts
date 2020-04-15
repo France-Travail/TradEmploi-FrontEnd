@@ -16,7 +16,7 @@ export class SpeechRecognitionService {
   constructor(private zone: NgZone) {}
 
   record(lang: string): Observable<Stream> {
-    return Observable.create((observer) => {
+    return new Observable((observer) => {
       const { webkitSpeechRecognition }: IWindow = (window as unknown) as IWindow;
       this.speechRecognition = new webkitSpeechRecognition();
       this.speechRecognition.continuous = true;
@@ -25,17 +25,17 @@ export class SpeechRecognitionService {
       this.speechRecognition.maxAlternatives = 1;
 
       this.speechRecognition.onresult = (event) => {
-        let interim_transcript = '';
-        let final_transcript = '';
+        let interimTranscript = '';
+        let finalTranscript = '';
         for (let i = event.resultIndex; i < event.results.length; ++i) {
           if (event.results[i].isFinal) {
-            final_transcript += event.results[i][0].transcript;
+            finalTranscript += event.results[i][0].transcript;
           } else {
-            interim_transcript += event.results[i][0].transcript;
+            interimTranscript += event.results[i][0].transcript;
           }
         }
         this.zone.run(() => {
-          observer.next({ final: final_transcript, interim: interim_transcript });
+          observer.next({ final: finalTranscript, interim: interimTranscript });
         });
       };
 
@@ -59,8 +59,8 @@ export class SpeechRecognitionService {
   }
 
   capitalize = (s) => {
-    const first_char = /\S/;
-    return s.replace(first_char, function(m) {
+    const firstChar = /\S/;
+    return s.replace(firstChar, (m) => {
       return m.toUpperCase();
     });
   }

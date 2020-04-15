@@ -38,7 +38,7 @@ describe('TranslateService', () => {
 
   it('should not translate and return error ', async () => {
     spyOn(axios, 'post').and.returnValue(
-      new Promise<String>((resolve, reject) => reject('An error'))
+      new Promise<string>((resolve, reject) => reject('An error'))
     );
     service.translate('je suis un test', 'speaker').subscribe({
       error: err => {

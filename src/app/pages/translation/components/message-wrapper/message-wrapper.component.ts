@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 // import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
-import { VOCABULARY_NEW, VOCABULARY_NEW_DEFAULT } from 'src/app/data/vocabulary-refacto';
+import { VOCABULARY_NEW, VOCABULARY_NEW_DEFAULT } from 'src/app/data/vocabulary';
 import { TranslateService } from 'src/app/services/translate.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
@@ -64,7 +64,7 @@ export class MessageWrapperComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    const isLanguageExist = VOCABULARY_NEW.some((item) => item.isoCode === this.settingsService.guest.value.language)
+    const isLanguageExist = VOCABULARY_NEW.some((item) => item.isoCode === this.settingsService.guest.value.language);
     const data =  isLanguageExist || this.user === 'advisor' ? VOCABULARY_NEW.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_NEW_DEFAULT;
     this.title = data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
@@ -99,7 +99,7 @@ export class MessageWrapperComponent implements OnInit {
       if (this.isMobile) {
         this.rawText = value.final;
       } else {
-        if (value.interim != '') {
+        if (value.interim !== '') {
           this.rawText += '  .';
         } else {
           this.rawText = saveText + value.final;

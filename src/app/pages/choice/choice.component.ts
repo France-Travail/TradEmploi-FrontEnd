@@ -3,7 +3,7 @@ import { Component, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { TranslateService } from 'src/app/services/translate.service';
-import { VOCABULARY_NEW } from 'src/app/data/vocabulary-refacto';
+import { VOCABULARY_NEW } from 'src/app/data/vocabulary';
 import { LanguagesComponent } from './dialog/languages/languages.component';
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -72,7 +72,7 @@ export class ChoiceComponent implements AfterContentInit {
       this.textToSpeechService.audioSpeech.play();
     }
   }
-  
+
   moreLanguage(): void {
     this.dialog
       .open(LanguagesComponent, { width: '900px', height: '900px' })

@@ -79,7 +79,7 @@ export class TranslationComponent implements OnInit {
   }
 
   public toEdit(message) {
-    message.user == 'guest' ? (this.guestTextToEdit = message.message) : (this.advisorTextToEdit = message.message);
+    message.user === 'guest' ? (this.guestTextToEdit = message.message) : (this.advisorTextToEdit = message.message);
   }
 
   public addToThread(event) {

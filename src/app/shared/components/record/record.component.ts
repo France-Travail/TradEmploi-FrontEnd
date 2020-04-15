@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
-import { VOCABULARY_NEW } from 'src/app/data/vocabulary-refacto';
+import { VOCABULARY_NEW } from 'src/app/data/vocabulary';
 
 @Component({
   selector: 'app-record',

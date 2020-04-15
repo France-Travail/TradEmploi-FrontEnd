@@ -1,6 +1,6 @@
-import { SentenceNew } from '../models/vocabularyNew';
+import { Sentence } from '../models/vocabulary';
 
-export const HEBREW: SentenceNew = {
+export const HEBREW: Sentence = {
   applicationName: 'תרגום מיידי',
   send: 'שליחה',
   translate: 'תרגום',
@@ -18,7 +18,7 @@ export const HEBREW: SentenceNew = {
   },
 };
 
-export const ARAB: SentenceNew = {
+export const ARAB: Sentence = {
   applicationName: 'الترجمة الفورية',
   displayedWelcome: 'مرحبا انا تفسيرك',
   readedWelcome: 'هل ترغب في التبادل بهذه اللغة؟',
@@ -38,7 +38,7 @@ export const ARAB: SentenceNew = {
   },
 };
 
-export const FRENCH: SentenceNew = {
+export const FRENCH: Sentence = {
   audioSupported: true,
   applicationName: 'Traduction instantanée',
   send: 'Envoyer',
@@ -56,7 +56,7 @@ export const FRENCH: SentenceNew = {
   },
 };
 
-export const ENGLISH: SentenceNew = {
+export const ENGLISH: Sentence = {
   audioSupported: true,
   applicationName: 'Instant Translation',
   send: 'Send',
@@ -76,7 +76,7 @@ export const ENGLISH: SentenceNew = {
   },
 };
 
-export const SPANNISH: SentenceNew = {
+export const SPANNISH: Sentence = {
   audioSupported: true,
   applicationName: 'Traducción instantánea',
   send: 'Enviar a',
@@ -97,7 +97,7 @@ export const SPANNISH: SentenceNew = {
   },
 };
 
-export const MADARIN: SentenceNew = {
+export const MADARIN: Sentence = {
   applicationName: '即時翻譯',
   send: '發送',
   translate: '翻譯',
@@ -116,7 +116,7 @@ export const MADARIN: SentenceNew = {
   },
 };
 
-export const BENGALI: SentenceNew = {
+export const BENGALI: Sentence = {
   applicationName: 'তাত্ক্ষণিক অনুবাদ',
   send: 'পাঠান',
   translate: 'অনুবাদ',
@@ -136,7 +136,7 @@ export const BENGALI: SentenceNew = {
   },
 };
 
-export const DARI: SentenceNew = {
+export const DARI: Sentence = {
   applicationName: 'ترجمه فوری',
   send: 'ارسال',
   translate: 'ترجمه',
@@ -154,7 +154,7 @@ export const DARI: SentenceNew = {
   },
 };
 
-export const PACHTO: SentenceNew = {
+export const PACHTO: Sentence = {
   displayedWelcome: 'سلام زه ستاسو تفسیر یم',
   readedWelcome: 'ایا تاسو غواړئ پدې ژبه کې تبادله وکړئ؟',
   applicationName: 'فوري ژباړه',
@@ -175,7 +175,7 @@ export const PACHTO: SentenceNew = {
   },
 };
 
-export const OURDOU: SentenceNew = {
+export const OURDOU: Sentence = {
   displayedWelcome: 'ہیلو ، میں آپ کے مشیر سے آسانی سے تبادلہ کرنے کے لئے آپ کا ترجمان ہوں گا۔',
   readedWelcome: 'کیا آپ اس زبان میں تبادلہ کرنا چاہیں گے؟',
   applicationName: 'Instant Translation',
@@ -194,7 +194,7 @@ export const OURDOU: SentenceNew = {
   },
 };
 
-export const PORTUGUESE: SentenceNew = {
+export const PORTUGUESE: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Olá eu sou sua interpretação.',
   readedWelcome: 'Deseja trocar neste idioma?',
@@ -216,7 +216,7 @@ export const PORTUGUESE: SentenceNew = {
   },
 };
 
-export const GERMAN: SentenceNew = {
+export const GERMAN: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Hallo ich bin dein interpret',
   readedWelcome: 'Möchten Sie in dieser Sprache austauschen?',
@@ -238,7 +238,7 @@ export const GERMAN: SentenceNew = {
   },
 };
 
-export const TURC: SentenceNew = {
+export const TURC: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Merhaba, danışmanınızla kolayca alışveriş yapmak için tercümanınız olurum.',
   readedWelcome: 'Bu dilde takas yapmak ister misiniz?',
@@ -258,7 +258,7 @@ export const TURC: SentenceNew = {
   },
 };
 
-export const AMHARIC: SentenceNew = {
+export const AMHARIC: Sentence = {
   displayedWelcome: 'ጤና ይስጥልኝ ፣ ከአማካሪህ ጋር በቀላሉ ለመቀየር አስተርጓሚ እሆን ነበር',
   readedWelcome: 'በዚህ ቋንቋ መለወጥ ይፈልጋሉ?',
   applicationName: 'Instant Translation',
@@ -272,7 +272,7 @@ export const AMHARIC: SentenceNew = {
   autoListen: 'በራስ-ሰር ያዳምጡ',
 };
 
-export const KHMER: SentenceNew = {
+export const KHMER: Sentence = {
   displayedWelcome: 'ជំរាបសួរ, ខ្ញុំនឹងក្លាយជាអ្នកបកប្រែរបស់អ្នកដើម្បីផ្លាស់ប្តូរយ៉ាងងាយស្រួលជាមួយទីប្រឹក្សារបស់អ្នក។',
   readedWelcome: 'តើអ្នកចង់ផ្លាស់ប្តូរភាសានេះទេ?',
   applicationName: 'Instant Translation',
@@ -286,7 +286,7 @@ export const KHMER: SentenceNew = {
   autoListen: 'ស្តាប់ដោយស្វ័យប្រវត្តិ',
 };
 
-export const HINDI: SentenceNew = {
+export const HINDI: Sentence = {
   displayedWelcome: 'नमस्कार, मैं आपके सलाहकार के साथ आसानी से आदान-प्रदान करने वाला आपका दुभाषिया बनूंगा।',
   readedWelcome: 'क्या आप इस भाषा में विनिमय करना चाहेंगे?',
   applicationName: 'Instant Translation',
@@ -300,7 +300,7 @@ export const HINDI: SentenceNew = {
   autoListen: 'स्वचालित रूप से सुनो',
 };
 
-export const TAMOUL: SentenceNew = {
+export const TAMOUL: Sentence = {
   displayedWelcome: 'வணக்கம், உங்கள் ஆலோசகருடன் எளிதாக பரிமாறிக்கொள்ள உங்கள் மொழிபெயர்ப்பாளராக இருப்பேன்.',
   readedWelcome: 'இந்த மொழியில் பரிமாற விரும்புகிறீர்களா?',
   applicationName: 'Instant Translation',
@@ -314,7 +314,7 @@ export const TAMOUL: SentenceNew = {
   autoListen: 'தானாகவே கேளுங்கள்',
 };
 
-export const ITALIAN: SentenceNew = {
+export const ITALIAN: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Ciao sono il tuo interprete.',
   readedWelcome: 'Ti piacerebbe scambiare in questa lingua?',
@@ -331,7 +331,7 @@ export const ITALIAN: SentenceNew = {
   autoListen: 'Ascolta automaticamente',
 };
 
-export const MONGOL: SentenceNew = {
+export const MONGOL: Sentence = {
   displayedWelcome: 'Сайн байна уу, би зөвлөхтэйгээ хялбархан солилцох орчуулагч болно.',
   readedWelcome: 'Та энэ хэлээр солилцохыг хүсч байна уу?',
   applicationName: 'Instant Translation',
@@ -345,7 +345,7 @@ export const MONGOL: SentenceNew = {
   autoListen: 'Автоматаар сонс',
 };
 
-export const NEPALESE: SentenceNew = {
+export const NEPALESE: Sentence = {
   displayedWelcome: 'नमस्कार, म तपाईको दोभाषे बन्ने छ तपाईंको सल्लाहकार संग सजिलै साटासाट गर्न।',
   readedWelcome: 'के तपाईं यस भाषामा आदान प्रदान गर्न चाहनुहुन्छ?',
   applicationName: 'Instant Translation',
@@ -359,7 +359,7 @@ export const NEPALESE: SentenceNew = {
   autoListen: 'स्वचालित रूपमा सुन्नुहोस्',
 };
 
-export const RUSSIA: SentenceNew = {
+export const RUSSIA: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Привет я твой переводчик',
   readedWelcome: 'Вы хотите продолжить на этом языке?',
@@ -376,8 +376,8 @@ export const RUSSIA: SentenceNew = {
   languageButtonFR: 'langue russe',
 };
 
-export const OUZBEK: SentenceNew = {
-  displayedWelcome: "Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo'lardim.",
+export const OUZBEK: Sentence = {
+  displayedWelcome: 'Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo\'lardim.',
   readedWelcome: 'Ushbu tilda almashishni xohlaysizmi?',
   applicationName: 'Instant Translation',
   send: 'Send',
@@ -390,7 +390,7 @@ export const OUZBEK: SentenceNew = {
   autoListen: 'Avtomatik tinglash',
 };
 
-export const ROMANIAN: SentenceNew = {
+export const ROMANIAN: Sentence = {
   displayedWelcome: 'Buna ziua, eu as fi interpretul tau pentru a schimba usor cu consilierul tau.',
   readedWelcome: 'Buna ziua, eu as fi interpretul tau pentru a schimba usor cu consilierul tau.',
   applicationName: 'Instant Translation',
@@ -404,7 +404,7 @@ export const ROMANIAN: SentenceNew = {
   autoListen: 'Ascultă automat',
 };
 
-export const SOMALI: SentenceNew = {
+export const SOMALI: Sentence = {
   displayedWelcome: 'Salaan, waxaan noqon lahaa turjubaankaaga si aan si fudud ula beddelo la-taliyahaaga.',
   readedWelcome: 'Ma jeceshahay inaad ku badasho luqadan?',
   applicationName: 'Instant Translation',
@@ -418,7 +418,7 @@ export const SOMALI: SentenceNew = {
   autoListen: 'Si toos ah u dhagayso',
 };
 
-export const VIETNAMESE: SentenceNew = {
+export const VIETNAMESE: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Xin chào, tôi sẽ là thông dịch viên của bạn để trao đổi dễ dàng với cố vấn của bạn.',
   readedWelcome: 'Bạn có muốn trao đổi bằng ngôn ngữ này?',
@@ -433,7 +433,7 @@ export const VIETNAMESE: SentenceNew = {
   autoListen: 'Tự động nghe',
 };
 
-export const PERSAN: SentenceNew = {
+export const PERSAN: Sentence = {
   displayedWelcome: 'سلام من تفسیر شما هستم',
   readedWelcome: 'آیا می خواهید به این زبان ادامه دهید؟',
   applicationName: 'ترجمه فوری',

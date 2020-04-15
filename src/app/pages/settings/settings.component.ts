@@ -51,7 +51,7 @@ export class SettingsComponent {
     const json2csvParser = new Parser();
     const data = json2csvParser.parse(rates);
     const blob = new Blob([data], { type: 'text/csv' });
-    let url = window.URL.createObjectURL(blob);
+    const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.setAttribute('hidden', '');
     a.setAttribute('href', url);

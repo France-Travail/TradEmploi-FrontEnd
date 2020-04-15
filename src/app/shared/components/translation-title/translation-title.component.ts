@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
-import { VOCABULARY_NEW, VOCABULARY_NEW_DEFAULT } from 'src/app/data/vocabulary-refacto';
+import { VOCABULARY_NEW, VOCABULARY_NEW_DEFAULT } from 'src/app/data/vocabulary';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,7 +21,7 @@ export class TranslationTitleComponent implements OnInit {
     if (guest === undefined) {
       guest = VOCABULARY_NEW_DEFAULT;
     }
-    let advisorSentences = VOCABULARY_NEW.find((item) => item.isoCode === this.settingsService.advisor.language).sentences;
+    const advisorSentences = VOCABULARY_NEW.find((item) => item.isoCode === this.settingsService.advisor.language).sentences;
 
     this.title = {
       raw: guest.sentences.applicationName,

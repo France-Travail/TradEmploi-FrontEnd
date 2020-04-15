@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, AfterContentInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsService } from 'src/app/services/settings.service';
 import { NavbarItem } from 'src/app/models/navbar-item';
@@ -7,11 +7,11 @@ import { MatDialog } from '@angular/material';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
-  selector: 'navbar',
+  selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements AfterContentInit {
   @Input() items: NavbarItem[];
   @Output() perform: EventEmitter<any> = new EventEmitter<any>();
 

@@ -30,7 +30,7 @@ export class SpeechToTextService {
         .then(operation => {
           const urlOperation: string = `https://speech.googleapis.com/v1/operations/${operation.data.name}?key=${environment.gcp.apiKey}`;
           const wait = this.getWaitTime(time);
-          setTimeout(function() {
+          setTimeout(() => {
             axios({
               method: 'get',
               headers: { 'content-type': 'application/json; charset=utf-8' },

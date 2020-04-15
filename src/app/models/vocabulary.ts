@@ -1,13 +1,13 @@
-export interface VocabularyNew {
+export interface Vocabulary {
   isoCode: string;
   countryNameRaw?: any;
   countryNameFr?: string;
   languageNameRaw?: string;
   languageNameFr?: string;
   flag?: string;
-  sentences: SentenceNew;
+  sentences: Sentence;
 }
-export interface SentenceNew {
+export interface Sentence {
   applicationName: string;
   send: string;
   translate: string;
@@ -22,10 +22,10 @@ export interface SentenceNew {
   languageButtonRAW?: string;
   languageButtonFR?: string;
   gaugeText?: string;
-  rate?: RateSentence;
+  rate?: Rate;
 }
 
-export interface RateSentence {
+export interface Rate {
   easyToUse: string;
   understand: string;
   comment: string;
