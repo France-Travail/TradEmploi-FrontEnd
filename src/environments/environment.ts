@@ -5,23 +5,23 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: 'AIzaSyBP2bEopJwWiWBleSXgQFg4DW3UMnmfRpE',
-    authDomain: 'pole-emploi-trad-dev.firebaseapp.com',
-    databaseURL: 'https://pole-emploi-trad-dev.firebaseio.com',
-    projectId: 'pole-emploi-trad-dev',
-    storageBucket: 'pole-emploi-trad-dev.appspot.com',
-    messagingSenderId: '615733745472',
-    appId: '1:615733745472:web:c14d5ad351090c67044ca5'
+    apiKey: 'xxxx',
+    authDomain: 'xxxx',
+    databaseURL: 'https://xxxx',
+    projectId: 'xxxx',
+    storageBucket: 'xxxx',
+    messagingSenderId: 'xxxx',
+    appId: 'xxxx'
   },
   gcp: {
-    apiKey: 'AIzaSyBraAcmG6FhlK4A9hCOfo96_s_OvYXEciQ'
+    apiKey: 'xxxx'
   },
   api: {
-    graphqlUrl: 'https://pole-emploi-trad-server.eu-de.cf.appdomain.cloud/graphql',
-    login: 'ludo',
-    password: '7YQZQJmmSyab7xT',
-    provider: 'GOOGLE',
-    defaultLanguage: 'fr-FR'
+    graphqlUrl: 'https://xxxx',
+    login: 'xxxx',
+    password: 'xxxx',
+    provider: 'xxxx',
+    defaultLanguage: 'xxxx'
   }
 };
 
