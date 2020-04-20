@@ -38,7 +38,7 @@ export class AuthenticationComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     try {
       const auth = await this.authService.login(this.email.value, this.password.value);
-      //this.toastService.showToast(auth.message, 'toast-success');
+      // this.toastService.showToast(auth.message, 'toast-success');
       this.router.navigateByUrl('choice');
     } catch (error) {
       this.toastService.showToast(error.message, 'toast-error');

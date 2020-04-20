@@ -21,8 +21,8 @@ addEventListener('message', ({ data }) => {
 
 function initFlac() {
   if (!Flac.isReady()) {
-    Flac.onready = function() {
-      setTimeout(function() {
+    Flac.onready = () => {
+      setTimeout(() => {
         createFlac();
       }, 0);
     };
@@ -33,11 +33,11 @@ function initFlac() {
 
 function createFlac() {
   const sampleRate = 44100;
-  const channels = 1;
+  // const channels = 1;
   const compression = 5;
-  const bps: Number = 16;
-  flacEncoder = Flac.create_libflac_encoder(sampleRate, channels, bps, compression, 0);
-  if (flacEncoder != 0) {
+  const bps: number = 16;
+  flacEncoder = Flac.create_libflac_encoder(sampleRate, 1, bps, compression, 0);
+  if (flacEncoder !== 0) {
     Flac.init_encoder_stream(flacEncoder, fillBufferOnFlac);
   } else {
     console.error('Error initializing the encoder.');
@@ -63,26 +63,26 @@ function clear() {
 }
 
 function doEncodeFlac(audioData) {
-  const buf_length = audioData.length;
-  const buffer_i32 = new Uint32Array(buf_length);
-  const view = new DataView(buffer_i32.buffer);
+  const bufLength = audioData.length;
+  const bufferI32 = new Uint32Array(bufLength);
+  const view = new DataView(bufferI32.buffer);
   const volume = 1;
   let index = 0;
-  for (let i = 0; i < buf_length; i++) {
+  for (let i = 0; i < bufLength; i++) {
     view.setInt32(index, audioData[i] * (0x7fff * volume), true);
     index += 4;
   }
 
-  const flac_return = Flac.FLAC__stream_encoder_process_interleaved(flacEncoder, buffer_i32, buffer_i32.length / channels);
-  if (flac_return != true) {
-    console.log('Error: encode_buffer_pcm_as_flac returned false. ' + flac_return);
+  const flacReturn = Flac.FLAC__stream_encoder_process_interleaved(flacEncoder, bufferI32, bufferI32.length / channels);
+  if (flacReturn !== true) {
+    console.log('Error: encode_buffer_pcm_as_flac returned false. ' + flacReturn);
   }
 }
 
 function exportFlacFile(recBuffers, recLength) {
   const samples = mergeBuffersUint8(recBuffers, recLength);
-  const the_blob = new Blob([samples], { type: 'audio/flac' });
-  return the_blob;
+  const theBlob = new Blob([samples], { type: 'audio/flac' });
+  return theBlob;
 }
 
 function mergeBuffersUint8(channelBuffer, recordingLength) {

@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, AfterViewInit, HostListener, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
+// import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
+import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { TranslateService } from 'src/app/services/translate.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
@@ -10,7 +11,7 @@ import { NewMessage } from 'src/app/models/new-message';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
 import { Stream } from 'src/app/models/stream';
-import { MatKeyboardService } from 'angular-onscreen-material-keyboard';
+// import { MatKeyboardService } from 'angular-onscreen-material-keyboard';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { MatKeyboardService } from 'angular-onscreen-material-keyboard';
   templateUrl: './message-wrapper.component.html',
   styleUrls: ['./message-wrapper.component.scss'],
 })
-export class MessageWrapperComponent implements OnInit, AfterViewInit {
+export class MessageWrapperComponent implements OnInit {
   @Input() title: string;
   @Input() user: string;
   @Input() rawText: string;
@@ -37,8 +38,8 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
   public micro: boolean = false;
   public error: boolean = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
-  //keyboard
-  private languageKeyboard: string;
+  // keyboard
+  public languageKeyboard: string;
 
   private messageInterceptor: string;
   public showKeyboard: boolean;
@@ -49,7 +50,6 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
   public speak: boolean = false;
 
   private language: string;
-  private isLanguageExist = VOCABULARY_V2.some((item) => item.isoCode === this.settingsService.guest.value.language);
   private isMobile: boolean = false;
 
   constructor(
@@ -60,17 +60,15 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
     public textToSpeechService: TextToSpeechService,
     public router: Router,
     private breakpointObserver: BreakpointObserver,
-    private speechRecognitionService: SpeechRecognitionService,
-    private keyboardService: MatKeyboardService
-
+    private speechRecognitionService: SpeechRecognitionService
   ) {}
-  ngAfterViewInit() {}
   ngOnInit(): void {
     this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    const sentences = this.isLanguageExist || this.user === 'advisor' ? VOCABULARY_V2.find((item) => item.isoCode === this.languageOrigin).sentences : VOCABULARY_DEFAULT.sentences;
-    this.title = sentences.find((s) => s.key === 'translation-h2').value;
-    this.sendBtnValue = sentences.find((s) => s.key === 'send').value;
-    this.flag = this.isLanguageExist ? sentences.find((s) => s.key === 'flag').value.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
+    const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.guest.value.language);
+    const data =  isLanguageExist || this.user === 'advisor' ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
+    this.title = data.sentences.translationH2;
+    this.sendBtnValue = data.sentences.send;
+    this.flag = isLanguageExist ? data.flag.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
     this.language = this.user === 'guest' ? 'fr-FR' : this.settingsService.guest.value.language;
     this.languageKeyboard = this.languageOrigin.split('-')[0];
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
@@ -89,10 +87,9 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
         this.rawText = '';
         this.stream();
       }
-
       this.speak = true;
     } else {
-      this.toastService.showToast("L'accès au microphone n'est pas autorisé.", 'toast-info');
+      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.', 'toast-info');
     }
   }
 
@@ -102,7 +99,7 @@ export class MessageWrapperComponent implements OnInit, AfterViewInit {
       if (this.isMobile) {
         this.rawText = value.final;
       } else {
-        if (value.interim != '') {
+        if (value.interim !== '') {
           this.rawText += '  .';
         } else {
           this.rawText = saveText + value.final;

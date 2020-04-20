@@ -3,73 +3,69 @@ import { Router } from '@angular/router';
 import { SettingsService } from 'src/app/services/settings.service';
 import { RateService } from 'src/app/services/rate.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
+import { VOCABULARY } from 'src/app/data/vocabulary';
 import { Rate } from 'src/app/models/rate';
 import { MatDialogRef } from '@angular/material';
 
 interface Sentences {
-  questionOne: { french: string; foreign: string; };
-  questionTwo: { french: string; foreign: string; };
-  questionThree: { french: string; foreign: string; };
+  questionOne: { french: string; foreign: string };
+  questionTwo: { french: string; foreign: string };
+  questionThree: { french: string; foreign: string };
 }
 
 @Component({
   selector: 'app-rate-dialog',
   templateUrl: './rate-dialog.component.html',
-  styleUrls: ['./rate-dialog.component.scss']
+  styleUrls: ['./rate-dialog.component.scss'],
 })
 export class RateDialogComponent implements OnInit {
   public rate: Rate;
   public rates: boolean[][] = [
     [false, false, false, false, false],
-    [false, false, false, false, false]
+    [false, false, false, false, false],
   ];
   public sentences: Sentences = {
-    questionOne : {
+    questionOne: {
       french: '',
-      foreign: ''
+      foreign: '',
     },
-    questionTwo : {
+    questionTwo: {
       french: '',
-      foreign: ''
+      foreign: '',
     },
-    questionThree : {
+    questionThree: {
       french: '',
-      foreign: ''
-    }
+      foreign: '',
+    },
   };
 
-  constructor(private dialogRef: MatDialogRef<RateDialogComponent>, private rateService: RateService, private settingsService: SettingsService, private toastService: ToastService, private router: Router) {
-    VOCABULARY_V2.find(v => v.isoCode === 'fr-FR').sentences.forEach(s => {
-      if (s.key === 'rate-easyToUse') {
-        this.sentences.questionOne.french = s.value;
-      }
-      if (s.key === 'rate-understand') {
-        this.sentences.questionTwo.french = s.value;
-      }
-      if (s.key === 'rate-comment') {
-        this.sentences.questionThree.french = s.value;
-      }
-    });
-    VOCABULARY_V2.find(v => v.isoCode === this.settingsService.guest.value.language).sentences.forEach(s => {
-      if (s.key === 'rate-easyToUse') {
-        this.sentences.questionOne.foreign = s.value;
-      }
-      if (s.key === 'rate-understand') {
-        this.sentences.questionTwo.foreign = s.value;
-      }
-      if (s.key === 'rate-comment') {
-        this.sentences.questionThree.foreign = s.value;
-      }
-    });
-  }
+  constructor(
+    private dialogRef: MatDialogRef<RateDialogComponent>,
+    private rateService: RateService,
+    private settingsService: SettingsService,
+    private toastService: ToastService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    const rateFr = VOCABULARY.find(v => v.isoCode === 'fr-FR').sentences.rate;
+    if (rateFr) {
+      this.sentences.questionOne.french = rateFr.easyToUse;
+      this.sentences.questionTwo.french = rateFr.understand;
+      this.sentences.questionThree.french = rateFr.comment;
+    }
+    const vocabularyForeign = VOCABULARY.find(v => v.isoCode === this.settingsService.guest.value.language);
+    const rateForeign = vocabularyForeign.sentences.rate;
+    if (rateForeign) {
+      this.sentences.questionOne.foreign = rateForeign.easyToUse;
+      this.sentences.questionTwo.foreign = rateForeign.understand;
+      this.sentences.questionThree.foreign = rateForeign.comment;
+    }
     this.rate = {
-      language: VOCABULARY_V2.find(v => v.isoCode === this.settingsService.guest.value.language).sentences.find(s => s.key === 'language-name-fr').value,
+      language: vocabularyForeign.languageNameFr,
       date: new Date(),
       grades: [undefined, undefined],
-      comment: ''
+      comment: '',
     };
   }
 
@@ -92,7 +88,7 @@ export class RateDialogComponent implements OnInit {
           this.dialogRef.close();
           this.router.navigate(['thanks']);
         })
-        .catch(error => {
+        .catch((error) => {
           this.dialogRef.close();
           this.toastService.showToast('La notation n\'a pas pu être envoyée. Redirection en cours.', 'toast-error');
           setTimeout(() => {

@@ -1,12 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
-import { VOCABULARY_V2 } from 'src/app/data/vocabulary';
+import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-translation-title',
   templateUrl: './translation-title.component.html',
-  styleUrls: ['./translation-title.component.scss']
+  styleUrls: ['./translation-title.component.scss'],
 })
 export class TranslationTitleComponent implements OnInit {
   @Output() finish: EventEmitter<null> = new EventEmitter<null>();
@@ -17,32 +17,25 @@ export class TranslationTitleComponent implements OnInit {
   constructor(private settingsService: SettingsService, public router: Router) {}
 
   ngOnInit(): void {
-    const advisor = VOCABULARY_V2.find(item => item.isoCode === this.settingsService.advisor.language).sentences;
-    const isSetLanguage = VOCABULARY_V2.some(item => item.isoCode === this.settingsService.guest.value.language);
-    const guest = isSetLanguage ? VOCABULARY_V2.find(item => item.isoCode === this.settingsService.guest.value.language).sentences : this.generateSentence(this.settingsService.guest.value.language);
+    let guest = VOCABULARY.find((item) => item.isoCode === this.settingsService.guest.value.language);
+    if (guest === undefined) {
+      guest = VOCABULARY_DEFAULT;
+    }
+    const advisorSentences = VOCABULARY.find((item) => item.isoCode === this.settingsService.advisor.language).sentences;
 
     this.title = {
-      raw: guest.find(s => s.key === 'application-name').value,
-      french: advisor.find(s => s.key === 'application-name').value
+      raw: guest.sentences.applicationName,
+      french: advisorSentences.applicationName,
     };
-
-    if (!guest.some(item => item.key === 'showLanguage')) {
+    if (guest.languageNameRaw !== undefined) {
       this.languages = {
-        raw: guest.find(s => s.key === 'language-name-raw').value,
-        french: guest.find(s => s.key === 'language-name-fr').value
+        raw: guest.languageNameRaw,
+        french: guest.languageNameFr,
       };
     }
   }
 
   public over(): void {
     this.finish.emit();
-  }
-  public generateSentence(language: string): { key: string; value: string }[] {
-    return [
-      { key: 'application-name', value: 'Instant Translation' },
-      { key: 'showLanguage', value: 'nok' },
-      { key: 'language-name-raw', value: 'NaL' },
-      { key: 'language-name-fr', value: 'NaL' }
-    ];
   }
 }

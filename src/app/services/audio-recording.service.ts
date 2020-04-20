@@ -47,7 +47,7 @@ export class AudioRecordingService {
         this.audioOnBlob = data.blob;
         const audioUrl = URL.createObjectURL(this.audioOnBlob);
         this.audioSpeech = new Audio(audioUrl);
-        if (this.audioOnBlob != undefined) {
+        if (this.audioOnBlob !== undefined) {
           const audioOnBase64 = await this.convertBlobToBase64(this.audioOnBlob);
           const speechToTextService = new SpeechToTextService();
           speechToTextService.recognizeAsync(audioOnBase64, this.language, time).subscribe(
