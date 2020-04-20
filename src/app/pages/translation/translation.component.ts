@@ -95,7 +95,7 @@ export class TranslationComponent implements OnInit {
   public closeConversation() {
     this.dialog.open(RateDialogComponent, {
       width: this.isMobile ? '100%' : '800px',
-      height: this.isMobile ? '100%' : '600px',
+      height: this.isMobile ? '100%' : '700px',
       panelClass: 'customDialog',
     });
   }

@@ -15,6 +15,7 @@ export const HEBREW: Sentence = {
     easyToUse: 'האם כלי זה קל לשימוש?',
     understand: 'האם כלי זה עזר לנו להבין אחד את השני?',
     comment: 'תגובה חינם',
+    offerLinked: 'האם מושא חילופי דברים זה קשור לשירותים המוצעים על ידי Pôle Emploi?',
   },
 };
 
@@ -35,6 +36,7 @@ export const ARAB: Sentence = {
     easyToUse: 'هل هذه الأداة سهلة الاستخدام؟',
     understand: 'هل تسمح لك هذه الأداة بالحوار بسهولة مع المحاور؟',
     comment: 'تعليق مجاني',
+    offerLinked: 'هل موضوع هذا التبادل مرتبط بالخدمات التي يقدمها Pôle Emploi؟',
   },
 };
 
@@ -53,6 +55,7 @@ export const FRENCH: Sentence = {
     easyToUse: 'Est-ce que cet outil est facile à utiliser ?',
     understand: 'Est-ce que cet outil vous a permis de dialoguer facilement avec votre interlocuteur ?',
     comment: 'Commentaire libre',
+    offerLinked: 'Est-ce que l’objet de cet échange est lié à l’offre de services de Pôle Emploi ?',
   },
 };
 
@@ -73,7 +76,8 @@ export const ENGLISH: Sentence = {
     easyToUse: 'Is this tool easy to use?',
     understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
     comment: 'Free Comment',
-  },
+    offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
+  }
 };
 
 export const SPANNISH: Sentence = {
@@ -94,6 +98,7 @@ export const SPANNISH: Sentence = {
     easyToUse: '¿Es esta herramienta fácil de usar?',
     understand: '¿Esta herramienta nos ayudó a entendernos?',
     comment: 'Comentario gratis',
+    offerLinked: '¿El objeto de este intercambio está vinculado a los servicios ofrecidos por Pôle Emploi?',
   },
 };
 
@@ -113,6 +118,7 @@ export const MADARIN: Sentence = {
     easyToUse: '这个工具好用吗？',
     understand: '此工具是否有助于我们彼此了解？',
     comment: '自由评论',
+    offerLinked:'交换对象是否与PôleEmploi提供的服务相关？'
   },
 };
 
@@ -133,6 +139,7 @@ export const BENGALI: Sentence = {
     easyToUse: 'এই সরঞ্জামটি কি সহজে ব্যবহার করা যায়?',
     understand: 'এই সরঞ্জামটি কি আপনাকে সহজেই আপনার কথোপকথকের সাথে কথোপকথনের অনুমতি দেয়?',
     comment: 'ফ্রি মন্তব্য',
+    offerLinked:'এই এক্সচেঞ্জের বিষয়টি কি পলে কর্মী দ্বারা প্রদত্ত পরিষেবাদির সাথে যুক্ত?'
   },
 };
 
@@ -148,9 +155,10 @@ export const DARI: Sentence = {
   readedWelcome: 'آیا می خواهید به این زبان ادامه دهید؟',
   autoListen: 'پخپله غوږ شه',
   rate: {
-    easyToUse: 'todo',
-    understand: 'todo',
-    comment: 'todo',
+    easyToUse: 'آیا این ابزار آسان است؟',
+    understand: 'آیا این ابزار به شما امکان می دهد تا به راحتی با گفتگوی خود گفتگو کنید؟',
+    comment: 'نظر رایگان',
+    offerLinked:'آیا موضوع این مبادله با خدمات ارائه شده توسط Pôle Emploi مرتبط است؟'
   },
 };
 
@@ -172,6 +180,7 @@ export const PACHTO: Sentence = {
     easyToUse: 'ایا دا وسیله کارول اسانه ده؟',
     understand: 'ایا دا وسیله تاسو ته اجازه درکوي چې په اسانۍ سره د خپل خبرو اترو سره خبرو اترو ته ورشئ؟',
     comment: 'وړیا نظر',
+    offerLinked:'ایا د دې تبادلې مقصود د پال انګار لخوا وړاندیز شوي خدماتو سره تړاو لري؟'
   },
 };
 
@@ -191,7 +200,8 @@ export const OURDOU: Sentence = {
     easyToUse: 'Is this tool easy to use?',
     understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
     comment: 'Free Comment',
-  },
+    offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
+  }
 };
 
 export const PORTUGUESE: Sentence = {
@@ -213,7 +223,8 @@ export const PORTUGUESE: Sentence = {
     easyToUse: 'Is this tool easy to use?',
     understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
     comment: 'Free Comment',
-  },
+    offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
+  }
 };
 
 export const GERMAN: Sentence = {
@@ -232,10 +243,11 @@ export const GERMAN: Sentence = {
   recordText: 'Sprich jetzt',
   autoListen: 'Automatisch zuhören',
   rate: {
-    easyToUse: 'Is this tool easy to use?',
-    understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
-    comment: 'Free Comment',
-  },
+    easyToUse: 'Ist dieses Tool einfach zu bedienen?',
+    understand: 'Konnten Sie mit diesem Tool problemlos mit Ihrem Gesprächspartner sprechen?',
+    comment: 'Kostenloser Kommentar',
+    offerLinked: 'Ist der Gegenstand dieses Austauschs mit den von Pôle Emploi angebotenen Dienstleistungen verbunden?',
+  }
 };
 
 export const TURC: Sentence = {
@@ -255,6 +267,7 @@ export const TURC: Sentence = {
     easyToUse: 'Is this tool easy to use?',
     understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
     comment: 'Free Comment',
+    offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?'
   },
 };
 
@@ -377,7 +390,7 @@ export const RUSSIA: Sentence = {
 };
 
 export const OUZBEK: Sentence = {
-  displayedWelcome: 'Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo\'lardim.',
+  displayedWelcome: "Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo'lardim.",
   readedWelcome: 'Ushbu tilda almashishni xohlaysizmi?',
   applicationName: 'Instant Translation',
   send: 'Send',
@@ -450,5 +463,6 @@ export const PERSAN: Sentence = {
     easyToUse: 'آیا این ابزار آسان است؟',
     understand: 'آیا این ابزار به شما امکان می دهد تا به راحتی با گفتگوی خود گفتگو کنید؟',
     comment: 'نظر رایگان',
+    offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
   },
 };

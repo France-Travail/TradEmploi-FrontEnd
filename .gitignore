@@ -44,5 +44,6 @@ src/assets/.DS_Store
 
 environment*.ts
 environment.ts
+src/environments/environment.ts
 
 # End of https://www.gitignore.io/api/angular

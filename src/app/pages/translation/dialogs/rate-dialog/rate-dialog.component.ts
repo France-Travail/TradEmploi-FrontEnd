@@ -11,6 +11,7 @@ interface Sentences {
   questionOne: { french: string; foreign: string };
   questionTwo: { french: string; foreign: string };
   questionThree: { french: string; foreign: string };
+  questionFour: { french: string; foreign: string };
 }
 
 @Component({
@@ -37,6 +38,10 @@ export class RateDialogComponent implements OnInit {
       french: '',
       foreign: '',
     },
+    questionFour: {
+      french: '',
+      foreign: '',
+    },
   };
 
   constructor(
@@ -48,24 +53,27 @@ export class RateDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const rateFr = VOCABULARY.find(v => v.isoCode === 'fr-FR').sentences.rate;
+    const rateFr = VOCABULARY.find((v) => v.isoCode === 'fr-FR').sentences.rate;
     if (rateFr) {
       this.sentences.questionOne.french = rateFr.easyToUse;
       this.sentences.questionTwo.french = rateFr.understand;
       this.sentences.questionThree.french = rateFr.comment;
+      this.sentences.questionFour.french = rateFr.offerLinked;
     }
-    const vocabularyForeign = VOCABULARY.find(v => v.isoCode === this.settingsService.guest.value.language);
+    const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.guest.value.language);
     const rateForeign = vocabularyForeign.sentences.rate;
     if (rateForeign) {
       this.sentences.questionOne.foreign = rateForeign.easyToUse;
       this.sentences.questionTwo.foreign = rateForeign.understand;
       this.sentences.questionThree.foreign = rateForeign.comment;
+      this.sentences.questionFour.foreign = rateForeign.offerLinked;
     }
     this.rate = {
       language: vocabularyForeign.languageNameFr,
       date: new Date(),
       grades: [undefined, undefined],
       comment: '',
+      offerLinked: false,
     };
   }
 
@@ -90,11 +98,15 @@ export class RateDialogComponent implements OnInit {
         })
         .catch((error) => {
           this.dialogRef.close();
-          this.toastService.showToast('La notation n\'a pas pu être envoyée. Redirection en cours.', 'toast-error');
+          this.toastService.showToast("La notation n'a pas pu être envoyée. Redirection en cours.", 'toast-error');
           setTimeout(() => {
             this.router.navigate(['thanks']);
           }, 3500);
         });
     }
+  }
+
+  onItemChange(value) {
+    this.rate.offerLinked = value;
   }
 }

@@ -5,19 +5,19 @@
     <div class="french">{{ sentences.questionOne.french }}</div>
     <div class="foreign">{{ sentences.questionOne.foreign }}</div>
     <div class="stars">
-      <div class="star" (click)="eval(0, 0)" [ngClass]="{'chosen': rates[0][0]}">
+      <div class="star" (click)="eval(0, 0)" [ngClass]="{ chosen: rates[0][0] }">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_border</mat-icon>
       </div>
-      <div class="star" (click)="eval(1, 0)" [ngClass]="{'chosen': rates[0][1]}">
+      <div class="star" (click)="eval(1, 0)" [ngClass]="{ chosen: rates[0][1] }">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_border</mat-icon>
       </div>
-      <div class="star" (click)="eval(2, 0)" [ngClass]="{'chosen': rates[0][2]}">
+      <div class="star" (click)="eval(2, 0)" [ngClass]="{ chosen: rates[0][2] }">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_border</mat-icon>
       </div>
-      <div class="star" (click)="eval(3, 0)" [ngClass]="{'chosen': rates[0][3]}">
+      <div class="star" (click)="eval(3, 0)" [ngClass]="{ chosen: rates[0][3] }">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_border</mat-icon>
       </div>
-      <div class="star" (click)="eval(4, 0)" [ngClass]="{'chosen': rates[0][4]}">
+      <div class="star" (click)="eval(4, 0)" [ngClass]="{ chosen: rates[0][4] }">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_border</mat-icon>
       </div>
     </div>
@@ -27,21 +27,32 @@
     <div class="french">{{ sentences.questionTwo.french }}</div>
     <div class="foreign">{{ sentences.questionTwo.foreign }}</div>
     <div class="stars">
-      <div class="star" (click)="eval(0, 1)" [ngClass]="{'chosen': rates[1][0]}">
+      <div class="star" (click)="eval(0, 1)" [ngClass]="{ chosen: rates[1][0] }">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_border</mat-icon>
       </div>
-      <div class="star" (click)="eval(1, 1)" [ngClass]="{'chosen': rates[1][1]}">
+      <div class="star" (click)="eval(1, 1)" [ngClass]="{ chosen: rates[1][1] }">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_border</mat-icon>
       </div>
-      <div class="star" (click)="eval(2, 1)" [ngClass]="{'chosen': rates[1][2]}">
+      <div class="star" (click)="eval(2, 1)" [ngClass]="{ chosen: rates[1][2] }">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_border</mat-icon>
       </div>
-      <div class="star" (click)="eval(3, 1)" [ngClass]="{'chosen': rates[1][3]}">
+      <div class="star" (click)="eval(3, 1)" [ngClass]="{ chosen: rates[1][3] }">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_border</mat-icon>
       </div>
-      <div class="star" (click)="eval(4, 1)" [ngClass]="{'chosen': rates[1][4]}">
+      <div class="star" (click)="eval(4, 1)" [ngClass]="{ chosen: rates[1][4] }">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_border</mat-icon>
       </div>
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="french">{{ sentences.questionFour.french }}</div>
+    <div class="foreign">{{ sentences.questionFour.foreign }}</div>
+    <div class="yes-no">
+      <input id="question-four-yes" type="radio" name="four" value="yes" (change)="onItemChange($event.target.value)" [checked]="rate.offerLinked" />
+      <label for="question-four-yes">Oui</label>
+      <input id="question-four-no" type="radio" name="four" value="no" (change)="onItemChange($event.target.value)" [checked]="!rate.offerLinked" />
+      <label for="question-four-no">No</label>
     </div>
   </div>
 
@@ -51,7 +62,6 @@
     <textarea [(ngModel)]="rate.comment" maxlength="218"></textarea>
   </div>
 </div>
-
 
 <div mat-dialog-actions>
   <button (click)="confirm()">ENVOYER</button>

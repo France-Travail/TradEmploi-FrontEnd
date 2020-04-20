@@ -29,4 +29,5 @@ export interface Rate {
   easyToUse: string;
   understand: string;
   comment: string;
+  offerLinked: string;
 }
