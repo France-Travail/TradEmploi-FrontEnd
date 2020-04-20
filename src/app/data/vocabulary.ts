@@ -28,12 +28,12 @@ import {
   VIETNAMESE,
 } from './sentence';
 
-export const VOCABULARY_NEW_DEFAULT: Vocabulary = {
+export const VOCABULARY_DEFAULT: Vocabulary = {
   isoCode: 'default',
   sentences: ENGLISH,
 };
 
-export const VOCABULARY_NEW: Vocabulary[] = [
+export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'ar-IL',
     countryNameRaw: 'ישראל',

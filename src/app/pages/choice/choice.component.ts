@@ -3,7 +3,7 @@ import { Component, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { TranslateService } from 'src/app/services/translate.service';
-import { VOCABULARY_NEW } from 'src/app/data/vocabulary';
+import { VOCABULARY } from 'src/app/data/vocabulary';
 import { LanguagesComponent } from './dialog/languages/languages.component';
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -63,7 +63,7 @@ export class ChoiceComponent implements AfterContentInit {
     this.router.navigate(['translation']);
   }
   showMainLanguages(): void {
-    this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY_NEW.find((i) => i.isoCode === country));
+    this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country));
   }
 
   async audioDescription(message: string, lang: string) {

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SettingsService } from 'src/app/services/settings.service';
 import { RateService } from 'src/app/services/rate.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { VOCABULARY_NEW } from 'src/app/data/vocabulary';
+import { VOCABULARY } from 'src/app/data/vocabulary';
 import { Rate } from 'src/app/models/rate';
 import { MatDialogRef } from '@angular/material';
 
@@ -48,13 +48,13 @@ export class RateDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const rateFr = VOCABULARY_NEW.find(v => v.isoCode === 'fr-FR').sentences.rate;
+    const rateFr = VOCABULARY.find(v => v.isoCode === 'fr-FR').sentences.rate;
     if (rateFr) {
       this.sentences.questionOne.french = rateFr.easyToUse;
       this.sentences.questionTwo.french = rateFr.understand;
       this.sentences.questionThree.french = rateFr.comment;
     }
-    const vocabularyForeign = VOCABULARY_NEW.find(v => v.isoCode === this.settingsService.guest.value.language);
+    const vocabularyForeign = VOCABULARY.find(v => v.isoCode === this.settingsService.guest.value.language);
     const rateForeign = vocabularyForeign.sentences.rate;
     if (rateForeign) {
       this.sentences.questionOne.foreign = rateForeign.easyToUse;

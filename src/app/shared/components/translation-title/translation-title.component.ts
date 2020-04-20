@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
-import { VOCABULARY_NEW, VOCABULARY_NEW_DEFAULT } from 'src/app/data/vocabulary';
+import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,11 +17,11 @@ export class TranslationTitleComponent implements OnInit {
   constructor(private settingsService: SettingsService, public router: Router) {}
 
   ngOnInit(): void {
-    let guest = VOCABULARY_NEW.find((item) => item.isoCode === this.settingsService.guest.value.language);
+    let guest = VOCABULARY.find((item) => item.isoCode === this.settingsService.guest.value.language);
     if (guest === undefined) {
-      guest = VOCABULARY_NEW_DEFAULT;
+      guest = VOCABULARY_DEFAULT;
     }
-    const advisorSentences = VOCABULARY_NEW.find((item) => item.isoCode === this.settingsService.advisor.language).sentences;
+    const advisorSentences = VOCABULARY.find((item) => item.isoCode === this.settingsService.advisor.language).sentences;
 
     this.title = {
       raw: guest.sentences.applicationName,

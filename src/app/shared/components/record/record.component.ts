@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
-import { VOCABULARY_NEW } from 'src/app/data/vocabulary';
+import { VOCABULARY } from 'src/app/data/vocabulary';
 
 @Component({
   selector: 'app-record',
@@ -43,7 +43,7 @@ export class RecordComponent implements OnInit {
 
   putTitle = () => {
     const language = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    this.text = VOCABULARY_NEW.find((item) => item.isoCode === language).sentences.recordText;
+    this.text = VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
   }
 
   private recordBarLoad = () => {
