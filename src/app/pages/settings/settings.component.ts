@@ -42,13 +42,13 @@ export class SettingsComponent {
         this.exportCsv(response);
       })
       .catch((err) => {
-        this.toastService.showToast('Erreur lors de l\'export du fichier', 'toast-error');
+        this.toastService.showToast("Erreur lors de l'export du fichier", 'toast-error');
         throw new Error('An error occurred when export csv file');
       });
   }
 
   private exportCsv(rates) {
-    const json2csvParser = new Parser();
+    const json2csvParser = new Parser({ delimiter: ';', encoding: 'utf8' });
     const data = json2csvParser.parse(rates);
     const blob = new Blob([data], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
