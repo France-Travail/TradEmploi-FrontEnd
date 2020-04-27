@@ -55,7 +55,9 @@ export class SettingsComponent {
     const a = document.createElement('a');
     a.setAttribute('hidden', '');
     a.setAttribute('href', url);
-    a.setAttribute('download', 'petraduction.csv');
+    const date = new Date().toLocaleDateString('ko-KR').replace(/. /g, '');
+    const filename = 'PE_Outil_Traduction_KPI_' + date + '.csv';
+    a.setAttribute('download', filename);
     document.body.append(a);
     a.click();
     document.body.removeChild(a);

@@ -49,9 +49,9 @@
     <div class="french">{{ sentences.questionFour.french }}</div>
     <div class="foreign">{{ sentences.questionFour.foreign }}</div>
     <div class="yes-no">
-      <input id="question-four-yes" type="radio" name="four" value="oui" (change)="onItemChange($event.target.value)" [checked]="rate.offerLinked" />
+      <input id="question-four-yes" type="radio" name="four" value="oui" (change)="onItemChange($event.target.value)" [checked]="rate.offerLinked === 'oui'" />
       <label for="question-four-yes">Oui</label>
-      <input id="question-four-no" type="radio" name="four" value="non" (change)="onItemChange($event.target.value)" [checked]="!rate.offerLinked" />
+      <input id="question-four-no" type="radio" name="four" value="non" (change)="onItemChange($event.target.value)" [checked]="rate.offerLinked === 'non'" />
       <label for="question-four-no">No</label>
     </div>
   </div>
