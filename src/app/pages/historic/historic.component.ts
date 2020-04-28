@@ -13,7 +13,7 @@ import { ShowComponent } from './dialogs/show/show.component';
 import { RemoveComponent } from './dialogs/remove/remove.component';
 
 // Models
-import { Conversation } from 'src/app/models/conversation';
+import { Conversation } from 'src/app/models/history/conversation';
 import { Rate } from 'src/app/models/rate';
 import { NavbarItem } from 'src/app/models/navbar-item';
 

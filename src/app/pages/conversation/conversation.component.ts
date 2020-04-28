@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { HistoryService } from 'src/app/services/history.service';
 
 // Models
-import { Conversation } from 'src/app/models/conversation';
+import { Conversation } from 'src/app/models/history/conversation';
 import { NavbarItem } from 'src/app/models/navbar-item';
 
 @Component({

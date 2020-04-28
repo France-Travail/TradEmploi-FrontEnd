@@ -8,6 +8,7 @@ import { NavbarItem } from 'src/app/models/navbar-item';
 // Services
 import { TranslateService } from 'src/app/services/translate.service';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
+import { Message } from 'src/app/models/translate/message';
 
 @Component({
   selector: 'app-translation',
@@ -19,7 +20,7 @@ export class TranslationComponent implements OnInit {
 
   public navBarItems: NavbarItem[] = [];
   public sentMessage: string;
-  public messages: any[] = [];
+  public chat: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
@@ -35,7 +36,6 @@ export class TranslationComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private keyboardService: MatKeyboardService
   ) {
-    // Start watching screen size modication
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
@@ -78,15 +78,21 @@ export class TranslationComponent implements OnInit {
     ];
   }
 
-  public toEdit(message) {
+  public editChat(message) {
     message.user === 'guest' ? (this.guestTextToEdit = message.message) : (this.advisorTextToEdit = message.message);
+    this.deleteChat(message)
   }
 
-  public addToThread(event) {
+  public deleteChat(message) {
+    const index = this.chat.indexOf(message);
+    this.chat.splice(index, 1);
+  }
+
+  public addToChat(event) {
     this.marginKeyboard = this.keyboardService.isOpened ? '500px' : '0';
-    this.messages.push(event);
-    const lastIndex = this.messages.length - 1;
-    const lastSpeech = this.messages[lastIndex].translatedSpeech;
+    this.chat.push(event);
+    const lastIndex = this.chat.length - 1;
+    const lastSpeech = this.chat[lastIndex].translatedSpeech;
     if (this.audio && lastSpeech !== undefined) {
       lastSpeech.play();
     }

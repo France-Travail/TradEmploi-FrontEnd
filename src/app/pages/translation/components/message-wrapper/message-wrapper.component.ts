@@ -7,12 +7,11 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { NewMessage } from 'src/app/models/new-message';
+import { Message } from 'src/app/models/translate/message';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
 import { Stream } from 'src/app/models/stream';
 // import { MatKeyboardService } from 'angular-onscreen-material-keyboard';
-
 
 @Component({
   selector: 'app-message-wrapper',
@@ -24,9 +23,9 @@ export class MessageWrapperComponent implements OnInit {
   @Input() user: string;
   @Input() rawText: string;
 
-  @Output() newMessagesToEmit = new EventEmitter();
+  @Output() messagesToEmit = new EventEmitter();
 
-  public newMessage: NewMessage;
+  public message: Message;
   public sendBtnValue: string;
   public flag: string;
   public languageOrigin: string;
@@ -65,7 +64,7 @@ export class MessageWrapperComponent implements OnInit {
   ngOnInit(): void {
     this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.guest.value.language);
-    const data =  isLanguageExist || this.user === 'advisor' ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
+    const data = isLanguageExist || this.user === 'advisor' ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     this.title = data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
     this.flag = isLanguageExist ? data.flag.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
@@ -89,7 +88,7 @@ export class MessageWrapperComponent implements OnInit {
       }
       this.speak = true;
     } else {
-      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.', 'toast-info');
+      this.toastService.showToast("L'accès au microphone n'est pas autorisé.", 'toast-info');
     }
   }
 
@@ -135,15 +134,17 @@ export class MessageWrapperComponent implements OnInit {
       this.translateService.translate(this.rawText, this.user).subscribe(async (response) => {
         this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language, this.user);
         this.translatedSpeech = this.textToSpeechService.audioSpeech;
-        this.newMessage = {
+        this.message = {
           message: this.messageInterceptor,
           translation: response,
           user: this.user,
           language: this.languageOrigin,
           translatedSpeech: this.translatedSpeech,
           flag: this.flag,
+          id: new Date().getTime(),
         };
-        this.newMessagesToEmit.emit(this.newMessage);
+        console.log('messagesToEmit :>> ', this.message);
+        this.messagesToEmit.emit(this.message);
       });
       this.rawText = '';
       this.speak = false;
