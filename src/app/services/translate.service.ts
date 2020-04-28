@@ -4,7 +4,7 @@ import { Lang } from '../models/lang';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TranslateService {
   public guest: Lang = { audioLanguage: '', writtenLanguage: '' };
@@ -12,30 +12,25 @@ export class TranslateService {
 
   public translate(text: string, speaker: string): Observable<string> {
     const target: string = speaker === 'advisor' ? this.guest.writtenLanguage.split('-')[0] : this.advisor.split('-')[0];
-    const provider: string = environment.api.provider;
+    const url = `https://translation.googleapis.com/language/translate/v2?key=${environment.gcp.apiKey}`;
     const data = {
-      query: `
-      {
-        translate(text:"${text}",target:"${target}", provider:${provider}) {
-          text
-        }
-      }`
+      q: text,
+      target: target,
+      format: 'text',
     };
-
-    return new Observable(observer => {
-      axios
-        .post(environment.api.graphqlUrl, data, {
-          auth: {
-            username: environment.api.login,
-            password: environment.api.password
-          },
-          timeout: 5000
-        })
-        .then(response => {
-          observer.next(response.data.data.translate[0].text);
+    return new Observable((observer) => {
+      axios({
+        method: 'post',
+        headers: { 'content-type': 'application/json; charset=utf-8' },
+        data: data,
+        url: url,
+      })
+        .then((response) => {
+          const res = response.data.data.translations[0].translatedText;
+          observer.next(res);
           observer.complete();
         })
-        .catch(error => {
+        .catch((error) => {
           observer.error('Traduction indisponible momentanément');
         });
     });
