@@ -1,11 +1,11 @@
+import { MessageWrapperComponent } from './components/message-wrapper/message-wrapper.component';
 // Angular
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { MatKeyboardService } from 'angular-onscreen-material-keyboard';
 import { NavbarItem } from 'src/app/models/navbar-item';
-// Services
 import { TranslateService } from 'src/app/services/translate.service';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
 import { Message } from 'src/app/models/translate/message';
@@ -79,13 +79,11 @@ export class TranslationComponent implements OnInit {
   }
 
   public editChat(message) {
-    message.user === 'guest' ? (this.guestTextToEdit = message.message) : (this.advisorTextToEdit = message.message);
-    this.deleteChat(message)
-  }
-
-  public deleteChat(message) {
-    const index = this.chat.indexOf(message);
-    this.chat.splice(index, 1);
+    if (message.user === 'guest') {
+      this.guestTextToEdit = message;
+    } else {
+      this.advisorTextToEdit = message;
+    }
   }
 
   public addToChat(event) {

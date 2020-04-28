@@ -10,11 +10,11 @@
       </div>
     </div>
     <div class="thread" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-      <app-chat [rawText]="sentMessage" [chat]="chat" (editMessageEmit)="editChat($event)" (deleteMessageEmit)="deleteChat($event)"></app-chat>
+      <app-chat [rawText]="sentMessage" [chat]="chat" (editMessageEmit)="editChat($event)" ></app-chat>
     </div>
   </div>
   <div class="msg" [ngStyle]="{ 'margin-bottom': marginKeyboard }">
-    <app-message-wrapper user="guest" class="margin" (messagesToEmit)="addToChat($event)" [rawText]="guestTextToEdit"></app-message-wrapper>
-    <app-message-wrapper id="advisor-wrapper" user="advisor" class="margin" (messagesToEmit)="addToChat($event)" [rawText]="advisorTextToEdit"></app-message-wrapper>
+    <app-message-wrapper user="guest" class="margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
+    <app-message-wrapper id="advisor-wrapper" user="advisor" class="margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit"></app-message-wrapper>
   </div>
 </div>

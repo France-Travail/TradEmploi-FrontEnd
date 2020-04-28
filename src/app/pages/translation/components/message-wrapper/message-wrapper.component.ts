@@ -21,10 +21,11 @@ import { Stream } from 'src/app/models/stream';
 export class MessageWrapperComponent implements OnInit {
   @Input() title: string;
   @Input() user: string;
-  @Input() rawText: string;
+  @Input() originText: Message;
 
   @Output() messagesToEmit = new EventEmitter();
 
+  public rawText: string;
   public message: Message;
   public sendBtnValue: string;
   public flag: string;
@@ -76,6 +77,12 @@ export class MessageWrapperComponent implements OnInit {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
+  }
+
+  ngOnChanges() {
+    if (this.originText) {
+      this.rawText = this.originText.message;
+    }
   }
 
   public async talk(): Promise<void> {
@@ -141,9 +148,8 @@ export class MessageWrapperComponent implements OnInit {
           language: this.languageOrigin,
           translatedSpeech: this.translatedSpeech,
           flag: this.flag,
-          id: new Date().getTime(),
+          id: new Date().getTime().toString(),
         };
-        console.log('messagesToEmit :>> ', this.message);
         this.messagesToEmit.emit(this.message);
       });
       this.rawText = '';
