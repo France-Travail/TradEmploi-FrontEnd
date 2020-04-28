@@ -13,13 +13,6 @@ export const environment = {
   gcp: {
     apiKey: 'xxxxxx',
   },
-  api: {
-    graphqlUrl: 'https://xxxxxx',
-    login: 'xxxxxx',
-    password: 'xxxxxx',
-    provider: 'xxxxxx',
-    defaultLanguage: 'xxxxxx',
-  },
   sentry: {
     url: 'xxxxxx',
   },
