@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class TranslateService {
   public guest: Lang = { audioLanguage: '', writtenLanguage: '' };
-  public advisor: string = environment.api.defaultLanguage;
+  public advisor: string = 'fr-FR';
 
   public translate(text: string, speaker: string): Observable<string> {
     const target: string = speaker === 'advisor' ? this.guest.writtenLanguage.split('-')[0] : this.advisor.split('-')[0];
