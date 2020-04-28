@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 // Env
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 // Models
 import { Voice } from '../models/voice';

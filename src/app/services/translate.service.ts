@@ -27,7 +27,6 @@ export class TranslateService {
       })
         .then((response) => {
           const res = response.data.data.translations[0].translatedText;
-          console.log('res :', res);
           observer.next(res);
           observer.complete();
         })
