@@ -73,7 +73,7 @@ export class RateDialogComponent implements OnInit {
       date: new Date(),
       grades: [undefined, undefined],
       comment: '',
-      offerLinked: false,
+      offerLinked: "non",
     };
   }
 

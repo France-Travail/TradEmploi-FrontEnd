@@ -2,6 +2,6 @@ export interface Rate {
   grades?: number[];
   language: string;
   comment?: string;
-  offerLinked: boolean;
+  offerLinked: string;
   date?: Date | any;
 }
