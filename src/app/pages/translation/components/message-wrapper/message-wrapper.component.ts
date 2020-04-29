@@ -1,25 +1,25 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, HostListener, AfterViewInit } from '@angular/core';
+import { NgControl, NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { VOCABULARY_V2, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
+import { MatKeyboardComponent, MatKeyboardRef, MatKeyboardService } from 'angular-onscreen-material-keyboard';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
-import { TranslateService } from 'src/app/services/translate.service';
-import { SettingsService } from 'src/app/services/settings.service';
+import { NewMessage } from 'src/app/models/new-message';
+import { Stream } from 'src/app/models/stream';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
+import { SettingsService } from 'src/app/services/settings.service';
+import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { NewMessage } from 'src/app/models/new-message';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
-import { Stream } from 'src/app/models/stream';
-// import { MatKeyboardService } from 'angular-onscreen-material-keyboard';
-
+import { TranslateService } from 'src/app/services/translate.service';
 
 @Component({
   selector: 'app-message-wrapper',
   templateUrl: './message-wrapper.component.html',
   styleUrls: ['./message-wrapper.component.scss'],
 })
-export class MessageWrapperComponent implements OnInit {
+export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() title: string;
   @Input() user: string;
   @Input() rawText: string;
@@ -40,6 +40,13 @@ export class MessageWrapperComponent implements OnInit {
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
   // keyboard
   public languageKeyboard: string;
+  private enterSubscription: Subscription;
+  private keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
+
+  @ViewChild('attachTo', { read: ElementRef })
+  private inputElement: ElementRef;
+  @ViewChild('attachTo', { read: NgModel })
+  private attachToControl: NgControl;
 
   private messageInterceptor: string;
   public showKeyboard: boolean;
@@ -60,12 +67,22 @@ export class MessageWrapperComponent implements OnInit {
     public textToSpeechService: TextToSpeechService,
     public router: Router,
     private breakpointObserver: BreakpointObserver,
-    private speechRecognitionService: SpeechRecognitionService
+    private speechRecognitionService: SpeechRecognitionService,
+    private keyboardService: MatKeyboardService
   ) {}
+
+  ngAfterViewInit() {
+    this.inputElement.nativeElement.addEventListener('blur', (event) => {
+      this.closeCurrentKeyboard();
+    });
+  }
+  ngOnDestroy() {
+    this.closeCurrentKeyboard();
+  }
   ngOnInit(): void {
     this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.guest.value.language);
-    const data =  isLanguageExist || this.user === 'advisor' ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
+    const data = isLanguageExist || this.user === 'advisor' ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     this.title = data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
     this.flag = isLanguageExist ? data.flag.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
@@ -89,7 +106,7 @@ export class MessageWrapperComponent implements OnInit {
       }
       this.speak = true;
     } else {
-      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.', 'toast-info');
+      this.toastService.showToast("L'accès au microphone n'est pas autorisé.", 'toast-info');
     }
   }
 
@@ -121,6 +138,7 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
+    this.closeCurrentKeyboard();
     if ((this.rawText && this.rawText !== undefined) || this.rawText !== '') {
       if (fromKeyBoard) {
         const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
@@ -171,5 +189,20 @@ export class MessageWrapperComponent implements OnInit {
     this.micro = false;
     this.speak = false;
     this.recordMode = false;
+  }
+
+  public closeCurrentKeyboard() {
+    if (this.keyboardRef) {
+      this.keyboardRef.dismiss();
+    }
+
+    if (this.enterSubscription) {
+      this.enterSubscription.unsubscribe();
+    }
+  }
+  public openAttachedKeyboard() {
+    this.keyboardRef = this.keyboardService.open(this.languageKeyboard);
+    this.keyboardRef.instance.setInputInstance(this.inputElement);
+    this.keyboardRef.instance.attachControl(this.attachToControl.control);
   }
 }

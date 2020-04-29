@@ -13,7 +13,7 @@
       <app-conversation-thread [rawText]="sentMessage" [conversationThread]="messages" (textToEdit)="toEdit($event)"></app-conversation-thread>
     </div>
   </div>
-  <div class="msg" [ngStyle]="{ 'margin-bottom': marginKeyboard }">
+  <div class="msg">
     <app-message-wrapper user="guest" class="margin" (newMessagesToEmit)="addToThread($event)" [rawText]="guestTextToEdit"></app-message-wrapper>
     <app-message-wrapper id="advisor-wrapper" user="advisor" class="margin" (newMessagesToEmit)="addToThread($event)" [rawText]="advisorTextToEdit"></app-message-wrapper>
   </div>

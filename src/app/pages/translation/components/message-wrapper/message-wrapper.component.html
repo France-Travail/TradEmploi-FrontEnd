@@ -1,6 +1,5 @@
 <div class="container">
   <h2 [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }">{{ title }} :</h2>
-
   <div class="input-wrapper">
     <div class="field" *ngIf="!micro || !recordMode">
       <div class="flag">
@@ -15,8 +14,10 @@
         [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"
       ></textarea>
       <textarea
+        #attachTo 
+        matInput
+        (click)="openAttachedKeyboard()"
         *ngIf="user != 'advisor'"
-        [matKeyboard]="languageKeyboard"
         [placeholder]="interim"
         (enterClick)="send(true); (false)"
         inputmode="none"
@@ -38,4 +39,5 @@
     </div>
     <app-record class="margin" *ngIf="recordMode" duration="50" [user]="user" [language]="languageOrigin" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
   </div>
+  
 </div>
