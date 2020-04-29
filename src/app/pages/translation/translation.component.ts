@@ -3,12 +3,10 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-
 import { NavbarItem } from 'src/app/models/navbar-item';
-// Services
+import { Message } from 'src/app/models/translate/message';
 import { TranslateService } from 'src/app/services/translate.service';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
-import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-translation',
@@ -19,16 +17,16 @@ export class TranslationComponent implements OnInit {
   @Input() user: string;
 
   public navBarItems: NavbarItem[] = [];
-  public sentMessage: string;
-  public messages: any[] = [];
+  public chat: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
 
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
+  public marginKeyboard: string;
+
   constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver) {
-    // Start watching screen size modication
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
@@ -69,14 +67,18 @@ export class TranslationComponent implements OnInit {
     ];
   }
 
-  public toEdit(message) {
-    message.user === 'guest' ? (this.guestTextToEdit = message.message) : (this.advisorTextToEdit = message.message);
+  public editChat(message) {
+    if (message.user === 'guest') {
+      this.guestTextToEdit = message;
+    } else {
+      this.advisorTextToEdit = message;
+    }
   }
 
-  public addToThread(event) {
-    this.messages.push(event);
-    const lastIndex = this.messages.length - 1;
-    const lastSpeech = this.messages[lastIndex].translatedSpeech;
+  public addToChat(event) {
+    this.chat.push(event);
+    const lastIndex = this.chat.length - 1;
+    const lastSpeech = this.chat[lastIndex].translatedSpeech;
     if (this.audio && lastSpeech !== undefined) {
       lastSpeech.play();
     }

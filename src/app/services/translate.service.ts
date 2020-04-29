@@ -32,6 +32,7 @@ export class TranslateService {
         })
         .catch((error) => {
           observer.error('Traduction indisponible momentanément');
+          throw new Error('An error occurred when api translate called: api not available');
         });
     });
   }

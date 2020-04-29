@@ -1,12 +1,12 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, HostListener, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { NgControl, NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatKeyboardComponent, MatKeyboardRef, MatKeyboardService } from 'angular-onscreen-material-keyboard';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
-import { NewMessage } from 'src/app/models/new-message';
 import { Stream } from 'src/app/models/stream';
+import { Message } from 'src/app/models/translate/message';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
@@ -22,11 +22,12 @@ import { TranslateService } from 'src/app/services/translate.service';
 export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() title: string;
   @Input() user: string;
-  @Input() rawText: string;
+  @Input() originText: Message;
 
-  @Output() newMessagesToEmit = new EventEmitter();
+  @Output() messagesToEmit = new EventEmitter();
 
-  public newMessage: NewMessage;
+  public rawText: string;
+  public message: Message;
   public sendBtnValue: string;
   public flag: string;
   public languageOrigin: string;
@@ -48,7 +49,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   @ViewChild('attachTo', { read: NgModel })
   private attachToControl: NgControl;
 
-  private messageInterceptor: string;
+  //private messageInterceptor: string;
   public showKeyboard: boolean;
 
   public interim: string = '';
@@ -96,6 +97,12 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     });
   }
 
+  ngOnChanges() {
+    if (this.originText) {
+      this.rawText = this.originText.message;
+    }
+  }
+
   public async talk(): Promise<void> {
     if ('webkitSpeechRecognition' in window) {
       this.micro = true;
@@ -130,38 +137,37 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     this.speechRecognitionService.DestroySpeechObject();
     this.speak = false;
     setTimeout(() => {
-      this.send(false, this.rawText);
-    }, 1000);
+      this.send(false);
+    }, 2000);
   }
   public delete(): void {
     this.rawText = '';
   }
 
-  public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
+  public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
     this.closeCurrentKeyboard();
     if ((this.rawText && this.rawText !== undefined) || this.rawText !== '') {
       if (fromKeyBoard) {
         const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
         this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
         this.rawSpeech = this.textToSpeechService.audioSpeech;
-        this.messageInterceptor = this.rawText;
       } else {
-        this.rawText = message;
         this.rawSpeech = this.audioRecordingService.audioSpeech;
       }
-
-      this.translateService.translate(this.rawText, this.user).subscribe(async (response) => {
+      const message = messageAudio === undefined ? this.rawText : messageAudio;
+      this.translateService.translate(message, this.user).subscribe(async (response) => {
         this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language, this.user);
         this.translatedSpeech = this.textToSpeechService.audioSpeech;
-        this.newMessage = {
-          message: this.messageInterceptor,
+        this.message = {
+          message: message,
           translation: response,
           user: this.user,
           language: this.languageOrigin,
           translatedSpeech: this.translatedSpeech,
           flag: this.flag,
+          id: new Date().getTime().toString(),
         };
-        this.newMessagesToEmit.emit(this.newMessage);
+        this.messagesToEmit.emit(this.message);
       });
       this.rawText = '';
       this.speak = false;
@@ -177,11 +183,11 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   public audioSending(message: string): void {
-    this.messageInterceptor = message;
     this.micro = false;
     this.speak = false;
     this.recordMode = false;
     this.isReady.listenSpeech = true;
+    this.rawText = undefined;
     this.send(false, message);
   }
 

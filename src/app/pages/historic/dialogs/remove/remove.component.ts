@@ -6,7 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HistoryService } from 'src/app/services/history.service';
 
 // Models
-import { Conversation } from 'src/app/models/conversation';
+import { Conversation } from 'src/app/models/history/conversation';
 
 @Component({
   selector: 'app-remove',

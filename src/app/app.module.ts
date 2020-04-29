@@ -45,7 +45,7 @@ import { ShowComponent } from './pages/historic/dialogs/show/show.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
-import { ConversationThreadComponent } from './pages/translation/components/conversation-thread/conversation-thread.component';
+import { ChatComponent } from './pages/translation/components/chat/chat.component';
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
 import { SentryErrorHandler } from './utils/sentry-error-handler';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
@@ -68,7 +68,7 @@ import { AuthenticationComponent } from './pages/authentication/authentication.c
     RateDialogComponent,
     LogoutComponent,
     AuthenticationComponent,
-    ConversationThreadComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

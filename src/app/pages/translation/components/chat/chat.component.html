@@ -1,4 +1,4 @@
-<ng-container *ngFor="let message of conversationThread; let i = index;">
+<ng-container *ngFor="let message of chat; let i = index;">
   <div class="translation">
     <div class="sentence" [ngStyle]="{'text-align': message.language === 'ar-XA' ? 'end' : 'start'}">
         {{ message.translation }}
