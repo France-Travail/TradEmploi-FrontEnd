@@ -41,7 +41,7 @@ export class MessageWrapperComponent implements OnInit {
   // keyboard
   public languageKeyboard: string;
 
-  private messageInterceptor: string;
+  //private messageInterceptor: string;
   public showKeyboard: boolean;
 
   public interim: string = '';
@@ -119,30 +119,28 @@ export class MessageWrapperComponent implements OnInit {
     this.speechRecognitionService.DestroySpeechObject();
     this.speak = false;
     setTimeout(() => {
-      this.send(false, this.rawText);
-    }, 1000);
+      this.send(false);
+    }, 2000);
   }
   public delete(): void {
     this.rawText = '';
   }
 
-  public async send(fromKeyBoard?: boolean, message?: string): Promise<void> {
+  public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
     if ((this.rawText && this.rawText !== undefined) || this.rawText !== '') {
       if (fromKeyBoard) {
         const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
         this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
         this.rawSpeech = this.textToSpeechService.audioSpeech;
-        this.messageInterceptor = this.rawText;
       } else {
-        this.rawText = message;
         this.rawSpeech = this.audioRecordingService.audioSpeech;
       }
-
-      this.translateService.translate(this.rawText, this.user).subscribe(async (response) => {
+      const message = messageAudio === undefined ? this.rawText : messageAudio;
+      this.translateService.translate(message, this.user).subscribe(async (response) => {
         this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language, this.user);
         this.translatedSpeech = this.textToSpeechService.audioSpeech;
         this.message = {
-          message: this.messageInterceptor,
+          message: message,
           translation: response,
           user: this.user,
           language: this.languageOrigin,
@@ -166,11 +164,11 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   public audioSending(message: string): void {
-    this.messageInterceptor = message;
     this.micro = false;
     this.speak = false;
     this.recordMode = false;
     this.isReady.listenSpeech = true;
+    this.rawText = undefined;
     this.send(false, message);
   }
 
