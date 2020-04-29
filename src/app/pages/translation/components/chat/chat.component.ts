@@ -7,8 +7,6 @@ import { Message } from 'src/app/models/translate/message';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent {
-  @Input() user: string;
-  @Input() rawText: string;
   @Input() chat: [];
 
   @Output() editMessageEmit = new EventEmitter();

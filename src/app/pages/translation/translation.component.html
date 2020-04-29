@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="thread" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-      <app-chat [rawText]="sentMessage" [chat]="chat" (editMessageEmit)="editChat($event)" ></app-chat>
+      <app-chat [chat]="chat" (editMessageEmit)="editChat($event)" ></app-chat>
     </div>
   </div>
   <div class="msg" [ngStyle]="{ 'margin-bottom': marginKeyboard }">

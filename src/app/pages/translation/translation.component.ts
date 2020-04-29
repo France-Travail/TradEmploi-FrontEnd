@@ -19,7 +19,6 @@ export class TranslationComponent implements OnInit {
   @Input() user: string;
 
   public navBarItems: NavbarItem[] = [];
-  public sentMessage: string;
   public chat: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
