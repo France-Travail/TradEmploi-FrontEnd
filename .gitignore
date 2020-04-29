@@ -42,6 +42,10 @@ e2e/*.map
 .DS_Store
 src/assets/.DS_Store
 
+environnement*.ts
+environnement.ts
+src/environments/environnement*.ts
+
 environment*.ts
 environment.ts
 src/environments/environment.ts
