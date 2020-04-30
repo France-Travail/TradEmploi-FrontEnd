@@ -1,9 +1,8 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, HostListener } from '@angular/core';
 import { NgControl, NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatKeyboardComponent, MatKeyboardRef, MatKeyboardService } from 'angular-onscreen-material-keyboard';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { Stream } from 'src/app/models/stream';
 import { Message } from 'src/app/models/translate/message';
@@ -41,16 +40,13 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
   // keyboard
   public languageKeyboard: string;
-  private enterSubscription: Subscription;
   private keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
-
-  @ViewChild('attachTo', { read: ElementRef })
+  @ViewChild('attachedInput', { read: ElementRef })
   private inputElement: ElementRef;
-  @ViewChild('attachTo', { read: NgModel })
+  @ViewChild('attachedInput', { read: NgModel })
   private attachToControl: NgControl;
-
-  //private messageInterceptor: string;
   public showKeyboard: boolean;
+  private autoOpenKeyboard: boolean = true;
 
   public interim: string = '';
 
@@ -59,7 +55,9 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
 
   private language: string;
   private isMobile: boolean = false;
-
+  private documentElements: HTMLCollectionOf<Element> = document.documentElement.getElementsByClassName('interfaces');
+  private container: Element;
+  private marginKeyboard: number;
   constructor(
     private toastService: ToastService,
     private translateService: TranslateService,
@@ -73,7 +71,8 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   ) {}
 
   ngAfterViewInit() {
-    this.inputElement.nativeElement.addEventListener('blur', (event) => {
+    this.container = this.documentElements[0];
+    this.inputElement.nativeElement.addEventListener('blur', () => {
       this.closeCurrentKeyboard();
     });
   }
@@ -95,6 +94,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
+    this.marginKeyboard = window.innerHeight - 600;
   }
 
   ngOnChanges() {
@@ -146,7 +146,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
 
   public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
     this.closeCurrentKeyboard();
-    if ((this.rawText && this.rawText !== undefined) || this.rawText !== '') {
+    if (this.rawText && this.rawText !== undefined && this.rawText !== '') {
       if (fromKeyBoard) {
         const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
         this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
@@ -200,15 +200,28 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public closeCurrentKeyboard() {
     if (this.keyboardRef) {
       this.keyboardRef.dismiss();
-    }
-
-    if (this.enterSubscription) {
-      this.enterSubscription.unsubscribe();
+      this.container.setAttribute('style', 'padding-bottom: 0;');
     }
   }
   public openAttachedKeyboard() {
-    this.keyboardRef = this.keyboardService.open(this.languageKeyboard);
-    this.keyboardRef.instance.setInputInstance(this.inputElement);
-    this.keyboardRef.instance.attachControl(this.attachToControl.control);
+    if (!this.keyboardService.isOpened) {
+      if (this.autoOpenKeyboard) {
+        this.keyboardRef = this.keyboardService.open(this.languageKeyboard);
+        this.keyboardRef.instance.setInputInstance(this.inputElement);
+        this.keyboardRef.instance.attachControl(this.attachToControl.control);
+        this.container.setAttribute('style', 'padding-bottom:' + this.marginKeyboard.toString() + 'px;');
+        window.scroll(0, this.marginKeyboard);
+      }
+    }
+  }
+  public switchAutoOpenKeyboard() {
+    if (this.keyboardRef) {
+      this.keyboardRef.dismiss();
+      this.container.setAttribute('style', 'padding-bottom: 0;');
+    }
+    this.autoOpenKeyboard = !this.autoOpenKeyboard;
+    if (this.autoOpenKeyboard) {
+      this.openAttachedKeyboard();
+    }
   }
 }
