@@ -24,7 +24,6 @@ export class TranslationComponent implements OnInit {
 
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
-  public marginKeyboard: string;
 
   constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver) {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
