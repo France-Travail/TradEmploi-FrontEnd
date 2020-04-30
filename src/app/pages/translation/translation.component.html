@@ -1,7 +1,7 @@
 <app-navbar [items]="navBarItems"></app-navbar>
 
 <app-translation-title (finish)="closeConversation()"></app-translation-title>
-<div class="interfaces" [ngStyle]='keyboard'>
+<div class="interfaces">
   <div class="conversation">
     <div class="head-conversation">
       <h2>Conversation</h2>
@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="msg">
-    <app-message-wrapper user="guest" class="margin" (messagesToEmit)="addToChat($event)" (displayKeyboard)="displayKeyboard($event)" [originText]="guestTextToEdit"></app-message-wrapper>
-    <app-message-wrapper user="advisor" class="margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit"></app-message-wrapper>
+    <app-message-wrapper user="guest" class="margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
+    <app-message-wrapper id="advisor-wrapper" user="advisor" class="margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit"></app-message-wrapper>
   </div>
 </div>

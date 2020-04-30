@@ -20,14 +20,14 @@
         *ngIf="user != 'advisor'"
         [placeholder]="interim"
         (enterClick)="send(true); (false)"
-        inputmode="inputMode"
+        inputmode="none"
         [(ngModel)]="rawText"
         (keydown.enter)="send(true); (false)"
         [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"
       ></textarea>
       <div class="buttons">
-        <img class="keyboard" *ngIf=" !autoOpenKeyboard && user != 'advisor'" src="./assets/icons/icon-keyboard-open.svg" alt="Keyboard" (click)="switchAutoOpenKeyboard()"/>
-        <img class="keyboard" *ngIf=" autoOpenKeyboard && user != 'advisor'" src="./assets/icons/icon-keyboard-hide.svg" alt="Keyboard" (click)="switchAutoOpenKeyboard()"/>
+        <img class="keyboard" *ngIf="!isTablet && !autoOpenKeyboard && user != 'advisor'" src="./assets/icons/icon-keyboard-open.svg" alt="Keyboard" (click)="switchAutoOpenKeyboard()"/>
+        <img class="keyboard" *ngIf="!isTablet && autoOpenKeyboard && user != 'advisor'" src="./assets/icons/icon-keyboard-hide.svg" alt="Keyboard" (click)="switchAutoOpenKeyboard()"/>
         <img class="micro" *ngIf="!speak" src="./assets/icons/icon-micro-blue.svg" alt="activate micro" (click)="talk()" />
         <img class="micro-stream" *ngIf="speak && !recordMode" src="./assets/icons/icon-micro-red.svg" alt="activate micro" (click)="exitStream()" />
         <img class="delete" src="./assets/icons/icon-remove-blue.svg" alt="delete text" (click)="delete()" />

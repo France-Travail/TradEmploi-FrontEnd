@@ -82,17 +82,20 @@ $ https://pole-emploi-trad-dev.firebaseapp.com
 
 7 - TEST with Product owner
 
+
 ## Deploy on Prod
 
 1 - MERGE your story on release branch and Update README
 
 2 - Build
 
+
 ```
 $ npm run build:prod
 ```
 
 3 - Test on local
+
 
 4 - Deploy
 
