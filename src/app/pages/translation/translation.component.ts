@@ -24,11 +24,14 @@ export class TranslationComponent implements OnInit {
 
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
-  public marginKeyboard: string;
-
+  private isTablet: boolean;
+  public keyboard;
   constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver) {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
+    });
+    this.breakpointObserver.observe([Breakpoints.Tablet]).subscribe((result) => {
+      this.isTablet = result.matches;
     });
 
     if (this.translateService.guest.audioLanguage === '') {
@@ -94,5 +97,14 @@ export class TranslationComponent implements OnInit {
 
   public switchAudio() {
     this.audio = !this.audio;
+  }
+
+  public displayKeyboard(event) {
+    let spacer = this.isTablet ? 250 : window.innerHeight - 600;
+    if (!event) {
+      spacer = 0;
+    }
+
+    this.keyboard = { 'padding-bottom': spacer.toString() + 'px' };
   }
 }
