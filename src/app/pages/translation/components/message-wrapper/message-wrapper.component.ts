@@ -55,6 +55,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
 
   private language: string;
   private isMobile: boolean = false;
+  private isTablet: boolean = false;
   private documentElements: HTMLCollectionOf<Element> = document.documentElement.getElementsByClassName('interfaces');
   private container: Element;
   private marginKeyboard: number;
@@ -94,7 +95,11 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
-    this.marginKeyboard = window.innerHeight - 600;
+
+    this.breakpointObserver.observe([Breakpoints.Tablet]).subscribe((result) => {
+      this.isTablet = result.matches;
+    });
+    this.marginKeyboard = this.isTablet ? 250 : window.innerHeight - 600;
   }
 
   ngOnChanges() {
@@ -210,7 +215,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
         this.keyboardRef.instance.setInputInstance(this.inputElement);
         this.keyboardRef.instance.attachControl(this.attachToControl.control);
         this.container.setAttribute('style', 'padding-bottom:' + this.marginKeyboard.toString() + 'px;');
-        window.scroll(0, this.marginKeyboard);
+        window.scrollBy(0, this.marginKeyboard);
       }
     }
   }
