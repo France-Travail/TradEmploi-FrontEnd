@@ -53,7 +53,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   private isTablet: boolean = false;
   private container: Element;
   private marginKeyboard: number;
-
+  private isReadyToWrite: boolean = true;
   constructor(
     private toastService: ToastService,
     private translateService: TranslateService,
@@ -143,7 +143,8 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
 
   public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
     this.closeCurrentKeyboard();
-    if (this.rawText && this.rawText !== undefined && this.rawText !== '') {
+    if (this.isReadyToWrite && this.rawText && this.rawText !== undefined && this.rawText !== '') {
+      this.isReadyToWrite = false;
       if (fromKeyBoard) {
         const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
         this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
@@ -169,6 +170,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
       this.rawText = '';
       this.speak = false;
     }
+    setTimeout(() => (this.isReadyToWrite = true), 2000);
   }
 
   public listen(value: 'translation' | 'speech'): void {
