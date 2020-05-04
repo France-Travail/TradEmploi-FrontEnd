@@ -52,7 +52,7 @@ export class AudioRecordingService {
           const speechToTextService = new SpeechToTextService();
           speechToTextService.recognizeAsync(audioOnBase64, this.language, time).subscribe(
             resultat => this.speechToText.next(resultat),
-            error => this.speechToText.next(error)
+            error => this.speechToText.error(error)
           );
         }
       }

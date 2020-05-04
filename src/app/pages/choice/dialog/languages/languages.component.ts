@@ -19,7 +19,7 @@ export interface Countries {
 @Component({
   selector: 'app-languages',
   templateUrl: './languages.component.html',
-  styleUrls: ['./languages.component.scss']
+  styleUrls: ['./languages.component.scss'],
 })
 export class LanguagesComponent implements OnInit {
   public displayedColumns: string[] = ['country', 'flag', 'traduction', 'language'];
@@ -45,7 +45,7 @@ export class LanguagesComponent implements OnInit {
   }
 
   public chooseLanguage(SelectedCountry: string) {
-    const voice = this.countries.filter(country => country.country === SelectedCountry)[0];
+    const voice = this.countries.filter((country) => country.country === SelectedCountry)[0];
     this.voicesService.guest = voice.code;
     this.translateService.guest = voice.code;
     this.settingsService.guest.next({ ...this.settingsService.guest.value, language: voice.code.writtenLanguage });
