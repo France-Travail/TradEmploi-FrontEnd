@@ -45,8 +45,8 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public interim: string = '';
   public recordMode: boolean = false;
   public speak: boolean = false;
+  public autoOpenKeyboard: boolean = true;
 
-  private autoOpenKeyboard: boolean = true;
   private keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
   private language: string;
   private isMobile: boolean = false;
@@ -155,6 +155,9 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
       const message = messageAudio === undefined ? this.rawText : messageAudio;
       this.translateService.translate(message, this.user).subscribe(async (response) => {
         this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language, this.user);
+        if (this.isReady.listenTranslation === false) {
+          this.textToSpeechService.audioSpeech = null;
+        }
         this.translatedSpeech = this.textToSpeechService.audioSpeech;
         this.message = {
           message: message,
