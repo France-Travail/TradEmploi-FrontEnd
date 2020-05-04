@@ -96,33 +96,15 @@ export class RecordComponent implements OnInit {
     this.inProgress = true;
     if (this.intervalId !== undefined) {
       this.stopRecord();
-      // this.audioRecordingService.speechToText.subscribe(
-      //   (res: ) => {
-      //     console.log('Entre');
-      //     this.inProgress = false;
-      //     this.send.emit(res);
-      //   },
-      //   (err) => {
-      //     console.log('Entre ERR');
-      //     this.inProgress = false;
-      //     //this.send.emit(err);
-      //     this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.', 'toast-error');
-      //   }
-      // );
       this.audioRecordingService.speechToText.subscribe(
         (response) => {
-          console.log('Entre event', response);
           this.inProgress = false;
-          if (response.includes('error')) {
-            this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
-          } else {
-            this.send.emit(response);
-          }
+          this.send.emit(response);
         },
         (err) => {
-          console.log('Entre ERR', err);
           this.inProgress = false;
-          this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+          this.toastService.showToast('Transcription de la voix au texte est indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+          this.send.emit('');
         }
       );
     }

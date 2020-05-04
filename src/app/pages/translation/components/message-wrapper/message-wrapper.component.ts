@@ -136,20 +136,25 @@ export class MessageWrapperComponent implements OnInit {
         this.rawSpeech = this.audioRecordingService.audioSpeech;
       }
       const message = messageAudio === undefined ? this.rawText : messageAudio;
-      this.translateService.translate(message, this.user).subscribe(async (response) => {
-        this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language, this.user);
-        this.translatedSpeech = this.textToSpeechService.audioSpeech;
-        this.message = {
-          message: message,
-          translation: response,
-          user: this.user,
-          language: this.languageOrigin,
-          translatedSpeech: this.translatedSpeech,
-          flag: this.flag,
-          id: new Date().getTime().toString(),
-        };
-        this.messagesToEmit.emit(this.message);
-      });
+      this.translateService.translate(message, this.user).subscribe(
+        async (response) => {
+          this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language, this.user);
+          this.translatedSpeech = this.textToSpeechService.audioSpeech;
+          this.message = {
+            message: message,
+            translation: response,
+            user: this.user,
+            language: this.languageOrigin,
+            translatedSpeech: this.translatedSpeech,
+            flag: this.flag,
+            id: new Date().getTime().toString(),
+          };
+          this.messagesToEmit.emit(this.message);
+        },
+        async (error) => {
+          this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+        }
+      );
       this.rawText = '';
       this.speak = false;
     }
@@ -169,7 +174,9 @@ export class MessageWrapperComponent implements OnInit {
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
-    this.send(false, message);
+    if (message != '') {
+      this.send(false, message);
+    }
   }
 
   public exitRecord() {

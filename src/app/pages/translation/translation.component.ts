@@ -86,12 +86,14 @@ export class TranslationComponent implements OnInit {
   }
 
   public addToChat(event) {
-    this.marginKeyboard = this.keyboardService.isOpened ? '500px' : '0';
-    this.chat.push(event);
-    const lastIndex = this.chat.length - 1;
-    const lastSpeech = this.chat[lastIndex].translatedSpeech;
-    if (this.audio && lastSpeech !== undefined) {
-      lastSpeech.play();
+    if (event.message !== '') {
+      this.marginKeyboard = this.keyboardService.isOpened ? '500px' : '0';
+      this.chat.push(event);
+      const lastIndex = this.chat.length - 1;
+      const lastSpeech = this.chat[lastIndex].translatedSpeech;
+      if (this.audio && lastSpeech !== undefined) {
+        lastSpeech.play();
+      }
     }
   }
 
