@@ -33,7 +33,7 @@ export class SpeechToTextService {
             axios({
               method: 'get',
               headers: { 'content-type': 'application/json; charset=utf-8' },
-              url: urlOperation
+              url: urlOperation,
             })
               .then((res) => {
                 const transcription =

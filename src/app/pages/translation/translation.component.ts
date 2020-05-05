@@ -7,6 +7,7 @@ import { NavbarItem } from 'src/app/models/navbar-item';
 import { Message } from 'src/app/models/translate/message';
 import { TranslateService } from 'src/app/services/translate.service';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-translation',
@@ -25,7 +26,7 @@ export class TranslationComponent implements OnInit {
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
 
-  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver) {
+  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver, private toastService: ToastService) {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
@@ -76,13 +77,16 @@ export class TranslationComponent implements OnInit {
 
   public addToChat(event) {
     if (event.message !== '') {
-      this.marginKeyboard = this.keyboardService.isOpened ? '500px' : '0';
       this.chat.push(event);
       const lastIndex = this.chat.length - 1;
       const lastSpeech = this.chat[lastIndex].translatedSpeech;
       if (this.audio && lastSpeech !== undefined) {
-        lastSpeech.play();
+        if (lastSpeech !== null) {
+          lastSpeech.play();
+        }
       }
+    } else {
+      this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
     }
   }
 

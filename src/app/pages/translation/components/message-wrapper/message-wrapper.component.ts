@@ -53,7 +53,6 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   private isTablet: boolean = false;
   private container: Element;
   private marginKeyboard: number;
-  private isReadyToWrite: boolean = true;
   constructor(
     private toastService: ToastService,
     private translateService: TranslateService,
@@ -68,9 +67,11 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
 
   ngAfterViewInit() {
     this.container = document.documentElement.getElementsByClassName('interfaces')[0];
-    this.inputElement.nativeElement.addEventListener('blur', () => {
-      this.closeCurrentKeyboard();
-    });
+    if (this.inputElement != undefined) {
+      this.inputElement.nativeElement.addEventListener('blur', () => {
+        this.closeCurrentKeyboard();
+      });
+    }
   }
   ngOnDestroy() {
     this.closeCurrentKeyboard();
@@ -143,8 +144,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
 
   public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
     this.closeCurrentKeyboard();
-    if (this.isReadyToWrite && this.rawText && this.rawText !== undefined && this.rawText !== '') {
-      this.isReadyToWrite = false;
+    if ((this.rawText && this.rawText !== undefined) || this.rawText !== '') {
       if (fromKeyBoard) {
         const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
         this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
@@ -153,7 +153,6 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
         this.rawSpeech = this.audioRecordingService.audioSpeech;
       }
       const message = messageAudio === undefined ? this.rawText : messageAudio;
-
       this.translateService.translate(message, this.user).subscribe(
         async (response) => {
           this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language, this.user);
@@ -179,7 +178,6 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
       this.rawText = '';
       this.speak = false;
     }
-    setTimeout(() => (this.isReadyToWrite = true), 2000);
   }
 
   public listen(value: 'translation' | 'speech'): void {
@@ -198,6 +196,8 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     this.rawText = undefined;
     if (message != '') {
       this.send(false, message);
+    } else {
+      this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
     }
   }
 
