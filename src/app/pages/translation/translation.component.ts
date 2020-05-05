@@ -1,4 +1,3 @@
-// Angular
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
@@ -80,10 +79,8 @@ export class TranslationComponent implements OnInit {
       this.chat.push(event);
       const lastIndex = this.chat.length - 1;
       const lastSpeech = this.chat[lastIndex].translatedSpeech;
-      if (this.audio && lastSpeech !== undefined) {
-        if (lastSpeech !== null) {
-          lastSpeech.play();
-        }
+      if (this.audio && lastSpeech !== undefined && lastSpeech !== null) {
+        lastSpeech.play();
       }
     } else {
       this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');

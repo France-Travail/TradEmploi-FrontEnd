@@ -12,6 +12,7 @@ export class ChatComponent {
   @Output() editMessageEmit = new EventEmitter();
 
   public visible: boolean = false;
+  public myList: any;
 
   public extand() {
     this.visible = !this.visible;
@@ -32,5 +33,9 @@ export class ChatComponent {
     if (sentMessage && sentMessage.translatedSpeech) {
       sentMessage.translatedSpeech.play();
     }
+  }
+
+  scrollToBottom() {
+    this.myList.nativeElement.scrollTop = this.myList.nativeElement.scrollHeight;
   }
 }

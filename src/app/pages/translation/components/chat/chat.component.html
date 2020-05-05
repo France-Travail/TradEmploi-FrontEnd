@@ -1,7 +1,8 @@
-<ng-container *ngFor="let message of chat; let i = index;">
+<ng-container *ngFor="let message of chat; let i = index;" #myList>
   <div class="translation">
     <div class="sentence" [ngStyle]="{'text-align': message.language === 'ar-XA' ? 'end' : 'start'}">
         {{ message.translation }}
+        {{i ? scrollToBottom() : ''}}
     </div>
     <a class="listen" (click)="listen(i)" *ngIf="message.translatedSpeech !== null">
       <img src="../../../assets/icons/icon-listen-black.svg" alt="Ecoute de la traduction">
@@ -22,7 +23,7 @@
           </a>
         </ng-template>
         <ng-template #longText>
-          <a class="incoming-message" (click)="editMessage(i)">{{ message.message | slice:0:98 }}&nbsp;<strong *ngIf="message.message.length > 98">...</strong></a>
+          <a class="incoming-message" (click)="editMessage(i)">{{ message.message | slice:0:98 }}&nbsp;<strong *ngIf="message.message !== undefined && message.message.length > 98">...</strong></a>
           <a class="extand" *ngIf="message.message !== undefined && message.message.length > 98" (click)="extand()">
             <img src="./assets/icons/icon-chevron-open-blue.svg" alt="étendre le texte" />
           </a>

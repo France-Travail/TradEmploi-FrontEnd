@@ -3,20 +3,28 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { Auth } from '../models/auth';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   public auth: BehaviorSubject<Auth> = new BehaviorSubject<Auth>(null);
 
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) {
-    this.afAuth.authState.subscribe(async state => {
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore,  private toastService: ToastService) {
+    this.afAuth.authState.subscribe(async (state) => {
       if (state !== null) {
         this.auth.next({ user: state });
-        this.db.collection('config').valueChanges().subscribe((config: any) => {
-          this.auth.next({ user: state, role: config[0].adminList.includes(state.email) ? 'ADMIN' : 'USER' });
-        });
+        this.db
+          .collection('config')
+          .valueChanges()
+          .subscribe((config: any) => {
+            if (config !== undefined && config.length >= 0) {
+              this.auth.next({ user: state, role: config[0].adminList.includes(state.email) ? 'ADMIN' : 'USER' });
+            }else{
+              this.toastService.showToast('La base de donnée est indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+            }
+          });
       }
     });
   }
@@ -26,9 +34,9 @@ export class AuthService {
       try {
         const user = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
         this.auth.next({ user: user.user });
-        resolve({ isAuth: true, message: 'Authentification réussie'});
+        resolve({ isAuth: true, message: 'Authentification réussie' });
       } catch (error) {
-        reject({ isAuth: false, message: error.message});
+        reject({ isAuth: false, message: error.message });
       }
     });
   }
@@ -38,9 +46,9 @@ export class AuthService {
       try {
         await this.afAuth.auth.signOut();
         this.auth.next(null);
-        resolve({ isAuth: false, message: 'Déconnexion réussie'});
+        resolve({ isAuth: false, message: 'Déconnexion réussie' });
       } catch (error) {
-        reject({ isAuth: true, message: error.message});
+        reject({ isAuth: true, message: error.message });
       }
     });
   }
