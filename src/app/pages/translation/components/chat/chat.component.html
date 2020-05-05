@@ -1,8 +1,7 @@
-<ng-container *ngFor="let message of chat; let i = index;" #myList>
+<ng-container *ngFor="let message of chat; let i = index;">
   <div class="translation">
     <div class="sentence" [ngStyle]="{'text-align': message.language === 'ar-XA' ? 'end' : 'start'}">
         {{ message.translation }}
-        {{i ? scrollToBottom() : ''}}
     </div>
     <a class="listen" (click)="listen(i)" *ngIf="message.translatedSpeech !== null">
       <img src="../../../assets/icons/icon-listen-black.svg" alt="Ecoute de la traduction">

@@ -35,7 +35,4 @@ export class ChatComponent {
     }
   }
 
-  scrollToBottom() {
-    this.myList.nativeElement.scrollTop = this.myList.nativeElement.scrollHeight;
-  }
 }
