@@ -9,7 +9,7 @@
         <mat-slide-toggle class="auto-listen-btn" (click)="switchAudio()" checked labelPosition="before" color="primary">{{ autoListenValue }}</mat-slide-toggle>
       </div>
     </div>
-    <div class="thread" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+    <div class="thread" #scrollMe >
       <app-chat [chat]="chat" (editMessageEmit)="editChat($event)" ></app-chat>
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { NavbarItem } from 'src/app/models/navbar-item';
@@ -13,7 +13,7 @@ import { ToastService } from 'src/app/services/toast.service';
   templateUrl: './translation.component.html',
   styleUrls: ['./translation.component.scss'],
 })
-export class TranslationComponent implements OnInit {
+export class TranslationComponent implements OnInit,AfterViewChecked {
   @Input() user: string;
 
   public navBarItems: NavbarItem[] = [];
@@ -21,6 +21,7 @@ export class TranslationComponent implements OnInit {
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
+  @ViewChild('scrollMe') private chatScroll: ElementRef;
 
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
@@ -37,6 +38,17 @@ export class TranslationComponent implements OnInit {
   }
   ngOnInit(): void {
     this.audio = true;
+    this.scrollToBottom();
+  }
+
+  ngAfterViewChecked() {        
+    this.scrollToBottom();        
+} 
+
+  scrollToBottom(): void {
+    try {
+      this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 
   public goto(where: string): void {
