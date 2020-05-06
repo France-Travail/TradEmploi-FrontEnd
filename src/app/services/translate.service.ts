@@ -23,7 +23,7 @@ export class TranslateService {
         method: 'post',
         headers: { 'content-type': 'application/json; charset=utf-8' },
         data: data,
-        url: url,
+        url: url
       })
         .then((response) => {
           const res = response.data.data.translations[0].translatedText;

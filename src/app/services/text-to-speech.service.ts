@@ -85,7 +85,6 @@ export class TextToSpeechService {
         );
       } else {
         resolve(false);
-        throw new Error('NO WAVENET VOICE FOUNDED');
       }
     });
   }
