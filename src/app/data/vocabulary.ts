@@ -26,6 +26,7 @@ import {
   ROMANIAN,
   SOMALI,
   VIETNAMESE,
+  GREEK
 } from './sentence';
 
 export const VOCABULARY_DEFAULT: Vocabulary = {
@@ -520,4 +521,13 @@ export const VOCABULARY: Vocabulary[] = [
     flag: 'VN',
     sentences: VIETNAMESE,
   },
+  {
+    isoCode: 'el-GR',
+    countryNameRaw: 'Ελλάδα',
+    countryNameFr: 'Grèce',
+    languageNameFr: 'Grec',
+    languageNameRaw: 'Ελληνικά',
+    flag: 'GR',
+    sentences: GREEK,
+  }
 ];
