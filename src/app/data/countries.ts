@@ -27,7 +27,7 @@ export const COUNTRIES: { country: string; LanguageFr: string; flag: string; tra
     country: 'افغانستان',
     traduction: 'Afghanistan',
     flag: 'AF',
-    code: { audioLanguage: 'tw-ob', writtenLanguage: 'tw-ob' },
+    code: { audioLanguage: 'ps-AF', writtenLanguage: 'ps-AF' },
     language: 'پښتو',
     LanguageFr: 'Pachto',
   },
