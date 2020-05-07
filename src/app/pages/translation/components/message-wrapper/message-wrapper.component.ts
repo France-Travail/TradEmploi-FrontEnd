@@ -53,6 +53,8 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   private isTablet: boolean = false;
   private container: Element;
   private marginKeyboard: number;
+  private guestTarget: string;
+  private targetLanguage: string;
   constructor(
     private toastService: ToastService,
     private translateService: TranslateService,
@@ -93,6 +95,9 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
       this.isTablet = result.matches;
     });
     this.marginKeyboard = this.isTablet ? 250 : window.innerHeight - 600;
+    this.settingsService.getTarget().subscribe((target) => {
+      this.guestTarget = target.language;
+    });
   }
 
   ngOnChanges() {
@@ -160,14 +165,16 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
             this.textToSpeechService.audioSpeech = null;
           }
           this.translatedSpeech = this.textToSpeechService.audioSpeech;
+          this.targetLanguage = this.user == 'guest' ? 'fr-FR' : this.guestTarget;
           this.message = {
             message: message,
             translation: response,
             user: this.user,
-            language: this.languageOrigin,
+            languageOrigin: this.languageOrigin,
             translatedSpeech: this.translatedSpeech,
             flag: this.flag,
             id: new Date().getTime().toString(),
+            target: this.targetLanguage
           };
           this.messagesToEmit.emit(this.message);
         },

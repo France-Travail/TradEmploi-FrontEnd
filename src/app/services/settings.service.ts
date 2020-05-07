@@ -1,9 +1,9 @@
 // Angular
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 // Models
 import { User } from '../models/user';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,10 @@ export class SettingsService {
 
   constructor() {}
 
+  getTarget(): Observable<User> {
+    return this.guest.asObservable()
+  }
+ 
   public reset(): void {
     this.guest.next({ firstname: '', lastname: '', language: '' });
   }
