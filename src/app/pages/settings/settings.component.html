@@ -7,18 +7,7 @@
       <h4>Mode de saisie vocal</h4>
       <div class="option">
         <div class="option-item">
-          <input id="vocal-stream" type="radio" name="vocal" value="stream" (change)="onItemChange($event.target.value)" [checked]="!recordMode" />
-        </div>
-        <div class="option-item">
-          <p class="option-text">
-            <strong>Saisie rapide</strong><br />
-            Privilègez des phrases courtes. Traduction rapide.
-          </p>
-        </div>
-      </div>
-      <div class="option">
-        <div class="option-item">
-          <input id="vocal-record" type="radio" name="vocal" value="record" (change)="onItemChange($event.target.value)" [checked]="recordMode"/>
+          <input id="vocal-record" type="radio" name="vocal" value="record" (change)="onItemChange($event.target.value)" [checked]="true"/>
         </div>
         <div class="option-item">
           <p class="option-text">
