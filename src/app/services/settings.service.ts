@@ -13,7 +13,7 @@ export class SettingsService {
   public guest: BehaviorSubject<User> = new BehaviorSubject<User>({ firstname: '', lastname: '', language: '' });
   public audio: boolean = false;
   public newConversation: boolean = true;
-  public recordMode: boolean = true;
+  public recordMode: boolean = false;
 
   constructor() {}
 
