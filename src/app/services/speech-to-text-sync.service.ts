@@ -24,7 +24,7 @@ export class SpeechToTextSyncService {
         method: 'post',
         headers: { 'content-type': 'application/json; charset=utf-8' },
         url: urlRecognize,
-        timeout: 5000,
+        timeout: 60000,
         data,
       })
         .then((response) => {
