@@ -24,6 +24,7 @@ export class SpeechToTextSyncService {
         method: 'post',
         headers: { 'content-type': 'application/json; charset=utf-8' },
         url: urlRecognize,
+        timeout: 5000,
         data,
       })
         .then((response) => {
@@ -34,6 +35,7 @@ export class SpeechToTextSyncService {
 
         })
         .catch((error) => {
+          console.log('error :>> ', error);
           observer.error(error);
           throw new Error('An error occurred when api async speech to text longrunningrecognize called');
         });
