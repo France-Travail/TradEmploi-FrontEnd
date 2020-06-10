@@ -8,6 +8,7 @@
     "build:prod": "ng build --prod",
     "build:dev": "ng build --configuration=dev",
     "build:qa": "ng build --configuration=qa",
+    "build:testdev": "ng build --configuration=testdev",
     "test": "ng test",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",

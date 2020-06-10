@@ -54,6 +54,34 @@ $ https://pole-emploi-trad-dev.firebaseapp.com
 
 7 - TEST with Product owner
 
+## Deploy on Test DEV
+
+1 - Before do DOD
+
+2 - MERGE your story on develop branch
+
+3 - Build
+
+```
+$ npm run build:testdev
+```
+
+4 - TEST on local
+
+5 - Deploy
+
+```
+$ firebase deploy --project testdev
+```
+
+6 - TEST
+
+```
+$ https://pole-emploi-trad-dev.firebaseapp.com
+```
+
+7 - TEST with Product owner
+
 ## Deploy on Qualification
 
 1 - Before do DOD
