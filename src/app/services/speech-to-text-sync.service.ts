@@ -28,14 +28,12 @@ export class SpeechToTextSyncService {
         data,
       })
         .then((response) => {
-          console.log('response :>> ', response);
           const transcription = response.data.results[0].alternatives[0].transcript;
           observer.next(transcription);
           observer.complete();
 
         })
         .catch((error) => {
-          console.log('error :>> ', error);
           observer.error(error);
           throw new Error('An error occurred when api async speech to text longrunningrecognize called');
         });
