@@ -87,7 +87,8 @@ export class TranslationComponent implements OnInit,AfterViewChecked {
   }
 
   public addToChat(event) {
-    if (event.message !== '') {
+    let hasDot = new RegExp("^[ .\s]+$").test(event.message);
+    if (event.message !== '' && !hasDot) {
       this.chat.push(event);
       const lastIndex = this.chat.length - 1;
       const lastSpeech = this.chat[lastIndex].translatedSpeech;
@@ -95,7 +96,9 @@ export class TranslationComponent implements OnInit,AfterViewChecked {
         lastSpeech.play();
       }
     } else {
-      this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+      if(!hasDot){
+        this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+      }
     }
   }
 
