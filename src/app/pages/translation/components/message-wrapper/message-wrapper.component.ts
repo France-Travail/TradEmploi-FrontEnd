@@ -180,8 +180,6 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
         },
         async (error) => {
           this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
-          this.rawText = '';
-          this.speak = false;
         }
       );
       this.rawText = '';
