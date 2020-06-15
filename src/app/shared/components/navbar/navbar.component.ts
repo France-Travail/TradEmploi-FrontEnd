@@ -18,7 +18,7 @@ export class NavbarComponent {
   public title: string = 'Traduction Instantanée';
   private isMobile: boolean = false;
 
-  constructor(private route: ActivatedRoute, public router: Router, private settingsService: SettingsService, public dialog: MatDialog, private breakpointObserver: BreakpointObserver) {
+  constructor(private route: ActivatedRoute, public router: Router, public dialog: MatDialog, private breakpointObserver: BreakpointObserver) {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
