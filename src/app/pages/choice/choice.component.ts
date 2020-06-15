@@ -9,25 +9,13 @@ import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { NavbarItem } from 'src/app/models/navbar-item';
-
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
   styleUrls: ['./choice.component.scss'],
 })
 export class ChoiceComponent implements AfterContentInit {
-  constructor(
-    private translateService: TranslateService,
-    private textToSpeechService: TextToSpeechService,
-    private historyService: HistoryService,
-    private settingsService: SettingsService,
-    private router: Router,
-    public dialog: MatDialog
-  ) {
-    if (this.historyService.conversation === undefined) {
-      this.router.navigate(['start']);
-    }
-  }
   public navBarItems: NavbarItem[] = [];
   public selectedCountriesData = [];
   public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU'];
@@ -36,17 +24,41 @@ export class ChoiceComponent implements AfterContentInit {
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
 
-  ngAfterContentInit(): void {
-    this.showMainLanguages();
-    this.setNavbar();
+  constructor(
+    private translateService: TranslateService,
+    private textToSpeechService: TextToSpeechService,
+    private historyService: HistoryService,
+    private settingsService: SettingsService,
+    private router: Router,
+    private authService: AuthService,
+    public dialog: MatDialog
+  ) {
+    this.authService.auth.subscribe((user) => {
+      if (user !== null) {
+        this.setNavbar(user.role === 'ADMIN');
+      }
+    });
+    if (this.historyService.conversation === undefined) {
+      this.router.navigate(['start']);
+    }
   }
 
-  setNavbar(): void {
+  ngAfterContentInit(): void {
+    this.showMainLanguages();
+  }
+
+  setNavbar(isAdmin: boolean): void {
     this.navBarItems = [
       {
         icon: 'assets/icons/icon-settings-black.svg',
         infoTitle: 'PARAMÈTRES',
         link: 'settings/choice',
+        isDisplayed: isAdmin,
+      },
+      {
+        icon: 'assets/icons/icon-logout.svg',
+        infoTitle: 'DECONNEXION',
+        link: 'logout',
         isDisplayed: true,
       },
     ];

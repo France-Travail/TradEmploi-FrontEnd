@@ -7,13 +7,13 @@ import { Message } from 'src/app/models/translate/message';
 import { TranslateService } from 'src/app/services/translate.service';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
 import { ToastService } from 'src/app/services/toast.service';
-
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
   styleUrls: ['./translation.component.scss'],
 })
-export class TranslationComponent implements OnInit,AfterViewChecked {
+export class TranslationComponent implements OnInit, AfterViewChecked {
   @Input() user: string;
 
   public navBarItems: NavbarItem[] = [];
@@ -26,7 +26,19 @@ export class TranslationComponent implements OnInit,AfterViewChecked {
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
 
-  constructor(private translateService: TranslateService, public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver, private toastService: ToastService) {
+  constructor(
+    private translateService: TranslateService,
+    public dialog: MatDialog,
+    private router: Router,
+    private breakpointObserver: BreakpointObserver,
+    private toastService: ToastService,
+    private authService: AuthService
+  ) {
+    this.authService.auth.subscribe((user) => {
+      if (user !== null) {
+        this.setNavBar(user.role === 'ADMIN');
+      }
+    });
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
@@ -34,16 +46,15 @@ export class TranslationComponent implements OnInit,AfterViewChecked {
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
     }
-    this.setNavBar();
   }
   ngOnInit(): void {
     this.audio = true;
     this.scrollToBottom();
   }
 
-  ngAfterViewChecked() {        
-    this.scrollToBottom();        
-} 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
 
   scrollToBottom(): void {
     try {
@@ -55,7 +66,7 @@ export class TranslationComponent implements OnInit,AfterViewChecked {
     this.router.navigate([where]);
   }
 
-  public setNavBar(): void {
+  public setNavBar(isAdmin: boolean): void {
     this.navBarItems = [
       {
         icon: 'assets/icons/icon-languages-black.svg',
@@ -73,6 +84,12 @@ export class TranslationComponent implements OnInit,AfterViewChecked {
         icon: 'assets/icons/icon-settings-black.svg',
         infoTitle: 'PARAMÈTRES',
         link: 'settings/translation',
+        isDisplayed: isAdmin,
+      },
+      {
+        icon: 'assets/icons/icon-logout.svg',
+        infoTitle: 'DECONNEXION',
+        link: 'logout',
         isDisplayed: true,
       },
     ];
@@ -87,7 +104,7 @@ export class TranslationComponent implements OnInit,AfterViewChecked {
   }
 
   public addToChat(event) {
-    let hasDot = new RegExp("^[ .\s]+$").test(event.message);
+    let hasDot = new RegExp('^[ .s]+$').test(event.message);
     if (event.message !== '' && !hasDot) {
       this.chat.push(event);
       const lastIndex = this.chat.length - 1;
@@ -96,7 +113,7 @@ export class TranslationComponent implements OnInit,AfterViewChecked {
         lastSpeech.play();
       }
     } else {
-      if(!hasDot){
+      if (!hasDot) {
         this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
       }
     }

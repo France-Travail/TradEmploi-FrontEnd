@@ -49,6 +49,7 @@ import { ChatComponent } from './pages/translation/components/chat/chat.componen
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
 import { SentryErrorHandler } from './utils/sentry-error-handler';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { AuthenticationComponent } from './pages/authentication/authentication.c
     FormsModule,
     MatButtonModule,
     MatKeyboardModule,
+    DeviceDetectorModule.forRoot()
   ],
   providers: [
     {

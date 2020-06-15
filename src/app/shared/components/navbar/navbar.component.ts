@@ -11,31 +11,16 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements AfterContentInit {
+export class NavbarComponent {
   @Input() items: NavbarItem[];
   @Output() perform: EventEmitter<any> = new EventEmitter<any>();
 
   public title: string = 'Traduction Instantanée';
   private isMobile: boolean = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    public router: Router,
-    private settingsService: SettingsService,
-    public dialog: MatDialog,
-    private breakpointObserver: BreakpointObserver
-  ) {
+  constructor(private route: ActivatedRoute, public router: Router, private settingsService: SettingsService, public dialog: MatDialog, private breakpointObserver: BreakpointObserver) {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
-    });
-  }
-
-  ngAfterContentInit(): void {
-    this.items.push({
-      icon: 'assets/icons/icon-logout.svg',
-      infoTitle: 'DECONNEXION',
-      link: 'logout',
-      isDisplayed: true,
     });
   }
 
@@ -64,5 +49,4 @@ export class NavbarComponent implements AfterContentInit {
       this.router.navigate([where]);
     }
   }
-
 }

@@ -3,17 +3,16 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
-
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
-  styleUrls: ['./authentication.component.scss']
+  styleUrls: ['./authentication.component.scss'],
 })
 export class AuthenticationComponent implements OnInit {
   public form: FormGroup;
 
   constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private toastService: ToastService) {
-    this.authService.auth.subscribe(user => {
+    this.authService.auth.subscribe((user) => {
       if (user !== null) {
         this.router.navigateByUrl('choice');
       }
@@ -23,7 +22,7 @@ export class AuthenticationComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.minLength(6), Validators.required]]
+      password: ['', [Validators.minLength(6), Validators.required]],
     });
   }
 

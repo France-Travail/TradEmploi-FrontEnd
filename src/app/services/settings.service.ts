@@ -1,8 +1,6 @@
-// Angular
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-
-// Models
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { User } from '../models/user';
 
 @Injectable({
@@ -15,12 +13,18 @@ export class SettingsService {
   public newConversation: boolean = true;
   public recordMode: boolean = false;
 
-  constructor() {}
+  constructor(private deviceService: DeviceDetectorService) {
+    const isMobile = this.deviceService.isMobile();
+    const isTablet = this.deviceService.isTablet();
+    if (isMobile || isTablet) {
+      this.recordMode = true;
+    }
+  }
 
   getTarget(): Observable<User> {
-    return this.guest.asObservable()
+    return this.guest.asObservable();
   }
- 
+
   public reset(): void {
     this.guest.next({ firstname: '', lastname: '', language: '' });
   }
