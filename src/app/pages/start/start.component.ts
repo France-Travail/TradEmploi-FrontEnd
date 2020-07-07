@@ -29,7 +29,7 @@ export class StartComponent implements AfterContentInit {
     }, 100);
 
     setTimeout(() => {
-      this.router.navigate(['auth']);
+      this.router.navigate(['anonymous']);
     }, 3000);
   }
 }

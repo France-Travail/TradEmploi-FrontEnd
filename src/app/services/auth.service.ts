@@ -41,6 +41,18 @@ export class AuthService {
     });
   }
 
+  public loginAnonymous(): Promise<{ isAuth: boolean; message: string }> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await this.afAuth.auth.signInAnonymously()
+        this.auth.next({ user: user.user });
+        resolve({ isAuth: true, message: 'Authentification réussie' });
+      } catch (error) {
+        reject({ isAuth: false, message: error.message });
+      }
+    });
+  }
+
   public logout(): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {

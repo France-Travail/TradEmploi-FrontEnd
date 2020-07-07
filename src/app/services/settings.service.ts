@@ -13,6 +13,7 @@ export class SettingsService {
   public newConversation: boolean = true;
   public recordMode: boolean = false;
 
+
   constructor(private deviceService: DeviceDetectorService) {
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();

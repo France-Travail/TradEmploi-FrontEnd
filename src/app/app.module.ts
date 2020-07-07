@@ -49,6 +49,7 @@ import { ChatComponent } from './pages/translation/components/chat/chat.componen
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
 import { SentryErrorHandler } from './utils/sentry-error-handler';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
+import { AnonymousComponent } from './pages/anonymous/anonymous.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 
 @NgModule({
@@ -69,6 +70,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     RateDialogComponent,
     LogoutComponent,
     AuthenticationComponent,
+    AnonymousComponent,
     ChatComponent,
   ],
   imports: [

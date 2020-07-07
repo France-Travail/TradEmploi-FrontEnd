@@ -11,6 +11,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
+import { AnonymousComponent } from './pages/anonymous/anonymous.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'auth',
     component: AuthenticationComponent
+  },
+  {
+    path: 'anonymous',
+    component: AnonymousComponent
   },
   {
     path: 'choice',
