@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-anonymous',
@@ -12,12 +13,14 @@ import { SettingsService } from 'src/app/services/settings.service';
 })
 export class AnonymousComponent{
   public form: FormGroup;
+  private roomId: string;
 
   constructor(private authService: AuthService, 
     private router: Router, 
     private fb: FormBuilder, 
     private toastService: ToastService,
-    private settingsService : SettingsService) {
+    private settingsService : SettingsService,
+    private cs: ChatService) {
     this.authService.auth.subscribe((user) => {
       if (user !== null) {
         this.router.navigateByUrl('choice');
@@ -29,6 +32,8 @@ export class AnonymousComponent{
     this.form = this.fb.group({
       username: ['', [Validators.minLength(6), Validators.required]],
     });
+    const url = this.router.url;
+    this.roomId = url.substring(url.lastIndexOf('/')+1, url.length);
   }
 
   get username(): AbstractControl {
@@ -38,7 +43,8 @@ export class AnonymousComponent{
   public async onSubmit(): Promise<void> {
     try {
       const auth = await this.authService.loginAnonymous();
-      this.settingsService.guest.next({ ...this.settingsService.guest.value, firstname: this.username.value });
+      const key = this.cs.addMember(this.roomId, this.username.value)
+      this.settingsService.guest.next({ ...this.settingsService.guest.value, firstname: this.username.value, roomId: this.roomId , id: key});
       this.toastService.showToast(auth.message, 'toast-success');
       this.router.navigateByUrl('choice');
     } catch (error) {

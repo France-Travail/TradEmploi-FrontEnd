@@ -25,7 +25,7 @@ const routes: Routes = [
     component: AuthenticationComponent
   },
   {
-    path: 'anonymous',
+    path: 'invite/:id',
     component: AnonymousComponent
   },
   {

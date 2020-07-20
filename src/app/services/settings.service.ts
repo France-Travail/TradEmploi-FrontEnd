@@ -7,8 +7,8 @@ import { User } from '../models/user';
   providedIn: 'root',
 })
 export class SettingsService {
-  public advisor: User = { firstname: '', lastname: '', language: 'fr-FR' };
-  public guest: BehaviorSubject<User> = new BehaviorSubject<User>({ firstname: '', lastname: '', language: '' });
+  public advisor: User = { firstname: '', lastname: '', language: 'fr-FR' , roomId: '', id:''};
+  public guest: BehaviorSubject<User> = new BehaviorSubject<User>({ firstname: '', lastname: '', language: '', roomId: '', id:'' });
   public audio: boolean = false;
   public newConversation: boolean = true;
   public recordMode: boolean = false;
@@ -27,6 +27,6 @@ export class SettingsService {
   }
 
   public reset(): void {
-    this.guest.next({ firstname: '', lastname: '', language: '' });
+    this.guest.next({ firstname: '', lastname: '', language: '', roomId:'' , id:''});
   }
 }
