@@ -45,7 +45,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public interim: string = '';
   public recordMode: boolean = false;
   public speak: boolean = false;
-  public autoOpenKeyboard: boolean = true;
+  public autoOpenKeyboard: boolean = false;
 
   private keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
   private language: string;
@@ -174,7 +174,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
             translatedSpeech: this.translatedSpeech,
             flag: this.flag,
             id: new Date().getTime().toString(),
-            target: this.targetLanguage
+            target: this.targetLanguage,
           };
           this.messagesToEmit.emit(this.message);
         },
