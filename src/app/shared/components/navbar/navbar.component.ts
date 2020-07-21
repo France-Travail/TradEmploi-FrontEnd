@@ -5,6 +5,7 @@ import { NavbarItem } from 'src/app/models/navbar-item';
 import { LogoutComponent } from '../logout/logout.component';
 import { MatDialog } from '@angular/material';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ShareComponent } from '../share/share.component';
 
 @Component({
   selector: 'app-navbar',
@@ -28,6 +29,12 @@ export class NavbarComponent {
     if (item.link !== undefined) {
       if (item.link === 'logout') {
         this.dialog.open(LogoutComponent, {
+          width: this.isMobile ? '90%' : '800px',
+          height: this.isMobile ? '100%' : '300px',
+          panelClass: 'customDialog',
+        });
+      } else if (item.link === 'share') {
+        this.dialog.open(ShareComponent, {
           width: this.isMobile ? '90%' : '800px',
           height: this.isMobile ? '100%' : '300px',
           panelClass: 'customDialog',
