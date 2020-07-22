@@ -54,7 +54,7 @@ $ https://pole-emploi-trad-dev.firebaseapp.com
 
 7 - TEST with Product owner
 
-## Deploy on Test DEV
+## Deploy on Test SUMMER
 
 1 - Before do DOD
 
@@ -63,7 +63,7 @@ $ https://pole-emploi-trad-dev.firebaseapp.com
 3 - Build
 
 ```
-$ npm run build:testdev
+$ npm run build:summer
 ```
 
 4 - TEST on local
@@ -71,13 +71,13 @@ $ npm run build:testdev
 5 - Deploy
 
 ```
-$ firebase deploy --project testdev
+$ firebase deploy --project summer
 ```
 
 6 - TEST
 
 ```
-$ https://pole-emploi-trad-dev.firebaseapp.com
+$ https://pole-emploi-trad-summer.firebaseapp.com
 ```
 
 7 - TEST with Product owner
