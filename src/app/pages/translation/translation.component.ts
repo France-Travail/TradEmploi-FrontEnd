@@ -75,6 +75,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
         isDisplayed: true,
       },
       {
+        icon: 'assets/icons/icon-share-alt-solid.svg',
+        infoTitle: 'PARTAGER',
+        link: 'share',
+        isDisplayed: true,
+      },
+      {
         icon: 'assets/icons/icon-chat-black.svg',
         infoTitle: 'HISTORIQUE',
         link: 'conversation',
