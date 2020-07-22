@@ -15,17 +15,16 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class TranslationComponent implements OnInit, AfterViewChecked {
   @Input() user: string;
-
+  @ViewChild('scrollMe') private chatScroll: ElementRef;
   public navBarItems: NavbarItem[] = [];
   public chat: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
-  @ViewChild('scrollMe') private chatScroll: ElementRef;
 
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
-
+  public isAdmin: boolean = false;
   constructor(
     private translateService: TranslateService,
     public dialog: MatDialog,
@@ -36,7 +35,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
   ) {
     this.authService.auth.subscribe((user) => {
       if (user !== null) {
-        this.setNavBar(user.role === 'ADMIN');
+        this.isAdmin = 'ADMIN' === user.role;
+        this.setNavBar(this.isAdmin);
       }
     });
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
