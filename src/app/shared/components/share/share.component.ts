@@ -10,12 +10,11 @@ import { MatDialogRef } from '@angular/material';
 export class ShareComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<ShareComponent>, public router: Router) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   public confirm() {
     this.dialogRef.close();
-    this.router.navigateByUrl('/conversation');
+    this.router.navigateByUrl('/translation/otm');
   }
 
   public cancel() {

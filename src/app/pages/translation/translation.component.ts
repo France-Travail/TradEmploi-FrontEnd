@@ -15,12 +15,14 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class TranslationComponent implements OnInit, AfterViewChecked {
   @Input() user: string;
+
   @ViewChild('scrollMe') private chatScroll: ElementRef;
   public navBarItems: NavbarItem[] = [];
   public chat: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
+  public onetomany: boolean = false;
 
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
@@ -33,12 +35,16 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     private toastService: ToastService,
     private authService: AuthService
   ) {
+    if (this.router.url.toString().includes('/translation/otm')) {
+      this.onetomany = true;
+    }
     this.authService.auth.subscribe((user) => {
       if (user !== null) {
         this.isAdmin = 'ADMIN' === user.role;
         this.setNavBar(this.isAdmin);
       }
     });
+
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });

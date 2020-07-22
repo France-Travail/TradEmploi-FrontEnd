@@ -73,7 +73,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     AuthenticationComponent,
     AnonymousComponent,
     ChatComponent,
-    ShareComponent
+    ShareComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +90,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     FormsModule,
     MatButtonModule,
     MatKeyboardModule,
-    DeviceDetectorModule.forRoot()
+    DeviceDetectorModule.forRoot(),
   ],
   providers: [
     {

@@ -18,55 +18,60 @@ const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full' },
   {
     path: 'start',
-    component: StartComponent
+    component: StartComponent,
   },
   {
     path: 'auth',
-    component: AuthenticationComponent
+    component: AuthenticationComponent,
   },
   {
     path: 'invite/:id',
-    component: AnonymousComponent
+    component: AnonymousComponent,
   },
   {
     path: 'choice',
     component: ChoiceComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'history',
     component: HistoricComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'conversation',
     component: ConversationComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'translation',
     component: TranslationComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'translation/otm',
+    component: TranslationComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'thanks',
     component: ThanksComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'settings/:from',
     component: SettingsComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: '**',
     redirectTo: 'start',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
