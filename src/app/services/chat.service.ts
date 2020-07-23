@@ -56,8 +56,6 @@ export class ChatService {
   }
 
   sendMessage(roomId:string, message: Message): string{
-    console.log('sendMessage roomId :>> ', roomId);
-    console.log('chats/$roomId/messages :>> ', `chats/${roomId}/messages`);
     return this.db.list(`chats/${roomId}/messages`).push(message).key
   }
   

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-anonymous',
@@ -17,8 +18,9 @@ export class AnonymousComponent{
   constructor(private authService: AuthService, 
     private router: Router, 
     private fb: FormBuilder, 
-    private toastService: ToastService,
-    private settingsService : SettingsService) {
+    private ts: ToastService,
+    private ss : SettingsService,
+    private cs: ChatService) {
     this.authService.auth.subscribe((user) => {
       if (user !== null) {
         this.router.navigateByUrl('choice');
@@ -40,13 +42,13 @@ export class AnonymousComponent{
 
   public async onSubmit(): Promise<void> {
     try {
-      const auth = await this.authService.loginAnonymous();
-      const key = "key"
-      this.settingsService.guest.next({ ...this.settingsService.guest.value, firstname: this.username.value, roomId: this.roomId , id: key});
-      this.toastService.showToast(auth.message, 'toast-success');
-      this.router.navigateByUrl('choice');
+        const auth = await this.authService.loginAnonymous();
+        const key = this.cs.addMember(this.roomId, this.username.value)
+        this.ss.guest.next({ ...this.ss.guest.value, firstname: this.username.value, roomId: this.roomId , id: key});
+        this.ts.showToast(auth.message, 'toast-success');
+        this.router.navigateByUrl('choice');
     } catch (error) {
-      this.toastService.showToast(error.message, 'toast-error');
+        this.ts.showToast(error.message, 'toast-error');
     }
   }
 }
