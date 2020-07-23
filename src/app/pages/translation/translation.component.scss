@@ -10,7 +10,7 @@
 html {
   scroll-behavior: smooth;
 }
-.interfaces {
+.oneDevice {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -78,7 +78,7 @@ html {
     }
   }
 }
-.interfaces2 {
+.multiDevices {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -137,7 +137,13 @@ html {
 }
 
 @media screen and (min-width: 801px) and (max-width: 1000px) {
-  .interfaces {
+  .oneDevice {
+    width: 98%;
+    .conversation {
+      height: 550px;
+    }
+  }
+  .multiDevices {
     width: 98%;
     .conversation {
       height: 550px;
@@ -146,7 +152,35 @@ html {
 }
 
 @media screen and (max-width: 800px) {
-  .interfaces {
+  .oneDevice {
+    width: 96%;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    .margin {
+      margin-bottom: 0;
+      margin-right: 0;
+    }
+
+    .conversation {
+      height: 40vh;
+      margin-bottom: 10px;
+      .head-conversation {
+        width: 98%;
+        .auto-listen {
+          width: 90%;
+          .auto-listen-btn {
+            margin-right: 0px;
+          }
+        }
+      }
+    }
+
+    .msg {
+      margin-left: 0px;
+    }
+  }
+  .multiDevices {
     width: 96%;
     flex-direction: column;
     margin-bottom: 10px;

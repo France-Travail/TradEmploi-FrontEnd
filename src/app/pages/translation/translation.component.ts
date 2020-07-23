@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { NavbarItem } from 'src/app/models/navbar-item';
@@ -8,6 +8,7 @@ import { TranslateService } from 'src/app/services/translate.service';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
 import { ToastService } from 'src/app/services/toast.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SettingsService } from 'src/app/services/settings.service';
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
@@ -22,25 +23,27 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
-  public onetomany: boolean = false;
-
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
-  public isAllowedToShare: boolean = false;
+
+  public isGuest: boolean = false;
+  public isMultiDevices: boolean = false;
+
   constructor(
     private translateService: TranslateService,
     public dialog: MatDialog,
     private router: Router,
     private breakpointObserver: BreakpointObserver,
     private toastService: ToastService,
-    private authService: AuthService
+    private authService: AuthService,
+    private settingsService: SettingsService
   ) {
-    if (this.router.url.toString().includes('/translation/otm')) {
-      this.onetomany = true;
-    }
+    this.settingsService.getTarget().subscribe((user) => {
+      this.isMultiDevices = user.roomId != '';
+      this.isGuest = user.firstname != '' && user.firstname != null;
+    });
     this.authService.auth.subscribe((user) => {
       if (user !== null) {
-        this.isAllowedToShare = 'ADMIN' === user.role || 'USER' === user.role;
         this.setNavBar('ADMIN' === user.role);
       }
     });
@@ -84,7 +87,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
         icon: 'assets/icons/icon-share-alt-solid.svg',
         infoTitle: 'PARTAGER',
         link: 'share',
-        isDisplayed: true,
+        isDisplayed: isAdmin,
       },
       {
         icon: 'assets/icons/icon-chat-black.svg',

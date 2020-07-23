@@ -68,7 +68,8 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   ) {}
 
   ngAfterViewInit() {
-    this.container = document.documentElement.getElementsByClassName('interfaces')[0];
+    this.container = this.user != 'advisor' ? document.documentElement.getElementsByClassName('oneDevice')[0] : document.documentElement.getElementsByClassName('multiDevices')[0];
+    console.log(document.documentElement.getElementsByClassName('multiDevices'));
     if (this.inputElement != undefined) {
       this.inputElement.nativeElement.addEventListener('blur', () => {
         this.closeCurrentKeyboard();

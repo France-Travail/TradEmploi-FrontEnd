@@ -8,7 +8,7 @@ import { Message } from 'src/app/models/translate/message';
 })
 export class ChatComponent {
   @Input() chat: [];
-
+  @Input() shared: boolean;
   @Output() editMessageEmit = new EventEmitter();
 
   public visible: boolean = false;
@@ -34,5 +34,4 @@ export class ChatComponent {
       sentMessage.translatedSpeech.play();
     }
   }
-
 }

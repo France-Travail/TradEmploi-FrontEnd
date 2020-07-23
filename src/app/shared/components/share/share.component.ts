@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
-import shortId from 'shortid'
+import shortId from 'shortid';
 
 @Component({
   selector: 'app-share',
@@ -11,38 +11,30 @@ import shortId from 'shortid'
   styleUrls: ['./share.component.scss'],
 })
 export class ShareComponent implements OnInit {
+  public link: string;
+  public canCreate: boolean = false;
 
-  public link:string
-  public canCreate:boolean= false
+  private roomId: string;
 
-  private roomId:string
+  constructor(private dialogRef: MatDialogRef<ShareComponent>, public router: Router, private cs: ChatService, private ss: SettingsService) {}
 
-  constructor(private dialogRef: MatDialogRef<ShareComponent>, public router: Router, private cs: ChatService,
-    private ss: SettingsService) {}
-
-<<<<<<< HEAD
-  ngOnInit(): void {}
-
-  public confirm() {
-    this.dialogRef.close();
-    this.router.navigateByUrl('/translation/otm');
-=======
   ngOnInit(): void {
     this.ss.getTarget().subscribe((target) => {
-      if(target.roomId ===''){
-        this.canCreate= true
-        this.roomId = shortId.generate()
-        this.link = window.location.origin + "/invite/" + this.roomId;
-      }else{
-        this.link = window.location.origin + "/invite/" + target.roomId;
+      if (target.roomId === '') {
+        this.canCreate = true;
+        this.roomId = shortId.generate();
+        this.link = window.location.origin + '/invite/' + this.roomId;
+      } else {
+        this.link = window.location.origin + '/invite/' + target.roomId;
       }
     });
   }
-
+  public confirm() {
+    this.dialogRef.close();
+  }
   public share() {
     this.ss.guest.next({ ...this.ss.guest.value, roomId: this.roomId });
-    this.cs.create(this.roomId).then(_ => this.dialogRef.close())
->>>>>>> summer
+    this.cs.create(this.roomId).then((_) => this.dialogRef.close());
   }
 
   public cancel() {
