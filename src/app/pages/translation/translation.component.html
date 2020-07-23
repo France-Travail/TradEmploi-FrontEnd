@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="msg">
-    <app-message-wrapper *ngIf="!isAdmin" user="guest" class="margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
-    <app-message-wrapper *ngIf="isAdmin" id="advisor-wrapper" user="advisor" class="margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit"></app-message-wrapper>
+    <app-message-wrapper *ngIf="!isAllowedToShare" user="guest" class="margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
+    <app-message-wrapper *ngIf="isAllowedToShare" id="advisor-wrapper" user="advisor" class="margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit"></app-message-wrapper>
   </div>
 </div>

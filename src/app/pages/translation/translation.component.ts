@@ -26,7 +26,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
-  public isAdmin: boolean = false;
+  public isAllowedToShare: boolean = false;
   constructor(
     private translateService: TranslateService,
     public dialog: MatDialog,
@@ -40,8 +40,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     }
     this.authService.auth.subscribe((user) => {
       if (user !== null) {
-        this.isAdmin = 'ADMIN' === user.role;
-        this.setNavBar(this.isAdmin);
+        this.isAllowedToShare = 'ADMIN' === user.role || 'USER' === user.role;
+        this.setNavBar('ADMIN' === user.role);
       }
     });
 
