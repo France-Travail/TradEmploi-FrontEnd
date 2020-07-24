@@ -3,7 +3,6 @@
     "prod": "pole-emploi-trad",
     "dev": "pole-emploi-trad-dev",
     "qa": "pole-emploi-trad-recette",
-    "testdev": "trad-dev-test",
     "summer": "pole-emploi-trad-summer"
   }
 }

@@ -20,7 +20,7 @@ export class AuthService {
           .valueChanges()
           .subscribe((config: any) => {
             if (config !== undefined && config.length >= 0) {
-              this.auth.next({ user: state, role: config[0].adminList.includes(state.email) ? 'ADMIN' : 'USER' });
+              this.auth.next({ user: state, role: this.getRole(config, state.email) });
             }else{
               this.toastService.showToast('La base de donnée est indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
             }
@@ -63,5 +63,16 @@ export class AuthService {
         reject({ isAuth: true, message: error.message });
       }
     });
+  }
+
+
+  private getRole(config:any, email:String): 'USER' | 'ADMIN' | 'ADVISOR'{
+    if(config[0].adminList.includes(email)){
+      return 'ADMIN'
+    }
+    if(config[0].advisors.includes(email)){
+      return 'ADVISOR'
+    }
+    return 'USER'
   }
 }

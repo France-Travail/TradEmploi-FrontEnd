@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 // Handle firebase connection
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule, FUNCTIONS_ORIGIN } from '@angular/fire/functions';
 
@@ -84,6 +85,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     AngularFirestoreModule,
     AngularFireFunctionsModule,
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
     HttpClientModule,
     MatSortModule,
     MatTableModule,
