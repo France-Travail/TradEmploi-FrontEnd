@@ -46,7 +46,6 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public recordMode: boolean = false;
   public speak: boolean = false;
   public autoOpenKeyboard: boolean = false;
-  private isMultiDevicesMode: boolean = false;
   private keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
   private language: string;
   private isMobile: boolean = false;
