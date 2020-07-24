@@ -75,7 +75,7 @@ import { NavbarService } from './services/navbar.service';
     AuthenticationComponent,
     AnonymousComponent,
     ChatComponent,
-    ShareComponent
+    ShareComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,7 +93,7 @@ import { NavbarService } from './services/navbar.service';
     FormsModule,
     MatButtonModule,
     MatKeyboardModule,
-    DeviceDetectorModule.forRoot()
+    DeviceDetectorModule.forRoot(),
   ],
   providers: [
     NavbarService,

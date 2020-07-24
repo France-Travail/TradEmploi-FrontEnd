@@ -22,7 +22,6 @@ export class ChoiceComponent implements AfterContentInit {
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
-
   constructor(
     private translateService: TranslateService,
     private textToSpeechService: TextToSpeechService,
@@ -76,7 +75,6 @@ export class ChoiceComponent implements AfterContentInit {
   showMainLanguages(): void {
     this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country));
   }
-
   async audioDescription(message: string, lang: string) {
     const audio = await this.textToSpeechService.getSpeech(message, lang, 'MALE');
     if (audio) {

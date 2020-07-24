@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Message } from 'src/app/models/translate/message';
@@ -7,6 +7,7 @@ import { TranslateService } from 'src/app/services/translate.service';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
 import { ToastService } from 'src/app/services/toast.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SettingsService } from 'src/app/services/settings.service';
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
@@ -15,14 +16,17 @@ import { AuthService } from 'src/app/services/auth.service';
 export class TranslationComponent implements OnInit, AfterViewChecked {
   @Input() user: string;
 
+  @ViewChild('scrollMe') private chatScroll: ElementRef;
+
   public chat: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
-  @ViewChild('scrollMe') private chatScroll: ElementRef;
-
   public autoListenValue: string = 'Ecouter automatiquement';
   private audio: boolean;
+
+  public isGuest: boolean = false;
+  public isMultiDevices: boolean = false;
 
   constructor(
     private translateService: TranslateService,
@@ -30,8 +34,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     private router: Router,
     private breakpointObserver: BreakpointObserver,
     private toastService: ToastService,
-    private authService: AuthService
+    private settingsService: SettingsService
   ) {
+    this.settingsService.getTarget().subscribe((user) => {
+      this.isMultiDevices = user.roomId != '';
+      this.isGuest = user.firstname != '' && user.firstname != null;
+    });
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
@@ -59,6 +67,43 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     this.router.navigate([where]);
   }
 
+<<<<<<< HEAD
+=======
+  public setNavBar(isAdmin: boolean): void {
+    this.navBarItems = [
+      {
+        icon: 'assets/icons/icon-languages-black.svg',
+        infoTitle: 'LANGUES',
+        link: 'choice',
+        isDisplayed: true,
+      },
+      {
+        icon: 'assets/icons/icon-share-alt-solid.svg',
+        infoTitle: 'PARTAGER',
+        link: 'share',
+        isDisplayed: isAdmin,
+      },
+      {
+        icon: 'assets/icons/icon-chat-black.svg',
+        infoTitle: 'HISTORIQUE',
+        link: 'conversation',
+        isDisplayed: true,
+      },
+      {
+        icon: 'assets/icons/icon-settings-black.svg',
+        infoTitle: 'PARAMÈTRES',
+        link: 'settings/translation',
+        isDisplayed: isAdmin,
+      },
+      {
+        icon: 'assets/icons/icon-logout.svg',
+        infoTitle: 'DECONNEXION',
+        link: 'logout',
+        isDisplayed: true,
+      },
+    ];
+  }
+>>>>>>> a13bc37e8848fc6d025213bdf8aab18e1fd5b4fe
 
   public editChat(message) {
     if (message.user === 'guest') {

@@ -45,8 +45,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public interim: string = '';
   public recordMode: boolean = false;
   public speak: boolean = false;
-  public autoOpenKeyboard: boolean = true;
-
+  public autoOpenKeyboard: boolean = false;
   private keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
   private language: string;
   private isMobile: boolean = false;
@@ -68,7 +67,10 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   ) {}
 
   ngAfterViewInit() {
-    this.container = document.documentElement.getElementsByClassName('interfaces')[0];
+    this.container =
+      document.documentElement.getElementsByClassName('oneDevice')[0] != undefined
+        ? document.documentElement.getElementsByClassName('oneDevice')[0]
+        : document.documentElement.getElementsByClassName('multiDevices')[0];
     if (this.inputElement != undefined) {
       this.inputElement.nativeElement.addEventListener('blur', () => {
         this.closeCurrentKeyboard();
@@ -174,7 +176,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
             translatedSpeech: this.translatedSpeech,
             flag: this.flag,
             id: new Date().getTime().toString(),
-            target: this.targetLanguage
+            target: this.targetLanguage,
           };
           this.messagesToEmit.emit(this.message);
         },

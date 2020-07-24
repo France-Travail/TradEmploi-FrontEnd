@@ -1,47 +1,30 @@
 @import 'styles';
 
 :host {
-  margin: auto;
-  min-height: 100%;
   display: flex;
+  min-height: 100%;
   flex-direction: column;
   background-color: $light-blue;
 }
 html {
   scroll-behavior: smooth;
 }
-.interfaces {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 80%;
+.translate {
   margin: 0 auto;
   max-width: 1200px;
   margin-bottom: 20px;
-
+  width: 80%;
   .conversation {
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
     border-radius: 5px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
     padding: 15px;
-    padding-left: 20px;
-    height: 530px;
-    width: 100%;
-
     .head-conversation {
       display: flex;
       flex-direction: row;
       background-color: white;
       z-index: 10;
       height: 45px;
-      h2 {
-        font-size: 14px;
-        font-weight: bold;
-        margin-bottom: 20px;
-      }
-
       .auto-listen {
         width: 85%;
         text-align: end;
@@ -54,10 +37,14 @@ html {
           font-size: 14px;
         }
       }
+      h2 {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
     }
     .thread {
       width: 100%;
-      height: 790px;
       overflow-y: overlay;
       &::-webkit-scrollbar {
         width: 5px;
@@ -69,31 +56,58 @@ html {
       }
     }
   }
+}
+.translate-one {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.translate-multi {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.conversation-one {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  height: 530px;
+  width: 100%;
+}
+.conversation-multi {
+  margin: auto;
+  height: 45vh;
+  width: 100%; //a voir
+}
+.thread-one{
+  height: 790px;
+}
+.thread-multi{
+  height: 90%;
+}
+.head-conversation-multi {
+  justify-content: space-between;
+}
 
-  .msg {
-    display: flex;
-    flex-direction: column-reverse;
-    width: 100%;
-    margin-left: 10px;
-    transition-duration: 1.3s;
-    #advisor-wrapper {
-      margin-bottom: 10px;
-    }
+.msg {
+  display: flex;
+  flex-direction: column-reverse;
+  width: 100%;
+  margin-left: 10px;
+  transition-duration: 1.3s;
+  #advisor-wrapper {
+    margin-bottom: 10px;
   }
 }
 
 @media screen and (min-width: 1001px) and (max-width: 1300px) {
-  .interfaces {
+  .translate {
     width: 90%;
-    margin-bottom: 10px;
-    .conversation {
-      height: 550px;
-    }
   }
 }
 
 @media screen and (min-width: 801px) and (max-width: 1000px) {
-  .interfaces {
+  .translate {
     width: 98%;
     .conversation {
       height: 550px;
@@ -102,7 +116,7 @@ html {
 }
 
 @media screen and (max-width: 800px) {
-  .interfaces {
+  .translate {
     width: 96%;
     flex-direction: column;
     margin-bottom: 10px;
@@ -117,7 +131,6 @@ html {
       margin-bottom: 10px;
       .head-conversation {
         width: 98%;
-
         .auto-listen {
           width: 90%;
           .auto-listen-btn {
@@ -126,7 +139,6 @@ html {
         }
       }
     }
-
     .msg {
       margin-left: 0px;
     }
