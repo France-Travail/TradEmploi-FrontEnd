@@ -46,7 +46,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public recordMode: boolean = false;
   public speak: boolean = false;
   public autoOpenKeyboard: boolean = false;
-
+  private isMultiDevicesMode: boolean = false;
   private keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
   private language: string;
   private isMobile: boolean = false;
@@ -68,8 +68,10 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   ) {}
 
   ngAfterViewInit() {
-    this.container = this.user != 'advisor' ? document.documentElement.getElementsByClassName('oneDevice')[0] : document.documentElement.getElementsByClassName('multiDevices')[0];
-    console.log(document.documentElement.getElementsByClassName('multiDevices'));
+    this.container =
+      document.documentElement.getElementsByClassName('oneDevice')[0] != undefined
+        ? document.documentElement.getElementsByClassName('oneDevice')[0]
+        : document.documentElement.getElementsByClassName('multiDevices')[0];
     if (this.inputElement != undefined) {
       this.inputElement.nativeElement.addEventListener('blur', () => {
         this.closeCurrentKeyboard();
