@@ -1,0 +1,30 @@
+mat-nav-list {
+  a {
+    text-decoration: none;
+    color: white;
+    img {
+      width: 18px;
+      color: #333333;
+    }
+    .name {
+      color: #333333;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+  }
+
+  a:hover, a:active{
+      color: lightgray;
+  }
+
+  .nav-caption{
+      display: inline-block;
+      padding-left: 6px;
+  }
+}
+mat-list-item {
+  color: #333333;
+  a {
+    color: #333333;
+  }
+}

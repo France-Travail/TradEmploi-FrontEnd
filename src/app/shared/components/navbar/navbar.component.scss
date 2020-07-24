@@ -1,99 +1,99 @@
-nav {
-  display: flex;
-  padding: 20px;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #ffffff;
-  .logo {
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    img {
-      width: 143px;
-    }
-    .title {
-      font-size: 14px;
-      font-weight: bold;
-      color: #bf5858;
-    }
-  }
-  .buttons {
-    display: flex;
-    justify-content: flex-end;
-    button {
-      border: none;
-      display: flex;
-      margin: 0 5px;
-      background: transparent;
-      align-items: center;
-      margin-right: 20px;
-      cursor: pointer;
-      &:focus {
-        outline: 0;
-      }
-      &:active {
-        outline: 0;
-      }
+// nav {
+//   display: flex;
+//   padding: 20px;
+//   justify-content: space-between;
+//   align-items: center;
+//   background-color: #ffffff;
+//   .logo {
+//     display: flex;
+//     flex-direction: column;
+//     width: 200px;
+//     img {
+//       width: 143px;
+//     }
+//     .title {
+//       font-size: 14px;
+//       font-weight: bold;
+//       color: #bf5858;
+//     }
+//   }
+//   .buttons {
+//     display: flex;
+//     justify-content: flex-end;
+//     button {
+//       border: none;
+//       display: flex;
+//       margin: 0 5px;
+//       background: transparent;
+//       align-items: center;
+//       margin-right: 20px;
+//       cursor: pointer;
+//       &:focus {
+//         outline: 0;
+//       }
+//       &:active {
+//         outline: 0;
+//       }
 
-      img {
-        width: 24px;
-      }
+//       img {
+//         width: 24px;
+//       }
 
-      .name {
-        color: #333333;
-        font-size: 14px;
-        margin-left: 10px;
-      }
+//       .name {
+//         color: #333333;
+//         font-size: 14px;
+//         margin-left: 10px;
+//       }
 
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-}
+//       &:last-child {
+//         margin-right: 0;
+//       }
+//     }
+//   }
+// }
 
-@media screen and (max-width: 400px) {
-   nav {
-    flex-direction: column;
+// @media screen and (max-width: 400px) {
+//    nav {
+//     flex-direction: column;
 
-    .buttons {
-      .button {
-        margin: 0 5px;
-      }
-    }
-  }
-}
-@media screen and (max-width: 700px) {
-  nav {
-    flex-direction: column;
+//     .buttons {
+//       .button {
+//         margin: 0 5px;
+//       }
+//     }
+//   }
+// }
+// @media screen and (max-width: 700px) {
+//   nav {
+//     flex-direction: column;
 
-    .buttons {
-      .button {
-        margin: 0 5px;
-      }
-    }
-  }
-}
+//     .buttons {
+//       .button {
+//         margin: 0 5px;
+//       }
+//     }
+//   }
+// }
 
-@media screen and (max-width: 800px) {
-  nav {
+// @media screen and (max-width: 800px) {
+//   nav {
 
-    .logo {
-      img {
-        margin: 0 auto;
-      }
+//     .logo {
+//       img {
+//         margin: 0 auto;
+//       }
 
-      .title {
-        text-align: center;
-      }
-    }
+//       .title {
+//         text-align: center;
+//       }
+//     }
 
-    .language {
-      margin-top: 20px;
-    }
+//     .language {
+//       margin-top: 20px;
+//     }
 
-    .buttons {
-      margin-top: 20px;
-    }
-  }
-}
+//     .buttons {
+//       margin-top: 20px;
+//     }
+//   }
+// }

@@ -1,0 +1,44 @@
+<mat-toolbar>
+  <div id="hamburger">
+      <button mat-icon-button (click)="onToggleSidenav()">
+          <mat-icon>menu</mat-icon>
+      </button>
+  </div>
+  <div id="logo">
+    <img src="assets/images/logo.png" alt="Logo Pôle Emploi" />
+  <div class="title">{{ title }}</div>
+  </div>
+  <div class="buttons">
+    <button routerLink="/choice">
+      <img src="assets/icons/icon-languages-black.svg">
+      <span class="name">{{ choiceLink | uppercase }}</span>
+    </button>
+    <button (click)="share()">
+      <img src="assets/icons/icon-share-alt-solid.svg">
+      <span class="name">{{ shareLink | uppercase }}</span>
+    </button>
+    <button routerLink="/settings">
+      <img src="assets/icons/icon-settings-black.svg">
+      <span class="name">{{ settingsLink | uppercase }}</span>
+    </button>
+    <button (click)="logout()">
+      <img src="assets/icons/icon-logout.svg">
+      <span class="name">{{ logoutLink | uppercase }}</span>
+    </button>
+      <!-- <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+        <li class="navigation-item">
+            <img src="src/assets/icons/icon-languages-black.svg" alt="choice">
+            <a routerLink="/choice" class="link">{{ choiceLink | uppercase }}</a>
+        </li>
+          <li class="navigation-item">
+              <a routerLink="/settings" class="link">{{ settingsLink | uppercase }}</a>
+          </li>
+          <li class="navigation-item">
+            <a routerLink="/share" class="link">{{ shareLink | uppercase }}</a>
+        </li>
+        <li class="navigation-item">
+          <a routerLink="/logout" class="link">{{ logoutLink | uppercase }}</a>
+      </li>
+      </ul> -->
+  </div>
+</mat-toolbar>

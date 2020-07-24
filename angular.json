@@ -82,6 +82,14 @@
                   "with": "src/environments/environment.testdev.ts"
                 }
               ]
+            },
+            "summer": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.summer.ts"
+                }
+              ]
             }
           }
         },
