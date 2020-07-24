@@ -1,7 +1,7 @@
 <app-navbar [items]="navBarItems"></app-navbar>
 
 <app-translation-title (finish)="closeConversation()"></app-translation-title>
-<div *ngIf="!isMultiDevices" class="oneDevice">
+<div [ngClass]="{'multiDevices': isMultiDevices, oneDevice: !isMultiDevices}">
   <div class="conversation">
     <div class="head-conversation">
       <h2>Conversation</h2>
@@ -10,15 +10,21 @@
       </div>
     </div>
     <div class="thread" #scrollMe>
-      <app-chat [shared]="isMultiDevices" [chat]="chat" (editMessageEmit)="editChat($event)"></app-chat>
+      <app-chat [chat]="chat" (editMessageEmit)="editChat($event)"></app-chat>
     </div>
   </div>
   <div class="msg">
-    <app-message-wrapper [shared]="isMultiDevices" user="guest" class="margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
-    <app-message-wrapper [shared]="isMultiDevices" id="advisor-wrapper" user="advisor" class="margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit"></app-message-wrapper>
+    <ng-template [ngIf]="!isMultiDevices">
+      <app-message-wrapper user="guest" class="margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
+      <app-message-wrapper id="advisor-wrapper" user="advisor" class="margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit"></app-message-wrapper>
+    </ng-template>
+    <ng-template [ngIf]="isMultiDevices">
+      <app-message-wrapper *ngIf="isGuest" user="guest" class="margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
+      <app-message-wrapper *ngIf="!isGuest" id="advisor-wrapper" user="advisor" class="margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit"></app-message-wrapper>
+    </ng-template>
   </div>
 </div>
-<div *ngIf="isMultiDevices" class="multiDevices">
+<!-- <div *ngIf="isMultiDevices" class="multiDevices">
   <div class="conversation">
     <div class="head-conversation">
       <h2>Conversation</h2>
@@ -33,5 +39,5 @@
   <div class="msg">
     <app-message-wrapper *ngIf="isGuest" user="guest" class="margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
     <app-message-wrapper *ngIf="!isGuest" id="advisor-wrapper" user="advisor" class="margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit"></app-message-wrapper>
-  </div>
-</div>
+  </div> 
+</div>-->
