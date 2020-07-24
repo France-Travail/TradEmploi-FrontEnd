@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { NavbarItem } from 'src/app/models/navbar-item';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { environment } from '../../../environments/environment';
 import { Parser } from 'json2csv';
@@ -14,7 +12,6 @@ import { SettingsService } from 'src/app/services/settings.service';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent {
-  public navBarItems: NavbarItem[] = [];
   public path: string;
 
   constructor(public router: Router, private fireFunction: AngularFireFunctions, private toastService: ToastService, private settingsService: SettingsService) {

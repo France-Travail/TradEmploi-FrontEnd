@@ -53,6 +53,7 @@ import { SentryErrorHandler } from './utils/sentry-error-handler';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { AnonymousComponent } from './pages/anonymous/anonymous.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+import { NavbarService } from './services/navbar.service';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     DeviceDetectorModule.forRoot()
   ],
   providers: [
+    NavbarService,
     {
       provide: MAT_DATE_LOCALE,
       useValue: 'fr-FR',

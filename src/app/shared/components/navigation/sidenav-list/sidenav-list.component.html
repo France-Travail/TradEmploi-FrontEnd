@@ -3,19 +3,11 @@
     <img src="assets/icons/icon-languages-black.svg">
     <span class="name">{{ choiceLink | uppercase }}</span>
   </a>
-  <a mat-list-item (click)="share()" (click)="onSidenavClose()">
+  <a mat-list-item (click)="share()" (click)="onSidenavClose()" *ngIf="!isGuest">
     <img src="assets/icons/icon-share-alt-solid.svg">
     <span class="name">{{ shareLink | uppercase }}</span>
   </a>
-  <mat-list-item class="sharingType" [matMenuTriggerFor]="menu">
-    <mat-icon>unfold_more</mat-icon>
-    <a matline>Type de partage</a>
-  </mat-list-item>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="onSidenavClose()">Lien</button>
-    <button mat-menu-item (click)="onSidenavClose()">QR Code</button>
-  </mat-menu>
-  <a mat-list-item routerLink="settings" (click)="onSidenavClose()">
+  <a mat-list-item routerLink="settings/translation" (click)="onSidenavClose()" *ngIf="!isGuest">
     <img src="assets/icons/icon-settings-black.svg">
     <span class="name">{{ settingsLink | uppercase }}</span>
   </a>

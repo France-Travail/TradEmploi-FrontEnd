@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { LogoutComponent } from '../../logout/logout.component';
 import { Router } from '@angular/router';
 import { ShareComponent } from '../../share/share.component';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -18,9 +19,18 @@ export class SidenavListComponent implements OnInit {
   public shareLink: string = 'partager';
   public logoutLink: string = 'deconnexion';
   private isMobile: boolean = false;
+  public isGuest: boolean = false;
+  public isMultiDevices: boolean = false;
 
-
-  constructor(private router: Router, public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    public settingsService: SettingsService
+    ) {
+      this.settingsService.getTarget().subscribe((user) => {
+        this.isMultiDevices = user.roomId != '';
+        this.isGuest = user.firstname != '' && user.firstname != null;
+      });
+    }
 
   ngOnInit(): void {
   }

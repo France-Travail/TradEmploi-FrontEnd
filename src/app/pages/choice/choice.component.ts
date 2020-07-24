@@ -8,15 +8,14 @@ import { LanguagesComponent } from './dialog/languages/languages.component';
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
-import { NavbarItem } from 'src/app/models/navbar-item';
 import { AuthService } from 'src/app/services/auth.service';
+import { NavbarService } from 'src/app/services/navbar.service';
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
   styleUrls: ['./choice.component.scss'],
 })
 export class ChoiceComponent implements AfterContentInit {
-  public navBarItems: NavbarItem[] = [];
   public selectedCountriesData = [];
   public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU'];
   public toolTips: string[] = ['Autres langues'];
@@ -30,17 +29,17 @@ export class ChoiceComponent implements AfterContentInit {
     private historyService: HistoryService,
     private settingsService: SettingsService,
     private router: Router,
-    private authService: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public nav: NavbarService
   ) {
-    this.authService.auth.subscribe((user) => {
-      if (user !== null) {
-        this.setNavbar(user.role === 'ADMIN');
-      }
-    });
     if (this.historyService.conversation === undefined) {
       this.router.navigate(['start']);
     }
+  }
+
+  ngOnInit() {
+    this.nav.show();
+    this.nav.hideItem();
   }
 
   ngAfterContentInit(): void {
@@ -48,20 +47,20 @@ export class ChoiceComponent implements AfterContentInit {
   }
 
   setNavbar(isAdmin: boolean): void {
-    this.navBarItems = [
-      {
-        icon: 'assets/icons/icon-settings-black.svg',
-        infoTitle: 'PARAMÈTRES',
-        link: 'settings/choice',
-        isDisplayed: isAdmin,
-      },
-      {
-        icon: 'assets/icons/icon-logout.svg',
-        infoTitle: 'DECONNEXION',
-        link: 'logout',
-        isDisplayed: true,
-      },
-    ];
+    // this.navBarItems = [
+    //   {
+    //     icon: 'assets/icons/icon-settings-black.svg',
+    //     infoTitle: 'PARAMÈTRES',
+    //     link: 'settings/choice',
+    //     isDisplayed: isAdmin,
+    //   },
+    //   {
+    //     icon: 'assets/icons/icon-logout.svg',
+    //     infoTitle: 'DECONNEXION',
+    //     link: 'logout',
+    //     isDisplayed: true,
+    //   },
+    // ];
   }
 
   handleAction(event: any): void {

@@ -2,7 +2,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { NavbarItem } from 'src/app/models/navbar-item';
 import { Message } from 'src/app/models/translate/message';
 import { TranslateService } from 'src/app/services/translate.service';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
@@ -16,7 +15,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class TranslationComponent implements OnInit, AfterViewChecked {
   @Input() user: string;
 
-  public navBarItems: NavbarItem[] = [];
   public chat: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
@@ -34,11 +32,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     private toastService: ToastService,
     private authService: AuthService
   ) {
-    this.authService.auth.subscribe((user) => {
-      if (user !== null) {
-        this.setNavBar(user.role === 'ADMIN');
-      }
-    });
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
@@ -66,40 +59,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     this.router.navigate([where]);
   }
 
-  public setNavBar(isAdmin: boolean): void {
-    this.navBarItems = [
-      {
-        icon: 'assets/icons/icon-languages-black.svg',
-        infoTitle: 'LANGUES',
-        link: 'choice',
-        isDisplayed: true,
-      },
-      {
-        icon: 'assets/icons/icon-share-alt-solid.svg',
-        infoTitle: 'PARTAGER',
-        link: 'share',
-        isDisplayed: true,
-      },
-      {
-        icon: 'assets/icons/icon-chat-black.svg',
-        infoTitle: 'HISTORIQUE',
-        link: 'conversation',
-        isDisplayed: true,
-      },
-      {
-        icon: 'assets/icons/icon-settings-black.svg',
-        infoTitle: 'PARAMÈTRES',
-        link: 'settings/translation',
-        isDisplayed: isAdmin,
-      },
-      {
-        icon: 'assets/icons/icon-logout.svg',
-        infoTitle: 'DECONNEXION',
-        link: 'logout',
-        isDisplayed: true,
-      },
-    ];
-  }
 
   public editChat(message) {
     if (message.user === 'guest') {

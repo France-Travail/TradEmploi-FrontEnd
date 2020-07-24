@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { LogoutComponent } from '../../logout/logout.component';
 import { MatDialog } from '@angular/material';
 import { ShareComponent } from '../../share/share.component';
+import { NavbarService } from '../../../../services/navbar.service';
+import { SettingsService } from '../../../../services/settings.service';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +13,7 @@ import { ShareComponent } from '../../share/share.component';
 export class HeaderComponent implements OnInit {
 
   @Output() public sidenavToggle = new EventEmitter();
+  @Input() user: string;
 
   public title: string = 'Traduction Instantanée';
   public choiceLink: string = 'langues';
@@ -18,8 +21,20 @@ export class HeaderComponent implements OnInit {
   public shareLink: string = 'partager';
   public logoutLink: string = 'deconnexion';
   private isMobile: boolean = false;
+  public isGuest: boolean = false;
+  public isMultiDevices: boolean = false;
+  public isDisplay: boolean;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    public nav: NavbarService,
+    public settingsService: SettingsService
+    ) {
+    this.settingsService.getTarget().subscribe((user) => {
+      this.isMultiDevices = user.roomId != '';
+      this.isGuest = user.firstname != '' && user.firstname != null;
+    });
+  }
 
   ngOnInit(): void {
   }
