@@ -2,6 +2,7 @@
 
 :host {
   display: flex;
+  min-height: 100%;
   flex-direction: column;
   background-color: $light-blue;
 }
@@ -100,13 +101,7 @@
 }
 
 @media screen and (min-width: 801px) and (max-width: 1000px) {
-  .oneDevice {
-    width: 98%;
-    .conversation {
-      height: 550px;
-    }
-  }
-  .multiDevices {
+  .translate {
     width: 98%;
     .conversation {
       height: 550px;
@@ -115,7 +110,7 @@
 }
 
 @media screen and (max-width: 800px) {
-  .oneDevice {
+  .translate {
     width: 96%;
     flex-direction: column;
     margin-bottom: 10px;
@@ -138,35 +133,6 @@
         }
       }
     }
-
-    .msg {
-      margin-left: 0px;
-    }
-  }
-  .multiDevices {
-    width: 96%;
-    flex-direction: column;
-    margin-bottom: 10px;
-
-    .margin {
-      margin-bottom: 0;
-      margin-right: 0;
-    }
-
-    .conversation {
-      height: 40vh;
-      margin-bottom: 10px;
-      .head-conversation {
-        width: 98%;
-        .auto-listen {
-          width: 90%;
-          .auto-listen-btn {
-            margin-right: 0px;
-          }
-        }
-      }
-    }
-
     .msg {
       margin-left: 0px;
     }
