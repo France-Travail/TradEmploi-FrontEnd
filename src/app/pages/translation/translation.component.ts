@@ -8,6 +8,7 @@ import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component
 import { ToastService } from 'src/app/services/toast.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { NavbarService } from 'src/app/services/navbar.service';
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
@@ -34,7 +35,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     private router: Router,
     private breakpointObserver: BreakpointObserver,
     private toastService: ToastService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private navbarService: NavbarService
   ) {
     this.settingsService.getTarget().subscribe((user) => {
       this.isMultiDevices = user.roomId != '';
@@ -51,6 +53,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
     this.audio = true;
     this.scrollToBottom();
+    this.navbarService.show();
+    this.navbarService.handleTabs(window.location.pathname);
   }
 
   ngAfterViewChecked() {

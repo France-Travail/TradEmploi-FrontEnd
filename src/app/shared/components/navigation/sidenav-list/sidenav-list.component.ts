@@ -4,6 +4,7 @@ import { LogoutComponent } from '../../logout/logout.component';
 import { Router } from '@angular/router';
 import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
 import { SettingsService } from 'src/app/services/settings.service';
+import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -24,7 +25,8 @@ export class SidenavListComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public settingsService: SettingsService
+    public settingsService: SettingsService,
+    public navS: NavbarService
     ) {
       this.settingsService.getTarget().subscribe((user) => {
         this.isMultiDevices = user.roomId != '';

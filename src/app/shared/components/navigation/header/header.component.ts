@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public nav: NavbarService,
+    public navS: NavbarService,
     public settingsService: SettingsService
     ) {
     this.settingsService.getTarget().subscribe((user) => {

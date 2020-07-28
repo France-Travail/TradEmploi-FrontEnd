@@ -1,4 +1,4 @@
-<mat-toolbar *ngIf="nav.visible">
+<mat-toolbar *ngIf="navS.visible">
   <div id="hamburger">
       <button mat-icon-button (click)="onToggleSidenav()">
           <mat-icon>menu</mat-icon>
@@ -9,15 +9,15 @@
   <div class="title">{{ title }}</div>
   </div>
   <div class="buttons">
-    <button routerLink="/choice">
+    <button routerLink="choice" *ngIf="navS.choiceTab">
       <img src="assets/icons/icon-languages-black.svg">
       <span class="name">{{ choiceLink | uppercase }}</span>
     </button>
-    <button (click)="share()" *ngIf="!isGuest">
+    <button (click)="share()" *ngIf="!isGuest && navS.shareTab">
       <img src="assets/icons/icon-share-alt-solid.svg">
       <span class="name">{{ shareLink | uppercase }}</span>
     </button>
-    <button routerLink="settings/translation" *ngIf="!isGuest">
+    <button routerLink="settings/translation" *ngIf="!isGuest && navS.settingsTab">
       <img src="assets/icons/icon-settings-black.svg">
       <span class="name">{{ settingsLink | uppercase }}</span>
     </button>

@@ -1,22 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { environment } from '../../../environments/environment';
 import { Parser } from 'json2csv';
 import { ToastService } from 'src/app/services/toast.service';
-import { SettingsService } from 'src/app/services/settings.service';
+import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
   public path: string;
 
-  constructor(public router: Router, private fireFunction: AngularFireFunctions, private toastService: ToastService, private settingsService: SettingsService) {
+  constructor(
+    public router: Router,
+    private fireFunction: AngularFireFunctions,
+    private toastService: ToastService,
+    private navbarService: NavbarService) {
     const url = this.router.url;
     this.path = url.substring(url.lastIndexOf('/'));
+  }
+
+  ngOnInit() {
+    this.navbarService.show();
+    this.navbarService.handleTabs(window.location.pathname);
   }
 
   public export(): void {

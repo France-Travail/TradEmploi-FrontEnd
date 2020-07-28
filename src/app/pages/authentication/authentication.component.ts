@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { NavbarService } from '../../services/navbar.service';
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
@@ -11,12 +12,13 @@ import { ToastService } from 'src/app/services/toast.service';
 export class AuthenticationComponent implements OnInit {
   public form: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private toastService: ToastService) {
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private toastService: ToastService, private navbarService: NavbarService) {
     this.authService.auth.subscribe((user) => {
       if (user !== null) {
         this.router.navigateByUrl('choice');
       }
     });
+    this.navbarService.hide();
   }
 
   ngOnInit(): void {

@@ -32,7 +32,7 @@ export class ChoiceComponent implements AfterContentInit {
     private settingsService: SettingsService,
     private router: Router,
     public dialog: MatDialog,
-    public nav: NavbarService
+    private navService: NavbarService
   ) {
     if (this.historyService.conversation === undefined) {
       this.router.navigate(['start']);
@@ -40,17 +40,12 @@ export class ChoiceComponent implements AfterContentInit {
   }
 
   ngOnInit() {
-    this.nav.show();
-    this.path = window.location.pathname;
-    console.log('Path : ', this.path)
+    this.navService.show();
+    this.navService.handleTabs(window.location.pathname);
   }
 
   ngAfterContentInit(): void {
     this.showMainLanguages();
-  }
-
-  handleAction(event: any): void {
-    event.call(this);
   }
 
   selectLanguage(audioLanguage: string, writtenLanguage: string): void {
