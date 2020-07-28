@@ -42,15 +42,15 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
   ) {
     this.settingsService.user.subscribe((user) => {
-      if(user.language.audio === ''){
+      if(user.language.audio === undefined){
         this.goto('choice');
       }
-      this.isMultiDevices = user.roomId != '';
+      this.isMultiDevices = user.roomId !== undefined;
       if(this.isMultiDevices){
         this.initMultiDevice(user.roomId)
 
       }
-      this.isGuest = user.firstname != '' && user.firstname != null;
+      this.isGuest = user.firstname !== undefined;
       this.setNavBar(user.role === Role.ADMIN);
     });
 
@@ -61,24 +61,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
 
   ngOnInit(): void {
-    this.settingsService.user.subscribe((target) => {
-      if(target.roomId !=""){
-        this.chat =[]
-        this.chatService.getMessages(target.roomId).subscribe(messages => {
-          if(messages.length > 0 && target.roomId !==''){
-            if(this.chat.length === 0){
-              messages.forEach(message => {
-                this.addToChat(message)
-
-              })
-            }else{
-              this.addToChat(messages[messages.length - 1])
-            }
-          }
-        })
-      }
-    });
-
     this.audio = true;
     this.scrollToBottom();
   }
@@ -140,11 +122,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  public addToChat(event) {
+  public async addToChat(event) {
     let hasDot = new RegExp('^[ .s]+$').test(event.message);
     if (event.message !== '' && !hasDot) {
       this.chat.push(event);
-      const audio = this.textToSpeechService.getSpeech(event.message, event.target)
+      const audio = await this.textToSpeechService.getSpeech(event.translation, event.target)
       if(audio){
         this.textToSpeechService.audioSpeech.play();
       }

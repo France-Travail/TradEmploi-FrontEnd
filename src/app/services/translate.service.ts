@@ -11,10 +11,9 @@ export class TranslateService {
     const url = `https://translation.googleapis.com/language/translate/v2?key=${environment.gcp.apiKey}`;
     const data = {
       q: text,
-      target: lang,
+      target: lang.split('-')[0],
       format: 'text',
     };
-    console.log('data :>> ', data);
     return new Observable((observer) => {
       axios({
         method: 'post',
@@ -23,10 +22,13 @@ export class TranslateService {
         url: url
       })
         .then((response) => {
-          console.log('response :>> ', response);
-          const res = response.data.data.translations[0].translatedText;
-          observer.next(res);
-          observer.complete();
+          if(response.data.data.translatation !== undefined || response.data.data.translatation !== null){
+            const res = response.data.data.translations[0].translatedText;
+            observer.next(res);
+            observer.complete();
+          }else{
+            throw new Error('An error occurred when api translate called: response is empty');
+          }
         })
         .catch((error) => {
           observer.error(error);

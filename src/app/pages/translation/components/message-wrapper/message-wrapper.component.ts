@@ -154,16 +154,16 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
     this.closeCurrentKeyboard();
     if (this.rawText !== '') {
-      const language = this.role ===  Role.ADVISOR ? this.settingsService.defaultLanguage : this.settingsService.user.value.language.written;
       if (fromKeyBoard) {
+        const language = this.role ===  Role.ADVISOR ? this.settingsService.defaultLanguage : this.settingsService.user.value.language.written;
         this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language);
         this.rawSpeech = this.textToSpeechService.audioSpeech;
       } else {
         this.rawSpeech = this.audioRecordingService.audioSpeech;
       }
       const message = messageAudio === undefined ? this.rawText : messageAudio;
-      
-      this.translateService.translate(message, language).subscribe(
+      const languageTarget = this.role ===  Role.ADVISOR ? this.settingsService.user.value.language.written :  this.settingsService.defaultLanguage ;
+      this.translateService.translate(message, languageTarget).subscribe(
         async (response) => {
           this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language);
           if (this.isReady.listenTranslation === false) {
@@ -179,12 +179,14 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
             translatedSpeech: this.translatedSpeech,
             flag: this.flag,
             id: new Date().getTime().toString(),
-            target: language,
-            firstname: user.firstname ?  user.firstname: ''
+            target: languageTarget,
+            firstname: user.firstname ?  user.firstname: null
           };
-          user.roomId !== '' ? this.chatService.sendMessage(user.roomId, this.message ) :
-          this.messagesToEmit.emit(this.message);
-
+          if(user.roomId !== undefined){
+            this.chatService.sendMessage(user.roomId, this.message ) 
+          }else{
+            this.messagesToEmit.emit(this.message);
+          }
         },
         async (error) => {
           this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
