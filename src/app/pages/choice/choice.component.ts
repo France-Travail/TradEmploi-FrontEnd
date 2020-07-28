@@ -49,23 +49,6 @@ export class ChoiceComponent implements AfterContentInit {
     this.showMainLanguages();
   }
 
-  setNavbar(isAdmin: boolean): void {
-    // this.navBarItems = [
-    //   {
-    //     icon: 'assets/icons/icon-settings-black.svg',
-    //     infoTitle: 'PARAMÈTRES',
-    //     link: 'settings/choice',
-    //     isDisplayed: isAdmin,
-    //   },
-    //   {
-    //     icon: 'assets/icons/icon-logout.svg',
-    //     infoTitle: 'DECONNEXION',
-    //     link: 'logout',
-    //     isDisplayed: true,
-    //   },
-    // ];
-  }
-
   handleAction(event: any): void {
     event.call(this);
   }

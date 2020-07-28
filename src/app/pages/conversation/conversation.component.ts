@@ -20,10 +20,6 @@ export class ConversationComponent implements AfterViewInit {
     });
   }
 
-  public handleAction(event: any): void {
-    event.call(this);
-  }
-
   /**
    * Allow user to change the language of the conversation
    */

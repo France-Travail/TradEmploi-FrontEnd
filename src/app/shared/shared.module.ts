@@ -27,7 +27,6 @@ import {
 
 // Custom Components
 import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
-// import { NavbarComponent } from './components/navbar/navbar.component';
 import { RecordComponent } from './components/record/record.component';
 import { TranslationTitleComponent } from './components/translation-title/translation-title.component';
 import { RouterModule } from '@angular/router';
@@ -36,7 +35,6 @@ import { SidenavListComponent } from './components/navigation/sidenav-list/siden
 
 const COMPONENTS = [
   AudioAnimationComponent,
-  //  NavbarComponent,
   RecordComponent,
   TranslationTitleComponent,
   HeaderComponent,
