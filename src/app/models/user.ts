@@ -1,7 +1,11 @@
+import { Role } from './role';
+import { Language } from './language';
+
 export interface User {
+  id: string;
   firstname: string;
   lastname: string;
-  language: string;
+  language: Language;
   roomId: string;
-  id: string;
+  role: Role;
 }

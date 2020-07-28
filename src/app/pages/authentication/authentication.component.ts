@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { SettingsService } from 'src/app/services/settings.service';
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
@@ -11,8 +12,8 @@ import { ToastService } from 'src/app/services/toast.service';
 export class AuthenticationComponent implements OnInit {
   public form: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private toastService: ToastService) {
-    this.authService.auth.subscribe((user) => {
+  constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private fb: FormBuilder, private toastService: ToastService) {
+    this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         this.router.navigateByUrl('choice');
       }
@@ -37,7 +38,7 @@ export class AuthenticationComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     try {
       const auth = await this.authService.login(this.email.value, this.password.value);
-      // this.toastService.showToast(auth.message, 'toast-success');
+      this.toastService.showToast(auth.message, 'toast-success');
       this.router.navigateByUrl('choice');
     } catch (error) {
       this.toastService.showToast(error.message, 'toast-error');

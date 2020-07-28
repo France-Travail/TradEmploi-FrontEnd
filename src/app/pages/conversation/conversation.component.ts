@@ -2,7 +2,8 @@ import { Component, AfterViewInit } from '@angular/core';
 import { HistoryService } from 'src/app/services/history.service';
 import { Conversation } from 'src/app/models/history/conversation';
 import { NavbarItem } from 'src/app/models/navbar-item';
-import { AuthService } from 'src/app/services/auth.service';
+import { Role } from 'src/app/models/role';
+import { SettingsService } from 'src/app/services/settings.service';
 @Component({
   selector: 'app-conversation',
   templateUrl: './conversation.component.html',
@@ -13,10 +14,10 @@ export class ConversationComponent implements AfterViewInit {
   public showTranslation: boolean = false;
   public navBarItems: NavbarItem[] = [];
 
-  constructor(private historyService: HistoryService, private authService: AuthService) {
-    this.authService.auth.subscribe((user) => {
+  constructor(private historyService: HistoryService, private settingsService: SettingsService) {
+    this.settingsService.user.subscribe((user) => {
       if (user !== null) {
-        this.setNavBar(user.role === 'ADMIN');
+        this.setNavBar(user.role === Role.ADMIN);
       }
     });
   }

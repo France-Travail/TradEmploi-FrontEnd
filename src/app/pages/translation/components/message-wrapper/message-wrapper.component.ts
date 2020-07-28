@@ -12,6 +12,10 @@ import { SpeechRecognitionService } from 'src/app/services/speech-recognition.se
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { TranslateService } from 'src/app/services/translate.service';
+import { User } from 'src/app/models/user';
+import { ChatService } from 'src/app/services/chat.service';
+import { Role } from 'src/app/models/role';
+
 
 @Component({
   selector: 'app-message-wrapper',
@@ -20,7 +24,7 @@ import { TranslateService } from 'src/app/services/translate.service';
 })
 export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() title: string;
-  @Input() user: string;
+  @Input() role: string;
   @Input() originText: Message;
 
   @Output() messagesToEmit = new EventEmitter();
@@ -46,14 +50,14 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public recordMode: boolean = false;
   public speak: boolean = false;
   public autoOpenKeyboard: boolean = false;
+
   private keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
   private language: string;
   private isMobile: boolean = false;
   private isTablet: boolean = false;
   private container: Element;
   private marginKeyboard: number;
-  private guestTarget: string;
-  private targetLanguage: string;
+
   constructor(
     private toastService: ToastService,
     private translateService: TranslateService,
@@ -63,7 +67,8 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     public router: Router,
     private breakpointObserver: BreakpointObserver,
     private speechRecognitionService: SpeechRecognitionService,
-    private keyboardService: MatKeyboardService
+    private keyboardService: MatKeyboardService,
+    private chatService: ChatService
   ) {}
 
   ngAfterViewInit() {
@@ -81,13 +86,13 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     this.closeCurrentKeyboard();
   }
   ngOnInit(): void {
-    this.languageOrigin = this.user === 'advisor' ? this.settingsService.advisor.language : this.settingsService.guest.value.language;
-    const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.guest.value.language);
-    const data = isLanguageExist || this.user === 'advisor' ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
+    this.languageOrigin = this.role === Role.ADVISOR? this.settingsService.defaultLanguage : this.settingsService.user.value.language.written;
+    this.language = this.role === Role.ADVISOR ? this.settingsService.user.value.language.written: this.settingsService.defaultLanguage;
+    const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
+    const data = isLanguageExist || this.role === Role.ADVISOR ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     this.title = data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
     this.flag = isLanguageExist ? data.flag.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
-    this.language = this.user === 'guest' ? 'fr-FR' : this.settingsService.guest.value.language;
     this.languageKeyboard = this.languageOrigin.split('-')[0];
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
@@ -97,9 +102,6 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
       this.isTablet = result.matches;
     });
     this.marginKeyboard = this.isTablet ? 250 : window.innerHeight - 600;
-    this.settingsService.getTarget().subscribe((target) => {
-      this.guestTarget = target.language;
-    });
   }
 
   ngOnChanges() {
@@ -152,33 +154,37 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
     this.closeCurrentKeyboard();
     if (this.rawText !== '') {
+      const language = this.role ===  Role.ADVISOR ? this.settingsService.defaultLanguage : this.settingsService.user.value.language.written;
       if (fromKeyBoard) {
-        const language = this.user === 'advisor' ? 'fr-FR' : this.settingsService.guest.value.language;
-        this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language, this.user);
+        this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language);
         this.rawSpeech = this.textToSpeechService.audioSpeech;
       } else {
         this.rawSpeech = this.audioRecordingService.audioSpeech;
       }
       const message = messageAudio === undefined ? this.rawText : messageAudio;
-      this.translateService.translate(message, this.user).subscribe(
+      
+      this.translateService.translate(message, language).subscribe(
         async (response) => {
-          this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language, this.user);
+          this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language);
           if (this.isReady.listenTranslation === false) {
             this.textToSpeechService.audioSpeech = null;
           }
           this.translatedSpeech = this.textToSpeechService.audioSpeech;
-          this.targetLanguage = this.user == 'guest' ? 'fr-FR' : this.guestTarget;
+          const user = this.settingsService.user.value
           this.message = {
             message: message,
             translation: response,
-            user: this.user,
+            user: this.role,
             languageOrigin: this.languageOrigin,
             translatedSpeech: this.translatedSpeech,
             flag: this.flag,
             id: new Date().getTime().toString(),
-            target: this.targetLanguage,
+            target: language,
+            firstname: user.firstname ?  user.firstname: ''
           };
+          user.roomId !== '' ? this.chatService.sendMessage(user.roomId, this.message ) :
           this.messagesToEmit.emit(this.message);
+
         },
         async (error) => {
           this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');

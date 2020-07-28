@@ -2,14 +2,13 @@
 import { Component, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { TranslateService } from 'src/app/services/translate.service';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { LanguagesComponent } from './dialog/languages/languages.component';
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { NavbarItem } from 'src/app/models/navbar-item';
-import { AuthService } from 'src/app/services/auth.service';
+import { Role } from 'src/app/models/role';
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
@@ -23,23 +22,12 @@ export class ChoiceComponent implements AfterContentInit {
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
-  constructor(
-    private translateService: TranslateService,
-    private textToSpeechService: TextToSpeechService,
-    private historyService: HistoryService,
-    private settingsService: SettingsService,
-    private router: Router,
-    private authService: AuthService,
-    public dialog: MatDialog
-  ) {
-    this.authService.auth.subscribe((user) => {
+  constructor(private textToSpeechService: TextToSpeechService, private historyService: HistoryService, private router: Router, private settingsService: SettingsService, public dialog: MatDialog) {
+    this.settingsService.user.subscribe((user) => {
       if (user !== null) {
-        this.setNavbar(user.role === 'ADMIN');
+        this.setNavbar(user.role === Role.ADMIN);
       }
     });
-    if (this.historyService.conversation === undefined) {
-      this.router.navigate(['start']);
-    }
   }
 
   ngAfterContentInit(): void {
@@ -67,17 +55,15 @@ export class ChoiceComponent implements AfterContentInit {
     event.call(this);
   }
 
-  selectLanguage(audioLanguage: string, writtenLanguage: string): void {
-    this.translateService.guest.audioLanguage = audioLanguage;
-    this.translateService.guest.writtenLanguage = writtenLanguage;
-    this.settingsService.guest.next({ ...this.settingsService.guest.value, language: writtenLanguage });
+  selectLanguage(audio: string, written: string): void {
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audio, written: written } });
     this.router.navigate(['translation']);
   }
   showMainLanguages(): void {
     this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country));
   }
   async audioDescription(message: string, lang: string) {
-    const audio = await this.textToSpeechService.getSpeech(message, lang, 'MALE');
+    const audio = await this.textToSpeechService.getSpeech(message, lang);
     if (audio) {
       this.textToSpeechService.audioSpeech.play();
     }

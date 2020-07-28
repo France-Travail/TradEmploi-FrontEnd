@@ -1,14 +1,16 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { NavbarItem } from 'src/app/models/navbar-item';
 import { Message } from 'src/app/models/translate/message';
-import { TranslateService } from 'src/app/services/translate.service';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
 import { ToastService } from 'src/app/services/toast.service';
-import { AuthService } from 'src/app/services/auth.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { ChatService } from 'src/app/services/chat.service';
+import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { Role } from 'src/app/models/role';
+
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
@@ -30,33 +32,53 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
   public isMultiDevices: boolean = false;
 
   constructor(
-    private translateService: TranslateService,
     public dialog: MatDialog,
     private router: Router,
     private breakpointObserver: BreakpointObserver,
     private toastService: ToastService,
-    private authService: AuthService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private chatService:ChatService,
+    private textToSpeechService: TextToSpeechService
+
   ) {
-    this.settingsService.getTarget().subscribe((user) => {
-      this.isMultiDevices = user.roomId != '';
-      this.isGuest = user.firstname != '' && user.firstname != null;
-    });
-    this.authService.auth.subscribe((user) => {
-      if (user !== null) {
-        this.setNavBar('ADMIN' === user.role);
+    this.settingsService.user.subscribe((user) => {
+      if(user.language.audio === ''){
+        this.goto('choice');
       }
+      this.isMultiDevices = user.roomId != '';
+      if(this.isMultiDevices){
+        this.initMultiDevice(user.roomId)
+
+      }
+      this.isGuest = user.firstname != '' && user.firstname != null;
+      this.setNavBar(user.role === Role.ADMIN);
     });
 
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
-
-    if (this.translateService.guest.audioLanguage === '') {
-      this.goto('choice');
-    }
   }
+
+
   ngOnInit(): void {
+    this.settingsService.user.subscribe((target) => {
+      if(target.roomId !=""){
+        this.chat =[]
+        this.chatService.getMessages(target.roomId).subscribe(messages => {
+          if(messages.length > 0 && target.roomId !==''){
+            if(this.chat.length === 0){
+              messages.forEach(message => {
+                this.addToChat(message)
+
+              })
+            }else{
+              this.addToChat(messages[messages.length - 1])
+            }
+          }
+        })
+      }
+    });
+
     this.audio = true;
     this.scrollToBottom();
   }
@@ -122,10 +144,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     let hasDot = new RegExp('^[ .s]+$').test(event.message);
     if (event.message !== '' && !hasDot) {
       this.chat.push(event);
-      const lastIndex = this.chat.length - 1;
-      const lastSpeech = this.chat[lastIndex].translatedSpeech;
-      if (this.audio && lastSpeech !== undefined && lastSpeech !== null) {
-        lastSpeech.play();
+      const audio = this.textToSpeechService.getSpeech(event.message, event.target)
+      if(audio){
+        this.textToSpeechService.audioSpeech.play();
       }
     } else {
       if (!hasDot) {
@@ -144,5 +165,20 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
   public switchAudio() {
     this.audio = !this.audio;
+  }
+
+  private initMultiDevice = (roomId) => {
+    this.chat =[]
+    this.chatService.getMessages(roomId).subscribe(messages => {
+      if(messages.length > 0){
+        if(this.chat.length === 0){
+          messages.forEach(message => {
+            this.addToChat(message)
+          })
+        }else{
+          this.addToChat(messages[messages.length - 1])
+        }
+      }
+    })
   }
 }

@@ -42,12 +42,9 @@ export class TextToSpeechService {
 
   constructor(private httpClient: HttpClient, private voicesService: VoicesService) {}
 
-  public async getSpeech(text: string, language: string, user: string): Promise<boolean> {
+  public async getSpeech(text: string, language: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const url = `${this.url}?key=${environment.gcp.apiKey}`;
-
-      const GENDER = user === 'advisor' ? this.guestVoiceGender : this.advisorVoiceGender;
-      const SECOND_GENDER = GENDER === 'MALE' ? 'FEMALE' : 'MALE';
       const names: Voice[] = [];
 
       this.voicesService.voicesList.forEach((voice) => {
@@ -71,8 +68,8 @@ export class TextToSpeechService {
       };
 
       if (names.length >= 1) {
-        const voice: Voice = names.find((v) => v.ssmlGender === GENDER);
-        body.voice.name = voice === undefined ? names.find((v) => v.ssmlGender === SECOND_GENDER).name : voice.name;
+        const voice: Voice = names.find((v) => v.ssmlGender === 'MALE');
+        body.voice.name = voice === undefined ? names.find((v) => v.ssmlGender === 'MALE').name : voice.name;
         this.httpClient.post<any>(url, body, this.httpOptions).subscribe(
           (response) => {
             this.audioSpeech = new Audio('data:audio/mp3;base64,' + response.audioContent);

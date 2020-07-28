@@ -5,15 +5,16 @@ import { MatSort } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { VoicesService } from 'src/app/services/voices.service';
 import { TranslateService } from 'src/app/services/translate.service';
-import { SettingsService } from 'src/app/services/settings.service';
 import { COUNTRIES } from 'src/app/data/countries';
+import { Language } from 'src/app/models/language';
+import { SettingsService } from 'src/app/services/settings.service';
 
 export interface Countries {
   country: string;
   traduction: string;
   flag: string;
   LanguageFr: string;
-  code: { audioLanguage: string; writtenLanguage: string };
+  code: Language;
   language: string;
 }
 @Component({
@@ -47,8 +48,8 @@ export class LanguagesComponent implements OnInit {
   public chooseLanguage(SelectedCountry: string) {
     const voice = this.countries.filter((country) => country.country === SelectedCountry)[0];
     this.voicesService.guest = voice.code;
-    this.translateService.guest = voice.code;
-    this.settingsService.guest.next({ ...this.settingsService.guest.value, language: voice.code.writtenLanguage });
+    this.settingsService.user.next({...this.settingsService.user.value, language:{ audio:voice.code.audio, written: voice.code.written} })
+    
     this.dialogRef.close('chosen');
   }
 }

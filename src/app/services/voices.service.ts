@@ -8,14 +8,14 @@ import { environment } from 'src/environments/environment';
 
 // Models
 import { Voice } from '../models/voice';
-import { Lang } from '../models/lang';
+import { Language } from '../models/language';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VoicesService {
   public voicesList: Voice[] = [];
-  public guest: Lang = { audioLanguage: '', writtenLanguage: '' };
+  public guest: Language = { audio: '', written: '' };
   public advisor: string = 'fr-FR';
 
   private url: string = 'https://texttospeech.googleapis.com/v1beta1';

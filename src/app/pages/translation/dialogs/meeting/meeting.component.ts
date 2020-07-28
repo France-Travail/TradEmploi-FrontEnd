@@ -26,7 +26,7 @@ export class MeetingComponent {
 
   public saveConversation() {
     if (this.historyService.conversation.conversation.length > 0) {
-      this.historyService.conversation.guest.language = this.settingsService.guest.value.language;
+      this.historyService.conversation.guest.language = this.settingsService.user.value.language;
       this.historyService.saveConversation().then(() => {
         this.dialogRef.close('saved');
       });

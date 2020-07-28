@@ -17,11 +17,11 @@ export class TranslationTitleComponent implements OnInit {
   constructor(private settingsService: SettingsService, public router: Router) {}
 
   ngOnInit(): void {
-    let guest = VOCABULARY.find((item) => item.isoCode === this.settingsService.guest.value.language);
+    let guest = VOCABULARY.find((item) => item.isoCode === this.settingsService.user.value.language.written);
     if (guest === undefined) {
       guest = VOCABULARY_DEFAULT;
     }
-    const advisorSentences = VOCABULARY.find((item) => item.isoCode === this.settingsService.advisor.language).sentences;
+    const advisorSentences = VOCABULARY.find((item) => item.isoCode === this.settingsService.defaultLanguage).sentences;
 
     this.title = {
       raw: guest.sentences.applicationName,

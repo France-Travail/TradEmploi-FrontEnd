@@ -60,7 +60,7 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionThree.french = rateFr.comment;
       this.sentences.questionFour.french = rateFr.offerLinked;
     }
-    const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.guest.value.language);
+    const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.user.value.language.written);
     const rateForeign = vocabularyForeign.sentences.rate;
     if (rateForeign) {
       this.sentences.questionOne.foreign = rateForeign.easyToUse;

@@ -6,5 +6,6 @@ export interface Message {
   translatedSpeech?: HTMLAudioElement;
   flag?: string;
   id?: string;
-  target: string; 
+  target: string;
+  firstname: string;
 }

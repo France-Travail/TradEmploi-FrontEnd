@@ -1,7 +1,7 @@
+import { SettingsService } from 'src/app/services/settings.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
-import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
 import shortId from 'shortid';
 
@@ -16,16 +16,16 @@ export class ShareComponent implements OnInit {
 
   private roomId: string;
 
-  constructor(private dialogRef: MatDialogRef<ShareComponent>, public router: Router, private cs: ChatService, private ss: SettingsService) {}
+  constructor(private dialogRef: MatDialogRef<ShareComponent>, public router: Router, private chatService: ChatService, private settingsService: SettingsService) {}
 
   ngOnInit(): void {
-    this.ss.getTarget().subscribe((target) => {
-      if (target.roomId === '') {
+    this.settingsService.user.subscribe((user) => {
+      if (user.roomId === '') {
         this.canCreate = true;
         this.roomId = shortId.generate();
         this.link = window.location.origin + '/invite/' + this.roomId;
       } else {
-        this.link = window.location.origin + '/invite/' + target.roomId;
+        this.link = window.location.origin + '/invite/' + user.roomId;
       }
     });
   }
@@ -33,8 +33,8 @@ export class ShareComponent implements OnInit {
     this.dialogRef.close();
   }
   public share() {
-    this.ss.guest.next({ ...this.ss.guest.value, roomId: this.roomId });
-    this.cs.create(this.roomId).then((_) => this.dialogRef.close());
+    this.settingsService.user.next({ ...this.settingsService.user.value, roomId: this.roomId})
+    this.chatService.create(this.roomId).then((_) => this.dialogRef.close());
   }
 
   public cancel() {
