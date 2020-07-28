@@ -67,44 +67,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     this.router.navigate([where]);
   }
 
-<<<<<<< HEAD
-=======
-  public setNavBar(isAdmin: boolean): void {
-    this.navBarItems = [
-      {
-        icon: 'assets/icons/icon-languages-black.svg',
-        infoTitle: 'LANGUES',
-        link: 'choice',
-        isDisplayed: true,
-      },
-      {
-        icon: 'assets/icons/icon-share-alt-solid.svg',
-        infoTitle: 'PARTAGER',
-        link: 'share',
-        isDisplayed: isAdmin,
-      },
-      {
-        icon: 'assets/icons/icon-chat-black.svg',
-        infoTitle: 'HISTORIQUE',
-        link: 'conversation',
-        isDisplayed: true,
-      },
-      {
-        icon: 'assets/icons/icon-settings-black.svg',
-        infoTitle: 'PARAMÈTRES',
-        link: 'settings/translation',
-        isDisplayed: isAdmin,
-      },
-      {
-        icon: 'assets/icons/icon-logout.svg',
-        infoTitle: 'DECONNEXION',
-        link: 'logout',
-        isDisplayed: true,
-      },
-    ];
-  }
->>>>>>> a13bc37e8848fc6d025213bdf8aab18e1fd5b4fe
-
   public editChat(message) {
     if (message.user === 'guest') {
       this.guestTextToEdit = message;

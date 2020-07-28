@@ -10,6 +10,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { NavbarService } from 'src/app/services/navbar.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
@@ -22,6 +23,8 @@ export class ChoiceComponent implements AfterContentInit {
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
+  public path: string;
+
   constructor(
     private translateService: TranslateService,
     private textToSpeechService: TextToSpeechService,
@@ -38,7 +41,8 @@ export class ChoiceComponent implements AfterContentInit {
 
   ngOnInit() {
     this.nav.show();
-    this.nav.hideItem();
+    this.path = window.location.pathname;
+    console.log('Path : ', this.path)
   }
 
   ngAfterContentInit(): void {

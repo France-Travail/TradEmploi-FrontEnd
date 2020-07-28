@@ -5,6 +5,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
 import shortId from 'shortid';
 
+
 @Component({
   selector: 'app-share',
   templateUrl: './share.component.html',

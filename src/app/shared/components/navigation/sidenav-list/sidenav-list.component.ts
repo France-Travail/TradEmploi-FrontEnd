@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { LogoutComponent } from '../../logout/logout.component';
 import { Router } from '@angular/router';
-import { ShareComponent } from '../../share/share.component';
+import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
 import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({

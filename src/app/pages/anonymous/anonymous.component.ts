@@ -15,9 +15,9 @@ export class AnonymousComponent{
   public form: FormGroup;
   private roomId: string;
 
-  constructor(private authService: AuthService, 
-    private router: Router, 
-    private fb: FormBuilder, 
+  constructor(private authService: AuthService,
+    private router: Router,
+    private fb: FormBuilder,
     private ts: ToastService,
     private ss : SettingsService,
     private cs: ChatService) {

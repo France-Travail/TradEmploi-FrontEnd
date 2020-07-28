@@ -29,7 +29,7 @@ import { MAT_DATE_LOCALE, MatSortModule, MatTableModule } from '@angular/materia
 // Import shared module and components
 import { SharedModule } from './shared/shared.module';
 import { LogoutComponent } from './shared/components/logout/logout.component';
-import { ShareComponent } from './shared/components/share/share.component';
+import { ShareComponent } from './pages/translation/dialogs/share/share.component';
 
 // Main Components
 import { AppComponent } from './app.component';

@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { LogoutComponent } from '../../logout/logout.component';
 import { MatDialog } from '@angular/material';
-import { ShareComponent } from '../../share/share.component';
+import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
 import { NavbarService } from '../../../../services/navbar.service';
 import { SettingsService } from '../../../../services/settings.service';
 
@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit {
   private isMobile: boolean = false;
   public isGuest: boolean = false;
   public isMultiDevices: boolean = false;
-  public isDisplay: boolean;
 
   constructor(
     public dialog: MatDialog,
