@@ -3,6 +3,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ToastService } from 'src/app/services/toast.service';
+import { Role } from 'src/app/models/role';
 
 @Component({
   selector: 'app-record',
@@ -11,7 +12,7 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class RecordComponent implements OnInit {
   @Input() duration: number;
-  @Input() user: 'advisor' | 'guest';
+  @Input() role: string;
   @Input() language: string;
 
   @Output() send: EventEmitter<string> = new EventEmitter<string>();
@@ -43,7 +44,7 @@ export class RecordComponent implements OnInit {
   };
 
   putTitle = () => {
-    const language = this.user === 'advisor' ? this.settingsService.defaultLanguage : this.settingsService.user.value.language;
+    const language = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage : this.settingsService.user.value.language;
     this.text = VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
   };
 

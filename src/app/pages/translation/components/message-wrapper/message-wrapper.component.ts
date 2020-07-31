@@ -12,7 +12,6 @@ import { SpeechRecognitionService } from 'src/app/services/speech-recognition.se
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { TranslateService } from 'src/app/services/translate.service';
-import { User } from 'src/app/models/user';
 import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
 
@@ -52,7 +51,6 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public autoOpenKeyboard: boolean = false;
 
   private keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
-  private language: string;
   private isMobile: boolean = false;
   private isTablet: boolean = false;
   private container: Element;
@@ -87,7 +85,6 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   }
   ngOnInit(): void {
     this.languageOrigin = this.role === Role.ADVISOR? this.settingsService.defaultLanguage : this.settingsService.user.value.language.written;
-    this.language = this.role === Role.ADVISOR ? this.settingsService.user.value.language.written: this.settingsService.defaultLanguage;
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
     const data = isLanguageExist || this.role === Role.ADVISOR ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     this.title = data.sentences.translationH2;
@@ -154,39 +151,23 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
     this.closeCurrentKeyboard();
     if (this.rawText !== '') {
-      if (fromKeyBoard) {
-        const language = this.role ===  Role.ADVISOR ? this.settingsService.defaultLanguage : this.settingsService.user.value.language.written;
-        this.isReady.listenSpeech = await this.textToSpeechService.getSpeech(this.rawText, language);
-        this.rawSpeech = this.textToSpeechService.audioSpeech;
-      } else {
-        this.rawSpeech = this.audioRecordingService.audioSpeech;
-      }
       const message = messageAudio === undefined ? this.rawText : messageAudio;
       const languageTarget = this.role ===  Role.ADVISOR ? this.settingsService.user.value.language.written :  this.settingsService.defaultLanguage ;
       this.translateService.translate(message, languageTarget).subscribe(
         async (response) => {
-          this.isReady.listenTranslation = await this.textToSpeechService.getSpeech(response, this.language);
-          if (this.isReady.listenTranslation === false) {
-            this.textToSpeechService.audioSpeech = null;
-          }
-          this.translatedSpeech = this.textToSpeechService.audioSpeech;
           const user = this.settingsService.user.value
           this.message = {
             message: message,
             translation: response,
             user: this.role,
             languageOrigin: this.languageOrigin,
-            translatedSpeech: this.translatedSpeech,
             flag: this.flag,
             id: new Date().getTime().toString(),
             target: languageTarget,
             firstname: user.firstname ?  user.firstname: null
           };
-          if(user.roomId !== undefined){
-            this.chatService.sendMessage(user.roomId, this.message ) 
-          }else{
-            this.messagesToEmit.emit(this.message);
-          }
+          user.roomId !== undefined ? this.chatService.sendMessage(user.roomId, this.message ) 
+          : this.messagesToEmit.emit(this.message);
         },
         async (error) => {
           this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
