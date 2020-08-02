@@ -1,5 +1,5 @@
 // Angular
-import { Component, AfterContentInit } from '@angular/core';
+import { Component, AfterContentInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { TranslateService } from 'src/app/services/translate.service';
@@ -25,6 +25,11 @@ export class ChoiceComponent implements AfterContentInit {
   public otherLanguageEn: string = 'OTHER LANGUAGES';
   public path: string;
 
+  public isGuest: boolean = false;
+  public isMultiDevices: boolean = false;
+
+  @Input() user: string;
+
   constructor(
     private translateService: TranslateService,
     private textToSpeechService: TextToSpeechService,
@@ -36,12 +41,21 @@ export class ChoiceComponent implements AfterContentInit {
   ) {
     if (this.historyService.conversation === undefined) {
       this.router.navigate(['start']);
-    }
+    };
+
+    this.settingsService.getTarget().subscribe((user) => {
+      this.isGuest = !this.isGuest ? user.firstname !== null && user.firstname !== '' : this.isGuest = this.isGuest;
+      this.isMultiDevices = this.isMultiDevices ? user.roomId !== null && user.roomId !== '' : this.isMultiDevices = this.isMultiDevices;
+      // this.isMultiDevices = user.roomId != null && user.roomId != '';
+      // this.isGuest = user.firstname != null && user.firstname != '';
+      // console.log('firstname (choice) ', user.firstname)
+      console.log('devices & guest (choice) : ', this.isMultiDevices, this.isGuest)
+    });
   }
 
   ngOnInit() {
     this.navService.show();
-    this.navService.handleTabs(window.location.pathname);
+    this.navService.handleTabs(window.location.pathname, this.isGuest);
   }
 
   ngAfterContentInit(): void {

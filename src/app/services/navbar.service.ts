@@ -22,8 +22,7 @@ export class NavbarService {
     this.visible = true;
   }
 
-  public handleTabs(path) {
-    console.log('path : ', path)
+  public handleTabs(path, isGuest) {
     if(path === '/choice') {
       this.choiceTab = false;
       this.shareTab = false;
@@ -32,7 +31,7 @@ export class NavbarService {
       this.choiceTab = true;
       this.shareTab = true;
       this.settingsTab = true;
-    } else if (path === '/settings/translation') {
+    } else if (path === '/settings/translation' && !isGuest) {
       this.choiceTab = true;
       this.shareTab = false;
       this.settingsTab = false;

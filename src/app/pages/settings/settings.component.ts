@@ -25,7 +25,6 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.navbarService.show();
-    this.navbarService.handleTabs(window.location.pathname);
   }
 
   public export(): void {

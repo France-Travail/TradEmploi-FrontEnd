@@ -26,13 +26,9 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public navS: NavbarService,
+    public navbarService: NavbarService,
     public settingsService: SettingsService
     ) {
-    this.settingsService.getTarget().subscribe((user) => {
-      this.isMultiDevices = user.roomId != '';
-      this.isGuest = user.firstname != '' && user.firstname != null;
-    });
   }
 
   ngOnInit(): void {

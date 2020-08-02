@@ -67,11 +67,14 @@ export class AuthService {
 
 
   private getRole(config:any, email:String): 'USER' | 'ADMIN' | 'ADVISOR'{
-    if(config[0].adminList.includes(email)){
-      return 'ADMIN'
-    }
-    if(config[0].advisors.includes(email)){
-      return 'ADVISOR'
+    if (email != null) {
+      if(config[0].adminList.includes(email)){
+        // console.log('config[0] >>>> ', config[0])
+        return 'ADMIN'
+      }
+      if(config[0].advisors.includes(email)){
+        return 'ADVISOR'
+      }
     }
     return 'USER'
   }

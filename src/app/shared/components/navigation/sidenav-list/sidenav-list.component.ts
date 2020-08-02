@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { LogoutComponent } from '../../logout/logout.component';
-import { Router } from '@angular/router';
 import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
 import { SettingsService } from 'src/app/services/settings.service';
 import { NavbarService } from 'src/app/services/navbar.service';
@@ -29,8 +28,8 @@ export class SidenavListComponent implements OnInit {
     public navS: NavbarService
     ) {
       this.settingsService.getTarget().subscribe((user) => {
-        this.isMultiDevices = user.roomId != '';
-        this.isGuest = user.firstname != '' && user.firstname != null;
+        this.isMultiDevices = user.roomId != null;
+        this.isGuest = user.firstname != null;
       });
     }
 

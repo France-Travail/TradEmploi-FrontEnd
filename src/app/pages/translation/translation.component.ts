@@ -38,14 +38,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     private settingsService: SettingsService,
     private navbarService: NavbarService
   ) {
-    this.settingsService.getTarget().subscribe((user) => {
-      this.isMultiDevices = user.roomId != '';
-      this.isGuest = user.firstname != '' && user.firstname != null;
-    });
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
-
     if (this.translateService.guest.audioLanguage === '') {
       this.goto('choice');
     }
@@ -54,7 +49,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     this.audio = true;
     this.scrollToBottom();
     this.navbarService.show();
-    this.navbarService.handleTabs(window.location.pathname);
   }
 
   ngAfterViewChecked() {
