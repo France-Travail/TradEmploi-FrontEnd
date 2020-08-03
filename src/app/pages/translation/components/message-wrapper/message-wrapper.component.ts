@@ -230,7 +230,6 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private async sendMultiDevice(user: User,text: string) {
-    console.log('this.role :>> ', this.role);
       const message: Message = {
         id: new Date().getTime().toString(),
         text: text,

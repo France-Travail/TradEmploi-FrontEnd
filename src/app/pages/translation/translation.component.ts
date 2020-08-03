@@ -44,16 +44,19 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     private translateService: TranslateService
   ) {
     this.settingsService.user.subscribe((user) => {
-      if(user.language.audio === undefined){
-        this.goto('choice');
+      if(user != null){
+        if(user.language !== undefined && user.language.audio === undefined){
+          this.goto('choice');
+        }
+        this.isMultiDevices = user.roomId !== undefined;
+        if(this.isMultiDevices){
+          this.initMultiDevice(user.roomId)
+  
+        }
+        this.isGuest = user.firstname !== undefined;
+        this.user = user
+        this.setNavBar(user.role === Role.ADMIN);
       }
-      this.isMultiDevices = user.roomId !== undefined;
-      if(this.isMultiDevices){
-        this.initMultiDevice(user.roomId)
-      }
-      this.isGuest = user.firstname !== undefined;
-      this.user = user
-      this.setNavBar(user.role === Role.ADMIN);
     });
 
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
@@ -130,14 +133,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
       const languageTarget = this.getLanguageTarget(message)
       this.translateService.translate(message.text, languageTarget).subscribe(async translate => {
         message.translation = translate
-          console.log('translate :>> ', translate);
-          console.log('languageTarget :>> ', languageTarget);
           const audio = await this.textToSpeechService.getSpeech(translate, languageTarget)
           if(audio){
             this.textToSpeechService.audioSpeech.play();
             message.audioHtml = this.textToSpeechService.audioSpeech
           }
-          console.log('message :>> ', message);
           this.chat.push(message);
         })
     } else {
