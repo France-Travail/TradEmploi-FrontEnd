@@ -10,6 +10,8 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { Role } from 'src/app/models/role';
+import { TranslateService } from 'src/app/services/translate.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-translation',
@@ -17,7 +19,6 @@ import { Role } from 'src/app/models/role';
   styleUrls: ['./translation.component.scss'],
 })
 export class TranslationComponent implements OnInit, AfterViewChecked {
-  @Input() user: string;
 
   @ViewChild('scrollMe') private chatScroll: ElementRef;
   public navBarItems: NavbarItem[] = [];
@@ -26,10 +27,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
   public advisorTextToEdit: string;
   public isMobile: boolean;
   public autoListenValue: string = 'Ecouter automatiquement';
-  private audio: boolean;
-
   public isGuest: boolean = false;
   public isMultiDevices: boolean = false;
+
+  private isAudioPlay: boolean;
+  private user: User;
 
   constructor(
     public dialog: MatDialog,
@@ -38,8 +40,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     private toastService: ToastService,
     private settingsService: SettingsService,
     private chatService:ChatService,
-    private textToSpeechService: TextToSpeechService
-
+    private textToSpeechService: TextToSpeechService,
+    private translateService: TranslateService
   ) {
     this.settingsService.user.subscribe((user) => {
       if(user.language.audio === undefined){
@@ -48,9 +50,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
       this.isMultiDevices = user.roomId !== undefined;
       if(this.isMultiDevices){
         this.initMultiDevice(user.roomId)
-
       }
       this.isGuest = user.firstname !== undefined;
+      this.user = user
       this.setNavBar(user.role === Role.ADMIN);
     });
 
@@ -61,7 +63,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
 
   ngOnInit(): void {
-    this.audio = true;
+    this.isAudioPlay = true;
     this.scrollToBottom();
   }
 
@@ -122,14 +124,22 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  public async addToChat(event) {
-    let hasDot = new RegExp('^[ .s]+$').test(event.message);
-    if (event.message !== '' && !hasDot) {
-      this.chat.push(event);
-      const audio = await this.textToSpeechService.getSpeech(event.translation, event.target)
-      if(audio){
-        this.textToSpeechService.audioSpeech.play();
-      }
+  public addToChat(event) {
+    let hasDot = new RegExp('^[ .s]+$').test(event.text);
+    if (event.text !== '' && !hasDot) {
+      const languageTarget = this.getLanguageTarget()
+      this.translateService.translate(event.text, languageTarget).subscribe(async translate => {
+          event.translation = translate
+          console.log('translate :>> ', translate);
+          console.log('languageTarget :>> ', languageTarget);
+          const audio = await this.textToSpeechService.getSpeech(translate, languageTarget)
+          if(audio){
+            this.textToSpeechService.audioSpeech.play();
+            event.audioHtml = this.textToSpeechService.audioSpeech
+          }
+          console.log('event :>> ', event);
+          this.chat.push(event);
+        })
     } else {
       if (!hasDot) {
         this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
@@ -146,7 +156,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
   }
 
   public switchAudio() {
-    this.audio = !this.audio;
+    this.isAudioPlay = !this.isAudioPlay;
   }
 
   private initMultiDevice = (roomId) => {
@@ -162,5 +172,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
         }
       }
     })
+  }
+
+  private getLanguageTarget(){
+    if(this.isMultiDevices){
+      return this.user.language.written
+    }
+    return this.user.role ===  Role.ADVISOR ? this.user.language.written 
+    :  this.settingsService.defaultLanguage ;
   }
 }
