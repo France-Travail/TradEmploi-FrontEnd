@@ -1,13 +1,14 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="title">
     <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
-    <h1 class="t2">Connexion</h1>
-    <p class="t3">Accédez au service de <span class="text-app">traduction instantanée</span></p>
+    <h1 class="t2">Login</h1>
+    <p class="t3">Access to <span class="text-app">translation service</span></p>
   </div>
   <mat-form-field [color]="username.valid && 'accent'" class="input">
-    <input matInput class="text" formControlName="username" placeholder="Identifiant" autocomplete="off" />
-    <mat-error *ngIf="username.hasError('required')">Un identifiant est requis.</mat-error>
+    <input matInput class="text" formControlName="username" placeholder="Name" autocomplete="off" />
+    <mat-error *ngIf="username.hasError('required')">A name is required.</mat-error>
+    <mat-error *ngIf="username.invalid && username.dirty">The name must be between 6 and 30 characters.</mat-error>
   </mat-form-field>
 
-  <button type="submit">SE CONNECTER</button>
+  <button type="submit" [disabled]="form.invalid">LOGIN</button>
 </form>

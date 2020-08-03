@@ -30,7 +30,7 @@ export class AnonymousComponent{
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      username: ['', [Validators.minLength(6), Validators.required]],
+      username: ['', [Validators.minLength(6), Validators.maxLength(30), Validators.required]],
     });
     const url = this.router.url;
     this.roomId = url.substring(url.lastIndexOf('/')+1, url.length);
@@ -42,11 +42,18 @@ export class AnonymousComponent{
 
   public async onSubmit(): Promise<void> {
     try {
-        const auth = await this.authService.loginAnonymous();
-        const key = this.cs.addMember(this.roomId, this.username.value)
-        this.ss.guest.next({ ...this.ss.guest.value, firstname: this.username.value, roomId: this.roomId , id: key});
-        this.ts.showToast(auth.message, 'toast-success');
-        this.router.navigateByUrl('choice');
+        this.cs.hasRoom(this.roomId).subscribe(async hasRoom => {
+          if(!hasRoom){
+            this.ts.showToast("The chat doesn't exist", 'toast-error');
+          }else{
+            const auth = await this.authService.loginAnonymous();
+            const key = this.cs.addMember(this.roomId, this.username.value)
+            this.ss.guest.next({ ...this.ss.guest.value, firstname: this.username.value, roomId: this.roomId , id: key});
+            this.ts.showToast(auth.message, 'toast-success');
+            this.router.navigateByUrl('choice');
+          }
+        });
+
     } catch (error) {
         this.ts.showToast(error.message, 'toast-error');
     }

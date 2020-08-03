@@ -36,6 +36,15 @@ export class ChatService {
     return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<string>> 
   }
 
+  hasRoom(roomId:string) : Observable<boolean> {
+    return new Observable((observer) => {
+      this.db.list<Chat>(`chats/${roomId}`).valueChanges().subscribe(chats => {
+            observer.next(chats.length > 0);
+            observer.complete();
+      })
+    })
+  }
+
   deleteMember(roomId:string, member:string){
     return this.db.list(`chats/${roomId}/members`).remove(member)
     .then(_ => true)
@@ -54,6 +63,8 @@ export class ChatService {
       });
     }));
   }
+
+
 
   sendMessage(roomId:string, message: Message): string{
     return this.db.list(`chats/${roomId}/messages`).push(message).key
