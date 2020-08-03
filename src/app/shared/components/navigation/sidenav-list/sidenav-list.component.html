@@ -1,0 +1,18 @@
+<mat-nav-list>
+  <a mat-list-item routerLink="choice" (click)="onSidenavClose()" *ngIf="navS.choiceTab">
+    <img src="assets/icons/icon-languages-black.svg">
+    <span class="name">{{ choiceLink | uppercase }}</span>
+  </a>
+  <a mat-list-item (click)="share()" (click)="onSidenavClose()" *ngIf="!isGuest && navS.shareTab">
+    <img src="assets/icons/icon-share-alt-solid.svg">
+    <span class="name">{{ shareLink | uppercase }}</span>
+  </a>
+  <a mat-list-item routerLink="settings/translation" (click)="onSidenavClose()" *ngIf="!isGuest && navS.settingsTab">
+    <img src="assets/icons/icon-settings-black.svg">
+    <span class="name">{{ settingsLink | uppercase }}</span>
+  </a>
+  <a mat-list-item (click)="logout()" (click)="onSidenavClose()">
+    <img src="assets/icons/icon-logout.svg">
+    <span class="name">{{ logoutLink | uppercase }}</span>
+  </a>
+</mat-nav-list>

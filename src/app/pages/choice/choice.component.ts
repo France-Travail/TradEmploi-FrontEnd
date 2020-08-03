@@ -1,5 +1,5 @@
 // Angular
-import { Component, AfterContentInit } from '@angular/core';
+import { Component, AfterContentInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { VOCABULARY } from 'src/app/data/vocabulary';
@@ -7,21 +7,24 @@ import { LanguagesComponent } from './dialog/languages/languages.component';
 import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
-import { NavbarItem } from 'src/app/models/navbar-item';
 import { Role } from 'src/app/models/role';
+import { AuthService } from 'src/app/services/auth.service';
+import { NavbarService } from 'src/app/services/navbar.service';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
   styleUrls: ['./choice.component.scss'],
 })
 export class ChoiceComponent implements AfterContentInit {
-  public navBarItems: NavbarItem[] = [];
   public selectedCountriesData = [];
   public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU'];
   public toolTips: string[] = ['Autres langues'];
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
+
   constructor(private textToSpeechService: TextToSpeechService, private historyService: HistoryService, private router: Router, private settingsService: SettingsService, public dialog: MatDialog) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
@@ -30,29 +33,23 @@ export class ChoiceComponent implements AfterContentInit {
     });
   }
 
+    this.settingsService.getTarget().subscribe((user) => {
+      this.isGuest = !this.isGuest ? user.firstname !== null && user.firstname !== '' : this.isGuest = this.isGuest;
+      this.isMultiDevices = this.isMultiDevices ? user.roomId !== null && user.roomId !== '' : this.isMultiDevices = this.isMultiDevices;
+      // this.isMultiDevices = user.roomId != null && user.roomId != '';
+      // this.isGuest = user.firstname != null && user.firstname != '';
+      // console.log('firstname (choice) ', user.firstname)
+      console.log('devices & guest (choice) : ', this.isMultiDevices, this.isGuest)
+    });
+  }
+
+  ngOnInit() {
+    this.navService.show();
+    this.navService.handleTabs(window.location.pathname, this.isGuest);
+  }
+
   ngAfterContentInit(): void {
     this.showMainLanguages();
-  }
-
-  setNavbar(isAdmin: boolean): void {
-    this.navBarItems = [
-      {
-        icon: 'assets/icons/icon-settings-black.svg',
-        infoTitle: 'PARAMÈTRES',
-        link: 'settings/choice',
-        isDisplayed: isAdmin,
-      },
-      {
-        icon: 'assets/icons/icon-logout.svg',
-        infoTitle: 'DECONNEXION',
-        link: 'logout',
-        isDisplayed: true,
-      },
-    ];
-  }
-
-  handleAction(event: any): void {
-    event.call(this);
   }
 
   selectLanguage(audio: string, written: string): void {
