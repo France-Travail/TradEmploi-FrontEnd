@@ -230,11 +230,13 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private async sendMultiDevice(user: User,text: string) {
+    console.log('this.role :>> ', this.role);
       const message: Message = {
         id: new Date().getTime().toString(),
         text: text,
         languageOrigin: this.languageOrigin,
         flag: this.flag,
+        role: this.role,
         member: user.firstname ?  user.firstname: null
       }
       this.chatService.sendMessage(user.roomId, message ) 

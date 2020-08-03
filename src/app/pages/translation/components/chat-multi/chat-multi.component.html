@@ -7,36 +7,4 @@
       <img src="../../../assets/icons/icon-listen-black.svg" alt="Ecoute de la traduction" />
     </a>
   </div>
-  <div class="message-sended">
-    <div class="flag">
-      <span *ngIf="message.flag !== 'arabic'" class="flag-icon flag-icon-{{ message.flag }}"></span>
-      <img *ngIf="message.flag === 'arabic'" class="flag-icon" src="assets/images/arab-flag.png" alt="drapeau" />
-    </div>
-    <div class="text">
-      <span>
-        <div *ngIf="!visible; then longText; else shortText"></div>
-        <ng-template #shortText>
-          <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': message.language === 'ar-XA' ? 'right' : 'left' }">
-            <bdi>{{ message.message }}</bdi>
-          </a>
-          <a class="extand" *ngIf="message.message !== undefined && message.message.length > 98" (click)="extand()">
-            <img src="./assets/icons/icon-chevron-close-blue.svg" alt="réduire le texte" />
-          </a>
-        </ng-template>
-        <ng-template #longText>
-          <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': message.language === 'ar-XA' ? 'right' : 'left' }" lang="ar">
-            <bdi>{{ message.message | slice: 0:98 }}</bdi
-            >&nbsp;
-            <strong *ngIf="message.message !== undefined && message.message.length > 98">...</strong>
-          </a>
-          <a class="extand" *ngIf="message.message !== undefined && message.message.length > 98" (click)="extand()">
-            <img src="./assets/icons/icon-chevron-open-blue.svg" alt="étendre le texte" />
-          </a>
-        </ng-template>
-      </span>
-    </div>
-    <div class="delete" (click)="deleteMessage(i)">
-      <img src="./assets/icons/icon-remove-blue.svg" alt="supprimer le texte" />
-    </div>
-  </div>
 </ng-container>

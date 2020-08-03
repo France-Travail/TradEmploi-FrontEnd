@@ -1,7 +1,5 @@
-import { MessageShared } from 'src/app/models/db/message-shared';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Message } from 'src/app/models/translate/message';
-import { Chat } from 'src/app/models/db/chat';
 
 @Component({
   selector: 'app-chat-multi',
@@ -9,7 +7,7 @@ import { Chat } from 'src/app/models/db/chat';
   styleUrls: ['./chat-multi.component.scss'],
 })
 export class ChatMultiComponent {
-  @Input() chat: MessageShared[];
+  @Input() chat: Message[];
   @Input() shared: boolean;
   @Output() editMessageEmit = new EventEmitter();
 
@@ -24,8 +22,15 @@ export class ChatMultiComponent {
   }
 
   public editMessage(index) {
-    const sentMessage: MessageShared = this.chat[index];
+    const sentMessage: Message = this.chat[index];
     this.editMessageEmit.emit(sentMessage);
     this.chat.splice(index, 1);
+  }
+
+  public listen(index) {
+    const sentMessage: Message = this.chat[index];
+    if (sentMessage && sentMessage.audioHtml) {
+      sentMessage.audioHtml.play();
+    }
   }
 }

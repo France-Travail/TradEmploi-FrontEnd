@@ -124,21 +124,21 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  public addToChat(event) {
-    let hasDot = new RegExp('^[ .s]+$').test(event.text);
-    if (event.text !== '' && !hasDot) {
-      const languageTarget = this.getLanguageTarget()
-      this.translateService.translate(event.text, languageTarget).subscribe(async translate => {
-          event.translation = translate
+  public addToChat(message: Message) {
+    let hasDot = new RegExp('^[ .s]+$').test(message.text);
+    if (message.text !== '' && !hasDot) {
+      const languageTarget = this.getLanguageTarget(message)
+      this.translateService.translate(message.text, languageTarget).subscribe(async translate => {
+        message.translation = translate
           console.log('translate :>> ', translate);
           console.log('languageTarget :>> ', languageTarget);
           const audio = await this.textToSpeechService.getSpeech(translate, languageTarget)
           if(audio){
             this.textToSpeechService.audioSpeech.play();
-            event.audioHtml = this.textToSpeechService.audioSpeech
+            message.audioHtml = this.textToSpeechService.audioSpeech
           }
-          console.log('event :>> ', event);
-          this.chat.push(event);
+          console.log('message :>> ', message);
+          this.chat.push(message);
         })
     } else {
       if (!hasDot) {
@@ -174,11 +174,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     })
   }
 
-  private getLanguageTarget(){
+  private getLanguageTarget(message: Message){
     if(this.isMultiDevices){
-      return this.user.language.written
+      return this.user.role ===  Role.ADVISOR || this.user.role ===  Role.ADMIN ? this.settingsService.defaultLanguage 
+      : this.user.language.written
     }
-    return this.user.role ===  Role.ADVISOR ? this.user.language.written 
+    return message.role ===  Role.ADVISOR || message.role ===  Role.ADMIN? this.user.language.written 
     :  this.settingsService.defaultLanguage ;
   }
 }
