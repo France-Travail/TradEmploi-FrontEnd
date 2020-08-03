@@ -42,16 +42,18 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
   ) {
     this.settingsService.user.subscribe((user) => {
-      if(user.language.audio === undefined){
-        this.goto('choice');
+      if(user != null){
+        if(user.language !== undefined && user.language.audio === undefined){
+          this.goto('choice');
+        }
+        this.isMultiDevices = user.roomId !== undefined;
+        if(this.isMultiDevices){
+          this.initMultiDevice(user.roomId)
+  
+        }
+        this.isGuest = user.firstname !== undefined;
+        this.setNavBar(user.role === Role.ADMIN);
       }
-      this.isMultiDevices = user.roomId !== undefined;
-      if(this.isMultiDevices){
-        this.initMultiDevice(user.roomId)
-
-      }
-      this.isGuest = user.firstname !== undefined;
-      this.setNavBar(user.role === Role.ADMIN);
     });
 
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
@@ -125,11 +127,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
   public async addToChat(event) {
     let hasDot = new RegExp('^[ .s]+$').test(event.message);
     if (event.message !== '' && !hasDot) {
-      this.chat.push(event);
       const audio = await this.textToSpeechService.getSpeech(event.translation, event.target)
       if(audio){
         this.textToSpeechService.audioSpeech.play();
+        event.translatedSpeech = this.textToSpeechService.audioSpeech;
       }
+      this.chat.push(event);
     } else {
       if (!hasDot) {
         this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
