@@ -1,36 +1,29 @@
+@import 'styles';
+
 mat-toolbar {
   justify-content: space-between;
-  align-items: center;
-  background-color: #ffffff;
-  #hamburger {
-    display: none;
-  }
+  background-color: $white;
   #logo {
     display: flex;
-    flex-direction: row;
-    width: 200px;
     img {
       width: 135px;
       margin-right: 10px;
-
     }
     .title {
       font-size: 14px;
       font-weight: bold;
-      color: #bf5858;
+      color: $red-corail;
     }
   }
-  .buttons {
-    width: inherit;
+  .tabs {
     display: flex;
     justify-content: flex-end;
     button {
-      border: none;
       display: flex;
-      margin: 0 5px;
+      border: none;
+      margin: 0 20px 0 5px;
       background: transparent;
       align-items: center;
-      margin-right: 20px;
       cursor: pointer;
       &:focus {
         outline: 0;
@@ -42,7 +35,7 @@ mat-toolbar {
         width: 24px;
       }
       .name {
-        color: #333333;
+        color: $button-black;
         font-size: 14px;
         margin-left: 10px;
       }
@@ -50,111 +43,5 @@ mat-toolbar {
         margin-right: 0;
       }
     }
-    // .navigation-items {
-    //   display: flex;
-    //   justify-content: flex-end;
-    //   list-style-type: none;
-    //   padding: 0;
-    //   margin: 0;
-    //   .navigation-item {
-    //     margin-left: 10px;
-    //     .link {
-    //       text-decoration: none;
-    //       color: #333333;
-    //       font-size: 14px;
-    //       font-weight: lighter;
-    //     }
-    //     .link:hover, .link:active{
-    //       color: lightgray;
-    //     }
-    //   }
-    // }
-    }
-}
-
-/* Most of the Smartphones Mobiles (Portrait) */
-@media (min-width: 320px) and (max-width: 480px) {
-  mat-toolbar {
-    #hamburger {
-      display: block;
-    }
-    .buttons {
-      button {
-        display: none;
-        span {
-          display: none;
-        }
-      }
-    }
   }
 }
-
-/* Low Resolution Tablets, Mobiles (Landscape) */
-@media (min-width: 481px) and (max-width: 767px) {
-  mat-toolbar {
-    #hamburger {
-      display: block;
-    }
-    .buttons {
-      button {
-        display: none;
-        span {
-          display: none;
-        }
-      }
-    }
-  }
-}
-/* Tablets, Ipads (portrait) */
-@media (min-width: 768px) and (max-width: 1024px) {
-  mat-toolbar {
-    #hamburger {
-      display: block;
-    }
-    .buttons {
-      button {
-        display: none;
-        span {
-          display: none;
-        }
-      }
-    }
-  }
-}
-
-/* Tablets, Ipads (landscape) */
-
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
-  mat-toolbar {
-    #hamburger {
-      display: none;
-    }
-    .buttons {
-      button {
-        display: block;
-        span {
-          display: none;
-        }
-      }
-    }
-  }
-}
-
-// /* Tablets, Ipads (portrait) */
-// @media(min-width: 768px) and (max-width: 1024px) {
-//   mat-toolbar {
-//     #hamburger {
-//       display: block;
-//     }
-//     #logo {
-//       justify-content: flex-end;
-//     }
-//     .buttons {
-//       button {
-//         span {
-//           display: none;
-//         }
-//       }
-//     }
-//   }
-// }

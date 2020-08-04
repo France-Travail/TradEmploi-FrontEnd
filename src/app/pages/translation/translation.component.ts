@@ -56,7 +56,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
-    this.navbarService.handleTabs(window.location.pathname);
+    this.navbarService.handleTabsTranslation();
   }
 
 

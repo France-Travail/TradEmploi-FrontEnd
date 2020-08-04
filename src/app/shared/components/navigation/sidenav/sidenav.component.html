@@ -5,11 +5,11 @@
   </a>
   <a mat-list-item (click)="share()" (click)="onSidenavClose()" *ngIf="!isGuest && navbarService.shareTab">
     <img src="assets/icons/icon-share-alt-solid.svg">
-    <span class="name">{{ shareLink | uppercase }}</span>
+    <span class="name">PARTAGER</span>
   </a>
   <a mat-list-item routerLink="settings/translation" (click)="onSidenavClose()" *ngIf="!isGuest && navbarService.settingsTab">
     <img src="assets/icons/icon-settings-black.svg">
-    <span class="name">{{ settingsLink | uppercase }}</span>
+    <span class="name">PARAMÈTRES</span>
   </a>
   <a mat-list-item (click)="logout()" (click)="onSidenavClose()">
     <img src="assets/icons/icon-logout.svg">

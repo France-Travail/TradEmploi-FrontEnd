@@ -19,20 +19,22 @@ export class NavbarService {
     this.visible = true;
   }
 
-  public handleTabs(path) {
-    if(path === '/choice') {
-      this.choiceTab = false;
-      this.shareTab = false;
-      this.settingsTab = true;
-    } else if (path === '/translation') {
-      this.choiceTab = true;
-      this.shareTab = true;
-      this.settingsTab = true;
-    } else if (path === '/settings/translation') {
-      this.choiceTab = true;
-      this.shareTab = false;
-      this.settingsTab = false;
-    }
+  public handleTabsChoice() {
+    this.choiceTab = false;
+    this.shareTab = false;
+    this.settingsTab = true;
+  }
+
+  public handleTabsTranslation() {
+    this.choiceTab = true;
+    this.shareTab = true;
+    this.settingsTab = true;
+  }
+
+  public handleTabsSettings() {
+    this.choiceTab = true;
+    this.shareTab = false;
+    this.settingsTab = false;
   }
 
 }

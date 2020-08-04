@@ -31,14 +31,14 @@ import { RecordComponent } from './components/record/record.component';
 import { TranslationTitleComponent } from './components/translation-title/translation-title.component';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/navigation/header/header.component';
-import { SidenavListComponent } from './components/navigation/sidenav-list/sidenav-list.component';
+import { SidenavComponent } from './components/navigation/sidenav/sidenav.component';
 
 const COMPONENTS = [
   AudioAnimationComponent,
   RecordComponent,
   TranslationTitleComponent,
   HeaderComponent,
-  SidenavListComponent
+  SidenavComponent
 ];
 
 const MATERIAL_MODULES = [
@@ -65,7 +65,7 @@ const MATERIAL_MODULES = [
 const MODULES = [RouterModule, CommonModule, ReactiveFormsModule, FormsModule, ...MATERIAL_MODULES];
 
 @NgModule({
-  declarations: [...COMPONENTS, HeaderComponent, SidenavListComponent],
+  declarations: [...COMPONENTS, HeaderComponent, SidenavComponent],
   imports: [...MODULES],
   exports: [...COMPONENTS, ...MODULES],
 })

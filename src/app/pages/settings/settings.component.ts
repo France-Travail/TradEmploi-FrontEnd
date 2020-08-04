@@ -21,7 +21,7 @@ export class SettingsComponent implements OnInit {
     private navService: NavbarService) {
     const url = this.router.url;
     this.path = url.substring(url.lastIndexOf('/'));
-    this.navService.handleTabs(window.location.pathname);
+    this.navService.handleTabsSettings();
   }
 
   ngOnInit() {
@@ -57,6 +57,10 @@ export class SettingsComponent implements OnInit {
     document.body.append(a);
     a.click();
     document.body.removeChild(a);
+  }
+
+  public goBack() {
+    window.history.back();
   }
 
 }

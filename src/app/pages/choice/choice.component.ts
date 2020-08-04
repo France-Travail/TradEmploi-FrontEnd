@@ -1,16 +1,12 @@
 // Angular
-import { Component, AfterContentInit, Input, OnInit } from '@angular/core';
+import { Component, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { LanguagesComponent } from './dialog/languages/languages.component';
-import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
-import { Role } from 'src/app/models/role';
-import { AuthService } from 'src/app/services/auth.service';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-choice',
@@ -25,8 +21,8 @@ export class ChoiceComponent implements AfterContentInit {
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
 
-  constructor(private textToSpeechService: TextToSpeechService, private historyService: HistoryService, private router: Router, private settingsService: SettingsService, public dialog: MatDialog, private navService: NavbarService) {
-    this.navService.handleTabs(window.location.pathname);
+  constructor(private textToSpeechService: TextToSpeechService, private router: Router, private settingsService: SettingsService, public dialog: MatDialog, private navService: NavbarService) {
+    this.navService.handleTabsChoice();
   }
 
   ngAfterContentInit(): void {

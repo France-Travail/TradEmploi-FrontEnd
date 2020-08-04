@@ -1,13 +1,15 @@
+@import 'styles';
+
 mat-nav-list {
   a {
     text-decoration: none;
-    color: white;
+    color: $white;
     img {
       width: 18px;
-      color: #333333;
+      color: $button-black;
     }
     .name {
-      color: #333333;
+      color: $button-black;
       font-size: 14px;
       margin-left: 10px;
     }
@@ -23,8 +25,8 @@ mat-nav-list {
   }
 }
 mat-list-item {
-  color: #333333;
+  color: $button-black;
   a {
-    color: #333333;
+    color: $button-black;
   }
 }
