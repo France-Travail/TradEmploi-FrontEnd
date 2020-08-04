@@ -17,16 +17,6 @@ export class ChatMultiComponent {
     this.visible = !this.visible;
   }
 
-  public deleteMessage(index) {
-    this.chat.splice(index, 1);
-  }
-
-  public editMessage(index) {
-    const sentMessage: Message = this.chat[index];
-    this.editMessageEmit.emit(sentMessage);
-    this.chat.splice(index, 1);
-  }
-
   public listen(index) {
     const sentMessage: Message = this.chat[index];
     if (sentMessage && sentMessage.audioHtml) {

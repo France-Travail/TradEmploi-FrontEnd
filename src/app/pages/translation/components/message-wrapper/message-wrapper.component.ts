@@ -59,7 +59,6 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
 
   constructor(
     private toastService: ToastService,
-    private translateService: TranslateService,
     private settingsService: SettingsService,
     private audioRecordingService: AudioRecordingService,
     public textToSpeechService: TextToSpeechService,
@@ -154,11 +153,11 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     if (this.rawText !== '') {
       const user = this.settingsService.user.value
       const message = messageAudio === undefined ? this.rawText : messageAudio;
-      const isShareMode = user.roomId != undefined
-      if(isShareMode){
-        this.sendMultiDevice(user, message)
+      const isMultiDevices = user.roomId != undefined
+      if(isMultiDevices){
+        this.sendToMultiDevices(user, message)
       }else{
-        this.sendOneDevice(message)
+        this.sendToOneDevice(message)
       }
       this.rawText = '';
       this.speak = false;
@@ -218,7 +217,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
   
-  private async sendOneDevice(text: string){
+  private async sendToOneDevice(text: string){
       this.message = {
           id: new Date().getTime().toString(),
           text: text,
@@ -229,7 +228,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
       this.messagesToEmit.emit(this.message);
   }
 
-  private async sendMultiDevice(user: User,text: string) {
+  private async sendToMultiDevices(user: User,text: string) {
       const message: Message = {
         id: new Date().getTime().toString(),
         text: text,

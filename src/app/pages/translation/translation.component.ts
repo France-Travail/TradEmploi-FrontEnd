@@ -132,7 +132,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     if (message.text !== '' && !hasDot) {
       const languageTarget = this.getLanguageTarget(message)
       this.translateService.translate(message.text, languageTarget).subscribe(async translate => {
-        message.translation = translate
+          message.translation = translate
           const audio = await this.textToSpeechService.getSpeech(translate, languageTarget)
           if(audio){
             this.textToSpeechService.audioSpeech.play();
