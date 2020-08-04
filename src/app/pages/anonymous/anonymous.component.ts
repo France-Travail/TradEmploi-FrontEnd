@@ -17,10 +17,10 @@ export class AnonymousComponent{
 
   constructor(private authService: AuthService, 
     private router: Router, 
-    private fb: FormBuilder, 
-    private ts: ToastService,
-    private ss : SettingsService,
-    private cs: ChatService) {
+    private formBuilder: FormBuilder, 
+    private toastService: ToastService,
+    private settingsService : SettingsService,
+    private chatService: ChatService) {
     this.authService.auth.subscribe((user) => {
       if (user !== null) {
         this.router.navigateByUrl('choice');
@@ -29,8 +29,8 @@ export class AnonymousComponent{
   }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      username: ['', [Validators.minLength(6), Validators.maxLength(30), Validators.required]],
+    this.form = this.formBuilder.group({
+      username: ['', [Validators.minLength(6), Validators.maxLength(32), Validators.required]],
     });
     const url = this.router.url;
     this.roomId = url.substring(url.lastIndexOf('/')+1, url.length);
@@ -42,20 +42,20 @@ export class AnonymousComponent{
 
   public async onSubmit(): Promise<void> {
     try {
-        this.cs.hasRoom(this.roomId).subscribe(async hasRoom => {
+        this.chatService.hasRoom(this.roomId).subscribe(async hasRoom => {
           if(!hasRoom){
-            this.ts.showToast("The chat doesn't exist", 'toast-error');
+            this.toastService.showToast("The chat doesn't exist", 'toast-error');
           }else{
             const auth = await this.authService.loginAnonymous();
-            const key = this.cs.addMember(this.roomId, this.username.value)
-            this.ss.guest.next({ ...this.ss.guest.value, firstname: this.username.value, roomId: this.roomId , id: key});
-            this.ts.showToast(auth.message, 'toast-success');
+            const key = this.chatService.addMember(this.roomId, this.username.value)
+            this.settingsService.guest.next({ ...this.settingsService.guest.value, firstname: this.username.value, roomId: this.roomId , id: key});
+            this.toastService.showToast(auth.message, 'toast-success');
             this.router.navigateByUrl('choice');
           }
         });
 
     } catch (error) {
-        this.ts.showToast(error.message, 'toast-error');
+        this.toastService.showToast(error.message, 'toast-error');
     }
   }
 }
