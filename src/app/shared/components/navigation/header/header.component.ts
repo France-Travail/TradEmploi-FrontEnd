@@ -5,6 +5,7 @@ import { ShareComponent } from '../../../../pages/translation/dialogs/share/shar
 import { NavbarService } from '../../../../services/navbar.service';
 import { SettingsService } from '../../../../services/settings.service';
 import { Role } from 'src/app/models/role';
+import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 
 @Component({
   selector: 'app-header',
@@ -33,6 +34,10 @@ export class HeaderComponent implements OnInit {
       this.settingsService.user.subscribe((user) => {
         if(user !== null) {
           this.isGuest = true ? user.role === Role.GUEST : this.isGuest = false;
+        }
+        if(this.isGuest) {
+          this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
+          this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
         }
       });
   }
