@@ -39,7 +39,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     private settingsService: SettingsService,
     private chatService:ChatService,
     private textToSpeechService: TextToSpeechService,
-    private navbarService: NavbarService
+    private navService: NavbarService
   ) {
     this.settingsService.user.subscribe((user) => {
       if(user.language.audio === undefined){
@@ -51,19 +51,18 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
       }
       this.isGuest = user.firstname !== undefined;
-      this.setNavBar(user.role === Role.ADMIN);
     });
 
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
+    this.navService.handleTabs(window.location.pathname);
   }
 
 
   ngOnInit(): void {
     this.audio = true;
     this.scrollToBottom();
-    this.navbarService.show();
   }
 
   ngAfterViewChecked() {

@@ -18,13 +18,13 @@ export class SettingsComponent implements OnInit {
     public router: Router,
     private fireFunction: AngularFireFunctions,
     private toastService: ToastService,
-    private navbarService: NavbarService) {
+    private navService: NavbarService) {
     const url = this.router.url;
     this.path = url.substring(url.lastIndexOf('/'));
+    this.navService.handleTabs(window.location.pathname);
   }
 
   ngOnInit() {
-    this.navbarService.show();
   }
 
   public export(): void {

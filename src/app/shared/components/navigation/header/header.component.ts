@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
 import { NavbarService } from '../../../../services/navbar.service';
 import { SettingsService } from '../../../../services/settings.service';
+import { Role } from 'src/app/models/role';
 
 @Component({
   selector: 'app-header',
@@ -29,6 +30,11 @@ export class HeaderComponent implements OnInit {
     public navbarService: NavbarService,
     public settingsService: SettingsService
     ) {
+      this.settingsService.user.subscribe((user) => {
+        if(user !== null) {
+          this.isGuest = true ? user.role === Role.GUEST : this.isGuest = false;
+        }
+      });
   }
 
   ngOnInit(): void {

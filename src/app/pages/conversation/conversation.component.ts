@@ -16,7 +16,7 @@ export class ConversationComponent implements AfterViewInit {
   constructor(private historyService: HistoryService, private settingsService: SettingsService) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
-        this.setNavBar(user.role === Role.ADMIN);
+        // this.setNavBar(user.role === Role.ADMIN);
       }
     });
   }

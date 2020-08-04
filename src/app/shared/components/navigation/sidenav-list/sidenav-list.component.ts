@@ -27,10 +27,6 @@ export class SidenavListComponent implements OnInit {
     public settingsService: SettingsService,
     public navS: NavbarService
     ) {
-      this.settingsService.getTarget().subscribe((user) => {
-        this.isMultiDevices = user.roomId != null;
-        this.isGuest = user.firstname != null;
-      });
     }
 
   ngOnInit(): void {
