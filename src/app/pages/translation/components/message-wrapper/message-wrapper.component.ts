@@ -14,6 +14,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { TranslateService } from 'src/app/services/translate.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
+import { User } from 'src/app/models/user';
 
 
 @Component({
@@ -58,7 +59,6 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
 
   constructor(
     private toastService: ToastService,
-    private translateService: TranslateService,
     private settingsService: SettingsService,
     private audioRecordingService: AudioRecordingService,
     public textToSpeechService: TextToSpeechService,
@@ -103,7 +103,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
 
   ngOnChanges() {
     if (this.originText) {
-      this.rawText = this.originText.message;
+      this.rawText = this.originText.text;
     }
   }
 
@@ -151,28 +151,14 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
     this.closeCurrentKeyboard();
     if (this.rawText !== '') {
+      const user = this.settingsService.user.value
       const message = messageAudio === undefined ? this.rawText : messageAudio;
-      const languageTarget = this.role ===  Role.ADVISOR ? this.settingsService.user.value.language.written :  this.settingsService.defaultLanguage ;
-      this.translateService.translate(message, languageTarget).subscribe(
-        async (response) => {
-          const user = this.settingsService.user.value
-          this.message = {
-            message: message,
-            translation: response,
-            user: this.role,
-            languageOrigin: this.languageOrigin,
-            flag: this.flag,
-            id: new Date().getTime().toString(),
-            target: languageTarget,
-            firstname: user.firstname ?  user.firstname: null
-          };
-          user.roomId !== undefined ? this.chatService.sendMessage(user.roomId, this.message ) 
-          : this.messagesToEmit.emit(this.message);
-        },
-        async (error) => {
-          this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
-        }
-      );
+      const isMultiDevices = user.roomId != undefined
+      if(isMultiDevices){
+        this.sendToMultiDevices(user, message)
+      }else{
+        this.sendToOneDevice(message)
+      }
       this.rawText = '';
       this.speak = false;
     }
@@ -230,4 +216,28 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
       this.openAttachedKeyboard();
     }
   }
+  
+  private async sendToOneDevice(text: string){
+      this.message = {
+          id: new Date().getTime().toString(),
+          text: text,
+          languageOrigin: this.languageOrigin,
+          flag: this.flag,
+          role: this.role,
+        };
+      this.messagesToEmit.emit(this.message);
+  }
+
+  private async sendToMultiDevices(user: User,text: string) {
+      const message: Message = {
+        id: new Date().getTime().toString(),
+        text: text,
+        languageOrigin: this.languageOrigin,
+        flag: this.flag,
+        role: this.role,
+        member: user.firstname ?  user.firstname: null
+      }
+      this.chatService.sendMessage(user.roomId, message ) 
+  }
+
 }

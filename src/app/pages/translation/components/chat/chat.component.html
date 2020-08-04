@@ -17,7 +17,7 @@
         <div *ngIf="!visible; then longText; else shortText"></div>
         <ng-template #shortText>
           <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': message.language === 'ar-XA' ? 'right' : 'left' }">
-            <bdi>{{ message.message }}</bdi>
+            <bdi>{{ message.text }}</bdi>
           </a>
           <a class="extand" *ngIf="message.message !== undefined && message.message.length > 98" (click)="extand()">
             <img src="./assets/icons/icon-chevron-close-blue.svg" alt="réduire le texte" />
@@ -25,7 +25,7 @@
         </ng-template>
         <ng-template #longText>
           <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': message.language === 'ar-XA' ? 'right' : 'left' }" lang="ar">
-            <bdi>{{ message.message | slice: 0:98 }}</bdi
+            <bdi>{{ message.text | slice: 0:98 }}</bdi
             >&nbsp;
             <strong *ngIf="message.message !== undefined && message.message.length > 98">...</strong>
           </a>

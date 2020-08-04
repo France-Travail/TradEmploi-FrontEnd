@@ -48,6 +48,7 @@ import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
 import { ChatComponent } from './pages/translation/components/chat/chat.component';
+import { ChatMultiComponent } from './pages/translation/components/chat-multi/chat-multi.component';
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
 import { SentryErrorHandler } from './utils/sentry-error-handler';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
@@ -74,6 +75,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     AuthenticationComponent,
     AnonymousComponent,
     ChatComponent,
+    ChatMultiComponent,
     ShareComponent,
   ],
   imports: [

@@ -26,10 +26,10 @@ export class ChatService {
     });
   }
 
-  getMessages(roomId: string) {  
+  getMessages(roomId: string): Observable<Array<Message>>  {  
     return this.db.list(`chats/${roomId}/messages`, ref => {
       return ref.orderByChild('timestamp');
-      }).valueChanges(); 
+      }).valueChanges()  as Observable<Array<Message>> ; 
   }
 
   getMembers(roomId:string): Observable<Array<string>> {

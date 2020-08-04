@@ -1,11 +1,11 @@
 export interface Message {
-  message: string;
+  id: string;
+  text: string;
+  languageOrigin: string;
+  flag: string;
   translation?: string;
-  user?: string;
-  languageOrigin?: string;
-  translatedSpeech?: HTMLAudioElement;
-  flag?: string;
-  id?: string;
-  target: string;
-  firstname: string;
+  role?: string;
+  audioHtml?: HTMLAudioElement;
+  target?: string;
+  member?: string
 }
