@@ -4,6 +4,8 @@ import { LogoutComponent } from '../../logout/logout.component';
 import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
 import { SettingsService } from 'src/app/services/settings.service';
 import { NavbarService } from 'src/app/services/navbar.service';
+import { Role } from 'src/app/models/role';
+import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -25,8 +27,17 @@ export class SidenavListComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public settingsService: SettingsService,
-    public navS: NavbarService
+    public navbarService: NavbarService
     ) {
+      this.settingsService.user.subscribe((user) => {
+        if(user !== null) {
+          this.isGuest = true ? user.role === Role.GUEST : this.isGuest = false;
+        }
+        if(this.isGuest) {
+          this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
+          this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
+        }
+      });
     }
 
   ngOnInit(): void {

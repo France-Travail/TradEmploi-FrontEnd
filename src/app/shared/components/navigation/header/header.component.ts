@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   public isMultiDevices: boolean = false;
 
   constructor(
-    public dialog: MatDialog,
+    public dialog: MatDialog, 
     public navbarService: NavbarService,
     public settingsService: SettingsService
     ) {

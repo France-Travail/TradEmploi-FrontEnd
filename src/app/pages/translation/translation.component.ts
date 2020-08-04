@@ -39,7 +39,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     private settingsService: SettingsService,
     private chatService:ChatService,
     private textToSpeechService: TextToSpeechService,
-    private navService: NavbarService
+    private navbarService: NavbarService
   ) {
     this.settingsService.user.subscribe((user) => {
       if(user.language.audio === undefined){
@@ -56,7 +56,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
-    this.navService.handleTabs(window.location.pathname);
+    this.navbarService.handleTabs(window.location.pathname);
   }
 
 
