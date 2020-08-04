@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { LanguagesComponent } from './dialog/languages/languages.component';
-import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { NavbarItem } from 'src/app/models/navbar-item';
@@ -22,7 +21,7 @@ export class ChoiceComponent implements AfterContentInit {
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
-  constructor(private textToSpeechService: TextToSpeechService, private historyService: HistoryService, private router: Router, private settingsService: SettingsService, public dialog: MatDialog) {
+  constructor(private textToSpeechService: TextToSpeechService, private router: Router, private settingsService: SettingsService, public dialog: MatDialog) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         this.setNavbar(user.role === Role.ADMIN);

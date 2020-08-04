@@ -135,7 +135,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
           message.translation = translate
           const audio = await this.textToSpeechService.getSpeech(translate, languageTarget)
           if(audio){
-            this.textToSpeechService.audioSpeech.play();
+            if(this.isAudioPlay){
+              this.textToSpeechService.audioSpeech.play();
+            }
             message.audioHtml = this.textToSpeechService.audioSpeech
           }
           this.chat.push(message);

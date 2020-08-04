@@ -1,8 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { NgControl, NgModel } from '@angular/forms';
+import {  Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+// import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+
+
 import { Router } from '@angular/router';
-import { MatKeyboardComponent, MatKeyboardRef, MatKeyboardService } from 'angular-onscreen-material-keyboard';
+
 import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { Stream } from 'src/app/models/stream';
 import { Message } from 'src/app/models/translate/message';
@@ -11,28 +13,25 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { TranslateService } from 'src/app/services/translate.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
 import { User } from 'src/app/models/user';
 
+// import { NgControl, NgModel } from '@angular/forms';
+// import { MatKeyboardComponent, MatKeyboardRef, MatKeyboardService } from 'angular-onscreen-material-keyboard';
 
 @Component({
   selector: 'app-message-wrapper',
   templateUrl: './message-wrapper.component.html',
   styleUrls: ['./message-wrapper.component.scss'],
 })
-export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MessageWrapperComponent implements OnInit {
   @Input() title: string;
   @Input() role: string;
   @Input() originText: Message;
 
   @Output() messagesToEmit = new EventEmitter();
 
-  @ViewChild('attachedInput', { read: ElementRef })
-  private inputElement: ElementRef;
-  @ViewChild('attachedInput', { read: NgModel })
-  private attachToControl: NgControl;
 
   public rawText: string;
   public message: Message;
@@ -45,17 +44,26 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   public micro: boolean = false;
   public error: boolean = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
-  public languageKeyboard: string;
   public interim: string = '';
   public recordMode: boolean = false;
   public speak: boolean = false;
-  public autoOpenKeyboard: boolean = false;
 
-  private keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
   private isMobile: boolean = false;
   private isTablet: boolean = false;
-  private container: Element;
-  private marginKeyboard: number;
+
+    // @ViewChild('attachedInput', { read: ElementRef })
+  // private inputElement: ElementRef;
+  // @ViewChild('attachedInput', { read: NgModel })
+  // private attachToControl: NgControl;
+
+  // public autoOpenKeyboard: boolean = false;
+  // public languageKeyboard: string;
+  // private keyboardRef: MatKeyboardRef<MatKeyboardComponent>;
+  // private container: Element;
+  // private marginKeyboard: number;
+
+
+
 
   constructor(
     private toastService: ToastService,
@@ -65,24 +73,24 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     public router: Router,
     private breakpointObserver: BreakpointObserver,
     private speechRecognitionService: SpeechRecognitionService,
-    private keyboardService: MatKeyboardService,
+    // private keyboardService: MatKeyboardService,
     private chatService: ChatService
   ) {}
 
   ngAfterViewInit() {
-    this.container =
-      document.documentElement.getElementsByClassName('oneDevice')[0] != undefined
-        ? document.documentElement.getElementsByClassName('oneDevice')[0]
-        : document.documentElement.getElementsByClassName('multiDevices')[0];
-    if (this.inputElement != undefined) {
-      this.inputElement.nativeElement.addEventListener('blur', () => {
-        this.closeCurrentKeyboard();
-      });
-    }
+    // this.container =
+    //   document.documentElement.getElementsByClassName('oneDevice')[0] != undefined
+    //     ? document.documentElement.getElementsByClassName('oneDevice')[0]
+    //     : document.documentElement.getElementsByClassName('multiDevices')[0];
+    // if (this.inputElement != undefined) {
+    //   this.inputElement.nativeElement.addEventListener('blur', () => {
+    //     this.closeCurrentKeyboard();
+    //   });
+    // }
   }
-  ngOnDestroy() {
-    this.closeCurrentKeyboard();
-  }
+  // ngOnDestroy() {
+  //   this.closeCurrentKeyboard();
+  // }
   ngOnInit(): void {
     this.languageOrigin = this.role === Role.ADVISOR? this.settingsService.defaultLanguage : this.settingsService.user.value.language.written;
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
@@ -90,7 +98,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     this.title = data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
     this.flag = isLanguageExist ? data.flag.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
-    this.languageKeyboard = this.languageOrigin.split('-')[0];
+    // this.languageKeyboard = this.languageOrigin.split('-')[0];
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
@@ -98,7 +106,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     this.breakpointObserver.observe([Breakpoints.Tablet]).subscribe((result) => {
       this.isTablet = result.matches;
     });
-    this.marginKeyboard = this.isTablet ? 250 : window.innerHeight - 600;
+    // this.marginKeyboard = this.isTablet ? 250 : window.innerHeight - 600;
   }
 
   ngOnChanges() {
@@ -149,7 +157,7 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
-    this.closeCurrentKeyboard();
+    // this.closeCurrentKeyboard();
     if (this.rawText !== '') {
       const user = this.settingsService.user.value
       const message = messageAudio === undefined ? this.rawText : messageAudio;
@@ -191,31 +199,31 @@ export class MessageWrapperComponent implements OnInit, OnDestroy, AfterViewInit
     this.recordMode = false;
   }
 
-  public closeCurrentKeyboard() {
-    if (this.keyboardRef) {
-      this.keyboardRef.dismiss();
-      this.container.setAttribute('style', 'padding-bottom: 0;');
-    }
-  }
-  public openAttachedKeyboard() {
-    if (!this.keyboardService.isOpened && this.autoOpenKeyboard) {
-      this.keyboardRef = this.keyboardService.open(this.languageKeyboard);
-      this.keyboardRef.instance.setInputInstance(this.inputElement);
-      this.keyboardRef.instance.attachControl(this.attachToControl.control);
-      this.container.setAttribute('style', 'padding-bottom:' + this.marginKeyboard.toString() + 'px;');
-      window.scrollBy(0, this.marginKeyboard);
-    }
-  }
-  public switchAutoOpenKeyboard() {
-    if (this.keyboardRef) {
-      this.keyboardRef.dismiss();
-      this.container.setAttribute('style', 'padding-bottom: 0;');
-    }
-    this.autoOpenKeyboard = !this.autoOpenKeyboard;
-    if (this.autoOpenKeyboard) {
-      this.openAttachedKeyboard();
-    }
-  }
+  // public closeCurrentKeyboard() {
+  //   if (this.keyboardRef) {
+  //     this.keyboardRef.dismiss();
+  //     this.container.setAttribute('style', 'padding-bottom: 0;');
+  //   }
+  // }
+  // public openAttachedKeyboard() {
+  //   if (!this.keyboardService.isOpened && this.autoOpenKeyboard) {
+  //     this.keyboardRef = this.keyboardService.open(this.languageKeyboard);
+  //     this.keyboardRef.instance.setInputInstance(this.inputElement);
+  //     this.keyboardRef.instance.attachControl(this.attachToControl.control);
+  //     this.container.setAttribute('style', 'padding-bottom:' + this.marginKeyboard.toString() + 'px;');
+  //     window.scrollBy(0, this.marginKeyboard);
+  //   }
+  // }
+  // public switchAutoOpenKeyboard() {
+  //   if (this.keyboardRef) {
+  //     this.keyboardRef.dismiss();
+  //     this.container.setAttribute('style', 'padding-bottom: 0;');
+  //   }
+  //   this.autoOpenKeyboard = !this.autoOpenKeyboard;
+  //   if (this.autoOpenKeyboard) {
+  //     this.openAttachedKeyboard();
+  //   }
+  // }
   
   private async sendToOneDevice(text: string){
       this.message = {
