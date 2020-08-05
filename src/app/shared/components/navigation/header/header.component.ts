@@ -20,6 +20,7 @@ export class HeaderComponent {
   public choiceLink: string = 'langues';
   public logoutLink: string = 'deconnexion';
   public isGuest: boolean = false;
+  public isAdvisor: boolean = false;
   public isMobile: boolean;
   public isTablet: boolean;
 
@@ -32,6 +33,7 @@ export class HeaderComponent {
       this.settingsService.user.subscribe((user) => {
         if(user !== null) {
           this.isGuest = user.role === Role.GUEST;
+          this.isAdvisor = user.role === Role.ADVISOR;
         }
         if(this.isGuest) {
           this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
