@@ -26,14 +26,23 @@ export class ChatService {
     });
   }
 
-  getMessages(roomId: string) {
+  getMessages(roomId: string): Observable<Array<Message>>  {
     return this.db.list(`chats/${roomId}/messages`, ref => {
       return ref.orderByChild('timestamp');
-      }).valueChanges();
+      }).valueChanges()  as Observable<Array<Message>> ;
   }
 
   getMembers(roomId:string): Observable<Array<string>> {
     return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<string>>
+  }
+
+  hasRoom(roomId:string) : Observable<boolean> {
+    return new Observable((observer) => {
+      this.db.list<Chat>(`chats/${roomId}`).valueChanges().subscribe(chats => {
+            observer.next(chats.length > 0);
+            observer.complete();
+      })
+    })
   }
 
   deleteMember(roomId:string, member:string){
@@ -54,6 +63,8 @@ export class ChatService {
       });
     }));
   }
+
+
 
   sendMessage(roomId:string, message: Message): string{
     return this.db.list(`chats/${roomId}/messages`).push(message).key

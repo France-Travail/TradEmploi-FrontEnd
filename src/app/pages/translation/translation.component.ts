@@ -10,6 +10,8 @@ import { ChatService } from 'src/app/services/chat.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { Role } from 'src/app/models/role';
 import { NavbarService } from 'src/app/services/navbar.service';
+import { TranslateService } from 'src/app/services/translate.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-translation',
@@ -17,7 +19,6 @@ import { NavbarService } from 'src/app/services/navbar.service';
   styleUrls: ['./translation.component.scss'],
 })
 export class TranslationComponent implements OnInit, AfterViewChecked {
-  @Input() user: string;
 
   @ViewChild('scrollMe') private chatScroll: ElementRef;
 
@@ -26,10 +27,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
   public advisorTextToEdit: string;
   public isMobile: boolean;
   public autoListenValue: string = 'Ecouter automatiquement';
-  private audio: boolean;
-
   public isGuest: boolean = false;
   public isMultiDevices: boolean = false;
+
+  private isAudioPlay: boolean;
+  private user: User;
 
   constructor(
     public dialog: MatDialog,
@@ -39,16 +41,21 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     private settingsService: SettingsService,
     private chatService:ChatService,
     private textToSpeechService: TextToSpeechService,
-    private navbarService: NavbarService
+    private navbarService: NavbarService,
+    private translateService: TranslateService
   ) {
     this.settingsService.user.subscribe((user) => {
-      if(user.language.audio === undefined){
-        this.goto('choice');
-      }
-      this.isMultiDevices = user.roomId !== undefined;
-      if(this.isMultiDevices){
-        this.initMultiDevice(user.roomId)
+      if(user != null){
+        if(user.language !== undefined && user.language.audio === undefined){
+          this.goto('choice');
+        }
+        this.isMultiDevices = user.roomId !== undefined;
+        if(this.isMultiDevices){
+          this.initMultiDevice(user.roomId)
 
+        }
+        this.isGuest = user.firstname !== undefined;
+        this.user = user
       }
       this.isGuest = user.firstname !== undefined;
     });
@@ -61,7 +68,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
 
   ngOnInit(): void {
-    this.audio = true;
+    this.isAudioPlay = true;
     this.scrollToBottom();
   }
 
@@ -87,14 +94,21 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  public async addToChat(event) {
-    let hasDot = new RegExp('^[ .s]+$').test(event.message);
-    if (event.message !== '' && !hasDot) {
-      this.chat.push(event);
-      const audio = await this.textToSpeechService.getSpeech(event.translation, event.target)
-      if(audio){
-        this.textToSpeechService.audioSpeech.play();
-      }
+  public addToChat(message: Message) {
+    let hasDot = new RegExp('^[ .s]+$').test(message.text);
+    if (message.text !== '' && !hasDot) {
+      const languageTarget = this.getLanguageTarget(message)
+      this.translateService.translate(message.text, languageTarget).subscribe(async translate => {
+          message.translation = translate
+          const audio = await this.textToSpeechService.getSpeech(translate, languageTarget)
+          if(audio){
+            if(this.isAudioPlay){
+              this.textToSpeechService.audioSpeech.play();
+            }
+            message.audioHtml = this.textToSpeechService.audioSpeech
+          }
+          this.chat.push(message);
+        })
     } else {
       if (!hasDot) {
         this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
@@ -111,7 +125,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
   }
 
   public switchAudio() {
-    this.audio = !this.audio;
+    this.isAudioPlay = !this.isAudioPlay;
   }
 
   private initMultiDevice = (roomId) => {
@@ -127,5 +141,14 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
         }
       }
     })
+  }
+
+  private getLanguageTarget(message: Message){
+    if(this.isMultiDevices){
+      return this.user.role ===  Role.ADVISOR || this.user.role ===  Role.ADMIN ? this.settingsService.defaultLanguage
+      : this.user.language.written
+    }
+    return message.role ===  Role.ADVISOR || message.role ===  Role.ADMIN? this.user.language.written
+    :  this.settingsService.defaultLanguage ;
   }
 }

@@ -10,9 +10,8 @@ Sentry.init({
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
   handleError(error) {
-    // if (environment.name !== 'local') {
-    //   Sentry.captureException(error.originalError || error);
-    // }
-    console.log('error :>> ', error);
+    if (environment.name !== 'local') {
+      Sentry.captureException(error.originalError || error);
+    }
   }
 }

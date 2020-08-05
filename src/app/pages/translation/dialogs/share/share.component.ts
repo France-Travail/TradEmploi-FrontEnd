@@ -21,7 +21,7 @@ export class ShareComponent implements OnInit {
 
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {
-      if (user.roomId === undefined) {
+      if (user!= null && user.roomId === undefined) {
         this.canCreate = true;
         this.roomId = shortId.generate();
         this.link = window.location.origin + '/invite/' + this.roomId;

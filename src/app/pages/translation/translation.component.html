@@ -8,7 +8,8 @@
       </div>
     </div>
     <div class="thread" [ngClass]="{'thread-one': !isMultiDevices, 'thread-multi': isMultiDevices}" #scrollMe>
-      <app-chat [chat]="chat" (editMessageEmit)="editChat($event)"></app-chat>
+      <app-chat *ngIf="!isMultiDevices" [chat]="chat" (editMessageEmit)="editChat($event)"></app-chat>
+      <app-chat-multi *ngIf="isMultiDevices" [chat]="chat" (editMessageEmit)="editChat($event)"></app-chat-multi>
     </div>
   </div>
   <div [ngClass]="{'msg': !isMultiDevices}">
