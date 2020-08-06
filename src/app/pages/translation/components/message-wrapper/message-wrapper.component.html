@@ -14,13 +14,8 @@
         [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"
       ></textarea>
       <textarea
-        #attachedInput
-        matInput
-        (click)="openAttachedKeyboard()"
-        *ngIf="role != 'ADVISOR'"
         [placeholder]="interim"
-        (enterClick)="send(true); (false)"
-        inputmode="none"
+        *ngIf="role != 'ADVISOR'"
         [(ngModel)]="rawText"
         (keydown.enter)="send(true); (false)"
         [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"
