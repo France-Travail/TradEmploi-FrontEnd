@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { Router } from '@angular/router';
+import { Role } from 'src/app/models/role';
 
 @Component({
   selector: 'app-translation-title',
@@ -13,8 +14,15 @@ export class TranslationTitleComponent implements OnInit {
 
   public title: { raw: string; french: string };
   public languages: { raw: string; french: string };
+  public isGuest: boolean = false;
 
-  constructor(private settingsService: SettingsService, public router: Router) {}
+  constructor(private settingsService: SettingsService, public router: Router) {
+    this.settingsService.user.subscribe((user) => {
+      if(user != null){
+        this.isGuest = user.role == Role.GUEST;
+      }
+    })
+  }
 
   ngOnInit(): void {
     let guest = VOCABULARY.find((item) => item.isoCode === this.settingsService.user.value.language.written);
