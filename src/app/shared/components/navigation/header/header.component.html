@@ -1,29 +1,36 @@
 <mat-toolbar *ngIf="navbarService.visible">
   <div id="logo">
-    <div id="hamburger" *ngIf="isTablet || isMobile">
-        <button mat-icon-button (click)="onToggleSidenav()">
-            <mat-icon>menu</mat-icon>
-        </button>
+    <ng-container *ngIf="isMobile | async">
+      <div id="hamburger">
+          <button mat-icon-button (click)="onToggleSidenav()">
+              <mat-icon>menu</mat-icon>
+          </button>
+      </div>
+      <img src="assets/images/logo.png" alt="Logo Pôle Emploi" />
+    </ng-container>
+    <ng-container *ngIf="isWideScreen | async">
+      <img src="assets/images/logo.png" alt="Logo Pôle Emploi" />
+      <div class="title">Traduction Instantanée</div>
+    </ng-container>
+  </div>
+  <ng-container *ngIf="isWideScreen | async">
+    <div class="tabs">
+      <button routerLink="choice" *ngIf="navbarService.choiceTab">
+        <img src="assets/icons/icon-languages-black.svg">
+        <span class="name">{{ choiceLink | uppercase }}</span>
+      </button>
+      <button (click)="share()" *ngIf="!isGuest && navbarService.shareTab">
+        <img src="assets/icons/icon-share-alt-solid.svg">
+        <span class="name">PARTAGER</span>
+      </button>
+      <button routerLink="settings/:from" *ngIf="!isGuest && isAdvisor && navbarService.settingsTab">
+        <img src="assets/icons/icon-settings-black.svg">
+        <span class="name">PARAMÈTRES</span>
+      </button>
+      <button (click)="logout()">
+        <img src="assets/icons/icon-logout.svg">
+        <span class="name">{{ logoutLink | uppercase }}</span>
+      </button>
     </div>
-    <img src="assets/images/logo.png" alt="Logo Pôle Emploi" />
-    <div class="title">Traduction Instantanée</div>
-  </div>
-  <div class="tabs" *ngIf="!isTablet && !isMobile">
-    <button routerLink="choice" *ngIf="navbarService.choiceTab">
-      <img src="assets/icons/icon-languages-black.svg">
-      <span class="name">{{ choiceLink | uppercase }}</span>
-    </button>
-    <button (click)="share()" *ngIf="!isGuest && navbarService.shareTab">
-      <img src="assets/icons/icon-share-alt-solid.svg">
-      <span class="name">PARTAGER</span>
-    </button>
-    <button routerLink="settings/:from" *ngIf="!isGuest && isAdvisor && navbarService.settingsTab">
-      <img src="assets/icons/icon-settings-black.svg">
-      <span class="name">PARAMÈTRES</span>
-    </button>
-    <button (click)="logout()">
-      <img src="assets/icons/icon-logout.svg">
-      <span class="name">{{ logoutLink | uppercase }}</span>
-    </button>
-  </div>
+  </ng-container>
 </mat-toolbar>

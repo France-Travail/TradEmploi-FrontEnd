@@ -5,6 +5,7 @@ mat-sidenav-container, mat-sidenav-content, mat-sidenav {
 }
 
 mat-sidenav {
-  width: 50%;
-  min-width: 50%;
+  width: 40%;
+  min-width: 200px;
+  max-width: 300px;
 }

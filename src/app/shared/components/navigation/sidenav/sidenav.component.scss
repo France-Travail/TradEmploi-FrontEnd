@@ -1,6 +1,24 @@
 @import 'styles';
 
 mat-nav-list {
+  padding-top: 0;
+  .logo {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: #eaf0fb;
+    img {
+      max-width: 60px;
+    }
+  }
+  .title {
+    font-size: 14px;
+    font-weight: bold;
+    color: $red-corail;
+    padding-left: 20px;
+  }
+
   a {
     text-decoration: none;
     color: $white;

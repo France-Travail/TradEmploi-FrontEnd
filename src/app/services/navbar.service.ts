@@ -6,10 +6,6 @@ export class NavbarService {
   public choiceTab: boolean = false;
   public shareTab: boolean = false;
   public settingsTab: boolean = false;
-  public isGuest: boolean = false;
-
-  constructor() {
-  }
 
   public hide() {
     this.visible = false;

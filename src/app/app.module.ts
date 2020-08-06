@@ -2,6 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { LayoutModule } from '@angular/cdk/layout';
 // Keyboard
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -95,6 +96,7 @@ import { NavbarService } from './services/navbar.service';
     FormsModule,
     MatButtonModule,
     MatKeyboardModule,
+    LayoutModule,
     DeviceDetectorModule.forRoot(),
   ],
   providers: [

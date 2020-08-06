@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { LogoutComponent } from '../../logout/logout.component';
 import { MatDialog } from '@angular/material';
 import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
@@ -7,13 +7,15 @@ import { SettingsService } from '../../../../services/settings.service';
 import { Role } from 'src/app/models/role';
 import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   @Output() public sidenavToggle = new EventEmitter();
 
@@ -21,8 +23,9 @@ export class HeaderComponent {
   public logoutLink: string = 'deconnexion';
   public isGuest: boolean = false;
   public isAdvisor: boolean = false;
-  public isMobile: boolean;
-  public isTablet: boolean;
+  public isMobile: Observable<boolean>;
+  // public isTablet: boolean;
+  public isWideScreen: Observable<boolean>;
 
   constructor(
     public dialog: MatDialog,
@@ -40,12 +43,15 @@ export class HeaderComponent {
           this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
         }
       });
-      this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
-        this.isMobile = result.matches;
-      });
-      this.breakpointObserver.observe([Breakpoints.Tablet]).subscribe((result) => {
-        this.isTablet = result.matches;
-      });
+  }
+
+  ngOnInit() {
+    this.isWideScreen = this.breakpointObserver
+      .observe(['(min-width: 821px)'])
+      .pipe(map(({ matches }) => matches));
+    this.isMobile = this.breakpointObserver
+      .observe(['(max-width: 820px)'])
+      .pipe(map(({ matches }) => matches));
   }
 
   public onToggleSidenav() {
