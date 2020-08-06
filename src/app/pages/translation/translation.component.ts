@@ -51,17 +51,21 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
         this.isMultiDevices = user.roomId !== undefined;
         if(this.isMultiDevices){
           this.initMultiDevice(user.roomId)
-  
+          this.chatService.getMembers(user.roomId).subscribe((members) => {
+            console.log('members', members)
+          });
         }
         this.isGuest = user.firstname !== undefined;
         this.user = user
         this.setNavBar(user.role === Role.ADMIN);
       }
+
     });
 
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
+
   }
 
 
@@ -178,10 +182,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
   private getLanguageTarget(message: Message){
     if(this.isMultiDevices){
-      return this.user.role ===  Role.ADVISOR || this.user.role ===  Role.ADMIN ? this.settingsService.defaultLanguage 
+      return this.user.role ===  Role.ADVISOR || this.user.role ===  Role.ADMIN ? this.settingsService.defaultLanguage
       : this.user.language.written
     }
-    return message.role ===  Role.ADVISOR || message.role ===  Role.ADMIN? this.user.language.written 
+    return message.role ===  Role.ADVISOR || message.role ===  Role.ADMIN? this.user.language.written
     :  this.settingsService.defaultLanguage ;
   }
+
 }

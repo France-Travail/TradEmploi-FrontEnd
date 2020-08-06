@@ -6,6 +6,8 @@ import { ToastService } from 'src/app/services/toast.service';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { Rate } from 'src/app/models/rate';
 import { MatDialogRef } from '@angular/material';
+import { ChatService } from 'src/app/services/chat.service';
+import { Role } from 'src/app/models/role';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -43,14 +45,23 @@ export class RateDialogComponent implements OnInit {
       foreign: '',
     },
   };
+  private roomId: string;
+  private isGuest: boolean = false;
 
   constructor(
     private dialogRef: MatDialogRef<RateDialogComponent>,
     private rateService: RateService,
     private settingsService: SettingsService,
     private toastService: ToastService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private chatService: ChatService,
+  ) {
+    this.settingsService.user.subscribe((user) => {
+      if (user !== null && user.roomId !== undefined) {
+        this.roomId = user.roomId;
+        this.isGuest = user.role === Role.GUEST;
+      }
+    })}
 
   ngOnInit(): void {
     const rateFr = VOCABULARY.find((v) => v.isoCode === 'fr-FR').sentences.rate;
@@ -93,10 +104,14 @@ export class RateDialogComponent implements OnInit {
       this.rateService
         .saveRate()
         .then(() => {
+          if (!this.isGuest) {
+            this.chatService.delete(this.roomId);
+          }
           this.dialogRef.close();
           this.router.navigate(['thanks']);
         })
         .catch((error) => {
+          this.chatService.delete(this.roomId);
           this.dialogRef.close();
           this.toastService.showToast("La notation n'a pas pu être envoyée. Redirection en cours.", 'toast-error');
           setTimeout(() => {
