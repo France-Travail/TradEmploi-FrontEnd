@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { LogoutComponent } from '../../logout/logout.component';
 import { MatDialog } from '@angular/material';
 import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
@@ -15,14 +15,14 @@ import { map } from 'rxjs/operators';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   @Output() public sidenavToggle = new EventEmitter();
 
   public choiceLink: string = 'langues';
   public logoutLink: string = 'deconnexion';
   public isGuest: boolean = false;
-  public isAdvisor: boolean = false;
+  public isAdmin: boolean = false;
   public isMobile: boolean = false;
   public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
@@ -33,25 +33,22 @@ export class HeaderComponent implements OnInit {
     public settingsService: SettingsService,
     private breakpointObserver: BreakpointObserver,
     ) {
+      this.isWideScreen = this.breakpointObserver
+        .observe(['(min-width: 821px)'])
+        .pipe(map(({ matches }) => matches));
+      this.isSmallScreen = this.breakpointObserver
+        .observe(['(max-width: 820px)'])
+        .pipe(map(({ matches }) => matches));
       this.settingsService.user.subscribe((user) => {
         if(user !== null) {
           this.isGuest = user.role === Role.GUEST;
-          this.isAdvisor = user.role === Role.ADVISOR;
+          this.isAdmin = user.role === Role.ADMIN;
         }
         if(this.isGuest) {
           this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
           this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
         }
       });
-  }
-
-  ngOnInit() {
-    this.isWideScreen = this.breakpointObserver
-      .observe(['(min-width: 821px)'])
-      .pipe(map(({ matches }) => matches));
-    this.isSmallScreen = this.breakpointObserver
-      .observe(['(max-width: 820px)'])
-      .pipe(map(({ matches }) => matches));
   }
 
   public onToggleSidenav() {

@@ -20,6 +20,7 @@ export class SidenavComponent {
   public choiceLink: string = 'langues';
   public logoutLink: string = 'deconnexion';
   public isGuest: boolean = false;
+  public isAdmin: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -30,6 +31,7 @@ export class SidenavComponent {
       this.settingsService.user.subscribe((user) => {
         if(user !== null) {
           this.isGuest = user.role === Role.GUEST;
+          this.isAdmin = user.role === Role.ADMIN;
         }
         if(this.isGuest) {
           this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
