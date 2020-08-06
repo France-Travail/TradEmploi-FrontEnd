@@ -23,8 +23,8 @@ export class HeaderComponent implements OnInit {
   public logoutLink: string = 'deconnexion';
   public isGuest: boolean = false;
   public isAdvisor: boolean = false;
-  public isMobile: Observable<boolean>;
-  // public isTablet: boolean;
+  public isMobile: boolean = false;
+  public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
 
   constructor(
@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
     this.isWideScreen = this.breakpointObserver
       .observe(['(min-width: 821px)'])
       .pipe(map(({ matches }) => matches));
-    this.isMobile = this.breakpointObserver
+    this.isSmallScreen = this.breakpointObserver
       .observe(['(max-width: 820px)'])
       .pipe(map(({ matches }) => matches));
   }
@@ -69,7 +69,7 @@ export class HeaderComponent implements OnInit {
   private openModal(component) {
     this.dialog.open(component, {
       width: this.isMobile ? '90%' : '800px',
-      height: this.isMobile ? '100%' : '300px',
+      height: this.isMobile ? '50%' : '300px',
       panelClass: 'customDialog'
     });
   }

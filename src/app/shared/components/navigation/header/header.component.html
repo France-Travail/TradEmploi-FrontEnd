@@ -1,6 +1,6 @@
 <mat-toolbar *ngIf="navbarService.visible">
   <div id="logo">
-    <ng-container *ngIf="isMobile | async">
+    <ng-container *ngIf="isSmallScreen | async">
       <div id="hamburger">
           <button mat-icon-button (click)="onToggleSidenav()">
               <mat-icon>menu</mat-icon>
