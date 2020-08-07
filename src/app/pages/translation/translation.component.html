@@ -1,6 +1,7 @@
 <app-navbar [items]="navBarItems"></app-navbar>
 
 <app-translation-title (finish)="closeConversation()"></app-translation-title>
+<span>1 : {{ notification }}</span>
 <div class="translate" [ngClass]="{'translate-one': !isMultiDevices, 'translate-multi': isMultiDevices}">
   <div class="conversation" [ngClass]="{'conversation-one': !isMultiDevices, 'conversation-multi': isMultiDevices}">
     <div class="head-conversation"  [ngClass]="{'head-conversation-multi': isMultiDevices}">
@@ -10,6 +11,7 @@
       </div>
     </div>
     <div class="thread" [ngClass]="{'thread-one': !isMultiDevices, 'thread-multi': isMultiDevices}" #scrollMe>
+      <span>2 : {{ notification }}</span>
       <app-chat *ngIf="!isMultiDevices" [chat]="chat" (editMessageEmit)="editChat($event)"></app-chat>
       <app-chat-multi *ngIf="isMultiDevices" [chat]="chat" (editMessageEmit)="editChat($event)"></app-chat-multi>
     </div>
@@ -20,6 +22,7 @@
       <app-message-wrapper role="ADVISOR" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
     </ng-template>
     <ng-template [ngIf]="isMultiDevices">
+      <span *ngIf="!isGuest">3 : {{ notification }}</span>
       <app-message-wrapper *ngIf="isGuest" role="GUEST" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
       <app-message-wrapper *ngIf="!isGuest" role="ADVISOR" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
     </ng-template>

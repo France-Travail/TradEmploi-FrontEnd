@@ -3,12 +3,15 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Message } from '../models/translate/message';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
+
+  private memberLeft = new Subject<any>();
 
   constructor(
     private db: AngularFireDatabase
@@ -26,14 +29,14 @@ export class ChatService {
     });
   }
 
-  getMessages(roomId: string): Observable<Array<Message>>  {  
+  getMessages(roomId: string): Observable<Array<Message>>  {
     return this.db.list(`chats/${roomId}/messages`, ref => {
       return ref.orderByChild('timestamp');
-      }).valueChanges()  as Observable<Array<Message>> ; 
+      }).valueChanges()  as Observable<Array<Message>> ;
   }
 
   getMembers(roomId:string): Observable<Array<string>> {
-    return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<string>> 
+    return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<string>>
   }
 
   hasRoom(roomId:string) : Observable<boolean> {
@@ -46,6 +49,7 @@ export class ChatService {
   }
 
   deleteMember(roomId:string, member:string){
+    this.memberLeft.next(member);
     return this.db.list(`chats/${roomId}/members`).remove(member)
     .then(_ => true)
     .catch(err => {
@@ -55,7 +59,7 @@ export class ChatService {
   }
 
   getAll(roomId:string){
-    this.db.list(`chats/${roomId}/members`).snapshotChanges().pipe(map(items => {  
+    this.db.list(`chats/${roomId}/members`).snapshotChanges().pipe(map(items => {
       return items.map(a => {
         const data = a.payload.val();
         const key = a.payload.key;
@@ -69,7 +73,7 @@ export class ChatService {
   sendMessage(roomId:string, message: Message): string{
     return this.db.list(`chats/${roomId}/messages`).push(message).key
   }
-  
+
   addMember(roomId:string, newMembers: string): string{
     return this.db.list(`chats/${roomId}/members`).push(newMembers).key
   }
@@ -82,5 +86,9 @@ export class ChatService {
         console.log(err, 'You dont have access!')
         return false
     });
+  }
+
+  onLogout(): Observable<any> {
+    return this.memberLeft.asObservable();
   }
 }
