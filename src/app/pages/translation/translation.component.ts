@@ -175,12 +175,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     })
     this.chatService.getMemberDeleted(roomId).subscribe(member => {
       if(member != null){
-        this.notification = member+ ' is deleted !'
+        this.notification = member.firstname+ ' is deleted !'
       }
     })
     this.chatService.getMembers(roomId).subscribe(members => {
       if(members.length > 0){
-        this.notification = members[members.length - 1]+ ' is connected !'
+        this.notification = members[members.length - 1].firstname+ ' is connected !'
       }
     })
   }

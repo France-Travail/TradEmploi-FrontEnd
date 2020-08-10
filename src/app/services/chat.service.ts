@@ -68,18 +68,18 @@ export class ChatService {
   }
 
   addMember(roomId:string, newMembers: Member): string{
-    return this.db.list(`chats/${roomId}/members`).push(newMembers.firstname).key
+    return this.db.list(`chats/${roomId}/members`).push(newMembers).key
   }
   addMemberDeleted(roomId, member: Member) {
-    return this.db.object(`chats/${roomId}/memberdelete`).set(member.firstname);
+    return this.db.object(`chats/${roomId}/memberdelete`).set(member);
   }
 
-  getMembers(roomId:string): Observable<Array<string>> {
-    return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<string>>
+  getMembers(roomId:string): Observable<Array<Member>> {
+    return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>
   }
 
-  getMemberDeleted(roomId:string): Observable<string> {
-    return this.db.object(`chats/${roomId}/memberdelete`).valueChanges() as Observable<string>
+  getMemberDeleted(roomId:string): Observable<Member> {
+    return this.db.object(`chats/${roomId}/memberdelete`).valueChanges() as Observable<Member>
   }
   
   delete(roomId: string) : Promise<Boolean>{
@@ -91,8 +91,4 @@ export class ChatService {
         return false
     });
   }
-
-
-
-
 }
