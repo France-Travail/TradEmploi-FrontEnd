@@ -24,15 +24,6 @@ export class ChatMultiComponent {
         this.isGuest = user.role === Role.GUEST
       }
     })
-    // this.chatService.onLogout().subscribe(member => {
-    //   if(!this.isGuest) {
-    //     console.log(member + `a quitter la discussion 1 .`)
-    //     this.notification = `${member} a quitté la discussion 1 !`
-    //   } else {
-    //     console.log(`${member} a quitté la discussion 2 !`)
-    //     this.notification = `${member} a quitté la discussion 2 !`
-    //   }
-    // })
   }
 
   public visible: boolean = false;

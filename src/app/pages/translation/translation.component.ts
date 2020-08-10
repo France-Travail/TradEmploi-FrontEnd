@@ -65,13 +65,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     this.chatService.onLogout().subscribe(member => {
         console.log(member + `a quitter la discussion 1 .`)
         this.notification = `${member} a quitté la discussion 1 !`;
-    })
-
+    });
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
-
-
   }
 
 
