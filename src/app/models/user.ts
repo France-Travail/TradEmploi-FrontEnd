@@ -4,8 +4,8 @@ import { Language } from './language';
 export interface User {
   id: string;
   firstname: string;
-  lastname: string;
-  language: Language;
+  lastname?: string;
+  language?: Language;
   roomId: string;
   role: Role;
 }

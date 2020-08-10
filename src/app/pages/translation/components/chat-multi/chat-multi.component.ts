@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Message } from 'src/app/models/translate/message';
-import { Subscription } from 'rxjs';
 import { ChatService } from 'src/app/services/chat.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Role } from 'src/app/models/role';
@@ -13,9 +12,9 @@ import { Role } from 'src/app/models/role';
 export class ChatMultiComponent {
   @Input() chat: Message[];
   @Input() shared: boolean;
+  @Input() notification: string;
   @Output() editMessageEmit = new EventEmitter();
 
-  // public notification: string;
   public isGuest: boolean = false;
 
   constructor(private chatService:ChatService, private settingsService: SettingsService) {

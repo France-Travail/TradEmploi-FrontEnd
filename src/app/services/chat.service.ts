@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { Message } from '../models/translate/message';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ChatService {
   }
 
   create(roomId: string) : Promise<Boolean>{
-    const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], messages: []};
+    const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], lastMemberDeleted: null, messages: []};
     const promise = this.db.object(`chats/${roomId}`).set(chat);
     return promise
       .then(_ => true)
@@ -49,7 +50,6 @@ export class ChatService {
   }
 
   deleteMember(roomId:string, member:string){
-    this.memberLeft.next(member);
     return this.db.list(`chats/${roomId}/members`).remove(member)
     .then(_ => true)
     .catch(err => {
@@ -68,13 +68,11 @@ export class ChatService {
     }));
   }
 
-
-
   sendMessage(roomId:string, message: Message): string{
     return this.db.list(`chats/${roomId}/messages`).push(message).key
   }
 
-  addMember(roomId:string, newMembers: string): string{
+  addMember(roomId:string, newMembers: User): string{
     return this.db.list(`chats/${roomId}/members`).push(newMembers).key
   }
 
@@ -88,7 +86,12 @@ export class ChatService {
     });
   }
 
-  onLogout(): Observable<any> {
-    return this.memberLeft.asObservable();
+  addMemberDeleted(roomId, member: User) {
+    return this.db.object(`chats/${roomId}/lastMemberDeleted`).set(member);
+  }
+
+  getLastMemberDeleted(roomId:string): Observable<User> {
+    console.log('roomId ??? ', roomId)
+    return this.db.object(`chats/${roomId}/lastMemberDeleted`).valueChanges() as Observable<User>
   }
 }
