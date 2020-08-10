@@ -6,7 +6,6 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { Role } from 'src/app/models/role';
 import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
-import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-sidenav',
@@ -26,7 +25,6 @@ export class SidenavComponent {
     public dialog: MatDialog,
     public settingsService: SettingsService,
     public navbarService: NavbarService,
-    private deviceService: DeviceDetectorService
     ) {
       this.settingsService.user.subscribe((user) => {
         if(user !== null) {
@@ -53,10 +51,9 @@ export class SidenavComponent {
   }
 
   private openModal(component) {
-    const isMobile = this.deviceService.isMobile();
     this.dialog.open(component, {
-      width: isMobile ? '90%' : '800px',
-      height: isMobile ? '100%' : '300px',
+      width: '90%',
+      height: '100%',
       panelClass: 'customDialog'
     });
   }

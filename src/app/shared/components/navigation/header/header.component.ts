@@ -6,7 +6,7 @@ import { NavbarService } from '../../../../services/navbar.service';
 import { SettingsService } from '../../../../services/settings.service';
 import { Role } from 'src/app/models/role';
 import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -23,7 +23,6 @@ export class HeaderComponent {
   public logoutLink: string = 'deconnexion';
   public isGuest: boolean = false;
   public isAdmin: boolean = false;
-  public isMobile: boolean = false;
   public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
 
@@ -65,8 +64,8 @@ export class HeaderComponent {
 
   private openModal(component) {
     this.dialog.open(component, {
-      width: this.isMobile ? '90%' : '800px',
-      height: this.isMobile ? '50%' : '300px',
+      width: '800px',
+      height: '300px',
       panelClass: 'customDialog'
     });
   }
