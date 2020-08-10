@@ -2,9 +2,10 @@
 
 mat-toolbar {
   justify-content: space-between;
-  background-color: $white;
+  background: white!important;
   #logo {
     display: flex;
+    align-items: center;
     img {
       width: 135px;
       margin-right: 10px;
