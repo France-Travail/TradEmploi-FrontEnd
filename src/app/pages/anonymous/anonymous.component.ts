@@ -5,8 +5,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
-import { Role } from 'src/app/models/role';
+import { Member } from 'src/app/models/member';
 import { User } from 'src/app/models/user';
+import { Role } from 'src/app/models/role';
 
 @Component({
   selector: 'app-anonymous',
@@ -49,9 +50,9 @@ export class AnonymousComponent{
             this.toastService.showToast("The chat doesn't exist", 'toast-error');
           }else{
             const auth = await this.authService.loginAnonymous();
-            let user:  User = {id: auth.id, firstname: this.username.value, roomId: this.roomId, role: Role.GUEST};
-            const key = this.chatService.addMember(this.roomId, user)
-            this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId , id: auth.id});
+            let member: Member = {id: auth.id, firstname: this.username.value}
+            const key = this.chatService.addMember(this.roomId, member)
+            this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId , id: key});
             this.toastService.showToast(auth.message, 'toast-success');
             this.router.navigateByUrl('choice');
           }

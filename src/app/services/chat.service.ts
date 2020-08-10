@@ -6,13 +6,12 @@ import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { Message } from '../models/translate/message';
 import { User } from '../models/user';
+import { Member } from '../models/member';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
-
-  private memberLeft = new Subject<any>();
 
   constructor(
     private db: AngularFireDatabase
@@ -35,11 +34,7 @@ export class ChatService {
       return ref.orderByChild('timestamp');
       }).valueChanges()  as Observable<Array<Message>> ;
   }
-
-  getMembers(roomId:string): Observable<Array<string>> {
-    return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<string>>
-  }
-
+  
   hasRoom(roomId:string) : Observable<boolean> {
     return new Observable((observer) => {
       this.db.list<Chat>(`chats/${roomId}`).valueChanges().subscribe(chats => {
@@ -49,8 +44,8 @@ export class ChatService {
     })
   }
 
-  deleteMember(roomId:string, member:string){
-    return this.db.list(`chats/${roomId}/members`).remove(member)
+  deleteMember(roomId:string, key:string){
+    return this.db.list(`chats/${roomId}/members/${key}`).remove()
     .then(_ => true)
     .catch(err => {
       console.log(err, 'You dont have access!')
@@ -72,10 +67,21 @@ export class ChatService {
     return this.db.list(`chats/${roomId}/messages`).push(message).key
   }
 
-  addMember(roomId:string, newMembers: User): string{
-    return this.db.list(`chats/${roomId}/members`).push(newMembers).key
+  addMember(roomId:string, newMembers: Member): string{
+    return this.db.list(`chats/${roomId}/members`).push(newMembers.firstname).key
+  }
+  addMemberDeleted(roomId, member: Member) {
+    return this.db.object(`chats/${roomId}/memberdelete`).set(member.firstname);
   }
 
+  getMembers(roomId:string): Observable<Array<string>> {
+    return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<string>>
+  }
+
+  getMemberDeleted(roomId:string): Observable<string> {
+    return this.db.object(`chats/${roomId}/memberdelete`).valueChanges() as Observable<string>
+  }
+  
   delete(roomId: string) : Promise<Boolean>{
     const promise = this.db.object(`chats/${roomId}`).remove();
     return promise
@@ -86,12 +92,7 @@ export class ChatService {
     });
   }
 
-  addMemberDeleted(roomId, member: User) {
-    return this.db.object(`chats/${roomId}/lastMemberDeleted`).set(member);
-  }
 
-  getLastMemberDeleted(roomId:string): Observable<User> {
-    console.log('roomId ??? ', roomId)
-    return this.db.object(`chats/${roomId}/lastMemberDeleted`).valueChanges() as Observable<User>
-  }
+
+
 }

@@ -12,7 +12,6 @@ import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { Role } from 'src/app/models/role';
 import { TranslateService } from 'src/app/services/translate.service';
 import { User } from 'src/app/models/user';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-translation',
@@ -33,7 +32,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
   private isAudioPlay: boolean;
   private user: User;
-  protected notification: string = '';
+  public notification: string;
 
   constructor(
     public dialog: MatDialog,
@@ -53,9 +52,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
         this.isMultiDevices = user.roomId !== undefined;
         if(this.isMultiDevices){
           this.initMultiDevice(user.roomId)
-          this.chatService.getMembers(user.roomId).subscribe((members) => {
-            // console.log('members', members)
-          });
         }
         this.isGuest = user.firstname !== undefined;
         this.user = user
@@ -175,16 +171,18 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
         }else{
           this.addToChat(messages[messages.length - 1])
         }
-        this.chatService.getLastMemberDeleted(roomId).subscribe(member => {
-          console.log('members notif : ', member[0].firstname)
-          this.notification = member[0].firstname + ' is deleted !'
-        })
       }
     })
-    // this.chatService.getLastMemberDeleted(roomId).subscribe(member => {
-    //   console.log('members notif : ', member[0].firstname)
-    //   this.notification = member[0].firstname + ' is deleted !'
-    // })
+    this.chatService.getMemberDeleted(roomId).subscribe(member => {
+      if(member != null){
+        this.notification = member+ ' is deleted !'
+      }
+    })
+    this.chatService.getMembers(roomId).subscribe(members => {
+      if(members.length > 0){
+        this.notification = members[members.length - 1]+ ' is connected !'
+      }
+    })
   }
 
   private getLanguageTarget(message: Message){
