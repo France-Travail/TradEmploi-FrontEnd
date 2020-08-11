@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { NavbarItem } from 'src/app/models/navbar-item';
@@ -12,14 +12,15 @@ import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { Role } from 'src/app/models/role';
 import { TranslateService } from 'src/app/services/translate.service';
 import { User } from 'src/app/models/user';
-import { Subscription } from 'rxjs';
+import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
   styleUrls: ['./translation.component.scss'],
 })
-export class TranslationComponent implements OnInit, AfterViewChecked {
+export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate {
 
   @ViewChild('scrollMe') private chatScroll: ElementRef;
   public navBarItems: NavbarItem[] = [];
@@ -54,7 +55,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
         if(this.isMultiDevices){
           this.initMultiDevice(user.roomId)
           this.chatService.getMembers(user.roomId).subscribe((members) => {
-            console.log('members', members)
           });
         }
         this.isGuest = user.firstname !== undefined;
@@ -62,15 +62,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
         this.setNavBar(user.role === Role.ADMIN);
       }
     });
-    this.chatService.onLogout().subscribe(member => {
-        console.log(member + `a quitter la discussion 1 .`)
-        this.notification = `${member} a quitté la discussion 1 !`;
-    });
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
   }
-
 
   ngOnInit(): void {
     this.isAudioPlay = true;
@@ -158,14 +153,26 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
   public closeConversation() {
     this.dialog.open(RateDialogComponent, {
-      width: this.isMobile ? '100%' : '800px',
-      height: this.isMobile ? '100%' : '700px',
+      width: '800px',
+      height: '700px',
       panelClass: 'customDialog',
     });
   }
 
   public switchAudio() {
     this.isAudioPlay = !this.isAudioPlay;
+  }
+
+  public canDeactivate(event): Observable<boolean> | boolean {
+    this.settingsService.user.subscribe((user) => {
+      this.isGuest = user.role == Role.GUEST;
+      if (user != null && this.isGuest) {
+        this.chatService.deleteMember(this.user.roomId, this.user.id)
+      } else {
+        this.chatService.delete(this.user.roomId);
+      }
+    })
+    return false
   }
 
   private initMultiDevice = (roomId) => {
@@ -190,6 +197,17 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     }
     return message.role ===  Role.ADVISOR || message.role ===  Role.ADMIN? this.user.language.written
     :  this.settingsService.defaultLanguage ;
+  }
+
+  @HostListener('window:unload', ['$event'])
+  unloadHandler(e) {
+    this.canDeactivate(event)
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunload(event) {
+    this.canDeactivate(event)
+    return false
   }
 
 }

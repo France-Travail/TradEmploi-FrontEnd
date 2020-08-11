@@ -2,6 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+
 // Keyboard
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -101,7 +102,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
       provide: MAT_DATE_LOCALE,
       useValue: 'fr-FR',
     },
-    { provide: ErrorHandler, useClass: SentryErrorHandler },
+    { provide: ErrorHandler, useClass: SentryErrorHandler }
   ],
   bootstrap: [AppComponent],
   entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent],
