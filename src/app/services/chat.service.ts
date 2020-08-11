@@ -19,7 +19,7 @@ export class ChatService {
   }
 
   create(roomId: string) : Promise<Boolean>{
-    const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], lastMemberDeleted: null, messages: []};
+    const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], messages: []};
     const promise = this.db.object(`chats/${roomId}`).set(chat);
     return promise
       .then(_ => true)
@@ -70,16 +70,17 @@ export class ChatService {
   addMember(roomId:string, newMembers: Member): string{
     return this.db.list(`chats/${roomId}/members`).push(newMembers).key
   }
-  addMemberDeleted(roomId, member: Member) {
-    return this.db.object(`chats/${roomId}/memberdelete`).set(member);
-  }
 
   getMembers(roomId:string): Observable<Array<Member>> {
     return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>
   }
 
-  getMemberDeleted(roomId:string): Observable<Member> {
-    return this.db.object(`chats/${roomId}/memberdelete`).valueChanges() as Observable<Member>
+  updateMemberStatus(roomId: string, key: string, active:boolean) : Promise<Boolean>{
+    return this.db.object(`chats/${roomId}/members/${key}/active`).set(active).then(_ => true)
+      .catch(err => {
+        console.log(err, 'You dont have access!')
+        return false
+    });
   }
   
   delete(roomId: string) : Promise<Boolean>{

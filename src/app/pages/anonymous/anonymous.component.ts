@@ -49,7 +49,7 @@ export class AnonymousComponent{
             this.toastService.showToast("The chat doesn't exist", 'toast-error');
           }else{
             const auth = await this.authService.loginAnonymous();
-            let member: Member = {id: auth.id, firstname: this.username.value}
+            let member: Member = {id: auth.id, firstname: this.username.value, active: true}
             const key = this.chatService.addMember(this.roomId, member)
             this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId , id: key});
             this.toastService.showToast(auth.message, 'toast-success');

@@ -42,9 +42,7 @@ export class LogoutComponent implements OnInit {
     this.dialogRef.close();
     this.authService.logout();
     // this.router.navigateByUrl('/');
-    let member: Member = {id:this.user.id, firstname: this.user.firstname}
-    this.chatService.addMemberDeleted(this.roomId, member);
-    this.chatService.deleteMember(this.roomId, this.user.id)
+    this.chatService.updateMemberStatus(this.roomId, this.user.id, false)
     if (!this.isGuest) {
       this.chatService.delete(this.roomId);
     }

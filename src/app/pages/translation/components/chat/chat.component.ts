@@ -11,10 +11,6 @@ export class ChatComponent{
   @Input() shared: boolean;
   @Output() editMessageEmit = new EventEmitter();
 
-  ngOnInit(): void {
-    console.log("Entre init");
-  }
-
   public visible: boolean = false;
 
   public extand() {
