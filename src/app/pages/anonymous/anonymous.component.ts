@@ -5,9 +5,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
-import { Member } from 'src/app/models/member';
-import { User } from 'src/app/models/user';
-import { Role } from 'src/app/models/role';
+import { Member } from 'src/app/models/db/member';
+
 
 @Component({
   selector: 'app-anonymous',

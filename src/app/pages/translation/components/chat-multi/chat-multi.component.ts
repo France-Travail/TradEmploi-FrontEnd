@@ -3,6 +3,7 @@ import { Message } from 'src/app/models/translate/message';
 import { ChatService } from 'src/app/services/chat.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Role } from 'src/app/models/role';
+import { ChatInput } from '../../../../models/chat-input';
 
 @Component({
   selector: 'app-chat-multi',
@@ -10,20 +11,8 @@ import { Role } from 'src/app/models/role';
   styleUrls: ['./chat-multi.component.scss'],
 })
 export class ChatMultiComponent {
-  @Input() chat: Message[];
-  @Input() shared: boolean;
-  @Input() notification: string;
+  @Input() chat: ChatInput[];
   @Output() editMessageEmit = new EventEmitter();
-
-  public isGuest: boolean = false;
-
-  constructor(private chatService:ChatService, private settingsService: SettingsService) {
-    this.settingsService.user.subscribe((user) => {
-      if (user != null) {
-        this.isGuest = user.role === Role.GUEST
-      }
-    })
-  }
 
   public visible: boolean = false;
 
@@ -32,7 +21,7 @@ export class ChatMultiComponent {
   }
 
   public listen(index) {
-    const sentMessage: Message = this.chat[index];
+    const sentMessage: Message= this.chat[index].message;
     if (sentMessage && sentMessage.audioHtml) {
       sentMessage.audioHtml.play();
     }

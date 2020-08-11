@@ -12,6 +12,7 @@ import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { Role } from 'src/app/models/role';
 import { TranslateService } from 'src/app/services/translate.service';
 import { User } from 'src/app/models/user';
+import { ChatInput } from 'src/app/models/chat-input';
 
 @Component({
   selector: 'app-translation',
@@ -22,7 +23,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('scrollMe') private chatScroll: ElementRef;
   public navBarItems: NavbarItem[] = [];
-  public chat: Message[] = [];
+  public chat: ChatInput[] = [];
+  public messages: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
@@ -139,7 +141,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
             }
             message.audioHtml = this.textToSpeechService.audioSpeech
           }
-          this.chat.push(message);
+          if(this.isMultiDevices){
+            const chatInput: ChatInput = {message: message}
+            this.chat.push(chatInput);
+          }else{
+            this.messages.push(message)
+          }
         })
     } else {
       if (!hasDot) {
@@ -179,6 +186,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
       }
     })
     this.chatService.getMembers(roomId).subscribe(members => {
+      console.log('members :>> ', members);
       if(members.length > 0){
         this.notification = members[members.length - 1].firstname+ ' is connected !'
       }

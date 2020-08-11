@@ -1,4 +1,4 @@
-<ng-container *ngFor="let message of chat; let i = index">
+<ng-container *ngFor="let message of messages; let i = index">
   <div *ngIf="!shared" class="translation">
     <div class="sentence" dir="auto" [ngStyle]="{ 'text-align': message.target === 'ar-XA' ? 'right' : 'left' }">
       <bdi>{{ message.translation }}</bdi>
@@ -19,7 +19,7 @@
           <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': message.language === 'ar-XA' ? 'right' : 'left' }">
             <bdi>{{ message.text }}</bdi>
           </a>
-          <a class="extand" *ngIf="message.message !== undefined && message.message.length > 98" (click)="extand()">
+          <a class="extand" *ngIf="message.text !== undefined && message.text.length > 98" (click)="extand()">
             <img src="./assets/icons/icon-chevron-close-blue.svg" alt="réduire le texte" />
           </a>
         </ng-template>
@@ -27,9 +27,9 @@
           <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': message.language === 'ar-XA' ? 'right' : 'left' }" lang="ar">
             <bdi>{{ message.text | slice: 0:98 }}</bdi
             >&nbsp;
-            <strong *ngIf="message.message !== undefined && message.message.length > 98">...</strong>
+            <strong *ngIf="message.text !== undefined && message.text.length > 98">...</strong>
           </a>
-          <a class="extand" *ngIf="message.message !== undefined && message.message.length > 98" (click)="extand()">
+          <a class="extand" *ngIf="message.text !== undefined && message.text.length > 98" (click)="extand()">
             <img src="./assets/icons/icon-chevron-open-blue.svg" alt="étendre le texte" />
           </a>
         </ng-template>

@@ -6,7 +6,7 @@ import { ChatService } from '../../../services/chat.service';
 import { SettingsService } from '../../../services/settings.service';
 import { Role } from 'src/app/models/role';
 import { User } from 'src/app/models/user';
-import { Member } from 'src/app/models/member';
+import { Member } from 'src/app/models/db/member';
 
 @Component({
   selector: 'app-logout',

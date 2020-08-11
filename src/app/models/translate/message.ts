@@ -7,5 +7,6 @@ export interface Message {
   role?: string;
   audioHtml?: HTMLAudioElement;
   target?: string;
-  member?: string
+  member?: string;
+  notification?:string;
 }

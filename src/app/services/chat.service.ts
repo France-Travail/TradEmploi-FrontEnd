@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { Message } from '../models/translate/message';
 import { User } from '../models/user';
-import { Member } from '../models/member';
+import { Member } from '../models/db/member';
 
 @Injectable({
   providedIn: 'root'

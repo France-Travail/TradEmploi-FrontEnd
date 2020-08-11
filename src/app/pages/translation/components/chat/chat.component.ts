@@ -6,10 +6,14 @@ import { Message } from 'src/app/models/translate/message';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent {
-  @Input() chat: [];
+export class ChatComponent{
+  @Input() messages: Message[];
   @Input() shared: boolean;
   @Output() editMessageEmit = new EventEmitter();
+
+  ngOnInit(): void {
+    console.log("Entre init");
+  }
 
   public visible: boolean = false;
 
@@ -18,17 +22,17 @@ export class ChatComponent {
   }
 
   public deleteMessage(index) {
-    this.chat.splice(index, 1);
+    this.messages.splice(index, 1);
   }
 
   public editMessage(index) {
-    const sentMessage: Message = this.chat[index];
+    const sentMessage: Message = this.messages[index];
     this.editMessageEmit.emit(sentMessage);
-    this.chat.splice(index, 1);
+    this.messages.splice(index, 1);
   }
 
   public listen(index) {
-    const sentMessage: Message = this.chat[index];
+    const sentMessage: Message = this.messages[index];
     if (sentMessage && sentMessage.audioHtml) {
       sentMessage.audioHtml.play();
     }
