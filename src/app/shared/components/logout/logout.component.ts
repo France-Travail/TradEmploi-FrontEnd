@@ -41,11 +41,13 @@ export class LogoutComponent implements OnInit {
   public confirm() {
     this.dialogRef.close();
     this.authService.logout();
-    // this.router.navigateByUrl('/');
-    this.chatService.updateMemberStatus(this.roomId, this.user.id, false)
-    if (!this.isGuest) {
-      this.chatService.delete(this.roomId);
+    if(this.roomId){
+      this.chatService.updateMemberStatus(this.roomId, this.user.id, false)
+      if (!this.isGuest) {
+        this.chatService.delete(this.roomId);
+      }
     }
+    this.router.navigateByUrl('/');
   }
 
   public cancel() {
