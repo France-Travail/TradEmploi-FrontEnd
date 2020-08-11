@@ -174,8 +174,9 @@ export class MessageWrapperComponent implements OnInit {
         languageOrigin: this.languageOrigin,
         flag: this.flag,
         role: this.role,
-        member: user.firstname ?  user.firstname: null
+        member: user.firstname ?  user.firstname: "Pôle Emploi"
       }
+      console.log('message send:>> ', message);
       this.chatService.sendMessage(user.roomId, message ) 
   }
 

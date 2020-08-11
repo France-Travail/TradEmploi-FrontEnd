@@ -201,7 +201,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
   private sendMessage(message: Message){
     if(this.isMultiDevices){
-      const chatInput: MultiDevicesMessage = {message: message}
+      const isSender = message.member === this.user.firstname
+      console.log('this.user.firstname :>> ', this.user.firstname);
+      console.log(' message.member :>> ',  message.member);
+      console.log('isSender :>> ', isSender);
+      const chatInput: MultiDevicesMessage = {message: message, isSender: isSender}
       this.multiDevicesMessages.push(chatInput);
     }else{
       this.messages.push(message)

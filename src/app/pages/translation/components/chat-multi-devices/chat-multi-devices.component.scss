@@ -33,6 +33,15 @@
       cursor: pointer;
     }
   }
+
+  .flag-icon {
+    width: 34px;
+    height: 24px;
+    border: 1px solid $gray74;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-size: cover;
+  }
 }
 
 .message-sended {
