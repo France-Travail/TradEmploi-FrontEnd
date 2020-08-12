@@ -31,7 +31,7 @@ export class ChatService {
 
   getMessages(roomId: string): Observable<Array<Message>>  {
     return this.db.list(`chats/${roomId}/messages`, ref => {
-      return ref.orderByChild('timestamp');
+      return ref.orderByChild('id');
       }).valueChanges()  as Observable<Array<Message>> ;
   }
   

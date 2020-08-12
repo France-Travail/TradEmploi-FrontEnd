@@ -143,7 +143,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
             }
             message.audioHtml = this.textToSpeechService.audioSpeech
           }
-          this.sendMessage(message)
+          this.sendMessage(message, languageTarget)
         })
     } else {
       if (!hasDot) {
@@ -199,12 +199,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     :  this.settingsService.defaultLanguage ;
   }
 
-  private sendMessage(message: Message){
+  private sendMessage(message: Message, languageTarget: string){
     if(this.isMultiDevices){
       let isSender = message.member === this.user.firstname ;
       if(!isSender && this.user.firstname === undefined && message.member ==="Pôle Emploi"){
         isSender = true
       }
+      message.lasttime = new Date(Number(message.lasttime)).toLocaleString(languageTarget).toString()
       const chatInput: MultiDevicesMessage = {message: message, isSender: isSender}
       this.multiDevicesMessages.push(chatInput);
     }else{
