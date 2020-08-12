@@ -15,7 +15,6 @@ import { RemoveComponent } from './dialogs/remove/remove.component';
 // Models
 import { Conversation } from 'src/app/models/history/conversation';
 import { Rate } from 'src/app/models/rate';
-import { NavbarItem } from 'src/app/models/navbar-item';
 
 @Component({
   selector: 'app-historic',
@@ -25,10 +24,8 @@ import { NavbarItem } from 'src/app/models/navbar-item';
 export class HistoricComponent implements OnInit {
   public conversations: Conversation[] = []; // Contains all the conversations
   public rates: Rate[] = []; // Contains all the rates
-  public navBarItems: NavbarItem[] = [];
 
   constructor(private toastService: ToastService, private historyService: HistoryService, private rateService: RateService, public dialog: MatDialog, private router: Router) {
-    this.setNavBar();
   }
 
   ngOnInit() {
@@ -45,17 +42,6 @@ export class HistoricComponent implements OnInit {
         this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.', 'toast-error');
       }
     );
-  }
-
-  public setNavBar(): void {
-    this.navBarItems = [
-      {
-        icon: 'assets/icons/icon-return-black.svg',
-        infoTitle: 'RETOUR',
-        link: 'choice',
-        isDisplayed: true
-      }
-    ];
   }
 
   /**

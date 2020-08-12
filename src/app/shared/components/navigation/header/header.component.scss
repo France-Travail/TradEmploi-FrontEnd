@@ -1,0 +1,48 @@
+@import 'styles';
+
+mat-toolbar {
+  justify-content: space-between;
+  background: white!important;
+  #logo {
+    display: flex;
+    align-items: center;
+    img {
+      width: 135px;
+      margin-right: 10px;
+    }
+    .title {
+      font-size: 14px;
+      font-weight: bold;
+      color: $red-corail;
+    }
+  }
+  .tabs {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      display: flex;
+      border: none;
+      margin: 0 20px 0 5px;
+      background: transparent;
+      align-items: center;
+      cursor: pointer;
+      &:focus {
+        outline: 0;
+      }
+      &:active {
+        outline: 0;
+      }
+      img {
+        width: 24px;
+      }
+      .name {
+        color: $button-black;
+        font-size: 14px;
+        margin-left: 10px;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

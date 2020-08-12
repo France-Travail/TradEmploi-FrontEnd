@@ -5,15 +5,22 @@
   min-height: 100%;
   display: block;
   background-color: $light-blue;
+  padding-top: 20px;
 }
 h2 {
-  margin: 10px 5%;
+  width: 90%!important;
+  margin: auto!important;
+  padding-bottom: 20px;
   color: $secondary-color;
   font-size: 22px;
   font-weight: 400;
-}
-strong {
-  font-weight: 500;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  strong {
+    font-weight: 500;
+  }
 }
 .countries {
   margin: auto;

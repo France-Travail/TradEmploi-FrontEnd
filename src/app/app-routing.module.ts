@@ -32,7 +32,7 @@ const routes: Routes = [
   {
     path: 'choice',
     component: ChoiceComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'history',

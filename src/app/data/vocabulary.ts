@@ -26,12 +26,14 @@ import {
   ROMANIAN,
   SOMALI,
   VIETNAMESE,
-  GREEK
+  GREEK,
+  NAVBAR_ENGLISH_TABS
 } from './sentence';
 
 export const VOCABULARY_DEFAULT: Vocabulary = {
   isoCode: 'default',
   sentences: ENGLISH,
+  navbarTabs: NAVBAR_ENGLISH_TABS
 };
 
 export const VOCABULARY: Vocabulary[] = [
@@ -42,7 +44,7 @@ export const VOCABULARY: Vocabulary[] = [
     languageNameRaw: 'עברי',
     languageNameFr: 'Hébreu',
     flag: 'IL',
-    sentences: HEBREW,
+    sentences: HEBREW
   },
   {
     isoCode: 'ar-JO',

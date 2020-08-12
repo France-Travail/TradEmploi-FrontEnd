@@ -1,0 +1,22 @@
+<mat-nav-list>
+  <div class="logo">
+    <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
+    <span class="title">TRADUCTION INSTANTANÉE</span>
+  </div>
+  <a mat-list-item routerLink="choice" (click)="onSidenavClose()" *ngIf="navbarService.choiceTab">
+    <img src="assets/icons/icon-languages-black.svg">
+    <span class="name">{{ choiceLink | uppercase }}</span>
+  </a>
+  <a mat-list-item (click)="share()" (click)="onSidenavClose()" *ngIf="!isGuest && navbarService.shareTab">
+    <img src="assets/icons/icon-share-alt-solid.svg">
+    <span class="name">PARTAGER</span>
+  </a>
+  <a mat-list-item routerLink="settings/translation" (click)="onSidenavClose()" *ngIf="isAdmin && navbarService.settingsTab">
+    <img src="assets/icons/icon-settings-black.svg">
+    <span class="name">PARAMÈTRES</span>
+  </a>
+  <a mat-list-item (click)="logout()" (click)="onSidenavClose()">
+    <img src="assets/icons/icon-logout.svg">
+    <span class="name">{{ logoutLink | uppercase }}</span>
+  </a>
+</mat-nav-list>

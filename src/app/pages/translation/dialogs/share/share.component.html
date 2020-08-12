@@ -3,7 +3,6 @@
   <span class="question">Souhaitez-vous partager ce QR Code ?</span><br>
   <span class="question">{{link}}</span>
 </div>
-
 <div mat-dialog-actions>
   <button class="cancel-btn" (click)="cancel()">ANNULER</button>
   <button [disabled]="!canCreate" [ngStyle]="{ backgroundColor: canCreate ? '#135DFE' : '#b4cafc'  }" class="share-btn" (click)="share()">PARTAGER</button>
