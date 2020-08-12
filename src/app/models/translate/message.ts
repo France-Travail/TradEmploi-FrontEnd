@@ -8,5 +8,4 @@ export interface Message {
   audioHtml?: HTMLAudioElement;
   target?: string;
   member?: string;
-  notification?:string;
 }

@@ -13,10 +13,6 @@ export class ChatMultiDevicesComponent {
 
   public visible: boolean = false;
 
-  public extand() {
-    this.visible = !this.visible;
-  }
-
   public listen(index) {
     const sentMessage: Message= this.multiDevicesMessages[index].message;
     if (sentMessage && sentMessage.audioHtml) {

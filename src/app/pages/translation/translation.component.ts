@@ -53,7 +53,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
         this.isGuest = user.role === Role.GUEST;
         this.isMultiDevices = user.roomId !== undefined;
         if(this.isMultiDevices){
-          this.initMultiDevice(user.roomId)
+          this.initMultiDevices(user.roomId)
           if(!this.isGuest){
             this.handleNotification(user.roomId)
           }
@@ -164,7 +164,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     this.isAudioPlay = !this.isAudioPlay;
   }
 
-  private initMultiDevice = (roomId) => {
+  private initMultiDevices = (roomId) => {
     this.multiDevicesMessages =[]
     this.chatService.getMessages(roomId).subscribe(messages => {
       if(messages.length > 0){
