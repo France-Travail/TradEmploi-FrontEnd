@@ -45,7 +45,7 @@ export class LogoutComponent implements OnInit {
       this.chatService.updateMemberStatus(this.roomId, this.user.id, false)
       if (!this.isGuest) {
         this.chatService.delete(this.roomId);
-      }
+      } this.chatService.deleteMember(this.roomId, this.user.id)
     }
     this.router.navigateByUrl('/');
   }

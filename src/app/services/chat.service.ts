@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Subject } from 'rxjs';
 import { Message } from '../models/translate/message';
-import { User } from '../models/user';
 import { Member } from '../models/db/member';
 
 @Injectable({
@@ -34,7 +32,7 @@ export class ChatService {
       return ref.orderByChild('timestamp');
       }).valueChanges()  as Observable<Array<Message>> ;
   }
-  
+
   hasRoom(roomId:string) : Observable<boolean> {
     return new Observable((observer) => {
       this.db.list<Chat>(`chats/${roomId}`).valueChanges().subscribe(chats => {
@@ -82,7 +80,7 @@ export class ChatService {
         return false
     });
   }
-  
+
   delete(roomId: string) : Promise<Boolean>{
     const promise = this.db.object(`chats/${roomId}`).remove();
     return promise
