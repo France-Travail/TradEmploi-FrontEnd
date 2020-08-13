@@ -202,10 +202,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
   private sendMessage(message: Message, languageTarget: string){
     if(this.isMultiDevices){
       let isSender = message.member === this.user.firstname ;
-      if(!isSender && this.user.firstname === undefined && message.member ==="Pôle Emploi"){
+      if(!isSender && this.user.firstname === undefined && message.member === "Pôle emploi"){
         isSender = true
       }
-      message.lasttime = new Date(Number(message.lasttime)).toLocaleString(languageTarget).toString()
+      message.time = new Date(Number(message.time)).toLocaleString(languageTarget).toString()
       const chatInput: MultiDevicesMessage = {message: message, isSender: isSender}
       this.multiDevicesMessages.push(chatInput);
     }else{

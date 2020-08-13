@@ -158,7 +158,7 @@ export class MessageWrapperComponent implements OnInit {
 
   private async sendToOneDevice(text: string){
       this.message = {
-          lasttime: Date.now().toString(),
+          time: Date.now().toString(),
           text: text,
           languageOrigin: this.languageOrigin,
           flag: this.flag,
@@ -169,12 +169,12 @@ export class MessageWrapperComponent implements OnInit {
 
   private async sendToMultiDevices(user: User,text: string) {
       const message: Message = {
-        lasttime: Date.now().toString(),
+        time: Date.now().toString(),
         text: text,
         languageOrigin: this.languageOrigin,
         flag: this.flag,
         role: this.role,
-        member: user.firstname ?  user.firstname: "Pôle Emploi"
+        member: user.firstname ?  user.firstname: "Pôle emploi"
       }
       this.chatService.sendMessage(user.roomId, message ) 
   }

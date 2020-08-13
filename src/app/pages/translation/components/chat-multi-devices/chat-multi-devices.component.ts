@@ -9,10 +9,7 @@ import { Message } from 'src/app/models/translate/message';
 })
 export class ChatMultiDevicesComponent {
   @Input() multiDevicesMessages: MultiDevicesMessage[];
-  @Output() editMessageEmit = new EventEmitter();
-
-  public visible: boolean = false;
-
+  
   public listen(index) {
     const sentMessage: Message= this.multiDevicesMessages[index].message;
     if (sentMessage && sentMessage.audioHtml) {
