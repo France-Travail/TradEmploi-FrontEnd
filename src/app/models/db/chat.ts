@@ -1,9 +1,8 @@
 import { Message } from '../translate/message';
-import { User } from '../user';
+import { Member } from './member';
 
 export interface Chat {
   lasttime: string;
-  members: Array<User>;
-  lastMemberDeleted: User;
+  members: Array<Member>;
   messages: Array<Message>;
 }

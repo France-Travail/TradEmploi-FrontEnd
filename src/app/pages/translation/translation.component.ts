@@ -14,6 +14,7 @@ import { TranslateService } from 'src/app/services/translate.service';
 import { User } from 'src/app/models/user';
 import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
 import { Observable } from 'rxjs';
+import { MultiDevicesMessage } from 'src/app/models/translate/multi-devices-message';
 
 @Component({
   selector: 'app-translation',
@@ -23,8 +24,8 @@ import { Observable } from 'rxjs';
 export class TranslationComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('scrollMe') private chatScroll: ElementRef;
-
-  public chat: Message[] = [];
+  public multiDevicesMessages: MultiDevicesMessage[] = [];
+  public messages: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
@@ -34,7 +35,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
   private isAudioPlay: boolean;
   private user: User;
-  protected notification: string = '';
 
   constructor(
     public dialog: MatDialog,
@@ -52,11 +52,14 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
         if(user.language !== undefined && user.language.audio === undefined){
           this.goto('choice');
         }
+        this.isGuest = user.role === Role.GUEST;
         this.isMultiDevices = user.roomId !== undefined;
         if(this.isMultiDevices){
-          this.initMultiDevice(user.roomId)
+          this.initMultiDevices(user.roomId)
+          if(!this.isGuest){
+            this.handleNotification(user.roomId)
+          }
         }
-        this.isGuest = user.firstname !== undefined;
         this.user = user
       }
       this.isGuest = user.firstname !== undefined;
@@ -107,7 +110,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
             }
             message.audioHtml = this.textToSpeechService.audioSpeech
           }
-          this.chat.push(message);
+          this.sendMessage(message)
         })
     } else {
       if (!hasDot) {
@@ -142,27 +145,30 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
   //   return
   // }
 
-  private initMultiDevice = (roomId) => {
-    this.chat =[]
+  private initMultiDevices = (roomId) => {
+    this.multiDevicesMessages =[]
     this.chatService.getMessages(roomId).subscribe(messages => {
       if(messages.length > 0){
-        if(this.chat.length === 0){
+        if(this.multiDevicesMessages.length === 0){
           messages.forEach(message => {
             this.addToChat(message)
           })
         }else{
           this.addToChat(messages[messages.length - 1])
         }
-        this.chatService.getLastMemberDeleted(roomId).subscribe(member => {
-          console.log('members notif : ', member[0].firstname)
-          this.notification = member[0].firstname + ' is deleted !'
-        })
       }
     })
-    // this.chatService.getLastMemberDeleted(roomId).subscribe(member => {
-    //   console.log('members notif : ', member[0].firstname)
-    //   this.notification = member[0].firstname + ' is deleted !'
-    // })
+  }
+
+  private handleNotification(roomId: string){
+    this.chatService.getMembers(roomId).subscribe(members => {
+      if(members.length > 0){
+        const member =  members[members.length - 1]
+        const notification = member.active ? ' est connecté' : ' est déconnecté'
+        const chatInput: MultiDevicesMessage = {notification:  member.firstname + notification}
+        this.multiDevicesMessages.push(chatInput)
+      }
+    })
   }
 
   private getLanguageTarget(message: Message){
@@ -185,4 +191,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
   //   return false
   // }
 
+  private sendMessage(message: Message){
+    if(this.isMultiDevices){
+      const chatInput: MultiDevicesMessage = {message: message}
+      this.multiDevicesMessages.push(chatInput);
+    }else{
+      this.messages.push(message)
+    }
+  }
 }
