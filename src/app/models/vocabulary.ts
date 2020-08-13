@@ -6,6 +6,7 @@ export interface Vocabulary {
   languageNameFr?: string;
   flag?: string;
   sentences: Sentence;
+  navbarTabs?: NavbarTab
 }
 export interface Sentence {
   applicationName: string;
@@ -30,4 +31,9 @@ export interface Rate {
   understand: string;
   comment: string;
   offerLinked: string;
+}
+
+export interface NavbarTab {
+  language: string;
+  logout: string;
 }

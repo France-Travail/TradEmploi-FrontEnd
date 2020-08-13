@@ -2,7 +2,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { NavbarItem } from 'src/app/models/navbar-item';
 import { Message } from 'src/app/models/translate/message';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
 import { ToastService } from 'src/app/services/toast.service';
@@ -10,6 +9,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { Role } from 'src/app/models/role';
+import { NavbarService } from 'src/app/services/navbar.service';
 import { TranslateService } from 'src/app/services/translate.service';
 import { User } from 'src/app/models/user';
 import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
@@ -23,7 +23,7 @@ import { Observable } from 'rxjs';
 export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate {
 
   @ViewChild('scrollMe') private chatScroll: ElementRef;
-  public navBarItems: NavbarItem[] = [];
+
   public chat: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
@@ -44,6 +44,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     private settingsService: SettingsService,
     private chatService:ChatService,
     private textToSpeechService: TextToSpeechService,
+    private navbarService: NavbarService,
     private translateService: TranslateService
   ) {
     this.settingsService.user.subscribe((user) => {
@@ -59,12 +60,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
         this.isGuest = user.firstname !== undefined;
         this.user = user
-        this.setNavBar(user.role === Role.ADMIN);
       }
+      this.isGuest = user.firstname !== undefined;
     });
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
+    this.navbarService.handleTabsTranslation();
   }
 
   ngOnInit(): void {
@@ -84,41 +86,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   public goto(where: string): void {
     this.router.navigate([where]);
-  }
-
-  public setNavBar(isAdmin: boolean): void {
-    this.navBarItems = [
-      {
-        icon: 'assets/icons/icon-languages-black.svg',
-        infoTitle: 'LANGUES',
-        link: 'choice',
-        isDisplayed: true,
-      },
-      {
-        icon: 'assets/icons/icon-share-alt-solid.svg',
-        infoTitle: 'PARTAGER',
-        link: 'share',
-        isDisplayed: isAdmin,
-      },
-      {
-        icon: 'assets/icons/icon-chat-black.svg',
-        infoTitle: 'HISTORIQUE',
-        link: 'conversation',
-        isDisplayed: true,
-      },
-      {
-        icon: 'assets/icons/icon-settings-black.svg',
-        infoTitle: 'PARAMÈTRES',
-        link: 'settings/translation',
-        isDisplayed: isAdmin,
-      },
-      {
-        icon: 'assets/icons/icon-logout.svg',
-        infoTitle: 'DECONNEXION',
-        link: 'logout',
-        isDisplayed: true,
-      },
-    ];
   }
 
   public editChat(message) {
