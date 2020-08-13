@@ -21,7 +21,7 @@ import { MultiDevicesMessage } from 'src/app/models/translate/multi-devices-mess
   templateUrl: './translation.component.html',
   styleUrls: ['./translation.component.scss'],
 })
-export class TranslationComponent implements OnInit, AfterViewChecked {
+export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate {
 
   @ViewChild('scrollMe') private chatScroll: ElementRef;
   public multiDevicesMessages: MultiDevicesMessage[] = [];
@@ -131,19 +131,19 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     this.isAudioPlay = !this.isAudioPlay;
   }
 
-  // public canDeactivate(event): Observable<boolean> | boolean {
-  //   this.settingsService.user.subscribe((user) => {
-  //     this.isGuest = user.role == Role.GUEST;
-  //     if (user != null && this.isGuest) {
-  //       this.chatService.deleteMember(this.user.roomId, this.user.id)
-  //       return false
-  //     } else {
-  //       this.chatService.delete(this.user.roomId);
-  //       return false
-  //     }
-  //   })
-  //   return
-  // }
+  public canDeactivate(event): Observable<boolean> | boolean {
+    this.settingsService.user.subscribe((user) => {
+      this.isGuest = user.role == Role.GUEST;
+      if (user != null && this.isGuest) {
+        this.chatService.deleteMember(this.user.roomId, this.user.id)
+        return false
+      } else {
+        this.chatService.delete(this.user.roomId);
+        return false
+      }
+    })
+    return
+  }
 
   private initMultiDevices = (roomId) => {
     this.multiDevicesMessages =[]
@@ -180,16 +180,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     :  this.settingsService.defaultLanguage ;
   }
 
-  // @HostListener('window:unload', ['$event'])
-  // unloadHandler(e) {
-  //   this.canDeactivate(event)
-  // }
-
-  // @HostListener('window:beforeunload', ['$event'])
-  // beforeunload(event) {
-  //   this.canDeactivate(event)
-  //   return false
-  // }
 
   private sendMessage(message: Message){
     if(this.isMultiDevices){
@@ -198,5 +188,16 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     }else{
       this.messages.push(message)
     }
+  }
+
+  @HostListener('window:unload', ['$event'])
+  unloadHandler(e) {
+    this.canDeactivate(event)
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunload(event) {
+    this.canDeactivate(event)
+    return false
   }
 }
