@@ -34,7 +34,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private isAudioPlay: boolean;
   private user: User;
-  public notification: string;
+  protected notification: string = '';
 
   constructor(
     public dialog: MatDialog,
@@ -186,8 +186,16 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }else{
           this.addToChat(messages[messages.length - 1])
         }
+        this.chatService.getLastMemberDeleted(roomId).subscribe(member => {
+          console.log('members notif : ', member[0].firstname)
+          this.notification = member[0].firstname + ' is deleted !'
+        })
       }
     })
+    // this.chatService.getLastMemberDeleted(roomId).subscribe(member => {
+    //   console.log('members notif : ', member[0].firstname)
+    //   this.notification = member[0].firstname + ' is deleted !'
+    // })
   }
 
   private getLanguageTarget(message: Message){

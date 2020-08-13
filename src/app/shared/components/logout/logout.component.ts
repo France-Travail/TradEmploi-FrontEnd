@@ -5,7 +5,7 @@ import { MatDialogRef } from '@angular/material';
 import { ChatService } from '../../../services/chat.service';
 import { SettingsService } from '../../../services/settings.service';
 import { Role } from 'src/app/models/role';
-import { ToastService } from 'src/app/services/toast.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-logout',
@@ -16,7 +16,7 @@ export class LogoutComponent implements OnInit {
 
   private roomId: string;
   private isGuest: boolean = false;
-  private member: string;
+  private member: User;
 
   constructor(
     private dialogRef: MatDialogRef<LogoutComponent>,
@@ -24,13 +24,12 @@ export class LogoutComponent implements OnInit {
     private authService: AuthService,
     private chatService: ChatService,
     private settingsService: SettingsService,
-    private toastService: ToastService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null && user.roomId !== undefined) {
         this.roomId = user.roomId;
         this.isGuest = user.role === Role.GUEST;
-        this.member = user.firstname;
+        this.member = user;
       }
     })
   }
@@ -41,8 +40,9 @@ export class LogoutComponent implements OnInit {
   public confirm() {
     this.dialogRef.close();
     this.authService.logout();
-    this.router.navigateByUrl('/');
-    this.chatService.deleteMember(this.roomId, this.member);
+    // this.router.navigateByUrl('/');
+    console.log('this.member :', this.member)
+    this.chatService.addMemberDeleted(this.roomId, this.member);
     if (!this.isGuest) {
       this.chatService.delete(this.roomId);
     }
