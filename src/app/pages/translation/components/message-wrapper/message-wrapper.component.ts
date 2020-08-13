@@ -176,7 +176,6 @@ export class MessageWrapperComponent implements OnInit {
         role: this.role,
         member: user.firstname ?  user.firstname: "Pôle Emploi"
       }
-      console.log('message send:>> ', message);
       this.chatService.sendMessage(user.roomId, message ) 
   }
 

@@ -1,20 +1,21 @@
 @import 'styles';
 
-.sender {
-  background-color: $secondary-color;
-  color: white;
+.message {
   margin: 10px;
   width: fit-content;
   min-width: 10%;
   max-width: 70%;
 }
 
+.sender {
+  background-color: $secondary-color;
+  color: white;
+  @extend .message;
+}
+
 .receiver {
   background-color:$white-smoke;
-  margin: 10px;
-  width: fit-content;
-  min-width: 10%;
-  max-width: 70%;
+  @extend .message;
 }
 
 .sentence {
@@ -29,6 +30,7 @@
   }
   img{
     height: 22px;
+    cursor: pointer;
   }
 }
 
@@ -44,28 +46,6 @@
   box-sizing: border-box;
   border-radius: 5px;
   background-size: cover;
-  color: lightgray
-}
-
-.mat-card-footer {
-  padding-right: 10px;
-  padding-left: 10px;
-  font-size: 13px;
-}
-
-::ng-deep .mat-card-header-text {
-    padding-top: 5px !important;
-
-}
-
-::ng-deep .mat-card-header {
-    justify-content: flex-end;
-}
-
-
-
-.mat-card-avatar {
-  height: 100%;
 }
 
 .notification {
@@ -80,4 +60,22 @@
 
 .chat-receiver{
   display:flex;
+}
+
+::ng-deep .mat-card-header-text {
+    padding-top: 5px !important;
+}
+
+::ng-deep .mat-card-header {
+    justify-content: flex-end;
+}
+
+.mat-card-avatar {
+  height: 100%;
+}
+
+.mat-card-footer {
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 13px;
 }
