@@ -5,7 +5,7 @@ import { Message } from 'src/app/models/translate/message';
 @Component({
   selector: 'app-chat-multi-devices',
   templateUrl: './chat-multi-devices.component.html',
-  styleUrls: ['./chat-multi-devices.component.scss'],
+  styleUrls: ['./chat-multi-devices.component.scss']
 })
 export class ChatMultiDevicesComponent {
   @Input() multiDevicesMessages: MultiDevicesMessage[];

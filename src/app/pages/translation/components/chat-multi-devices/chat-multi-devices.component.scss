@@ -4,49 +4,65 @@
   background-color: $secondary-color;
   color: white;
   margin: 10px;
+  width: fit-content;
+  min-width: 10%;
+  max-width: 70%;
 }
 
 .receiver {
   background-color:$white-smoke;
   margin: 10px;
+  width: fit-content;
+  min-width: 10%;
+  max-width: 70%;
 }
 
 .sentence {
-  font-size: 13px !important;
+  font-size: 15px !important;
+}
+
+.listen{
+  width: 22px;
+  display: flex;
+  a {
+    padding-top: 5px;
+  }
+  img{
+    height: 22px;
+  }
 }
 
 .avatar {
-    margin: 0;
-    width: 30px;
+  margin: 0;
+  width: 30px;
 }
 
 .flag-icon {
-  width: 34px;
-  height: 24px;
+  width: 15px;
+  height: 12px;
   border: 1px solid $gray74;
   box-sizing: border-box;
   border-radius: 5px;
   background-size: cover;
+  color: lightgray
 }
 
 .mat-card-footer {
   padding-right: 10px;
-  font-size: 10px;
+  padding-left: 10px;
+  font-size: 13px;
 }
 
 ::ng-deep .mat-card-header-text {
     padding-top: 5px !important;
-    width: 100%;
+
 }
 
-.listen{
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  img{
-    height: 25px;
-  }
+::ng-deep .mat-card-header {
+    justify-content: flex-end;
 }
+
+
 
 .mat-card-avatar {
   height: 100%;
@@ -55,4 +71,13 @@
 .notification {
   font-size: 15px;
   text-align: center;
+}
+
+.chat-sender{
+  display:flex;
+  flex-direction: row-reverse;
+}
+
+.chat-receiver{
+  display:flex;
 }
