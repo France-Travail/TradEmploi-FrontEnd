@@ -1,4 +1,4 @@
-import { Chat } from './../models/db/chat';
+import { Chat } from '../models/db/chat';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';

@@ -1,4 +1,9 @@
-import { Sentence } from '../models/vocabulary';
+import { Sentence, NavbarTab } from '../models/vocabulary';
+
+export const NAVBAR_ENGLISH_TABS: NavbarTab = {
+  language: 'language',
+  logout: 'logout'
+}
 
 export const HEBREW: Sentence = {
   applicationName: 'תרגום מיידי',
