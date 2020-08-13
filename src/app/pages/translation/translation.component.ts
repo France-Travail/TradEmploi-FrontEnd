@@ -55,8 +55,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.isMultiDevices = user.roomId !== undefined;
         if(this.isMultiDevices){
           this.initMultiDevice(user.roomId)
-          this.chatService.getMembers(user.roomId).subscribe((members) => {
-          });
         }
         this.isGuest = user.firstname !== undefined;
         this.user = user
