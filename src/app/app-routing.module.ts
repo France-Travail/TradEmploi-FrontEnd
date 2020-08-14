@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: 'choice',
     component: ChoiceComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'history',
@@ -45,11 +45,6 @@ const routes: Routes = [
   },
   {
     path: 'translation',
-    component: TranslationComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'translation/otm',
     component: TranslationComponent,
     canActivate: [AuthGuard],
   },
