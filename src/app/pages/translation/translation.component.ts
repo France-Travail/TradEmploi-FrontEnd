@@ -131,20 +131,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.isAudioPlay = !this.isAudioPlay;
   }
 
-  public canDeactivate(event): Observable<boolean> | boolean {
-    this.settingsService.user.subscribe((user) => {
-      this.isGuest = user.role == Role.GUEST;
-      if (user != null && this.isGuest) {
-        this.chatService.deleteMember(this.user.roomId, this.user.id)
-        return false
-      } else {
-        this.chatService.delete(this.user.roomId);
-        return false
-      }
-    })
-    return
-  }
-
   private initMultiDevices = (roomId) => {
     this.multiDevicesMessages =[]
     this.chatService.getMessages(roomId).subscribe(messages => {
@@ -190,14 +176,17 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
-  @HostListener('window:unload', ['$event'])
-  unloadHandler(e) {
-    this.canDeactivate(event)
-  }
-
-  @HostListener('window:beforeunload', ['$event'])
-  beforeunload(event) {
-    this.canDeactivate(event)
-    return false
+  @HostListener('window:unload')
+  public canDeactivate(): Observable<boolean> | boolean {
+    const isMultiDevices = this.user.roomId !== undefined
+    if(isMultiDevices){
+      if(this.user.role === Role.GUEST){
+        this.chatService.updateMemberStatus(this.user.roomId, this.user.id, false)
+        this.chatService.deleteMember(this.user.roomId, this.user.id)
+      }else{
+        this.chatService.delete(this.user.roomId)
+      }
+    }
+    return true
   }
 }

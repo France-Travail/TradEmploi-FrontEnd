@@ -1,5 +1,4 @@
-// Angular
-import { Component, AfterContentInit } from '@angular/core';
+import { Component, AfterContentInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { VOCABULARY } from 'src/app/data/vocabulary';
@@ -7,13 +6,18 @@ import { LanguagesComponent } from './dialog/languages/languages.component';
 import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { NavbarService } from 'src/app/services/navbar.service';
+import { ChatService } from 'src/app/services/chat.service';
+import { Role } from 'src/app/models/role';
+import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
   styleUrls: ['./choice.component.scss'],
 })
-export class ChoiceComponent implements AfterContentInit {
+
+export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate {
   public selectedCountriesData = [];
   public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU'];
   public toolTips: string[] = ['Autres langues'];
@@ -21,7 +25,12 @@ export class ChoiceComponent implements AfterContentInit {
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
 
-  constructor(private textToSpeechService: TextToSpeechService, private router: Router, private settingsService: SettingsService, public dialog: MatDialog, private navService: NavbarService) {
+  constructor(private textToSpeechService: TextToSpeechService, 
+    private router: Router, 
+    private settingsService: SettingsService, 
+    public dialog: MatDialog, 
+    private navService: NavbarService,
+    private chatService: ChatService) {
     this.navService.handleTabsChoice();
   }
 
@@ -54,5 +63,20 @@ export class ChoiceComponent implements AfterContentInit {
           this.router.navigate(['translation']);
         }
       });
+  }
+
+  @HostListener('window:unload')
+  public canDeactivate(): Observable<boolean> | boolean {
+    const user = this.settingsService.user.value
+    const isMultiDevices = user.roomId !== undefined
+    if(isMultiDevices){
+      if(user.role === Role.GUEST){
+        this.chatService.updateMemberStatus(user.roomId, user.id, false)
+        this.chatService.deleteMember(user.roomId, user.id)
+      }else{
+        this.chatService.delete(user.roomId)
+      }
+    }
+    return true
   }
 }

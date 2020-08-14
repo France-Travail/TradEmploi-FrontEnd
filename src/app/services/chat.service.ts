@@ -48,7 +48,7 @@ export class ChatService {
     .catch(err => {
       console.log(err, 'You dont have access!')
       return false
-  });
+    });
   }
 
   getAll(roomId:string){
@@ -73,18 +73,18 @@ export class ChatService {
     return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>
   }
 
-  updateMemberStatus(roomId: string, key: string, active:boolean) : Promise<Boolean>{
-    return this.db.object(`chats/${roomId}/members/${key}/active`).set(active).then(_ => true)
+  delete(roomId: string) : Promise<Boolean>{
+    const promise = this.db.object(`chats/${roomId}`).remove();
+    return promise
+      .then(_ => true)
       .catch(err => {
         console.log(err, 'You dont have access!')
         return false
     });
   }
 
-  delete(roomId: string) : Promise<Boolean>{
-    const promise = this.db.object(`chats/${roomId}`).remove();
-    return promise
-      .then(_ => true)
+  updateMemberStatus(roomId: string, key: string, active:boolean) : Promise<Boolean>{
+    return this.db.object(`chats/${roomId}/members/${key}/active`).set(active).then(_ => true)
       .catch(err => {
         console.log(err, 'You dont have access!')
         return false

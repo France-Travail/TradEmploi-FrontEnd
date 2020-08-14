@@ -13,7 +13,7 @@ import { Member } from 'src/app/models/db/member';
   templateUrl: './logout.component.html',
   styleUrls: ['./logout.component.scss'],
 })
-export class LogoutComponent implements OnInit {
+export class LogoutComponent {
 
   private roomId: string;
   private isGuest: boolean = false;
@@ -35,15 +35,16 @@ export class LogoutComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
-
   public confirm() {
     this.dialogRef.close();
     this.authService.logout();
     if(this.roomId){
-      this.chatService.updateMemberStatus(this.roomId, this.user.id, false)
-      this.isGuest ? this.chatService.deleteMember(this.roomId, this.user.id) : this.chatService.delete(this.roomId);
+      if(this.isGuest){
+        this.chatService.updateMemberStatus(this.roomId, this.user.id, false)
+        this.chatService.deleteMember(this.roomId, this.user.id) 
+      }else{
+        this.chatService.delete(this.roomId);
+      }
     }
     this.router.navigateByUrl('/');
   }
