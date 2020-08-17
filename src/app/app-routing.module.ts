@@ -13,9 +13,10 @@ import { ConversationComponent } from './pages/conversation/conversation.compone
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { AnonymousComponent } from './pages/anonymous/anonymous.component';
 import { AuthGuard } from './guards/auth.guard';
+import { PendingChangesGuard } from './guards/pending-changes.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'start', pathMatch: 'full' },
+  { path: '', redirectTo: 'start', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
   {
     path: 'start',
     component: StartComponent,
@@ -26,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'invite/:id',
-    component: AnonymousComponent,
+    component: AnonymousComponent
   },
   {
     path: 'choice',
@@ -49,11 +50,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'translation/otm',
-    component: TranslationComponent,
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'thanks',
     component: ThanksComponent,
     canActivate: [AuthGuard],
@@ -71,6 +67,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  providers: [PendingChangesGuard,],
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })

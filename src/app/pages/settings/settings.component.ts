@@ -1,25 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { NavbarItem } from 'src/app/models/navbar-item';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { environment } from '../../../environments/environment';
 import { Parser } from 'json2csv';
 import { ToastService } from 'src/app/services/toast.service';
-import { SettingsService } from 'src/app/services/settings.service';
+import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent {
-  public navBarItems: NavbarItem[] = [];
+export class SettingsComponent implements OnInit {
   public path: string;
 
-  constructor(public router: Router, private fireFunction: AngularFireFunctions, private toastService: ToastService, private settingsService: SettingsService) {
+  constructor(
+    public router: Router,
+    private fireFunction: AngularFireFunctions,
+    private toastService: ToastService,
+    private navService: NavbarService) {
     const url = this.router.url;
     this.path = url.substring(url.lastIndexOf('/'));
+    this.navService.handleTabsSettings();
+  }
+
+  ngOnInit() {
   }
 
   public export(): void {
@@ -52,6 +57,10 @@ export class SettingsComponent {
     document.body.append(a);
     a.click();
     document.body.removeChild(a);
+  }
+
+  public goBack() {
+    window.history.back();
   }
 
 }

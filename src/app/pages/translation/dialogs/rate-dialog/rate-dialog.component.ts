@@ -104,20 +104,17 @@ export class RateDialogComponent implements OnInit {
       this.rateService
         .saveRate()
         .then(() => {
-          if (!this.isGuest) {
-            this.chatService.delete(this.roomId);
-          }
           this.dialogRef.close();
           this.router.navigate(['thanks']);
         })
         .catch((error) => {
-          this.chatService.delete(this.roomId);
           this.dialogRef.close();
           this.toastService.showToast("La notation n'a pas pu être envoyée. Redirection en cours.", 'toast-error');
           setTimeout(() => {
             this.router.navigate(['thanks']);
           }, 3500);
-        });
+        }).finally(() => {
+          this.chatService.delete(this.roomId)});
     }
   }
 

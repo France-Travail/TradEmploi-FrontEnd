@@ -5,6 +5,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
+import { Role } from 'src/app/models/role';
+import { User } from 'src/app/models/user';
+import { NavbarService } from 'src/app/services/navbar.service';
 import { Member } from 'src/app/models/db/member';
 
 
@@ -22,7 +25,8 @@ export class AnonymousComponent{
     private formBuilder: FormBuilder,
     private toastService: ToastService,
     private chatService: ChatService,
-    private settingsService: SettingsService) {
+    private settingsService: SettingsService,
+    private navbarService: NavbarService) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         this.router.navigateByUrl('choice');
@@ -36,6 +40,7 @@ export class AnonymousComponent{
     });
     const url = this.router.url;
     this.roomId = url.substring(url.lastIndexOf('/')+1, url.length);
+    this.navbarService.hide();
   }
 
   get username(): AbstractControl {

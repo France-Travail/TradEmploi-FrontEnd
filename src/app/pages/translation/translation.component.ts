@@ -1,8 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { NavbarItem } from 'src/app/models/navbar-item';
 import { Message } from 'src/app/models/translate/message';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
 import { ToastService } from 'src/app/services/toast.service';
@@ -10,8 +9,11 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { Role } from 'src/app/models/role';
+import { NavbarService } from 'src/app/services/navbar.service';
 import { TranslateService } from 'src/app/services/translate.service';
 import { User } from 'src/app/models/user';
+import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
+import { Observable } from 'rxjs';
 import { MultiDevicesMessage } from 'src/app/models/translate/multi-devices-message';
 
 @Component({
@@ -19,10 +21,9 @@ import { MultiDevicesMessage } from 'src/app/models/translate/multi-devices-mess
   templateUrl: './translation.component.html',
   styleUrls: ['./translation.component.scss'],
 })
-export class TranslationComponent implements OnInit, AfterViewChecked {
+export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate {
 
   @ViewChild('scrollMe') private chatScroll: ElementRef;
-  public navBarItems: NavbarItem[] = [];
   public multiDevicesMessages: MultiDevicesMessage[] = [];
   public messages: Message[] = [];
   public guestTextToEdit: string;
@@ -43,6 +44,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     private settingsService: SettingsService,
     private chatService:ChatService,
     private textToSpeechService: TextToSpeechService,
+    private navbarService: NavbarService,
     private translateService: TranslateService
   ) {
     this.settingsService.user.subscribe((user) => {
@@ -53,20 +55,20 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
         this.isGuest = user.role === Role.GUEST;
         this.isMultiDevices = user.roomId !== undefined;
         if(this.isMultiDevices){
-          this.initMultiDevice(user.roomId)
+          this.initMultiDevices(user.roomId)
           if(!this.isGuest){
             this.handleNotification(user.roomId)
           }
         }
         this.user = user
-        this.setNavBar(user.role === Role.ADMIN);
       }
+      this.isGuest = user.firstname !== undefined;
     });
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
+    this.navbarService.handleTabsTranslation();
   }
-
 
   ngOnInit(): void {
     this.isAudioPlay = true;
@@ -85,41 +87,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
   public goto(where: string): void {
     this.router.navigate([where]);
-  }
-
-  public setNavBar(isAdmin: boolean): void {
-    this.navBarItems = [
-      {
-        icon: 'assets/icons/icon-languages-black.svg',
-        infoTitle: 'LANGUES',
-        link: 'choice',
-        isDisplayed: true,
-      },
-      {
-        icon: 'assets/icons/icon-share-alt-solid.svg',
-        infoTitle: 'PARTAGER',
-        link: 'share',
-        isDisplayed: isAdmin,
-      },
-      {
-        icon: 'assets/icons/icon-chat-black.svg',
-        infoTitle: 'HISTORIQUE',
-        link: 'conversation',
-        isDisplayed: true,
-      },
-      {
-        icon: 'assets/icons/icon-settings-black.svg',
-        infoTitle: 'PARAMÈTRES',
-        link: 'settings/translation',
-        isDisplayed: isAdmin,
-      },
-      {
-        icon: 'assets/icons/icon-logout.svg',
-        infoTitle: 'DECONNEXION',
-        link: 'logout',
-        isDisplayed: true,
-      },
-    ];
   }
 
   public editChat(message) {
@@ -154,8 +121,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
 
   public closeConversation() {
     this.dialog.open(RateDialogComponent, {
-      width: this.isMobile ? '100%' : '800px',
-      height: this.isMobile ? '100%' : '700px',
+      width: '800px',
+      height: '700px',
       panelClass: 'customDialog',
     });
   }
@@ -164,7 +131,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     this.isAudioPlay = !this.isAudioPlay;
   }
 
-  private initMultiDevice = (roomId) => {
+  private initMultiDevices = (roomId) => {
     this.multiDevicesMessages =[]
     this.chatService.getMessages(roomId).subscribe(messages => {
       if(messages.length > 0){
@@ -211,5 +178,19 @@ export class TranslationComponent implements OnInit, AfterViewChecked {
     }else{
       this.messages.push(message)
     }
+  }
+
+  @HostListener('window:unload')
+  public canDeactivate(): Observable<boolean> | boolean {
+    const isMultiDevices = this.user.roomId !== undefined
+    if(isMultiDevices){
+      if(this.user.role === Role.GUEST){
+        this.chatService.updateMemberStatus(this.user.roomId, this.user.id, false)
+        this.chatService.deleteMember(this.user.roomId, this.user.id)
+      }else{
+        this.chatService.delete(this.user.roomId)
+      }
+    }
+    return true
   }
 }

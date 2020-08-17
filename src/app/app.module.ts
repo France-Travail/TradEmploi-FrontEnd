@@ -2,6 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { LayoutModule } from '@angular/cdk/layout';
 // Keyboard
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,7 +31,7 @@ import { MAT_DATE_LOCALE, MatSortModule, MatTableModule } from '@angular/materia
 // Import shared module and components
 import { SharedModule } from './shared/shared.module';
 import { LogoutComponent } from './shared/components/logout/logout.component';
-import { ShareComponent } from './shared/components/share/share.component';
+import { ShareComponent } from './pages/translation/dialogs/share/share.component';
 
 // Main Components
 import { AppComponent } from './app.component';
@@ -54,6 +55,7 @@ import { SentryErrorHandler } from './utils/sentry-error-handler';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { AnonymousComponent } from './pages/anonymous/anonymous.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+import { NavbarService } from './services/navbar.service';
 import { ChatMultiDevicesComponent } from './pages/translation/components/chat-multi-devices/chat-multi-devices.component';
 
 @NgModule({
@@ -96,14 +98,16 @@ import { ChatMultiDevicesComponent } from './pages/translation/components/chat-m
     FormsModule,
     MatButtonModule,
     MatKeyboardModule,
+    LayoutModule,
     DeviceDetectorModule.forRoot(),
   ],
   providers: [
+    NavbarService,
     {
       provide: MAT_DATE_LOCALE,
       useValue: 'fr-FR',
     },
-    { provide: ErrorHandler, useClass: SentryErrorHandler },
+    { provide: ErrorHandler, useClass: SentryErrorHandler }
   ],
   bootstrap: [AppComponent],
   entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent],
