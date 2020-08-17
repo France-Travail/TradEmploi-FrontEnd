@@ -56,6 +56,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.isMultiDevices = user.roomId !== undefined;
         if(this.isMultiDevices){
           this.initMultiDevices(user.roomId)
+          this.isGuest = user.firstname !== undefined && user.firstname != this.settingsService.defaultName;
           if(!this.isGuest){
             this.handleNotification(user.roomId)
           }
@@ -169,7 +170,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private sendMessage(message: Message, languageTarget: string){
     if(this.isMultiDevices){
       let isSender = message.member === this.user.firstname ;
-      if(!isSender && this.user.firstname === undefined && message.member === "Pôle emploi"){
+      if(!isSender && this.user.firstname === undefined && message.member === this.settingsService.defaultName){
         isSender = true
       }
       message.time = new Date(Number(message.time)).toLocaleString(languageTarget).toString()
@@ -190,6 +191,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       }else{
         this.chatService.delete(this.user.roomId)
       }
+      this.settingsService.reset()
     }
     return true
   }

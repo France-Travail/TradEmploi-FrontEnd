@@ -11,6 +11,7 @@ export class SettingsService {
   public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   public recordMode: boolean = false;
   public defaultLanguage = 'fr-FR'
+  public defaultName = "Pôle emploi"
 
   constructor(private deviceService: DeviceDetectorService) {
     const isMobile = this.deviceService.isMobile();

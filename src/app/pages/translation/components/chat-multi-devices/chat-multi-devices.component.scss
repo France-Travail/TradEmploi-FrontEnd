@@ -3,7 +3,7 @@
 .message {
   margin: 10px;
   width: fit-content;
-  min-width: 10%;
+  min-width: 20%;
   max-width: 70%;
 }
 
@@ -77,4 +77,10 @@
 .mat-card-footer {
   margin: auto;
   font-size: 13px;
+}
+
+@media screen and (max-width: 800px) {
+  .message {
+    min-width: 30%;
+  }
 }
