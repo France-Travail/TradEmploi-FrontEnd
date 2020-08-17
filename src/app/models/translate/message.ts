@@ -1,5 +1,5 @@
 export interface Message {
-  id: string;
+  time: number;
   text: string;
   languageOrigin: string;
   flag: string;

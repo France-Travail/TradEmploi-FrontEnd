@@ -167,8 +167,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.isMultiDevices) {
       const chatInput: MultiDevicesMessage = { message: message };
       this.multiDevicesMessages.push(chatInput);
+      this.multiDevicesMessages.sort((msg1, msg2) => msg1.message.time - msg2.message.time);
     } else {
       this.messages.push(message);
+      this.messages.sort((msg1, msg2) => msg1.time - msg2.time);
     }
   }
 
@@ -177,7 +179,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const isMultiDevices = this.user.roomId !== undefined;
     if (isMultiDevices) {
       this.settingsService.reset();
-      if (this.user.role === Role.GUEST) {
+      if (this.user.role === Role.GUEST) { 
         this.chatService.updateMemberStatus(this.user.roomId, this.user.id, false);
         this.chatService.deleteMember(this.user.roomId, this.user.id);
       } else {
