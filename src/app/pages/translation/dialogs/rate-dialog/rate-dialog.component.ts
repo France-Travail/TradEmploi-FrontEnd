@@ -114,6 +114,7 @@ export class RateDialogComponent implements OnInit {
             this.router.navigate(['thanks']);
           }, 3500);
         }).finally(() => {
+          this.chatService.updateChatStatus(this.roomId, false)
           this.chatService.delete(this.roomId)});
     }
   }

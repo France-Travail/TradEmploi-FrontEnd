@@ -52,7 +52,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         if(user.language !== undefined && user.language.audio === undefined){
           this.goto('choice');
         }
-        this.isGuest = user.role === Role.GUEST;
+        this.isGuest = user.firstname !== undefined;
         this.isMultiDevices = user.roomId !== undefined;
         if(this.isMultiDevices){
           this.initMultiDevices(user.roomId)
@@ -63,7 +63,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
         this.user = user
       }
-      this.isGuest = user.firstname !== undefined;
     });
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
@@ -78,6 +77,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   ngAfterViewChecked() {
     this.scrollToBottom();
+  }
+
+  ngOnDestroy(){
+    if(this.isMultiDevices){
+      this.isAudioPlay = false
+    }
   }
 
   scrollToBottom(): void {
@@ -101,18 +106,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   public addToChat(message: Message) {
     let hasDot = new RegExp('^[ .s]+$').test(message.text);
     if (message.text !== '' && !hasDot) {
-      const languageTarget = this.getLanguageTarget(message)
-      this.translateService.translate(message.text, languageTarget).subscribe(async translate => {
-          message.translation = translate
-          const audio = await this.textToSpeechService.getSpeech(translate, languageTarget)
-          if(audio){
-            if(this.isAudioPlay){
-              this.textToSpeechService.audioSpeech.play();
-            }
-            message.audioHtml = this.textToSpeechService.audioSpeech
-          }
-          this.sendMessage(message, languageTarget)
-        })
+      this.translateMessage(message)
     } else {
       if (!hasDot) {
         this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
@@ -130,6 +124,23 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   public switchAudio() {
     this.isAudioPlay = !this.isAudioPlay;
+  }
+
+
+  @HostListener('window:unload')
+  public canDeactivate(): Observable<boolean> | boolean {
+    const isMultiDevices = this.user.roomId !== undefined
+    if(isMultiDevices){
+      if(this.user.role === Role.GUEST){
+        this.chatService.updateMemberStatus(this.user.roomId, this.user.id, false)
+        this.chatService.deleteMember(this.user.roomId, this.user.id)
+      }else{
+        this.chatService.updateChatStatus(this.user.roomId, false)
+        this.chatService.delete(this.user.roomId)
+      }
+      this.settingsService.reset()
+    }
+    return true
   }
 
   private initMultiDevices = (roomId) => {
@@ -158,13 +169,27 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     })
   }
 
-  private getLanguageTarget(message: Message){
-    if(this.isMultiDevices){
-      return this.user.role ===  Role.ADVISOR || this.user.role ===  Role.ADMIN ? this.settingsService.defaultLanguage
-      : this.user.language.written
+  private translateMessage(message: Message){
+    const languageTarget = this.getLanguageTarget(message)
+    if(this.isMultiDevices && message.languageOrigin === languageTarget){
+        this.setTranslateMessage(message, message.text,languageTarget)
+    }else{
+      this.translateService.translate(message.text, languageTarget).subscribe(async translate => {
+        this.setTranslateMessage(message, translate, languageTarget)
+      })
     }
-    return message.role ===  Role.ADVISOR || message.role ===  Role.ADMIN? this.user.language.written
-    :  this.settingsService.defaultLanguage ;
+  }
+
+  private async setTranslateMessage(message: Message, translate, languageTarget: string){
+    message.translation = translate
+    if(this.isAudioPlay){
+      const audio = await this.textToSpeechService.getSpeech(translate, languageTarget)
+      if(audio){
+        this.textToSpeechService.audioSpeech.play();
+      }
+      message.audioHtml = this.textToSpeechService.audioSpeech
+    }
+    this.sendMessage(message, languageTarget)
   }
 
   private sendMessage(message: Message, languageTarget: string){
@@ -181,18 +206,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
-  @HostListener('window:unload')
-  public canDeactivate(): Observable<boolean> | boolean {
-    const isMultiDevices = this.user.roomId !== undefined
-    if(isMultiDevices){
-      if(this.user.role === Role.GUEST){
-        this.chatService.updateMemberStatus(this.user.roomId, this.user.id, false)
-        this.chatService.deleteMember(this.user.roomId, this.user.id)
-      }else{
-        this.chatService.delete(this.user.roomId)
-      }
-      this.settingsService.reset()
+  private getLanguageTarget(message: Message){
+    if(this.isMultiDevices){
+      return this.user.role ===  Role.ADVISOR || this.user.role ===  Role.ADMIN ? this.settingsService.defaultLanguage
+      : this.user.language.written
     }
-    return true
+    return message.role ===  Role.ADVISOR || message.role ===  Role.ADMIN? this.user.language.written
+    :  this.settingsService.defaultLanguage ;
   }
+  
 }

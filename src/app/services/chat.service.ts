@@ -17,7 +17,7 @@ export class ChatService {
   }
 
   create(roomId: string) : Promise<Boolean>{
-    const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], messages: []};
+    const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], messages: [], active: true};
     const promise = this.db.object(`chats/${roomId}`).set(chat);
     return promise
       .then(_ => true)
@@ -83,6 +83,14 @@ export class ChatService {
     });
   }
 
+  updateChatStatus(roomId:string, active: boolean): Promise<Boolean>{
+    return this.db.object(`chats/${roomId}/active`).set(active).then(_ => true)
+    .catch(err => {
+      console.log(err, 'You dont have access!')
+      return false
+  });
+  }
+
   updateMemberStatus(roomId: string, key: string, active:boolean) : Promise<Boolean>{
     return this.db.object(`chats/${roomId}/members/${key}/active`).set(active).then(_ => true)
       .catch(err => {
@@ -90,4 +98,5 @@ export class ChatService {
         return false
     });
   }
+
 }

@@ -74,6 +74,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
         this.chatService.updateMemberStatus(user.roomId, user.id, false)
         this.chatService.deleteMember(user.roomId, user.id)
       }else{
+        this.chatService.updateChatStatus(user.roomId, false)
         this.chatService.delete(user.roomId)
       }
     }

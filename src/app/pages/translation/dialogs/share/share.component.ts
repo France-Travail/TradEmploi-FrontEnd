@@ -34,7 +34,7 @@ export class ShareComponent implements OnInit {
     this.dialogRef.close();
   }
   public share() {
-    this.settingsService.user.next({ ...this.settingsService.user.value, roomId: this.roomId})
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: {audio: this.settingsService.defaultLanguage, written: this.settingsService.defaultLanguage} ,roomId: this.roomId})
     this.chatService.create(this.roomId).then((_) => this.dialogRef.close());
   }
 
