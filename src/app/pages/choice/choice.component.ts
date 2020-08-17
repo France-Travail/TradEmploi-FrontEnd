@@ -16,7 +16,6 @@ import { Observable } from 'rxjs';
   templateUrl: './choice.component.html',
   styleUrls: ['./choice.component.scss'],
 })
-
 export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate {
   public selectedCountriesData = [];
   public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU'];
@@ -25,12 +24,14 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
 
-  constructor(private textToSpeechService: TextToSpeechService, 
-    private router: Router, 
-    private settingsService: SettingsService, 
-    public dialog: MatDialog, 
+  constructor(
+    private textToSpeechService: TextToSpeechService,
+    private router: Router,
+    private settingsService: SettingsService,
+    public dialog: MatDialog,
     private navService: NavbarService,
-    private chatService: ChatService) {
+    private chatService: ChatService
+  ) {
     this.navService.handleTabsChoice();
   }
 
@@ -40,12 +41,12 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   }
 
   public selectLanguage(audio: string, written: string): void {
-    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audio, written: written } })
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audio, written: written } });
     this.router.navigate(['translation']);
   }
 
   public showMainLanguages(): void {
-    this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country))
+    this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country));
   }
   async audioDescription(message: string, lang: string) {
     const audio = await this.textToSpeechService.getSpeech(message, lang);
@@ -67,16 +68,17 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
 
   @HostListener('window:unload')
   public canDeactivate(): Observable<boolean> | boolean {
-    const user = this.settingsService.user.value
-    const isMultiDevices = user.roomId !== undefined
-    if(isMultiDevices){
-      if(user.role === Role.GUEST){
-        this.chatService.updateMemberStatus(user.roomId, user.id, false)
-        this.chatService.deleteMember(user.roomId, user.id)
-      }else{
-        this.chatService.delete(user.roomId)
+    const user = this.settingsService.user.value;
+    const isMultiDevices = user.roomId !== undefined;
+    if (isMultiDevices) {
+      this.settingsService.reset();
+      if (user.role === Role.GUEST) {
+        this.chatService.updateMemberStatus(user.roomId, user.id, false);
+        this.chatService.deleteMember(user.roomId, user.id);
+      } else {
+        this.chatService.delete(user.roomId);
       }
     }
-    return true
+    return true;
   }
 }

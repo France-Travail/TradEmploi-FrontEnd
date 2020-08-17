@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'invite/:id',
-    component: AnonymousComponent
+    component: AnonymousComponent,
   },
   {
     path: 'choice',
@@ -67,7 +67,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  providers: [PendingChangesGuard,],
+  providers: [PendingChangesGuard],
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
