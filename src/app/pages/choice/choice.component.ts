@@ -79,6 +79,6 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
         this.chatService.delete(user.roomId);
       }
     }
-    return true;
+    return true
   }
 }

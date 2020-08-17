@@ -7,6 +7,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatKeyboardModule } from 'angular-onscreen-material-keyboard';
+import { MatCardModule } from '@angular/material/card';
 
 // Handle Navigation Tree
 import { AppRoutingModule } from './app-routing.module';
@@ -93,6 +94,7 @@ import { ChatMultiDevicesComponent } from './pages/translation/components/chat-m
     HttpClientModule,
     MatSortModule,
     MatTableModule,
+    MatCardModule,
     FormsModule,
     MatButtonModule,
     MatKeyboardModule,

@@ -31,6 +31,7 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+        this.settingsService.user.next({... this.settingsService.user.value, firstname: 'Pôle emploi' })
         if(auth.user != null){
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
