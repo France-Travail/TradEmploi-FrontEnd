@@ -31,7 +31,6 @@ export class SpeechToTextSyncService {
           const transcription = response.data.results[0].alternatives[0].transcript;
           observer.next(transcription);
           observer.complete();
-
         })
         .catch((error) => {
           observer.error(error);

@@ -16,7 +16,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireFunctionsModule, FUNCTIONS_ORIGIN } from '@angular/fire/functions';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 
 // Environment loaded
 import { environment } from 'src/environments/environment';
@@ -105,7 +105,7 @@ import { ChatMultiDevicesComponent } from './pages/translation/components/chat-m
       provide: MAT_DATE_LOCALE,
       useValue: 'fr-FR',
     },
-    { provide: ErrorHandler, useClass: SentryErrorHandler }
+    { provide: ErrorHandler, useClass: SentryErrorHandler },
   ],
   bootstrap: [AppComponent],
   entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent],
