@@ -188,16 +188,15 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       }
       message.audioHtml = this.textToSpeechService.audioSpeech
     }
-    this.sendMessage(message, languageTarget)
+    this.sendMessage(message)
   }
 
-  private sendMessage(message: Message, languageTarget: string){
+  private sendMessage(message: Message){
     if(this.isMultiDevices){
       let isSender = message.member === this.user.firstname ;
       if(!isSender && this.user.firstname === undefined && message.member === this.settingsService.defaultName){
         isSender = true
       }
-      message.time = new Date(Number(message.time)).toLocaleString(languageTarget).toString()
       const chatInput: MultiDevicesMessage = {message: message, isSender: isSender}
       this.multiDevicesMessages.push(chatInput);
       this.multiDevicesMessages.sort((msg1, msg2) => msg1.message.time - msg2.message.time);
@@ -216,5 +215,4 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     :  this.settingsService.defaultLanguage ;
 
   }
-  
 }
