@@ -132,8 +132,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.chatService.updateMemberStatus(this.user.roomId, this.user.id, false)
         this.chatService.deleteMember(this.user.roomId, this.user.id)
       }else{
-        this.chatService.updateChatStatus(this.user.roomId, false).then(_ => 
-          this.chatService.delete(this.user.roomId))
+        this.chatService.updateChatStatus(this.user.roomId, false)
+        this.chatService.delete(this.user.roomId)
       }
     }
     return true
@@ -146,7 +146,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.addMultiMessageToChat(roomId)
       }else{
         this.isAudioPlay = false
-        this.openModal(EndComponent, '300px', true)
+        if(this.isGuest){
+          this.openModal(EndComponent, '300px', true)
+        }
       }
     })
   };

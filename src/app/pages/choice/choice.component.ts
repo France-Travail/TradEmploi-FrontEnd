@@ -37,7 +37,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
         const isMultiDevices = user.roomId !== undefined;
-        if(isMultiDevices){
+        if(isMultiDevices && user.role === Role.GUEST){
           this.endConversation(user.roomId)
         }
       }
