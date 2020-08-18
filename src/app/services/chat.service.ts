@@ -27,12 +27,6 @@ export class ChatService {
     });
   }
 
-  getMessages(roomId: string): Observable<Array<Message>>  {
-    return this.db.list(`chats/${roomId}/messages`, ref => {
-      return ref.orderByChild('id');
-      }).valueChanges()  as Observable<Array<Message>> ;
-  }
-
   hasRoom(roomId:string) : Observable<boolean> {
     return new Observable((observer) => {
       this.db.list<Chat>(`chats/${roomId}`).valueChanges().subscribe(chats => {
@@ -42,23 +36,10 @@ export class ChatService {
     })
   }
 
-  deleteMember(roomId:string, key:string){
-    return this.db.list(`chats/${roomId}/members/${key}`).remove()
-    .then(_ => true)
-    .catch(err => {
-      console.log(err, 'You dont have access!')
-      return false
-    });
-  }
-
-  getAll(roomId:string){
-    this.db.list(`chats/${roomId}/members`).snapshotChanges().pipe(map(items => {
-      return items.map(a => {
-        const data = a.payload.val();
-        const key = a.payload.key;
-        return {key, data};
-      });
-    }));
+  getMessages(roomId: string): Observable<Array<Message>>  {
+    return this.db.list(`chats/${roomId}/messages`, ref => {
+      return ref.orderByChild('id');
+      }).valueChanges()  as Observable<Array<Message>> ;
   }
 
   sendMessage(roomId:string, message: Message): string{
@@ -73,6 +54,23 @@ export class ChatService {
     return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>
   }
 
+  deleteMember(roomId:string, key:string){
+    return this.db.list(`chats/${roomId}/members/${key}`).remove()
+    .then(_ => true)
+    .catch(err => {
+      console.log(err, 'You dont have access!')
+      return false
+    });
+  }
+
+  updateMemberStatus(roomId: string, key: string, active:boolean) : Promise<Boolean>{
+    return this.db.object(`chats/${roomId}/members/${key}/active`).set(active).then(_ => true)
+      .catch(err => {
+        console.log(err, 'You dont have access!')
+        return false
+    });
+  }
+
   delete(roomId: string) : Promise<Boolean>{
     const promise = this.db.object(`chats/${roomId}`).remove();
     return promise
@@ -83,19 +81,15 @@ export class ChatService {
     });
   }
 
+  getChatStatus(roomId: string): Observable<boolean>  {
+    return this.db.object(`chats/${roomId}/active`).valueChanges() as Observable<boolean> ;
+  }
+
   updateChatStatus(roomId:string, active: boolean): Promise<Boolean>{
     return this.db.object(`chats/${roomId}/active`).set(active).then(_ => true)
     .catch(err => {
       console.log(err, 'You dont have access!')
       return false
-  });
-  }
-
-  updateMemberStatus(roomId: string, key: string, active:boolean) : Promise<Boolean>{
-    return this.db.object(`chats/${roomId}/members/${key}/active`).set(active).then(_ => true)
-      .catch(err => {
-        console.log(err, 'You dont have access!')
-        return false
     });
   }
 

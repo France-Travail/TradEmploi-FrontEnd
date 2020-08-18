@@ -15,6 +15,7 @@ import { User } from 'src/app/models/user';
 import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
 import { Observable } from 'rxjs';
 import { MultiDevicesMessage } from 'src/app/models/translate/multi-devices-message';
+import { EndComponent } from './dialogs/end/end.component';
 
 @Component({
   selector: 'app-translation',
@@ -114,11 +115,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   public closeConversation() {
-    this.dialog.open(RateDialogComponent, {
-      width: '800px',
-      height: '700px',
-      panelClass: 'customDialog',
-    });
+    this.openModal(RateDialogComponent, '700px', false)
   }
 
   public switchAudio() {
@@ -135,8 +132,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.chatService.updateMemberStatus(this.user.roomId, this.user.id, false)
         this.chatService.deleteMember(this.user.roomId, this.user.id)
       }else{
-        this.chatService.updateChatStatus(this.user.roomId, false)
-        this.chatService.delete(this.user.roomId)
+        this.chatService.updateChatStatus(this.user.roomId, false).then(_ => 
+          this.chatService.delete(this.user.roomId))
       }
     }
     return true
@@ -144,17 +141,14 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private initMultiDevices = (roomId) => {
     this.multiDevicesMessages = [];
-    this.chatService.getMessages(roomId).subscribe((messages) => {
-      if (messages.length > 0) {
-        if (this.multiDevicesMessages.length === 0) {
-          messages.forEach((message) => {
-            this.addToChat(message);
-          });
-        } else {
-          this.addToChat(messages[messages.length - 1]);
-        }
+    this.chatService.getChatStatus(roomId).subscribe(active => {
+      if(active != null && active){
+        this.addMultiMessageToChat(roomId)
+      }else{
+        this.isAudioPlay = false
+        this.openModal(EndComponent, '300px', true)
       }
-    });
+    })
   };
 
   private handleNotification(roomId: string) {
@@ -168,6 +162,19 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     });
   }
 
+  private addMultiMessageToChat(roomId: string){
+    this.chatService.getMessages(roomId).subscribe((messages) => {
+      if (messages.length > 0) {
+        if (this.multiDevicesMessages.length === 0) {
+          messages.forEach((message) => {
+            this.addToChat(message);
+          });
+        } else {
+          this.addToChat(messages[messages.length - 1]);
+        }
+      }
+    });
+  }
   private translateMessage(message: Message){
     const languageTarget = this.getLanguageTarget(message)
     if(this.isMultiDevices && message.languageOrigin === languageTarget){
@@ -213,6 +220,15 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
     return message.role ===  Role.ADVISOR || message.role ===  Role.ADMIN? this.user.language.written
     :  this.settingsService.defaultLanguage ;
-
   }
+
+  private openModal(component, height, disableClose ) {
+    this.dialog.open(component, {
+      width: '800px',
+      height: height,
+      panelClass: 'customDialog',
+      disableClose: disableClose
+    });
+  }
+
 }

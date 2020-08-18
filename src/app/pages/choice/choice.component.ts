@@ -1,3 +1,4 @@
+import { EndComponent } from './../translation/dialogs/end/end.component';
 import { Component, AfterContentInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
@@ -33,6 +34,14 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     private chatService: ChatService
   ) {
     this.navService.handleTabsChoice();
+    this.settingsService.user.subscribe((user) => {
+      if (user != null) {
+        const isMultiDevices = user.roomId !== undefined;
+        if(isMultiDevices){
+          this.endConversation(user.roomId)
+        }
+      }
+    })
   }
 
   ngAfterContentInit(): void {
@@ -80,5 +89,18 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
       }
     }
     return true
+  }
+
+  private endConversation(roomId: string){
+    this.chatService.getChatStatus(roomId).subscribe(active => {
+      if(active !== null && !active){
+        this.dialog.open(EndComponent, {
+          width: '800px',
+          height: '300px',
+          panelClass: 'customDialog',
+          disableClose: true
+        });
+      }
+    })
   }
 }

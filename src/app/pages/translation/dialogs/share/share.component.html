@@ -1,7 +1,8 @@
 <h1 mat-dialog-title>Partager</h1>
 <div mat-dialog-content>
-  <span class="question">Souhaitez-vous partager ce QR Code ?</span><br>
+  <span class="question">Souhaitez-vous partager une conversation ?</span><br>
   <span class="question">{{link}}</span>
+  <button class="copy-btn" (click)="copyLink()" value="click to copy" >COPIER</button>
 </div>
 <div mat-dialog-actions>
   <button class="cancel-btn" (click)="cancel()">ANNULER</button>

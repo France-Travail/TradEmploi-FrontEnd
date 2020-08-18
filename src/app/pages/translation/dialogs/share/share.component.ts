@@ -30,6 +30,21 @@ export class ShareComponent implements OnInit {
       }
     });
   }
+
+  public copyLink(){
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this.link;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+  }
+
   public confirm() {
     this.dialogRef.close();
   }
