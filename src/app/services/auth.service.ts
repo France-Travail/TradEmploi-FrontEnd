@@ -46,7 +46,9 @@ export class AuthService {
       try {
         const auth = await this.afAuth.auth.signInAnonymously()
         if(auth.user != null){
-          resolve({ id:  auth.user.uid, isAuth: true, message: 'Authentification réussie' });
+          const id = auth.user.uid
+          auth.user.delete()
+          resolve({ id:  id, isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
         reject({ isAuth: false, message: error.message });
