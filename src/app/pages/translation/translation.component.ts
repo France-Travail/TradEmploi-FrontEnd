@@ -208,7 +208,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
     } else {
       this.messages.push(message);
-      this.messages.sort((msg1, msg2) => msg1.time - msg2.time);
     }
   }
 

@@ -46,7 +46,6 @@ export class RateDialogComponent implements OnInit {
     },
   };
   private roomId: string;
-  private isGuest: boolean = false;
 
   constructor(
     private dialogRef: MatDialogRef<RateDialogComponent>,

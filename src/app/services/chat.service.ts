@@ -36,18 +36,16 @@ export class ChatService {
   }
 
   getMessagesWrapped(roomId: string): Observable<Array<MessageWrapped>>  {
-    return this.db.list(`chats/${roomId}/messages`, ref => {
-      return ref.orderByChild('id');
-      }).valueChanges()  as Observable<Array<MessageWrapped>> ;
+    return this.db.list(`chats/${roomId}/messages`).valueChanges()  as Observable<Array<MessageWrapped>> ;
   }
 
-  sendMessageWrapped(roomId:string, message: MessageWrapped): string{
-    return this.db.list(`chats/${roomId}/messages`).push(message).key
+  sendMessageWrapped(roomId:string, messageWrapped: MessageWrapped): string{
+    return this.db.list(`chats/${roomId}/messages`).push(messageWrapped).key
   }
 
-  addMember(roomId:string, newMembers: Member): string{
-    const key = this.db.list(`chats/${roomId}/members`).push(newMembers).key
-    const messageWrapped: MessageWrapped = { notification: newMembers.firstname + ' est connecté', time: Date.now() };
+  addMember(roomId:string, newMember: Member): string{
+    const key = this.db.list(`chats/${roomId}/members`).push(newMember).key
+    const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
     this.sendMessageWrapped(roomId, messageWrapped)
     return key
   }
