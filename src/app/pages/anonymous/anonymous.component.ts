@@ -36,7 +36,7 @@ export class AnonymousComponent{
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      username: ['', [Validators.minLength(6), Validators.maxLength(32), Validators.required]],
+      username: ['', [Validators.minLength(2), Validators.maxLength(32), Validators.required]],
     });
     const url = this.router.url;
     this.roomId = url.substring(url.lastIndexOf('/')+1, url.length);
