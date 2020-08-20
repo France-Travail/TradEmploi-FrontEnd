@@ -1,3 +1,5 @@
+import { WordArray } from 'crypto-js';
+
 export interface Message {
   time: number;
   text: string;
