@@ -4,4 +4,5 @@ export interface MultiDevicesMessage {
     message?: Message;
     notification?: string;
     isSender?:boolean;
+    time: number;
 }

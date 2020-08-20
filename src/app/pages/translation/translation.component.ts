@@ -158,7 +158,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (members.length > 0) {
         const member = members[members.length - 1];
         const notification = member.active ? ' est connecté' : ' est déconnecté';
-        const chatInput: MultiDevicesMessage = { notification: member.firstname + notification };
+        const chatInput: MultiDevicesMessage = { notification: member.firstname + notification, time: Date.now() };
         this.multiDevicesMessages.push(chatInput);
       }
     });
@@ -206,9 +206,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if(!isSender && this.user.firstname === undefined && message.member === this.settingsService.defaultName){
         isSender = true
       }
-      const chatInput: MultiDevicesMessage = {message: message, isSender: isSender}
+      const chatInput: MultiDevicesMessage = {message: message, isSender: isSender, time: message.time}
       this.multiDevicesMessages.push(chatInput);
-      this.multiDevicesMessages.sort((msg1, msg2) => msg1.message.time - msg2.message.time);
+      this.multiDevicesMessages.sort((msg1, msg2) => msg1.time - msg2.time);
     } else {
       this.messages.push(message);
       this.messages.sort((msg1, msg2) => msg1.time - msg2.time);
