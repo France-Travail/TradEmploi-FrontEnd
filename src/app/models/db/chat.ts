@@ -1,9 +1,9 @@
-import { Message } from '../translate/message';
 import { Member } from './member';
+import { MessageWrapped } from '../translate/message-wrapped';
 
 export interface Chat {
   lasttime: string;
   active: boolean;
   members: Array<Member>;
-  messages: Array<Message>;
+  messagesWrapped: Array<MessageWrapped>;
 }

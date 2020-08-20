@@ -41,8 +41,7 @@ export class LogoutComponent {
     if(this.roomId){
       this.settingsService.reset()
       if(this.isGuest){
-        this.chatService.updateMemberStatus(this.roomId, this.user.id, false)
-        this.chatService.deleteMember(this.roomId, this.user.id) 
+        this.chatService.deleteMember(this.roomId, this.user.firstname, this.user.id) 
       }else{
         this.chatService.updateChatStatus(this.roomId, false)
         this.chatService.delete(this.roomId);

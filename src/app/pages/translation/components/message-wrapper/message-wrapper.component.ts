@@ -12,6 +12,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
 import { User } from 'src/app/models/user';
+import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -23,10 +24,9 @@ export class MessageWrapperComponent implements OnInit {
   @Input() role: string;
   @Input() originText: Message;
 
-  @Output() messagesToEmit = new EventEmitter();
+  @Output() messagesToEmit = new EventEmitter<MessageWrapped>();
 
   public rawText: string;
-  public message: Message;
   public sendBtnValue: string;
   public flag: string;
   public languageOrigin: string;
@@ -155,14 +155,18 @@ export class MessageWrapperComponent implements OnInit {
   }
 
   private async sendToOneDevice(text: string) {
-    this.message = {
+    const message = {
       time: Date.now(),
       text: text,
       languageOrigin: this.languageOrigin,
       flag: this.flag,
       role: this.role,
     };
-    this.messagesToEmit.emit(this.message);
+    const messageWrapped: MessageWrapped = {
+      message : message,
+      time: Date.now()
+    }
+    this.messagesToEmit.emit(messageWrapped);
   }
 
   private async sendToMultiDevices(user: User, text: string) {
@@ -174,6 +178,10 @@ export class MessageWrapperComponent implements OnInit {
       role: this.role,
       member: user.firstname ? user.firstname : this.settingsService.defaultName,
     };
-    this.chatService.sendMessage(user.roomId, message);
+    const messageWrapped: MessageWrapped = {
+      message : message,
+      time: Date.now()
+    }
+    this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
   }
 }
