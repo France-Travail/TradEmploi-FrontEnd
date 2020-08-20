@@ -58,7 +58,6 @@ export class RateDialogComponent implements OnInit {
     this.settingsService.user.subscribe((user) => {
       if (user !== null && user.roomId !== undefined) {
         this.roomId = user.roomId;
-        this.isGuest = user.role === Role.GUEST;
       }
     })}
 
