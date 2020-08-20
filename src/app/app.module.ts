@@ -58,7 +58,7 @@ import { AnonymousComponent } from './pages/anonymous/anonymous.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NavbarService } from './services/navbar.service';
 import { ChatMultiDevicesComponent } from './pages/translation/components/chat-multi-devices/chat-multi-devices.component';
-
+import { QRCodeModule } from 'angularx-qrcode';
 @NgModule({
   declarations: [
     AppComponent,
@@ -101,6 +101,7 @@ import { ChatMultiDevicesComponent } from './pages/translation/components/chat-m
     MatButtonModule,
     MatKeyboardModule,
     LayoutModule,
+    QRCodeModule,
     DeviceDetectorModule.forRoot(),
   ],
   providers: [
