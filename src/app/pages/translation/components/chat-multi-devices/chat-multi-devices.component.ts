@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MultiDevicesMessage } from '../../../../models/translate/multi-devices-message';
+import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 import { Message } from 'src/app/models/translate/message';
 
 @Component({
@@ -8,10 +8,10 @@ import { Message } from 'src/app/models/translate/message';
   styleUrls: ['./chat-multi-devices.component.scss']
 })
 export class ChatMultiDevicesComponent {
-  @Input() multiDevicesMessages: MultiDevicesMessage[];
+  @Input() messagesWrapped: MessageWrapped[];
 
   public listen(index) {
-    const sentMessage: Message= this.multiDevicesMessages[index].message;
+    const sentMessage: Message= this.messagesWrapped[index].message;
     if (sentMessage && sentMessage.audioHtml) {
       sentMessage.audioHtml.play();
     }

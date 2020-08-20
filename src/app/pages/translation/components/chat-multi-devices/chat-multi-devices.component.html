@@ -1,4 +1,4 @@
-<ng-container *ngFor="let input of multiDevicesMessages; let i = index">
+<ng-container *ngFor="let input of messagesWrapped; let i = index">
   <ng-template [ngIf]="input.notification === undefined">
     <div [ngClass]="{'chat-sender': input.isSender ,'chat-receiver': !input.isSender}">
       <mat-card [ngClass]="{'sender': input.isSender ,'receiver': !input.isSender}">

@@ -14,7 +14,7 @@ import { TranslateService } from 'src/app/services/translate.service';
 import { User } from 'src/app/models/user';
 import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
 import { Observable } from 'rxjs';
-import { MultiDevicesMessage } from 'src/app/models/translate/multi-devices-message';
+import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
 import { EndComponent } from './dialogs/end/end.component';
 
 @Component({
@@ -24,7 +24,7 @@ import { EndComponent } from './dialogs/end/end.component';
 })
 export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate {
   @ViewChild('scrollMe') private chatScroll: ElementRef;
-  public multiDevicesMessages: MultiDevicesMessage[] = [];
+  public messagesWrapped: MessageWrapped[] = [];
   public messages: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
@@ -140,7 +140,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private initMultiDevices = (roomId) => {
-    this.multiDevicesMessages = [];
+    this.messagesWrapped = [];
     this.chatService.getChatStatus(roomId).subscribe(active => {
       if(active != null && active){
         this.addMultiMessageToChat(roomId)
@@ -158,16 +158,17 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (members.length > 0) {
         const member = members[members.length - 1];
         const notification = member.active ? ' est connecté' : ' est déconnecté';
-        const chatInput: MultiDevicesMessage = { notification: member.firstname + notification, time: Date.now() };
-        this.multiDevicesMessages.push(chatInput);
+        const chatInput: MessageWrapped = { notification: member.firstname + notification, time: Date.now() };
+        this.messagesWrapped.push(chatInput);
       }
     });
   }
 
   private addMultiMessageToChat(roomId: string){
     this.chatService.getMessages(roomId).subscribe((messages) => {
+      console.log('messages :>> ', messages);
       if (messages.length > 0) {
-        if (this.multiDevicesMessages.length === 0) {
+        if (this.messagesWrapped.length === 0) {
           messages.forEach((message) => {
             this.addToChat(message);
           });
@@ -206,9 +207,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if(!isSender && this.user.firstname === undefined && message.member === this.settingsService.defaultName){
         isSender = true
       }
-      const chatInput: MultiDevicesMessage = {message: message, isSender: isSender, time: message.time}
-      this.multiDevicesMessages.push(chatInput);
-      this.multiDevicesMessages.sort((msg1, msg2) => msg1.time - msg2.time);
+      const chatInput: MessageWrapped = {message: message, isSender: isSender, time: message.time}
+      this.messagesWrapped.push(chatInput);
+      this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
     } else {
       this.messages.push(message);
       this.messages.sort((msg1, msg2) => msg1.time - msg2.time);
