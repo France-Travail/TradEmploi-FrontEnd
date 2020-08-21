@@ -47,7 +47,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     private textToSpeechService: TextToSpeechService,
     private navbarService: NavbarService,
     private translateService: TranslateService,
-    private CryptService: CryptService
+    private cryptService: CryptService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
@@ -73,7 +73,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   ngOnInit(): void {
-    this.isAudioPlay = true;
+    this.isAudioPlay = false; // a changer true;
     this.scrollToBottom();
   }
 
@@ -170,9 +170,15 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (messages.length > 0) {
         if (this.multiDevicesMessages.length === 0) {
           messages.forEach((message) => {
+            message.text = this.cryptService.decrypt(message.text, message.member);
+            message.translation = this.cryptService.decrypt(message.translation, message.member);
             this.addToChat(message);
           });
         } else {
+          messages.forEach((message) => {
+            message.text = this.cryptService.decrypt(message.text, message.member);
+            message.translation = this.cryptService.decrypt(message.translation, message.member);
+          });
           this.addToChat(messages[messages.length - 1]);
         }
       }
@@ -208,6 +214,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         isSender = true;
       }
       const chatInput: MultiDevicesMessage = { message: message, isSender: isSender };
+
       this.multiDevicesMessages.push(chatInput);
       this.multiDevicesMessages.sort((msg1, msg2) => msg1.message.time - msg2.message.time);
     } else {

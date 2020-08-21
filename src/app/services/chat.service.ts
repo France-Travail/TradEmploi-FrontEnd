@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Message } from '../models/translate/message';
 import { Member } from '../models/db/member';
 import { CryptService } from 'src/app/services/crypt.service';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -39,6 +40,8 @@ export class ChatService {
   }
 
   sendMessage(roomId: string, message: Message): string {
+    message.text = this.cryptService.encrypt(message.text);
+    message.translation = this.cryptService.encrypt(message.translation);
     return this.db.list(`chats/${roomId}/messages`).push(message).key;
   }
 
