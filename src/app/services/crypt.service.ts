@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as crypto from 'crypto-js';
 import { SettingsService } from './settings.service';
-import { Message } from '../models/translate/message';
 
 @Injectable({
   providedIn: 'root',

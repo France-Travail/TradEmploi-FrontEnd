@@ -165,10 +165,14 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private addMultiMessageToChat(roomId: string) {
     this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
       if (messagesWrapped.length > 0) {
-        if (this.messagesWrapped.length === 0) {
-          messagesWrapped.forEach((messageWrapped) => {
+        messagesWrapped.forEach((messageWrapped) => {
+          if (messageWrapped.message) {
             messageWrapped.message.text = this.cryptService.decrypt(messageWrapped.message.text, messageWrapped.message.member);
             messageWrapped.message.translation = this.cryptService.decrypt(messageWrapped.message.translation, messageWrapped.message.member);
+          }
+        });
+        if (this.messagesWrapped.length === 0) {
+          messagesWrapped.forEach((messageWrapped) => {
             this.addToChat(messageWrapped);
           });
         } else {
