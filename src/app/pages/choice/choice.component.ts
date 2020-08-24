@@ -82,8 +82,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     if (isMultiDevices) {
       this.settingsService.reset();
       if (user.role === Role.GUEST) {
-        this.chatService.updateMemberStatus(user.roomId, user.id, false);
-        this.chatService.deleteMember(user.roomId, user.id);
+        this.chatService.deleteMember(user.roomId, user.firstname, user.id);
       } else {
         this.chatService.delete(user.roomId);
       }

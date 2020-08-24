@@ -14,6 +14,7 @@ import shortId from 'shortid';
 export class ShareComponent implements OnInit {
   public link: string;
   public canCreate: boolean = false;
+  public qrCode: string;
 
   private roomId: string;
 
@@ -28,6 +29,7 @@ export class ShareComponent implements OnInit {
       } else {
         this.link = window.location.origin + '/invite/' + user.roomId;
       }
+      this.qrCode = this.link;
     });
   }
 

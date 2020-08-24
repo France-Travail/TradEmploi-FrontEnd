@@ -7,7 +7,7 @@
   <mat-form-field [color]="username.valid && 'accent'" class="input">
     <input matInput class="text" formControlName="username" placeholder="Name" autocomplete="off" />
     <mat-error *ngIf="username.hasError('required')">A name is required.</mat-error>
-    <mat-error *ngIf="username.invalid && username.dirty">The name must be between 6 and 32 characters.</mat-error>
+    <mat-error *ngIf="username.invalid && username.dirty">The name must be between 2 and 32 characters.</mat-error>
   </mat-form-field>
 
   <button type="submit" [disabled]="form.invalid">LOGIN</button>

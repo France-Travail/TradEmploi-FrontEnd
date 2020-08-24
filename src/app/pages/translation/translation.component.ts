@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, Input, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Message } from 'src/app/models/translate/message';
@@ -14,7 +14,7 @@ import { TranslateService } from 'src/app/services/translate.service';
 import { User } from 'src/app/models/user';
 import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
 import { Observable } from 'rxjs';
-import { MultiDevicesMessage } from 'src/app/models/translate/multi-devices-message';
+import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
 import { EndComponent } from './dialogs/end/end.component';
 import { CryptService } from 'src/app/services/crypt.service';
 
@@ -25,7 +25,7 @@ import { CryptService } from 'src/app/services/crypt.service';
 })
 export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate {
   @ViewChild('scrollMe') private chatScroll: ElementRef;
-  public multiDevicesMessages: MultiDevicesMessage[] = [];
+  public messagesWrapped: MessageWrapped[] = [];
   public messages: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
@@ -59,9 +59,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         if (this.isMultiDevices) {
           this.initMultiDevices(user.roomId);
           this.isGuest = user.firstname !== undefined && user.firstname != this.settingsService.defaultName;
-          if (!this.isGuest) {
-            this.handleNotification(user.roomId);
-          }
         }
         this.user = user;
       }
@@ -105,7 +102,19 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
-  public addToChat(message: Message) {
+  public addToChat(messageWrapped: MessageWrapped) {
+    const isNotGuestOnMultiDevices = !this.isGuest && this.isMultiDevices;
+    const isNotification = messageWrapped.notification != undefined;
+    if (isNotGuestOnMultiDevices && isNotification) {
+      this.sendNotification(messageWrapped);
+    } else {
+      if (!isNotification) {
+        this.addMessageToChat(messageWrapped.message);
+      }
+    }
+  }
+
+  private addMessageToChat(message: Message) {
     let hasDot = new RegExp('^[ .s]+$').test(message.text);
     if (message.text !== '' && !hasDot) {
       this.translateMessage(message);
@@ -130,8 +139,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (isMultiDevices) {
       this.settingsService.reset();
       if (this.user.role === Role.GUEST) {
-        this.chatService.updateMemberStatus(this.user.roomId, this.user.id, false);
-        this.chatService.deleteMember(this.user.roomId, this.user.id);
+        this.chatService.deleteMember(this.user.roomId, this.user.firstname, this.user.id);
       } else {
         this.chatService.updateChatStatus(this.user.roomId, false);
         this.chatService.delete(this.user.roomId);
@@ -141,7 +149,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private initMultiDevices = (roomId) => {
-    this.multiDevicesMessages = [];
+    this.messagesWrapped = [];
     this.chatService.getChatStatus(roomId).subscribe((active) => {
       if (active != null && active) {
         this.addMultiMessageToChat(roomId);
@@ -154,32 +162,17 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     });
   };
 
-  private handleNotification(roomId: string) {
-    this.chatService.getMembers(roomId).subscribe((members) => {
-      if (members.length > 0) {
-        const member = members[members.length - 1];
-        const notification = member.active ? ' est connecté' : ' est déconnecté';
-        const chatInput: MultiDevicesMessage = { notification: member.firstname + notification };
-        this.multiDevicesMessages.push(chatInput);
-      }
-    });
-  }
-
   private addMultiMessageToChat(roomId: string) {
-    this.chatService.getMessages(roomId).subscribe((messages) => {
-      if (messages.length > 0) {
-        if (this.multiDevicesMessages.length === 0) {
-          messages.forEach((message) => {
-            message.text = this.cryptService.decrypt(message.text, message.member);
-            message.translation = this.cryptService.decrypt(message.translation, message.member);
-            this.addToChat(message);
+    this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
+      if (messagesWrapped.length > 0) {
+        if (this.messagesWrapped.length === 0) {
+          messagesWrapped.forEach((messageWrapped) => {
+            messageWrapped.message.text = this.cryptService.decrypt(messageWrapped.message.text, messageWrapped.message.member);
+            messageWrapped.message.translation = this.cryptService.decrypt(messageWrapped.message.translation, messageWrapped.message.member);
+            this.addToChat(messageWrapped);
           });
         } else {
-          messages.forEach((message) => {
-            message.text = this.cryptService.decrypt(message.text, message.member);
-            message.translation = this.cryptService.decrypt(message.translation, message.member);
-          });
-          this.addToChat(messages[messages.length - 1]);
+          this.addToChat(messagesWrapped[messagesWrapped.length - 1]);
         }
       }
     });
@@ -213,13 +206,17 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (!isSender && this.user.firstname === undefined && message.member === this.settingsService.defaultName) {
         isSender = true;
       }
-      const chatInput: MultiDevicesMessage = { message: message, isSender: isSender };
-
-      this.multiDevicesMessages.push(chatInput);
-      this.multiDevicesMessages.sort((msg1, msg2) => msg1.message.time - msg2.message.time);
+      const messageWrapped: MessageWrapped = { message: message, isSender: isSender, time: message.time };
+      this.messagesWrapped.push(messageWrapped);
+      this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
     } else {
       this.messages.push(message);
     }
+  }
+
+  private sendNotification(messageWrapped: MessageWrapped) {
+    this.messagesWrapped.push(messageWrapped);
+    this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
   }
 
   private getLanguageTarget(message: Message) {

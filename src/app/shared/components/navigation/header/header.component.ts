@@ -55,17 +55,17 @@ export class HeaderComponent {
   }
 
   public logout() {
-    this.openModal(LogoutComponent);
+    this.openModal(LogoutComponent, '300px');
   }
 
   public share() {
-    this.openModal(ShareComponent)
+    this.openModal(ShareComponent, '500px')
   }
 
-  private openModal(component) {
+  private openModal(component, height) {
     this.dialog.open(component, {
       width: '800px',
-      height: '300px',
+      height: height,
       panelClass: 'customDialog'
     });
   }
