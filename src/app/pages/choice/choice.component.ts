@@ -37,11 +37,11 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
         const isMultiDevices = user.roomId !== undefined;
-        if(isMultiDevices && user.role === Role.GUEST){
-          this.endConversation(user.roomId)
+        if (isMultiDevices && user.role === Role.GUEST) {
+          this.endConversation(user.roomId);
         }
       }
-    })
+    });
   }
 
   ngAfterContentInit(): void {
@@ -74,7 +74,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
         }
       });
   }
-
+  // @HostListener('window:pagehide')
   @HostListener('window:unload')
   public canDeactivate(): Observable<boolean> | boolean {
     const user = this.settingsService.user.value;
@@ -88,19 +88,19 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
         this.chatService.delete(user.roomId);
       }
     }
-    return true
+    return true;
   }
 
-  private endConversation(roomId: string){
-    this.chatService.getChatStatus(roomId).subscribe(active => {
-      if(active !== null && !active){
+  private endConversation(roomId: string) {
+    this.chatService.getChatStatus(roomId).subscribe((active) => {
+      if (active !== null && !active) {
         this.dialog.open(EndComponent, {
           width: '800px',
           height: '300px',
           panelClass: 'customDialog',
-          disableClose: true
+          disableClose: true,
         });
       }
-    })
+    });
   }
 }
