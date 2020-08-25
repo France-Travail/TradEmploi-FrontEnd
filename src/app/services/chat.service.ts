@@ -39,11 +39,7 @@ export class ChatService {
   }
 
   sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
-    console.log(messageWrapped);
-    if (messageWrapped.message) {
-      messageWrapped.message.text = this.cryptService.encrypt(messageWrapped.message.text);
-      messageWrapped.message.translation = this.cryptService.encrypt(messageWrapped.message.translation);
-    }
+    messageWrapped = this.cryptService.encryptWrapped(messageWrapped);
     return this.db.list(`chats/${roomId}/messages`).push(messageWrapped).key;
   }
 
@@ -71,7 +67,7 @@ export class ChatService {
       });
   }
 
-  delete(roomId: string): Promise<Boolean> {
+  delete(roomId: string): Promise<boolean> {
     const promise = this.db.object(`chats/${roomId}`).remove();
     return promise
       .then((_) => true)
@@ -85,7 +81,7 @@ export class ChatService {
     return this.db.object(`chats/${roomId}/active`).valueChanges() as Observable<boolean>;
   }
 
-  updateChatStatus(roomId: string, active: boolean): Promise<Boolean> {
+  updateChatStatus(roomId: string, active: boolean): Promise<boolean> {
     return this.db
       .object(`chats/${roomId}/active`)
       .set(active)
