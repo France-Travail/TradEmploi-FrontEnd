@@ -1,13 +1,33 @@
-<div class="cloud">
-  <div class="word" *ngFor="let word of words; let i=index;" [ngStyle]="{'padding-top': word.padding+'px'}"
-    (click)="selectLanguage(word.value.audioLanguage, word.value.writtenLanguage)">
-    {{ word.displayedValue }}
+<h2><strong>Choix de langues </strong>/ Choice of language</h2>
+<div class="countries">
+  <div class="country" *ngFor="let item of selectedCountriesData">
+    <div class="title">
+      <strong>{{ item.languageNameFr }} </strong> / {{ item.languageNameRaw }}
+    </div>
+    <div class="middle">
+      <div class="sentence">
+        {{ item.sentences.displayedWelcome }}
+      </div>
+      <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="audioDescription(item.sentences.readedWelcome, item.isoCode)"></div>
+    </div>
+    <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)">
+      <span *ngIf="item.flag !== 'arabic'" class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}"></span>
+      <img *ngIf="item.flag === 'arabic'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag" />
+      <div class="sentences">
+        <div class="buttonSentenceFR">
+          <strong>{{ item.sentences.languageButtonFR.toUpperCase() }}</strong>
+        </div>
+        <div class="buttonSentenceRAW">
+          {{ item.sentences.languageButtonRAW.toUpperCase() }}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="more" (click)="moreLanguage()">
-  <img src="assets/icons/icon-uniE926.svg" alt={{otherLanguageFr}}>
+  <img src="assets/icons/icon-more-black.svg" alt="{{ otherLanguageFr }}" />
   <div class="text">
-  <span class="fr">{{ otherLanguageFr }}</span>
+    <span class="fr">{{ otherLanguageFr }}</span>
     <span class="en">{{ otherLanguageEn }}</span>
   </div>
 </div>

@@ -24,8 +24,12 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["node_modules/flag-icon-css/sass/flag-icon.scss", "src/styles.scss"],
-            "scripts": []
+            "styles": ["node_modules/flag-icon-css/sass/flag-icon.scss", "src/sass/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/sass"]
+            },
+            "scripts": [],
+            "webWorkerTsConfig": "tsconfig.worker.json"
           },
           "configurations": {
             "production": {
@@ -62,6 +66,22 @@
                   "with": "src/environments/environment.qa.ts"
                 }
               ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
+            },
+            "summer": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.summer.ts"
+                }
+              ]
             }
           }
         },
@@ -90,14 +110,18 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": ["src/sass/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/sass"]
+            },
+            "codeCoverage": true,
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
+            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json", "tsconfig.worker.json"],
             "exclude": ["**/node_modules/**"]
           }
         },

@@ -1,59 +1,30 @@
-// Angular
 import { Component, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-// Services
 import { HistoryService } from 'src/app/services/history.service';
-
-// Models
-import { Conversation } from 'src/app/models/conversation';
-import { NavbarItem } from 'src/app/models/navbar-item';
+import { Conversation } from 'src/app/models/history/conversation';
+import { Role } from 'src/app/models/role';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-conversation',
   templateUrl: './conversation.component.html',
-  styleUrls: ['./conversation.component.scss']
+  styleUrls: ['./conversation.component.scss'],
 })
 export class ConversationComponent implements AfterViewInit {
   public conversation: Conversation;
   public showTranslation: boolean = false;
-  public navBarItems: NavbarItem[] = [];
 
-  constructor(private historyService: HistoryService, private router: Router) {
-    this.setNavBar();
+  constructor(private historyService: HistoryService, private settingsService: SettingsService) {
+    this.settingsService.user.subscribe((user) => {
+      if (user !== null) {
+        // this.setNavBar(user.role === Role.ADMIN);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.conversation = this.historyService.conversation;
     });
-  }
-
-  public setNavBar(): void {
-    this.navBarItems = [
-      {
-        icon: 'keyboard_return',
-        infoTitle: 'Retour',
-        link: 'translation',
-        isDisplayed: true
-      },
-      {
-        icon: 'compare_arrows',
-        infoTitle: 'Changer de langue',
-        action: this.switchLanguage,
-        isDisplayed: true
-      },
-      {
-        icon: 'settings',
-        infoTitle: 'Paramètres',
-        link: 'settings/conversation',
-        isDisplayed: true
-      }
-    ];
-  }
-
-  public handleAction(event: any): void {
-    event.call(this);
   }
 
   /**

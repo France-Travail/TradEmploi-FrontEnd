@@ -1,0 +1,20 @@
+@import 'styles';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mat-dialog-title {
+  background-color: $secondary-color;
+  color: #ffffff;
+  padding: 35px 30px;
+  font-size: 20px;
+  margin: 0;
+}
+
+.stop-message {
+  padding-top: 50px;
+  padding-left: 50px;
+}

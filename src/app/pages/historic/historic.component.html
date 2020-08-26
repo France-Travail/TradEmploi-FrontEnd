@@ -1,5 +1,3 @@
-<navbar [items]="navBarItems"></navbar>
-
 <div class="interfaces">
   <h1>Historique des conversations</h1>
   <table>
@@ -8,7 +6,7 @@
       <th>Prénom</th>
       <th>Langue</th>
       <th>Horaire</th>
-      <th>Notation</th>
+      <!-- <th>Notation</th> -->
       <th>Voir</th>
       <th>Supprimer</th>
     </thead>
@@ -18,12 +16,12 @@
         <td>{{ i.guest.lastname }}</td>
         <td>{{ i.guest.language }}</td>
         <td>{{ formatDate(i.startDate.seconds) }}</td>
-        <ng-container *ngIf="rates.length != conversations.length; else elseTemplate">
+        <!-- <ng-container *ngIf="rates.length != conversations.length; else elseTemplate">
           <td><mat-spinner class="customSpinner"></mat-spinner></td>
         </ng-container>
         <ng-template #elseTemplate>
           <td class="align"><span class="grade">{{ getRateById(i.id) }}</span> <mat-icon aria-hidden="false" aria-label="Supprimer" (click)="remove(i.id)">star</mat-icon></td>
-        </ng-template>
+        </ng-template> -->
         <td class="blue"><mat-icon aria-hidden="false" aria-label="Voir" (click)="show(i.id)">chat</mat-icon></td>
         <td class="red"><mat-icon aria-hidden="false" aria-label="Supprimer" (click)="remove(i.id)">clear</mat-icon></td>
       </tr>

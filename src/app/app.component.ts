@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { VoicesService } from './services/voices.service';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +6,7 @@ import { VoicesService } from './services/voices.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'translation';
-  constructor(private voicesService: VoicesService) {
 
-  }
+  title: string = 'translation';
+  constructor() {}
 }

@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Partager</h1>
+<div mat-dialog-content>
+  <span class="question">Souhaitez-vous partager une conversation ?</span><br>
+  <qrcode [qrdata]="qrCode" [width]="4" [errorCorrectionLevel]="'M'"></qrcode>
+  <span class="question">{{link}}</span>
+  <button class="copy-btn" (click)="copyLink()" value="cliquer pour copier" >COPIER</button>
+</div>
+<div mat-dialog-actions>
+  <button class="cancel-btn" (click)="cancel()">ANNULER</button>
+  <button [disabled]="!canCreate" [ngStyle]="{ backgroundColor: canCreate ? '#135DFE' : '#b4cafc'  }" class="share-btn" (click)="share()">PARTAGER</button>
+</div>

@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 
 // Angular Material
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import {
   MatInputModule,
   MatButtonModule,
@@ -18,14 +20,26 @@ import {
   MatNativeDateModule,
   MatSlideToggleModule,
   MatIconModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatListModule,
+  MatMenuModule,
 } from '@angular/material';
 
 // Custom Components
 import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { RecordComponent } from './components/record/record.component';
+import { TranslationTitleComponent } from './components/translation-title/translation-title.component';
+import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './components/navigation/header/header.component';
+import { SidenavComponent } from './components/navigation/sidenav/sidenav.component';
 
-const COMPONENTS = [AudioAnimationComponent, NavbarComponent];
+const COMPONENTS = [
+  AudioAnimationComponent,
+  RecordComponent,
+  TranslationTitleComponent,
+  HeaderComponent,
+  SidenavComponent
+];
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -41,19 +55,18 @@ const MATERIAL_MODULES = [
   MatNativeDateModule,
   MatSlideToggleModule,
   MatIconModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSidenavModule,
+  MatToolbarModule,
+  MatListModule,
+  MatMenuModule
 ];
 
-const MODULES = [
-  CommonModule,
-  ReactiveFormsModule,
-  FormsModule,
-  ...MATERIAL_MODULES
-];
+const MODULES = [RouterModule, CommonModule, ReactiveFormsModule, FormsModule, ...MATERIAL_MODULES];
 
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, HeaderComponent, SidenavComponent],
   imports: [...MODULES],
-  exports: [...COMPONENTS, ...MODULES]
+  exports: [...COMPONENTS, ...MODULES],
 })
 export class SharedModule {}

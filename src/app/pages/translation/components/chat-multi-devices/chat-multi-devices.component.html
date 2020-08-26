@@ -1,0 +1,27 @@
+<ng-container *ngFor="let input of messagesWrapped; let i = index">
+  <ng-template [ngIf]="input.notification === undefined">
+    <div [ngClass]="{'chat-sender': input.isSender ,'chat-receiver': !input.isSender}">
+      <mat-card [ngClass]="{'sender': input.isSender ,'receiver': !input.isSender}">
+        <mat-card-header>
+          <mat-card-title class="sentence">{{ input.message.translation }}</mat-card-title>
+          <div class="listen">
+            <a (click)="listen(i)" *ngIf="input.message.translatedSpeech !== null">
+              <img *ngIf="input.isSender" src="../../../assets/icons/icon-listen-white.svg" alt="Ecoute de la traduction" />
+              <img *ngIf="!input.isSender" src="../../../assets/icons/icon-listen-blue.svg" alt="Ecoute de la traduction" />
+            </a>
+          </div>
+        </mat-card-header>
+        <mat-card-footer align="end" [ngStyle]="{ 'color': input.isSender ? 'lightgray' : 'black' }" >
+          <ng-template [ngIf]="!input.isSender">         
+            <span *ngIf="input.message.flag !== 'arabic'" class="avatar flag-icon flag-icon-{{ input.message.flag }}"></span>
+            <img *ngIf="input.message.flag === 'arabic'" class="avatar flag-icon" src="./assets/images/arab-flag.png" alt="flag" />
+          </ng-template>  
+          {{ input.message.member }}
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="input.notification">
+    <div class="notification">{{input.notification}}</div>
+  </ng-template>
+</ng-container>

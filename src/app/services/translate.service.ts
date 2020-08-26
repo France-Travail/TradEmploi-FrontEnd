@@ -1,42 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Lang } from '../models/lang';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TranslateService {
-  public guest: Lang = { audioLanguage: '', writtenLanguage: '' };
-  public advisor: string = environment.api.defaultLanguage;
-
-  public translate(text: string, speaker: string): Observable<string> {
-    const target: string = speaker === 'advisor' ? this.guest.writtenLanguage.split('-')[0] : this.advisor.split('-')[0];
-    const provider: string = environment.api.provider;
+ 
+  public translate(text: string, lang: string): Observable<string> {
+    const url = `https://translation.googleapis.com/language/translate/v2?key=${environment.gcp.apiKey}`;
     const data = {
-      query: `
-      {
-        translate(text:"${text}",target:"${target}", provider:${provider}) {
-          text
-        }
-      }`
+      q: text,
+      target: lang.split('-')[0],
+      format: 'text',
     };
-
-    return new Observable(observer => {
-      axios
-        .post(environment.api.graphqlUrl, data, {
-          auth: {
-            username: environment.api.login,
-            password: environment.api.password
-          },
-          timeout: 5000
+    return new Observable((observer) => {
+      axios({
+        method: 'post',
+        headers: { 'content-type': 'application/json; charset=utf-8' },
+        data: data,
+        url: url
+      })
+        .then((response) => {
+          if(response.data.data.translatation !== undefined || response.data.data.translatation !== null){
+            const res = response.data.data.translations[0].translatedText;
+            observer.next(res);
+            observer.complete();
+          }else{
+            throw new Error('An error occurred when api translate called: response is empty');
+          }
         })
-        .then(response => {
-          observer.next(response.data.data.translate[0].text);
-          observer.complete();
-        })
-        .catch(error => {
-          observer.error('Traduction indisponible momentanément');
+        .catch((error) => {
+          observer.error(error);
+          throw new Error('An error occurred when api translate called: api not available');
         });
     });
   }

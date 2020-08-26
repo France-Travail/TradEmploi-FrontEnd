@@ -5,22 +5,25 @@ import { MatSort } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { VoicesService } from 'src/app/services/voices.service';
 import { TranslateService } from 'src/app/services/translate.service';
-import { SettingsService } from 'src/app/services/settings.service';
 import { COUNTRIES } from 'src/app/data/countries';
+import { Language } from 'src/app/models/language';
+import { SettingsService } from 'src/app/services/settings.service';
 
 export interface Countries {
   country: string;
   traduction: string;
-  code: { audioLanguage: string; writtenLanguage: string };
+  flag: string;
+  LanguageFr: string;
+  code: Language;
   language: string;
 }
 @Component({
   selector: 'app-languages',
   templateUrl: './languages.component.html',
-  styleUrls: ['./languages.component.scss']
+  styleUrls: ['./languages.component.scss'],
 })
 export class LanguagesComponent implements OnInit {
-  public displayedColumns: string[] = ['traduction', 'country', 'language', 'flag'];
+  public displayedColumns: string[] = ['country', 'flag', 'traduction', 'language'];
   public countries: Countries[] = COUNTRIES;
   public dataCountriesSource: MatTableDataSource<Countries> = new MatTableDataSource(this.countries);
 
@@ -43,10 +46,10 @@ export class LanguagesComponent implements OnInit {
   }
 
   public chooseLanguage(SelectedCountry: string) {
-    const voice = this.countries.filter(country => country.country === SelectedCountry)[0];
+    const voice = this.countries.filter((country) => country.country === SelectedCountry)[0];
     this.voicesService.guest = voice.code;
-    this.translateService.guest = voice.code;
-    this.settingsService.guest.next({ ...this.settingsService.guest.value, language: voice.code.writtenLanguage });
+    this.settingsService.user.next({...this.settingsService.user.value, language:{ audio:voice.code.audio, written: voice.code.written} })
+    
     this.dialogRef.close('chosen');
   }
 }

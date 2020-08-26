@@ -1,7 +1,13 @@
 // Angular
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { LayoutModule } from '@angular/cdk/layout';
+// Keyboard
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatKeyboardModule } from 'angular-onscreen-material-keyboard';
+import { MatCardModule } from '@angular/material/card';
 
 // Handle Navigation Tree
 import { AppRoutingModule } from './app-routing.module';
@@ -9,7 +15,9 @@ import { AppRoutingModule } from './app-routing.module';
 // Handle firebase connection
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireFunctionsModule, FUNCTIONS_ORIGIN } from '@angular/fire/functions';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 
 // Environment loaded
 import { environment } from 'src/environments/environment';
@@ -22,6 +30,9 @@ import { MAT_DATE_LOCALE, MatSortModule, MatTableModule } from '@angular/materia
 
 // Import shared module and components
 import { SharedModule } from './shared/shared.module';
+import { LogoutComponent } from './shared/components/logout/logout.component';
+import { ShareComponent } from './pages/translation/dialogs/share/share.component';
+import { EndComponent } from './pages/translation/dialogs/end/end.component';
 
 // Main Components
 import { AppComponent } from './app.component';
@@ -29,7 +40,6 @@ import { StartComponent } from './pages/start/start.component';
 import { ChoiceComponent } from './pages/choice/choice.component';
 import { TranslationComponent } from './pages/translation/translation.component';
 import { HistoricComponent } from './pages/historic/historic.component';
-import { RateComponent } from './pages/rate/rate.component';
 
 // Dialogs
 import { LanguagesComponent } from './pages/choice/dialog/languages/languages.component';
@@ -39,7 +49,16 @@ import { RemoveComponent } from './pages/historic/dialogs/remove/remove.componen
 import { ShowComponent } from './pages/historic/dialogs/show/show.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
-
+import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
+import { ChatComponent } from './pages/translation/components/chat/chat.component';
+import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
+import { SentryErrorHandler } from './utils/sentry-error-handler';
+import { AuthenticationComponent } from './pages/authentication/authentication.component';
+import { AnonymousComponent } from './pages/anonymous/anonymous.component';
+import { DeviceDetectorModule } from 'ngx-device-detector';
+import { NavbarService } from './services/navbar.service';
+import { ChatMultiDevicesComponent } from './pages/translation/components/chat-multi-devices/chat-multi-devices.component';
+import { QRCodeModule } from 'angularx-qrcode';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,13 +67,21 @@ import { ConversationComponent } from './pages/conversation/conversation.compone
     TranslationComponent,
     LanguagesComponent,
     StartComponent,
-    RateComponent,
     MeetingComponent,
     SettingsComponent,
     RemoveComponent,
     ShowComponent,
     ThanksComponent,
-    ConversationComponent
+    ConversationComponent,
+    MessageWrapperComponent,
+    RateDialogComponent,
+    LogoutComponent,
+    AuthenticationComponent,
+    AnonymousComponent,
+    ChatComponent,
+    ChatMultiDevicesComponent,
+    ShareComponent,
+    EndComponent
   ],
   imports: [
     BrowserModule,
@@ -64,18 +91,28 @@ import { ConversationComponent } from './pages/conversation/conversation.compone
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireFunctionsModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
     HttpClientModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule,
+    FormsModule,
+    MatButtonModule,
+    MatKeyboardModule,
+    LayoutModule,
+    QRCodeModule,
+    DeviceDetectorModule.forRoot(),
   ],
   providers: [
+    NavbarService,
     {
       provide: MAT_DATE_LOCALE,
-      useValue: 'fr-FR'
+      useValue: 'fr-FR',
     },
-    { provide: FUNCTIONS_ORIGIN, useValue: 'https://translate-pe.firebaseapp.com' }
+    { provide: ErrorHandler, useClass: SentryErrorHandler },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent]
+  entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent],
 })
 export class AppModule {}

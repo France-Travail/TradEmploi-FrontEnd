@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 // Models
-import { Conversation } from '../models/conversation';
+import { Conversation } from '../models/history/conversation';
 import { User } from '../models/user';
-import { Message } from '../models/message';
+import { Message } from '../models/history/message';
 
 
 @Injectable({
