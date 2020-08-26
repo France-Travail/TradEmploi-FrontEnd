@@ -1,47 +1,24 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
-  production: false,
+  name: 'prod',
+  production: true,
   firebaseConfig: {
-<<<<<<< HEAD
-    apiKey: "xxxxxx",
-    authDomain: "xxxxxx",
-    databaseURL: "https://xxxxxx",
-    projectId: "xxxxxx",
-    storageBucket: "xxxxxx",
-    messagingSenderId: "xxxxxx",
-    appId: "xxxxxx"
-  },
-  apiKey: 'xxxxxx'
-=======
-    apiKey: 'xxxx',
-    authDomain: 'xxxx',
-    databaseURL: 'https://xxxx',
-    projectId: 'xxxx',
-    storageBucket: 'xxxx',
-    messagingSenderId: 'xxxx',
-    appId: 'xxxx'
+    apiKey: "AIzaSyD4ZAtJqO803JkMYvxun7WmiuU22hn97dE",
+    authDomain: "pole-emploi-trad.firebaseapp.com",
+    databaseURL: "https://pole-emploi-trad.firebaseio.com",
+    projectId: "pole-emploi-trad",
+    storageBucket: "pole-emploi-trad.appspot.com",
+    messagingSenderId: "860693433183",
+    appId: "1:860693433183:web:6afdaa4433c69f098204ea"
   },
   gcp: {
-    apiKey: 'xxxx'
+    apiKey: 'AIzaSyBraAcmG6FhlK4A9hCOfo96_s_OvYXEciQ'
   },
-  api: {
-    graphqlUrl: 'https://xxxx',
-    login: 'xxxx',
-    password: 'xxxx',
-    provider: 'xxxx',
-    defaultLanguage: 'xxxx'
+  sentry:{
+    url:'https://953593ebcd8a40b4a2e743176c9488b8@sentry.io/5180549'
+  },
+  firefunction:{
+    url:'https://us-central1-pole-emploi-trad.cloudfunctions.net/rates',
+    login: 'ludo', 
+    password: '_#Q5g_1i9Z6lRFC'
   }
->>>>>>> release
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
