@@ -13,7 +13,7 @@ import { ShowComponent } from './dialogs/show/show.component';
 import { RemoveComponent } from './dialogs/remove/remove.component';
 
 // Models
-import { Conversation } from 'src/app/models/conversation';
+import { Conversation } from 'src/app/models/history/conversation';
 import { Rate } from 'src/app/models/rate';
 
 @Component({
@@ -25,13 +25,13 @@ export class HistoricComponent implements OnInit {
   public conversations: Conversation[] = []; // Contains all the conversations
   public rates: Rate[] = []; // Contains all the rates
 
-  constructor(private toastService: ToastService, private historyService: HistoryService, private rateService: RateService, public dialog: MatDialog, private router: Router) {}
+  constructor(private toastService: ToastService, private historyService: HistoryService, private rateService: RateService, public dialog: MatDialog, private router: Router) {
+  }
 
   ngOnInit() {
     this.historyService.getConversationForToday().subscribe(
       response => {
         this.conversations = this.sortByDate(response);
-
         for (const conversation of this.conversations) {
           this.rateService.getRateByHistoricId(conversation.id).subscribe(r => {
             this.rates.push(r[0]);
@@ -39,16 +39,9 @@ export class HistoricComponent implements OnInit {
         }
       },
       error => {
-        this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.');
+        this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.', 'toast-error');
       }
     );
-  }
-
-  /**
-   * Redirect to a page
-   */
-  public goto(where: string): void {
-    this.router.navigate([where]);
   }
 
   /**
@@ -76,9 +69,9 @@ export class HistoricComponent implements OnInit {
       .afterClosed()
       .subscribe(response => {
         if (response === 'removed') {
-          this.toastService.showToast('La conversation a été supprimée.');
+          this.toastService.showToast('La conversation a été supprimée.', 'toast-info');
         } else if (response === 'error') {
-          this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.');
+          this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.', 'toast-error');
         }
       });
   }
@@ -108,7 +101,7 @@ export class HistoricComponent implements OnInit {
   /**
    * Return the grade for a conversation
    */
-  public getRateById(id: string): number {
-    return this.rates.find(r => r.historyId === id).grade;
-  }
+  // public getRateById(id: string): number {
+  //   return this.rates.find(r => r.historyId === id).grade;
+  // }
 }

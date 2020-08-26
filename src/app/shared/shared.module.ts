@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 
 // Angular Material
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import {
   MatInputModule,
   MatButtonModule,
@@ -17,11 +19,27 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatSlideToggleModule,
-  MatIconModule
+  MatIconModule,
+  MatTooltipModule,
+  MatListModule,
+  MatMenuModule,
 } from '@angular/material';
-import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
 
-const COMPONENTS = [AudioAnimationComponent];
+// Custom Components
+import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
+import { RecordComponent } from './components/record/record.component';
+import { TranslationTitleComponent } from './components/translation-title/translation-title.component';
+import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './components/navigation/header/header.component';
+import { SidenavComponent } from './components/navigation/sidenav/sidenav.component';
+
+const COMPONENTS = [
+  AudioAnimationComponent,
+  RecordComponent,
+  TranslationTitleComponent,
+  HeaderComponent,
+  SidenavComponent
+];
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -36,19 +54,19 @@ const MATERIAL_MODULES = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatSlideToggleModule,
-  MatIconModule
+  MatIconModule,
+  MatTooltipModule,
+  MatSidenavModule,
+  MatToolbarModule,
+  MatListModule,
+  MatMenuModule
 ];
 
-const MODULES = [
-  CommonModule,
-  ReactiveFormsModule,
-  FormsModule,
-  ...MATERIAL_MODULES
-];
+const MODULES = [RouterModule, CommonModule, ReactiveFormsModule, FormsModule, ...MATERIAL_MODULES];
 
 @NgModule({
-  declarations: [...COMPONENTS, AudioAnimationComponent],
+  declarations: [...COMPONENTS, HeaderComponent, SidenavComponent],
   imports: [...MODULES],
-  exports: [...COMPONENTS, ...MODULES]
+  exports: [...COMPONENTS, ...MODULES],
 })
 export class SharedModule {}

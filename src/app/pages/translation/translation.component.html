@@ -1,201 +1,25 @@
-<div class="buttons">
-  <div class="logo">
-    <img src="assets/images/logo.png" alt="Logo Pôle Emploi">
-    <div class="title">Traduction Instantanée</div>
-  </div>
-  <div class="buttonsList">
-    <button (click)="goto('choice')">
-      <mat-icon aria-hidden="false" aria-label="Choix de la langue">home</mat-icon>
-    </button>
-    <button (click)="activateKeyboard()">
-      <mat-icon aria-hidden="false" aria-label="Activation du clavier">
-        <ng-container *ngIf="!isKeyboardActivated; else iconName">keyboard</ng-container>
-        <ng-template #iconName> mic</ng-template>
-      </mat-icon>
-    </button>
-    <button (click)="meeting()">
-      <mat-icon aria-hidden="false" aria-label="Prise de RDV">date_range</mat-icon>
-    </button>
-    <button (click)="goto('conversation')">
-      <mat-icon aria-hidden="false" aria-label="Historique">speaker_notes</mat-icon>
-    </button>
-    <button (click)="goto('settings/translation')">
-      <mat-icon aria-hidden="false" aria-label="Paramètres">settings</mat-icon>
-    </button>
-  </div>
-</div>
-
-<div class="interfaces">
-
-  <mat-tab-group mat-stretch-tabs (selectedTabChange)="changeUser($event)" headerPosition="below">
-    <mat-tab label="Conseiller" [disabled]="disableSwitch()">
-      <div class="advisor size">
-
-        <h2>Conseiller</h2>
-        <div class="speaker">
-          <!-- BUTTONS SECTION -->
-          <div class="action">
-            <ng-container *ngIf="!isKeyboardActivated; else advisorKeyboard">
-              <!-- TALK -->
-              <button (click)="talk('advisor')">
-                <mat-icon aria-hidden="false" aria-label="Micro">
-                  <ng-container *ngIf="isTalking; else micro">mic_off</ng-container>
-                  <ng-template #micro>mic</ng-template>
-                </mat-icon>
-              </button>
-            </ng-container>
-            <ng-template #advisorKeyboard>
-              <!-- KEYBOARD -->
-              <button (click)="translateFromKeyboard('advisor')">
-                <mat-icon aria-hidden="false" aria-label="Envoyer la traduction">send</mat-icon>
-              </button>
-            </ng-template>
-            <!-- LISTEN -->
-            <button (click)="listen('advisor')">
-              <mat-icon aria-hidden="false" aria-label="Sons">
-                <ng-container *ngIf="isListening; else sound">volume_off</ng-container>
-                <ng-template #sound>volume_up</ng-template>
-              </mat-icon>
-            </button>
-
-          </div>
-          <!-- TEXT SECTION -->
-          <div class="text" *ngIf="!isKeyboardActivated">
-            <!-- ANIMATION -->
-            <app-audio-animation *ngIf="isTalking"></app-audio-animation>
-            <!-- MESSAGE -->
-            <div *ngIf="speechData != '' && !isTalking">
-              {{ speechData }}
-            </div>
-          </div>
-          <mat-form-field class="input" *ngIf="isKeyboardActivated">
-            <input matInput placeholder="{{ getWordTranslation('advisor', 'request') }}" [(ngModel)]="keyboardData"
-              type="text" (keyup)="onPressEnter($event, 'advisor')">
-              <button mat-button *ngIf="keyboardData" matSuffix mat-icon-button aria-label="Clear" (click)="keyboardData=''">
-                <mat-icon class="clearTextIcon">close</mat-icon>
-              </button>
-          </mat-form-field>
-          <ng-template #advisorKeyboard>
-            <!-- KEYBOARD -->
-            <button (click)="translateFromKeyboard('advisor')">
-              <mat-icon aria-hidden="false" aria-label="Envoyer la traduction">send</mat-icon>
-            </button>
-          </ng-template>
-        </div>
-
-        <mat-icon class="arrow" aria-hidden="false" aria-label="Resultat">arrow_downward</mat-icon>
-
-        <div class="speaker">
-          <!-- BUTTONS SECTION -->
-          <div class="action">
-            <!-- LISTEN -->
-            <button (click)="listenTranslation()">
-              <mat-icon aria-hidden="false" aria-label="Sons">
-                <ng-container *ngIf="isTranslationListening; else sound">volume_off</ng-container>
-                <ng-template #sound>volume_up</ng-template>
-              </mat-icon>
-            </button>
-          </div>
-          <!-- TEXT SECTION -->
-          <div class="text">
-            <!-- ANIMATION -->
-            <ng-container *ngIf="inProgress && !error; else translation">
-              <mat-spinner class="spinner"></mat-spinner>
-            </ng-container>
-            <ng-template #translation>
-              <!-- MESSAGE -->
-              <ng-container *ngIf="translated">
-                {{ speechTranslated }}
-              </ng-container>
-            </ng-template>
-
-          </div>
-        </div>
-
+<app-translation-title (finish)="closeConversation()"></app-translation-title>
+<div class="translate" [ngClass]="{'translate-one': !isMultiDevices, 'translate-multi': isMultiDevices}">
+  <div class="conversation" [ngClass]="{'conversation-one': !isMultiDevices, 'conversation-multi': isMultiDevices}">
+    <div class="head-conversation"  [ngClass]="{'head-conversation-multi': isMultiDevices}">
+      <h2>Conversation</h2>
+      <div class="auto-listen">
+        <mat-slide-toggle class="auto-listen-btn" (click)="switchAudio()" checked labelPosition="before" color="primary">{{ autoListenValue }}</mat-slide-toggle>
       </div>
-    </mat-tab>
-
-    <mat-tab label="Demandeur d'emploi" [disabled]="disableSwitch()">
-      <div class="guest size">
-
-        <h2>Demandeur d'emploi</h2>
-
-        <div class="speaker">
-          <!-- BUTTONS SECTION -->
-          <div class="action">
-            <ng-container *ngIf="!isKeyboardActivated; else guestKeyboard">
-              <!-- TALK -->
-              <button (click)="talk('guest')">
-                <mat-icon aria-hidden="false" aria-label="Micro">
-                  <ng-container *ngIf="isTalking; else micro">mic_off</ng-container>
-                  <ng-template #micro>mic</ng-template>
-                </mat-icon>
-              </button>
-            </ng-container>
-            <ng-template #guestKeyboard>
-              <!-- KEYBOARD -->
-              <button (click)="translateFromKeyboard('guest')">
-                <mat-icon aria-hidden="false" aria-label="Envoyer la traduction">send</mat-icon>
-              </button>
-            </ng-template>
-            <!-- LISTEN -->
-            <button (click)="listen('guest')">
-              <mat-icon aria-hidden="false" aria-label="Sons">
-                <ng-container *ngIf="isListening; else sound">volume_off</ng-container>
-                <ng-template #sound>volume_up</ng-template>
-              </mat-icon>
-            </button>
-
-          </div>
-          <!-- TEXT SECTION -->
-          <div class="text" *ngIf="!isKeyboardActivated">
-            <!-- ANIMATION -->
-            <app-audio-animation *ngIf="isTalking"></app-audio-animation>
-            <!-- MESSAGE -->
-            <div *ngIf="speechData != '' && !isTalking">
-              {{ speechData }}
-            </div>
-          </div>
-          <mat-form-field class="input" *ngIf="isKeyboardActivated">
-            <input matInput placeholder="{{ getWordTranslation('guest', 'request') }}" [(ngModel)]="keyboardData"
-              type="text" (keyup)="onPressEnter($event, 'guest')">
-              <button mat-button *ngIf="keyboardData" matSuffix mat-icon-button aria-label="Clear" (click)="keyboardData=''">
-                <mat-icon class="clearTextIcon">close</mat-icon>
-              </button>
-          </mat-form-field>
-        </div>
-
-        <mat-icon class="arrow" aria-hidden="false" aria-label="Resultat">arrow_downward</mat-icon>
-
-        <div class="speaker">
-          <!-- BUTTONS SECTION -->
-          <div class="action">
-            <!-- LISTEN -->
-            <button (click)="listenTranslation()">
-              <mat-icon aria-hidden="false" aria-label="Sons">
-                <ng-container *ngIf="isTranslationListening; else sound">volume_off</ng-container>
-                <ng-template #sound>volume_up</ng-template>
-              </mat-icon>
-            </button>
-          </div>
-          <!-- TEXT SECTION -->
-          <div class="text">
-            <!-- ANIMATION -->
-            <ng-container *ngIf="inProgress && !error; else translation">
-              <mat-spinner class="spinner"></mat-spinner>
-            </ng-container>
-            <ng-template #translation>
-              <!-- MESSAGE -->
-              <ng-container *ngIf="translated">
-                {{ speechTranslated }}
-              </ng-container>
-            </ng-template>
-
-          </div>
-        </div>
-
-      </div>
-    </mat-tab>
-  </mat-tab-group>
-
+    </div>
+    <div class="thread" [ngClass]="{'thread-one': !isMultiDevices, 'thread-multi': isMultiDevices}" #scrollMe>
+      <app-chat *ngIf="!isMultiDevices" [messages]="messages" (editMessageEmit)="editChat($event)"></app-chat>
+      <app-chat-multi-devices *ngIf="isMultiDevices" [messagesWrapped]="messagesWrapped"></app-chat-multi-devices>
+    </div>
+  </div>
+  <div [ngClass]="{'msg': !isMultiDevices}">
+    <ng-template [ngIf]="!isMultiDevices">
+      <app-message-wrapper role="GUEST" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
+      <app-message-wrapper role="ADVISOR" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
+    </ng-template>
+    <ng-template [ngIf]="isMultiDevices">
+      <app-message-wrapper *ngIf="isGuest" role="GUEST" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
+      <app-message-wrapper *ngIf="!isGuest" role="ADVISOR" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
+    </ng-template>
+  </div>
 </div>

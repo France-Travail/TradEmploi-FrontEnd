@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   firebaseConfig: {
+<<<<<<< HEAD
     apiKey: "xxxxxx",
     authDomain: "xxxxxx",
     databaseURL: "https://xxxxxx",
@@ -14,6 +15,26 @@ export const environment = {
     appId: "xxxxxx"
   },
   apiKey: 'xxxxxx'
+=======
+    apiKey: 'xxxx',
+    authDomain: 'xxxx',
+    databaseURL: 'https://xxxx',
+    projectId: 'xxxx',
+    storageBucket: 'xxxx',
+    messagingSenderId: 'xxxx',
+    appId: 'xxxx'
+  },
+  gcp: {
+    apiKey: 'xxxx'
+  },
+  api: {
+    graphqlUrl: 'https://xxxx',
+    login: 'xxxx',
+    password: 'xxxx',
+    provider: 'xxxx',
+    defaultLanguage: 'xxxx'
+  }
+>>>>>>> release
 };
 
 /*

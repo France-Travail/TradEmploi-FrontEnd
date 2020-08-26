@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Stream } from '../models/stream';
 
 interface IWindow extends Window {
   webkitSpeechRecognition: any;
@@ -7,42 +8,38 @@ interface IWindow extends Window {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpeechRecognitionService {
   speechRecognition: any;
 
   constructor(private zone: NgZone) {}
 
-  record(lang: string): Observable<string> {
-    // tslint:disable-next-line: deprecation
-    return Observable.create(observer => {
-      const { webkitSpeechRecognition }: IWindow = window as unknown as IWindow;
+  record(lang: string): Observable<Stream> {
+    return new Observable((observer) => {
+      const { webkitSpeechRecognition }: IWindow = (window as unknown) as IWindow;
       this.speechRecognition = new webkitSpeechRecognition();
       this.speechRecognition.continuous = true;
+      this.speechRecognition.interimResults = true;
       this.speechRecognition.lang = lang;
       this.speechRecognition.maxAlternatives = 1;
 
-      this.speechRecognition.onresult = speech => {
-        let term: string = '';
-        if (speech.results) {
-          const result = speech.results[speech.resultIndex];
-          const transcript = result[0].transcript;
-
-          if (result.isFinal) {
-            if (result[0].confidence < 0.3) {
-              console.log('Unrecognized result - Please try again');
-            } else {
-              term = transcript;
-            }
+      this.speechRecognition.onresult = (event) => {
+        let interimTranscript = '';
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          } else {
+            interimTranscript += event.results[i][0].transcript;
           }
         }
         this.zone.run(() => {
-          observer.next(term);
+          observer.next({ final: finalTranscript, interim: interimTranscript });
         });
       };
 
-      this.speechRecognition.onerror = error => {
+      this.speechRecognition.onerror = (error) => {
         observer.error(error);
       };
 
@@ -59,5 +56,12 @@ export class SpeechRecognitionService {
     if (this.speechRecognition) {
       this.speechRecognition.stop();
     }
+  }
+
+  capitalize = (s) => {
+    const firstChar = /\S/;
+    return s.replace(firstChar, (m) => {
+      return m.toUpperCase();
+    });
   }
 }

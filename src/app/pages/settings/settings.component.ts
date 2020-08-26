@@ -1,100 +1,66 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { HistoryService } from 'src/app/services/history.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { SettingsService } from 'src/app/services/settings.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AngularFireFunctions } from '@angular/fire/functions';
+import { environment } from '../../../environments/environment';
+import { Parser } from 'json2csv';
 import { ToastService } from 'src/app/services/toast.service';
+import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements AfterViewInit {
-  public audio: boolean = false;
-  public guest: { firstname: string; lastname: string } = { firstname: '', lastname: '' };
-  public advisor: { firstname: string; lastname: string } = { firstname: '', lastname: '' };
-  public isNewConversation: boolean = true; // Hide elements when new conversation is started
+export class SettingsComponent implements OnInit {
+  public path: string;
 
-  constructor(private historyService: HistoryService, private toastService: ToastService, private settingsService: SettingsService, private route: ActivatedRoute, private router: Router) {}
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      if (this.historyService.conversation === undefined) {
-        this.router.navigate(['start']);
-      } else {
-        this.guest.firstname = this.historyService.conversation.guest.firstname;
-        this.guest.lastname = this.historyService.conversation.guest.lastname;
-        this.advisor.firstname = this.historyService.conversation.advisor.firstname;
-        this.advisor.lastname = this.historyService.conversation.advisor.lastname;
-        this.audio = this.settingsService.audio;
-        this.isNewConversation = this.settingsService.newConversation;
-      }
-    });
+  constructor(
+    public router: Router,
+    private fireFunction: AngularFireFunctions,
+    private toastService: ToastService,
+    private navService: NavbarService) {
+    const url = this.router.url;
+    this.path = url.substring(url.lastIndexOf('/'));
+    this.navService.handleTabsSettings();
   }
 
-  /**
-   * Redirect to a page
-   */
-  public goto(where: string): void {
-    if (where === 'return') {
-      this.route.params.subscribe(params => {
-        this.router.navigate([params.from]);
+  ngOnInit() {
+  }
+
+  public export(): void {
+    if (environment.name === 'local') {
+      this.fireFunction.functions.useFunctionsEmulator(environment.firefunction.url);
+    }
+    this.fireFunction
+      .httpsCallable('rates')({ login: environment.firefunction.login, password: environment.firefunction.password })
+      .toPromise()
+      .then((response) => {
+        this.exportCsv(response);
+      })
+      .catch((err) => {
+        this.toastService.showToast("Erreur lors de l'export du fichier", 'toast-error');
+        throw new Error('An error occurred when export csv file');
       });
-    } else {
-      this.router.navigate([where]);
-    }
   }
 
-  /**
-   * Set firstname and lastname for users
-   */
-  public setInformation(value: string, id: string): void {
-    switch (id) {
-      case 'guestF':
-        this.historyService.conversation.guest.firstname = value;
-        break;
-
-      case 'guestL':
-        this.historyService.conversation.guest.lastname = value;
-        break;
-
-      case 'advisorF':
-        this.historyService.conversation.advisor.firstname = value;
-        break;
-
-      case 'advisorL':
-        this.historyService.conversation.advisor.lastname = value;
-        break;
-    }
+  private exportCsv(rates) {
+    const json2csvParser = new Parser({ delimiter: ';', encoding: 'utf8' });
+    const data = json2csvParser.parse(rates);
+    const blob = new Blob([data], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    const date = new Date().toLocaleDateString('ko-KR').replace(/. /g, '');
+    const filename = 'PE_Outil_Traduction_KPI_' + date + '.csv';
+    a.setAttribute('download', filename);
+    document.body.append(a);
+    a.click();
+    document.body.removeChild(a);
   }
 
-  /**
-   * Allow user to enabled audio after translation
-   */
-  public switchAudio(): void {
-    this.settingsService.audio = !this.audio;
+  public goBack() {
+    window.history.back();
   }
 
-  /**
-   * Validate form and redirect
-   */
-  public validateInformations(): void {
-    if (this.checkFields()) {
-      this.settingsService.newConversation = false;
-      this.router.navigate(['choice']);
-    } else {
-      this.toastService.showToast('Merci de remplir tous les champs.');
-    }
-  }
-
-  /**
-   * Check if firstname and lastname are not empty
-   */
-  private checkFields(): boolean {
-    if (this.advisor.firstname === '' || this.advisor.lastname === '') {
-      return false;
-    } else {
-      return true;
-    }
-  }
 }

@@ -1,21 +1,27 @@
-// Angular
 import { Injectable } from '@angular/core';
-
-// Models
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { User } from '../models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SettingsService {
-  public advisor: User = { firstname: '', lastname: '', language: 'fr-FR' };
-  public guest: User = { firstname: '', lastname: '', language: '' };
-  public audio: boolean = false;
-  public newConversation: boolean = true;
+  
+  public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  public recordMode: boolean = false;
+  public defaultLanguage: string = 'fr-FR'
+  public defaultName: string = "Pôle emploi"
 
-  constructor() {}
+  constructor(private deviceService: DeviceDetectorService) {
+    const isMobile = this.deviceService.isMobile();
+    const isTablet = this.deviceService.isTablet();
+    if (isMobile || isTablet) {
+      this.recordMode = true;
+    }
+  }
 
-  public reset(): void {
-    this.guest = { firstname: '', lastname: '', language: '' };
+  reset = () => {
+    this.user.next(null);
   }
 }

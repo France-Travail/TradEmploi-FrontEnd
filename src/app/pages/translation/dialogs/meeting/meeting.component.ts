@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material';
 // Services
 import { HistoryService } from 'src/app/services/history.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-meeting',
@@ -17,7 +18,7 @@ export class MeetingComponent {
   public monthName: string = '';
   private month: Date = new Date();
 
-  constructor(public dialogRef: MatDialogRef<MeetingComponent>, private toastService: ToastService, private historyService: HistoryService) {
+  constructor(public dialogRef: MatDialogRef<MeetingComponent>, private toastService: ToastService, private historyService: HistoryService, private settingsService: SettingsService) {
     this.getDaysInMonth(this.today.getMonth(), this.today.getFullYear());
     this.monthName = this.today.toLocaleString('fr', { month: 'long' });
     this.monthName = this.monthName.charAt(0).toUpperCase() + this.monthName.slice(1);
@@ -25,12 +26,12 @@ export class MeetingComponent {
 
   public saveConversation() {
     if (this.historyService.conversation.conversation.length > 0) {
+      this.historyService.conversation.guest.language = this.settingsService.user.value.language;
       this.historyService.saveConversation().then(() => {
         this.dialogRef.close('saved');
       });
     } else {
-      // tslint:disable-next-line: quotemark
-      this.toastService.showToast('Merci de démarer une conversation avant de prendre un rendez-vous.');
+      this.toastService.showToast('Merci de démarer une conversation avant de prendre un rendez-vous.', 'toast-info');
     }
   }
 

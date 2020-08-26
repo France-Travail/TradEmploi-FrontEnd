@@ -28,32 +28,84 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Deploy on Dev
 
+1 - Before do DOD
+
+2 - MERGE your story on develop branch
+
+3 - Build
+
 ```
-$ npm run build
+$ npm run build:dev
 ```
 
-deploy on dev
+4 - TEST on local
+
+5 - Deploy
+
 ```
 $ firebase deploy --project dev
 ```
 
-wait and go to
+6 - TEST
+
 ```
 $ https://pole-emploi-trad-dev.firebaseapp.com
 ```
 
+7 - TEST with Product owner
+
+
+## Deploy on Qualification
+
+1 - Before do DOD
+
+2 - MERGE your story on develop branch
+
+3 - Build
+
+```
+$ npm run build:qa
+```
+
+4 - TEST on local
+
+5 - Deploy
+
+```
+$ firebase deploy --project qa
+```
+
+6 - TEST
+
+```
+$ https://pole-emploi-trad-dev.firebaseapp.com
+```
+
+7 - TEST with Product owner
+
+
 ## Deploy on Prod
+
+1 - MERGE your story on release branch and Update README
+
+2 - Build
+
 
 ```
 $ npm run build:prod
 ```
 
-deploy on prod
+3 - Test on local
+
+
+4 - Deploy
+
 ```
 $ firebase deploy --project prod
 ```
 
-wait and go to
+5 - TEST
+
 ```
 $ https://pole-emploi-trad.firebaseapp.com
 ```
@@ -63,3 +115,17 @@ $ https://pole-emploi-trad.firebaseapp.com
 US_F_02
 US_F_05
 US_A_01
+
+## V1.0.1
+
+US_T_02
+US_F_07
+US_F_06
+US_F_04
+US_A_03
+US_F_03
+US_A_04
+US_A_02
+US_F_01
+US_F_08
+US_T_04

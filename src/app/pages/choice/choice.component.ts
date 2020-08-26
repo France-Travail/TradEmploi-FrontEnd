@@ -1,72 +1,105 @@
-// Angular
-import { Component } from '@angular/core';
+import { EndComponent } from './../translation/dialogs/end/end.component';
+import { Component, AfterContentInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-
-// Services
-import { TranslateService } from 'src/app/services/translate.service';
-
-// Dialogs
+import { VOCABULARY } from 'src/app/data/vocabulary';
 import { LanguagesComponent } from './dialog/languages/languages.component';
-import { HistoryService } from 'src/app/services/history.service';
 import { SettingsService } from 'src/app/services/settings.service';
-
-// Models
-import { Lang } from 'src/app/models/lang';
+import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { NavbarService } from 'src/app/services/navbar.service';
+import { ChatService } from 'src/app/services/chat.service';
+import { Role } from 'src/app/models/role';
+import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
-  styleUrls: ['./choice.component.scss']
+  styleUrls: ['./choice.component.scss'],
 })
-export class ChoiceComponent {
-  /**
-   * Main languages list
-   */
-  public words: { displayedValue: string; value: Lang; padding: number }[] = [
-    { displayedValue: 'سلام', value: { audioLanguage: 'ar-DZ', writtenLanguage: 'ar-DZ' }, padding: 50 }, // Arabe, Pashto, Dari
-    { displayedValue: 'Hello', value: { audioLanguage: 'en-GB', writtenLanguage: 'en-GB' }, padding: 0 }, // Anglais
-    { displayedValue: 'தமிழ்', value: { audioLanguage: 'ta-IN', writtenLanguage: 'ta-IN' }, padding: 22 }, // Tamoul
-    { displayedValue: 'Hallo', value: { audioLanguage: 'de-DE', writtenLanguage: 'de-DE' }, padding: 10 }, // Allemand
-    { displayedValue: 'Salom', value: { audioLanguage: 'ru-RU', writtenLanguage: 'uz-UZ' }, padding: 60 }, // Uzbek
-    { displayedValue: 'ہیلو', value: { audioLanguage: 'ur-PK', writtenLanguage: 'ur-PK' }, padding: 20 }, // Urdu
-    { displayedValue: '你好', value: { audioLanguage: 'zh-ZH', writtenLanguage: 'zh-ZH' }, padding: 0 }, // Chinois, Mandarin
-    { displayedValue: 'Buenos dias', value: { audioLanguage: 'es-ES', writtenLanguage: 'es-ES' }, padding: 30 }, // Espagnol
-    { displayedValue: 'ጤናይስጥልኝ', value: { audioLanguage: 'am-ET', writtenLanguage: 'am-ET' }, padding: 30 }, // Amharic
-    { displayedValue: 'नमस्कार', value: { audioLanguage: 'ne-NP', writtenLanguage: 'ne-NP' }, padding: 0 }, // Nepali
-    { displayedValue: 'হ্যালো', value: { audioLanguage: 'bn-IN', writtenLanguage: 'bn-IN' }, padding: 20 }, // Bengali
-    { displayedValue: 'Bonjour', value: { audioLanguage: 'fr-FR', writtenLanguage: 'fr-FR' }, padding: 0 }, // Français
-    { displayedValue: 'Olá', value: { audioLanguage: 'pt-PT', writtenLanguage: 'pt-PT' }, padding: 0 }, // Portugais
-    { displayedValue: 'привет', value: { audioLanguage: 'ru-RU', writtenLanguage: 'ru-RU' }, padding: 20 } // Russe
-  ];
+export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate {
+  public selectedCountriesData = [];
+  public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU'];
+  public toolTips: string[] = ['Autres langues'];
+  public audioSpeech: HTMLAudioElement;
+  public otherLanguageFr: string = 'AUTRES LANGUES';
+  public otherLanguageEn: string = 'OTHER LANGUAGES';
 
-  constructor(private translateService: TranslateService, private historyService: HistoryService, private settingsService: SettingsService, private router: Router, public dialog: MatDialog) {
-    if (this.historyService.conversation === undefined) {
-      this.router.navigate(['start']);
-    }
+  constructor(
+    private textToSpeechService: TextToSpeechService,
+    private router: Router,
+    private settingsService: SettingsService,
+    public dialog: MatDialog,
+    private navService: NavbarService,
+    private chatService: ChatService
+  ) {
+    this.navService.handleTabsChoice();
+    this.settingsService.user.subscribe((user) => {
+      if (user != null) {
+        const isMultiDevices = user.roomId !== undefined;
+        if(isMultiDevices && user.role === Role.GUEST){
+          this.endConversation(user.roomId)
+        }
+      }
+    })
   }
 
-  /**
-   * Initialyze the selected language
-   */
-  selectLanguage(audioLanguage: string, writtenLanguage: string): void {
-    this.translateService.guest.audioLanguage = audioLanguage;
-    this.translateService.guest.writtenLanguage = writtenLanguage;
-    this.settingsService.guest.language = writtenLanguage;
+  ngAfterContentInit(): void {
+    this.showMainLanguages();
+    this.navService.show();
+  }
+
+  public selectLanguage(audio: string, written: string): void {
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audio, written: written } });
     this.router.navigate(['translation']);
   }
 
-  /**
-   * Open the modal that displays all the available languages
-   */
-  moreLanguage(): void {
+  public showMainLanguages(): void {
+    this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country));
+  }
+  async audioDescription(message: string, lang: string) {
+    const audio = await this.textToSpeechService.getSpeech(message, lang);
+    if (audio) {
+      this.textToSpeechService.audioSpeech.play();
+    }
+  }
+
+  public moreLanguage(): void {
     this.dialog
-      .open(LanguagesComponent, { width: '800px' })
+      .open(LanguagesComponent, { width: '900px', height: '900px' })
       .afterClosed()
-      .subscribe(response => {
+      .subscribe((response) => {
         if (response === 'chosen') {
           this.router.navigate(['translation']);
         }
       });
+  }
+
+  @HostListener('window:unload')
+  public canDeactivate(): Observable<boolean> | boolean {
+    const user = this.settingsService.user.value;
+    const isMultiDevices = user.roomId !== undefined;
+    if (isMultiDevices) {
+      this.settingsService.reset();
+      if (user.role === Role.GUEST) {
+        this.chatService.deleteMember(user.roomId, user.firstname, user.id);
+      } else {
+        this.chatService.delete(user.roomId);
+      }
+    }
+    return true
+  }
+
+  private endConversation(roomId: string){
+    this.chatService.getChatStatus(roomId).subscribe(active => {
+      if(active !== null && !active){
+        this.dialog.open(EndComponent, {
+          width: '800px',
+          height: '300px',
+          panelClass: 'customDialog',
+          disableClose: true
+        });
+      }
+    })
   }
 }

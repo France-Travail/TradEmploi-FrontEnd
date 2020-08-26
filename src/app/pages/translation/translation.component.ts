@@ -1,411 +1,237 @@
-// Angular
-import { Component } from '@angular/core';
-import { MatTabChangeEvent, MatDialog } from '@angular/material';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-
-// Services
-import { TranslateService } from 'src/app/services/translate.service';
-import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
-import { AudioRecordingService } from 'src/app/services/audio-recording.service';
-import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { Message } from 'src/app/models/translate/message';
+import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
 import { ToastService } from 'src/app/services/toast.service';
-import { HistoryService } from 'src/app/services/history.service';
-import { MeetingComponent } from './dialogs/meeting/meeting.component';
-import { PermissionsService } from 'src/app/services/permissions.service';
-
-// Data
-import { VOCABULARY } from 'src/app/data/vocabulary';
 import { SettingsService } from 'src/app/services/settings.service';
+import { ChatService } from 'src/app/services/chat.service';
+import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { Role } from 'src/app/models/role';
+import { NavbarService } from 'src/app/services/navbar.service';
+import { TranslateService } from 'src/app/services/translate.service';
+import { User } from 'src/app/models/user';
+import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
+import { Observable } from 'rxjs';
+import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
+import { EndComponent } from './dialogs/end/end.component';
 
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
-  styleUrls: ['./translation.component.scss']
+  styleUrls: ['./translation.component.scss'],
 })
-export class TranslationComponent {
-  // Number
-  public speaker: number = 0;
-  public enterKey: number = 13;
+export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate {
+  @ViewChild('scrollMe') private chatScroll: ElementRef;
+  public messagesWrapped: MessageWrapped[] = [];
+  public messages: Message[] = [];
+  public guestTextToEdit: string;
+  public advisorTextToEdit: string;
+  public isMobile: boolean;
+  public autoListenValue: string = 'Ecouter automatiquement';
+  public isGuest: boolean = false;
+  public isMultiDevices: boolean = false;
 
-  // Boolean
-  public isAdvisorTurn: boolean = true; // True if the interface is advisor one
-  public isTalking: boolean = false; // True if the user is talking
-  public isKeyboardActivated: boolean = false; // True if the user has activate the keyboard mode
-  public isListening: boolean = false; // True if the user is listening what he just said
-  public isTranslationListening: boolean = false; // True if the user is listening the translation
-  public translated: boolean = false; // True when the text is translated
-  public inProgress: boolean = false; // True when the translation is in progress
-  public error: boolean = false; // True if there is an error
-  public isStopTalking: boolean = false; // True when the user stop talking
-  public isTranslatedSpeechReady: boolean = false; // True when the audio of the translated text is ready to be listen
-  public audioTranslationFailed: boolean = false; // True when the application couldn't get audio from text
-  public isKeyboardSpeechReady: boolean = false; // True when the keyboard audio is ready to be listen
-  public keyboardAudioFailed: boolean = false; // True when the application couldn't get audio from keyboard
-
-  // String
-  public keyboardData: string = '';
-  public speechData: string = '';
-  public speechTranslated: string = '';
-
-  // Array
-  public titles: { displayedValue: { translation: string; request: string }; value: string }[] = [
-    { displayedValue: { translation: 'Traduction', request: 'Votre demande :' }, value: 'fr-FR' }, // Français
-    { displayedValue: { translation: 'Translation', request: 'Your request:' }, value: 'en-GB' }, // Anglais
-    { displayedValue: { translation: 'Übersetzung', request: 'Ihre Anfrage:' }, value: 'de-DE' }, // Allemand
-    { displayedValue: { translation: 'traducción', request: 'Su solicitud :' }, value: 'ca-ES' }, // Espagnol
-    { displayedValue: { translation: 'ترجمة', request: 'طلبك :' }, value: 'ar-DZ' }, // Arabe
-    { displayedValue: { translation: '翻译', request: '您的要求：' }, value: 'zh-ZH' }, // Chinois
-    { displayedValue: { translation: 'tradução', request: 'O seu pedido:' }, value: 'pt-PT' }, // Portugais
-    { displayedValue: { translation: 'перевод', request: 'Ваш запрос:' }, value: 'ru-RU' } // Russe
-  ];
+  private isAudioPlay: boolean;
+  private user: User;
 
   constructor(
-    private translateService: TranslateService,
-    private speechRecognitionService: SpeechRecognitionService,
-    private audioRecordingService: AudioRecordingService,
-    private textToSpeechService: TextToSpeechService,
-    private toastService: ToastService,
-    private historyService: HistoryService,
-    private settingsService: SettingsService,
-    private permissionsService: PermissionsService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private breakpointObserver: BreakpointObserver,
+    private toastService: ToastService,
+    private settingsService: SettingsService,
+    private chatService: ChatService,
+    private textToSpeechService: TextToSpeechService,
+    private navbarService: NavbarService,
+    private translateService: TranslateService
   ) {
-    if (this.translateService.guest.audioLanguage === '') {
-      this.goto('choice');
+    this.settingsService.user.subscribe((user) => {
+      if (user != null) {
+        if (user.language !== undefined && user.language.audio === undefined) {
+          this.goto('choice');
+        }
+        this.isGuest = user.firstname !== undefined;
+        this.isMultiDevices = user.roomId !== undefined;
+        if(this.isMultiDevices){
+          this.initMultiDevices(user.roomId)
+          this.isGuest = user.firstname !== undefined && user.firstname != this.settingsService.defaultName;
+        }
+        this.user = user;
+      }
+    });
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
+      this.isMobile = result.matches;
+    });
+    this.navbarService.handleTabsTranslation();
+  }
+
+  ngOnInit(): void {
+    this.isAudioPlay = true;
+    this.scrollToBottom();
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  ngOnDestroy(){
+    if(this.isMultiDevices){
+      this.isAudioPlay = false
     }
   }
 
-  /**
-   * Redirect to a page
-   */
+  scrollToBottom(): void {
+    try {
+      this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
+    } catch (err) {}
+  }
+
   public goto(where: string): void {
     this.router.navigate([where]);
   }
 
-  /**
-   * This function is called when the speaker wants to talk
-   */
-  public async talk(user: string): Promise<void> {
-    // Check if the microphone is enabled
-    if (!this.permissionsService.isAllowed) {
-      try {
-        this.permissionsService.isAllowed = await this.permissionsService.check();
-      } catch (error) {
-        this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
-      }
-    }
-
-    if (this.permissionsService.isAllowed) {
-      // Set the language
-      const lang = user === 'advisor' ? this.translateService.advisor : this.translateService.guest.writtenLanguage;
-
-      // If the user is not speaking
-      if (!this.isTalking) {
-        this.speechData = '';
-        this.isStopTalking = false;
-
-        // Change Mic button
-        this.isTalking = !this.isTalking;
-
-        // Start audio recording
-        await this.audioRecordingService.record('start');
-
-        // Start Speech Recognition
-        this.speechRecognitionService.record(lang).subscribe(
-          // listener
-          value => {
-            this.error = false;
-            this.speechData = value;
-          },
-          // error
-          err => {
-            console.log(err);
-            if (err.error === 'no-speech') {
-              console.log('Erreur');
-              this.error = true;
-            }
-          },
-          // completion
-          () => {
-            console.log('Complete');
-            setTimeout(() => {
-              if (this.inProgress) {
-                this.isStopTalking = true;
-              }
-            }, 3000);
-          }
-        );
-      } else {
-        // Change Mic button
-        this.isTalking = !this.isTalking;
-
-        // Display progressive spinner
-        this.inProgress = true;
-
-        // Stop audio recording
-        await this.audioRecordingService.record('stop');
-
-        const end = setInterval(() => {
-          if (this.speechData !== '') {
-            this.translate(this.speechData, user);
-            clearInterval(end);
-          } else if (!this.isTalking && !this.inProgress) {
-            clearInterval(end);
-          } else if (this.speechData === '' && !this.isTalking && this.isStopTalking) {
-            this.inProgress = false;
-            this.isStopTalking = false;
-            this.toastService.showToast('Erreur, veuillez réessayer');
-            clearInterval(end);
-          }
-        }, 100);
-
-        this.speechRecognitionService.DestroySpeechObject();
-      }
+  public editChat(message) {
+    if (message.user === 'guest') {
+      this.guestTextToEdit = message;
     } else {
-      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.');
+      this.advisorTextToEdit = message;
     }
   }
 
-  /**
-   * This function is called to translate data from keyboard
-   */
-  public translateFromKeyboard(user: string) {
-    if (this.keyboardData !== '') {
-      this.translate(this.keyboardData, user);
+  public addToChat(messageWrapped: MessageWrapped) {
+    const isNotGuestOnMultiDevices = !this.isGuest && this.isMultiDevices
+    const isNotification =messageWrapped.notification != undefined
+    if(isNotGuestOnMultiDevices && isNotification){
+      this.sendNotification(messageWrapped)
+    }else{
+      if(!isNotification){
+        this.addMessageToChat(messageWrapped.message)
+      }
     }
   }
 
-  /**
-   * This function is called when a user want to listen the speaker
-   */
-  public listen(user: string): void {
-    this.isListening = !this.isListening;
-
-    if (this.speechData !== '' && !this.isKeyboardActivated) {
-      if (this.isListening) {
-        this.audioRecordingService.audioSpeech.play();
-
-        const end = setInterval(() => {
-          if (this.audioRecordingService.audioSpeech === undefined) {
-            this.isListening = false;
-            clearInterval(end);
-          } else {
-            if (this.audioRecordingService.audioSpeech.paused) {
-              this.isListening = false;
-              clearInterval(end);
-            }
-          }
-        }, 10);
-      } else {
-        this.audioRecordingService.audioSpeech.pause();
-        this.audioRecordingService.audioSpeech.currentTime = 0;
-      }
-    } else if (this.keyboardData !== '' && this.textToSpeechService.keyboardSpeech !== undefined) {
-      if (this.isListening) {
-        this.textToSpeechService.keyboardSpeech.play();
-
-        const end = setInterval(() => {
-          if (this.textToSpeechService.keyboardSpeech.paused) {
-            this.isListening = false;
-            clearInterval(end);
-          }
-        }, 10);
-      } else {
-        // Stop the audio
-        this.textToSpeechService.keyboardSpeech.pause();
-        this.textToSpeechService.keyboardSpeech.currentTime = 0;
-      }
-    } else if (this.keyboardData !== '' && this.keyboardAudioFailed) {
-      // tslint:disable-next-line: quotemark
-      this.toastService.showToast("La version audio n'est pas disponible dans cette langue.");
-      this.isListening = false;
+  private addMessageToChat(message: Message){
+    let hasDot = new RegExp('^[ .s]+$').test(message.text);
+    if (message.text !== '' && !hasDot) {
+      this.translateMessage(message)
     } else {
-      this.isListening = false;
-    }
-  }
-
-  /**
-   * This function is called when someone want to listen the translation
-   */
-  public listenTranslation() {
-    // If the translated speech is ready to be listening
-    if (this.isTranslatedSpeechReady) {
-      // Change the icon of the button
-      this.isTranslationListening = !this.isTranslationListening;
-
-      // If the audio hasn't start yet
-      if (this.isTranslationListening) {
-        this.textToSpeechService.audioSpeech.play(); // HERE
-
-        // Check when the audio is ended
-        const end = setInterval(() => {
-          if (this.textToSpeechService.audioSpeech.paused || this.textToSpeechService.audioSpeech === undefined) {
-            // Change the icon of the button
-            this.isTranslationListening = false;
-            clearInterval(end);
-          }
-        }, 10);
-      } else {
-        // Stop the audio
-        this.textToSpeechService.audioSpeech.pause(); // HERE
-        this.textToSpeechService.audioSpeech.currentTime = 0;
+      if (!hasDot) {
+        this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
       }
-    } else if (this.audioTranslationFailed) {
-      // tslint:disable-next-line: quotemark
-      this.toastService.showToast("L'audio n'est pas accessible suite à un problème technique.", 5000);
-    } else {
-      console.log('NOT READY');
     }
   }
 
-  /**
-   * Simulate meeting and return to choice
-   */
-  public meeting(): void {
-    this.dialog
-      .open(MeetingComponent, {
-        width: '800px'
-      })
-      .afterClosed()
-      .subscribe(response => {
-        if (response === 'saved') {
-          this.goto('rate');
+  public closeConversation() {
+    this.openModal(RateDialogComponent, '700px', false)
+  }
+
+  public switchAudio() {
+    this.isAudioPlay = !this.isAudioPlay;
+  }
+
+
+  @HostListener('window:unload')
+  public canDeactivate(): Observable<boolean> | boolean {
+    const isMultiDevices = this.user.roomId !== undefined
+    if(isMultiDevices){
+      this.settingsService.reset();
+      if(this.user.role === Role.GUEST){
+        this.chatService.deleteMember(this.user.roomId, this.user.firstname, this.user.id)
+      }else{
+        this.chatService.updateChatStatus(this.user.roomId, false)
+        this.chatService.delete(this.user.roomId)
+      }
+    }
+    return true
+  }
+
+  private initMultiDevices = (roomId) => {
+    this.messagesWrapped = [];
+    this.chatService.getChatStatus(roomId).subscribe(active => {
+      if(active != null && active){
+        this.addMultiMessageToChat(roomId)
+      }else{
+        this.isAudioPlay = false
+        if(this.isGuest){
+          this.openModal(EndComponent, '300px', true)
         }
-      });
-  }
-
-  /**
-   * Enable or disable the abality to use the keyboard instead of the voice.
-   */
-  public activateKeyboard(): void {
-    this.isKeyboardActivated = !this.isKeyboardActivated;
-  }
-
-  public onPressEnter(event, user): void {
-    if (event.which === this.enterKey || event.keyCode === this.enterKey) {
-      this.keyboardData = event.currentTarget.value;
-      this.translate(this.keyboardData, user);
-    }
-  }
-
-  /**
-   * This function is called to send data as text to translation
-   */
-  private translate(text: string, user: string): void {
-    // Activate the spinner
-    this.inProgress = true;
-
-    // Send the text to translation
-    this.translateService.sendTextToTranslation(text, user).subscribe(serverResponse => {
-      // Set the language
-      const lang = user === 'guest' ? this.translateService.advisor : this.translateService.guest.audioLanguage;
-
-      // If no error
-      if (serverResponse.find(r => r.translatedText !== '').translatedText !== undefined) {
-        this.speechTranslated = serverResponse.find(r => r.translatedText !== '').translatedText;
-        this.historyService.addMessage(user === 'guest' ? false : true, text, this.speechTranslated);
-
-        // Send speech as text to audio conversion
-        this.textToSpeechService
-          .getSpeech(this.speechTranslated, lang, user, false)
-          .then(response => {
-            if (response) {
-              // Translated speech is ready to be listening
-              this.isTranslatedSpeechReady = true;
-              this.audioTranslationFailed = false;
-              if (this.settingsService.audio) {
-                this.listenTranslation();
-              }
-            } else {
-              // Audio translation has failed
-              this.audioTranslationFailed = true;
-            }
-          })
-          .catch(error => {
-            console.log('Erreur : ', error);
-          });
-      } else {
-        // If error, display this message
-        this.toastService.showToast('Erreur, veuillez réessayer');
-        this.speechTranslated = 'Erreur, veuillez réessayer';
       }
-      // Set translated variable to true
-      this.translated = true;
+    })
+  };
 
-      // Hide the spinner
-      this.inProgress = false;
+  private addMultiMessageToChat(roomId: string){
+    this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
+      if (messagesWrapped.length > 0) {
+        if (this.messagesWrapped.length === 0) {
+          messagesWrapped.forEach((messageWrapped) => {
+            this.addToChat(messageWrapped);
+          });
+        } else {
+          this.addToChat(messagesWrapped[messagesWrapped.length - 1]);
+        }
+      }
     });
-
-    if (this.isKeyboardActivated) {
-      // Set the language
-      const lang = user === 'advisor' ? this.translateService.advisor : this.translateService.guest.audioLanguage;
-
-      // Send keyboardData to audio conversion
-      this.textToSpeechService
-        .getSpeech(this.keyboardData, lang, user, true)
-        .then(response => {
-          if (response) {
-            // Translated speech is ready to be listening
-            this.isKeyboardSpeechReady = true;
-            this.keyboardAudioFailed = false;
-          } else {
-            // Audio translation has failed
-            this.keyboardAudioFailed = true;
-          }
-        })
-        .catch(error => {
-          console.log('Erreur : ', error);
-        });
+  }
+  private translateMessage(message: Message){
+    const languageTarget = this.getLanguageTarget(message)
+    if(this.isMultiDevices && message.languageOrigin === languageTarget){
+        this.setTranslateMessage(message, message.text,languageTarget)
+    }else{
+      this.translateService.translate(message.text, languageTarget).subscribe(async translate => {
+        this.setTranslateMessage(message, translate, languageTarget)
+      })
     }
   }
 
-  /**
-   * Reset the data when user is switched
-   */
-  public changeUser(event: MatTabChangeEvent) {
-    this.keyboardData = '';
-    this.speechData = '';
-    this.speechTranslated = '';
-    this.textToSpeechService.audioSpeech = undefined;
-    this.textToSpeechService.keyboardSpeech = undefined;
-    this.audioTranslationFailed = false;
-    this.keyboardAudioFailed = false;
-    this.isAdvisorTurn = !this.isAdvisorTurn;
+  private async setTranslateMessage(message: Message, translate, languageTarget: string){
+    message.translation = translate
+    if(this.isAudioPlay){
+      const audio = await this.textToSpeechService.getSpeech(translate, languageTarget)
+      if(audio){
+        this.textToSpeechService.audioSpeech.play();
+      }
+      message.audioHtml = this.textToSpeechService.audioSpeech
+    }
+    this.sendMessage(message)
   }
 
-  /**
-   * Get the translation for a specific word or sentence
-   */
-  public getWordTranslation(user: string, word: string): string {
-    const lang: string = user === 'advisor' ? this.translateService.advisor : this.translateService.guest.writtenLanguage;
-
-    const element = this.titles.find(title => title.value === lang);
-    if (element === undefined) {
-      return 'TODO';
-    }
-
-    if (word === 'request') {
-      return VOCABULARY.find(v => v.isoCode === lang).words.request;
-    }
-
-    if (word === 'translation') {
-      return VOCABULARY.find(v => v.isoCode === lang).words.translate;
-    }
-  }
-
-  /**
-   * Allow user to switch interface
-   */
-  public disableSwitch(): boolean {
-    if (this.isListening) {
-      return true;
-    } else if (this.isTranslationListening) {
-      return true;
-    } else if (this.inProgress) {
-      return true;
+  private sendMessage(message: Message){
+    if(this.isMultiDevices){
+      let isSender = message.member === this.user.firstname ;
+      if(!isSender && this.user.firstname === undefined && message.member === this.settingsService.defaultName){
+        isSender = true
+      }
+      const messageWrapped: MessageWrapped = {message: message, isSender: isSender, time: message.time}
+      this.messagesWrapped.push(messageWrapped);
+      this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
     } else {
-      return false;
+      this.messages.push(message);
     }
   }
+
+  private sendNotification(messageWrapped: MessageWrapped){
+      this.messagesWrapped.push(messageWrapped);
+      this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
+  }
+
+  private getLanguageTarget(message: Message){
+    if(this.isMultiDevices){
+      return this.user.role ===  Role.ADVISOR || this.user.role ===  Role.ADMIN ? this.settingsService.defaultLanguage
+      : this.user.language.written
+    }
+    return message.role ===  Role.ADVISOR || message.role ===  Role.ADMIN? this.user.language.written
+    :  this.settingsService.defaultLanguage ;
+  }
+
+  private openModal(component, height, disableClose ) {
+    this.dialog.open(component, {
+      width: '800px',
+      height: height,
+      panelClass: 'customDialog',
+      disableClose: disableClose
+    });
+  }
+
 }

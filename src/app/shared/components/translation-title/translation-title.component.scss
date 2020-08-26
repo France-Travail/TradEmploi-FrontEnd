@@ -1,0 +1,63 @@
+@import 'styles';
+
+.container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+
+  h1 {
+    color: $secondary-color;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 0px;
+    b {
+      font-weight: 500;
+    }
+  }
+
+  .sub {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    .languages {
+      display: flex;
+      color: $secondary-color;
+      align-items: center;
+      img {
+        height: 26px;
+      }
+      .text {
+        a {
+          color: #4171DA;
+          text-decoration: underline;
+          margin-left: 6px;
+        }
+        b {
+        }
+      }
+    }
+
+    button {
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+      outline: none;
+      padding: 10px;
+      font-weight: bold;
+    }
+  }
+}
+
+@media screen and (min-width: 1001px) and (max-width: 1300px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    width: 96%;
+  }
+}
