@@ -5,14 +5,14 @@ import { Observable } from 'rxjs';
 import { Member } from '../models/db/member';
 import { MessageWrapped } from '../models/translate/message-wrapped';
 import { CryptService } from './crypt.service';
-import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
   constructor(private db: AngularFireDatabase, private cryptService: CryptService) {}
 
-  create(roomId: string): Promise<Boolean> {
+  create(roomId: string): Promise<boolean> {
     const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], messagesWrapped: [], active: true };
     const promise = this.db.object(`chats/${roomId}`).set(chat);
     return promise
@@ -37,13 +37,6 @@ export class ChatService {
 
   getMessagesWrapped(roomId: string): Observable<Array<MessageWrapped>> {
     return this.db.list(`chats/${roomId}/messages`).valueChanges() as Observable<Array<MessageWrapped>>;
-
-    // let messagesWrapped = (this.db.list(`chats/${roomId}/messages`).valueChanges() as unknown) as Array<MessageWrapped>;
-    // messagesWrapped.forEach((msg) => {
-    //   msg = this.cryptService.decryptWrapped(msg, roomId);
-    //   console.log(msg);
-    // });
-    // return (messagesWrapped as unknown) as Observable<Array<MessageWrapped>>;
   }
 
   sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
