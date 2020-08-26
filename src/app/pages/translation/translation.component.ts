@@ -70,7 +70,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   ngOnInit(): void {
-    this.isAudioPlay = false; // a changer true;
+    this.isAudioPlay = true; 
     this.scrollToBottom();
   }
 
