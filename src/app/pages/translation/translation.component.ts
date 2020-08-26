@@ -57,7 +57,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.isGuest = user.firstname !== undefined;
         this.isMultiDevices = user.roomId !== undefined;
         if (this.isMultiDevices) {
-          this.cryptService.setKey(user.roomId);
           this.initMultiDevices(user.roomId);
           this.isGuest = user.firstname !== undefined && user.firstname != this.settingsService.defaultName;
         }
@@ -166,14 +165,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private addMultiMessageToChat(roomId: string) {
     this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
       if (messagesWrapped.length > 0) {
-        messagesWrapped.forEach((messageWrapped) => {
-          messageWrapped = this.cryptService.decryptWrapped(messageWrapped);
-        });
         if (this.messagesWrapped.length === 0) {
           messagesWrapped.forEach((messageWrapped) => {
+            messageWrapped = this.cryptService.decryptWrapped(messageWrapped, roomId);
             this.addToChat(messageWrapped);
           });
         } else {
+          messagesWrapped[messagesWrapped.length - 1] = this.cryptService.decryptWrapped(messagesWrapped[messagesWrapped.length - 1], roomId);
           this.addToChat(messagesWrapped[messagesWrapped.length - 1]);
         }
       }

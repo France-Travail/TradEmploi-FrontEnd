@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Member } from '../models/db/member';
 import { MessageWrapped } from '../models/translate/message-wrapped';
 import { CryptService } from './crypt.service';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
@@ -36,10 +37,17 @@ export class ChatService {
 
   getMessagesWrapped(roomId: string): Observable<Array<MessageWrapped>> {
     return this.db.list(`chats/${roomId}/messages`).valueChanges() as Observable<Array<MessageWrapped>>;
+
+    // let messagesWrapped = (this.db.list(`chats/${roomId}/messages`).valueChanges() as unknown) as Array<MessageWrapped>;
+    // messagesWrapped.forEach((msg) => {
+    //   msg = this.cryptService.decryptWrapped(msg, roomId);
+    //   console.log(msg);
+    // });
+    // return (messagesWrapped as unknown) as Observable<Array<MessageWrapped>>;
   }
 
   sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
-    messageWrapped = this.cryptService.encryptWrapped(messageWrapped);
+    messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
     return this.db.list(`chats/${roomId}/messages`).push(messageWrapped).key;
   }
 
