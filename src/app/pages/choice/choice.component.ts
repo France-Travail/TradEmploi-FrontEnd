@@ -49,8 +49,10 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     this.navService.show();
   }
 
-  public selectLanguage(audio: string, written: string): void {
+  public selectLanguage(audio: string, written: string, flag: string): void {
     this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audio, written: written } });
+    console.log('choice flag', flag);
+    this.settingsService.user.next({ ...this.settingsService.user.value, flag: flag });
     this.router.navigate(['translation']);
   }
 

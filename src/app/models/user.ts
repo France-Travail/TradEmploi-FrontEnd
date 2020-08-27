@@ -8,4 +8,5 @@ export interface User {
   language?: Language;
   roomId: string;
   role: Role;
+  flag?: string;
 }

@@ -12,7 +12,7 @@ export class SettingsService {
   public recordMode: boolean = false;
   public defaultLanguage: string = 'fr-FR'
   public defaultName: string = "Pôle emploi"
-
+  
   constructor(private deviceService: DeviceDetectorService) {
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();

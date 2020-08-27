@@ -32,6 +32,6 @@ export class StartComponent implements AfterContentInit {
 
     setTimeout(() => {
       this.router.navigate(['auth']);
-    }, 3000);
+    }, 500); // a changer
   }
 }

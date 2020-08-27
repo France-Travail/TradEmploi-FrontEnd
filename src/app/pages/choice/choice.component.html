@@ -10,7 +10,7 @@
       </div>
       <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="audioDescription(item.sentences.readedWelcome, item.isoCode)"></div>
     </div>
-    <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode)">
+    <div class="selectLanguageButton" (click)="selectLanguage(item.isoCode, item.isoCode, item.flag.toLowerCase())">
       <span *ngIf="item.flag !== 'arabic'" class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}"></span>
       <img *ngIf="item.flag === 'arabic'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag" />
       <div class="sentences">

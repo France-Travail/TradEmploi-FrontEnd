@@ -59,7 +59,7 @@ export class MessageWrapperComponent implements OnInit {
     const data = isLanguageExist || this.role === Role.ADVISOR ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     this.title = data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
-    this.flag = isLanguageExist ? data.flag.toLowerCase() : this.languageOrigin.split('-')[1].toLowerCase();
+    this.flag = this.role === Role.ADVISOR ? data.flag.toLowerCase() : this.settingsService.user.value.flag;
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
@@ -163,9 +163,9 @@ export class MessageWrapperComponent implements OnInit {
       role: this.role,
     };
     const messageWrapped: MessageWrapped = {
-      message : message,
-      time: Date.now()
-    }
+      message: message,
+      time: Date.now(),
+    };
     this.messagesToEmit.emit(messageWrapped);
   }
 
@@ -179,9 +179,9 @@ export class MessageWrapperComponent implements OnInit {
       member: user.firstname ? user.firstname : this.settingsService.defaultName,
     };
     const messageWrapped: MessageWrapped = {
-      message : message,
-      time: Date.now()
-    }
+      message: message,
+      time: Date.now(),
+    };
     this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
   }
 }
