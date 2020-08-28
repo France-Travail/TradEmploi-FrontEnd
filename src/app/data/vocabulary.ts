@@ -39,6 +39,7 @@ export const VOCABULARY_DEFAULT: Vocabulary = {
 export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'ar-IL',
+    audioCode: 'ar-IL',
     countryNameRaw: 'ישראל',
     countryNameFr: 'Israël',
     languageNameRaw: 'עברי',
@@ -48,6 +49,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-DZ',
+    audioCode: 'ar-XA',
     countryNameRaw: 'الجزائر',
     countryNameFr: 'Algérie',
     languageNameRaw: 'العربية',
@@ -57,6 +59,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-JO',
+    audioCode: 'ar-XA',
     countryNameRaw: 'الأردن',
     countryNameFr: 'Jordanie',
     languageNameRaw: 'العربية',
@@ -66,6 +69,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-AE',
+    audioCode: 'ar-XA',
     countryNameRaw: 'الإمارات',
     countryNameFr: 'Emirats Arabes Unis',
     languageNameRaw: 'العربية',
@@ -75,6 +79,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-BH',
+    audioCode: 'ar-XA',
     countryNameRaw: 'البحرين',
     countryNameFr: 'Bahreïn',
     languageNameRaw: 'العربية',
@@ -84,6 +89,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-XA',
+    audioCode: 'ar-XA',
     countryNameRaw: 'الدول العربية',
     countryNameFr: 'Pays arabes',
     languageNameRaw: 'العربية',
@@ -93,6 +99,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-SA',
+    audioCode: 'ar-XA',
     countryNameRaw: 'السعودية',
     countryNameFr: 'Arabie Saoudite',
     languageNameRaw: 'العربية',
@@ -102,6 +109,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-IQ',
+    audioCode: 'ar-XA',
     countryNameRaw: 'العراق',
     countryNameFr: 'Irak',
     languageNameRaw: 'العربية',
@@ -111,6 +119,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-KW',
+    audioCode: 'ar-XA',
     countryNameRaw: 'الكويت',
     countryNameFr: 'Koweït',
     languageNameRaw: 'العربية',
@@ -120,6 +129,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-MA',
+    audioCode: 'ar-XA',
     countryNameRaw: 'المغرب',
     countryNameFr: 'Maroc',
     languageNameRaw: 'العربية',
@@ -129,6 +139,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-TN',
+    audioCode: 'ar-XA',
     countryNameRaw: 'تونس',
     countryNameFr: 'Tunisie',
     languageNameRaw: 'العربية',
@@ -138,6 +149,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-OM',
+    audioCode: 'ar-XA',
     countryNameRaw: 'عُمان',
     countryNameFr: 'Oman',
     languageNameRaw: 'العربية',
@@ -147,6 +159,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-PS',
+    audioCode: 'ar-XA',
     countryNameRaw: 'فلسطين',
     countryNameFr: 'Palestine',
     languageNameRaw: 'العربية',
@@ -156,6 +169,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-QA',
+    audioCode: 'ar-XA',
     countryNameRaw: 'قطر',
     countryNameFr: 'Qatar',
     languageNameRaw: 'العربية',
@@ -165,6 +179,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-LB',
+    audioCode: 'ar-XA',
     countryNameRaw: 'لبنان',
     countryNameFr: 'Liban',
     languageNameRaw: 'العربية',
@@ -174,6 +189,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-EG',
+    audioCode: 'ar-XA',
     countryNameRaw: 'مصر',
     countryNameFr: 'Egypte',
     languageNameRaw: 'العربية',
@@ -183,6 +199,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'fa-IR',
+    audioCode: 'fa-IR',
     countryNameRaw: 'ایران',
     countryNameFr: 'Iran',
     languageNameRaw: 'فارسی',
@@ -192,6 +209,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'fr-FR',
+    audioCode: 'fr-FR',
     countryNameRaw: 'France',
     countryNameFr: 'France',
     languageNameRaw: 'Français',
@@ -201,6 +219,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-GB',
+    audioCode: 'en-GB',
     countryNameRaw: 'United Kingdom',
     countryNameFr: 'Royaume-Uni',
     languageNameRaw: 'English',
@@ -210,6 +229,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'es-ES',
+    audioCode: 'es-ES',
     countryNameRaw: 'España',
     countryNameFr: 'Espagne',
     languageNameRaw: 'Español',
@@ -219,6 +239,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'zh-ZH',
+    audioCode: 'cmn-CN',
     countryNameRaw: '中国大陆',
     countryNameFr: 'Chine',
     languageNameRaw: '普通话',
@@ -228,6 +249,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'zh-HK',
+    audioCode: 'yue-Hant-HK',
     countryNameRaw: '香港',
     countryNameFr: 'Hong-Kong',
     languageNameRaw: '普通话',
@@ -237,6 +259,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-AU',
+    audioCode: 'en-GB',
     countryNameRaw: 'Australia',
     countryNameFr: 'Australie',
     languageNameRaw: 'English',
@@ -246,6 +269,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-GH',
+    audioCode: 'en-GB',
     countryNameRaw: 'Ghana',
     countryNameFr: 'Ghana',
     languageNameRaw: 'English',
@@ -255,6 +279,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-CA',
+    audioCode: 'en-US',
     countryNameRaw: 'Canada',
     countryNameFr: 'Canada-Uni',
     languageNameRaw: 'English',
@@ -264,6 +289,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-IN',
+    audioCode: 'en-IN',
     countryNameRaw: 'India',
     countryNameFr: 'Inde',
     languageNameRaw: 'English',
@@ -273,6 +299,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-ZA',
+    audioCode: 'en-GB',
     countryNameRaw: 'South Africa',
     countryNameFr: 'Afrique du Sud',
     languageNameRaw: 'English',
@@ -282,6 +309,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-IE',
+    audioCode: 'en-GB',
     countryNameRaw: 'Ireland',
     countryNameFr: 'Irelande',
     languageNameRaw: 'English',
@@ -291,6 +319,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-KE',
+    audioCode: 'en-GB',
     countryNameRaw: 'Kenya',
     countryNameFr: 'Kenya',
     languageNameRaw: 'English',
@@ -300,6 +329,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-NZ',
+    audioCode: 'en-GB',
     countryNameRaw: 'New Zealand',
     countryNameFr: 'Nouvelle-Zélande',
     languageNameRaw: 'English',
@@ -309,6 +339,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-SG',
+    audioCode: 'en-GB',
     countryNameRaw: 'Singapore',
     countryNameFr: 'Singapour',
     languageNameRaw: 'English',
@@ -318,6 +349,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-PH',
+    audioCode: 'en-GB',
     countryNameRaw: 'Philippines',
     countryNameFr: 'Philippines',
     languageNameRaw: 'English',
@@ -327,6 +359,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-NG',
+    audioCode: 'en-GB',
     countryNameRaw: 'Nigeria',
     countryNameFr: 'Nigeria',
     languageNameRaw: 'English',
@@ -336,6 +369,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-TZ',
+    audioCode: 'en-GB',
     countryNameRaw: 'Tanzania',
     countryNameFr: 'Tanzanie',
     languageNameRaw: 'English',
@@ -344,7 +378,7 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: ENGLISH,
   },
   {
-    isoCode: 'us-US',
+    isoCode: 'en-US',
     countryNameRaw: 'United-States',
     countryNameFr: 'Etats-Unis',
     languageNameRaw: 'English',
@@ -354,6 +388,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'bn-BD',
+    audioCode: 'bn-BD',
     countryNameRaw: 'বাংলাদেশ',
     countryNameFr: 'Bangladesh',
     languageNameRaw: 'বাংলা',
@@ -363,6 +398,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'bn-IN',
+    audioCode: 'bn-IN',
     countryNameRaw: 'ভারত',
     countryNameFr: 'Inde',
     languageNameRaw: 'Bengali',
@@ -372,6 +408,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'fa-AF',
+    audioCode: 'fa-AF',
     countryNameRaw: 'افغانستان',
     countryNameFr: 'Afghanistan',
     languageNameFr: 'Dari',
@@ -381,6 +418,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ps-AF',
+    audioCode: 'ps-AF',
     countryNameRaw: 'افغانستان',
     countryNameFr: 'Afghanistan',
     languageNameFr: 'Pachto',
@@ -390,6 +428,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ur-PK',
+    audioCode: 'ur-PK',
     countryNameRaw: 'پاکستان',
     countryNameFr: 'Pakistan',
     languageNameFr: 'Ourdou',
@@ -399,6 +438,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'pt-PT',
+    audioCode: 'pt-PT',
     countryNameRaw: 'Portugal',
     countryNameFr: 'Portugal',
     languageNameFr: 'Portugais',
@@ -408,6 +448,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'tr-TR',
+    audioCode: 'tr-TR',
     countryNameRaw: 'Türkiye',
     countryNameFr: 'Turquie',
     languageNameFr: 'Turc',
@@ -417,6 +458,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'de-DE',
+    audioCode: 'de-DE',
     countryNameRaw: 'Deutschland',
     countryNameFr: 'Allemagne',
     languageNameFr: 'Allemand',
@@ -426,6 +468,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'am-ET',
+    audioCode: 'am-ET',
     countryNameRaw: 'ኢትዮጵያ',
     countryNameFr: 'Ethiopie',
     languageNameFr: 'Amharique',
@@ -435,6 +478,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'km-KH',
+    audioCode: 'km-KH',
     countryNameRaw: 'កម្ពុជា',
     countryNameFr: 'Cambodge',
     languageNameFr: 'Khmer',
@@ -462,6 +506,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'it-IT',
+    audioCode: 'it-IT',
     countryNameRaw: 'Italia',
     countryNameFr: 'Italie',
     languageNameFr: 'Italien',
@@ -489,6 +534,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ru-RU',
+    audioCode: 'ru-RU',
     countryNameRaw: 'Россия',
     countryNameFr: 'Russie',
     languageNameFr: 'Russe',

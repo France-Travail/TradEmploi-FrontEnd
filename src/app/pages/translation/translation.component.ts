@@ -70,7 +70,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   ngOnInit(): void {
-    this.isAudioPlay = true; 
+    this.isAudioPlay = true;
     this.scrollToBottom();
   }
 
@@ -179,16 +179,17 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
   private translateMessage(message: Message) {
     const languageTarget = this.getLanguageTarget(message);
+    const audioLanguageTarget = this.getAudioLanguageTarget(message);
     if (this.isMultiDevices && message.languageOrigin === languageTarget) {
-      this.setTranslateMessage(message, message.text, languageTarget);
+      this.setTranslateMessage(message, message.text, audioLanguageTarget);
     } else {
       this.translateService.translate(message.text, languageTarget).subscribe(async (translate) => {
-        this.setTranslateMessage(message, translate, languageTarget);
+        this.setTranslateMessage(message, translate, audioLanguageTarget);
       });
     }
   }
 
-  private async setTranslateMessage(message: Message, translate, languageTarget: string) {
+  private async setTranslateMessage(message: Message, translate: string, languageTarget: string) {
     message.translation = translate;
     if (this.isAudioPlay) {
       const audio = await this.textToSpeechService.getSpeech(translate, languageTarget);
@@ -224,6 +225,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       return this.user.role === Role.ADVISOR || this.user.role === Role.ADMIN ? this.settingsService.defaultLanguage : this.user.language.written;
     }
     return message.role === Role.ADVISOR || message.role === Role.ADMIN ? this.user.language.written : this.settingsService.defaultLanguage;
+  }
+  private getAudioLanguageTarget(message: Message) {
+    if (this.isMultiDevices) {
+      return this.user.role === Role.ADVISOR || this.user.role === Role.ADMIN ? this.settingsService.defaultLanguage : this.user.language.audio;
+    }
+    return message.role === Role.ADVISOR || message.role === Role.ADMIN ? this.user.language.audio : this.settingsService.defaultLanguage;
   }
 
   private openModal(component, height, disableClose) {
