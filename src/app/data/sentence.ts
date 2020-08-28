@@ -2,8 +2,8 @@ import { Sentence, NavbarTab } from '../models/vocabulary';
 
 export const NAVBAR_ENGLISH_TABS: NavbarTab = {
   language: 'language',
-  logout: 'logout'
-}
+  logout: 'logout',
+};
 
 export const HEBREW: Sentence = {
   applicationName: 'תרגום מיידי',
@@ -21,7 +21,7 @@ export const HEBREW: Sentence = {
     understand: 'האם כלי זה עזר לנו להבין אחד את השני?',
     comment: 'תגובה חינם',
     offerLinked: 'האם מושא חילופי דברים זה קשור לשירותים המוצעים על ידי Pôle Emploi?',
-  }
+  },
 };
 
 export const ARAB: Sentence = {
@@ -42,7 +42,7 @@ export const ARAB: Sentence = {
     understand: 'هل تسمح لك هذه الأداة بالحوار بسهولة مع المحاور؟',
     comment: 'تعليق مجاني',
     offerLinked: 'هل موضوع هذا التبادل مرتبط بالخدمات التي يقدمها Pôle Emploi؟',
-  }
+  },
 };
 
 export const FRENCH: Sentence = {
@@ -61,7 +61,7 @@ export const FRENCH: Sentence = {
     understand: 'Est-ce que cet outil vous a permis de dialoguer facilement avec votre interlocuteur ?',
     comment: 'Commentaire libre',
     offerLinked: 'Est-ce que l’objet de cet échange est lié à l’offre de services de Pôle Emploi ?',
-  }
+  },
 };
 
 export const ENGLISH: Sentence = {
@@ -82,7 +82,7 @@ export const ENGLISH: Sentence = {
     understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
     comment: 'Free Comment',
     offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
-  }
+  },
 };
 
 export const SPANNISH: Sentence = {
@@ -104,10 +104,11 @@ export const SPANNISH: Sentence = {
     understand: '¿Esta herramienta nos ayudó a entendernos?',
     comment: 'Comentario gratis',
     offerLinked: '¿El objeto de este intercambio está vinculado a los servicios ofrecidos por Pôle Emploi?',
-  }
+  },
 };
 
 export const MADARIN: Sentence = {
+  audioSupported: true,
   applicationName: '即時翻譯',
   send: '發送',
   translate: '翻譯',
@@ -123,8 +124,8 @@ export const MADARIN: Sentence = {
     easyToUse: '这个工具好用吗？',
     understand: '此工具是否有助于我们彼此了解？',
     comment: '自由评论',
-    offerLinked:'交换对象是否与PôleEmploi提供的服务相关？'
-  }
+    offerLinked: '交换对象是否与PôleEmploi提供的服务相关？',
+  },
 };
 
 export const BENGALI: Sentence = {
@@ -144,8 +145,8 @@ export const BENGALI: Sentence = {
     easyToUse: 'এই সরঞ্জামটি কি সহজে ব্যবহার করা যায়?',
     understand: 'এই সরঞ্জামটি কি আপনাকে সহজেই আপনার কথোপকথকের সাথে কথোপকথনের অনুমতি দেয়?',
     comment: 'ফ্রি মন্তব্য',
-    offerLinked:'এই এক্সচেঞ্জের বিষয়টি কি পলে কর্মী দ্বারা প্রদত্ত পরিষেবাদির সাথে যুক্ত?'
-  }
+    offerLinked: 'এই এক্সচেঞ্জের বিষয়টি কি পলে কর্মী দ্বারা প্রদত্ত পরিষেবাদির সাথে যুক্ত?',
+  },
 };
 
 export const DARI: Sentence = {
@@ -163,8 +164,8 @@ export const DARI: Sentence = {
     easyToUse: 'آیا این ابزار آسان است؟',
     understand: 'آیا این ابزار به شما امکان می دهد تا به راحتی با گفتگوی خود گفتگو کنید؟',
     comment: 'نظر رایگان',
-    offerLinked:'آیا موضوع این مبادله با خدمات ارائه شده توسط Pôle Emploi مرتبط است؟'
-  }
+    offerLinked: 'آیا موضوع این مبادله با خدمات ارائه شده توسط Pôle Emploi مرتبط است؟',
+  },
 };
 
 export const PACHTO: Sentence = {
@@ -185,8 +186,8 @@ export const PACHTO: Sentence = {
     easyToUse: 'ایا دا وسیله کارول اسانه ده؟',
     understand: 'ایا دا وسیله تاسو ته اجازه درکوي چې په اسانۍ سره د خپل خبرو اترو سره خبرو اترو ته ورشئ؟',
     comment: 'وړیا نظر',
-    offerLinked:'ایا د دې تبادلې مقصود د پال انګار لخوا وړاندیز شوي خدماتو سره تړاو لري؟'
-  }
+    offerLinked: 'ایا د دې تبادلې مقصود د پال انګار لخوا وړاندیز شوي خدماتو سره تړاو لري؟',
+  },
 };
 
 export const OURDOU: Sentence = {
@@ -206,7 +207,7 @@ export const OURDOU: Sentence = {
     understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
     comment: 'Free Comment',
     offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
-  }
+  },
 };
 
 export const PORTUGUESE: Sentence = {
@@ -229,7 +230,7 @@ export const PORTUGUESE: Sentence = {
     understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
     comment: 'Free Comment',
     offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
-  }
+  },
 };
 
 export const GERMAN: Sentence = {
@@ -252,7 +253,7 @@ export const GERMAN: Sentence = {
     understand: 'Konnten Sie mit diesem Tool problemlos mit Ihrem Gesprächspartner sprechen?',
     comment: 'Kostenloser Kommentar',
     offerLinked: 'Ist der Gegenstand dieses Austauschs mit den von Pôle Emploi angebotenen Dienstleistungen verbunden?',
-  }
+  },
 };
 
 export const TURC: Sentence = {
@@ -272,8 +273,8 @@ export const TURC: Sentence = {
     easyToUse: 'Is this tool easy to use?',
     understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
     comment: 'Free Comment',
-    offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?'
-  }
+    offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
+  },
 };
 
 export const AMHARIC: Sentence = {
@@ -293,7 +294,7 @@ export const AMHARIC: Sentence = {
     understand: 'ይህ መሣሪያ ከአገናኝዎ ጋር በቀላሉ እንዲወያዩ ይፈቅድልዎታል?',
     comment: 'ነፃ አስተያየት',
     offerLinked: 'የዚህ ልውውጥ ነገር በፔሌ አራይ ከሚሰጡት አገልግሎቶች ጋር የተገናኘ ነው?',
-  }
+  },
 };
 
 export const KHMER: Sentence = {
@@ -313,7 +314,7 @@ export const KHMER: Sentence = {
     understand: 'តើឧបករណ៍នេះអនុញ្ញាតឱ្យអ្នកងាយស្រួលក្នុងការសន្ទនាជាមួយអ្នករួមការងាររបស់អ្នកទេ?',
     comment: 'មតិយោបល់ដោយឥតគិតថ្លៃ',
     offerLinked: 'តើកម្មវត្ថុនៃការផ្លាស់ប្តូរនេះមានជាប់ទាក់ទងនឹងសេវាកម្មដែលផ្តល់ដោយផេមអេមផៃដែរឬទេ?',
-  }
+  },
 };
 
 export const HINDI: Sentence = {
@@ -333,7 +334,7 @@ export const HINDI: Sentence = {
     understand: 'क्या इस टूल ने आपको अपने वार्ताकार के साथ आसानी से संवाद करने की अनुमति दी?',
     comment: 'नि: शुल्क टिप्पणी',
     offerLinked: 'क्या इस एक्सचेंज का उद्देश्य पोले एम्पलोई द्वारा दी गई सेवाओं से जुड़ा है?',
-  }
+  },
 };
 
 export const TAMOUL: Sentence = {
@@ -353,7 +354,7 @@ export const TAMOUL: Sentence = {
     understand: 'இந்த கருவி உங்கள் உரையாசிரியருடன் எளிதாக உரையாட அனுமதித்ததா?',
     comment: 'இலவச கருத்து',
     offerLinked: 'இந்த பரிமாற்றத்தின் பொருள் பால் எம்ப்ளாய் வழங்கும் சேவைகளுடன் இணைக்கப்பட்டுள்ளதா?',
-  }
+  },
 };
 
 export const ITALIAN: Sentence = {
@@ -375,8 +376,8 @@ export const ITALIAN: Sentence = {
     easyToUse: 'Questo strumento è facile da usare?',
     understand: 'Questo strumento ti ha permesso di dialogare facilmente con il tuo interlocutore?',
     comment: 'Commento gratuito',
-    offerLinked: 'L\'oggetto di questo scambio è collegato ai servizi offerti da Pôle Emploi?',
-  }
+    offerLinked: "L'oggetto di questo scambio è collegato ai servizi offerti da Pôle Emploi?",
+  },
 };
 
 export const MONGOL: Sentence = {
@@ -396,7 +397,7 @@ export const MONGOL: Sentence = {
     understand: 'Энэ хэрэгсэл нь ярилцагчтайгаа амархан ярилцах боломжийг олгосон уу?',
     comment: 'Үнэгүй сэтгэгдэл',
     offerLinked: 'Энэхүү солилцооны объект нь Поэль Эмплойгийн санал болгож буй үйлчилгээнүүдтэй холбоотой юу?',
-  }
+  },
 };
 
 export const NEPALESE: Sentence = {
@@ -416,7 +417,7 @@ export const NEPALESE: Sentence = {
     understand: 'के यस उपकरणले तपाईंलाई सजिलैसँग तपाइँको वार्तालापकर्तासँग वार्तालाप गर्न अनुमति दियो?',
     comment: 'नि: शुल्क टिप्पणी',
     offerLinked: 'के यो एक्सचेन्जको वस्तु पोले एम्पलईले प्रस्ताव गरेको सेवाहरूसँग जोडिएको छ?',
-  }
+  },
 };
 
 export const RUSSIA: Sentence = {
@@ -439,7 +440,7 @@ export const RUSSIA: Sentence = {
     understand: 'Этот инструмент позволил вам легко общаться с вашим собеседником?',
     comment: 'Бесплатный комментарий',
     offerLinked: 'Связан ли объект этого обмена с услугами, предлагаемыми Pôle Emploi?',
-  }
+  },
 };
 
 export const OUZBEK: Sentence = {
@@ -458,8 +459,8 @@ export const OUZBEK: Sentence = {
     easyToUse: 'Ushbu vositadan foydalanish osonmi?',
     understand: 'Ushbu vosita suhbatdoshingiz bilan osongina suhbatlashishga imkon berdimi?',
     comment: 'Bepul sharh',
-    offerLinked: 'Ushbu almashish ob\'ekti Pôle Emploi tomonidan taklif qilinadigan xizmatlar bilan bog\'liqmi?',
-  }
+    offerLinked: "Ushbu almashish ob'ekti Pôle Emploi tomonidan taklif qilinadigan xizmatlar bilan bog'liqmi?",
+  },
 };
 
 export const ROMANIAN: Sentence = {
@@ -479,7 +480,7 @@ export const ROMANIAN: Sentence = {
     understand: 'Acest instrument v-a permis să dialogați cu interlocutorul cu ușurință?',
     comment: 'Comentariu gratuit',
     offerLinked: 'Obiectul acestui schimb este legat de serviciile oferite de Pôle Emploi?',
-  }
+  },
 };
 
 export const SOMALI: Sentence = {
@@ -499,7 +500,7 @@ export const SOMALI: Sentence = {
     understand: 'Qalabkani miyaa kuu ogolaaday inaad si fudud ulahadasho qofka aad isweydaarsaneyso?',
     comment: 'Faallo Bilaash ah',
     offerLinked: 'Shayga isweydaarsiga ma wuxuu ku xiran yahay adeegyada ay bixiso Pôle Emploi?',
-  }
+  },
 };
 
 export const VIETNAMESE: Sentence = {
@@ -520,7 +521,7 @@ export const VIETNAMESE: Sentence = {
     understand: 'Công cụ này có cho phép bạn dễ dàng đối thoại với người đối thoại của bạn không?',
     comment: 'Bình luận miễn phí',
     offerLinked: 'Là đối tượng của trao đổi này được liên kết với các dịch vụ được cung cấp bởi Pôle Emploi?',
-  }
+  },
 };
 
 export const PERSAN: Sentence = {
@@ -541,7 +542,7 @@ export const PERSAN: Sentence = {
     understand: 'آیا این ابزار به شما امکان می دهد تا به راحتی با گفتگوی خود گفتگو کنید؟',
     comment: 'نظر رایگان',
     offerLinked: 'آیا موضوع این مبادله با خدمات ارائه شده توسط Pôle Emploi مرتبط است؟',
-  }
+  },
 };
 
 export const GREEK: Sentence = {
@@ -560,5 +561,5 @@ export const GREEK: Sentence = {
     understand: 'Σας επέτρεψε αυτό το εργαλείο να συνομιλείτε εύκολα με τον συνομιλητή σας;',
     comment: 'Δωρεάν σχόλιο',
     offerLinked: 'Συνδέεται το αντικείμενο αυτής της ανταλλαγής με τις υπηρεσίες που προσφέρει η Pôle Emploi;',
-  }
+  },
 };

@@ -27,13 +27,13 @@ import {
   SOMALI,
   VIETNAMESE,
   GREEK,
-  NAVBAR_ENGLISH_TABS
+  NAVBAR_ENGLISH_TABS,
 } from './sentence';
 
 export const VOCABULARY_DEFAULT: Vocabulary = {
   isoCode: 'default',
   sentences: ENGLISH,
-  navbarTabs: NAVBAR_ENGLISH_TABS
+  navbarTabs: NAVBAR_ENGLISH_TABS,
 };
 
 export const VOCABULARY: Vocabulary[] = [
@@ -44,7 +44,16 @@ export const VOCABULARY: Vocabulary[] = [
     languageNameRaw: 'עברי',
     languageNameFr: 'Hébreu',
     flag: 'IL',
-    sentences: HEBREW
+    sentences: HEBREW,
+  },
+  {
+    isoCode: 'ar-DZ',
+    countryNameRaw: 'الجزائر',
+    countryNameFr: 'Algérie',
+    languageNameRaw: 'العربية',
+    languageNameFr: 'Arabe',
+    flag: 'DZ',
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-JO',
@@ -531,5 +540,5 @@ export const VOCABULARY: Vocabulary[] = [
     languageNameRaw: 'Ελληνικά',
     flag: 'GR',
     sentences: GREEK,
-  }
+  },
 ];
