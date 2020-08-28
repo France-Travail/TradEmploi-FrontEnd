@@ -85,7 +85,7 @@ export const ENGLISH: Sentence = {
   },
 };
 
-export const SPANNISH: Sentence = {
+export const SPANISH: Sentence = {
   audioSupported: true,
   applicationName: 'Traducción instantánea',
   send: 'Enviar a',
@@ -107,7 +107,7 @@ export const SPANNISH: Sentence = {
   },
 };
 
-export const MADARIN: Sentence = {
+export const MANDARIN: Sentence = {
   audioSupported: true,
   applicationName: '即時翻譯',
   send: '發送',

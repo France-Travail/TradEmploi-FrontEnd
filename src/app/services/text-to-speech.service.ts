@@ -43,7 +43,7 @@ export class TextToSpeechService {
   constructor(private httpClient: HttpClient, private voicesService: VoicesService) {}
 
   public async getSpeech(text: string, language: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const url = `${this.url}?key=${environment.gcp.apiKey}`;
       const names: Voice[] = [];
 

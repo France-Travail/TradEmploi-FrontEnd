@@ -4,11 +4,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { VoicesService } from 'src/app/services/voices.service';
-import { TranslateService } from 'src/app/services/translate.service';
-import { COUNTRIES } from 'src/app/data/countries';
 import { Language } from 'src/app/models/language';
 import { SettingsService } from 'src/app/services/settings.service';
-
+import { VOCABULARY } from 'src/app/data/vocabulary';
+import { Vocabulary } from 'src/app/models/vocabulary';
 export interface Countries {
   country: string;
   traduction: string;
@@ -24,16 +23,16 @@ export interface Countries {
 })
 export class LanguagesComponent implements OnInit {
   public displayedColumns: string[] = ['country', 'flag', 'traduction', 'language'];
-  public countries: Countries[] = COUNTRIES;
-  public dataCountriesSource: MatTableDataSource<Countries> = new MatTableDataSource(this.countries);
+  public countries: Vocabulary[] = VOCABULARY;
+  public dataCountriesSource: MatTableDataSource<Vocabulary> = new MatTableDataSource(this.countries);
 
   @ViewChild(MatSort, { static: true }) sorting: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(public dialogRef: MatDialogRef<LanguagesComponent>, private translateService: TranslateService, private voicesService: VoicesService, private settingsService: SettingsService) {}
+  constructor(public dialogRef: MatDialogRef<LanguagesComponent>, private voicesService: VoicesService, private settingsService: SettingsService) {}
   ngOnInit() {
     this.sorting.direction = 'asc';
-    this.sorting.active = 'traduction';
+    this.sorting.active = 'countryNameFr';
     this.dataCountriesSource.sort = this.sorting;
     this.dataCountriesSource.paginator = this.paginator;
   }
@@ -45,11 +44,10 @@ export class LanguagesComponent implements OnInit {
     this.dialogRef.close('closed');
   }
 
-  public chooseLanguage(SelectedCountry: string) {
-    const voice = this.countries.filter((country) => country.country === SelectedCountry)[0];
-    this.voicesService.guest = voice.code;
-    this.settingsService.user.next({...this.settingsService.user.value, language:{ audio:voice.code.audio, written: voice.code.written} })
-    
+  public chooseLanguage(selectedCountry: string) {
+    const voice = this.countries.filter((country) => country.countryNameFr === selectedCountry)[0];
+    this.voicesService.guest = { audio: voice.audioCode, written: voice.isoCode };
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: voice.audioCode, written: voice.isoCode } });
     this.dialogRef.close('chosen');
   }
 }
