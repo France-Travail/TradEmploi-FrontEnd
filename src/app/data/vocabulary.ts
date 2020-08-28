@@ -832,7 +832,7 @@ export const VOCABULARY: Vocabulary[] = [
   { isoCode: 'te-IN', audioCode: 'te-IN', countryNameRaw: 'భారతదేశం', countryNameFr: 'Inde', flag: 'IN', languageNameRaw: 'తెలుగు', languageNameFr: 'Télougou', sentences: ENGLISH },
   { isoCode: 'vi-VN', audioCode: 'vi-VN', countryNameRaw: 'Việt Nam', countryNameFr: 'Vietnam', flag: 'VN', languageNameRaw: 'Tiếng Việt', languageNameFr: 'Vietnamien', sentences: VIETNAMESE },
   { isoCode: 'tr-TR', audioCode: 'tr-TR', countryNameRaw: 'Türkiye', countryNameFr: 'Turquie', flag: 'TR', languageNameRaw: 'Türkçe', languageNameFr: 'Turc', sentences: TURC },
-  { isoCode: 'ur-PK', audioCode: 'ur-PK', countryNameRaw: 'پاکستان', countryNameFr: 'Pakistan', flag: 'PK', languageNameRaw: 'اردو', languageNameFr: 'Ourdou', sentences: OURDOU },
+  { isoCode: 'en-PK', audioCode: 'en-GB', countryNameRaw: 'Pakistan', countryNameFr: 'Pakistan', flag: 'PK', languageNameRaw: 'English', languageNameFr: 'Anglais', sentences: ENGLISH },
   { isoCode: 'ur-IN', audioCode: 'ur-IN', countryNameRaw: 'بھارت', countryNameFr: 'Inde', flag: 'IN', languageNameRaw: 'اردو', languageNameFr: 'Ourdou', sentences: OURDOU },
   { isoCode: 'bg-BG', audioCode: 'bg-BG', countryNameRaw: 'България', countryNameFr: 'Bulgarie', flag: 'BG', languageNameRaw: 'Български', languageNameFr: 'Bulgare', sentences: ENGLISH },
   { isoCode: 'ru-RU', audioCode: 'ru-RU', countryNameRaw: 'Россия', countryNameFr: 'Russie', flag: 'RU', languageNameRaw: 'Русский', languageNameFr: 'Russe', sentences: RUSSIA },
