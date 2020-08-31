@@ -808,12 +808,4 @@ export const VOCABULARY: Vocabulary[] = [
   { isoCode: 'uk-UA', countryNameRaw: 'Україна', countryNameFr: 'Ukraine', languageNameRaw: 'Українська', languageNameFr: 'ukrainien', sentences: ENGLISH },
   { isoCode: 'he-IL', countryNameRaw: 'ישראל', countryNameFr: 'Israël', languageNameRaw: 'עברית', languageNameFr: 'Hébreu', sentences: HEBREW },
 ];
-// {
-//            isoCode: '',
-//            audioCode: '',
-//            countryNameRaw: '',
-//            countryNameFr: '',
-//            languageNameRaw: '',
-//            languageNameFr: '',
-//                     sentences: SPANISH,
-//          },
+
