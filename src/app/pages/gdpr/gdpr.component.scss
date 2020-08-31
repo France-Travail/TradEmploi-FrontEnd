@@ -1,0 +1,58 @@
+@import 'info';
+
+.title{
+    margin-bottom: 0;
+}
+.language{
+    display: flex;
+    justify-content: center;
+}
+::ng-deep .mat-select-value-text{
+    font-size:15px;
+    color:$primary-color;
+}
+
+::ng-deep .mat-form-field-infix{
+    width: 70px !important;
+}
+
+::ng-deep .mat-select-arrow {
+    color:$primary-color;
+}
+
+::ng-deep .mat-form-field-underline {
+    display: none;
+}
+
+.pivacy{
+    overflow-y: auto;
+    height: 150px;
+    font-size: 15px;
+    white-space: pre-wrap;
+}
+.action{
+    display: flex;
+    button {
+        width: 170px;
+    }
+    .options{
+        background-color: $white-smoke;
+        color: black;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .action{
+        button {
+            width: 150px;
+        }
+    }
+}
+
+@media (max-width: 576px) { 
+    .action{
+        button {
+            width: 120px;
+        }
+    }
+}

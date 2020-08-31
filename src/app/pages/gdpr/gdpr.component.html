@@ -1,0 +1,21 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="title">
+    <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
+    <h1 class="t2">Privacity setting</h1>
+    <p class="t3">Access to <span class="text-app">instant translation service</span></p>
+  </div>
+  <div class="language">
+    <mat-form-field>
+      <mat-select [(value)]="selected">
+        <mat-option value="option1">English</mat-option>
+        <mat-option value="option2">French</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="pivacy">{{ privacyText }}</div>
+  <div class="action">
+    <button class="options" type="submit" [disabled]="form.invalid">DISAGREE</button>
+    <button class="options" type="submit" [disabled]="form.invalid">MORE OPTIONS</button>
+    <button type="submit" [disabled]="form.invalid">AGREE</button>
+  </div>
+</form>

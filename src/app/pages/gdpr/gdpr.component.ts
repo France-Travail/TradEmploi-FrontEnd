@@ -10,14 +10,17 @@ import { NavbarService } from 'src/app/services/navbar.service';
 import { Member } from 'src/app/models/db/member';
 
 @Component({
-  selector: 'app-anonymous',
-  templateUrl: './anonymous.component.html',
-  styleUrls: ['../../../sass/info.scss'],
+  selector: 'app-gdpr',
+  templateUrl: './gdpr.component.html',
+  styleUrls: ['./gdpr.component.scss'],
 })
-export class AnonymousComponent {
+export class GdprComponent {
   public form: FormGroup;
-  private roomId: string;
+  public privacyText: string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac dolor sollicitudin, vestibulum nunc at, tristique velit. Vivamus tempor ligula dolor, id cursus leo feugiat sodales. Phasellus consequat lectus quis vestibulum iaculis. Vivamus luctus pharetra nunc non gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean placerat sem vel pharetra facilisis. Proin aliquet libero nec arcu condimentum finibus. Sed venenatis sagittis lacus, sed suscipit lorem faucibus at. Nulla facilisi. Praesent efficitur blandit tortor quis congue. Pellentesque nec diam feugiat nulla semper faucibus. Donec hendrerit elementum ex id rhoncus.\nSed lobortis ante at nisi mollis sollicitudin. Nulla pharetra sollicitudin tortor sed pretium. Nulla tempus elit vitae lacus porttitor molestie. Nulla diam nisl, luctus sed nunc vel, aliquam euismod est. Nunc tempus sapien non elit sodales, non malesuada neque tempus. Ut libero ex, tincidunt ut diam eget, gravida vehicula tortor. Duis et iaculis odio. Pellentesque mollis risus nec nulla imperdiet, ut scelerisque nunc accumsan."
 
+  public selected = 'option1';
+
+  private roomId: string;
   constructor(
     private authService: AuthService,
     private router: Router,

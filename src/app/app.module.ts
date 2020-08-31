@@ -55,6 +55,7 @@ import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rat
 import { SentryErrorHandler } from './utils/sentry-error-handler';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { AnonymousComponent } from './pages/anonymous/anonymous.component';
+import { GdprComponent } from './pages/gdpr/gdpr.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NavbarService } from './services/navbar.service';
 import { ChatMultiDevicesComponent } from './pages/translation/components/chat-multi-devices/chat-multi-devices.component';
@@ -78,6 +79,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     LogoutComponent,
     AuthenticationComponent,
     AnonymousComponent,
+    GdprComponent,
     ChatComponent,
     ChatMultiDevicesComponent,
     ShareComponent,
