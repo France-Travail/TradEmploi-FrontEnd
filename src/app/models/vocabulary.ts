@@ -6,7 +6,8 @@ export interface Vocabulary {
   languageNameFr?: string;
   flag?: string;
   sentences: Sentence;
-  navbarTabs?: NavbarTab
+  navbarTabs?: NavbarTab;
+  audioCode?: string;
 }
 export interface Sentence {
   applicationName: string;
