@@ -40,10 +40,10 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'ar-IL',
     audioCode: 'ar-XA',
-    countryNameRaw: 'ישראל',
+    countryNameRaw: 'إسرائيل',
     countryNameFr: 'Israël',
     languageNameRaw: 'العربية',
-    languageNameFr: 'Hébreu',
+    languageNameFr: 'Arabe',
     flag: 'IL',
     sentences: ARAB,
   },

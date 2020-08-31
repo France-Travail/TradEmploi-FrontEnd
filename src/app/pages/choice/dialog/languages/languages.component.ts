@@ -4,18 +4,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { VoicesService } from 'src/app/services/voices.service';
-import { Language } from 'src/app/models/language';
 import { SettingsService } from 'src/app/services/settings.service';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { Vocabulary } from 'src/app/models/vocabulary';
-export interface Countries {
-  country: string;
-  traduction: string;
-  flag: string;
-  LanguageFr: string;
-  code: Language;
-  language: string;
-}
+
 @Component({
   selector: 'app-languages',
   templateUrl: './languages.component.html',
