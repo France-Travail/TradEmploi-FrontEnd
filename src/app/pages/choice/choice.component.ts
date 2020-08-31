@@ -11,6 +11,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
 import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
 import { Observable } from 'rxjs';
+import { Vocabulary } from 'src/app/models/vocabulary';
 
 @Component({
   selector: 'app-choice',
@@ -49,16 +50,18 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     this.navService.show();
   }
 
-  public selectLanguage(audio: string, written: string): void {
-    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audio, written: written } });
+  public selectLanguage(item: Vocabulary): void {
+    const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode } });
     this.router.navigate(['translation']);
   }
 
   public showMainLanguages(): void {
     this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country));
   }
-  async audioDescription(message: string, lang: string) {
-    const audio = await this.textToSpeechService.getSpeech(message, lang);
+  async audioDescription(item: Vocabulary) {
+    let audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
+    const audio = await this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage);
     if (audio) {
       this.textToSpeechService.audioSpeech.play();
     }
