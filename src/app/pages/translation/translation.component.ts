@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
 import { EndComponent } from './dialogs/end/end.component';
 import { CryptService } from 'src/app/services/crypt.service';
+import { Language } from 'src/app/models/language';
 
 @Component({
   selector: 'app-translation',
@@ -178,13 +179,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     });
   }
   private translateMessage(message: Message) {
-    const languageTarget = this.getLanguageTarget(message);
-    const audioLanguageTarget = this.getAudioLanguageTarget(message);
-    if (this.isMultiDevices && message.languageOrigin === languageTarget) {
-      this.setTranslateMessage(message, message.text, audioLanguageTarget);
+    const languageTarget: Language = this.getLanguageTarget(message);
+    if (this.isMultiDevices && message.languageOrigin === languageTarget.written) {
+      this.setTranslateMessage(message, message.text, languageTarget.audio);
     } else {
-      this.translateService.translate(message.text, languageTarget).subscribe(async (translate) => {
-        this.setTranslateMessage(message, translate, audioLanguageTarget);
+      this.translateService.translate(message.text, languageTarget.written).subscribe(async (translate) => {
+        this.setTranslateMessage(message, translate, languageTarget.audio);
       });
     }
   }
@@ -220,17 +220,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
   }
 
-  private getLanguageTarget(message: Message) {
+  private getLanguageTarget(message: Message): Language {
     if (this.isMultiDevices) {
-      return this.user.role === Role.ADVISOR || this.user.role === Role.ADMIN ? this.settingsService.defaultLanguage : this.user.language.written;
+      return this.user.role === Role.ADVISOR || this.user.role === Role.ADMIN ? this.settingsService.defaultLanguage : this.user.language;
     }
-    return message.role === Role.ADVISOR || message.role === Role.ADMIN ? this.user.language.written : this.settingsService.defaultLanguage;
-  }
-  private getAudioLanguageTarget(message: Message) {
-    if (this.isMultiDevices) {
-      return this.user.role === Role.ADVISOR || this.user.role === Role.ADMIN ? this.settingsService.defaultLanguage : this.user.language.audio;
-    }
-    return message.role === Role.ADVISOR || message.role === Role.ADMIN ? this.user.language.audio : this.settingsService.defaultLanguage;
+    return message.role === Role.ADVISOR || message.role === Role.ADMIN ? this.user.language : this.settingsService.defaultLanguage;
   }
 
   private openModal(component, height, disableClose) {

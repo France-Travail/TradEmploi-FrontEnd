@@ -54,14 +54,12 @@ export class MessageWrapperComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage : this.settingsService.user.value.language.written;
+    this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
     const data = isLanguageExist || this.role === Role.ADVISOR ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     this.title = data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
     this.flag = data.flag.toLowerCase();
-    // ou
-    // this.flag = data.isoCode.split('-')[1].toLowerCase();
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });

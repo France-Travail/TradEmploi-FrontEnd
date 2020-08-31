@@ -1,10 +1,10 @@
 export interface Vocabulary {
   isoCode: string;
   countryNameRaw?: any;
+  flag?: string;
   countryNameFr?: string;
   languageNameRaw?: string;
   languageNameFr?: string;
-  flag?: string;
   sentences: Sentence;
   navbarTabs?: NavbarTab;
   audioCode?: string;
