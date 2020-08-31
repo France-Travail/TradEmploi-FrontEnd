@@ -59,7 +59,7 @@ export class MessageWrapperComponent implements OnInit {
     const data = isLanguageExist || this.role === Role.ADVISOR ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     this.title = data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
-    this.flag = data.flag.toLowerCase();
+    this.flag = data.isoCode.split('-')[1].toLowerCase();
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });

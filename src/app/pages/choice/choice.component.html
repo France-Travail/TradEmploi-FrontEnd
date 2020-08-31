@@ -11,8 +11,8 @@
       <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="audioDescription(item.sentences.readedWelcome, item.audioCode)"></div>
     </div>
     <div class="selectLanguageButton" (click)="selectLanguage(item.audioCode, item.isoCode)">
-      <span *ngIf="item.flag !== 'arabic'" class="flag-icon flag-icon-{{ item.flag.toLowerCase() }}"></span>
-      <img *ngIf="item.flag === 'arabic'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag" />
+      <span *ngIf="item.isoCode!== 'ar-XA'" class="flag-icon flag-icon-{{ isoCodeToFlag(item.isoCode) }}"></span>
+      <img *ngIf="item.isoCode=== 'ar-XA'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag" />
       <div class="sentences">
         <div class="buttonSentenceFR">
           <strong>{{ item.sentences.languageButtonFR.toUpperCase() }}</strong>

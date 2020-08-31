@@ -19,7 +19,7 @@ import { Observable } from 'rxjs';
 })
 export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate {
   public selectedCountriesData = [];
-  public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU'];
+  public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
   public toolTips: string[] = ['Autres langues'];
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
@@ -89,7 +89,9 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     }
     return true;
   }
-
+  public isoCodeToFlag(isoCode: string) {
+    return isoCode.split('-')[1].toLowerCase();
+  }
   private endConversation(roomId: string) {
     this.chatService.getChatStatus(roomId).subscribe((active) => {
       if (active !== null && !active) {

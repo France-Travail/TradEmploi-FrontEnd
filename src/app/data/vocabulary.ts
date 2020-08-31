@@ -44,7 +44,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Israël',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'IL',
     sentences: ARAB,
   },
   {
@@ -54,7 +53,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Algérie',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'DZ',
     sentences: ARAB,
   },
   {
@@ -64,7 +62,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Jordanie',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'JO',
     sentences: ARAB,
   },
   {
@@ -74,7 +71,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Emirats Arabes Unis',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'AE',
     sentences: ARAB,
   },
   {
@@ -84,7 +80,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Bahreïn',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'BH',
     sentences: ARAB,
   },
   {
@@ -94,7 +89,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Pays arabes',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'arabic',
     sentences: ARAB,
   },
   {
@@ -104,7 +98,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Arabie Saoudite',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'SA',
     sentences: ARAB,
   },
   {
@@ -114,7 +107,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Irak',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'IQ',
     sentences: ARAB,
   },
   {
@@ -124,7 +116,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Koweït',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'KW',
     sentences: ARAB,
   },
   {
@@ -134,7 +125,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Maroc',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'MA',
     sentences: ARAB,
   },
   {
@@ -144,7 +134,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Tunisie',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'TN',
     sentences: ARAB,
   },
   {
@@ -154,7 +143,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Oman',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'OM',
     sentences: ARAB,
   },
   {
@@ -164,7 +152,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Palestine',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'PS',
     sentences: ARAB,
   },
   {
@@ -174,7 +161,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Qatar',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'QA',
     sentences: ARAB,
   },
   {
@@ -184,7 +170,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Liban',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'LB',
     sentences: ARAB,
   },
   {
@@ -194,7 +179,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Egypte',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'EG',
     sentences: ARAB,
   },
   {
@@ -204,7 +188,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Iran',
     languageNameRaw: 'فارسی',
     languageNameFr: 'Persan',
-    flag: 'IR',
     sentences: PERSAN,
   },
   {
@@ -214,7 +197,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'France',
     languageNameRaw: 'Français',
     languageNameFr: 'Français',
-    flag: 'FR',
     sentences: FRENCH,
   },
   {
@@ -224,7 +206,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Royaume-Uni',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'GB',
     sentences: ENGLISH,
   },
   {
@@ -234,7 +215,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Espagne',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'ES',
     sentences: SPANISH,
   },
   {
@@ -244,17 +224,15 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Argentine',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'AR',
     sentences: SPANISH,
   },
   {
-    isoCode: 'zh-ZH',
+    isoCode: 'zh-CN',
     audioCode: 'cmn-CN',
     countryNameRaw: '中国大陆',
     countryNameFr: 'Chine',
     languageNameRaw: '普通话',
     languageNameFr: 'Mandarin',
-    flag: 'CN',
     sentences: MANDARIN,
   },
   {
@@ -264,17 +242,15 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Hong-Kong',
     languageNameRaw: '普通话',
     languageNameFr: 'Mandarin',
-    flag: 'HK',
     sentences: MANDARIN,
   },
   {
-    isoCode: 'zh-ZH',
+    isoCode: 'zh-TW',
     audioCode: 'cmn-TW',
     countryNameRaw: '台湾',
     countryNameFr: 'Taïwan',
     languageNameRaw: '普通话',
     languageNameFr: 'Mandarin',
-    flag: 'TW',
     sentences: MANDARIN,
   },
   {
@@ -284,7 +260,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Australie',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'AU',
     sentences: ENGLISH,
   },
   {
@@ -294,7 +269,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Ghana',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'GH',
     sentences: ENGLISH,
   },
   {
@@ -304,7 +278,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Canada',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'CA',
     sentences: ENGLISH,
   },
   {
@@ -314,7 +287,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'IN',
     sentences: ENGLISH,
   },
   {
@@ -324,7 +296,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Afrique du Sud',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'ZA',
     sentences: ENGLISH,
   },
   {
@@ -334,7 +305,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Irelande',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'IE',
     sentences: ENGLISH,
   },
   {
@@ -344,7 +314,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Kenya',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'KE',
     sentences: ENGLISH,
   },
   {
@@ -354,7 +323,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Nouvelle-Zélande',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'NZ',
     sentences: ENGLISH,
   },
   {
@@ -364,7 +332,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Singapour',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'SG',
     sentences: ENGLISH,
   },
   {
@@ -374,7 +341,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Philippines',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'PH',
     sentences: ENGLISH,
   },
   {
@@ -384,7 +350,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Nigeria',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'NG',
     sentences: ENGLISH,
   },
   {
@@ -394,7 +359,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Tanzanie',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'TZ',
     sentences: ENGLISH,
   },
   {
@@ -404,7 +368,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Etats-Unis',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'US',
     sentences: ENGLISH,
   },
   {
@@ -414,7 +377,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Bangladesh',
     languageNameRaw: 'বাংলা',
     languageNameFr: 'Bengali',
-    flag: 'BD',
     sentences: BENGALI,
   },
   {
@@ -424,7 +386,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'Bengali',
     languageNameFr: 'বাংলা',
-    flag: 'IN',
     sentences: BENGALI,
   },
   {
@@ -434,7 +395,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Afghanistan',
     languageNameFr: 'Dari',
     languageNameRaw: 'دري',
-    flag: 'AF',
     sentences: DARI,
   },
   {
@@ -444,7 +404,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Afghanistan',
     languageNameFr: 'Pachto',
     languageNameRaw: 'پښتو',
-    flag: 'AF',
     sentences: PACHTO,
   },
   {
@@ -454,7 +413,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Pakistan',
     languageNameFr: 'Ourdou',
     languageNameRaw: 'اردو',
-    flag: 'PK',
     sentences: OURDOU,
   },
   {
@@ -464,7 +422,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Portugal',
     languageNameFr: 'Portugais',
     languageNameRaw: 'Português',
-    flag: 'PT',
     sentences: PORTUGUESE,
   },
   {
@@ -474,7 +431,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Turquie',
     languageNameFr: 'Turc',
     languageNameRaw: 'Türkçe',
-    flag: 'TR',
     sentences: TURC,
   },
   {
@@ -484,7 +440,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Allemagne',
     languageNameFr: 'Allemand',
     languageNameRaw: 'Deutsch',
-    flag: 'DE',
     sentences: GERMAN,
   },
   {
@@ -494,7 +449,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Ethiopie',
     languageNameFr: 'Amharique',
     languageNameRaw: 'አማርኛ',
-    flag: 'ET',
     sentences: AMHARIC,
   },
   {
@@ -504,7 +458,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Cambodge',
     languageNameFr: 'Khmer',
     languageNameRaw: 'ភាសាខ្មែរ',
-    flag: 'KH',
     sentences: KHMER,
   },
   {
@@ -514,7 +467,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameFr: 'Hindi',
     languageNameRaw: 'हिन्दी',
-    flag: 'IN',
     sentences: HINDI,
   },
   {
@@ -524,7 +476,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameFr: 'Tamoul',
     languageNameRaw: 'தமிழ்',
-    flag: 'IN',
     sentences: TAMOUL,
   },
   {
@@ -534,7 +485,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Italie',
     languageNameFr: 'Italien',
     languageNameRaw: 'Italiano',
-    flag: 'IT',
     sentences: ITALIAN,
   },
   {
@@ -544,7 +494,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Mongolie',
     languageNameFr: 'Mongol',
     languageNameRaw: 'Монгол',
-    flag: 'MN',
     sentences: MONGOL,
   },
   {
@@ -554,7 +503,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Népal',
     languageNameFr: 'Népalais',
     languageNameRaw: 'नेपाली',
-    flag: 'NP',
     sentences: NEPALESE,
   },
   {
@@ -564,7 +512,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Russie',
     languageNameFr: 'Russe',
     languageNameRaw: 'Русский',
-    flag: 'RU',
     sentences: RUSSIA,
   },
   {
@@ -574,7 +521,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Ouzbékistan',
     languageNameFr: 'Ouzbek',
     languageNameRaw: 'ўзбек',
-    flag: 'UZ',
     sentences: OUZBEK,
   },
   {
@@ -584,7 +530,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Roumanie',
     languageNameFr: 'Roumain',
     languageNameRaw: 'Română',
-    flag: 'RO',
     sentences: ROMANIAN,
   },
   {
@@ -594,7 +539,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Somalie',
     languageNameFr: 'Somali',
     languageNameRaw: 'Af-Soomaali',
-    flag: 'SO',
     sentences: SOMALI,
   },
   {
@@ -604,7 +548,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Vietnam',
     languageNameFr: 'Vietnamien',
     languageNameRaw: 'Tiếng Việt',
-    flag: 'VN',
     sentences: VIETNAMESE,
   },
   {
@@ -614,7 +557,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Grèce',
     languageNameFr: 'Grec',
     languageNameRaw: 'Ελληνικά',
-    flag: 'GR',
     sentences: GREEK,
   },
   {
@@ -624,7 +566,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Bolivie',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'BO',
     sentences: SPANISH,
   },
   {
@@ -634,7 +575,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Chili',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'CL',
     sentences: SPANISH,
   },
   {
@@ -644,7 +584,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Colombie',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'CO',
     sentences: SPANISH,
   },
   {
@@ -654,7 +593,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Costa Rica',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'CR',
     sentences: SPANISH,
   },
   {
@@ -664,7 +602,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Equateur',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'EC',
     sentences: SPANISH,
   },
   {
@@ -674,7 +611,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Salvador',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'SV',
     sentences: SPANISH,
   },
   {
@@ -684,7 +620,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Etats-Unis',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'US',
     sentences: SPANISH,
   },
   {
@@ -694,7 +629,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Guatemala',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'GT',
     sentences: SPANISH,
   },
   {
@@ -704,7 +638,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Honduras',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'HN',
     sentences: SPANISH,
   },
   {
@@ -714,7 +647,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Mexico',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'MX',
     sentences: SPANISH,
   },
   {
@@ -724,7 +656,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Nicaragua',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'NI',
     sentences: SPANISH,
   },
   {
@@ -734,7 +665,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Panama',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'PA',
     sentences: SPANISH,
   },
   {
@@ -744,7 +674,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Paraguay',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'PY',
     sentences: SPANISH,
   },
   {
@@ -754,7 +683,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Pérou',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'PE',
     sentences: SPANISH,
   },
   {
@@ -764,7 +692,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Porto Rico',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'PR',
     sentences: SPANISH,
   },
   {
@@ -774,7 +701,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'République Dominicaine',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'DO',
     sentences: SPANISH,
   },
   {
@@ -784,7 +710,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Uruguay',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'UY',
     sentences: SPANISH,
   },
   {
@@ -794,51 +719,8 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Venezuela',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    flag: 'VE',
     sentences: SPANISH,
   },
-  { isoCode: 'gl-ES', audioCode: 'gl-ES', countryNameRaw: 'España', countryNameFr: 'Espagne', flag: 'ES', languageNameRaw: 'Galego', languageNameFr: 'Galicien', sentences: ENGLISH },
-  { isoCode: 'ka-GE', audioCode: 'ka-GE', countryNameRaw: 'საქართველო', countryNameFr: 'Géorgie', flag: 'GE', languageNameRaw: 'ქართული', languageNameFr: 'Géorgien', sentences: ENGLISH },
-  { isoCode: 'gu-IN', audioCode: 'gu-IN', countryNameRaw: 'ભારત', countryNameFr: 'Inde', flag: 'IN', languageNameRaw: 'ગુજરાતી', languageNameFr: 'Gujarati', sentences: ENGLISH },
-  { isoCode: 'hr-HR', audioCode: 'hr-HR', countryNameRaw: 'Hrvatska', countryNameFr: 'Croatie', flag: 'HR', languageNameRaw: 'Hrvatski', languageNameFr: 'Croate', sentences: ENGLISH },
-  { isoCode: 'zu-ZA', audioCode: 'zu-ZA', countryNameRaw: 'Ningizimu Afrika', countryNameFr: 'Afrique du Sud', flag: 'ZA', languageNameRaw: 'IsiZulu', languageNameFr: 'Zoulou', sentences: ENGLISH },
-  { isoCode: 'is-IS', audioCode: 'is-IS', countryNameRaw: 'Ísland', countryNameFr: 'Islande', flag: 'IS', languageNameRaw: 'Íslenska', languageNameFr: 'Islandais', sentences: ENGLISH },
-  { isoCode: 'jv-ID', audioCode: 'jv-ID', countryNameRaw: 'Indonesia', countryNameFr: 'Indonésie', flag: 'ID', languageNameRaw: 'Jawa', languageNameFr: 'Javanais', sentences: ENGLISH },
-  { isoCode: 'kn-IN', audioCode: 'kn-IN', countryNameRaw: 'ಭಾರತ', countryNameFr: 'Inde', flag: 'IN', languageNameRaw: 'ಕನ್ನಡ', languageNameFr: 'Kannada', sentences: ENGLISH },
-  { isoCode: 'lo-LA', audioCode: 'lo-LA', countryNameRaw: 'ລາວ', countryNameFr: 'Laos', flag: 'LA', languageNameRaw: 'ລາວ', languageNameFr: 'Lao', sentences: ENGLISH },
-  { isoCode: 'lv-LV', audioCode: 'lv-LV', countryNameRaw: 'latviešu', countryNameFr: 'Lettonie', flag: 'LV', languageNameRaw: 'Latviešu', languageNameFr: 'Letton', sentences: ENGLISH },
-  { isoCode: 'lt-LT', audioCode: 'lt-LT', countryNameRaw: 'Lietuva', countryNameFr: 'Lituanie', flag: 'LT', languageNameRaw: 'Lietuvių', languageNameFr: 'Lituanien', sentences: ENGLISH },
-  { isoCode: 'hu-HU', audioCode: 'hu-HU', countryNameRaw: 'Magyarország', countryNameFr: 'Hongrie', flag: 'HU', languageNameRaw: 'Magyar', languageNameFr: 'Hongrois', sentences: ENGLISH },
-  { isoCode: 'ml-IN', audioCode: 'ml-IN', countryNameRaw: 'ഇന്ത്യ', countryNameFr: 'Inde', flag: 'IN', languageNameRaw: 'മലയാളം', languageNameFr: 'Malayalam', sentences: ENGLISH },
-  { isoCode: 'mr-IN', audioCode: 'mr-IN', countryNameRaw: 'भारत', countryNameFr: 'Inde', flag: 'IN', languageNameRaw: 'मराठी', languageNameFr: 'Marathi', sentences: ENGLISH },
-  { isoCode: 'nl-NL', audioCode: 'nl-NL', countryNameRaw: 'Nederlands', countryNameFr: 'Pays-Bas', flag: 'NL', languageNameRaw: 'Nederlands', languageNameFr: 'Néerlandais', sentences: ENGLISH },
-  { isoCode: 'ne-NP', audioCode: 'ne-NP', countryNameRaw: 'नेपाल', countryNameFr: 'Népal', flag: 'NP', languageNameRaw: 'नेपाली', languageNameFr: 'Népalais', sentences: NEPALESE },
-  { isoCode: 'nb-NO', audioCode: 'nb-NO', countryNameRaw: 'Norge', countryNameFr: 'Norvège', flag: 'NO', languageNameRaw: 'Norsk bokmål', languageNameFr: 'Norvégien bokmål', sentences: ENGLISH },
-  { isoCode: 'pl-PL', audioCode: 'pl-PL', countryNameRaw: 'Polska', countryNameFr: 'Pologne', flag: 'PL', languageNameRaw: 'Polski', languageNameFr: 'Polonais', sentences: ENGLISH },
-  { isoCode: 'pt-BR', audioCode: 'pt-BR', countryNameRaw: 'Brasil', countryNameFr: 'Brésil', flag: 'BR', languageNameRaw: 'Português', languageNameFr: 'Portugais', sentences: PORTUGUESE },
-  { isoCode: 'ro-RO', audioCode: 'ro-RO', countryNameRaw: 'România', countryNameFr: 'Roumanie', flag: 'RO', languageNameRaw: 'Română', languageNameFr: 'Roumain', sentences: ROMANIAN },
-  { isoCode: 'si-LK', audioCode: 'si-LK', countryNameRaw: 'ශ්රී ලංකාව', countryNameFr: 'Sri-Lanka', flag: 'LK', languageNameRaw: 'සිංහල', languageNameFr: 'Cingalais', sentences: ENGLISH },
-  { isoCode: 'sk-SK', audioCode: 'sk-SK', countryNameRaw: 'Slovensko', countryNameFr: 'Slovaquie', flag: 'SK', languageNameRaw: 'Slovenčina', languageNameFr: 'Slovaque', sentences: ENGLISH },
-  { isoCode: 'sl-SI', audioCode: 'sl-SI', countryNameRaw: 'Slovenija', countryNameFr: 'Slovénie', flag: 'SI', languageNameRaw: 'Slovenščina', languageNameFr: 'Slovène', sentences: ENGLISH },
-  { isoCode: 'su-ID', audioCode: 'su-ID', countryNameRaw: 'Indonesia', countryNameFr: 'Indonésie', flag: 'ID', languageNameRaw: 'Sunda', languageNameFr: 'Soudanais', sentences: ENGLISH },
-  { isoCode: 'sw-TZ', audioCode: 'sw-TZ', countryNameRaw: 'Tanzania', countryNameFr: 'Tanzanie', flag: 'TZ', languageNameRaw: 'Swahili', languageNameFr: 'Swahili', sentences: ENGLISH },
-  { isoCode: 'sw-KE', audioCode: 'sw-KE', countryNameRaw: 'Kenya', countryNameFr: 'Kenya', flag: 'KE', languageNameRaw: 'Swahili', languageNameFr: 'Swahili', sentences: ENGLISH },
-  { isoCode: 'fi-FI', audioCode: 'fi-FI', countryNameRaw: 'Suomi', countryNameFr: 'Finlande', flag: 'FI', languageNameRaw: 'Suomalainen', languageNameFr: 'Finnois', sentences: ENGLISH },
-  { isoCode: 'sv-SE', audioCode: 'sv-SE', countryNameRaw: 'Sverige', countryNameFr: 'Suède', flag: 'SE', languageNameRaw: 'Svenska', languageNameFr: 'Suédois', sentences: ENGLISH },
-  { isoCode: 'ta-IN', audioCode: 'ta-IN', countryNameRaw: 'இந்தியா', countryNameFr: 'Inde', flag: 'IN', languageNameRaw: 'தமிழ்', languageNameFr: 'Tamoul', sentences: TAMOUL },
-  { isoCode: 'ta-SG', audioCode: 'ta-SG', countryNameRaw: 'சிங்கப்பூர்', countryNameFr: 'Singapour', flag: 'SG', languageNameRaw: 'தமிழ்', languageNameFr: 'Tamoul', sentences: TAMOUL },
-  { isoCode: 'ta-LK', audioCode: 'ta-LK', countryNameRaw: 'இலங்கை', countryNameFr: 'Sri-Lanka', flag: 'LK', languageNameRaw: 'தமிழ்', languageNameFr: 'Tamoul', sentences: TAMOUL },
-  { isoCode: 'ta-MY', audioCode: 'ta-MY', countryNameRaw: 'மலேசியா', countryNameFr: 'Malaisie', flag: 'MY', languageNameRaw: 'தமிழ்', languageNameFr: 'Tamoul', sentences: TAMOUL },
-  { isoCode: 'te-IN', audioCode: 'te-IN', countryNameRaw: 'భారతదేశం', countryNameFr: 'Inde', flag: 'IN', languageNameRaw: 'తెలుగు', languageNameFr: 'Télougou', sentences: ENGLISH },
-  { isoCode: 'vi-VN', audioCode: 'vi-VN', countryNameRaw: 'Việt Nam', countryNameFr: 'Vietnam', flag: 'VN', languageNameRaw: 'Tiếng Việt', languageNameFr: 'Vietnamien', sentences: VIETNAMESE },
-  { isoCode: 'tr-TR', audioCode: 'tr-TR', countryNameRaw: 'Türkiye', countryNameFr: 'Turquie', flag: 'TR', languageNameRaw: 'Türkçe', languageNameFr: 'Turc', sentences: TURC },
-  { isoCode: 'en-PK', audioCode: 'en-GB', countryNameRaw: 'Pakistan', countryNameFr: 'Pakistan', flag: 'PK', languageNameRaw: 'English', languageNameFr: 'Anglais', sentences: ENGLISH },
-  { isoCode: 'ur-IN', audioCode: 'ur-IN', countryNameRaw: 'بھارت', countryNameFr: 'Inde', flag: 'IN', languageNameRaw: 'اردو', languageNameFr: 'Ourdou', sentences: OURDOU },
-  { isoCode: 'bg-BG', audioCode: 'bg-BG', countryNameRaw: 'България', countryNameFr: 'Bulgarie', flag: 'BG', languageNameRaw: 'Български', languageNameFr: 'Bulgare', sentences: ENGLISH },
-  { isoCode: 'ru-RU', audioCode: 'ru-RU', countryNameRaw: 'Россия', countryNameFr: 'Russie', flag: 'RU', languageNameRaw: 'Русский', languageNameFr: 'Russe', sentences: RUSSIA },
-  { isoCode: 'sr-RS', audioCode: 'sr-RS', countryNameRaw: 'Србија', countryNameFr: 'Serbie', flag: 'RS', languageNameRaw: 'Српски', languageNameFr: 'Serbe', sentences: ENGLISH },
-  { isoCode: 'uk-UA', audioCode: 'uk-UA', countryNameRaw: 'Україна', countryNameFr: 'Ukraine', flag: 'UA', languageNameRaw: 'Українська', languageNameFr: 'ukrainien', sentences: ENGLISH },
-  { isoCode: 'he-IL', audioCode: 'he-IL', countryNameRaw: 'ישראל', countryNameFr: 'Israël', flag: 'IL', languageNameRaw: 'עברית', languageNameFr: 'Hébreu', sentences: HEBREW },
   {
     isoCode: 'th-TH',
     audioCode: 'th-TH',
@@ -846,7 +728,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Thaïlande',
     languageNameRaw: 'ไทย',
     languageNameFr: 'Thaï',
-    flag: 'TH',
     sentences: ENGLISH,
   },
   {
@@ -856,7 +737,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Corée du Sud',
     languageNameRaw: '한국어',
     languageNameFr: 'Coréen',
-    flag: 'KR',
     sentences: ENGLISH,
   },
   {
@@ -866,7 +746,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Japon',
     languageNameRaw: '日本語',
     languageNameFr: 'Japonais',
-    flag: 'JP',
     sentences: ENGLISH,
   },
   {
@@ -876,7 +755,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Hong Kong',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    flag: 'HK',
     sentences: ENGLISH,
   },
   {
@@ -886,9 +764,50 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Yemen',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    flag: 'YE',
     sentences: ARAB,
   },
+  { isoCode: 'gl-ES', audioCode: 'gl-ES', countryNameRaw: 'España', countryNameFr: 'Espagne', languageNameRaw: 'Galego', languageNameFr: 'Galicien', sentences: ENGLISH },
+  { isoCode: 'ka-GE', audioCode: 'ka-GE', countryNameRaw: 'საქართველო', countryNameFr: 'Géorgie', languageNameRaw: 'ქართული', languageNameFr: 'Géorgien', sentences: ENGLISH },
+  { isoCode: 'gu-IN', audioCode: 'gu-IN', countryNameRaw: 'ભારત', countryNameFr: 'Inde', languageNameRaw: 'ગુજરાતી', languageNameFr: 'Gujarati', sentences: ENGLISH },
+  { isoCode: 'hr-HR', audioCode: 'hr-HR', countryNameRaw: 'Hrvatska', countryNameFr: 'Croatie', languageNameRaw: 'Hrvatski', languageNameFr: 'Croate', sentences: ENGLISH },
+  { isoCode: 'zu-ZA', audioCode: 'zu-ZA', countryNameRaw: 'Ningizimu Afrika', countryNameFr: 'Afrique du Sud', languageNameRaw: 'IsiZulu', languageNameFr: 'Zoulou', sentences: ENGLISH },
+  { isoCode: 'is-IS', audioCode: 'is-IS', countryNameRaw: 'Ísland', countryNameFr: 'Islande', languageNameRaw: 'Íslenska', languageNameFr: 'Islandais', sentences: ENGLISH },
+  { isoCode: 'jv-ID', audioCode: 'jv-ID', countryNameRaw: 'Indonesia', countryNameFr: 'Indonésie', languageNameRaw: 'Jawa', languageNameFr: 'Javanais', sentences: ENGLISH },
+  { isoCode: 'kn-IN', audioCode: 'kn-IN', countryNameRaw: 'ಭಾರತ', countryNameFr: 'Inde', languageNameRaw: 'ಕನ್ನಡ', languageNameFr: 'Kannada', sentences: ENGLISH },
+  { isoCode: 'lo-LA', audioCode: 'lo-LA', countryNameRaw: 'ລາວ', countryNameFr: 'Laos', languageNameRaw: 'ລາວ', languageNameFr: 'Lao', sentences: ENGLISH },
+  { isoCode: 'lv-LV', audioCode: 'lv-LV', countryNameRaw: 'latviešu', countryNameFr: 'Lettonie', languageNameRaw: 'Latviešu', languageNameFr: 'Letton', sentences: ENGLISH },
+  { isoCode: 'lt-LT', audioCode: 'lt-LT', countryNameRaw: 'Lietuva', countryNameFr: 'Lituanie', languageNameRaw: 'Lietuvių', languageNameFr: 'Lituanien', sentences: ENGLISH },
+  { isoCode: 'hu-HU', audioCode: 'hu-HU', countryNameRaw: 'Magyarország', countryNameFr: 'Hongrie', languageNameRaw: 'Magyar', languageNameFr: 'Hongrois', sentences: ENGLISH },
+  { isoCode: 'ml-IN', audioCode: 'ml-IN', countryNameRaw: 'ഇന്ത്യ', countryNameFr: 'Inde', languageNameRaw: 'മലയാളം', languageNameFr: 'Malayalam', sentences: ENGLISH },
+  { isoCode: 'mr-IN', audioCode: 'mr-IN', countryNameRaw: 'भारत', countryNameFr: 'Inde', languageNameRaw: 'मराठी', languageNameFr: 'Marathi', sentences: ENGLISH },
+  { isoCode: 'nl-NL', audioCode: 'nl-NL', countryNameRaw: 'Nederlands', countryNameFr: 'Pays-Bas', languageNameRaw: 'Nederlands', languageNameFr: 'Néerlandais', sentences: ENGLISH },
+  { isoCode: 'ne-NP', audioCode: 'ne-NP', countryNameRaw: 'नेपाल', countryNameFr: 'Népal', languageNameRaw: 'नेपाली', languageNameFr: 'Népalais', sentences: NEPALESE },
+  { isoCode: 'nb-NO', audioCode: 'nb-NO', countryNameRaw: 'Norge', countryNameFr: 'Norvège', languageNameRaw: 'Norsk bokmål', languageNameFr: 'Norvégien bokmål', sentences: ENGLISH },
+  { isoCode: 'pl-PL', audioCode: 'pl-PL', countryNameRaw: 'Polska', countryNameFr: 'Pologne', languageNameRaw: 'Polski', languageNameFr: 'Polonais', sentences: ENGLISH },
+  { isoCode: 'pt-BR', audioCode: 'pt-BR', countryNameRaw: 'Brasil', countryNameFr: 'Brésil', languageNameRaw: 'Português', languageNameFr: 'Portugais', sentences: PORTUGUESE },
+  { isoCode: 'ro-RO', audioCode: 'ro-RO', countryNameRaw: 'România', countryNameFr: 'Roumanie', languageNameRaw: 'Română', languageNameFr: 'Roumain', sentences: ROMANIAN },
+  { isoCode: 'si-LK', audioCode: 'si-LK', countryNameRaw: 'ශ්රී ලංකාව', countryNameFr: 'Sri-Lanka', languageNameRaw: 'සිංහල', languageNameFr: 'Cingalais', sentences: ENGLISH },
+  { isoCode: 'sk-SK', audioCode: 'sk-SK', countryNameRaw: 'Slovensko', countryNameFr: 'Slovaquie', languageNameRaw: 'Slovenčina', languageNameFr: 'Slovaque', sentences: ENGLISH },
+  { isoCode: 'sl-SI', audioCode: 'sl-SI', countryNameRaw: 'Slovenija', countryNameFr: 'Slovénie', languageNameRaw: 'Slovenščina', languageNameFr: 'Slovène', sentences: ENGLISH },
+  { isoCode: 'su-ID', audioCode: 'su-ID', countryNameRaw: 'Indonesia', countryNameFr: 'Indonésie', languageNameRaw: 'Sunda', languageNameFr: 'Soudanais', sentences: ENGLISH },
+  { isoCode: 'sw-TZ', audioCode: 'sw-TZ', countryNameRaw: 'Tanzania', countryNameFr: 'Tanzanie', languageNameRaw: 'Swahili', languageNameFr: 'Swahili', sentences: ENGLISH },
+  { isoCode: 'sw-KE', audioCode: 'sw-KE', countryNameRaw: 'Kenya', countryNameFr: 'Kenya', languageNameRaw: 'Swahili', languageNameFr: 'Swahili', sentences: ENGLISH },
+  { isoCode: 'fi-FI', audioCode: 'fi-FI', countryNameRaw: 'Suomi', countryNameFr: 'Finlande', languageNameRaw: 'Suomalainen', languageNameFr: 'Finnois', sentences: ENGLISH },
+  { isoCode: 'sv-SE', audioCode: 'sv-SE', countryNameRaw: 'Sverige', countryNameFr: 'Suède', languageNameRaw: 'Svenska', languageNameFr: 'Suédois', sentences: ENGLISH },
+  { isoCode: 'ta-IN', audioCode: 'ta-IN', countryNameRaw: 'இந்தியா', countryNameFr: 'Inde', languageNameRaw: 'தமிழ்', languageNameFr: 'Tamoul', sentences: TAMOUL },
+  { isoCode: 'ta-SG', audioCode: 'ta-SG', countryNameRaw: 'சிங்கப்பூர்', countryNameFr: 'Singapour', languageNameRaw: 'தமிழ்', languageNameFr: 'Tamoul', sentences: TAMOUL },
+  { isoCode: 'ta-LK', audioCode: 'ta-LK', countryNameRaw: 'இலங்கை', countryNameFr: 'Sri-Lanka', languageNameRaw: 'தமிழ்', languageNameFr: 'Tamoul', sentences: TAMOUL },
+  { isoCode: 'ta-MY', audioCode: 'ta-MY', countryNameRaw: 'மலேசியா', countryNameFr: 'Malaisie', languageNameRaw: 'தமிழ்', languageNameFr: 'Tamoul', sentences: TAMOUL },
+  { isoCode: 'te-IN', audioCode: 'te-IN', countryNameRaw: 'భారతదేశం', countryNameFr: 'Inde', languageNameRaw: 'తెలుగు', languageNameFr: 'Télougou', sentences: ENGLISH },
+  { isoCode: 'vi-VN', audioCode: 'vi-VN', countryNameRaw: 'Việt Nam', countryNameFr: 'Vietnam', languageNameRaw: 'Tiếng Việt', languageNameFr: 'Vietnamien', sentences: VIETNAMESE },
+  { isoCode: 'tr-TR', audioCode: 'tr-TR', countryNameRaw: 'Türkiye', countryNameFr: 'Turquie', languageNameRaw: 'Türkçe', languageNameFr: 'Turc', sentences: TURC },
+  { isoCode: 'en-PK', audioCode: 'en-GB', countryNameRaw: 'Pakistan', countryNameFr: 'Pakistan', languageNameRaw: 'English', languageNameFr: 'Anglais', sentences: ENGLISH },
+  { isoCode: 'ur-IN', audioCode: 'ur-IN', countryNameRaw: 'بھارت', countryNameFr: 'Inde', languageNameRaw: 'اردو', languageNameFr: 'Ourdou', sentences: OURDOU },
+  { isoCode: 'bg-BG', audioCode: 'bg-BG', countryNameRaw: 'България', countryNameFr: 'Bulgarie', languageNameRaw: 'Български', languageNameFr: 'Bulgare', sentences: ENGLISH },
+  { isoCode: 'ru-RU', audioCode: 'ru-RU', countryNameRaw: 'Россия', countryNameFr: 'Russie', languageNameRaw: 'Русский', languageNameFr: 'Russe', sentences: RUSSIA },
+  { isoCode: 'sr-RS', audioCode: 'sr-RS', countryNameRaw: 'Србија', countryNameFr: 'Serbie', languageNameRaw: 'Српски', languageNameFr: 'Serbe', sentences: ENGLISH },
+  { isoCode: 'uk-UA', audioCode: 'uk-UA', countryNameRaw: 'Україна', countryNameFr: 'Ukraine', languageNameRaw: 'Українська', languageNameFr: 'ukrainien', sentences: ENGLISH },
+  { isoCode: 'he-IL', audioCode: 'he-IL', countryNameRaw: 'ישראל', countryNameFr: 'Israël', languageNameRaw: 'עברית', languageNameFr: 'Hébreu', sentences: HEBREW },
 ];
 // {
 //            isoCode: '',
@@ -897,6 +816,5 @@ export const VOCABULARY: Vocabulary[] = [
 //            countryNameFr: '',
 //            languageNameRaw: '',
 //            languageNameFr: '',
-//            flag: '',
-//            sentences: SPANISH,
+//                     sentences: SPANISH,
 //          },

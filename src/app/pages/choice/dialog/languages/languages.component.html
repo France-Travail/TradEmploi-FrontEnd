@@ -22,7 +22,10 @@
 
   <ng-container matColumnDef="flag">
     <mat-header-cell *matHeaderCellDef>Drapeau</mat-header-cell>
-    <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)"><span class="flag-icon flag-icon-{{ element.flag.toLowerCase() }}"></span></mat-cell>>
+    <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)"
+      ><span *ngIf="element.isoCode !== 'ar-XA'" class="flag-icon flag-icon-{{ isoCodeToFlag(element.isoCode) }}"></span>
+      <img *ngIf="element.isoCode === 'ar-XA'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag"
+    /></mat-cell>
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>

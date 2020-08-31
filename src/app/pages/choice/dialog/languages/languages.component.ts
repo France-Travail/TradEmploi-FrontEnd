@@ -43,4 +43,7 @@ export class LanguagesComponent implements OnInit {
     this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioCode, written: voice.isoCode } });
     this.dialogRef.close('chosen');
   }
+  public isoCodeToFlag(isoCode: string) {
+    return isoCode.split('-')[1].toLowerCase();
+  }
 }
