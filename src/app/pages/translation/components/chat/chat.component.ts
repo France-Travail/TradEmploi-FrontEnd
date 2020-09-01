@@ -1,16 +1,17 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Message } from 'src/app/models/translate/message';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent{
+export class ChatComponent {
   @Input() messages: Message[];
   @Input() shared: boolean;
   @Output() editMessageEmit = new EventEmitter();
-
+  constructor() {}
   public visible: boolean = false;
 
   public extand() {

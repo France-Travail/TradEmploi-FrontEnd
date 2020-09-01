@@ -163,9 +163,9 @@ export class MessageWrapperComponent implements OnInit {
       role: this.role,
     };
     const messageWrapped: MessageWrapped = {
-      message : message,
-      time: Date.now()
-    }
+      message: message,
+      time: Date.now(),
+    };
     this.messagesToEmit.emit(messageWrapped);
   }
 
@@ -179,9 +179,9 @@ export class MessageWrapperComponent implements OnInit {
       member: user.firstname ? user.firstname : this.settingsService.defaultName,
     };
     const messageWrapped: MessageWrapped = {
-      message : message,
-      time: Date.now()
-    }
+      message: message,
+      time: Date.now(),
+    };
     this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
   }
 }
