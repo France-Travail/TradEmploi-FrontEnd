@@ -190,8 +190,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private async setTranslateMessage(message: Message, translate, languageTarget: string) {
     message.translation = translate;
-    const connectionTime = this.settingsService.user.value.connectionTime;
-    if (this.isAudioPlay && message.time > connectionTime) {
+    if (this.isAudioPlay && message.time > this.settingsService.user.value.connectionTime) {
       const audio = await this.textToSpeechService.getSpeech(translate, languageTarget);
       if (audio) {
         this.textToSpeechService.audioSpeech.play();

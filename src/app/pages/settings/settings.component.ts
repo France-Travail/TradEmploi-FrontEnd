@@ -1,30 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { environment } from '../../../environments/environment';
 import { Parser } from 'json2csv';
 import { ToastService } from 'src/app/services/toast.service';
 import { NavbarService } from 'src/app/services/navbar.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
   public path: string;
 
-  constructor(
-    public router: Router,
-    private fireFunction: AngularFireFunctions,
-    private toastService: ToastService,
-    private navService: NavbarService) {
+  constructor(public router: Router, private fireFunction: AngularFireFunctions, private toastService: ToastService, private navService: NavbarService, private settingsService: SettingsService) {
     const url = this.router.url;
     this.path = url.substring(url.lastIndexOf('/'));
     this.navService.handleTabsSettings();
-  }
-
-  ngOnInit() {
+    this.settingsService.user.next({ ...this.settingsService.user.value, connectionTime: Date.now() });
   }
 
   public export(): void {
@@ -62,5 +57,4 @@ export class SettingsComponent implements OnInit {
   public goBack() {
     window.history.back();
   }
-
 }

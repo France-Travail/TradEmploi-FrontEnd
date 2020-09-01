@@ -5,7 +5,6 @@ import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
 import shortId from 'shortid';
 
-
 @Component({
   selector: 'app-share',
   templateUrl: './share.component.html',
@@ -22,7 +21,7 @@ export class ShareComponent implements OnInit {
 
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {
-      if (user!= null && user.roomId === undefined) {
+      if (user != null && user.roomId === undefined) {
         this.canCreate = true;
         this.roomId = shortId.generate();
         this.link = window.location.origin + '/invite/' + this.roomId;
@@ -33,7 +32,7 @@ export class ShareComponent implements OnInit {
     });
   }
 
-  public copyLink(){
+  public copyLink() {
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
@@ -51,7 +50,11 @@ export class ShareComponent implements OnInit {
     this.dialogRef.close();
   }
   public share() {
-    this.settingsService.user.next({ ...this.settingsService.user.value, language: {audio: this.settingsService.defaultLanguage, written: this.settingsService.defaultLanguage} ,roomId: this.roomId})
+    this.settingsService.user.next({
+      ...this.settingsService.user.value,
+      language: { audio: this.settingsService.defaultLanguage, written: this.settingsService.defaultLanguage },
+      roomId: this.roomId,
+    });
     this.chatService.create(this.roomId).then((_) => this.dialogRef.close());
   }
 
