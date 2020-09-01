@@ -70,7 +70,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   ngOnInit(): void {
-    this.isAudioPlay = true; 
+    this.isAudioPlay = true;
     this.scrollToBottom();
   }
 
@@ -190,7 +190,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private async setTranslateMessage(message: Message, translate, languageTarget: string) {
     message.translation = translate;
-    if (this.isAudioPlay) {
+    if (this.isAudioPlay && message.time > this.settingsService.user.value.connectionTime) {
       const audio = await this.textToSpeechService.getSpeech(translate, languageTarget);
       if (audio) {
         this.textToSpeechService.audioSpeech.play();

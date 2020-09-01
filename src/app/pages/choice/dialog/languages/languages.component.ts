@@ -48,8 +48,7 @@ export class LanguagesComponent implements OnInit {
   public chooseLanguage(SelectedCountry: string) {
     const voice = this.countries.filter((country) => country.country === SelectedCountry)[0];
     this.voicesService.guest = voice.code;
-    this.settingsService.user.next({...this.settingsService.user.value, language:{ audio:voice.code.audio, written: voice.code.written} })
-    
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: voice.code.audio, written: voice.code.written }, connectionTime: Date.now() });
     this.dialogRef.close('chosen');
   }
 }
