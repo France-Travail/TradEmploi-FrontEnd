@@ -74,7 +74,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
         }
       });
   }
-
+  @HostListener('pagehide')
   @HostListener('window:unload')
   public canDeactivate(): Observable<boolean> | boolean {
     const user = this.settingsService.user.value;
