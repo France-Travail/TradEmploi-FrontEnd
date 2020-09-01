@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Message } from 'src/app/models/translate/message';
-import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-chat',

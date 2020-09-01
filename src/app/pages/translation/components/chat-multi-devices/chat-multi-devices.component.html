@@ -13,8 +13,8 @@
         </mat-card-header>
         <mat-card-footer align="end" [ngStyle]="{ 'color': input.isSender ? 'lightgray' : 'black' }" >
           <ng-template [ngIf]="!input.isSender">         
-            <span *ngIf="input.message.flag !== 'arabic'" class="avatar flag-icon flag-icon-{{ input.message.flag }}"></span>
-            <img *ngIf="input.message.flag === 'arabic'" class="avatar flag-icon" src="./assets/images/arab-flag.png" alt="flag" />
+            <span *ngIf="input.message.flag !== 'xa'" class="avatar flag-icon flag-icon-{{ input.message.flag }}"></span>
+            <img *ngIf="input.message.flag === 'xa'" class="avatar flag-icon" src="./assets/images/arab-flag.png" alt="flag" />
           </ng-template>  
           {{ input.message.member }}
         </mat-card-footer>
