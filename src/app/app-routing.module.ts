@@ -27,11 +27,11 @@ const routes: Routes = [
     component: AuthenticationComponent,
   },
   {
-    path: 'invite/:id',
+    path: 'auth/:id',
     component: AnonymousComponent,
   },
   {
-    path: ':id',
+    path: 'invite/:id',
     component: GdprComponent,
   },
   {

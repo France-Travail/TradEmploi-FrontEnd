@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavbarService } from 'src/app/services/navbar.service';
 import { Router } from '@angular/router';
 import { ENGLISH } from 'src/app/data/sentence';
 import { FRENCH } from '../../data/sentence';
@@ -18,20 +17,13 @@ export class GdprComponent {
   public confirmText:string = ENGLISH.gdpr.confirmText;
 
   constructor(
-    private navbarService: NavbarService,
     private router: Router
-  ) {
-    
-  }
-
-  ngOnInit(): void {
-    this.navbarService.hide();
-  }
+  ) {}
 
   agree(){
     const url = this.router.url;
     const roomId = url.substring(url.lastIndexOf('/') + 1, url.length);
-    this.router.navigateByUrl('invite/' + roomId);
+    this.router.navigateByUrl('auth/' + roomId);
   }
 
   moreOptions(){

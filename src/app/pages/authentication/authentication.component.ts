@@ -5,7 +5,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Role } from 'src/app/models/role';
-import { NavbarService } from '../../services/navbar.service';
 
 @Component({
   selector: 'app-authentication',
@@ -15,7 +14,7 @@ import { NavbarService } from '../../services/navbar.service';
 export class AuthenticationComponent implements OnInit {
   public form: FormGroup;
 
-  constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private fb: FormBuilder, private toastService: ToastService, private navbarService: NavbarService) {
+  constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private fb: FormBuilder, private toastService: ToastService) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         const multiDevicesGuest = user.roomId !== undefined && user.role === Role.GUEST
@@ -25,7 +24,6 @@ export class AuthenticationComponent implements OnInit {
         }
       }
     });
-    this.navbarService.hide();
   }
 
   ngOnInit(): void {
