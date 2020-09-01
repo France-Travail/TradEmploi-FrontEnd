@@ -1,4 +1,4 @@
-@import 'info';
+@import 'panel';
 
 .title{
     margin-bottom: 0;
@@ -7,6 +7,24 @@
     display: flex;
     justify-content: center;
 }
+
+.pivacy{
+    overflow-y: auto;
+    height: 150px;
+    font-size: 15px;
+    white-space: pre-line;
+}
+.action{
+    display: flex;
+    button {
+        width: 170px;
+    }
+    .options {
+        background-color: $white-smoke;
+        color: black;
+    }
+}
+
 ::ng-deep .mat-select-value-text{
     font-size:15px;
     color:$primary-color;
@@ -20,28 +38,7 @@
     color:$primary-color;
 }
 
-::ng-deep .mat-form-field-underline {
-    display: none;
-}
-
-.pivacy{
-    overflow-y: auto;
-    height: 150px;
-    font-size: 15px;
-    white-space: pre-wrap;
-}
-.action{
-    display: flex;
-    button {
-        width: 170px;
-    }
-    .options{
-        background-color: $white-smoke;
-        color: black;
-    }
-}
-
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .action{
         button {
             width: 150px;

@@ -1,3 +1,5 @@
+import { Gdpr } from './gdpr';
+
 export interface Vocabulary {
   isoCode: string;
   countryNameRaw?: any;
@@ -24,6 +26,7 @@ export interface Sentence {
   languageButtonFR?: string;
   gaugeText?: string;
   rate?: Rate;
+  gdpr?: Gdpr;
 }
 
 export interface Rate {

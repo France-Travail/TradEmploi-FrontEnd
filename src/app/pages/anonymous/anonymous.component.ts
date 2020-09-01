@@ -12,7 +12,7 @@ import { Member } from 'src/app/models/db/member';
 @Component({
   selector: 'app-anonymous',
   templateUrl: './anonymous.component.html',
-  styleUrls: ['../../../sass/info.scss'],
+  styleUrls: ['../../../sass/panel.scss'],
 })
 export class AnonymousComponent {
   public form: FormGroup;

@@ -31,7 +31,7 @@ const routes: Routes = [
     component: AnonymousComponent,
   },
   {
-    path: 'gdpr',
+    path: ':id',
     component: GdprComponent,
   },
   {

@@ -61,6 +61,11 @@ export const FRENCH: Sentence = {
     understand: 'Est-ce que cet outil vous a permis de dialoguer facilement avec votre interlocuteur ?',
     comment: 'Commentaire libre',
     offerLinked: 'Est-ce que l’objet de cet échange est lié à l’offre de services de Pôle Emploi ?',
+  },
+  gdpr:{
+    privacityText:"French Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac dolor sollicitudin, vestibulum nunc at, tristique velit. Vivamus tempor ligula dolor, id cursus leo feugiat sodales. Phasellus consequat lectus quis vestibulum iaculis. Vivamus luctus pharetra nunc non gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean placerat sem vel pharetra facilisis. Proin aliquet libero nec arcu condimentum finibus. Sed venenatis sagittis lacus, sed suscipit lorem faucibus at. Nulla facilisi. Praesent efficitur blandit tortor quis congue. Pellentesque nec diam feugiat nulla semper faucibus. Donec hendrerit elementum ex id rhoncus.\nSed lobortis ante at nisi mollis sollicitudin. Nulla pharetra sollicitudin tortor sed pretium. Nulla tempus elit vitae lacus porttitor molestie. Nulla diam nisl, luctus sed nunc vel, aliquam euismod est. Nunc tempus sapien non elit sodales, non malesuada neque tempus. Ut libero ex, tincidunt ut diam eget, gravida vehicula tortor. Duis et iaculis odio. Pellentesque mollis risus nec nulla imperdiet, ut scelerisque nunc accumsan.",
+    confirmTitle: "French Special purposes and features\n",
+    confirmText:"French Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac dolor sollicitudin, vestibulum nunc at, tristique velit."
   }
 };
 
@@ -82,6 +87,11 @@ export const ENGLISH: Sentence = {
     understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
     comment: 'Free Comment',
     offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
+  },
+  gdpr:{
+    privacityText:"English Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac dolor sollicitudin, vestibulum nunc at, tristique velit. Vivamus tempor ligula dolor, id cursus leo feugiat sodales. Phasellus consequat lectus quis vestibulum iaculis. Vivamus luctus pharetra nunc non gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean placerat sem vel pharetra facilisis. Proin aliquet libero nec arcu condimentum finibus. Sed venenatis sagittis lacus, sed suscipit lorem faucibus at. Nulla facilisi. Praesent efficitur blandit tortor quis congue. Pellentesque nec diam feugiat nulla semper faucibus. Donec hendrerit elementum ex id rhoncus.\nSed lobortis ante at nisi mollis sollicitudin. Nulla pharetra sollicitudin tortor sed pretium. Nulla tempus elit vitae lacus porttitor molestie. Nulla diam nisl, luctus sed nunc vel, aliquam euismod est. Nunc tempus sapien non elit sodales, non malesuada neque tempus. Ut libero ex, tincidunt ut diam eget, gravida vehicula tortor. Duis et iaculis odio. Pellentesque mollis risus nec nulla imperdiet, ut scelerisque nunc accumsan.",
+    confirmTitle: "English Special purposes and features\n",
+    confirmText:"English Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac dolor sollicitudin, vestibulum nunc at, tristique velit."
   }
 };
 

@@ -1,21 +1,34 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form>
   <div class="title">
     <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
     <h1 class="t2">Privacity setting</h1>
     <p class="t3">Access to <span class="text-app">instant translation service</span></p>
   </div>
   <div class="language">
-    <mat-form-field>
-      <mat-select [(value)]="selected">
-        <mat-option value="option1">English</mat-option>
-        <mat-option value="option2">French</mat-option>
+    <mat-form-field appearance="none">
+      <mat-select [(value)]="selected" (selectionChange)="language($event)">
+        <mat-option value="english">English</mat-option>
+        <mat-option value="french">French</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="pivacy">{{ privacyText }}</div>
+  <div class="pivacy">
+      <ng-template [ngIf]="!isMoreOptions">
+        {{ privacyText }}
+      </ng-template>
+      <ng-template [ngIf]="isMoreOptions">
+        <b>{{ confirmTitle }}</b>
+        {{ confirmText }}
+      </ng-template>
+  </div>
   <div class="action">
-    <button class="options" type="submit" [disabled]="form.invalid">DISAGREE</button>
-    <button class="options" type="submit" [disabled]="form.invalid">MORE OPTIONS</button>
-    <button type="submit" [disabled]="form.invalid">AGREE</button>
+    <ng-template [ngIf]="!isMoreOptions">
+      <button class="options" (click)="agree()">DISAGREE</button>
+      <button class="options" (click)="moreOptions()">MORE OPTIONS</button>
+      <button (click)="agree()">AGREE</button>
+    </ng-template>
+    <ng-template [ngIf]="isMoreOptions">
+      <button class="options" [ngStyle]="{ width:'200px' }" (click)="agree()">CONFIRM MY CHOICES</button>
+    </ng-template>
   </div>
 </form>

@@ -10,7 +10,7 @@ import { NavbarService } from '../../services/navbar.service';
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
-  styleUrls: ['../../../sass/info.scss'],
+  styleUrls: ['../../../sass/panel.scss'],
 })
 export class AuthenticationComponent implements OnInit {
   public form: FormGroup;
