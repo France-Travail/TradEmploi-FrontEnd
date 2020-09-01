@@ -1,7 +1,6 @@
 export interface Vocabulary {
   isoCode: string;
   countryNameRaw?: any;
-  flag?: string;
   countryNameFr?: string;
   languageNameRaw?: string;
   languageNameFr?: string;

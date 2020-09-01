@@ -60,7 +60,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country));
   }
   async audioDescription(item: Vocabulary) {
-    let audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
+    const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
     const audio = await this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage);
     if (audio) {
       this.textToSpeechService.audioSpeech.play();

@@ -81,7 +81,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     ChatComponent,
     ChatMultiDevicesComponent,
     ShareComponent,
-    EndComponent
+    EndComponent,
   ],
   imports: [
     BrowserModule,
