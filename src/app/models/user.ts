@@ -8,5 +8,5 @@ export interface User {
   language?: Language;
   roomId: string;
   role: Role;
-  connectionTime?: number;
+  connectionTime: number;
 }

@@ -50,8 +50,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   }
 
   public selectLanguage(audio: string, written: string): void {
-    this.settingsService.user.next({ ...this.settingsService.user.value, connectionTime: Date.now() });
-    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audio, written: written } });
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audio, written: written }, connectionTime: Date.now() });
     this.router.navigate(['translation']);
   }
 
@@ -75,7 +74,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
         }
       });
   }
-  @HostListener('pagehide')
+  
   @HostListener('window:unload')
   public canDeactivate(): Observable<boolean> | boolean {
     const user = this.settingsService.user.value;
