@@ -44,7 +44,7 @@ export class RecordComponent implements OnInit {
   };
 
   putTitle = () => {
-    const language = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage : this.settingsService.user.value.language;
+    const language = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language;
     this.text = VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
   };
 

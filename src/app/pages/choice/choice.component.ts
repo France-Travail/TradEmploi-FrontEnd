@@ -11,6 +11,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
 import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
 import { Observable } from 'rxjs';
+import { Vocabulary } from 'src/app/models/vocabulary';
 
 @Component({
   selector: 'app-choice',
@@ -19,7 +20,7 @@ import { Observable } from 'rxjs';
 })
 export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate {
   public selectedCountriesData = [];
-  public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-ZH', 'ru-RU'];
+  public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
   public toolTips: string[] = ['Autres langues'];
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
@@ -49,16 +50,18 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     this.navService.show();
   }
 
-  public selectLanguage(audio: string, written: string): void {
-    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audio, written: written }, connectionTime: Date.now() });
+  public selectLanguage(item: Vocabulary): void {
+    const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode }, connectionTime: Date.now() });
     this.router.navigate(['translation']);
   }
 
   public showMainLanguages(): void {
     this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country));
   }
-  async audioDescription(message: string, lang: string) {
-    const audio = await this.textToSpeechService.getSpeech(message, lang);
+  async audioDescription(item: Vocabulary) {
+    const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
+    const audio = await this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage);
     if (audio) {
       this.textToSpeechService.audioSpeech.play();
     }
@@ -74,7 +77,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
         }
       });
   }
-  
+
   @HostListener('window:unload')
   public canDeactivate(): Observable<boolean> | boolean {
     const user = this.settingsService.user.value;
@@ -89,7 +92,9 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     }
     return true;
   }
-
+  public isoCodeToFlag(isoCode: string) {
+    return isoCode.split('-')[1].toLowerCase();
+  }
   private endConversation(roomId: string) {
     this.chatService.getChatStatus(roomId).subscribe((active) => {
       if (active !== null && !active) {

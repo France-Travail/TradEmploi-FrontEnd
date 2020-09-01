@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
-import shortId from 'shortid';
 
 @Component({
   selector: 'app-share',
@@ -23,7 +22,7 @@ export class ShareComponent implements OnInit {
     this.settingsService.user.subscribe((user) => {
       if (user != null && user.roomId === undefined) {
         this.canCreate = true;
-        this.roomId = shortId.generate();
+        this.roomId = Math.floor(Math.random() * 1000000).toString();
         this.link = window.location.origin + '/invite/' + this.roomId;
       } else {
         this.link = window.location.origin + '/invite/' + user.roomId;
@@ -52,7 +51,7 @@ export class ShareComponent implements OnInit {
   public share() {
     this.settingsService.user.next({
       ...this.settingsService.user.value,
-      language: { audio: this.settingsService.defaultLanguage, written: this.settingsService.defaultLanguage },
+      language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written },
       roomId: this.roomId,
     });
     this.chatService.create(this.roomId).then((_) => this.dialogRef.close());

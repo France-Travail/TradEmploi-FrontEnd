@@ -18,10 +18,10 @@ export class TranslationTitleComponent implements OnInit {
 
   constructor(private settingsService: SettingsService, public router: Router) {
     this.settingsService.user.subscribe((user) => {
-      if(user != null){
+      if (user != null) {
         this.isGuest = user.role == Role.GUEST;
       }
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class TranslationTitleComponent implements OnInit {
     if (guest === undefined) {
       guest = VOCABULARY_DEFAULT;
     }
-    const advisorSentences = VOCABULARY.find((item) => item.isoCode === this.settingsService.defaultLanguage).sentences;
+    const advisorSentences = VOCABULARY.find((item) => item.isoCode === this.settingsService.defaultLanguage.written).sentences;
 
     this.title = {
       raw: guest.sentences.applicationName,

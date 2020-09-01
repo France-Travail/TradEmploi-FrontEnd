@@ -6,9 +6,9 @@ export interface Vocabulary {
   countryNameFr?: string;
   languageNameRaw?: string;
   languageNameFr?: string;
-  flag?: string;
   sentences: Sentence;
-  navbarTabs?: NavbarTab
+  navbarTabs?: NavbarTab;
+  audioCode?: string;
 }
 export interface Sentence {
   applicationName: string;
