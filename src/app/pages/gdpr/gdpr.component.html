@@ -18,7 +18,10 @@
       </ng-template>
       <ng-template [ngIf]="isMoreOptions">
         <b>{{ confirmTitle }}</b>
-        {{ confirmText }}
+        <div class="confirm">
+          {{ confirmText }}
+          <mat-slide-toggle></mat-slide-toggle>
+        </div>
       </ng-template>
   </div>
   <div class="action">

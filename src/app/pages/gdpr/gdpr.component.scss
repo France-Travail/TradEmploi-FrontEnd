@@ -10,6 +10,7 @@
 
 .pivacy{
     overflow-y: auto;
+    overflow-x: hidden;
     height: 150px;
     font-size: 15px;
     white-space: pre-line;
@@ -23,6 +24,10 @@
         background-color: $white-smoke;
         color: black;
     }
+}
+
+.confirm{
+    display: flex;
 }
 
 ::ng-deep .mat-select-value-text{
