@@ -9,7 +9,6 @@ import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -31,8 +30,7 @@ export class HeaderComponent {
     public dialog: MatDialog,
     public navbarService: NavbarService,
     public settingsService: SettingsService,
-    private breakpointObserver: BreakpointObserver,
-    private router: Router
+    private breakpointObserver: BreakpointObserver
     ) {
       this.isWideScreen = this.breakpointObserver
         .observe(['(min-width: 821px)'])

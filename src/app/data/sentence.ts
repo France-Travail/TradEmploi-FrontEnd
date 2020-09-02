@@ -64,8 +64,8 @@ export const FRENCH: Sentence = {
   },
   gdpr: {
     privacityText: 'Nous stockons et accédons aux informations sur un appareil, telles que les cookies et traitons les données personnelles pour la mesure du contenu et les informations d\'audience, ainsi que pour développer et améliorer les produits.\n\nVous pouvez cliquer pour consentir à notre traitement comme décrit ci-dessus.\nVous pouvez également cliquer pour refuser de donner votre consentement ou accéder à des informations plus détaillées et modifier vos préférences avant de consentir.\nVeuillez noter que certains traitements de vos données personnelles peuvent ne pas nécessiter votre consentement, mais vous avez le droit de vous opposer à un tel traitement.',
-    confirmTitle: 'Usages spéciaux et fonctionnalités',
-    confirmText: 'Nous utilisons la technologie de cryptage 256-AES pour crypter les données telles que les conversations envoyées à notre produit. Cela signifie que tous les messages que vous envoyez sont cryptés et sécurisés. Tout cela se produit automatiquement : pas besoin d\'activer les paramètres ou de configurer une requête spéciale pour sécuriser vos messages. AES-256 est toujours activé. Il n\'y a aucun moyen de désactiver le cryptage AES-256. Pour une protection supplémentaire, tous les messages stockés pendant l\'utilisation du produit seront supprimés à la fermeture de l\'application.'
+    optionTitle: 'Usages spéciaux et fonctionnalités',
+    optionText: 'Nous utilisons la technologie de cryptage 256-AES pour crypter les données telles que les conversations envoyées à notre produit. Cela signifie que tous les messages que vous envoyez sont cryptés et sécurisés. Tout cela se produit automatiquement : pas besoin d\'activer les paramètres ou de configurer une requête spéciale pour sécuriser vos messages. AES-256 est toujours activé. Il n\'y a aucun moyen de désactiver le cryptage AES-256. Pour une protection supplémentaire, tous les messages stockés pendant l\'utilisation du produit seront supprimés à la fermeture de l\'application.'
   }
 };
 
@@ -90,8 +90,8 @@ export const ENGLISH: Sentence = {
   },
   gdpr: {
     privacityText: 'We store and access information on a device, such as cookies and process personal data for content measurement, and audience insights, as well as to develop and improve products.\n\nYou may click to consent to our processing as described above.\nAlternatively you may click to refuse to consent or access more detailed information and change your preferences before consenting.\nPlease note that some processing of your personal data may not require your consent, but you have a right to object to such processing.',
-    confirmTitle: 'Special purposes and feature',
-    confirmText: 'We use 256-AES Encryption Technology to encrypt data such as conversation sent to our Product. It\'s mean that every messages you send are encryped and secured. All of this happens automatically: No need to turn on settings or set up special quiery to secure your messages. AES-256 is always activated. There\'s no way to turn off AES-256 encryption. For added protection, all messages stored during the Product\'use will be deleted when the app is closed.'
+    optionTitle: 'Special purposes and feature',
+    optionText: 'We use 256-AES Encryption Technology to encrypt data such as conversation sent to our Product. It\'s mean that every messages you send are encryped and secured. All of this happens automatically: No need to turn on settings or set up special quiery to secure your messages. AES-256 is always activated. There\'s no way to turn off AES-256 encryption. For added protection, all messages stored during the Product\'use will be deleted when the app is closed.'
   }
 };
 

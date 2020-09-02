@@ -13,30 +13,30 @@ export class GdprComponent {
   public selected = 'english';
   public isMoreOptions: boolean = false;
   public privacyText: string = ENGLISH.gdpr.privacityText;
-  public confirmTitle: string = ENGLISH.gdpr.confirmTitle;
-  public confirmText: string = ENGLISH.gdpr.confirmText;
+  public optionTitle: string = ENGLISH.gdpr.optionTitle;
+  public optionText: string = ENGLISH.gdpr.optionText;
 
   constructor(
     private router: Router
   ) {}
 
-  agree() {
+  public agree() {
     const url = this.router.url;
     const roomId = url.substring(url.lastIndexOf('/') + 1, url.length);
     this.router.navigateByUrl('auth/' + roomId);
   }
 
-  moreOptions() {
+  public moreOptions() {
     this.isMoreOptions = true;
     this.language({value: this.selected});
   }
 
-  language(option) {
+  public language(option) {
     if (!this.isMoreOptions) {
       this.privacyText = (option.value === 'english') ? ENGLISH.gdpr.privacityText : FRENCH.gdpr.privacityText;
     } else {
-      this.confirmTitle = (option.value === 'english') ? ENGLISH.gdpr.confirmTitle : FRENCH.gdpr.confirmTitle;
-      this.confirmText = (option.value === 'english') ? ENGLISH.gdpr.confirmText : FRENCH.gdpr.confirmText;
+      this.optionTitle = (option.value === 'english') ? ENGLISH.gdpr.optionTitle : FRENCH.gdpr.optionTitle;
+      this.optionText = (option.value === 'english') ? ENGLISH.gdpr.optionText : FRENCH.gdpr.optionText;
     }
   }
 }

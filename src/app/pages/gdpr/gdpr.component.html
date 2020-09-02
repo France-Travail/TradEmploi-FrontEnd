@@ -17,10 +17,10 @@
         {{ privacyText }}
       </ng-template>
       <ng-template [ngIf]="isMoreOptions">
-        <b>{{ confirmTitle }}</b>
+        <b>{{ optionTitle }}</b>
         <div class="confirm">
-          {{ confirmText }}
-          <mat-slide-toggle></mat-slide-toggle>
+          {{ optionText }}
+          <mat-slide-toggle color="primary"></mat-slide-toggle>
         </div>
       </ng-template>
   </div>
@@ -31,7 +31,7 @@
       <button (click)="agree()">AGREE</button>
     </ng-template>
     <ng-template [ngIf]="isMoreOptions">
-      <button class="options" [ngStyle]="{ width:'200px' }" (click)="agree()">CONFIRM MY CHOICES</button>
+      <button class="options" [ngStyle]="{ width:'200px' }" (click)="agree()">CONFIRM MY CHOICE</button>
     </ng-template>
   </div>
 </div>
