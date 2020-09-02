@@ -28,6 +28,7 @@ export class GdprComponent {
 
   moreOptions(){
     this.isMoreOptions = true
+    this.language({value: this.selected})
   }
 
   language(option){
