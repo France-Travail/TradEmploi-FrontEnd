@@ -32,5 +32,4 @@ export class NavbarService {
     this.shareTab = false;
     this.settingsTab = false;
   }
-
 }
