@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Message } from 'src/app/models/translate/message';
@@ -24,7 +24,7 @@ import { Language } from 'src/app/models/language';
   templateUrl: './translation.component.html',
   styleUrls: ['./translation.component.scss'],
 })
-export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate {
+export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate, OnDestroy {
   @ViewChild('scrollMe') private chatScroll: ElementRef;
   public messagesWrapped: MessageWrapped[] = [];
   public messages: Message[] = [];
@@ -59,7 +59,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.isMultiDevices = user.roomId !== undefined;
         if (this.isMultiDevices) {
           this.initMultiDevices(user.roomId);
-          this.isGuest = user.firstname !== undefined && user.firstname != this.settingsService.defaultName;
+          this.isGuest = user.firstname !== undefined && user.firstname !== this.settingsService.defaultName;
         }
         this.user = user;
       }
@@ -105,7 +105,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   public addToChat(messageWrapped: MessageWrapped) {
     const isNotGuestOnMultiDevices = !this.isGuest && this.isMultiDevices;
-    const isNotification = messageWrapped.notification != undefined;
+    const isNotification = messageWrapped.notification !== undefined;
     if (isNotGuestOnMultiDevices && isNotification) {
       this.sendNotification(messageWrapped);
     } else {
@@ -116,7 +116,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private addMessageToChat(message: Message) {
-    let hasDot = new RegExp('^[ .s]+$').test(message.text);
+    const hasDot = new RegExp('^[ .s]+$').test(message.text);
     if (message.text !== '' && !hasDot) {
       this.translateMessage(message);
     } else {
@@ -161,7 +161,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  };
+  }
 
   private addMultiMessageToChat(roomId: string) {
     this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
@@ -207,7 +207,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (!isSender && this.user.firstname === undefined && message.member === this.settingsService.defaultName) {
         isSender = true;
       }
-      const messageWrapped: MessageWrapped = { message: message, isSender: isSender, time: message.time };
+      const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
       this.messagesWrapped.push(messageWrapped);
       this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
     } else {
@@ -230,9 +230,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private openModal(component, height, disableClose) {
     this.dialog.open(component, {
       width: '800px',
-      height: height,
+      height,
       panelClass: 'customDialog',
-      disableClose: disableClose,
+      disableClose,
     });
   }
 }

@@ -11,32 +11,32 @@ import { FRENCH } from '../../data/sentence';
 export class GdprComponent {
 
   public selected = 'english';
-  public isMoreOptions:boolean = false;
-  public privacyText:string = ENGLISH.gdpr.privacityText;
-  public confirmTitle:string = ENGLISH.gdpr.confirmTitle;
-  public confirmText:string = ENGLISH.gdpr.confirmText;
+  public isMoreOptions: boolean = false;
+  public privacyText: string = ENGLISH.gdpr.privacityText;
+  public confirmTitle: string = ENGLISH.gdpr.confirmTitle;
+  public confirmText: string = ENGLISH.gdpr.confirmText;
 
   constructor(
     private router: Router
   ) {}
 
-  agree(){
+  agree() {
     const url = this.router.url;
     const roomId = url.substring(url.lastIndexOf('/') + 1, url.length);
     this.router.navigateByUrl('auth/' + roomId);
   }
 
-  moreOptions(){
-    this.isMoreOptions = true
-    this.language({value: this.selected})
+  moreOptions() {
+    this.isMoreOptions = true;
+    this.language({value: this.selected});
   }
 
-  language(option){
-    if(!this.isMoreOptions){
-      this.privacyText = (option.value === "english") ? ENGLISH.gdpr.privacityText : FRENCH.gdpr.privacityText 
-    }else{
-      this.confirmTitle = (option.value === "english") ? ENGLISH.gdpr.confirmTitle : FRENCH.gdpr.confirmTitle 
-      this.confirmText = (option.value === "english") ? ENGLISH.gdpr.confirmText : FRENCH.gdpr.confirmText 
+  language(option) {
+    if (!this.isMoreOptions) {
+      this.privacyText = (option.value === 'english') ? ENGLISH.gdpr.privacityText : FRENCH.gdpr.privacityText;
+    } else {
+      this.confirmTitle = (option.value === 'english') ? ENGLISH.gdpr.confirmTitle : FRENCH.gdpr.confirmTitle;
+      this.confirmText = (option.value === 'english') ? ENGLISH.gdpr.confirmText : FRENCH.gdpr.confirmText;
     }
   }
 }

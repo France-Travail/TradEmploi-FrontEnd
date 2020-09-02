@@ -48,7 +48,7 @@ export class AuthService {
         if (auth.user != null) {
           const id = auth.user.uid;
           auth.user.delete();
-          resolve({ id: id, isAuth: true, message: 'Authentification réussie' });
+          resolve({ id, isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
         reject({ isAuth: false, message: error.message });

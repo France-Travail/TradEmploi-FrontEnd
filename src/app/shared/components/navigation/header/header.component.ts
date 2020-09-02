@@ -9,6 +9,7 @@ import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -31,6 +32,7 @@ export class HeaderComponent {
     public navbarService: NavbarService,
     public settingsService: SettingsService,
     private breakpointObserver: BreakpointObserver,
+    private router: Router
     ) {
       this.isWideScreen = this.breakpointObserver
         .observe(['(min-width: 821px)'])
@@ -39,11 +41,11 @@ export class HeaderComponent {
         .observe(['(max-width: 820px)'])
         .pipe(map(({ matches }) => matches));
       this.settingsService.user.subscribe((user) => {
-        if(user !== null) {
+        if (user !== null) {
           this.isGuest = user.role === Role.GUEST;
           this.isAdmin = user.role === Role.ADMIN;
         }
-        if(this.isGuest) {
+        if (this.isGuest) {
           this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
           this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
         }
@@ -59,13 +61,13 @@ export class HeaderComponent {
   }
 
   public share() {
-    this.openModal(ShareComponent, '500px')
+    this.openModal(ShareComponent, '500px');
   }
 
   private openModal(component, height) {
     this.dialog.open(component, {
       width: '800px',
-      height: height,
+      height,
       panelClass: 'customDialog'
     });
   }

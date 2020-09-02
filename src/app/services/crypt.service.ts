@@ -24,7 +24,7 @@ export class CryptService {
   }
 
   private encrypt(text: string, iv: string, key: string): string {
-    return crypto.AES.encrypt(text, key+iv, {
+    return crypto.AES.encrypt(text, key + iv, {
       iv: crypto.enc.Hex.parse(iv),
       mode: crypto.mode.CBC,
       padding: crypto.pad.Pkcs7,
@@ -32,6 +32,6 @@ export class CryptService {
   }
 
   private decrypt(text: string, iv: string, key: string): string {
-    return crypto.AES.decrypt(text, key+iv, { iv: crypto.enc.Hex.parse(iv), mode: crypto.mode.CBC, padding: crypto.pad.Pkcs7 }).toString(crypto.enc.Utf8);
+    return crypto.AES.decrypt(text, key + iv, { iv: crypto.enc.Hex.parse(iv), mode: crypto.mode.CBC, padding: crypto.pad.Pkcs7 }).toString(crypto.enc.Utf8);
   }
 }

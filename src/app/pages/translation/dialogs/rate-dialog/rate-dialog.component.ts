@@ -59,7 +59,8 @@ export class RateDialogComponent implements OnInit {
       if (user !== null && user.roomId !== undefined) {
         this.roomId = user.roomId;
       }
-    })}
+    });
+  }
 
   ngOnInit(): void {
     const rateFr = VOCABULARY.find((v) => v.isoCode === 'fr-FR').sentences.rate;
@@ -82,7 +83,7 @@ export class RateDialogComponent implements OnInit {
       date: new Date(),
       grades: [undefined, undefined],
       comment: '',
-      offerLinked: "non",
+      offerLinked: 'non',
     };
   }
 
@@ -107,13 +108,13 @@ export class RateDialogComponent implements OnInit {
         })
         .catch((error) => {
           this.dialogRef.close();
-          this.toastService.showToast("La notation n'a pas pu être envoyée. Redirection en cours.", 'toast-error');
+          this.toastService.showToast('La notation n\'a pas pu être envoyée. Redirection en cours.', 'toast-error');
           setTimeout(() => {
             this.router.navigate(['thanks']);
           }, 3500);
         }).finally(() => {
-          this.chatService.updateChatStatus(this.roomId, false)
-          this.chatService.delete(this.roomId)});
+          this.chatService.updateChatStatus(this.roomId, false);
+          this.chatService.delete(this.roomId); });
     }
   }
 

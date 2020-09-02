@@ -37,5 +37,5 @@ export class SpeechToTextSyncService {
           throw new Error('An error occurred when api async speech to text longrunningrecognize called');
         });
     });
-  };
+  }
 }

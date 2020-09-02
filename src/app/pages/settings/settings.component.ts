@@ -33,7 +33,7 @@ export class SettingsComponent {
         this.exportCsv(response);
       })
       .catch((err) => {
-        this.toastService.showToast("Erreur lors de l'export du fichier", 'toast-error');
+        this.toastService.showToast('Erreur lors de l\'export du fichier', 'toast-error');
         throw new Error('An error occurred when export csv file');
       });
   }

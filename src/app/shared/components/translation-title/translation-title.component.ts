@@ -19,7 +19,7 @@ export class TranslationTitleComponent implements OnInit {
   constructor(private settingsService: SettingsService, public router: Router) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
-        this.isGuest = user.role == Role.GUEST;
+        this.isGuest = user.role === Role.GUEST;
       }
     });
   }

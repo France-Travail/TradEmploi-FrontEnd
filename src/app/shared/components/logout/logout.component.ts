@@ -32,18 +32,18 @@ export class LogoutComponent {
         this.isGuest = user.role === Role.GUEST;
         this.user = user;
       }
-    })
+    });
   }
 
   public confirm() {
     this.dialogRef.close();
     this.authService.logout();
-    if(this.roomId){
-      this.settingsService.reset()
-      if(this.isGuest){
-        this.chatService.deleteMember(this.roomId, this.user.firstname, this.user.id) 
-      }else{
-        this.chatService.updateChatStatus(this.roomId, false)
+    if (this.roomId) {
+      this.settingsService.reset();
+      if (this.isGuest) {
+        this.chatService.deleteMember(this.roomId, this.user.firstname, this.user.id);
+      } else {
+        this.chatService.updateChatStatus(this.roomId, false);
         this.chatService.delete(this.roomId);
       }
     }

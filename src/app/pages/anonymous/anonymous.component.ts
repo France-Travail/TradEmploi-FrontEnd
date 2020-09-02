@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,7 +12,7 @@ import { Member } from 'src/app/models/db/member';
   templateUrl: './anonymous.component.html',
   styleUrls: ['../../../sass/panel.scss'],
 })
-export class AnonymousComponent {
+export class AnonymousComponent implements OnInit {
   public form: FormGroup;
   private roomId: string;
 
@@ -47,10 +47,10 @@ export class AnonymousComponent {
     try {
       this.chatService.hasRoom(this.roomId).subscribe(async (hasRoom) => {
         if (!hasRoom) {
-          this.toastService.showToast("The chat doesn't exist", 'toast-error');
+          this.toastService.showToast('The chat doesn\'t exist', 'toast-error');
         } else {
           const auth = await this.authService.loginAnonymous();
-          let member: Member = { id: auth.id, firstname: this.username.value };
+          const member: Member = { id: auth.id, firstname: this.username.value };
           const key = this.chatService.addMember(this.roomId, member);
           this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key });
           this.toastService.showToast(auth.message, 'toast-success');

@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { Stream } from 'src/app/models/stream';
@@ -19,7 +19,7 @@ import { MessageWrapped } from '../../../../models/translate/message-wrapped';
   templateUrl: './message-wrapper.component.html',
   styleUrls: ['./message-wrapper.component.scss'],
 })
-export class MessageWrapperComponent implements OnInit {
+export class MessageWrapperComponent implements OnInit, OnChanges {
   @Input() title: string;
   @Input() role: string;
   @Input() originText: Message;
@@ -81,7 +81,7 @@ export class MessageWrapperComponent implements OnInit {
       }
       this.speak = true;
     } else {
-      this.toastService.showToast("L'accès au microphone n'est pas autorisé.", 'toast-info');
+      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.', 'toast-info');
     }
   }
 
@@ -116,7 +116,7 @@ export class MessageWrapperComponent implements OnInit {
     if (this.rawText !== '') {
       const user = this.settingsService.user.value;
       const message = messageAudio === undefined ? this.rawText : messageAudio;
-      const isMultiDevices = user.roomId != undefined;
+      const isMultiDevices = user.roomId !== undefined;
       if (isMultiDevices) {
         this.sendToMultiDevices(user, message);
       } else {
@@ -141,7 +141,7 @@ export class MessageWrapperComponent implements OnInit {
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
-    if (message != '') {
+    if (message !== '') {
       this.send(false, message);
     } else {
       this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
@@ -157,13 +157,13 @@ export class MessageWrapperComponent implements OnInit {
   private async sendToOneDevice(text: string) {
     const message = {
       time: Date.now(),
-      text: text,
+      text,
       languageOrigin: this.languageOrigin,
       flag: this.flag,
       role: this.role,
     };
     const messageWrapped: MessageWrapped = {
-      message: message,
+      message,
       time: Date.now(),
     };
     this.messagesToEmit.emit(messageWrapped);
@@ -172,14 +172,14 @@ export class MessageWrapperComponent implements OnInit {
   private async sendToMultiDevices(user: User, text: string) {
     const message: Message = {
       time: Date.now(),
-      text: text,
+      text,
       languageOrigin: this.languageOrigin,
       flag: this.flag,
       role: this.role,
       member: user.firstname ? user.firstname : this.settingsService.defaultName,
     };
     const messageWrapped: MessageWrapped = {
-      message: message,
+      message,
       time: Date.now(),
     };
     this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
