@@ -1,5 +1,6 @@
 @import 'panel';
 
+
 .title {
     margin-bottom: 0 !important;
 }
@@ -43,6 +44,10 @@
     color:$primary-color;
 }
 
+.mobileBtn{
+    width: 80px !important;
+}
+
 @media (max-width: 768px) {
     .action{
         button {
@@ -51,16 +56,10 @@
     }
 }
 
-@media (max-width: 576px) { 
-    .privacy{
-        margin-left: 50px;
-        margin-right: 50px;
-    }
+@media screen and (max-width: 576px) { 
     .action{
-        margin-left: 20px;
-        margin-right: 20px;
         button {
-            width: 140px;
+            width: 120px;
         }
     }
 }

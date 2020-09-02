@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ENGLISH } from 'src/app/data/sentence';
 import { FRENCH } from '../../data/sentence';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-gdpr',
@@ -15,10 +16,15 @@ export class GdprComponent {
   public privacyText: string = ENGLISH.gdpr.privacityText;
   public optionTitle: string = ENGLISH.gdpr.optionTitle;
   public optionText: string = ENGLISH.gdpr.optionText;
+  public isMobile:boolean = false;
 
   constructor(
-    private router: Router
-  ) {}
+    private router: Router,
+    private deviceService: DeviceDetectorService
+  ) {
+    this.isMobile = this.deviceService.isMobile();
+  }
+
 
   public agree() {
     const url = this.router.url;

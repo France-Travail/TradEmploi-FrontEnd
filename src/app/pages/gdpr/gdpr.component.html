@@ -26,9 +26,9 @@
   </div>
   <div class="action">
     <ng-template [ngIf]="!isMoreOptions">
-      <button class="options" (click)="agree()">DISAGREE</button>
-      <button class="options" (click)="moreOptions()">MORE OPTIONS</button>
-      <button (click)="agree()">AGREE</button>
+      <button class="options" (click)="agree()"  [ngClass]="{ 'mobileBtn': isMobile }">DISAGREE</button>
+      <button class="options" (click)="moreOptions()"  [ngClass]="{ 'mobileBtn': isMobile }">MORE OPTIONS</button>
+      <button (click)="agree()" [ngClass]="{ 'mobileBtn': isMobile }">AGREE</button>
     </ng-template>
     <ng-template [ngIf]="isMoreOptions">
       <button class="options" [ngStyle]="{ width:'200px' }" (click)="agree()">CONFIRM MY CHOICE</button>
