@@ -60,7 +60,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'settings/:from',
+    path: 'settings',
     component: SettingsComponent,
     canActivate: [AuthGuard],
   },

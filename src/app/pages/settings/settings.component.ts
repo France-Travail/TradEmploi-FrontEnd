@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { environment } from '../../../environments/environment';
 import { Parser } from 'json2csv';
@@ -13,13 +12,8 @@ import { SettingsService } from 'src/app/services/settings.service';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent {
-  public path: string;
-
-  constructor(public router: Router, private fireFunction: AngularFireFunctions, private toastService: ToastService, private navService: NavbarService, private settingsService: SettingsService) {
-    const url = this.router.url;
-    this.path = url.substring(url.lastIndexOf('/'));
+  constructor(private fireFunction: AngularFireFunctions, private toastService: ToastService, private navService: NavbarService, private settingsService: SettingsService) {
     this.navService.handleTabsSettings();
-    this.settingsService.user.next({ ...this.settingsService.user.value, connectionTime: Date.now() });
   }
 
   public export(): void {
@@ -55,6 +49,7 @@ export class SettingsComponent {
   }
 
   public goBack() {
+    this.settingsService.user.next({ ...this.settingsService.user.value, connectionTime: Date.now() });
     window.history.back();
   }
 }
