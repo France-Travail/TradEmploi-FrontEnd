@@ -191,7 +191,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'fr-FR',
-
     countryNameRaw: 'France',
     countryNameFr: 'France',
     languageNameRaw: 'Français',
@@ -200,7 +199,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-GB',
-
     countryNameRaw: 'United Kingdom',
     countryNameFr: 'Royaume-Uni',
     languageNameRaw: 'English',
@@ -209,7 +207,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'es-ES',
-
     countryNameRaw: 'España',
     countryNameFr: 'Espagne',
     languageNameRaw: 'Español',
@@ -236,7 +233,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'zh-HK',
-    audioCode: 'yue-Hant-HK',
+    audioCode: 'yue-HK',
     countryNameRaw: '香港',
     countryNameFr: 'Hong-Kong',
     languageNameRaw: '普通话',
@@ -290,7 +287,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-IN',
-
     countryNameRaw: 'India',
     countryNameFr: 'Inde',
     languageNameRaw: 'English',
@@ -443,7 +439,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'am-ET',
-
     countryNameRaw: 'ኢትዮጵያ',
     countryNameFr: 'Ethiopie',
     languageNameFr: 'Amharique',
@@ -452,7 +447,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'km-KH',
-
     countryNameRaw: 'កម្ពុជា',
     countryNameFr: 'Cambodge',
     languageNameFr: 'Khmer',
@@ -461,7 +455,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'hi-IN',
-
     countryNameRaw: 'भारत',
     countryNameFr: 'Inde',
     languageNameFr: 'Hindi',
@@ -470,7 +463,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ta-IN',
-
     countryNameRaw: 'இந்தியா',
     countryNameFr: 'Inde',
     languageNameFr: 'Tamoul',
@@ -479,7 +471,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'it-IT',
-
     countryNameRaw: 'Italia',
     countryNameFr: 'Italie',
     languageNameFr: 'Italien',
@@ -488,7 +479,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'mn-MN',
-
     countryNameRaw: 'Монгол Улс',
     countryNameFr: 'Mongolie',
     languageNameFr: 'Mongol',
@@ -497,7 +487,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ne-NP',
-
     countryNameRaw: 'नेपाल',
     countryNameFr: 'Népal',
     languageNameFr: 'Népalais',
@@ -506,7 +495,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ru-RU',
-
     countryNameRaw: 'Россия',
     countryNameFr: 'Russie',
     languageNameFr: 'Russe',
@@ -523,7 +511,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ro-RO',
-
     countryNameRaw: 'România',
     countryNameFr: 'Roumanie',
     languageNameFr: 'Roumain',
@@ -532,7 +519,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'so-SO',
-
     countryNameRaw: 'Soomaaliya',
     countryNameFr: 'Somalie',
     languageNameFr: 'Somali',
@@ -541,7 +527,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'vi-VN',
-
     countryNameRaw: 'Việt Nam',
     countryNameFr: 'Vietnam',
     languageNameFr: 'Vietnamien',
@@ -550,7 +535,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'el-GR',
-
     countryNameRaw: 'Ελλάδα',
     countryNameFr: 'Grèce',
     languageNameFr: 'Grec',
@@ -642,7 +626,7 @@ export const VOCABULARY: Vocabulary[] = [
     isoCode: 'es-MX',
     audioCode: 'es-ES',
     countryNameRaw: 'México',
-    countryNameFr: 'Mexico',
+    countryNameFr: 'Mexique',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
     sentences: SPANISH,
@@ -714,14 +698,13 @@ export const VOCABULARY: Vocabulary[] = [
     isoCode: 'es-VE',
     audioCode: 'es-ES',
     countryNameRaw: 'Venezuela',
-    countryNameFr: 'Venezuela',
+    countryNameFr: 'Vénézuéla',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
     sentences: SPANISH,
   },
   {
     isoCode: 'th-TH',
-
     countryNameRaw: 'ประเทศไทย',
     countryNameFr: 'Thaïlande',
     languageNameRaw: 'ไทย',
@@ -730,7 +713,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ko-KR',
-
     countryNameRaw: '대한민국',
     countryNameFr: 'Corée du Sud',
     languageNameRaw: '한국어',
@@ -739,7 +721,6 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ja-JP',
-
     countryNameRaw: '日本',
     countryNameFr: 'Japon',
     languageNameRaw: '日本語',

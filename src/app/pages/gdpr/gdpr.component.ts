@@ -16,7 +16,7 @@ export class GdprComponent {
   public privacyText: string = ENGLISH.gdpr.privacityText;
   public optionTitle: string = ENGLISH.gdpr.optionTitle;
   public optionText: string = ENGLISH.gdpr.optionText;
-  public isMobile:boolean = false;
+  public isMobile: boolean = false;
 
   constructor(
     private router: Router,

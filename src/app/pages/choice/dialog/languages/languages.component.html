@@ -6,17 +6,17 @@
 </mat-form-field>
 <mat-table [dataSource]="dataCountriesSource" matSort matSortStart="asc" class="mat-dialog-content">
   <ng-container matColumnDef="traduction">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Pays (FR)</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header="countryNameFr">Pays (FR)</mat-header-cell>
     <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)">{{ element.countryNameFr }}</mat-cell>
   </ng-container>
   <!-- country Column-->
   <ng-container matColumnDef="country">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Pays</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header="countryNameRaw">Pays</mat-header-cell>
     <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)">{{ element.countryNameRaw }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="language">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Langue</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header="languageNameRaw">Langue</mat-header-cell>
     <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)">{{ element.languageNameRaw }}</mat-cell>
   </ng-container>
 

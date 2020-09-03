@@ -14,14 +14,18 @@ import { Vocabulary } from 'src/app/models/vocabulary';
   styleUrls: ['./languages.component.scss'],
 })
 export class LanguagesComponent implements OnInit {
-  public displayedColumns: string[] = ['country', 'flag', 'traduction', 'language'];
+  public displayedColumns: string[];
   public countries: Vocabulary[] = VOCABULARY;
-  public dataCountriesSource: MatTableDataSource<Vocabulary> = new MatTableDataSource(this.countries);
+  public dataCountriesSource: MatTableDataSource<Vocabulary>;
 
   @ViewChild(MatSort, { static: true }) sorting: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(public dialogRef: MatDialogRef<LanguagesComponent>, private voicesService: VoicesService, private settingsService: SettingsService) {}
+  constructor(public dialogRef: MatDialogRef<LanguagesComponent>, private voicesService: VoicesService, private settingsService: SettingsService) {
+    this.displayedColumns = ['country', 'flag', 'traduction', 'language'];
+    this.countries = this.countries.filter((country) => country.isoCode !== 'ar-XA');
+    this.dataCountriesSource = new MatTableDataSource(this.countries);
+  }
   ngOnInit() {
     this.sorting.direction = 'asc';
     this.sorting.active = 'countryNameFr';
