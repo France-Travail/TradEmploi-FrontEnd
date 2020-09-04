@@ -1,7 +1,7 @@
 export interface Gdpr {
   title: string;
-  preDescription: string;
-  description: string;
+  preApplicationName: string;
+  applicationName: string;
   privacyText: string;
   optionTitle: string;
   optionText: string;
