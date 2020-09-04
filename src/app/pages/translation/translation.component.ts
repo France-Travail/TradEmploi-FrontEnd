@@ -81,6 +81,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   ngOnDestroy() {
     this.settingsService.user.next({ ...this.settingsService.user.value, connectionTime: Date.now() });
+    if (this.isMultiDevices) {
+      this.isAudioPlay = false;
+    }
   }
 
   scrollToBottom(): void {
@@ -159,7 +162,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  }
+  };
 
   private addMultiMessageToChat(roomId: string) {
     this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
