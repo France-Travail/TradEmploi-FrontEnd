@@ -44,8 +44,9 @@ export class RecordComponent implements OnInit {
   }
 
   putTitle = () => {
-    const language = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.audio : this.settingsService.user.value.language.audio;
+    const language: string = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.audio : this.settingsService.user.value.language.audio;
     this.text = VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
+
   }
 
   private recordBarLoad = () => {

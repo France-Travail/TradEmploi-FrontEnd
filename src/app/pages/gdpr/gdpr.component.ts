@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ENGLISH } from 'src/app/data/sentence';
 import { FRENCH } from '../../data/sentence';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { Gdpr } from 'src/app/models/gdpr';
 
 @Component({
   selector: 'app-gdpr',
@@ -13,10 +14,8 @@ export class GdprComponent {
 
   public selected = 'english';
   public isMoreOptions: boolean = false;
-  public privacyText: string = ENGLISH.gdpr.privacityText;
-  public optionTitle: string = ENGLISH.gdpr.optionTitle;
-  public optionText: string = ENGLISH.gdpr.optionText;
   public isMobile: boolean = false;
+  public gdprWording: Gdpr = ENGLISH.gdpr
 
   constructor(
     private router: Router,
@@ -38,11 +37,6 @@ export class GdprComponent {
   }
 
   public language(option) {
-    if (!this.isMoreOptions) {
-      this.privacyText = (option.value === 'english') ? ENGLISH.gdpr.privacityText : FRENCH.gdpr.privacityText;
-    } else {
-      this.optionTitle = (option.value === 'english') ? ENGLISH.gdpr.optionTitle : FRENCH.gdpr.optionTitle;
-      this.optionText = (option.value === 'english') ? ENGLISH.gdpr.optionText : FRENCH.gdpr.optionText;
-    }
+    this.gdprWording = (option.value === 'english') ? ENGLISH.gdpr : FRENCH.gdpr;
   }
 }
