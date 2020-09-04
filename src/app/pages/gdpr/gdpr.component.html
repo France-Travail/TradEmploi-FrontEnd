@@ -1,8 +1,8 @@
 <div class="panel">
   <div class="title">
     <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
-    <h1 class="t2">Privacity settings</h1>
-    <p class="t3">Access to <span class="text-app">instant translation service</span></p>
+    <h1 class="t2"> {{ gdprWording.title }}</h1>
+    <p class="t3">{{ gdprWording.preDescription }} <span class="text-app">{{ gdprWording.description }} </span></p>
   </div>
   <div class="language">
     <mat-form-field appearance="none">
@@ -14,24 +14,24 @@
   </div>
   <div class="privacy">
       <ng-template [ngIf]="!isMoreOptions">
-        {{ privacyText }}
+        {{ gdprWording.privacyText }}
       </ng-template>
       <ng-template [ngIf]="isMoreOptions">
-        <b>{{ optionTitle }}</b>
+        <b>{{ gdprWording.optionTitle }}</b>
         <div class="confirm">
-          {{ optionText }}
+          {{ gdprWording.optionText }}
           <mat-slide-toggle color="primary"></mat-slide-toggle>
         </div>
       </ng-template>
   </div>
   <div class="action">
     <ng-template [ngIf]="!isMoreOptions">
-      <button class="options" (click)="agree()"  [ngClass]="{ 'mobileBtn': isMobile }">DISAGREE</button>
-      <button class="options" (click)="moreOptions()"  [ngClass]="{ 'mobileBtn': isMobile }">MORE OPTIONS</button>
-      <button (click)="agree()" [ngClass]="{ 'mobileBtn': isMobile }">AGREE</button>
+      <button class="options" (click)="agree()"  [ngClass]="{ 'mobileBtn': isMobile }">{{ gdprWording.disagreeBtn }} </button>
+      <button class="options" (click)="moreOptions()"  [ngClass]="{ 'mobileBtn': isMobile }">{{ gdprWording.learnBtn }}</button>
+      <button (click)="agree()" [ngClass]="{ 'mobileBtn': isMobile }">{{ gdprWording.agreeBtn }}</button>
     </ng-template>
     <ng-template [ngIf]="isMoreOptions">
-      <button class="options" [ngStyle]="{ width:'200px' }" (click)="agree()">CONFIRM MY CHOICE</button>
+      <button class="options" [ngStyle]="{ width:'200px' }" (click)="agree()">{{ gdprWording.confirmBtn }}</button>
     </ng-template>
   </div>
 </div>
