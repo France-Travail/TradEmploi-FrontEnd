@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { Message } from 'src/app/models/translate/message';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
@@ -37,6 +37,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private isAudioPlay: boolean;
   private user: User;
+  private endIdDialogRef: MatDialogRef<any,any>;
 
   constructor(
     public dialog: MatDialog,
@@ -137,19 +138,37 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   @HostListener('window:unload')
   public canDeactivate(): Observable<boolean> | boolean {
-    const isMultiDevices = this.user.roomId !== undefined;
-    if (isMultiDevices) {
-      this.settingsService.reset();
-      if (this.user.role === Role.GUEST) {
-        this.chatService.deleteMember(this.user.roomId, this.user.firstname, this.user.id);
-      } else {
-        this.chatService.updateChatStatus(this.user.roomId, false);
-        this.chatService.delete(this.user.roomId);
+    this.toastService.showToast('unload ?', 'toast-error');
+    this.deactivate()
+    return true;
+  }
+
+  @HostListener('window:blur')
+  public blur(): Observable<boolean> | boolean {
+    if(this.settingsService.recordMode){
+      const isEndClosed:boolean = this.endIdDialogRef === undefined
+      if(isEndClosed){
+        this.deactivate()
+        this.endIdDialogRef = this.openModal(EndComponent, '300px', true);
       }
     }
     return true;
   }
 
+  private deactivate(){
+    const isMultiDevices = this.user.roomId !== undefined;
+    if (isMultiDevices) {
+      this.settingsService.reset();
+      if (this.isGuest) {
+        const isEndClosed:boolean = this.endIdDialogRef === undefined
+        if(isEndClosed){
+          this.chatService.deleteMember(this.user.roomId, this.user.firstname, this.user.id);
+        }
+      } else {
+        this.chatService.delete(this.user.roomId);
+      }
+    }
+  }
   private initMultiDevices = (roomId) => {
     this.messagesWrapped = [];
     this.chatService.getChatStatus(roomId).subscribe((active) => {
@@ -229,7 +248,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private openModal(component, height, disableClose) {
-    this.dialog.open(component, {
+    return this.dialog.open(component, {
       width: '800px',
       height,
       panelClass: 'customDialog',
