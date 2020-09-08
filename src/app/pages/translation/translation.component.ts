@@ -19,6 +19,7 @@ import { EndComponent } from './dialogs/end/end.component';
 import { CryptService } from 'src/app/services/crypt.service';
 import { Language } from 'src/app/models/language';
 
+
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
@@ -134,8 +135,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.isAudioPlay = !this.isAudioPlay;
   }
 
-  @HostListener('window:unload')
-  public canDeactivate(): Observable<boolean> | boolean {
+  @HostListener('window:pagehide', ['$event'])
+  @HostListener('window:beforeunload', ['$event'])
+  @HostListener('window:unload', ['$event'])
+  public canDeactivate(event: Event): Observable<boolean> | boolean {
+    console.log(event.type);
+    this.chatService.sendMessageWrapped(this.user.roomId, { notification: event.type.toString(), time: Date.now() });
     const isMultiDevices = this.user.roomId !== undefined;
     if (isMultiDevices) {
       this.settingsService.reset();
@@ -146,6 +151,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.chatService.delete(this.user.roomId);
       }
     }
+    event.preventDefault();
     return true;
   }
 
@@ -161,7 +167,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  }
+  };
 
   private addMultiMessageToChat(roomId: string) {
     this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
