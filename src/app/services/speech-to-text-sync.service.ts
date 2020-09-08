@@ -29,7 +29,7 @@ export class SpeechToTextSyncService {
           data,
         })
           .then((response) => {
-            const transcription = response.data.results !== undefined ? response.data.results[0].alternatives[0].transcript : 'Aucun son détecté';
+            const transcription = response.data.results !== undefined ? response.data.results[0].alternatives[0].transcript : '0xCAFEBABE';
             observer.next(transcription);
             observer.complete();
           })

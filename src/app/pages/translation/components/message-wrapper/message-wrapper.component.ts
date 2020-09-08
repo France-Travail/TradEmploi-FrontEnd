@@ -42,6 +42,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   private isMobile: boolean = false;
 
+  private errors = ['0xCAFEBABE'];
+
   constructor(
     private toastService: ToastService,
     private settingsService: SettingsService,
@@ -81,7 +83,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       }
       this.speak = true;
     } else {
-      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.', 'toast-info');
+      this.toastService.showToast("L'accès au microphone n'est pas autorisé.", 'toast-info');
     }
   }
 
@@ -141,10 +143,15 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
-    if (message !== '') {
-      this.send(false, message);
-    } else {
-      this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+    if (message === '0xCAFEBABE') {
+      this.toastService.showToast('Aucun son detecté.', 'toast-error');
+    }
+    if (!this.errors.includes(message)) {
+      if (message !== '') {
+        this.send(false, message);
+      } else {
+        this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+      }
     }
   }
 
