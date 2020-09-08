@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SpeechToTextSyncService } from './speech-to-text-sync.service';
 import { Subject } from 'rxjs';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AudioRecordingService {
   public audioSpeech: HTMLAudioElement;
@@ -21,13 +21,13 @@ export class AudioRecordingService {
   }
 
   public start() {
-    navigator.mediaDevices.getUserMedia(this.constraints).then(stream => {
+    navigator.mediaDevices.getUserMedia(this.constraints).then((stream) => {
       this.stream = stream;
       const audioContext = new AudioContext();
       this.input = audioContext.createMediaStreamSource(stream);
       this.node = this.input.context.createScriptProcessor(4096, 1, 1);
       this.worker.postMessage({ type: 'init' });
-      this.node.onaudioprocess = e => {
+      this.node.onaudioprocess = (e) => {
         const channelLeft = e.inputBuffer.getChannelData(0);
         this.worker.postMessage({ type: 'encode', buf: channelLeft });
       };

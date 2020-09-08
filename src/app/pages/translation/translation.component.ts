@@ -19,7 +19,6 @@ import { EndComponent } from './dialogs/end/end.component';
 import { CryptService } from 'src/app/services/crypt.service';
 import { Language } from 'src/app/models/language';
 
-
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
@@ -135,11 +134,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.isAudioPlay = !this.isAudioPlay;
   }
 
-  @HostListener('window:pagehide', ['$event'])
-  @HostListener('window:beforeunload', ['$event'])
-  @HostListener('window:unload', ['$event'])
-  public canDeactivate(event: Event): Observable<boolean> | boolean {
-    console.log(event.type);
+  @HostListener('window:unload')
+  public canDeactivate(): Observable<boolean> | boolean {
     this.chatService.sendMessageWrapped(this.user.roomId, { notification: event.type.toString(), time: Date.now() });
     const isMultiDevices = this.user.roomId !== undefined;
     if (isMultiDevices) {
