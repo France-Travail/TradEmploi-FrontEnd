@@ -1,3 +1,5 @@
+import { ErrorCode } from './../../../../models/error-code';
+import { StotResult } from './../../../../models/stot-result';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
@@ -135,16 +137,18 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     }
   }
 
-  public audioSending(message: string): void {
+  public audioSending(stotResult: StotResult): void {
     this.micro = false;
     this.speak = false;
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
-    if (message !== '') {
-      this.send(false, message);
+    if (stotResult.message !== '') {
+      this.send(false, stotResult.message);
     } else {
-      this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+      (stotResult.error === ErrorCode.NOSOUND) ?
+        this.toastService.showToast(ErrorCode.NOSOUND, 'toast-error'):
+        this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
     }
   }
 

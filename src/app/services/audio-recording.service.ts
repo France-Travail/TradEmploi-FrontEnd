@@ -1,3 +1,4 @@
+import { StotResult } from './../models/stot-result';
 import { Injectable } from '@angular/core';
 import { SpeechToTextSyncService } from './speech-to-text-sync.service';
 import { Subject } from 'rxjs';
@@ -51,7 +52,7 @@ export class AudioRecordingService {
           const audioOnBase64 = await this.convertBlobToBase64(this.audioOnBlob);
           const speechToTextService = new SpeechToTextSyncService();
           speechToTextService.recognizeSync(audioOnBase64, this.language, time).subscribe(
-            resultat => this.speechToText.next(resultat),
+            resultat => this.speechToText.next(resultat.message),
             error => this.speechToText.error(error)
           );
         }

@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { StotResult } from '../models/stot-result';
+import { ErrorCode } from '../models/error-code'
 
 @Injectable({
   providedIn: 'root',
 })
 export class SpeechToTextSyncService {
-  recognizeSync = (audioBytes: any, language: string, time: number): Observable<string> => {
+  recognizeSync = (audioBytes: any, language: string, time: number): Observable<StotResult> => {
     const urlRecognize: string = `https://speech.googleapis.com/v1/speech:recognize?key=${environment.gcp.apiKey}`;
     const data = {
       config: {
@@ -28,7 +30,12 @@ export class SpeechToTextSyncService {
         data,
       })
         .then((response) => {
-          const transcription = response.data.results[0].alternatives[0].transcript;
+          let transcription: StotResult
+          if(response.data.results){
+            transcription.message = response.data.results[0].alternatives[0].transcript
+          }else {
+            transcription.error = ErrorCode.NOSOUND
+          } 
           observer.next(transcription);
           observer.complete();
         })
