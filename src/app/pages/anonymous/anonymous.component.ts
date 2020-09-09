@@ -7,6 +7,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { Member } from 'src/app/models/db/member';
 import { ErrorCodes } from 'src/app/models/errorCodes';
+import { Role } from 'src/app/models/role';
 
 @Component({
   selector: 'app-anonymous',
@@ -53,7 +54,7 @@ export class AnonymousComponent implements OnInit {
           const auth = await this.authService.loginAnonymous();
           const member: Member = { id: auth.id, firstname: this.username.value };
           const key = this.chatService.addMember(this.roomId, member);
-          this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key });
+          this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST });
           this.toastService.showToast(auth.message, 'toast-success');
           this.router.navigateByUrl('choice');
         }

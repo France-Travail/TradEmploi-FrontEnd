@@ -1,3 +1,5 @@
+import { ErrorCode } from './../../../../models/error-code';
+import { StotResult } from './../../../../models/stot-result';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
