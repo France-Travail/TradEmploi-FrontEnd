@@ -144,13 +144,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
-    if (message === ErrorCodes.NOSOUND) {
-      this.toastService.showToast(ErrorCodes.NOSOUND, 'toast-error');
+    if (message === ErrorCodes.NOSOUNDERROR) {
+      this.toastService.showToast(ErrorCodes.NOSOUNDERROR, 'toast-error');
     } else {
       if (message !== '') {
         this.send(false, message);
       } else {
-        this.toastService.showToast(ErrorCodes.UNAVAILABLE, 'toast-error');
+        this.toastService.showToast(ErrorCodes.TRANSLATIONUNAVAILABLE, 'toast-error');
       }
     }
   }

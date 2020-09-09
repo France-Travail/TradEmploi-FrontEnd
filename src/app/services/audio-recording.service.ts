@@ -22,7 +22,6 @@ export class AudioRecordingService {
 
   public start() {
     navigator.mediaDevices.getUserMedia(this.constraints).then((stream) => {
-      console.log('START FUNC');
       this.stream = stream;
       const audioContext = new AudioContext();
       this.input = audioContext.createMediaStreamSource(stream);

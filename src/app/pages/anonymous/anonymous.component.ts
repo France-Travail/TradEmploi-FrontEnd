@@ -6,6 +6,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { Member } from 'src/app/models/db/member';
+import { ErrorCodes } from 'src/app/models/errorCodes';
 
 @Component({
   selector: 'app-anonymous',
@@ -47,7 +48,7 @@ export class AnonymousComponent implements OnInit {
     try {
       this.chatService.hasRoom(this.roomId).subscribe(async (hasRoom) => {
         if (!hasRoom) {
-          this.toastService.showToast('The chat doesn\'t exist', 'toast-error');
+          this.toastService.showToast(ErrorCodes.NONEXISTANTCHAT, 'toast-error');
         } else {
           const auth = await this.authService.loginAnonymous();
           const member: Member = { id: auth.id, firstname: this.username.value };

@@ -30,12 +30,11 @@ export class SpeechToTextSyncService {
           data,
         })
           .then((response) => {
-            const transcription = response.data.results !== undefined ? response.data.results[0].alternatives[0].transcript : ErrorCodes.NOSOUND;
+            const transcription = response.data.results !== undefined ? response.data.results[0].alternatives[0].transcript : ErrorCodes.NOSOUNDERROR;
             observer.next(transcription);
             observer.complete();
           })
           .catch((error) => {
-            console.log('LIGNE 38', error);
             observer.error(error);
             throw new Error('An error occurred when api async speech to text longrunningrecognize called');
           });

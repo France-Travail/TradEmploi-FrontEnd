@@ -18,6 +18,7 @@ import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
 import { EndComponent } from './dialogs/end/end.component';
 import { CryptService } from 'src/app/services/crypt.service';
 import { Language } from 'src/app/models/language';
+import { ErrorCodes } from 'src/app/models/errorCodes';
 
 @Component({
   selector: 'app-translation',
@@ -121,7 +122,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.translateMessage(message);
     } else {
       if (!hasDot) {
-        this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+        this.toastService.showToast(ErrorCodes.TRANSLATIONUNAVAILABLE, 'toast-error');
       }
     }
   }

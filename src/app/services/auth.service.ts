@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastService } from 'src/app/services/toast.service';
+import { ErrorCodes } from '../models/errorCodes';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class AuthService {
             if (config !== undefined && config.length >= 0) {
               this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
             } else {
-              this.toastService.showToast('La base de donnée est indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+              this.toastService.showToast(ErrorCodes.DBERROR, 'toast-error');
             }
           });
       }
