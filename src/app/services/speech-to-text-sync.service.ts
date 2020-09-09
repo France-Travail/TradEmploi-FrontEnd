@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { ErrorCodes } from '../models/errorCodes';
 
 @Injectable({
   providedIn: 'root',
@@ -29,13 +30,12 @@ export class SpeechToTextSyncService {
           data,
         })
           .then((response) => {
-            const transcription = response.data.results !== undefined ? response.data.results[0].alternatives[0].transcript : '0xCAFEBABE';
-            console.log(transcription);
+            const transcription = response.data.results !== undefined ? response.data.results[0].alternatives[0].transcript : ErrorCodes.NOSOUND;
             observer.next(transcription);
             observer.complete();
           })
           .catch((error) => {
-            console.log(error);
+            console.log('LIGNE 38', error);
             observer.error(error);
             throw new Error('An error occurred when api async speech to text longrunningrecognize called');
           });

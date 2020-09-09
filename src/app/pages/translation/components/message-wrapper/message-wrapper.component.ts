@@ -13,6 +13,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
 import { User } from 'src/app/models/user';
 import { MessageWrapped } from '../../../../models/translate/message-wrapped';
+import { ErrorCodes } from 'src/app/models/errorCodes';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -143,14 +144,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
-    if (message === '0xCAFEBABE') {
-      this.toastService.showToast('Aucun son detecté.', 'toast-error');
-    }
-    if (!this.errors.includes(message)) {
+    if (message === ErrorCodes.NOSOUND) {
+      this.toastService.showToast(ErrorCodes.NOSOUND, 'toast-error');
+    } else {
       if (message !== '') {
         this.send(false, message);
       } else {
-        this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+        this.toastService.showToast(ErrorCodes.UNAVAILABLE, 'toast-error');
       }
     }
   }
