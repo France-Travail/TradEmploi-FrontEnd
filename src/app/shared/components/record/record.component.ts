@@ -4,6 +4,7 @@ import { AudioRecordingService } from 'src/app/services/audio-recording.service'
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ToastService } from 'src/app/services/toast.service';
 import { Role } from 'src/app/models/role';
+import { ErrorCodes } from 'src/app/models/errorCodes';
 
 @Component({
   selector: 'app-record',
@@ -105,7 +106,7 @@ export class RecordComponent implements OnInit {
         },
         (err) => {
           this.inProgress = false;
-          this.toastService.showToast('Transcription de la voix au texte est indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+          this.toastService.showToast(ErrorCodes.STOTERROR, 'toast-error');
           this.send.emit('');
         }
       );

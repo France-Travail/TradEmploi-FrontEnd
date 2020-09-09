@@ -13,6 +13,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
 import { User } from 'src/app/models/user';
 import { MessageWrapped } from '../../../../models/translate/message-wrapped';
+import { ErrorCodes } from 'src/app/models/errorCodes';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -41,6 +42,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public speak: boolean = false;
 
   private isMobile: boolean = false;
+
+  private errors = ['0xCAFEBABE'];
 
   constructor(
     private toastService: ToastService,
@@ -81,7 +84,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       }
       this.speak = true;
     } else {
-      this.toastService.showToast('L\'accès au microphone n\'est pas autorisé.', 'toast-info');
+      this.toastService.showToast("L'accès au microphone n'est pas autorisé.", 'toast-info');
     }
   }
 
@@ -141,10 +144,14 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
-    if (message !== '') {
-      this.send(false, message);
+    if (message === ErrorCodes.NOSOUNDERROR) {
+      this.toastService.showToast(ErrorCodes.NOSOUNDERROR, 'toast-error');
     } else {
-      this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+      if (message !== '') {
+        this.send(false, message);
+      } else {
+        this.toastService.showToast(ErrorCodes.TRANSLATIONUNAVAILABLE, 'toast-error');
+      }
     }
   }
 

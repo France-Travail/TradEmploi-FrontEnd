@@ -5,6 +5,7 @@ import { Parser } from 'json2csv';
 import { ToastService } from 'src/app/services/toast.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { ErrorCodes } from 'src/app/models/errorCodes';
 
 @Component({
   selector: 'app-settings',
@@ -27,7 +28,7 @@ export class SettingsComponent {
         this.exportCsv(response);
       })
       .catch((err) => {
-        this.toastService.showToast('Erreur lors de l\'export du fichier', 'toast-error');
+        this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
         throw new Error('An error occurred when export csv file');
       });
   }
