@@ -45,8 +45,6 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   private isMobile: boolean = false;
 
-  private errors = ['0xCAFEBABE'];
-
   constructor(
     private toastService: ToastService,
     private settingsService: SettingsService,
@@ -86,7 +84,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       }
       this.speak = true;
     } else {
-      this.toastService.showToast("L'accès au microphone n'est pas autorisé.", 'toast-info');
+      this.toastService.showToast(ErrorCodes.UNAUTHORIZEDMICRO, 'toast-info');
     }
   }
 

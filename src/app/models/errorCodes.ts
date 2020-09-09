@@ -1,5 +1,6 @@
 export enum ErrorCodes {
   NOSOUNDERROR = 'No sound detected',
+  UNAUTHORIZEDMICRO = "L'accès au microphone n'est pas autorisé.",
   TRANSLATIONUNAVAILABLE = 'Translation temporarily unavailable. Please try again later.',
   NONEXISTANTCHAT = "The chat doesn't exist",
   EXPORTERROR = "Erreur lors de l'export du fichier",
