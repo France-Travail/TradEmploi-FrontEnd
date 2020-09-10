@@ -1,4 +1,3 @@
-import { StotResult } from './../models/stot-result';
 import { Injectable } from '@angular/core';
 import { SpeechToTextSyncService } from './speech-to-text-sync.service';
 import { Subject } from 'rxjs';

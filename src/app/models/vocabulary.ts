@@ -27,6 +27,7 @@ export interface Sentence {
   gaugeText?: string;
   rate?: Rate;
   gdpr?: Gdpr;
+  logout?: Logout;
 }
 
 export interface Rate {
@@ -39,4 +40,11 @@ export interface Rate {
 export interface NavbarTab {
   language: string;
   logout: string;
+}
+
+export interface Logout {
+  title: string;
+  question: string;
+  cancel: string;
+  confirm: string;
 }
