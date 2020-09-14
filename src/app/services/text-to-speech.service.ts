@@ -32,7 +32,7 @@ export class TextToSpeechService {
   private url: string = 'https://texttospeech.googleapis.com/v1beta1/text:synthesize';
   public guestVoiceGender: string = 'MALE';
   public advisorVoiceGender: string = 'MALE';
-  public audioSpeech: HTMLAudioElement;
+  public audioSpeech: HTMLAudioElement = undefined;
 
   private httpOptions = {
     headers: new HttpHeaders({

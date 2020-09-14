@@ -98,7 +98,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   public editChat(message) {
-    if (message.user === 'guest') {
+    if (message.role === Role.GUEST) {
       this.guestTextToEdit = message;
     } else {
       this.advisorTextToEdit = message;
@@ -217,6 +217,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.textToSpeechService.audioSpeech.play();
       }
       message.audioHtml = this.textToSpeechService.audioSpeech;
+      this.textToSpeechService.audioSpeech = undefined;
     }
     this.sendMessage(message);
   }
