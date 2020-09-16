@@ -1,25 +1,13 @@
 <div class="container">
-  <h2 [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }">{{ title }} :</h2>
+  <h2 [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }">{{ title }} :</h2>
   <div class="input-wrapper">
     <div class="field" *ngIf="!micro || !recordMode">
       <div class="flag">
-        <span *ngIf="flag !== 'arabic'" class="flag-icon flag-icon-{{ flag }}"></span>
-        <img *ngIf="flag === 'arabic'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" />
+        <span *ngIf="flag !== 'xa'" class="flag-icon flag-icon-{{ flag }}"></span>
+        <img *ngIf="flag === 'xa'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" />
       </div>
-      <textarea
-        [placeholder]="interim"
-        *ngIf="role == 'ADVISOR'"
-        [(ngModel)]="rawText"
-        (keydown.enter)="send(true); (false)"
-        [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"
-      ></textarea>
-      <textarea
-        [placeholder]="interim"
-        *ngIf="role != 'ADVISOR'"
-        [(ngModel)]="rawText"
-        (keydown.enter)="send(true); (false)"
-        [ngStyle]="{ 'text-align': flag == 'arabic' ? 'end' : 'start' }"
-      ></textarea>
+      <textarea [placeholder]="interim" *ngIf="role == 'ADVISOR'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
+      <textarea [placeholder]="interim" *ngIf="role != 'ADVISOR'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
       <div class="buttons">
         <img class="micro" *ngIf="!speak" src="./assets/icons/icon-micro-blue.svg" alt="activate micro" (click)="talk()" />
         <img class="micro-stream" *ngIf="speak && !recordMode" src="./assets/icons/icon-micro-red.svg" alt="activate micro" (click)="exitStream()" />

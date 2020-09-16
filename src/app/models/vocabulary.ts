@@ -1,12 +1,14 @@
+import { Gdpr } from './gdpr';
+
 export interface Vocabulary {
   isoCode: string;
   countryNameRaw?: any;
   countryNameFr?: string;
   languageNameRaw?: string;
   languageNameFr?: string;
-  flag?: string;
   sentences: Sentence;
-  navbarTabs?: NavbarTab
+  navbarTabs?: NavbarTab;
+  audioCode?: string;
 }
 export interface Sentence {
   applicationName: string;
@@ -24,6 +26,8 @@ export interface Sentence {
   languageButtonFR?: string;
   gaugeText?: string;
   rate?: Rate;
+  gdpr?: Gdpr;
+  logout?: Logout;
 }
 
 export interface Rate {
@@ -36,4 +40,11 @@ export interface Rate {
 export interface NavbarTab {
   language: string;
   logout: string;
+}
+
+export interface Logout {
+  title: string;
+  question: string;
+  cancel: string;
+  confirm: string;
 }

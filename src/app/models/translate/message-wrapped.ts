@@ -3,6 +3,6 @@ import { Message } from './message';
 export interface MessageWrapped {
     message?: Message;
     notification?: string;
-    isSender?:boolean;
+    isSender?: boolean;
     time: number;
 }

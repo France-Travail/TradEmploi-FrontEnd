@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class TranslateService {
- 
+
   public translate(text: string, lang: string): Observable<string> {
     const url = `https://translation.googleapis.com/language/translate/v2?key=${environment.gcp.apiKey}`;
     const data = {
@@ -18,15 +18,15 @@ export class TranslateService {
       axios({
         method: 'post',
         headers: { 'content-type': 'application/json; charset=utf-8' },
-        data: data,
-        url: url
+        data,
+        url
       })
         .then((response) => {
-          if(response.data.data.translatation !== undefined || response.data.data.translatation !== null){
+          if (response.data.data.translatation !== undefined || response.data.data.translatation !== null) {
             const res = response.data.data.translations[0].translatedText;
             observer.next(res);
             observer.complete();
-          }else{
+          } else {
             throw new Error('An error occurred when api translate called: response is empty');
           }
         })

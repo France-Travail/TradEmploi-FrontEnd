@@ -8,6 +8,7 @@ import { Rate } from 'src/app/models/rate';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
+import { ErrorCodes } from 'src/app/models/errorCodes';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -53,13 +54,14 @@ export class RateDialogComponent implements OnInit {
     private settingsService: SettingsService,
     private toastService: ToastService,
     private router: Router,
-    private chatService: ChatService,
+    private chatService: ChatService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null && user.roomId !== undefined) {
         this.roomId = user.roomId;
       }
-    })}
+    });
+  }
 
   ngOnInit(): void {
     const rateFr = VOCABULARY.find((v) => v.isoCode === 'fr-FR').sentences.rate;
@@ -82,7 +84,7 @@ export class RateDialogComponent implements OnInit {
       date: new Date(),
       grades: [undefined, undefined],
       comment: '',
-      offerLinked: "non",
+      offerLinked: 'non',
     };
   }
 
@@ -107,13 +109,15 @@ export class RateDialogComponent implements OnInit {
         })
         .catch((error) => {
           this.dialogRef.close();
-          this.toastService.showToast("La notation n'a pas pu être envoyée. Redirection en cours.", 'toast-error');
+          this.toastService.showToast(ErrorCodes.NOTATIONERROR, 'toast-error');
           setTimeout(() => {
             this.router.navigate(['thanks']);
           }, 3500);
-        }).finally(() => {
-          this.chatService.updateChatStatus(this.roomId, false)
-          this.chatService.delete(this.roomId)});
+        })
+        .finally(() => {
+          this.chatService.updateChatStatus(this.roomId, false);
+          this.chatService.delete(this.roomId);
+        });
     }
   }
 

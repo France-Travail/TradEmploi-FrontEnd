@@ -6,11 +6,11 @@ import { Message } from 'src/app/models/translate/message';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent{
+export class ChatComponent {
   @Input() messages: Message[];
   @Input() shared: boolean;
   @Output() editMessageEmit = new EventEmitter();
-
+  constructor() {}
   public visible: boolean = false;
 
   public extand() {
