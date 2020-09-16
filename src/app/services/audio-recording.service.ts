@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SpeechToTextSyncService } from './speech-to-text-sync.service';
 import { Subject } from 'rxjs';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AudioRecordingService {
   public audioSpeech: HTMLAudioElement;
@@ -21,13 +21,13 @@ export class AudioRecordingService {
   }
 
   public start() {
-    navigator.mediaDevices.getUserMedia(this.constraints).then(stream => {
+    navigator.mediaDevices.getUserMedia(this.constraints).then((stream) => {
       this.stream = stream;
       const audioContext = new AudioContext();
       this.input = audioContext.createMediaStreamSource(stream);
       this.node = this.input.context.createScriptProcessor(4096, 1, 1);
       this.worker.postMessage({ type: 'init' });
-      this.node.onaudioprocess = e => {
+      this.node.onaudioprocess = (e) => {
         const channelLeft = e.inputBuffer.getChannelData(0);
         this.worker.postMessage({ type: 'encode', buf: channelLeft });
       };
@@ -41,7 +41,7 @@ export class AudioRecordingService {
     for (let i = tracks.length - 1; i >= 0; --i) {
       tracks[i].stop();
     }
-    this.worker.postMessage({ type: 'finish' });
+    setTimeout((_) => this.worker.postMessage({ type: 'finish' }), 100);
     this.worker.onmessage = async ({ data }) => {
       if (data.type === 'end') {
         this.audioOnBlob = data.blob;
@@ -51,8 +51,8 @@ export class AudioRecordingService {
           const audioOnBase64 = await this.convertBlobToBase64(this.audioOnBlob);
           const speechToTextService = new SpeechToTextSyncService();
           speechToTextService.recognizeSync(audioOnBase64, this.language, time).subscribe(
-            resultat => this.speechToText.next(resultat),
-            error => this.speechToText.error(error)
+            (resultat) => this.speechToText.next(resultat),
+            (error) => this.speechToText.error(error)
           );
         }
       }

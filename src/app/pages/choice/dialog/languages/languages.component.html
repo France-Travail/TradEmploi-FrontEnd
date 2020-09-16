@@ -1,31 +1,34 @@
 <h1 mat-dialog-title class="dialogTitle">Choix de la langue</h1>
 
 <mat-form-field>
-    <mat-label>Recherche :</mat-label>
-    <input matInput (keyup)="applyFilter($event)" />
+  <mat-label>Recherche :</mat-label>
+  <input matInput (keyup)="applyFilter($event)" />
 </mat-form-field>
 <mat-table [dataSource]="dataCountriesSource" matSort matSortStart="asc" class="mat-dialog-content">
-    <ng-container matColumnDef="traduction">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Pays (FR)</mat-header-cell>
-        <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.country)">{{ element.traduction }}</mat-cell>
-    </ng-container>
-    <!-- country Column-->
-    <ng-container matColumnDef="country">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Pays</mat-header-cell>
-        <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.country)">{{ element.country }}</mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="traduction">
+    <mat-header-cell *matHeaderCellDef mat-sort-header="countryNameFr">Pays (FR)</mat-header-cell>
+    <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)">{{ element.countryNameFr }}</mat-cell>
+  </ng-container>
+  <!-- country Column-->
+  <ng-container matColumnDef="country">
+    <mat-header-cell *matHeaderCellDef mat-sort-header="countryNameRaw">Pays</mat-header-cell>
+    <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)">{{ element.countryNameRaw }}</mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="language">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Langue</mat-header-cell>
-        <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.country)">{{ element.language }}</mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="language">
+    <mat-header-cell *matHeaderCellDef mat-sort-header="languageNameRaw">Langue</mat-header-cell>
+    <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)">{{ element.languageNameRaw }}</mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="flag">
-        <mat-header-cell *matHeaderCellDef>Drapeau</mat-header-cell>
-        <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.country)"><span class="flag-icon flag-icon-{{ element.flag.toLowerCase() }}"></span></mat-cell>>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>>
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  <ng-container matColumnDef="flag">
+    <mat-header-cell *matHeaderCellDef>Drapeau</mat-header-cell>
+    <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)"
+      ><span *ngIf="element.isoCode !== 'ar-XA'" class="flag-icon flag-icon-{{ isoCodeToFlag(element.isoCode) }}"></span>
+      <img *ngIf="element.isoCode === 'ar-XA'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag"
+    /></mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
 
 <mat-paginator [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons></mat-paginator>

@@ -1,30 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { environment } from '../../../environments/environment';
 import { Parser } from 'json2csv';
 import { ToastService } from 'src/app/services/toast.service';
 import { NavbarService } from 'src/app/services/navbar.service';
+import { SettingsService } from 'src/app/services/settings.service';
+import { ErrorCodes } from 'src/app/models/errorCodes';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements OnInit {
-  public path: string;
-
-  constructor(
-    public router: Router,
-    private fireFunction: AngularFireFunctions,
-    private toastService: ToastService,
-    private navService: NavbarService) {
-    const url = this.router.url;
-    this.path = url.substring(url.lastIndexOf('/'));
+export class SettingsComponent {
+  constructor(private fireFunction: AngularFireFunctions, private toastService: ToastService, private navService: NavbarService, private settingsService: SettingsService) {
     this.navService.handleTabsSettings();
-  }
-
-  ngOnInit() {
   }
 
   public export(): void {
@@ -38,7 +28,7 @@ export class SettingsComponent implements OnInit {
         this.exportCsv(response);
       })
       .catch((err) => {
-        this.toastService.showToast("Erreur lors de l'export du fichier", 'toast-error');
+        this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
         throw new Error('An error occurred when export csv file');
       });
   }
@@ -60,7 +50,7 @@ export class SettingsComponent implements OnInit {
   }
 
   public goBack() {
+    this.settingsService.user.next({ ...this.settingsService.user.value, connectionTime: Date.now() });
     window.history.back();
   }
-
 }

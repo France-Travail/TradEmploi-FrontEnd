@@ -74,9 +74,6 @@ function doEncodeFlac(audioData) {
   }
 
   const flacReturn = Flac.FLAC__stream_encoder_process_interleaved(flacEncoder, bufferI32, bufferI32.length / channels);
-  // if (flacReturn !== true) {
-  //   console.log('Error: encode_buffer_pcm_as_flac returned false. ' + flacReturn);
-  // }
 }
 
 function exportFlacFile(recBuffers, recLength) {

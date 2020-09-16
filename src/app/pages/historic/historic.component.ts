@@ -15,31 +15,31 @@ import { RemoveComponent } from './dialogs/remove/remove.component';
 // Models
 import { Conversation } from 'src/app/models/history/conversation';
 import { Rate } from 'src/app/models/rate';
+import { ErrorCodes } from 'src/app/models/errorCodes';
 
 @Component({
   selector: 'app-historic',
   templateUrl: './historic.component.html',
-  styleUrls: ['./historic.component.scss']
+  styleUrls: ['./historic.component.scss'],
 })
 export class HistoricComponent implements OnInit {
   public conversations: Conversation[] = []; // Contains all the conversations
   public rates: Rate[] = []; // Contains all the rates
 
-  constructor(private toastService: ToastService, private historyService: HistoryService, private rateService: RateService, public dialog: MatDialog, private router: Router) {
-  }
+  constructor(private toastService: ToastService, private historyService: HistoryService, private rateService: RateService, public dialog: MatDialog, private router: Router) {}
 
   ngOnInit() {
     this.historyService.getConversationForToday().subscribe(
-      response => {
+      (response) => {
         this.conversations = this.sortByDate(response);
         for (const conversation of this.conversations) {
-          this.rateService.getRateByHistoricId(conversation.id).subscribe(r => {
+          this.rateService.getRateByHistoricId(conversation.id).subscribe((r) => {
             this.rates.push(r[0]);
           });
         }
       },
-      error => {
-        this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.', 'toast-error');
+      (error) => {
+        this.toastService.showToast(ErrorCodes.HISTORICERROR, 'toast-error');
       }
     );
   }
@@ -50,7 +50,7 @@ export class HistoricComponent implements OnInit {
   public show(id: string): void {
     this.dialog.open(ShowComponent, {
       width: '900px',
-      data: this.conversations.find(c => c.id === id)
+      data: this.conversations.find((c) => c.id === id),
     });
   }
 
@@ -62,12 +62,12 @@ export class HistoricComponent implements OnInit {
       .open(RemoveComponent, {
         width: '400px',
         data: {
-          conversation: this.conversations.find(c => c.id === id),
-          service: this.historyService
-        }
+          conversation: this.conversations.find((c) => c.id === id),
+          service: this.historyService,
+        },
       })
       .afterClosed()
-      .subscribe(response => {
+      .subscribe((response) => {
         if (response === 'removed') {
           this.toastService.showToast('La conversation a été supprimée.', 'toast-info');
         } else if (response === 'error') {

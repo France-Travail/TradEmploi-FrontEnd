@@ -27,11 +27,11 @@ export class SidenavComponent {
     public navbarService: NavbarService,
     ) {
       this.settingsService.user.subscribe((user) => {
-        if(user !== null) {
+        if (user !== null) {
           this.isGuest = user.role === Role.GUEST;
           this.isAdmin = user.role === Role.ADMIN;
         }
-        if(this.isGuest) {
+        if (this.isGuest) {
           this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
           this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
         }
@@ -47,7 +47,7 @@ export class SidenavComponent {
   }
 
   public share() {
-    this.openModal(ShareComponent)
+    this.openModal(ShareComponent);
   }
 
   private openModal(component) {

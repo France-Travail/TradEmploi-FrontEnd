@@ -12,6 +12,7 @@ import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { AnonymousComponent } from './pages/anonymous/anonymous.component';
+import { GdprComponent } from './pages/gdpr/gdpr.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PendingChangesGuard } from './guards/pending-changes.guard';
 
@@ -26,8 +27,12 @@ const routes: Routes = [
     component: AuthenticationComponent,
   },
   {
-    path: 'invite/:id',
+    path: 'auth/:id',
     component: AnonymousComponent,
+  },
+  {
+    path: 'invite/:id',
+    component: GdprComponent,
   },
   {
     path: 'choice',
@@ -55,7 +60,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'settings/:from',
+    path: 'settings',
     component: SettingsComponent,
     canActivate: [AuthGuard],
   },
