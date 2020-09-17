@@ -15,7 +15,7 @@ export class GdprComponent {
   public selected = 'english';
   public isMoreOptions: boolean = false;
   public isMobile: boolean = false;
-  public gdprWording: Gdpr = ENGLISH.gdpr
+  public gdprWording: Gdpr = ENGLISH.gdpr;
 
   constructor(
     private router: Router,

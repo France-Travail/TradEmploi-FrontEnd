@@ -76,6 +76,12 @@ export const FRENCH: Sentence = {
     agreeBtn: 'ACCEPTER',
     confirmBtn: 'CONFIRMER',
   },
+  logout: {
+    title: 'Déconnexion',
+    question: 'Voulez-vous vous déconnecter?',
+    cancel: 'Annuler',
+    confirm: 'Se déconnecter',
+  },
 };
 
 export const ENGLISH: Sentence = {

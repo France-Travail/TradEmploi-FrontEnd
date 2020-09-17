@@ -7,27 +7,28 @@ import { SettingsService } from '../../../services/settings.service';
 import { Role } from 'src/app/models/role';
 import { User } from 'src/app/models/user';
 import { Logout } from 'src/app/models/vocabulary';
-import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
+import { FRENCH, ENGLISH } from 'src/app/data/sentence';
+
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
   styleUrls: ['./logout.component.scss'],
 })
 export class LogoutComponent {
+  public logoutWording: Logout;
   private roomId: string;
   private isGuest: boolean = false;
   private user: User;
-  public logoutWording: Logout;
+
   constructor(private dialogRef: MatDialogRef<LogoutComponent>, public router: Router, private authService: AuthService, private chatService: ChatService, private settingsService: SettingsService) {
     this.settingsService.user.subscribe((user: User) => {
-      if (user !== null && user.roomId !== undefined) {
-        this.roomId = user.roomId;
+      if (user !== null) {
+        this.roomId = user.roomId ? user.roomId : undefined;
         this.isGuest = user.role === Role.GUEST;
         this.user = user;
+        this.logoutWording = this.isGuest ? ENGLISH.logout : FRENCH.logout;
       }
     });
-    const wording: Logout = VOCABULARY.find((item) => item.isoCode === this.user.language.written).sentences.logout;
-    this.logoutWording = wording ? wording : VOCABULARY_DEFAULT.sentences.logout;
   }
 
   public confirm() {
