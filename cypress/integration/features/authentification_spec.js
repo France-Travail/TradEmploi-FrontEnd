@@ -1,6 +1,6 @@
-describe('Connection', () => {
+describe('Auth component', () => {
 
-    it('SC_C_01: connection OK', () => {
+    it('SC_C_01: user connection OK', () => {
       cy.visit('/')
       cy.url().should('include', '/auth')
       cy.get('#mat-input-0')
@@ -14,7 +14,7 @@ describe('Connection', () => {
   
     })
 
-    it('SC_C_02: connection KO', () => {
+    it('SC_C_02: user connection KO', () => {
       cy.visit('/')
       cy.url().should('include', '/auth')
       cy.get('#mat-input-0')
@@ -27,7 +27,7 @@ describe('Connection', () => {
   
     })
 
-    it('SC_C_03: connection with nothing', () => {
+    it('SC_C_03: user try to connect with nothing values', () => {
       cy.visit('/')
       cy.url().should('include', '/auth')
       cy.contains('SE CONNECTER').should('be.disabled')
