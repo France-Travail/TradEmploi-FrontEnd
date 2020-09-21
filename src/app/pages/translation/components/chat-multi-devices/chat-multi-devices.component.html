@@ -5,7 +5,7 @@
         <mat-card-header>
           <mat-card-title class="sentence">{{ input.message.translation }}</mat-card-title>
           <div class="listen">
-            <a (click)="listen(i)" *ngIf="input.message.translatedSpeech !== null">
+            <a (click)="listen(i)" *ngIf="input.message.audioHtml">
               <img *ngIf="input.isSender" src="../../../assets/icons/icon-listen-white.svg" alt="Ecoute de la traduction" />
               <img *ngIf="!input.isSender" src="../../../assets/icons/icon-listen-blue.svg" alt="Ecoute de la traduction" />
             </a>
