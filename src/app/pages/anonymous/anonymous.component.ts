@@ -55,6 +55,7 @@ export class AnonymousComponent implements OnInit {
           const member: Member = { id: auth.id, firstname: this.username.value };
           const key = this.chatService.addMember(this.roomId, member);
           this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST });
+          console.log(this.settingsService.user.value)
           this.toastService.showToast(auth.message, 'toast-success');
           this.router.navigateByUrl('choice');
         }

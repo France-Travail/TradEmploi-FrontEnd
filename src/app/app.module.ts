@@ -60,6 +60,8 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NavbarService } from './services/navbar.service';
 import { ChatMultiDevicesComponent } from './pages/translation/components/chat-multi-devices/chat-multi-devices.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { OverlayModule, OVERLAY_PROVIDERS } from '@angular/cdk/overlay';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,6 +107,9 @@ import { QRCodeModule } from 'angularx-qrcode';
     LayoutModule,
     QRCodeModule,
     DeviceDetectorModule.forRoot(),
+    OverlayModule,
+    HttpClientTestingModule
+    
   ],
   providers: [
     NavbarService,
