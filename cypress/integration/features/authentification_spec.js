@@ -21,7 +21,7 @@ describe('Auth component', () => {
       .type('agent-test@pe.fr')
       cy.get('#mat-input-1')
       .type('password error')
-      cy.contains('SE CONNECTER').click().wait(3000)
+      cy.contains('SE CONNECTER').click()
       cy.url().should('include', '/auth')
       cy.contains('The password is invalid or the user does not have a password.')
   

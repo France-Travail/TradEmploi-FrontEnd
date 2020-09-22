@@ -15,7 +15,7 @@ describe('Rate Component', () => {
     })
 
     it('SC_C_17: user dont put value', () => {
-        cy.get('#confirm-btn').click()
+        cy.get('#send-btn').click()
         cy.contains('ENVOYER')
         cy.get('body').click(0,0)
         cy.get('#logout').click()
@@ -26,7 +26,7 @@ describe('Rate Component', () => {
         cy.get('.star').eq(1).click()
         cy.get('.star').eq(6).click()
         cy.get('.question > textarea').type("test")
-        cy.get('#confirm-btn').click()
+        cy.get('#send-btn').click()
         cy.url().should('include', '/thanks')
         cy.url().should('include', '/start')
         cy.url().should('include', '/auth')

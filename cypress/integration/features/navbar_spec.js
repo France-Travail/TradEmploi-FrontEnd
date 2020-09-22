@@ -14,7 +14,7 @@ describe('Navbar Component', () => {
     })
 
     it('SC_C_10: user click on choice', () => {
-        cy.get('#choice')
+        cy.get('.navbar > #choice')
         cy.url().should('include', '/choice')
     })
 
@@ -23,10 +23,6 @@ describe('Navbar Component', () => {
         cy.get('.share-btn')
         cy.get('.cancel-btn').click()
     })
-
-    // it('SC_C_12_13_14: disconnect', () => {
-    //     //ok on SC_C_06_07_08
-    // })
 
     it('SC_C_15: user click on end', () => {
         cy.get('#end-btn').click()
