@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from 'src/app/services/settings.service';
-import { Role } from 'src/app/models/role';
 
 @Component({
   selector: 'app-authentication',
