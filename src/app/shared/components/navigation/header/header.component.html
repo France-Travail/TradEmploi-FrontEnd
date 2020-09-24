@@ -15,19 +15,19 @@
   </div>
   <ng-container *ngIf="isWideScreen | async">
     <div class="tabs">
-      <button id="choice-btn" routerLink="choice" *ngIf="navbarService.choiceTab">
+      <button id="choice-header" routerLink="choice" *ngIf="navbarService.choiceTab">
         <img src="assets/icons/icon-languages-black.svg" />
         <span class="name">{{ choiceLink | uppercase }}</span>
       </button>
-      <button id="share-btn" (click)="share()" *ngIf="!isGuest && navbarService.shareTab">
+      <button id="share-header" (click)="share()" *ngIf="!isGuest && navbarService.shareTab">
         <img src="assets/icons/icon-share-alt-solid.svg" />
         <span class="name">PARTAGER</span>
       </button>
-      <button id="settings-btn" routerLink="settings" *ngIf="isAdmin && navbarService.settingsTab">
+      <button id="settings-header" routerLink="settings" *ngIf="isAdmin && navbarService.settingsTab">
         <img src="assets/icons/icon-settings-black.svg" />
         <span class="name">PARAMÈTRES</span>
       </button>
-      <button id="logout-btn" (click)="logout()">
+      <button id="logout-header" (click)="logout()">
         <img src="assets/icons/icon-logout.svg" />
         <span class="name">{{ logoutLink | uppercase }}</span>
       </button>

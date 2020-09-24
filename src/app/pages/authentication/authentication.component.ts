@@ -17,10 +17,9 @@ export class AuthenticationComponent implements OnInit {
   constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private fb: FormBuilder, private toastService: ToastService) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
-        const multiDevicesGuest = user.roomId !== undefined && user.role === Role.GUEST;
-        const oneDevice = user.roomId === undefined;
-        if (multiDevicesGuest || oneDevice) {
-          this.router.navigateByUrl('choice');
+        const isFromSettings: boolean =  window.location.pathname === "/settings"
+        if (!isFromSettings) {
+            this.router.navigateByUrl('choice');
         }
       }
     });
