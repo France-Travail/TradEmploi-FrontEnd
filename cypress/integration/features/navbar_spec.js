@@ -33,15 +33,6 @@ describe('Navbar Component From Translate', () => {
         cy.contains('retour').click()
     })
 
-   it('SC_C_15_B: user click on setting', () => {
-        cy.get('#msg-wrapper-advisor').type('bonjour')
-        cy.contains('ENVOYER').click()
-        cy.contains('Hello')
-        cy.get('#settings-header').click()
-        cy.contains('retour').click()
-    })
-
-
     afterEach(() => {
         cy.get('#logout-header').click()
         cy.get('.logout-btn').click()
@@ -62,7 +53,7 @@ describe('Navbar Component From Choice', () => {
         cy.url().should('include', '/choice')
     })
 
-    it('SC_C_15_C: user click on setting', () => {
+    it('SC_C_15_B: user click on setting', () => {
         cy.get('#settings-header').click()
         cy.contains('retour').click()
     })
