@@ -81,8 +81,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   ngOnDestroy() {
-    this.settingsService.user.next({ ...this.settingsService.user.value, connectionTime: Date.now() });
     if (this.isMultiDevices) {
+      this.settingsService.user.next({ ...this.settingsService.user.value, connectionTime: Date.now() });
       this.isAudioPlay = false;
     }
   }

@@ -1,59 +1,29 @@
-describe('Other language', () => {
+// describe('Other language', () => {
 
-    beforeEach(() => {
-        cy.visit('/')
-        cy.url().should('include', '/auth')
-        cy.get('#email')
-        .type('agent-test@pe.fr')
-        cy.get('#password')
-        .type('C2h@7p8z7VM')
-        cy.contains('SE CONNECTER').click()
-        cy.url().should('include', '/choice')
-        cy.contains('LANGUE ANGLAIS').click()
-        cy.url().should('include', '/translation')
-        cy.contains('LANGUE ANGLAIS').click()
-        cy.url().should('include', '/translation')
-    })
+//     beforeEach(() => {
+//         cy.visit('/')
+//         cy.url().should('include', '/auth')
+//         cy.get('#email')
+//         .type('agent-test@pe.fr')
+//     })
 
-    it('SC_C_18: user translate french to english', () => {
-        cy.fixture('example.json').as('usersData').then( user => {
-            console.log('user :>> ', user);
-                var genArr = Array.from({length:3},(v,k)=>k+1)
-                cy.wrap(genArr).each((index) => {
-                    cy.get('#msg-wrapper-advisor').type('bonjour')
-                    cy.contains('ENVOYER').click()
-                    cy.contains('Hello')
-                })
-            }
-        )
+//     it('SC_C_18: user translate french to english', () => {
+//         cy.fixture('vocabulary.json').as('languagesData').then( languages => {
+//                 cy.wrap(languages).each(l => {
+//                     cy.get('.more').click()
+//                     cy.get('.mat-input-element').type(l.countryNameRaw)
+//                     cy.get('.mat-row').eq(0).click()
+//                     cy.url().should('include', '/translation')
+//                     cy.get('#msg-wrapper-advisor').type('Ecrire ou prononcer la phrase à traduire')
+//                     cy.contains('ENVOYER').click().wait(1000)
+//                     // cy.get("#msg-translate-0").should('have.text', l.translationH2)
+//                     // cy.get('#msg-wrapper-guest').type(l.translationH2)
+//                     // cy.contains(l.send).click().wait(1000)
+//                     // cy.get("#msg-translate-1").should('have.text', 'Écrivez ou dites la phrase pour la traduire')
+//                     cy.get('#back-to-choice').click()
+//                 })
+//             }
+//         )
+//     })
 
-
-
-        // cy.get('#msg-wrapper-guest').type('thank you')
-        // cy.contains('SEND').click()
-        // cy.contains('Merci')
-    })
-
-    // it('SC_C_19: user delete his sentence', () => {
-    //     cy.get('#msg-wrapper-guest').type('hello')
-    //     cy.get('.buttons > .delete').eq(0).click()
-    //     cy.get('#msg-wrapper-guest')
-    //     .should('have.value', '')
-    //     cy.contains('SEND').click()
-    //     cy.contains('Bonjour').should('not.exist')
-
-    // })
-
-    // it('SC_C_20: user delete his sentence from chat', () => {
-    //     cy.get('#msg-wrapper-guest').type('hello')
-    //     cy.contains('SEND').click()
-    //     cy.get('.delete > img').eq(0).click()
-    //     cy.contains('Bonjour').should('not.exist')
-    // })
-
-    // afterEach(() => {
-    //     cy.get('#logout-header').click()
-    //     cy.get('.logout-btn').click()
-    // })
-
-})
+// })
