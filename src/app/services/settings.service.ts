@@ -9,7 +9,7 @@ import { Language } from '../models/language';
 })
 export class SettingsService {
   public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-  public recordMode: boolean = true;
+  public recordMode: boolean = false;
   public defaultLanguage: Language = { audio: 'fr-FR', written: 'fr-FR' };
   public defaultName: string = 'Pôle emploi';
 

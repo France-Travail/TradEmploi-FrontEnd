@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastService } from 'src/app/services/toast.service';
 import { ErrorCodes } from '../models/errorCodes';
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +37,7 @@ export class AuthService {
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
+        console.log(error)
         reject({ isAuth: false, message: error.message });
       }
     });
@@ -45,7 +47,7 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInAnonymously();
-
+     
         if (auth.user != null) {
           const id = auth.user.uid;
           auth.user.delete();

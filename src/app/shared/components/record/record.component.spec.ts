@@ -6,7 +6,6 @@ import { MatDialogModule, MatSnackBar } from '@angular/material';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { SettingsMockService } from 'src/app/mocks/setting.service.mock';
 
 describe('RecordComponent', () => {
   let component: RecordComponent;
@@ -20,7 +19,7 @@ describe('RecordComponent', () => {
       providers: [AudioRecordingService,
         MatSnackBar,
         AngularFirestore,
-        {provide: SettingsService, useClass: SettingsMockService}
+        SettingsService
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
