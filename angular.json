@@ -17,6 +17,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+                "crypto-js",
+                "qrcode",
+                "firebase/app",
+                "@firebase/database",
+                "axios",
+                "@firebase/firestore",
+                "@firebase/functions"
+            ],
             "outputPath": "dist/translation",
             "index": "src/index.html",
             "main": "src/main.ts",
