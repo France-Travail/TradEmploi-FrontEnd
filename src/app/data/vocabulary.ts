@@ -763,7 +763,6 @@ export const VOCABULARY: Vocabulary[] = [
   { isoCode: 'nb-NO', countryNameRaw: 'Norge', countryNameFr: 'Norvège', languageNameRaw: 'Norsk bokmål', languageNameFr: 'Norvégien bokmål', sentences: ENGLISH },
   { isoCode: 'pl-PL', countryNameRaw: 'Polska', countryNameFr: 'Pologne', languageNameRaw: 'Polski', languageNameFr: 'Polonais', sentences: ENGLISH },
   { isoCode: 'pt-BR', countryNameRaw: 'Brasil', countryNameFr: 'Brésil', languageNameRaw: 'Português', languageNameFr: 'Portugais', sentences: PORTUGUESE },
-  { isoCode: 'ro-RO', countryNameRaw: 'România', countryNameFr: 'Roumanie', languageNameRaw: 'Română', languageNameFr: 'Roumain', sentences: ROMANIAN },
   { isoCode: 'si-LK', countryNameRaw: 'ශ්රී ලංකාව', countryNameFr: 'Sri-Lanka', languageNameRaw: 'සිංහල', languageNameFr: 'Cingalais', sentences: ENGLISH },
   { isoCode: 'sk-SK', countryNameRaw: 'Slovensko', countryNameFr: 'Slovaquie', languageNameRaw: 'Slovenčina', languageNameFr: 'Slovaque', sentences: ENGLISH },
   { isoCode: 'sl-SI', countryNameRaw: 'Slovenija', countryNameFr: 'Slovénie', languageNameRaw: 'Slovenščina', languageNameFr: 'Slovène', sentences: ENGLISH },

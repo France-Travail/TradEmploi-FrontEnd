@@ -98,7 +98,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   public editChat(message) {
-    if (message.user === 'guest') {
+    if (message.role === Role.GUEST) {
       this.guestTextToEdit = message;
     } else {
       this.advisorTextToEdit = message;
@@ -181,7 +181,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  }
+  };
 
   private addMultiMessageToChat(roomId: string) {
     this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
@@ -211,12 +211,15 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private async setTranslateMessage(message: Message, translate: string, languageTarget: string) {
     message.translation = translate;
-    if (this.isAudioPlay && message.time > this.settingsService.user.value.connectionTime) {
-      const audio = await this.textToSpeechService.getSpeech(translate, languageTarget);
-      if (audio) {
-        this.textToSpeechService.audioSpeech.play();
+    const audio = await this.textToSpeechService.getSpeech(translate, languageTarget);
+    if (audio) {
+      if (message.time > this.settingsService.user.value.connectionTime) {
+        if (this.isAudioPlay) {
+          this.textToSpeechService.audioSpeech.play();
+        }
       }
       message.audioHtml = this.textToSpeechService.audioSpeech;
+      this.textToSpeechService.audioSpeech = undefined;
     }
     this.sendMessage(message);
   }

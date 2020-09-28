@@ -3,7 +3,7 @@
     <div id="{{ 'msg-translate-' + i }}" dir="auto" [ngStyle]="{ 'text-align': message.target === 'ar-XA' ? 'right' : 'left' }">
       <bdi>{{ message.translation }}</bdi>
     </div>
-    <a class="listen" (click)="listen(i)" *ngIf="message.translatedSpeech !== null">
+    <a class="listen" (click)="listen(i)" *ngIf="message.audioHtml">
       <img src="../../../assets/icons/icon-listen-black.svg" alt="Ecoute de la traduction" />
     </a>
   </div>

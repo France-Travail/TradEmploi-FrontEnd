@@ -45,7 +45,6 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInAnonymously();
-
         if (auth.user != null) {
           const id = auth.user.uid;
           auth.user.delete();
