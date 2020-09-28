@@ -43,7 +43,7 @@ describe('Translation component', () => {
 
     afterEach(() => {
         cy.get('#logout-header').click()
-        cy.get('.logout-btn').click()
+        cy.get('.logout-btn').click().wait(3000)
     })
 
 })

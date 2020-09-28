@@ -16,8 +16,8 @@ export class AuthenticationComponent implements OnInit {
   constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private fb: FormBuilder, private toastService: ToastService) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
-        const isFromSettings: boolean =  window.location.pathname === "/settings"
-        if (!isFromSettings) {
+        const isFromAuth: boolean =  window.location.pathname === "/auth"
+        if (isFromAuth) {
             this.router.navigateByUrl('choice');
         }
       }
