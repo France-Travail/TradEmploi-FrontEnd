@@ -23,5 +23,5 @@ export class SettingsService {
 
   reset = () => {
     this.user.next(null);
-  };
+  }
 }

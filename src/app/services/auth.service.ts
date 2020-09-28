@@ -16,9 +16,9 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-        this.setRole();
         this.settingsService.user.next({ ...this.settingsService.user.value, firstname: 'Pôle emploi' });
         if (auth.user != null) {
+          this.setRole();
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
@@ -29,10 +29,10 @@ export class AuthService {
 
   public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string }> {
     const auth = await this.afAuth.auth.signInAnonymously();
-    this.setRole();
     return new Promise(async (resolve, reject) => {
       try {
         if (auth.user != null) {
+          this.setRole();
           const id = auth.user.uid;
           resolve({ id, isAuth: true, message: 'Authentification réussie' });
         }

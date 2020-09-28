@@ -181,7 +181,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  };
+  }
 
   private addMultiMessageToChat(roomId: string) {
     this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {

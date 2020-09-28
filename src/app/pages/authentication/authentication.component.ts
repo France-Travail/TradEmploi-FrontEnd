@@ -16,9 +16,9 @@ export class AuthenticationComponent implements OnInit {
   constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private fb: FormBuilder, private toastService: ToastService) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
-        const isFromAuth: boolean =  window.location.pathname === "/auth"
+        const isFromAuth: boolean = window.location.pathname === '/auth';
         if (isFromAuth) {
-            this.router.navigateByUrl('choice');
+          this.router.navigateByUrl('choice');
         }
       }
     });
@@ -42,7 +42,6 @@ export class AuthenticationComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     try {
       const auth = await this.authService.login(this.email.value, this.password.value);
-
       this.toastService.showToast(auth.message, 'toast-success');
       this.router.navigateByUrl('choice');
     } catch (error) {

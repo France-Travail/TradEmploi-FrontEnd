@@ -8,7 +8,7 @@ import { Message } from 'src/app/models/translate/message';
   styleUrls: ['./chat-multi-devices.component.scss'],
 })
 export class ChatMultiDevicesComponent {
-  
+
   @Input() messagesWrapped: MessageWrapped[];
 
   public listen(index) {
