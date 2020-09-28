@@ -30,7 +30,6 @@ export class HeaderComponent {
     this.isSmallScreen = this.breakpointObserver.observe(['(max-width: 820px)']).pipe(map(({ matches }) => matches));
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
-        console.log('header', user);
         this.isGuest = user.role === Role.GUEST;
         this.isAdmin = user.role === Role.ADMIN;
       }

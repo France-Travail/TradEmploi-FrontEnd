@@ -40,10 +40,8 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     private chatService: ChatService
   ) {
     this.navService.handleTabsChoice();
-    this.navService.showValues();
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
-        console.log(user);
         this.isMultiDevices = user.roomId !== undefined;
         if (this.isMultiDevices && user.role === Role.GUEST) {
           this.endConversation(user.roomId);
@@ -61,9 +59,6 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   public selectLanguage(item: Vocabulary): void {
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
     this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode }, connectionTime: Date.now() });
-    if (this.isMultiDevices && this.settingsService.user.value.role != Role.GUEST) {
-      this.settingsService.user.next({ ...this.settingsService.user.value, language: this.settingsService.defaultLanguage });
-    }
     this.router.navigate(['translation']);
   }
 

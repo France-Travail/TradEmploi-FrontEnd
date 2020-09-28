@@ -32,8 +32,4 @@ export class NavbarService {
     this.shareTab = false;
     this.settingsTab = false;
   }
-
-  public showValues() {
-    console.log(this.settingsTab);
-  }
 }

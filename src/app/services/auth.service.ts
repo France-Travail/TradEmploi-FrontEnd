@@ -10,28 +10,13 @@ import { ErrorCodes } from '../models/errorCodes';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService) {
-    this.afAuth.authState.subscribe(async (state) => {
-      if (state !== null) {
-        this.db
-          .collection('config')
-          .valueChanges()
-          .subscribe((config: any) => {
-            if (config !== undefined && config.length >= 0) {
-              console.log(this.getRole(config, state.email));
-              this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
-            } else {
-              this.toastService.showToast(ErrorCodes.DBERROR, 'toast-error');
-            }
-          });
-      }
-    });
-  }
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService) {}
 
   public login(email: string, password: string): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+        this.setRole();
         this.settingsService.user.next({ ...this.settingsService.user.value, firstname: 'Pôle emploi' });
         if (auth.user != null) {
           resolve({ isAuth: true, message: 'Authentification réussie' });
@@ -44,6 +29,7 @@ export class AuthService {
 
   public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string }> {
     const auth = await this.afAuth.auth.signInAnonymously();
+    this.setRole();
     return new Promise(async (resolve, reject) => {
       try {
         if (auth.user != null) {
@@ -74,15 +60,29 @@ export class AuthService {
   private getRole(config: any, email: string): Role {
     if (email !== null) {
       if (config[0].adminList.includes(email)) {
-        console.log('admin');
         return Role.ADMIN;
       }
       if (config[0].advisors.includes(email)) {
-        console.log('advisor');
         return Role.ADVISOR;
       }
     }
-    console.log('guest');
     return Role.GUEST;
+  }
+
+  private setRole() {
+    this.afAuth.authState.subscribe(async (state) => {
+      if (state !== null) {
+        this.db
+          .collection('config')
+          .valueChanges()
+          .subscribe((config: any) => {
+            if (config !== undefined && config.length >= 0) {
+              this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
+            } else {
+              this.toastService.showToast(ErrorCodes.DBERROR, 'toast-error');
+            }
+          });
+      }
+    });
   }
 }
