@@ -11,8 +11,6 @@ describe('Translation component', () => {
         cy.url().should('include', '/choice')
         cy.contains('LANGUE ANGLAIS').click()
         cy.url().should('include', '/translation')
-        cy.contains('LANGUE ANGLAIS').click()
-        cy.url().should('include', '/translation')
     })
 
     it('SC_C_18: user translate french to english', () => {

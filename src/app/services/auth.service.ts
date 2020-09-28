@@ -59,8 +59,8 @@ export class AuthService {
   public logout(): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        this.settingsService.reset();
         await this.afAuth.auth.signOut();
+        this.settingsService.reset();
         resolve({ isAuth: false, message: 'Déconnexion réussie' });
       } catch (error) {
         reject({ isAuth: true, message: error.message });
