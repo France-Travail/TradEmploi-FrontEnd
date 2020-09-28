@@ -40,8 +40,10 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     private chatService: ChatService
   ) {
     this.navService.handleTabsChoice();
+    this.navService.showValues();
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
+        console.log(user);
         this.isMultiDevices = user.roomId !== undefined;
         if (this.isMultiDevices && user.role === Role.GUEST) {
           this.endConversation(user.roomId);

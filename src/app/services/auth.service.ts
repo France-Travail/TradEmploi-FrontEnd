@@ -18,6 +18,7 @@ export class AuthService {
           .valueChanges()
           .subscribe((config: any) => {
             if (config !== undefined && config.length >= 0) {
+              console.log(this.getRole(config, state.email));
               this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
             } else {
               this.toastService.showToast(ErrorCodes.DBERROR, 'toast-error');
@@ -58,7 +59,9 @@ export class AuthService {
   public logout(): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        await this.afAuth.auth.currentUser.delete();
+        if (this.settingsService.user.value.role === Role.GUEST) {
+          await this.afAuth.auth.currentUser.delete();
+        }
         await this.afAuth.auth.signOut();
         this.settingsService.reset();
         resolve({ isAuth: false, message: 'Déconnexion réussie' });
@@ -71,12 +74,15 @@ export class AuthService {
   private getRole(config: any, email: string): Role {
     if (email !== null) {
       if (config[0].adminList.includes(email)) {
+        console.log('admin');
         return Role.ADMIN;
       }
       if (config[0].advisors.includes(email)) {
+        console.log('advisor');
         return Role.ADVISOR;
       }
     }
+    console.log('guest');
     return Role.GUEST;
   }
 }
