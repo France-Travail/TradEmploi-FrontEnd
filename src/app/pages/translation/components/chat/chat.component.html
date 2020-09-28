@@ -1,6 +1,6 @@
 <ng-container *ngFor="let message of messages; let i = index">
   <div *ngIf="!shared" class="translation">
-    <div dir="auto" [ngStyle]="{ 'text-align': message.target === 'ar-XA' ? 'right' : 'left' }">
+    <div id="{{ 'msg-translate-' + i }}" dir="auto" [ngStyle]="{ 'text-align': message.target === 'ar-XA' ? 'right' : 'left' }">
       <bdi>{{ message.translation }}</bdi>
     </div>
     <a class="listen" (click)="listen(i)" *ngIf="message.audioHtml">
