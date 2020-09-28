@@ -110,6 +110,24 @@ $ firebase deploy --project prod
 $ https://pole-emploi-trad.firebaseapp.com
 ```
 
+6 - TAG version
+
+```
+git tag v1.0.6
+```
+
+to see all tag
+
+```
+git tag
+```
+
+to push your tag
+
+```
+git push origin --tags
+```
+
 ## V1.0.0
 
 US_F_02
