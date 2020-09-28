@@ -41,13 +41,12 @@ export class AuthService {
     });
   }
 
-  public loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string }> {
+  public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string }> {
+    const auth = await this.afAuth.auth.signInAnonymously();
     return new Promise(async (resolve, reject) => {
       try {
-        const auth = await this.afAuth.auth.signInAnonymously();
         if (auth.user != null) {
           const id = auth.user.uid;
-          auth.user.delete();
           resolve({ id, isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
@@ -59,6 +58,7 @@ export class AuthService {
   public logout(): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
+        await this.afAuth.auth.currentUser.delete();
         await this.afAuth.auth.signOut();
         this.settingsService.reset();
         resolve({ isAuth: false, message: 'Déconnexion réussie' });

@@ -47,11 +47,11 @@ export class AnonymousComponent implements OnInit {
 
   public async onSubmit(): Promise<void> {
     try {
+      const auth = await this.authService.loginAnonymous();
       this.chatService.hasRoom(this.roomId).subscribe(async (hasRoom) => {
         if (!hasRoom) {
           this.toastService.showToast(ErrorCodes.NONEXISTANTCHAT, 'toast-error');
         } else {
-          const auth = await this.authService.loginAnonymous();
           const member: Member = { id: auth.id, firstname: this.username.value };
           const key = this.chatService.addMember(this.roomId, member);
           this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST });
