@@ -7,7 +7,7 @@ describe('Auth component', () => {
       .type('agent-test@pe.fr')
       cy.get('#password')
       .type('C2h@7p8z7VM')
-      cy.contains('SE CONNECTER').click().wait(3000)
+      cy.contains('SE CONNECTER').click()
       cy.url().should('include', '/choice')
       cy.get('#logout-header').click()
       cy.get('.logout-btn').click()
@@ -21,7 +21,7 @@ describe('Auth component', () => {
       .type('agent-test@pe.fr')
       cy.get('#password')
       .type('password error')
-      cy.contains('SE CONNECTER').click().wait(3000)
+      cy.contains('SE CONNECTER').click()
       cy.url().should('include', '/auth')
       cy.contains('The password is invalid or the user does not have a password.')
   

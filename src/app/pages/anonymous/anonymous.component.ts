@@ -8,6 +8,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import { Member } from 'src/app/models/db/member';
 import { ErrorCodes } from 'src/app/models/errorCodes';
 import { Role } from 'src/app/models/role';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-anonymous',
@@ -24,7 +25,8 @@ export class AnonymousComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastService: ToastService,
     private chatService: ChatService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private afAuth: AngularFireAuth
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
@@ -50,6 +52,7 @@ export class AnonymousComponent implements OnInit {
       const auth = await this.authService.loginAnonymous();
       this.chatService.hasRoom(this.roomId).subscribe(async (hasRoom) => {
         if (!hasRoom) {
+          this.afAuth.auth.currentUser.delete();
           this.toastService.showToast(ErrorCodes.NONEXISTANTCHAT, 'toast-error');
         } else {
           const member: Member = { id: auth.id, firstname: this.username.value };

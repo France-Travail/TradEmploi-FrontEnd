@@ -4,7 +4,7 @@ describe('Navbar Component From Translate', () => {
     cy.url().should('include', '/auth');
     cy.get('#email').type('admin-test@pe.fr');
     cy.get('#password').type('CC2h@7p80z7VM');
-    cy.contains('SE CONNECTER').click(); //.wait(3000)
+    cy.contains('SE CONNECTER').click();
     cy.url().should('include', '/choice');
     cy.contains('LANGUE ANGLAIS').click();
     cy.url().should('include', '/translation');
@@ -42,7 +42,7 @@ describe('Navbar Component From Choice', () => {
     cy.url().should('include', '/auth');
     cy.get('#email').type('admin-test@pe.fr');
     cy.get('#password').type('CC2h@7p80z7VM');
-    cy.contains('SE CONNECTER').click(); //.wait(3000)
+    cy.contains('SE CONNECTER').click(); 
     cy.url().should('include', '/choice');
   });
 
@@ -63,7 +63,7 @@ describe('Navbar Component multi device From translate', () => {
     cy.url().should('include', '/auth');
     cy.get('#email').type('admin-test@pe.fr');
     cy.get('#password').type('CC2h@7p80z7VM');
-    cy.contains('SE CONNECTER').click(); //.wait(3000)
+    cy.contains('SE CONNECTER').click(); 
     cy.url().should('include', '/choice');
     cy.contains('LANGUE ANGLAIS').click();
     cy.url().should('include', '/translation');
@@ -89,6 +89,6 @@ describe('Navbar Component multi device From translate', () => {
 
   afterEach(() => {
     cy.get('#logout-header').click();
-    cy.get('.logout-btn').click(); //.wait(3000)
+    cy.get('.logout-btn').click(); 
   });
 });
