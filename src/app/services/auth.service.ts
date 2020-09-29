@@ -18,9 +18,10 @@ export class AuthService {
           .collection('config')
           .valueChanges()
           .subscribe((config: any) => {
+            console.log(JSON.stringify(config))
             if (config !== undefined && config.length >= 0) {
               this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
-            } else {
+            } else {  
               this.toastService.showToast(ErrorCodes.DBERROR, 'toast-error');
             }
           });
