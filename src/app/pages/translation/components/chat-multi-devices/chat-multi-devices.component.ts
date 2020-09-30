@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 import { Message } from 'src/app/models/translate/message';
-import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-chat-multi-devices',
@@ -9,7 +8,7 @@ import { SettingsService } from 'src/app/services/settings.service';
   styleUrls: ['./chat-multi-devices.component.scss'],
 })
 export class ChatMultiDevicesComponent {
-  constructor() {}
+
   @Input() messagesWrapped: MessageWrapped[];
 
   public listen(index) {

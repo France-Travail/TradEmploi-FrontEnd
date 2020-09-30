@@ -109,7 +109,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
     DeviceDetectorModule.forRoot(),
     OverlayModule,
     HttpClientTestingModule
-    
+
   ],
   providers: [
     NavbarService,

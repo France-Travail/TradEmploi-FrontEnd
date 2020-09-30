@@ -10,7 +10,7 @@ export class ChatComponent {
   @Input() messages: Message[];
   @Input() shared: boolean;
   @Output() editMessageEmit = new EventEmitter();
-  constructor() {}
+
   public visible: boolean = false;
 
   public extand() {

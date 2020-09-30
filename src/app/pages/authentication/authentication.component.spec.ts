@@ -16,8 +16,6 @@ import { environment } from 'src/environments/environment';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SettingsService } from 'src/app/services/settings.service';
-import { Role } from 'src/app/models/role';
-
 
 describe('AuthenticationComponent', () => {
     let component: AuthenticationComponent;
@@ -50,46 +48,38 @@ describe('AuthenticationComponent', () => {
     });
 
     it('should form to be defined', () => {
-        component.ngOnInit()
+        component.ngOnInit();
         expect(component.form).toBeDefined();
-    })
 
-    it('should multiDevise user redirected to choice', inject([SettingsService], (settingsService: SettingsService) => {
-        const routerSpy = spyOn(router, 'navigateByUrl');
-        settingsService.user.next({ ...settingsService.user.value,roomId : '123456', role: Role.GUEST });
-        fixture.detectChanges();
-        expect(routerSpy).toHaveBeenCalledWith('choice');
-    }));
+    });
 
-    it('should oneDevise user redirected to choice', inject([SettingsService], (settingsService: SettingsService) => {
+    it('should not redirect user', inject([SettingsService], (settingsService: SettingsService) => {
         const routerSpy = spyOn(router, 'navigateByUrl');
         settingsService.user.next({ ...settingsService.user.value, firstname: 'Pôle emploi' });
-        fixture.detectChanges();
-        expect(routerSpy).toHaveBeenCalledWith('choice');
+        expect(routerSpy).not.toHaveBeenCalledWith('choice');
     }));
 
-
     it('should valid email', () => {
-        component.form.controls['email'].setValue('Jane@gmail.com');
+        component.form.controls.email.setValue('Jane@gmail.com');
         const result = component.email;
         expect(result.valid).toBeTruthy();
     });
 
     it('should reject email', () => {
-        component.form.controls['email'].setValue('Janegmail.com');
+        component.form.controls.email.setValue('Janegmail.com');
         const result = component.email;
         expect(result.valid).toBeFalsy();
     });
 
 
     it('should valid password', () => {
-        component.form.controls['password'].setValue('ABCDEFG');
+        component.form.controls.password.setValue('ABCDEFG');
         const result = component.password;
         expect(result.valid).toBeTruthy();
     });
 
     it('should reject password', () => {
-        component.form.controls['password'].setValue('ABC');
+        component.form.controls.password.setValue('ABC');
         const result = component.password;
         expect(result.valid).toBeFalsy();
     });
@@ -97,10 +87,10 @@ describe('AuthenticationComponent', () => {
 
     it('should accept submit', async () => {
         const routerSpy = spyOn(router, 'navigateByUrl');
-        let promiseData = { isAuth: true, message: 'Authentification réussie' };
+        const promiseData = { isAuth: true, message: 'Authentification réussie' };
         const toastSpy = spyOn(ToastService.prototype, 'showToast');
         const authSpy = spyOn(AuthService.prototype, 'login').and
-            .callFake(function () {
+            .callFake(function() {
                 return Promise.resolve(promiseData);
             });
         await component.onSubmit();
@@ -110,9 +100,9 @@ describe('AuthenticationComponent', () => {
     });
 
     it('should reject submit', async () => {
-        let promiseData = { isAuth: false, message: 'Authentification échouée' };
-        const toastSpy = spyOn(ToastService.prototype, 'showToast').and.callThrough()
-        const authSpy = spyOn(AuthService.prototype, 'login').and.callFake(function () {
+        const promiseData = { isAuth: false, message: 'Authentification échouée' };
+        const toastSpy = spyOn(ToastService.prototype, 'showToast').and.callThrough();
+        const authSpy = spyOn(AuthService.prototype, 'login').and.callFake(function() {
             return Promise.reject(promiseData);
         });
         await component.onSubmit();

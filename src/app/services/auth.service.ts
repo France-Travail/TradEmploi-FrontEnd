@@ -11,23 +11,7 @@ import { ClassGetter } from '@angular/compiler/src/output/output_ast';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService) {
-    this.afAuth.authState.subscribe(async (state) => {
-      if (state !== null) {
-        this.db
-          .collection('config')
-          .valueChanges()
-          .subscribe((config: any) => {
-            console.log(JSON.stringify(config))
-            if (config !== undefined && config.length >= 0) {
-              this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
-            } else {  
-              this.toastService.showToast(ErrorCodes.DBERROR, 'toast-error');
-            }
-          });
-      }
-    });
-  }
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService) {}
 
   public login(email: string, password: string): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
@@ -35,23 +19,23 @@ export class AuthService {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
         this.settingsService.user.next({ ...this.settingsService.user.value, firstname: 'Pôle emploi' });
         if (auth.user != null) {
+          this.setRole();
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
         reject({ isAuth: false, message: error.message });
       }
     });
   }
 
-  public loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string }> {
+  public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInAnonymously();
-     
         if (auth.user != null) {
+          this.setRole();
           const id = auth.user.uid;
-          auth.user.delete();
           resolve({ id, isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
@@ -63,6 +47,9 @@ export class AuthService {
   public logout(): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
+        if (this.settingsService.user.value.role === Role.GUEST) {
+          await this.afAuth.auth.currentUser.delete();
+        }
         await this.afAuth.auth.signOut();
         this.settingsService.reset();
         resolve({ isAuth: false, message: 'Déconnexion réussie' });
@@ -82,5 +69,23 @@ export class AuthService {
       }
     }
     return Role.GUEST;
+  }
+
+  private setRole() {
+    this.afAuth.authState.subscribe(async (state) => {
+      if (state !== null) {
+        this.db
+          .collection('config')
+          .valueChanges()
+          .subscribe((config: any) => {
+            if (config !== undefined && config.length >= 0) {
+              this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
+            } else {
+              const error = ErrorCodes.DBERROR;
+              this.toastService.showToast(error, 'toast-error');
+            }
+          });
+      }
+    });
   }
 }

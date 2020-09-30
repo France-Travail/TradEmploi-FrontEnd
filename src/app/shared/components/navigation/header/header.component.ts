@@ -13,10 +13,9 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-
   @Output() public sidenavToggle = new EventEmitter();
 
   public choiceLink: string = 'langues';
@@ -26,28 +25,19 @@ export class HeaderComponent {
   public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
 
-  constructor(
-    public dialog: MatDialog,
-    public navbarService: NavbarService,
-    public settingsService: SettingsService,
-    private breakpointObserver: BreakpointObserver
-    ) {
-      this.isWideScreen = this.breakpointObserver
-        .observe(['(min-width: 821px)'])
-        .pipe(map(({ matches }) => matches));
-      this.isSmallScreen = this.breakpointObserver
-        .observe(['(max-width: 820px)'])
-        .pipe(map(({ matches }) => matches));
-      this.settingsService.user.subscribe((user) => {
-        if (user !== null) {
-          this.isGuest = user.role === Role.GUEST;
-          this.isAdmin = user.role === Role.ADMIN;
-        }
-        if (this.isGuest) {
-          this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
-          this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
-        }
-      });
+  constructor(public dialog: MatDialog, public navbarService: NavbarService, public settingsService: SettingsService, private breakpointObserver: BreakpointObserver) {
+    this.isWideScreen = this.breakpointObserver.observe(['(min-width: 821px)']).pipe(map(({ matches }) => matches));
+    this.isSmallScreen = this.breakpointObserver.observe(['(max-width: 820px)']).pipe(map(({ matches }) => matches));
+    this.settingsService.user.subscribe((user) => {
+      if (user !== null) {
+        this.isGuest = user.role === Role.GUEST;
+        this.isAdmin = user.role === Role.ADMIN;
+      }
+      if (this.isGuest) {
+        this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
+        this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
+      }
+    });
   }
 
   public onToggleSidenav() {
@@ -66,8 +56,7 @@ export class HeaderComponent {
     this.dialog.open(component, {
       width: '800px',
       height,
-      panelClass: 'customDialog'
+      panelClass: 'customDialog',
     });
   }
-
 }

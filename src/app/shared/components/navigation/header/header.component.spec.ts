@@ -25,10 +25,10 @@ describe('HeaderComponent', () => {
 
     beforeEach(() => {
         fixture = TestBed.createComponent(HeaderComponent);
-        let choiceLink: string = 'langues';
-        let logoutLink: string = 'deconnexion';
-        let isGuest: boolean = false;
-        let isAdmin: boolean = false;
+        const choiceLink: string = 'langues';
+        const logoutLink: string = 'deconnexion';
+        const isGuest: boolean = false;
+        const isAdmin: boolean = false;
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
@@ -44,15 +44,15 @@ describe('HeaderComponent', () => {
     xit('should open share-conversation modal' , () => {
         let dialog: MatDialog;
         const dialogSpy = spyOn(MatDialog.prototype, 'open').and
-        .callFake(function (ShareComponent , height) {
+        .callFake(function(ShareComponent , height) {
            return dialog.open(ShareComponent, {
                 width: '800px',
                 height : '500px',
                 panelClass: 'customDialog'
               });
         });
-        component.share()
-        console.log(dialogSpy)
+        component.share();
+        console.log(dialogSpy);
         expect(dialogSpy).toHaveBeenCalled();
 
     });
