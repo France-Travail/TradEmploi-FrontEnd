@@ -52,7 +52,6 @@ describe('HeaderComponent', () => {
               });
         });
         component.share();
-        console.log(dialogSpy);
         expect(dialogSpy).toHaveBeenCalled();
 
     });

@@ -48,7 +48,6 @@ export class SpeechRecognitionService {
       };
 
       this.speechRecognition.start();
-      console.log('Start Listening');
     });
   }
 

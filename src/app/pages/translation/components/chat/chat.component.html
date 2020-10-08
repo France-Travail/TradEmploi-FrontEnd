@@ -25,8 +25,7 @@
         </ng-template>
         <ng-template #longText>
           <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': message.language === 'ar-XA' ? 'right' : 'left' }" lang="ar">
-            <bdi>{{ message.text | slice: 0:98 }}</bdi
-            >&nbsp;
+            <bdi>{{ message.text | slice: 0:98 }}</bdi>
             <strong *ngIf="message.text !== undefined && message.text.length > 98">...</strong>
           </a>
           <a class="extand" *ngIf="message.text !== undefined && message.text.length > 98" (click)="extand()">

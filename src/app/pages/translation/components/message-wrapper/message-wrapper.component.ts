@@ -137,7 +137,6 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   }
 
   public audioSending(message: string): void {
-    console.log('audio sending');
     this.micro = false;
     this.speak = false;
     this.recordMode = false;

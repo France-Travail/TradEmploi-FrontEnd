@@ -18,7 +18,6 @@ export class ChatService {
     return promise
       .then((_) => true)
       .catch((err) => {
-        console.log(err, 'You dont have access!');
         return false;
       });
   }
@@ -63,7 +62,6 @@ export class ChatService {
       .remove()
       .then((_) => true)
       .catch((err) => {
-        console.log(err, 'You dont have access!');
         return false;
       });
   }
@@ -73,7 +71,6 @@ export class ChatService {
     return promise
       .then((_) => true)
       .catch((err) => {
-        console.log(err, 'You dont have access!');
         return false;
       });
   }
@@ -88,7 +85,6 @@ export class ChatService {
       .set(active)
       .then((_) => true)
       .catch((err) => {
-        console.log(err, 'You dont have access!');
         return false;
       });
   }
