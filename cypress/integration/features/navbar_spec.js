@@ -27,6 +27,8 @@ describe('Navbar Component From Translate', () => {
 
   it('SC_C_15_A: user click on setting', () => {
     cy.get('#settings-header').click();
+    cy.get('#export-eval').should('exist')
+    cy.get('#export-kpi').should('exist')
     cy.contains('retour').click();
   });
 
@@ -48,6 +50,8 @@ describe('Navbar Component From Choice', () => {
 
   it('SC_C_15_B: user click on setting', () => {
     cy.get('#settings-header').click();
+    cy.get('#export-eval').should('exist')
+    cy.get('#export-kpi').should('exist')
     cy.contains('retour').click();
   });
 
@@ -84,6 +88,8 @@ describe('Navbar Component multi device From translate', () => {
 
   it('SC_C_15_MD: user click on setting', () => {
     cy.get('#settings-header').click();
+    cy.get('#export-eval').should('exist')
+    cy.get('#export-kpi').should('exist')
     cy.contains('retour').click();
   });
 

@@ -42,7 +42,7 @@ export class SettingsComponent {
     a.setAttribute('hidden', '');
     a.setAttribute('href', url);
     const date = new Date().toLocaleDateString('ko-KR').replace(/. /g, '');
-    const filename = 'PE_Outil_Traduction_KPI_' + date + '.csv';
+    const filename = 'PE_Outil_Traduction_Evaluation_' + date + '.csv';
     a.setAttribute('download', filename);
     document.body.append(a);
     a.click();

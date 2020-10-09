@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material';
 import { Router, RouterModule } from '@angular/router';

@@ -4,7 +4,16 @@
   <div class="parameter">
     <div>
       <h4>Résultat de l'enquête</h4>
-      <div class="export" (click)="export()">
+      <div id="export-eval" class="export" (click)="export()">
+        <div class="export-item-img">
+          <img src="assets/icons/icon-export-black.svg" alt="Télécharger" />
+        </div>
+        <div class="export-item-text"><span class="export-description">Télécharger</span></div>
+      </div>
+    </div>
+    <div>
+      <h4>Statistiques des conversations</h4>
+      <div id="export-kpi" class="export" (click)="export()">
         <div class="export-item-img">
           <img src="assets/icons/icon-export-black.svg" alt="Télécharger" />
         </div>
