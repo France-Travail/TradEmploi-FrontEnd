@@ -160,13 +160,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   }
 
   private async sendToOneDevice(text: string) {
-    const message = {
-      time: Date.now(),
-      text,
-      languageOrigin: this.languageOrigin,
-      flag: this.flag,
-      role: this.role,
-    };
+    const message = this.buildMessage(text)
     const messageWrapped: MessageWrapped = {
       message,
       time: Date.now(),
@@ -176,11 +170,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   private async sendToMultiDevices(user: User, text: string) {
     const message: Message = {
-      time: Date.now(),
-      text,
-      languageOrigin: this.languageOrigin,
-      flag: this.flag,
-      role: this.role,
+      ...this.buildMessage(text),
       member: user.firstname ? user.firstname : this.settingsService.defaultName,
     };
     const messageWrapped: MessageWrapped = {
@@ -188,5 +178,18 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       time: Date.now(),
     };
     this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
+  }
+
+  private buildMessage(text: string){
+    const date= new Date()
+    return {
+      time: Date.now(),
+      date: date.toLocaleDateString('fr-FR'),
+      hour: date.getHours() + ':'+date.getMinutes()+':'+date.getSeconds(),
+      languageOrigin: this.languageOrigin,
+      flag: this.flag,
+      role: this.role,
+      text: text
+    };
   }
 }
