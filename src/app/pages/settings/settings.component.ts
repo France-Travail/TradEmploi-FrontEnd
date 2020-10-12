@@ -17,7 +17,7 @@ export class SettingsComponent {
     this.navService.handleTabsSettings();
   }
 
-  public export(): void {
+  public export(name:string): void {
     if (environment.name === 'local') {
       this.fireFunction.functions.useFunctionsEmulator(environment.firefunction.url);
     }
@@ -25,7 +25,7 @@ export class SettingsComponent {
       .httpsCallable('rates')({ login: environment.firefunction.login, password: environment.firefunction.password })
       .toPromise()
       .then((response) => {
-        this.exportCsv(response);
+        this.exportCsv(response, name);
       })
       .catch((err) => {
         this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
@@ -33,7 +33,7 @@ export class SettingsComponent {
       });
   }
 
-  private exportCsv(rates) {
+  private exportCsv(rates, name: string) {
     const json2csvParser = new Parser({ delimiter: ';', encoding: 'utf8' });
     const data = json2csvParser.parse(rates);
     const blob = new Blob([data], { type: 'text/csv' });
@@ -42,7 +42,7 @@ export class SettingsComponent {
     a.setAttribute('hidden', '');
     a.setAttribute('href', url);
     const date = new Date().toLocaleDateString('ko-KR').replace(/. /g, '');
-    const filename = 'PE_Outil_Traduction_Evaluation_' + date + '.csv';
+    const filename = name === "eval" ? 'PE_Outil_Traduction_Evaluation_' + date + '.csv' : 'PE_Outil_Traduction_KPIs_' + date + '.csv';
     a.setAttribute('download', filename);
     document.body.append(a);
     a.click();
