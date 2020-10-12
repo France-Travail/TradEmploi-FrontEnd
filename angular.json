@@ -24,7 +24,8 @@
                 "@firebase/database",
                 "axios",
                 "@firebase/firestore",
-                "@firebase/functions"
+                "@firebase/functions",
+                "hammerjs"
             ],
             "outputPath": "dist/translation",
             "index": "src/index.html",
