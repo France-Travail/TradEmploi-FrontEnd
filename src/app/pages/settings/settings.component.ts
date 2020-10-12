@@ -6,6 +6,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ErrorCodes } from 'src/app/models/errorCodes';
+import { RateService } from 'src/app/services/rate.service';
 
 @Component({
   selector: 'app-settings',
@@ -13,10 +14,19 @@ import { ErrorCodes } from 'src/app/models/errorCodes';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent {
-  constructor(private fireFunction: AngularFireFunctions, private toastService: ToastService, private navService: NavbarService, private settingsService: SettingsService) {
+  constructor(
+    private fireFunction: AngularFireFunctions, 
+    private toastService: ToastService, 
+    private navService: NavbarService, 
+    private settingsService: SettingsService,
+    private rateService: RateService) {
     this.navService.handleTabsSettings();
   }
 
+  public async exportKpi(){
+    const rates = await this.rateService.getRates()
+    this.exportCsv(rates,"kpi")
+  }
   public export(name:string): void {
     if (environment.name === 'local') {
       this.fireFunction.functions.useFunctionsEmulator(environment.firefunction.url);

@@ -7,7 +7,6 @@ import { VOCABULARY } from 'src/app/data/vocabulary';
 import { Rate } from 'src/app/models/rate';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
-import { Role } from 'src/app/models/role';
 import { ErrorCodes } from 'src/app/models/errorCodes';
 
 interface Sentences {
