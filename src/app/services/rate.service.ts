@@ -1,18 +1,20 @@
-import { Language } from './../models/language';
 import axios from 'axios';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Rate } from '../models/rate';
+import { environment } from '../../environments/environment';
+import { ToastService } from 'src/app/services/toast.service';
+import { ErrorCodes } from '../models/errorCodes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RateService {
-  private rate: Rate; // The notation
-  private db: string = 'rates'; // The collection's name
+  private rate: Rate;
+  private db: string = 'rates';
 
-  constructor(private afs: AngularFirestore) {}
+  constructor(private afs: AngularFirestore, private toastService: ToastService) {}
 
   public rateConversation(rate: Rate): void {
     this.rate = rate;
@@ -25,8 +27,9 @@ export class RateService {
       .set(this.rate);
   }
 
-  public getRates(){
-    const url ="http://localhost:5000/pole-emploi-trad-dev/us-central1/api"
+  public async getRates(){
+    const key = await this.getKey()
+    const url = environment.firefunction.url
     const data= {
       query: `
         query rates {
@@ -43,7 +46,7 @@ export class RateService {
     }
     return new Promise(async (resolve, reject) => {axios({
         method:'post',
-        headers:{'Authorization':'ZGFpc3lAYXBvbGxvZ3JhcGhxbC5jb20='},
+        headers:{'Authorization': key },
         data,
         url
       }).then((response) =>{
@@ -62,6 +65,7 @@ export class RateService {
           });
           resolve(rates)
       }).catch((err) => {
+          this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
           reject(err)
       })
     })
@@ -72,4 +76,28 @@ export class RateService {
       .collection<Rate>(this.db, rf => rf.where('historyId', '==', id))
       .valueChanges();
   }
+
+
+  private getKey(): Promise<string>{
+    const url = environment.firefunction.url;
+    const data= {
+      query: `
+        mutation LoginUser {
+          login(key: "`+environment.firefunction.key+`")
+        }`
+    }
+    return new Promise(async (resolve, reject) => {axios({
+        method:'post',
+        data,
+        url
+      }).then((response) =>{
+          const data = response.data.data.login
+          resolve(data)
+      }).catch((err) => {
+          this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
+          reject(err)
+      })
+    })
+  }
+
 }
