@@ -143,17 +143,17 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     return true;
   }
 
-  @HostListener('window:blur')
-  public blur(): Observable<boolean> | boolean {
-    if (this.settingsService.recordMode) {
-      const isEndClosed: boolean = this.endIdDialogRef === undefined;
-      if (isEndClosed) {
-        this.deactivate();
-        this.endIdDialogRef = this.openModal(EndComponent, '300px', true);
-      }
-    }
-    return true;
-  }
+  // @HostListener('window:blur')
+  // public blur(): Observable<boolean> | boolean {
+  //   if (this.settingsService.recordMode) {
+  //     const isEndClosed: boolean = this.endIdDialogRef === undefined;
+  //     if (isEndClosed) {
+  //       this.deactivate();
+  //       this.endIdDialogRef = this.openModal(EndComponent, '300px', true);
+  //     }
+  //   }
+  //   return true;
+  // }
 
   private deactivate() {
     const isMultiDevices = this.user.roomId !== undefined;
