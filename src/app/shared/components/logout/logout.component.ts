@@ -8,6 +8,7 @@ import { Role } from 'src/app/models/role';
 import { User } from 'src/app/models/user';
 import { Logout } from 'src/app/models/vocabulary';
 import { FRENCH, ENGLISH } from 'src/app/data/sentence';
+import { KpiService } from 'src/app/services/kpi.service';
 
 @Component({
   selector: 'app-logout',
@@ -20,7 +21,13 @@ export class LogoutComponent {
   private isGuest: boolean = false;
   private user: User;
 
-  constructor(private dialogRef: MatDialogRef<LogoutComponent>, public router: Router, private authService: AuthService, private chatService: ChatService, private settingsService: SettingsService) {
+  constructor(
+    private dialogRef: MatDialogRef<LogoutComponent>, 
+    public router: Router, 
+    private authService: AuthService, 
+    private chatService: ChatService, 
+    private settingsService: SettingsService,
+    private kpiService: KpiService) {
     this.settingsService.user.subscribe((user: User) => {
       if (user !== null) {
         this.roomId = user.roomId ? user.roomId : undefined;
@@ -31,19 +38,21 @@ export class LogoutComponent {
     });
   }
 
-  public confirm() {
+  public async confirm() {
     this.dialogRef.close();
-    this.authService.logout();
     if (this.roomId) {
       this.settingsService.reset();
-      if (this.isGuest) {
-        this.chatService.deleteMember(this.roomId, this.user.firstname, this.user.id);
-      } else {
-        this.chatService.updateChatStatus(this.roomId, false);
-        this.chatService.delete(this.roomId);
-      }
+      this.kpiService.createKpi(this.roomId).then(_ => {
+        if (this.isGuest) {
+          this.chatService.deleteMember(this.roomId, this.user.firstname, this.user.id);
+        } else {
+          this.chatService.updateChatStatus(this.roomId, false);
+          this.chatService.delete(this.roomId);
+        }
+        this.authService.logout();
+        this.router.navigateByUrl('/');
+      })
     }
-    this.router.navigateByUrl('/');
   }
 
   public cancel() {
