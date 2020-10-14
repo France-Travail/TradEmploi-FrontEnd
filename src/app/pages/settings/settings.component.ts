@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Parser } from 'json2csv';
-import { ToastService } from 'src/app/services/toast.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { RateService } from 'src/app/services/rate.service';
