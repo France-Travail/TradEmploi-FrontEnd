@@ -17,7 +17,7 @@ export class SettingsComponent {
     this.navService.handleTabsSettings();
   }
 
-  public export(name:string): void {
+  public export(name: string): void {
     if (environment.name === 'local') {
       this.fireFunction.functions.useFunctionsEmulator(environment.firefunction.url);
     }
@@ -42,7 +42,7 @@ export class SettingsComponent {
     a.setAttribute('hidden', '');
     a.setAttribute('href', url);
     const date = new Date().toLocaleDateString('ko-KR').replace(/. /g, '');
-    const filename = name === "eval" ? 'PE_Outil_Traduction_Evaluation_' + date + '.csv' : 'PE_Outil_Traduction_KPIs_' + date + '.csv';
+    const filename = name === 'eval' ? 'PE_Outil_Traduction_Evaluation_' + date + '.csv' : 'PE_Outil_Traduction_KPIs_' + date + '.csv';
     a.setAttribute('download', filename);
     document.body.append(a);
     a.click();

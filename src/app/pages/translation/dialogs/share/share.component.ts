@@ -54,6 +54,10 @@ export class ShareComponent implements OnInit {
       language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written },
       roomId: this.roomId,
     });
+    const user = JSON.parse(localStorage.getItem('user'));
+    user.language = { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written };
+    user.roomId = this.roomId;
+    localStorage.setItem('user', JSON.stringify(user));
     this.chatService.create(this.roomId).then((_) => this.dialogRef.close());
   }
 

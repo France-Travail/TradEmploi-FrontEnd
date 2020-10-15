@@ -5,7 +5,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastService } from 'src/app/services/toast.service';
 import { ErrorCodes } from '../models/errorCodes';
-import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +16,14 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-        this.settingsService.user.next({ ...this.settingsService.user.value, firstname: 'Pôle emploi' });
+        let role;
+        switch (auth.user.email) {
+          case 'admin@pe.fr' : role = Role.ADMIN; break;
+          case 'agent@pe.fr' : role = Role.ADVISOR ; break;
+          default : role = Role.ADVISOR;
+        }
+        this.settingsService.user.next({ ...this.settingsService.user.value, role, firstname: 'Pôle emploi', connectionTime : Date.now() });
+        localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
         if (auth.user != null) {
           this.setRole();
           resolve({ isAuth: true, message: 'Authentification réussie' });
@@ -35,6 +41,7 @@ export class AuthService {
         if (auth.user != null) {
           this.setRole();
           const id = auth.user.uid;
+          this.settingsService.user.next({ ...this.settingsService.user.value, id, role: Role.GUEST, connectionTime : Date.now() });
           resolve({ id, isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
@@ -48,6 +55,8 @@ export class AuthService {
       try {
         if (this.settingsService.user.value.role === Role.GUEST) {
           await this.afAuth.auth.currentUser.delete();
+        } else {
+          localStorage.setItem('user', null)
         }
         await this.afAuth.auth.signOut();
         this.settingsService.reset();

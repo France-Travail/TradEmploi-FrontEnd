@@ -20,6 +20,10 @@ export class AuthenticationComponent implements OnInit {
         if (isFromAuth) {
           this.router.navigateByUrl('choice');
         }
+      } else if (localStorage.getItem('user') != null) {
+        const user = JSON.parse(localStorage.getItem('user'));
+        this.settingsService.user.next({ ...this.settingsService.user.value, firstname : user.firstname, role : user.role, language : user.language, connectionTime : user.connectionTime  });
+        this.router.navigateByUrl('choice');
       }
     });
   }

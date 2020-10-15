@@ -45,6 +45,17 @@ export class LanguagesComponent implements OnInit {
     const audioCode = voice.audioCode ? voice.audioCode : voice.isoCode;
     this.voicesService.guest = { audio: audioCode, written: voice.isoCode };
     this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioCode, written: voice.isoCode }, connectionTime: Date.now() });
+    if (localStorage.getItem('user') != null) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      user.language = { audio: audioCode, written: voice.isoCode };
+      user.connectionTime = Date.now();
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      user.language = { audio: audioCode, written: voice.isoCode };
+      user.connectionTime = Date.now();
+      sessionStorage.setItem('user', JSON.stringify(user));
+    }
     this.dialogRef.close('chosen');
   }
   public isoCodeToFlag(isoCode: string) {

@@ -50,14 +50,23 @@ export class AnonymousComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     try {
       const auth = await this.authService.loginAnonymous();
+      const user = {
+        roomId : this.roomId,
+        connectionTime : Date.now(),
+        firstname : this.username.value
+      };
+      sessionStorage.setItem('user', JSON.stringify(user));
       this.chatService.hasRoom(this.roomId).subscribe(async (hasRoom) => {
         if (!hasRoom) {
           this.afAuth.auth.currentUser.delete();
           this.toastService.showToast(ErrorCodes.NONEXISTANTCHAT, 'toast-error');
+          this.router.navigate(['/start']);
+          sessionStorage.setItem('user', null);
+          this.settingsService.reset();
         } else {
           const member: Member = { id: auth.id, firstname: this.username.value };
           const key = this.chatService.addMember(this.roomId, member);
-          this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST });
+          this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST, connectionTime : Date.now() });
           this.toastService.showToast(auth.message, 'toast-success');
           this.router.navigateByUrl('choice');
         }

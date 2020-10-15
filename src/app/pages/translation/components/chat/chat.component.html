@@ -13,7 +13,7 @@
       <img *ngIf="message.flag === 'xa'" class="flag-icon" src="assets/images/arab-flag.png" alt="drapeau" />
     </div>
     <div class="text">
-      <span>
+      <span>  
         <div *ngIf="!visible; then longText; else shortText"></div>
         <ng-template #shortText>
           <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': message.language === 'ar-XA' ? 'right' : 'left' }">

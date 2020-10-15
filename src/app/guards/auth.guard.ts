@@ -3,20 +3,37 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import { SettingsService } from '../services/settings.service';
 
-import { Role } from '../models/role';
-
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private settingsService: SettingsService, private router: Router) {}
+  constructor(private settingsService: SettingsService, private router: Router) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return new Promise((resolve) => {
-      if (this.settingsService.user.value === null) {
-        this.router.navigateByUrl('/start');
-      }
-      if (this.settingsService.user.value.id || this.settingsService.user.value.role !== Role.GUEST) {
+      if ((!localStorage.getItem('user') || localStorage.getItem('user') == null) && (!sessionStorage.getItem('user') || sessionStorage.getItem('user') == null)) {
+          this.settingsService.user.next(null);
+          this.router.navigate(['/start']);
+      } else {
+        if (!this.settingsService.user.value || this.settingsService.user.value == null) {
+          if (localStorage.getItem('user') != null) {
+            const user = JSON.parse(localStorage.getItem('user'));
+            try {
+              this.settingsService.user.next({ ...this.settingsService.user.value, firstname: user.firstname, role: user.role, language: user.language, roomId: undefined, connectionTime: user.connectionTime });
+            } catch (error) {
+              this.router.navigate(['/start']);
+            }
+          } else if (sessionStorage.getItem('user') != null)
+          {  const user = JSON.parse(sessionStorage.getItem('user'));
+             try {
+              this.settingsService.user.next({ ...this.settingsService.user.value, firstname: user.firstname, role: user.role, language: user.language, roomId: user.roomId, connectionTime: user.connectionTime });
+            } catch (error) {
+              this.router.navigate(['/start']);
+            }
+          } else {
+            this.router.navigate(['/start']);
+          }
+        }
         resolve(true);
       }
     });
