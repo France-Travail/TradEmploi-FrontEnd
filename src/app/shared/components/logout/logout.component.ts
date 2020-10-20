@@ -37,10 +37,8 @@ export class LogoutComponent {
     if (this.roomId) {
       this.settingsService.reset();
       if (this.isGuest) {
-        sessionStorage.setItem('user', null);
         this.chatService.deleteMember(this.roomId, this.user.firstname, this.user.id);
       } else {
-        localStorage.setItem('user', null);
         this.chatService.updateChatStatus(this.roomId, false);
         this.chatService.delete(this.roomId);
       }
