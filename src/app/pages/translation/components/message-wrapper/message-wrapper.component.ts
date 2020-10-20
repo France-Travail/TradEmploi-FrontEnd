@@ -35,13 +35,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public translatedSpeech: HTMLAudioElement;
   public translatedText: string = '';
   public micro: boolean = false;
-  public translationMode : string = "text";
   public error: boolean = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
   public interim: string = '';
   public recordMode: boolean = false;
   public speak: boolean = false;
-
+  public translationMode : string = "text"
+  
   private isMobile: boolean = false;
 
   constructor(
@@ -75,13 +75,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   public async talk(): Promise<void> {
     if ('webkitSpeechRecognition' in window) {
-      this.translationMode = "vocal";
       this.micro = true;
       this.recordMode = this.settingsService.recordMode;
       if (!this.recordMode) {
         this.rawText = '';
         this.stream();
       }
+      this.translationMode = "vocal"
       this.speak = true;
     } else {
       this.toastService.showToast(ErrorCodes.UNAUTHORIZEDMICRO, 'toast-info');
@@ -126,7 +126,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         this.sendToOneDevice(message);
       }
       this.rawText = '';
-      this.translationMode = "text";
+      this.translationMode = "text"
       this.speak = false;
     }
   }
@@ -188,12 +188,12 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     return {
       time: Date.now(),
       date: date.toLocaleDateString('fr-FR'),
-      hour: date.getHours() + ':' + date.getMinutes() + ':' +date.getSeconds(),
+      hour: date.getHours() + ':'+date.getMinutes()+':'+date.getSeconds(),
       languageOrigin: this.languageOrigin,
       flag: this.flag,
       role: this.role,
       text: text,
-      translationMode: this.translationMode
+      translationMode : this.translationMode
     };
   }
 }

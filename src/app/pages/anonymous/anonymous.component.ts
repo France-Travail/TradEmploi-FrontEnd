@@ -9,6 +9,9 @@ import { Member } from 'src/app/models/db/member';
 import { ErrorCodes } from 'src/app/models/errorCodes';
 import { Role } from 'src/app/models/role';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { Device } from 'src/app/models/device';
+import { DeviceService } from 'src/app/services/device.service';
 
 @Component({
   selector: 'app-anonymous',
@@ -26,7 +29,9 @@ export class AnonymousComponent implements OnInit {
     private toastService: ToastService,
     private chatService: ChatService,
     private settingsService: SettingsService,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private deviceDetectorService: DeviceDetectorService,
+    private deviceService: DeviceService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
@@ -55,7 +60,7 @@ export class AnonymousComponent implements OnInit {
           this.afAuth.auth.currentUser.delete();
           this.toastService.showToast(ErrorCodes.NONEXISTANTCHAT, 'toast-error');
         } else {
-          const member: Member = { id: auth.id, firstname: this.username.value };
+          const member: Member = { id: auth.id, firstname: this.username.value, role: Role.GUEST, device: this.getUserDevice() };
           const key = this.chatService.addMember(this.roomId, member);
           this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST });
           this.toastService.showToast(auth.message, 'toast-success');
@@ -65,5 +70,17 @@ export class AnonymousComponent implements OnInit {
     } catch (error) {
       this.toastService.showToast(error.message, 'toast-error');
     }
+  }
+
+
+  private getUserDevice(): Device {
+
+    return {
+      type: this.deviceService.getDeviceType(),
+      os: this.deviceDetectorService.os,
+      osVersion: this.deviceDetectorService.os_version,
+      browser: this.deviceDetectorService.browser,
+      browserVersion: this.deviceDetectorService.browser_version
+    };
   }
 }

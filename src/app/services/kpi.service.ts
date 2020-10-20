@@ -49,7 +49,9 @@ export class KpiService {
                 duration
                 languages
                 translationMode
-                mode
+                support
+                guestsDevices
+                advisorDevice
               }
             }`
         }
@@ -64,13 +66,15 @@ export class KpiService {
                 let kpi = []
                 data.forEach(element => {
                     kpi.push({
-                        "Date conversation" : element.day,
+                        "Date conversation": element.day,
                         "Durée conversation": element.begin,
                         "Heure début conversation": element.end,
                         "Heure fin conversation": element.duration,
                         "Langue(s)": element.languages,
                         "Mode traduction": element.translationMode,
-                        "Support traduction": element.mode,
+                        "Support traduction": element.support,
+                        "Conseiller : Device": element.advisorDevice,
+                        "DE(s) : Device": element.guestsDevices
                     });
                 });
                 resolve(kpi)

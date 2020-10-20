@@ -56,7 +56,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         if (user.language !== undefined && user.language.audio === undefined) {
           this.goto('choice');
         }
-
         this.isGuest = user.firstname !== undefined && user.firstname !== this.settingsService.defaultName;
         this.isMultiDevices = user.roomId !== undefined;
         if (this.isMultiDevices) {
