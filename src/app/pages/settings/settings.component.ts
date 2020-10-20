@@ -3,6 +3,7 @@ import { Parser } from 'json2csv';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { RateService } from 'src/app/services/rate.service';
+import { KpiService } from 'src/app/services/kpi.service';
 
 @Component({
   selector: 'app-settings',
@@ -13,13 +14,14 @@ export class SettingsComponent {
   constructor(
     private navService: NavbarService, 
     private settingsService: SettingsService,
-    private rateService: RateService) {
+    private rateService: RateService,
+    private kpiService: KpiService) {
     this.navService.handleTabsSettings();
   }
 
   public async exportKpi(){
-    const rates = await this.rateService.getRates()
-    this.exportCsv(rates,"kpi")
+    const kpi = await this.kpiService.getkpi()
+    this.exportCsv(kpi,"kpi")
   }
   public async exportEval() {
     const rates = await this.rateService.getRates()

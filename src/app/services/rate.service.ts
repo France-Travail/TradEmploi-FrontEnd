@@ -6,6 +6,7 @@ import { Rate } from '../models/rate';
 import { environment } from '../../environments/environment';
 import { ToastService } from 'src/app/services/toast.service';
 import { ErrorCodes } from '../models/errorCodes';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class RateService {
   private rate: Rate;
   private db: string = 'rates';
 
-  constructor(private afs: AngularFirestore, private toastService: ToastService) {}
+  constructor(private afs: AngularFirestore, private toastService: ToastService, private tokenService: TokenService) {}
 
   public rateConversation(rate: Rate): void {
     this.rate = rate;
@@ -28,7 +29,7 @@ export class RateService {
   }
 
   public async getRates(){
-    const key = await this.getKey()
+    const key = await this.tokenService.getKey()
     const url = environment.firefunction.url
     const data= {
       query: `
@@ -75,29 +76,6 @@ export class RateService {
     return this.afs
       .collection<Rate>(this.db, rf => rf.where('historyId', '==', id))
       .valueChanges();
-  }
-
-
-  private getKey(): Promise<string>{
-    const url = environment.firefunction.url;
-    const data= {
-      query: `
-        mutation LoginUser {
-          login(key: "`+environment.firefunction.key+`")
-        }`
-    }
-    return new Promise(async (resolve, reject) => {axios({
-        method:'post',
-        data,
-        url
-      }).then((response) =>{
-          const data = response.data.data.login
-          resolve(data)
-      }).catch((err) => {
-          this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
-          reject(err)
-      })
-    })
   }
 
 }

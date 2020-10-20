@@ -56,7 +56,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         if (user.language !== undefined && user.language.audio === undefined) {
           this.goto('choice');
         }
-        this.isGuest = user.firstname !== undefined;
+
+        this.isGuest = user.firstname !== undefined && user.firstname !== this.settingsService.defaultName;
         this.isMultiDevices = user.roomId !== undefined;
         if (this.isMultiDevices) {
           this.initMultiDevices(user.roomId);
@@ -82,7 +83,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   ngOnDestroy() {
     if (this.isMultiDevices) {
-      this.settingsService.user.next({ ...this.settingsService.user.value, connectionTime: Date.now() });
       this.isAudioPlay = false;
     }
   }

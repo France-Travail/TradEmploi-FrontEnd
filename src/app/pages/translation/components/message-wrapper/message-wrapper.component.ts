@@ -35,6 +35,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public translatedSpeech: HTMLAudioElement;
   public translatedText: string = '';
   public micro: boolean = false;
+  public translationMode : string = "text";
   public error: boolean = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
   public interim: string = '';
@@ -74,6 +75,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   public async talk(): Promise<void> {
     if ('webkitSpeechRecognition' in window) {
+      this.translationMode = "vocal";
       this.micro = true;
       this.recordMode = this.settingsService.recordMode;
       if (!this.recordMode) {
@@ -124,6 +126,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         this.sendToOneDevice(message);
       }
       this.rawText = '';
+      this.translationMode = "text";
       this.speak = false;
     }
   }
@@ -185,11 +188,12 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     return {
       time: Date.now(),
       date: date.toLocaleDateString('fr-FR'),
-      hour: date.getHours() + ':'+date.getMinutes()+':'+date.getSeconds(),
+      hour: date.getHours() + ':' + date.getMinutes() + ':' +date.getSeconds(),
       languageOrigin: this.languageOrigin,
       flag: this.flag,
       role: this.role,
-      text: text
+      text: text,
+      translationMode: this.translationMode
     };
   }
 }
