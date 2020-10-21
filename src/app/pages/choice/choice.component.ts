@@ -13,6 +13,8 @@ import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
 import { Observable } from 'rxjs';
 import { Vocabulary } from 'src/app/models/vocabulary';
 import { User } from 'src/app/models/user';
+import { ErrorCodes } from 'src/app/models/errorCodes';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-choice',
@@ -98,7 +100,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   @HostListener('window:beforeunload', ['$event'])
   public openPopUp(event): any {
     const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
-    (event || window.event).returnValue = confirmationMessage; // Gecko + IE 
+    (event || window.event).returnValue = confirmationMessage; // Gecko + IE
     return confirmationMessage;
   }
 
@@ -112,6 +114,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     if (this.isMultiDevices) {
       this.settingsService.reset();
       if (this.user.role === Role.GUEST) {
+        sessionStorage.setItem('user', null);
         const isEndClosed: boolean = this.endIdDialogRef === undefined;
         if (isEndClosed) {
           this.chatService.deleteMember(this.user.roomId, this.user.firstname, this.user.id);

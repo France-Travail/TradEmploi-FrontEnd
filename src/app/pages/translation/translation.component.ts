@@ -136,8 +136,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   @HostListener('window:beforeunload', ['$event'])
   public openPopUp(event): any {
     const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
-    (event || window.event).returnValue = confirmationMessage; 
-    return 'confirmationMessage'; 
+    (event || window.event).returnValue = confirmationMessage;
+    return 'confirmationMessage';
   }
 
   @HostListener('window:unload')
@@ -149,9 +149,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const isMultiDevices = this.user.roomId !== undefined;
     if (isMultiDevices) {
       if (this.isGuest) {
-        this.settingsService.reset();
-        const isEndClosed: boolean = this.endIdDialogRef === undefined;
-        if (isEndClosed) {
+         this.settingsService.reset();
+         const isEndClosed: boolean = this.endIdDialogRef === undefined;
+         if (isEndClosed) {
           this.chatService.deleteMember(this.user.roomId, this.user.firstname, this.user.id);
         }
       } else {

@@ -16,14 +16,6 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-        let role;
-        switch (auth.user.email) {
-          case 'admin@pe.fr' : role = Role.ADMIN; break;
-          case 'agent@pe.fr' : role = Role.ADVISOR ; break;
-          default : role = Role.ADVISOR;
-        }
-        this.settingsService.user.next({ ...this.settingsService.user.value, role, firstname: 'Pôle emploi', connectionTime : Date.now() });
-        localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
         if (auth.user != null) {
           this.setRole();
           resolve({ isAuth: true, message: 'Authentification réussie' });
@@ -55,8 +47,6 @@ export class AuthService {
       try {
         if (this.settingsService.user.value.role === Role.GUEST) {
           await this.afAuth.auth.currentUser.delete();
-        } else {
-          localStorage.setItem('user', null)
         }
         await this.afAuth.auth.signOut();
         this.settingsService.reset();

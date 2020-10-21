@@ -61,7 +61,6 @@ export class AnonymousComponent implements OnInit {
           this.afAuth.auth.currentUser.delete();
           this.toastService.showToast(ErrorCodes.NONEXISTANTCHAT, 'toast-error');
           this.router.navigate(['/start']);
-          this.settingsService.reset();
         } else {
           const member: Member = { id: auth.id, firstname: this.username.value };
           const key = this.chatService.addMember(this.roomId, member);
