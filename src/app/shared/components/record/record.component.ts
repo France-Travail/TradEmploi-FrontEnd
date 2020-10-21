@@ -45,7 +45,6 @@ export class RecordComponent implements OnInit {
   };
 
   putTitle = () => {
-    console.log('put title ..');
     const language: string = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.audio : this.settingsService.user.value.language.audio;
     const recordText = VOCABULARY.find((item) => item.audioCode === language).sentences.recordText;
     this.text = recordText;
