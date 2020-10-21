@@ -23,5 +23,7 @@ export class SettingsService {
 
   reset = () => {
     this.user.next(null);
+    sessionStorage.setItem('user', null);
+    localStorage.setItem('user', null);
   }
 }

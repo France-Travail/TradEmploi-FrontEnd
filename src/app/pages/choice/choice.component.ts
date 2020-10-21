@@ -13,8 +13,6 @@ import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
 import { Observable } from 'rxjs';
 import { Vocabulary } from 'src/app/models/vocabulary';
 import { User } from 'src/app/models/user';
-import { ErrorCodes } from 'src/app/models/errorCodes';
-import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-choice',

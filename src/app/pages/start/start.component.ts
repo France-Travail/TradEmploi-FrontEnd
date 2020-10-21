@@ -17,7 +17,6 @@ export class StartComponent implements AfterContentInit {
   constructor(private settingsService: SettingsService, private router: Router, private navbarService: NavbarService) {}
 
   ngAfterContentInit() {
-    this.settingsService.reset();
     this.navbarService.hide();
     const id = setInterval(() => {
       this.opacity = this.opacity + 0.05;

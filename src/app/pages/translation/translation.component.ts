@@ -13,7 +13,6 @@ import { NavbarService } from 'src/app/services/navbar.service';
 import { TranslateService } from 'src/app/services/translate.service';
 import { User } from 'src/app/models/user';
 import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
-import { Observable } from 'rxjs';
 import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
 import { EndComponent } from './dialogs/end/end.component';
 import { CryptService } from 'src/app/services/crypt.service';
@@ -38,7 +37,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private isAudioPlay: boolean;
   private user: User;
   private endIdDialogRef: MatDialogRef<any, any>;
-
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -60,7 +58,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.isMultiDevices = user.roomId !== undefined;
         if (this.isMultiDevices) {
           this.initMultiDevices(user.roomId);
-          this.isGuest = user.firstname !== undefined && user.firstname !== this.settingsService.defaultName;
         }
         this.user = user;
       }
@@ -68,16 +65,17 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
-    this.navbarService.handleTabsTranslation();
   }
 
   ngOnInit(): void {
+    this.navbarService.handleTabsTranslation();
     this.isAudioPlay = true;
     this.scrollToBottom();
   }
 
   ngAfterViewChecked() {
     this.scrollToBottom();
+    this.navbarService.show();
   }
 
   ngOnDestroy() {
@@ -89,7 +87,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   scrollToBottom(): void {
     try {
       this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
-    } catch (err) {}
+    } catch (err) { }
   }
 
   public goto(where: string): void {
@@ -135,36 +133,30 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.isAudioPlay = !this.isAudioPlay;
   }
 
-  @HostListener('window:unload')
-  public canDeactivate(): Observable<boolean> | boolean {
-    this.toastService.showToast('unload ?', 'toast-error');
-    this.deactivate();
-    return true;
+  @HostListener('window:beforeunload', ['$event'])
+  public openPopUp(event): any {
+    const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
+    (event || window.event).returnValue = confirmationMessage;
+    return 'confirmationMessage';
   }
 
-  @HostListener('window:blur')
-  public blur(): Observable<boolean> | boolean {
-    if (this.settingsService.recordMode) {
-      const isEndClosed: boolean = this.endIdDialogRef === undefined;
-      if (isEndClosed) {
-        this.deactivate();
-        this.endIdDialogRef = this.openModal(EndComponent, '300px', true);
-      }
-    }
-    return true;
+  @HostListener('window:unload')
+  public canDeactivate(): any {
+      this.deactivate();
   }
 
   private deactivate() {
     const isMultiDevices = this.user.roomId !== undefined;
     if (isMultiDevices) {
-      this.settingsService.reset();
       if (this.isGuest) {
-        const isEndClosed: boolean = this.endIdDialogRef === undefined;
-        if (isEndClosed) {
+         this.settingsService.reset();
+         const isEndClosed: boolean = this.endIdDialogRef === undefined;
+         if (isEndClosed) {
           this.chatService.deleteMember(this.user.roomId, this.user.firstname, this.user.id);
         }
       } else {
         this.chatService.delete(this.user.roomId);
+        this.settingsService.user.next({ ...this.settingsService.user.value, role: this.settingsService.user.value.role, language: this.settingsService.user.value.language, roomId: undefined, firstname: this.settingsService.user.value.firstname, connectionTime: Date.now() });
       }
     }
   }
@@ -257,4 +249,5 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       disableClose,
     });
   }
+
 }

@@ -55,14 +55,21 @@ export class AnonymousComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     try {
       const auth = await this.authService.loginAnonymous();
+      const user = {
+        roomId : this.roomId,
+        connectionTime : Date.now(),
+        firstname : this.username.value
+      };
+      sessionStorage.setItem('user', JSON.stringify(user));
       this.chatService.hasRoom(this.roomId).subscribe(async (hasRoom) => {
         if (!hasRoom) {
           this.afAuth.auth.currentUser.delete();
           this.toastService.showToast(ErrorCodes.NONEXISTANTCHAT, 'toast-error');
+          this.router.navigate(['/start']);
         } else {
-          const member: Member = { id: auth.id, firstname: this.username.value, role: Role.GUEST, device: this.getUserDevice() };
+          const member: Member = { id: auth.id, firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
           const key = this.chatService.addMember(this.roomId, member);
-          this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST });
+          this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST, connectionTime : Date.now() });
           this.toastService.showToast(auth.message, 'toast-success');
           this.router.navigateByUrl('choice');
         }
@@ -72,15 +79,4 @@ export class AnonymousComponent implements OnInit {
     }
   }
 
-
-  private getUserDevice(): Device {
-
-    return {
-      type: this.deviceService.getDeviceType(),
-      os: this.deviceDetectorService.os,
-      osVersion: this.deviceDetectorService.os_version,
-      browser: this.deviceDetectorService.browser,
-      browserVersion: this.deviceDetectorService.browser_version
-    };
-  }
 }

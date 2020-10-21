@@ -16,7 +16,6 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-        this.settingsService.user.next({ ...this.settingsService.user.value, firstname: 'Pôle emploi' });
         if (auth.user != null) {
           this.setRole();
           resolve({ isAuth: true, message: 'Authentification réussie' });
@@ -34,6 +33,7 @@ export class AuthService {
         if (auth.user != null) {
           this.setRole();
           const id = auth.user.uid;
+          this.settingsService.user.next({ ...this.settingsService.user.value, id, role: Role.GUEST, connectionTime : Date.now() });
           resolve({ id, isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {

@@ -20,8 +20,6 @@ export class PendingChangesGuard implements CanDeactivate<ComponentCanDeactivate
     // see http://stackoverflow.com/a/42207299/7307355
     confirm('WARNING: You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.');
   }
-
-
 }
 
 

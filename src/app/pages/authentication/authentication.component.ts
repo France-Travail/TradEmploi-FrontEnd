@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { Role } from 'src/app/models/role';
 
 @Component({
   selector: 'app-authentication',
@@ -20,6 +21,10 @@ export class AuthenticationComponent implements OnInit {
         if (isFromAuth) {
           this.router.navigateByUrl('choice');
         }
+      } else if (localStorage.getItem('user') != null) {
+        const USER = JSON.parse(localStorage.getItem('user'));
+        this.settingsService.user.next({ ...this.settingsService.user.value, firstname: USER.firstname, role: USER.role, language: USER.language, connectionTime: USER.connectionTime });
+        this.router.navigateByUrl('choice');
       }
     });
   }
@@ -42,6 +47,9 @@ export class AuthenticationComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     try {
       const auth = await this.authService.login(this.email.value, this.password.value);
+      const role = this.form.get('email').value === 'admin@pe.fr' ? Role.ADMIN : Role.ADVISOR;
+      this.settingsService.user.next({ ...this.settingsService.user.value, role, firstname: 'Pôle emploi', connectionTime: Date.now() });
+      localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.toastService.showToast(auth.message, 'toast-success');
       this.router.navigateByUrl('choice');
     } catch (error) {
