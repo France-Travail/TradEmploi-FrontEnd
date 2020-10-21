@@ -34,23 +34,21 @@ export class RecordComponent implements OnInit {
   }
 
   start = async (): Promise<void> => {
-   // this.putTitle();
+    // this.putTitle();
     this.record();
     this.recordBarLoad();
   };
 
   record = () => {
-    console.log('start recording ... ');
     this.audioRecordingService.language = this.language;
     this.audioRecordingService.start();
   };
 
-  putTitle = () => {
-    const language: string = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.audio : this.settingsService.user.value.language.audio;
-    const recordText = VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
-    this.text = recordText ? recordText : VOCABULARY.find((item) => item.audioCode === language).sentences.recordText;
-    
-  };
+  // putTitle = () => {
+  //   const language: string = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.audio : this.settingsService.user.value.language.audio;
+  //   const recordText = VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
+  //   this.text = recordText ? recordText : VOCABULARY.find((item) => item.audioCode === language).sentences.recordText;
+  // };
 
   private recordBarLoad = () => {
     const value: number = 100 / (this.duration * 10);

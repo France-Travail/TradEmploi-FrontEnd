@@ -21,7 +21,6 @@ export class AudioRecordingService {
   }
 
   public start() {
-    console.log('start recording.. ');
     navigator.mediaDevices.getUserMedia(this.constraints).then((stream) => {
       this.stream = stream;
       const audioContext = new AudioContext();
@@ -51,12 +50,10 @@ export class AudioRecordingService {
         if (this.audioOnBlob !== undefined) {
           const audioOnBase64 = await this.convertBlobToBase64(this.audioOnBlob);
           const speechToTextService = new SpeechToTextSyncService();
-          console.log(this.language);
           speechToTextService.recognizeSync(audioOnBase64, this.language, time).subscribe(
             (resultat) => this.speechToText.next(resultat),
             (error) => {
               this.speechToText.error(error);
-              console.log(error);
             }
           );
         }
