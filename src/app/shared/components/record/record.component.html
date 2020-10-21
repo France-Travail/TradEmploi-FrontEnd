@@ -1,4 +1,4 @@
-<ng-container *ngIf="inProgress ; else elseTemplate">
+<ng-container *ngIf="inProgress; else elseTemplate">
   <div class="loading">
     <mat-spinner class="spinner"></mat-spinner>
   </div>
@@ -8,7 +8,6 @@
     <div class="top">
       <div class="record">
         <div class="title">
-          <p>{{ text }}</p>
           <img src="assets/icons/icon-micro-white.svg" alt="Microphone" />
         </div>
 
@@ -20,7 +19,7 @@
       <div class="actions">
         <button (click)="exitAudio()"><img src="assets/icons/icon-delete-white.svg" alt="Fermer" /></button>
         <button (click)="retry()"><img src="assets/icons/icon-refresh-white.svg" alt="Relancer" /></button>
-        <button (click)="sendSpeech()" [disabled]="!canSend" [ngStyle]="{ backgroundColor: seconds > 3 ? '#135DFE' : '#b4cafc'  }" ><img src="assets/icons/icon-send-white.svg" alt="Envoyer" /></button>
+        <button (click)="sendSpeech()" [disabled]="!canSend" [ngStyle]="{ backgroundColor: seconds > 3 ? '#135DFE' : '#b4cafc' }"><img src="assets/icons/icon-send-white.svg" alt="Envoyer" /></button>
       </div>
     </div>
     <div class="bottom">

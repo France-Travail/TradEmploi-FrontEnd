@@ -34,20 +34,23 @@ export class RecordComponent implements OnInit {
   }
 
   start = async (): Promise<void> => {
-    this.putTitle();
+   // this.putTitle();
     this.record();
     this.recordBarLoad();
-  }
+  };
 
   record = () => {
+    console.log('start recording ... ');
     this.audioRecordingService.language = this.language;
     this.audioRecordingService.start();
-  }
+  };
 
   putTitle = () => {
     const language: string = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.audio : this.settingsService.user.value.language.audio;
-    this.text = VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
-  }
+    const recordText = VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
+    this.text = recordText ? recordText : VOCABULARY.find((item) => item.audioCode === language).sentences.recordText;
+    
+  };
 
   private recordBarLoad = () => {
     const value: number = 100 / (this.duration * 10);
@@ -72,18 +75,18 @@ export class RecordComponent implements OnInit {
         this.exitAudio();
       }
     }, 100);
-  }
+  };
 
   pauseOrResume = () => {
     this.isPaused = !this.isPaused;
-  }
+  };
 
   exitAudio = async () => {
     if (this.intervalId !== undefined) {
       this.stopRecord();
       this.exit.emit();
     }
-  }
+  };
 
   retry = async (): Promise<void> => {
     if (this.intervalId !== undefined) {
@@ -92,7 +95,7 @@ export class RecordComponent implements OnInit {
     this.width = 0;
     this.seconds = 0;
     this.start();
-  }
+  };
 
   sendSpeech = async (): Promise<void> => {
     this.inProgress = true;
@@ -110,11 +113,11 @@ export class RecordComponent implements OnInit {
         }
       );
     }
-  }
+  };
 
   private stopRecord = () => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
     this.audioRecordingService.stop(this.seconds);
-  }
+  };
 }
