@@ -17,9 +17,9 @@ export class KpiService {
         const url = environment.firefunction.url
         const data = {
             query: `
-            mutation kpi {
-            kpi(roomId: "`+ roomId + `")
-            }`
+                mutation kpi {
+                kpi(roomId: "`+ roomId + `")
+                }`
         }
         return new Promise(async (resolve, reject) => {
             axios({
@@ -30,7 +30,7 @@ export class KpiService {
             }).then((_) => {
                 resolve()
             }).catch((err) => {
-                this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
+                this.toastService.showToast(ErrorCodes.DBERROR, 'toast-error');
                 reject(err)
             })
         })
@@ -41,8 +41,9 @@ export class KpiService {
         const url = environment.firefunction.url
         const data = {
             query: `
-            query kpi {
-                kpi {
+            query Kpi {
+               kpi {
+                conversation {
                 day
                 begin
                 end
@@ -52,6 +53,7 @@ export class KpiService {
                 support
                 guestsDevices
                 advisorDevice
+                }
               }
             }`
         }
@@ -65,16 +67,17 @@ export class KpiService {
                 const data = response.data.data.kpi
                 let kpi = []
                 data.forEach(element => {
+                    console.log(element)
                     kpi.push({
-                        "Date conversation": element.day,
-                        "Durée conversation": element.begin,
-                        "Heure début conversation": element.end,
-                        "Heure fin conversation": element.duration,
-                        "Langue(s)": element.languages,
-                        "Mode traduction": element.translationMode,
-                        "Support traduction": element.support,
-                        "Conseiller : Device": element.advisorDevice,
-                        "DE(s) : Device": element.guestsDevices
+                        "Date conversation": element.conversation.day,
+                        "Durée conversation": element.conversation.duration,
+                        "Heure début conversation": element.conversation.begin,
+                        "Heure fin conversation": element.conversation.end,
+                        "Langue(s)": element.conversation.languages,
+                        "Mode traduction": element.conversation.translationMode,
+                        "Support traduction": element.conversation.support,
+                        "Conseiller : Device": element.conversation.advisorDevice,
+                        "DE(s) : Device": element.conversation.guestsDevices
                     });
                 });
                 resolve(kpi)

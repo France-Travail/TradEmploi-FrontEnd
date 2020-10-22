@@ -63,7 +63,7 @@ export class ShareComponent implements OnInit {
     localStorage.setItem('user', JSON.stringify(user));
     this.chatService.create(this.roomId).then((_) => {
       this.dialogRef.close();
-      const member: Member = { id: user.id, firstname: this.settingsService.user.value.firstname, role: Role.ADVISOR, device: this.deviceService.getUserDevice() }; // TODO merge role
+      const member: Member = { id: "1", firstname: this.settingsService.user.value.firstname, role: user.role, device: this.deviceService.getUserDevice() }; // TODO merge role
       this.chatService.addMember(this.roomId, member);
     });
 

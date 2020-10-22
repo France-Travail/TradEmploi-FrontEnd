@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import { Member } from '../models/db/member';
 import { MessageWrapped } from '../models/translate/message-wrapped';
 import { CryptService } from './crypt.service';
-import { Support } from '../models/Support';
+import { Support } from '../models/support';
+import { Role } from '../models/role';
 
 @Injectable({
   providedIn: 'root',
@@ -46,9 +47,11 @@ export class ChatService {
 
   addMember(roomId: string, newMember: Member): string {
     const key = this.db.list(`chats/${roomId}/members`).push(newMember).key;
-    const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
-    this.sendMessageWrapped(roomId, messageWrapped);
-    return key;
+    if (newMember.role === Role.GUEST) {
+      const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
+      this.sendMessageWrapped(roomId, messageWrapped);
+      return key;
+    }
   }
 
   getMembers(roomId: string): Observable<Array<Member>> {

@@ -1,6 +1,6 @@
 import { Member } from './member';
 import { MessageWrapped } from '../translate/message-wrapped';
-import { Support } from '../Support';
+import { Support } from '../support';
 
 export interface Chat {
   lasttime: string;
