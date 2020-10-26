@@ -5,6 +5,7 @@ import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ToastService } from 'src/app/services/toast.service';
 import { Role } from 'src/app/models/role';
 import { ErrorCodes } from 'src/app/models/errorCodes';
+import { Vocabulary } from 'src/app/models/vocabulary';
 
 @Component({
   selector: 'app-record',
@@ -27,7 +28,7 @@ export class RecordComponent implements OnInit {
   public canSend: boolean = false;
   public inProgress: boolean = false;
 
-  constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService, private toastService: ToastService) {}
+  constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.start();
@@ -46,7 +47,8 @@ export class RecordComponent implements OnInit {
 
   putTitle = () => {
     const language: string = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.audio : this.settingsService.user.value.language.audio;
-    this.text = VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
+    const audioCode: Vocabulary = VOCABULARY.find((item) => item.audioCode === language);
+    this.text = audioCode ? audioCode.sentences.recordText : VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
   }
 
   private recordBarLoad = () => {
