@@ -90,7 +90,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   scrollToBottom(): void {
     try {
       this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
-    } catch (err) {}
+    } catch (err) { }
   }
 
   public goto(where: string): void {
@@ -181,7 +181,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  };
+  }
 
   private addMultiMessageToChat(roomId: string) {
     this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
