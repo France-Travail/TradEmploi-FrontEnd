@@ -1,5 +1,5 @@
 export enum Support {
-    MONODEVICE = 'MONODEVICE',
-    MULTIDEVICE = 'MULTIDEVICE',
-    MONOANDMULTIDEVICE = 'MONOANDMULTIDEVICE'
+    MONODEVICE = 'Monosupport',
+    MULTIDEVICE = 'Multisupport',
+    MONOANDMULTIDEVICE = 'Mono et Multisupport'
 }

@@ -15,7 +15,7 @@ import { Language } from '../models/language';
 })
 export class VoicesService {
   public voicesList: Voice[] = [];
-  public guest: Language = { audio: '', written: '' };
+  public guest: Language = { audio: '', written: '', languageName: '' };
   public advisor: string = 'fr-FR';
 
   private url: string = 'https://texttospeech.googleapis.com/v1beta1';

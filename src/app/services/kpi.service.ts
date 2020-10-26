@@ -51,6 +51,7 @@ export class KpiService {
                 languages
                 translationMode
                 support
+                nbUsers
                 guestsDevices
                 advisorDevice
                 }
@@ -73,6 +74,7 @@ export class KpiService {
                         "Durée conversation": element.conversation.duration,
                         "Heure début conversation": element.conversation.begin,
                         "Heure fin conversation": element.conversation.end,
+                        "Nb utilisateurs" : element.conversation.nbUsers,
                         "Langue(s)": element.conversation.languages,
                         "Mode traduction": element.conversation.translationMode,
                         "Support traduction": element.conversation.support,

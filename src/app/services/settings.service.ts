@@ -10,7 +10,7 @@ import { Language } from '../models/language';
 export class SettingsService {
   public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   public recordMode: boolean = false;
-  public defaultLanguage: Language = { audio: 'fr-FR', written: 'fr-FR' };
+  public defaultLanguage: Language = { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' };
   public defaultName: string = 'Pôle emploi';
 
   constructor(private deviceService: DeviceDetectorService) {

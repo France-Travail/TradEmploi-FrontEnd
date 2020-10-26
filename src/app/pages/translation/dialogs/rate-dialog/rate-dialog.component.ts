@@ -8,6 +8,7 @@ import { Rate } from 'src/app/models/rate';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
 import { ErrorCodes } from 'src/app/models/errorCodes';
+import { KpiService } from 'src/app/services/kpi.service';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -53,7 +54,8 @@ export class RateDialogComponent implements OnInit {
     private settingsService: SettingsService,
     private toastService: ToastService,
     private router: Router,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private kpiService : KpiService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null && user.roomId !== undefined) {
@@ -114,8 +116,10 @@ export class RateDialogComponent implements OnInit {
           }, 3500);
         })
         .finally(() => {
+          this.kpiService.createKpi(this.roomId).then(_ => {
           this.chatService.updateChatStatus(this.roomId, false);
           this.chatService.delete(this.roomId);
+          });
         });
     }
   }

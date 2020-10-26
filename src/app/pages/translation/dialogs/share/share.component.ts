@@ -54,7 +54,7 @@ export class ShareComponent implements OnInit {
   public share() {
     this.settingsService.user.next({
       ...this.settingsService.user.value,
-      language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written },
+      language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written , languageName: this.settingsService.defaultLanguage.languageName},
       roomId: this.roomId,
     });
     const user = JSON.parse(localStorage.getItem('user'));

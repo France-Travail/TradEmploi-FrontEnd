@@ -61,13 +61,18 @@ export class ChatService {
   deleteMember(roomId: string, firstname: string, key: string) {
     const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
     this.sendMessageWrapped(roomId, messageWrapped);
-    return this.db
-      .list(`chats/${roomId}/members/${key}`)
-      .remove()
-      .then((_) => true)
-      .catch((err) => {
-        return false;
-      });
+    // return this.db
+    //   .list(`chats/${roomId}/members/${key}`)
+    //   .remove()
+    //   .then((_) => true)
+    //   .catch((err) => {
+    //     return false;
+    //   });
+  }
+
+  notifyAdvisor(roomId: string, firstname: string, key: string) {
+    const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
+    this.sendMessageWrapped(roomId, messageWrapped);
   }
 
   delete(roomId: string): Promise<boolean> {

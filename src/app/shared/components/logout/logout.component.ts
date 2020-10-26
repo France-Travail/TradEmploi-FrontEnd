@@ -44,7 +44,7 @@ export class LogoutComponent {
       this.settingsService.reset();
       this.kpiService.createKpi(this.roomId).then(_ => {
         if (this.isGuest) {
-          this.chatService.deleteMember(this.roomId, this.user.firstname, this.user.id);
+         this.chatService.notifyAdvisor(this.roomId, this.user.firstname, this.user.id);
         } else {
           this.chatService.updateChatStatus(this.roomId, false);
           this.chatService.delete(this.roomId);

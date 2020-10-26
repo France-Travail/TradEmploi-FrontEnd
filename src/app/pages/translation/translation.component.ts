@@ -17,6 +17,7 @@ import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
 import { EndComponent } from './dialogs/end/end.component';
 import { CryptService } from 'src/app/services/crypt.service';
 import { Language } from 'src/app/models/language';
+import { KpiService } from 'src/app/services/kpi.service';
 
 @Component({
   selector: 'app-translation',
@@ -47,7 +48,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     private textToSpeechService: TextToSpeechService,
     private navbarService: NavbarService,
     private translateService: TranslateService,
-    private cryptService: CryptService
+    private cryptService: CryptService,
+    private kpiService : KpiService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
@@ -148,6 +150,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private deactivate() {
     const isMultiDevices = this.user.roomId !== undefined;
     if (isMultiDevices) {
+      this.kpiService.createKpi(this.user.roomId).then(_ => {
       if (this.isGuest) {
          this.settingsService.reset();
          const isEndClosed: boolean = this.endIdDialogRef === undefined;
@@ -158,6 +161,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.chatService.delete(this.user.roomId);
         this.settingsService.user.next({ ...this.settingsService.user.value, role: this.settingsService.user.value.role, language: this.settingsService.user.value.language, roomId: undefined, firstname: this.settingsService.user.value.firstname, connectionTime: Date.now() });
       }
+    })
     }
   }
   private initMultiDevices = (roomId) => {

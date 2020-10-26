@@ -13,6 +13,7 @@ import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
 import { Observable } from 'rxjs';
 import { Vocabulary } from 'src/app/models/vocabulary';
 import { User } from 'src/app/models/user';
+import { KpiService } from 'src/app/services/kpi.service';
 
 @Component({
   selector: 'app-choice',
@@ -36,7 +37,8 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     private settingsService: SettingsService,
     public dialog: MatDialog,
     private navService: NavbarService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private kpiService : KpiService
   ) {
     this.navService.handleTabsChoice();
     this.settingsService.user.subscribe((user) => {
@@ -59,15 +61,15 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
 
   public selectLanguage(item: Vocabulary): void {
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode }, connectionTime: Date.now() });
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode, languageName : item.languageNameFr }, connectionTime: Date.now() });
     if (this.user.role === Role.GUEST) {
       const user = JSON.parse(sessionStorage.getItem('user'));
-      user.language = { audio: audioLanguage, written: item.isoCode };
+      user.language = { audio: audioLanguage, written: item.isoCode, languageName : item.languageNameFr };
       user.connectionTime = Date.now();
       sessionStorage.setItem('user', JSON.stringify(user));
     } else {
       const user = JSON.parse(localStorage.getItem('user'));
-      user.language = { audio: audioLanguage, written: item.isoCode };
+      user.language = { audio: audioLanguage, written: item.isoCode, languageName : item.languageNameFr };
       user.connectionTime = Date.now();
       localStorage.setItem('user', JSON.stringify(user));
     }
@@ -111,8 +113,8 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   private deactivate() {
     if (this.isMultiDevices) {
       this.settingsService.reset();
+      this.kpiService.createKpi(this.user.roomId).then(_ => {
       if (this.user.role === Role.GUEST) {
-        sessionStorage.setItem('user', null);
         const isEndClosed: boolean = this.endIdDialogRef === undefined;
         if (isEndClosed) {
           this.chatService.deleteMember(this.user.roomId, this.user.firstname, this.user.id);
@@ -120,6 +122,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
       } else {
         this.chatService.delete(this.user.roomId);
       }
+    })
     }
   }
 
