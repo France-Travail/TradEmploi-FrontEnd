@@ -5,6 +5,7 @@ import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ToastService } from 'src/app/services/toast.service';
 import { Role } from 'src/app/models/role';
 import { ErrorCodes } from 'src/app/models/errorCodes';
+import { Vocabulary } from 'src/app/models/vocabulary';
 
 @Component({
   selector: 'app-record',
@@ -27,7 +28,7 @@ export class RecordComponent implements OnInit {
   public canSend: boolean = false;
   public inProgress: boolean = false;
 
-  constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService, private toastService: ToastService) {}
+  constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.start();
@@ -37,19 +38,18 @@ export class RecordComponent implements OnInit {
     this.putTitle();
     this.record();
     this.recordBarLoad();
-  };
+  }
 
   record = () => {
     this.audioRecordingService.language = this.language;
     this.audioRecordingService.start();
-  };
+  }
 
   putTitle = () => {
     const language: string = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.audio : this.settingsService.user.value.language.audio;
-    this.text = VOCABULARY.find((item) => item.audioCode === language)
-      ? VOCABULARY.find((item) => item.audioCode === language).sentences.recordText
-      : (this.text = VOCABULARY.find((item) => item.isoCode === language).sentences.recordText);
-  };
+    const audioCode: Vocabulary = VOCABULARY.find((item) => item.audioCode === language);
+    this.text = audioCode ? audioCode.sentences.recordText : VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
+  }
 
   private recordBarLoad = () => {
     const value: number = 100 / (this.duration * 10);
@@ -74,18 +74,18 @@ export class RecordComponent implements OnInit {
         this.exitAudio();
       }
     }, 100);
-  };
+  }
 
   pauseOrResume = () => {
     this.isPaused = !this.isPaused;
-  };
+  }
 
   exitAudio = async () => {
     if (this.intervalId !== undefined) {
       this.stopRecord();
       this.exit.emit();
     }
-  };
+  }
 
   retry = async (): Promise<void> => {
     if (this.intervalId !== undefined) {
@@ -94,7 +94,7 @@ export class RecordComponent implements OnInit {
     this.width = 0;
     this.seconds = 0;
     this.start();
-  };
+  }
 
   sendSpeech = async (): Promise<void> => {
     this.inProgress = true;
@@ -112,11 +112,11 @@ export class RecordComponent implements OnInit {
         }
       );
     }
-  };
+  }
 
   private stopRecord = () => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
     this.audioRecordingService.stop(this.seconds);
-  };
+  }
 }
