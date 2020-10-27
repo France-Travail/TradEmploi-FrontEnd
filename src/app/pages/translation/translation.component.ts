@@ -145,7 +145,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private deactivate() {
-    const isMultiDevices = this.user.roomId !== undefined;
+    const isMultiDevices = this.user.hasShared || this.user.role === Role.GUEST;
     if (isMultiDevices) {
       if (this.isGuest) {
         this.settingsService.reset();
@@ -159,7 +159,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
           ...this.settingsService.user.value,
           role: this.settingsService.user.value.role,
           language: this.settingsService.user.value.language,
-          roomId: undefined,
+          roomId: this.settingsService.user.value.roomId,
           firstname: this.settingsService.user.value.firstname,
           connectionTime: Date.now(),
         });
