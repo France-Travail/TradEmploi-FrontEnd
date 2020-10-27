@@ -10,7 +10,7 @@ import { ErrorCodes } from '../models/errorCodes';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService) {}
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService) { }
 
   public login(email: string, password: string): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {

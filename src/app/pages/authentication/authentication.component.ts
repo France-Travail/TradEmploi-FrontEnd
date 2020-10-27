@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
 
 @Component({
@@ -14,7 +15,14 @@ import { Role } from 'src/app/models/role';
 export class AuthenticationComponent implements OnInit {
   public form: FormGroup;
 
-  constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private fb: FormBuilder, private toastService: ToastService) {
+  constructor(
+    private authService: AuthService,
+    private settingsService: SettingsService,
+    private router: Router,
+    private fb: FormBuilder,
+    private toastService: ToastService,
+    private chatService: ChatService
+  ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         const isFromAuth: boolean = window.location.pathname === '/auth';
@@ -51,6 +59,9 @@ export class AuthenticationComponent implements OnInit {
       this.settingsService.user.next({ ...this.settingsService.user.value, role, firstname: 'Pôle emploi', connectionTime: Date.now() });
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.toastService.showToast(auth.message, 'toast-success');
+      const roomId: string = (10000000 + Math.floor(Math.random() * 10000000)).toString();
+      this.settingsService.user.next({ ...this.settingsService.user.value, roomId: roomId, hasShared: false });
+      this.chatService.create(roomId);
       this.router.navigateByUrl('choice');
     } catch (error) {
       this.toastService.showToast(error.message, 'toast-error');

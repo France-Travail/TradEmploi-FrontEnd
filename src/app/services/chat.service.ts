@@ -88,4 +88,32 @@ export class ChatService {
         return false;
       });
   }
+
+  setSupport(roomId: string, support: string): Promise<boolean> {
+    return this.db
+      .object(`chats/${roomId}/support`)
+      .set(support)
+      .then((_) => true)
+      .catch((err) => {
+        return false;
+      });
+  }
+
+  getSupport(roomId: string): Observable<string> {
+    return this.db.object(`chats/${roomId}/support`).valueChanges() as Observable<string>;
+  }
+
+  setMultisupportSwitchTime(roomId: string, time: number): Promise<boolean> {
+    return this.db
+      .object(`chats/${roomId}/multiSupportTime`)
+      .set(time)
+      .then((_) => true)
+      .catch((err) => {
+        return false;
+      });
+  }
+
+  getMultisupportSwitchTime(roomId: string): Observable<number> {
+    return this.db.object(`chats/${roomId}/multiSupportTime`).valueChanges() as Observable<number>;
+  }
 }
