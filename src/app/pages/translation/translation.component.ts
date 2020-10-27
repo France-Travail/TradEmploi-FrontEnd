@@ -171,7 +171,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.messagesWrapped = [];
     this.chatService.getChatStatus(roomId).subscribe((active) => {
       if (active != null && active) {
-        console.log(this.isMultiDevices);
         if (!this.isMultiDevices || this.isGuest) {
           this.addWrappedMessageToChat(roomId);
         }
