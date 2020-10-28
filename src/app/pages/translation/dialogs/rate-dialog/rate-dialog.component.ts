@@ -108,18 +108,17 @@ export class RateDialogComponent implements OnInit {
           this.dialogRef.close();
           this.router.navigate(['thanks']);
         })
-        .catch((error) => {
+        .catch(() => {
           this.dialogRef.close();
           this.toastService.showToast(ErrorCodes.NOTATIONERROR, 'toast-error');
           setTimeout(() => {
             this.router.navigate(['thanks']);
           }, 3500);
         })
-        .finally(() => {
-          this.kpiService.create(this.roomId).then(_ => {
+        .finally(async () => {
+          await this.kpiService.create(this.roomId)
           this.chatService.updateChatStatus(this.roomId, false);
           this.chatService.delete(this.roomId);
-          });
         });
     }
   }

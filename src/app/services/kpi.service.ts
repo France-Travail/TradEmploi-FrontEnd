@@ -14,27 +14,29 @@ export class KpiService {
     constructor(private toastService: ToastService, private tokenService: TokenService, private settingsService: SettingsService) { }
 
     public async create(roomId: String) {
-        const key = this.settingsService.token ? this.settingsService.token : await this.tokenService.getKey()
-        const url = environment.firefunction.url
-        const data = {
-            query: `
-                mutation kpi {
-                kpi(roomId: "`+ roomId + `")
-                }`
-        }
-        return new Promise(async (resolve, reject) => {
-            axios({
-                method: 'post',
-                headers: { 'Authorization': key },
-                data,
-                url
-            }).then((_) => {
-                resolve()
-            }).catch((err) => {
-                this.toastService.showToast(ErrorCodes.DBERROR, 'toast-error');
-                reject(err)
+        if(roomId){
+            const key = this.settingsService.token ? this.settingsService.token : await this.tokenService.getKey()
+            const url = environment.firefunction.url
+            const data = {
+                query: `
+                    mutation kpi {
+                    kpi(roomId: "`+ roomId + `")
+                    }`
+            }
+            return new Promise(async (resolve, reject) => {
+                axios({
+                    method: 'post',
+                    headers: { 'Authorization': key },
+                    data,
+                    url
+                }).then((_) => {
+                    resolve()
+                }).catch((err) => {
+                    this.toastService.showToast(ErrorCodes.DBERROR, 'toast-error');
+                    reject(err)
+                })
             })
-        })
+        }
     }
 
     public async getkpi() {
