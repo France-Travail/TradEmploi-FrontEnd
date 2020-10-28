@@ -50,7 +50,8 @@ export class KpiService {
                         end, 
                         duration
                         languages
-                        nbUsers
+                        nbUsers,
+                        translationMode
                     }
                     device{
                         support
