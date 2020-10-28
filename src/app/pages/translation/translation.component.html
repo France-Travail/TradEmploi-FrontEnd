@@ -14,12 +14,12 @@
   </div>
   <div [ngClass]="{'msg': !isMultiDevices}">
     <ng-template [ngIf]="!isMultiDevices">
-      <app-message-wrapper role="GUEST" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
-      <app-message-wrapper role="ADVISOR" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
+      <app-message-wrapper role="DE" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
+      <app-message-wrapper role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
     </ng-template>
     <ng-template [ngIf]="isMultiDevices">
-      <app-message-wrapper *ngIf="isGuest" role="GUEST" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
-      <app-message-wrapper *ngIf="!isGuest" role="ADVISOR" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
+      <app-message-wrapper *ngIf="isGuest" role="DE" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
+      <app-message-wrapper *ngIf="!isGuest" role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
     </ng-template>
   </div>
 </div>
