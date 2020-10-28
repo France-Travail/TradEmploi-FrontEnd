@@ -113,7 +113,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   private deactivate() {
     if (this.isMultiDevices) {
       this.settingsService.reset();
-      this.kpiService.createKpi(this.user.roomId).then(_ => {
+      this.kpiService.create(this.user.roomId).then(_ => {
       if (this.user.role === Role.GUEST) {
         const isEndClosed: boolean = this.endIdDialogRef === undefined;
         if (isEndClosed) {

@@ -116,7 +116,7 @@ export class RateDialogComponent implements OnInit {
           }, 3500);
         })
         .finally(() => {
-          this.kpiService.createKpi(this.roomId).then(_ => {
+          this.kpiService.create(this.roomId).then(_ => {
           this.chatService.updateChatStatus(this.roomId, false);
           this.chatService.delete(this.roomId);
           });

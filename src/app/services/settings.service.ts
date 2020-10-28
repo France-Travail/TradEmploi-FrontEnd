@@ -12,6 +12,7 @@ export class SettingsService {
   public recordMode: boolean = false;
   public defaultLanguage: Language = { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' };
   public defaultName: string = 'Pôle emploi';
+  public token:string;
 
   constructor(private deviceService: DeviceDetectorService) {
     const isMobile = this.deviceService.isMobile();
@@ -23,6 +24,7 @@ export class SettingsService {
 
   reset = () => {
     this.user.next(null);
+    this.token = null;
     sessionStorage.setItem('user', null);
     localStorage.setItem('user', null);
   }

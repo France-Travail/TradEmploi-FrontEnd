@@ -150,7 +150,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private deactivate() {
     const isMultiDevices = this.user.roomId !== undefined;
     if (isMultiDevices) {
-      this.kpiService.createKpi(this.user.roomId).then(_ => {
+      this.kpiService.create(this.user.roomId).then(_ => {
       if (this.isGuest) {
          this.settingsService.reset();
          const isEndClosed: boolean = this.endIdDialogRef === undefined;

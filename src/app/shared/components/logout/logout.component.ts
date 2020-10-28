@@ -41,7 +41,7 @@ export class LogoutComponent {
   public async confirm() {
     this.dialogRef.close();
     if (this.roomId) {
-      await this.kpiService.createKpi(this.roomId)
+      await this.kpiService.create(this.roomId)
       this.settingsService.reset();
       if (this.isGuest) {
         this.chatService.notifyAdvisor(this.roomId, this.user.firstname, this.user.id);

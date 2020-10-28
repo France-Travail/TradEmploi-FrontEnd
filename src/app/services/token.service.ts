@@ -3,13 +3,14 @@ import { environment } from 'src/environments/environment';
 import { ErrorCodes } from '../models/errorCodes';
 import { ToastService } from './toast.service';
 import axios from 'axios';
+import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  constructor(private toastService: ToastService) { }
+  constructor(private toastService: ToastService, private settingService: SettingsService) { }
 
 
   public getKey(): Promise<string> {
@@ -26,8 +27,9 @@ export class TokenService {
         data,
         url
       }).then((response) => {
-        const data = response.data.data.login
-        resolve(data)
+        const token = response.data.data.login
+        this.settingService.token = token
+        resolve(token)
       }).catch((err) => {
         this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
         reject(err)
