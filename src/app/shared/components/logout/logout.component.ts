@@ -40,18 +40,17 @@ export class LogoutComponent {
 
   public async confirm() {
     this.dialogRef.close();
-    if (this.roomId) {
-      await this.kpiService.create(this.roomId)
-      this.settingsService.reset();
+    if(this.roomId){
       if (this.isGuest) {
         this.chatService.notifyAdvisor(this.roomId, this.user.firstname, this.user.id);
       } else {
-        this.chatService.updateChatStatus(this.roomId, false);
+        await this.kpiService.create(this.roomId)
         this.chatService.delete(this.roomId);
       }
-      this.authService.logout();
-      this.router.navigateByUrl('/');
     }
+    this.settingsService.reset();
+    this.authService.logout();
+    this.router.navigateByUrl('/');
   }
 
   public cancel() {

@@ -88,7 +88,7 @@ export class KpiService {
                 });
                 resolve(kpi)
             }).catch((err) => {
-                this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
+                this.toastService.showToast(ErrorCodes.KPICALLERROR, 'toast-error');
                 reject(err)
             })
         })

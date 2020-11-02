@@ -31,7 +31,7 @@ export class TokenService {
         this.settingService.token = token
         resolve(token)
       }).catch((err) => {
-        this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
+        this.toastService.showToast(ErrorCodes.KPIERROR, 'toast-error');
         reject(err)
       })
     })

@@ -105,24 +105,21 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   }
 
   @HostListener('window:unload')
-  public canDeactivate(): Observable<boolean> | boolean {
+  public canDeactivate(): any {
     this.deactivate();
-    return true;
   }
 
   private deactivate() {
-    if (this.isMultiDevices) {
-      this.settingsService.reset();
-      this.kpiService.create(this.user.roomId).then(_ => {
+    if (this.user.roomId) {
       if (this.user.role === Role.GUEST) {
         const isEndClosed: boolean = this.endIdDialogRef === undefined;
         if (isEndClosed) {
-          this.chatService.deleteMember(this.user.roomId, this.user.firstname, this.user.id);
+          this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname, this.user.id);
+          this.settingsService.reset();
         }
       } else {
         this.chatService.delete(this.user.roomId);
       }
-    })
     }
   }
 
