@@ -48,7 +48,7 @@ export class AuthenticationComponent implements OnInit {
     try {
       const auth = await this.authService.login(this.email.value, this.password.value);
       const role = this.form.get('email').value === 'admin@pe.fr' ? Role.ADMIN : Role.ADVISOR;
-      this.settingsService.user.next({ ...this.settingsService.user.value, role, firstname: 'Pôle emploi', connectionTime: Date.now() });
+      this.settingsService.user.next({ ...this.settingsService.user.value, role: role, firstname: 'Pôle emploi', connectionTime: Date.now() });
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.toastService.showToast(auth.message, 'toast-success');
       this.router.navigateByUrl('choice');

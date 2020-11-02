@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { AngularFireFunctions } from '@angular/fire/functions';
-import { environment } from '../../../environments/environment';
 import { Parser } from 'json2csv';
-import { ToastService } from 'src/app/services/toast.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
-import { ErrorCodes } from 'src/app/models/errorCodes';
+import { RateService } from 'src/app/services/rate.service';
+import { KpiService } from 'src/app/services/kpi.service';
 
 @Component({
   selector: 'app-settings',
@@ -13,24 +11,21 @@ import { ErrorCodes } from 'src/app/models/errorCodes';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent {
-  constructor(private fireFunction: AngularFireFunctions, private toastService: ToastService, private navService: NavbarService, private settingsService: SettingsService) {
+  constructor(
+    private navService: NavbarService, 
+    private settingsService: SettingsService,
+    private rateService: RateService,
+    private kpiService: KpiService) {
     this.navService.handleTabsSettings();
   }
 
-  public export(name: string): void {
-    if (environment.name === 'local') {
-      this.fireFunction.functions.useFunctionsEmulator(environment.firefunction.url);
-    }
-    this.fireFunction
-      .httpsCallable('rates')({ login: environment.firefunction.login, password: environment.firefunction.password })
-      .toPromise()
-      .then((response) => {
-        this.exportCsv(response, name);
-      })
-      .catch((err) => {
-        this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
-        throw new Error('An error occurred when export csv file');
-      });
+  public async exportKpi(){
+    const kpi = await this.kpiService.getkpi()
+    this.exportCsv(kpi,"kpi")
+  }
+  public async exportEval() {
+    const rates = await this.rateService.getRates()
+    this.exportCsv(rates,"eval")
   }
 
   private exportCsv(rates, name: string) {

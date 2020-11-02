@@ -134,7 +134,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   @HostListener('window:beforeunload', ['$event'])
-  public openPopUp(event): any {
+  public async openPopUp(event) {
     const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
     (event || window.event).returnValue = confirmationMessage;
     return 'confirmationMessage';
@@ -145,18 +145,17 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.deactivate();
   }
 
-  private deactivate() {
-    const isMultiDevices = this.user.roomId !== undefined;
-    if (isMultiDevices) {
+  private async deactivate() {
+    if (this.user.roomId) {
       if (this.isGuest) {
-         this.settingsService.reset();
-         const isEndClosed: boolean = this.endIdDialogRef === undefined;
-         if (isEndClosed) {
-          this.chatService.deleteMember(this.user.roomId, this.user.firstname, this.user.id);
-        }
+          const isEndClosed: boolean = this.endIdDialogRef === undefined;
+          if (isEndClosed) {
+            this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname, this.user.id);
+            this.settingsService.reset();
+          }
       } else {
-        this.chatService.delete(this.user.roomId);
-        this.settingsService.user.next({ ...this.settingsService.user.value, role: this.settingsService.user.value.role, language: this.settingsService.user.value.language, roomId: undefined, firstname: this.settingsService.user.value.firstname, connectionTime: Date.now() });
+          this.chatService.delete(this.user.roomId);
+          this.settingsService.reset()
       }
     }
   }

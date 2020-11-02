@@ -40,7 +40,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public interim: string = '';
   public recordMode: boolean = false;
   public speak: boolean = false;
-
+  public translationMode: string = "text"
+  public languageName: string;
   private isMobile: boolean = false;
 
   constructor(
@@ -52,10 +53,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     private breakpointObserver: BreakpointObserver,
     private speechRecognitionService: SpeechRecognitionService,
     private chatService: ChatService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
+    this.languageName = this.settingsService.user.value.language.languageName;
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
     const data = isLanguageExist || this.role === Role.ADVISOR ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     this.title = data.sentences.translationH2;
@@ -80,6 +82,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         this.rawText = '';
         this.stream();
       }
+      this.translationMode = "vocal"
       this.speak = true;
     } else {
       this.toastService.showToast(ErrorCodes.UNAUTHORIZEDMICRO, 'toast-info');
@@ -124,6 +127,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         this.sendToOneDevice(message);
       }
       this.rawText = '';
+      this.translationMode = "text"
       this.speak = false;
     }
   }
@@ -160,13 +164,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   }
 
   private async sendToOneDevice(text: string) {
-    const message = {
-      time: Date.now(),
-      text,
-      languageOrigin: this.languageOrigin,
-      flag: this.flag,
-      role: this.role,
-    };
+    const message = this.buildMessage(text)
     const messageWrapped: MessageWrapped = {
       message,
       time: Date.now(),
@@ -176,11 +174,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   private async sendToMultiDevices(user: User, text: string) {
     const message: Message = {
-      time: Date.now(),
-      text,
-      languageOrigin: this.languageOrigin,
-      flag: this.flag,
-      role: this.role,
+      ...this.buildMessage(text),
       member: user.firstname ? user.firstname : this.settingsService.defaultName,
     };
     const messageWrapped: MessageWrapped = {
@@ -188,5 +182,20 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       time: Date.now(),
     };
     this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
+  }
+
+  private buildMessage(text: string) {
+    const date = new Date()
+    return {
+      time: Date.now(),
+      date: date.toLocaleDateString('fr-FR'),
+      hour: date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
+      languageOrigin: this.languageOrigin,
+      languageName : this.languageName,
+      flag: this.flag,
+      role: this.role,
+      text: text,
+      translationMode: this.translationMode
+    };
   }
 }

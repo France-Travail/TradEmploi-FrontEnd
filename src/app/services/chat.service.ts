@@ -5,15 +5,17 @@ import { Observable } from 'rxjs';
 import { Member } from '../models/db/member';
 import { MessageWrapped } from '../models/translate/message-wrapped';
 import { CryptService } from './crypt.service';
+import { Support } from '../models/support';
+import { Role } from '../models/role';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
-  constructor(private db: AngularFireDatabase, private cryptService: CryptService) {}
+  constructor(private db: AngularFireDatabase, private cryptService: CryptService) { }
 
   create(roomId: string): Promise<boolean> {
-    const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], messagesWrapped: [], active: true };
+    const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], messagesWrapped: [], active: true, support: Support.MULTIDEVICE };
     const promise = this.db.object(`chats/${roomId}`).set(chat);
     return promise
       .then((_) => true)
@@ -45,9 +47,11 @@ export class ChatService {
 
   addMember(roomId: string, newMember: Member): string {
     const key = this.db.list(`chats/${roomId}/members`).push(newMember).key;
-    const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
-    this.sendMessageWrapped(roomId, messageWrapped);
-    return key;
+    if (newMember.role === Role.GUEST) {
+      const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
+      this.sendMessageWrapped(roomId, messageWrapped);
+      return key;
+    }
   }
 
   getMembers(roomId: string): Observable<Array<Member>> {
@@ -57,13 +61,18 @@ export class ChatService {
   deleteMember(roomId: string, firstname: string, key: string) {
     const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
     this.sendMessageWrapped(roomId, messageWrapped);
-    return this.db
-      .list(`chats/${roomId}/members/${key}`)
-      .remove()
-      .then((_) => true)
-      .catch((err) => {
-        return false;
-      });
+    // return this.db
+    //   .list(`chats/${roomId}/members/${key}`)
+    //   .remove()
+    //   .then((_) => true)
+    //   .catch((err) => {
+    //     return false;
+    //   });
+  }
+
+  notifyAdvisor(roomId: string, firstname: string, key: string) {
+    const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
+    this.sendMessageWrapped(roomId, messageWrapped);
   }
 
   delete(roomId: string): Promise<boolean> {

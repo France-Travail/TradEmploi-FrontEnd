@@ -43,8 +43,8 @@ export class LanguagesComponent implements OnInit {
   public chooseLanguage(selectedCountry: string) {
     const voice = this.countries.filter((country) => country.isoCode === selectedCountry)[0];
     const audioCode = voice.audioCode ? voice.audioCode : voice.isoCode;
-    this.voicesService.guest = { audio: audioCode, written: voice.isoCode };
-    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioCode, written: voice.isoCode }, connectionTime: Date.now() });
+    this.voicesService.guest = { audio: audioCode, written: voice.isoCode , languageName: voice.languageNameFr};
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioCode, written: voice.isoCode, languageName: voice.languageNameFr }, connectionTime: Date.now() });
     if (localStorage.getItem('user') != null) {
       const user = JSON.parse(localStorage.getItem('user'));
       user.language = { audio: audioCode, written: voice.isoCode };

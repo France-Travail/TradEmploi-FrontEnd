@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
+import { Member } from 'src/app/models/db/member';
+import { DeviceService } from 'src/app/services/device.service';
+import { Role } from 'src/app/models/role';
 
 @Component({
   selector: 'app-share',
@@ -16,7 +19,7 @@ export class ShareComponent implements OnInit {
 
   private roomId: string;
 
-  constructor(private dialogRef: MatDialogRef<ShareComponent>, public router: Router, private chatService: ChatService, private settingsService: SettingsService) {}
+  constructor(private dialogRef: MatDialogRef<ShareComponent>, public router: Router, private chatService: ChatService, private settingsService: SettingsService, private deviceService: DeviceService) { }
 
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {
@@ -51,14 +54,19 @@ export class ShareComponent implements OnInit {
   public share() {
     this.settingsService.user.next({
       ...this.settingsService.user.value,
-      language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written },
+      language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written , languageName: this.settingsService.defaultLanguage.languageName},
       roomId: this.roomId,
     });
     const user = JSON.parse(localStorage.getItem('user'));
     user.language = { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written };
     user.roomId = this.roomId;
     localStorage.setItem('user', JSON.stringify(user));
-    this.chatService.create(this.roomId).then((_) => this.dialogRef.close());
+    this.chatService.create(this.roomId).then((_) => {
+      this.dialogRef.close();
+      const member: Member = { id: "1", firstname: this.settingsService.user.value.firstname, role: user.role, device: this.deviceService.getUserDevice() }; // TODO merge role
+      this.chatService.addMember(this.roomId, member);
+    });
+
   }
 
   public cancel() {

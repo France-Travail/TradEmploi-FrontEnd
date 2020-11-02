@@ -7,8 +7,9 @@ import { VOCABULARY } from 'src/app/data/vocabulary';
 import { Rate } from 'src/app/models/rate';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
-import { Role } from 'src/app/models/role';
 import { ErrorCodes } from 'src/app/models/errorCodes';
+import { KpiService } from 'src/app/services/kpi.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -54,7 +55,9 @@ export class RateDialogComponent implements OnInit {
     private settingsService: SettingsService,
     private toastService: ToastService,
     private router: Router,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private kpiService : KpiService,
+    private authService: AuthService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null && user.roomId !== undefined) {
@@ -103,21 +106,22 @@ export class RateDialogComponent implements OnInit {
     if (this.rate !== undefined) {
       this.rateService
         .saveRate()
-        .then(() => {
+        .then(async () => {
           this.dialogRef.close();
+          if(this.roomId){
+            await this.kpiService.create(this.roomId)
+            this.chatService.delete(this.roomId);
+          }
+          this.settingsService.reset();
           this.router.navigate(['thanks']);
         })
-        .catch((error) => {
+        .catch(() => {
           this.dialogRef.close();
           this.toastService.showToast(ErrorCodes.NOTATIONERROR, 'toast-error');
           setTimeout(() => {
             this.router.navigate(['thanks']);
           }, 3500);
         })
-        .finally(() => {
-          this.chatService.updateChatStatus(this.roomId, false);
-          this.chatService.delete(this.roomId);
-        });
     }
   }
 

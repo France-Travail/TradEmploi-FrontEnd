@@ -9,6 +9,9 @@ import { Member } from 'src/app/models/db/member';
 import { ErrorCodes } from 'src/app/models/errorCodes';
 import { Role } from 'src/app/models/role';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { Device } from 'src/app/models/device';
+import { DeviceService } from 'src/app/services/device.service';
 
 @Component({
   selector: 'app-anonymous',
@@ -26,7 +29,9 @@ export class AnonymousComponent implements OnInit {
     private toastService: ToastService,
     private chatService: ChatService,
     private settingsService: SettingsService,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private deviceDetectorService: DeviceDetectorService,
+    private deviceService: DeviceService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
@@ -62,7 +67,7 @@ export class AnonymousComponent implements OnInit {
           this.toastService.showToast(ErrorCodes.NONEXISTANTCHAT, 'toast-error');
           this.router.navigate(['/start']);
         } else {
-          const member: Member = { id: auth.id, firstname: this.username.value };
+          const member: Member = { id: auth.id, firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
           const key = this.chatService.addMember(this.roomId, member);
           this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST, connectionTime : Date.now() });
           this.toastService.showToast(auth.message, 'toast-success');
@@ -73,4 +78,5 @@ export class AnonymousComponent implements OnInit {
       this.toastService.showToast(error.message, 'toast-error');
     }
   }
+
 }

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 
 // Services
 import { SettingsService } from 'src/app/services/settings.service';
-import { HistoryService } from 'src/app/services/history.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
@@ -15,7 +14,7 @@ import { NavbarService } from 'src/app/services/navbar.service';
 export class StartComponent implements AfterContentInit {
   public opacity: number = 0;
 
-  constructor(private historyService: HistoryService, private settingsService: SettingsService, private router: Router, private navbarService: NavbarService) {}
+  constructor(private settingsService: SettingsService, private router: Router, private navbarService: NavbarService) {}
 
   ngAfterContentInit() {
     this.navbarService.hide();
