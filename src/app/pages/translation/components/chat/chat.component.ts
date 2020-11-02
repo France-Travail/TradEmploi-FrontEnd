@@ -1,6 +1,5 @@
-import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-
-import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Message } from 'src/app/models/translate/message';
 
 @Component({
   selector: 'app-chat',
@@ -8,9 +7,10 @@ import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent {
-  @Input() messages: MessageWrapped[];
+  @Input() messages: Message[];
   @Input() shared: boolean;
   @Output() editMessageEmit = new EventEmitter();
+
   public visible: boolean = false;
 
   public extand() {
@@ -22,15 +22,15 @@ export class ChatComponent {
   }
 
   public editMessage(index) {
-    const sentMessage: MessageWrapped = this.messages[index];
+    const sentMessage: Message = this.messages[index];
     this.editMessageEmit.emit(sentMessage);
     this.messages.splice(index, 1);
   }
 
   public listen(index) {
-    const sentMessage: MessageWrapped = this.messages[index];
-    if (sentMessage && sentMessage.message.audioHtml) {
-      sentMessage.message.audioHtml.play();
+    const sentMessage: Message = this.messages[index];
+    if (sentMessage && sentMessage.audioHtml) {
+      sentMessage.audioHtml.play();
     }
   }
 }

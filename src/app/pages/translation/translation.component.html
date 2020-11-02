@@ -1,18 +1,18 @@
 <app-translation-title (finish)="closeConversation()"></app-translation-title>
-<div class="translate" [ngClass]="{ 'translate-one': !isMultiDevices, 'translate-multi': isMultiDevices }">
-  <div class="conversation" [ngClass]="{ 'conversation-one': !isMultiDevices, 'conversation-multi': isMultiDevices }">
-    <div class="head-conversation" [ngClass]="{ 'head-conversation-multi': isMultiDevices }">
+<div class="translate" [ngClass]="{'translate-one': !isMultiDevices, 'translate-multi': isMultiDevices}">
+  <div class="conversation" [ngClass]="{'conversation-one': !isMultiDevices, 'conversation-multi': isMultiDevices}">
+    <div class="head-conversation"  [ngClass]="{'head-conversation-multi': isMultiDevices}">
       <h2>Conversation</h2>
       <div class="auto-listen">
         <mat-slide-toggle class="auto-listen-btn" (click)="switchAudio()" checked labelPosition="before" color="primary">{{ autoListenValue }}</mat-slide-toggle>
       </div>
     </div>
-    <div class="thread" [ngClass]="{ 'thread-one': !isMultiDevices, 'thread-multi': isMultiDevices }" #scrollMe>
-      <app-chat *ngIf="!isMultiDevices" [messages]="messagesWrapped" (editMessageEmit)="editChat($event)"></app-chat>
+    <div class="thread" [ngClass]="{'thread-one': !isMultiDevices, 'thread-multi': isMultiDevices}" #scrollMe>
+      <app-chat *ngIf="!isMultiDevices" [messages]="messages" (editMessageEmit)="editChat($event)"></app-chat>
       <app-chat-multi-devices *ngIf="isMultiDevices" [messagesWrapped]="messagesWrapped"></app-chat-multi-devices>
     </div>
   </div>
-  <div [ngClass]="{ msg: !isMultiDevices }">
+  <div [ngClass]="{'msg': !isMultiDevices}">
     <ng-template [ngIf]="!isMultiDevices">
       <app-message-wrapper role="GUEST" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
       <app-message-wrapper role="ADVISOR" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>

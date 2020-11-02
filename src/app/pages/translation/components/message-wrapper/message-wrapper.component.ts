@@ -42,7 +42,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public speak: boolean = false;
 
   private isMobile: boolean = false;
-  private chatSupport: string;
+
   constructor(
     private toastService: ToastService,
     private settingsService: SettingsService,
@@ -63,9 +63,6 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.flag = data.isoCode.split('-')[1].toLowerCase();
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
-    });
-    this.chatService.getSupport(this.settingsService.user.value.roomId).subscribe((support) => {
-      this.chatSupport = support;
     });
   }
 
@@ -120,8 +117,12 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     if (this.rawText !== '') {
       const user = this.settingsService.user.value;
       const message = messageAudio === undefined ? this.rawText : messageAudio;
-      const isMultiDevices = user.hasShared || user.role === Role.GUEST;
-      isMultiDevices ? this.sendToMultiDevices(user.roomId, user.firstname, message) : this.sendToOneDevice(user.roomId, message);
+      const isMultiDevices = user.roomId !== undefined;
+      if (isMultiDevices) {
+        this.sendToMultiDevices(user, message);
+      } else {
+        this.sendToOneDevice(message);
+      }
       this.rawText = '';
       this.speak = false;
     }
@@ -158,8 +159,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.recordMode = false;
   }
 
-  private async sendToOneDevice(roomId: string, text: string) {
-    const message: Message = {
+  private async sendToOneDevice(text: string) {
+    const message = {
       time: Date.now(),
       text,
       languageOrigin: this.languageOrigin,
@@ -170,24 +171,22 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       message,
       time: Date.now(),
     };
-    this.chatService.sendMessageWrapped(roomId, messageWrapped);
-    this.chatService.setSupport(roomId, 'MONO');
+    this.messagesToEmit.emit(messageWrapped);
   }
 
-  private async sendToMultiDevices(roomId: string, firstname: string, text: string) {
+  private async sendToMultiDevices(user: User, text: string) {
     const message: Message = {
       time: Date.now(),
       text,
       languageOrigin: this.languageOrigin,
       flag: this.flag,
       role: this.role,
-      member: firstname ? firstname : this.settingsService.defaultName,
+      member: user.firstname ? user.firstname : this.settingsService.defaultName,
     };
     const messageWrapped: MessageWrapped = {
       message,
       time: Date.now(),
     };
-    this.chatService.sendMessageWrapped(roomId, messageWrapped);
-    this.chatSupport ? this.chatService.setSupport(roomId, 'MONOANDMULTI') : this.chatService.setSupport(roomId, 'MULTI');
+    this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
   }
 }

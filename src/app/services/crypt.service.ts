@@ -6,6 +6,7 @@ import { MessageWrapped } from '../models/translate/message-wrapped';
   providedIn: 'root',
 })
 export class CryptService {
+
   public encryptWrapped(messageWrapped: MessageWrapped, roomId: string): MessageWrapped {
     if (messageWrapped.message) {
       messageWrapped.message.text = this.encrypt(messageWrapped.message.text, messageWrapped.message.time.toString(), roomId);
