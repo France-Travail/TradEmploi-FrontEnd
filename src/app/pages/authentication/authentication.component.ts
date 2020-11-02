@@ -68,6 +68,7 @@ export class AuthenticationComponent implements OnInit {
       this.settingsService.user.next({ ...this.settingsService.user.value, roomId: roomId, hasShared: false, role: role, firstname: 'Pôle emploi', connectionTime: Date.now() });
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.chatService.create(roomId);
+      
       this.router.navigateByUrl('choice');
     } catch (error) {
       this.toastService.showToast(error.message, 'toast-error');
