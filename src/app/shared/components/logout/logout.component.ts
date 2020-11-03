@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user';
 import { Logout } from 'src/app/models/vocabulary';
 import { FRENCH, ENGLISH } from 'src/app/data/sentence';
 import { KpiService } from 'src/app/services/kpi.service';
+import { Support } from 'src/app/models/support';
 
 @Component({
   selector: 'app-logout',
@@ -22,12 +23,13 @@ export class LogoutComponent {
   private user: User;
 
   constructor(
-    private dialogRef: MatDialogRef<LogoutComponent>, 
-    public router: Router, 
-    private authService: AuthService, 
-    private chatService: ChatService, 
+    private dialogRef: MatDialogRef<LogoutComponent>,
+    public router: Router,
+    private authService: AuthService,
+    private chatService: ChatService,
     private settingsService: SettingsService,
-    private kpiService: KpiService) {
+    private kpiService: KpiService
+  ) {
     this.settingsService.user.subscribe((user: User) => {
       if (user !== null) {
         this.roomId = user.roomId ? user.roomId : undefined;
@@ -40,16 +42,21 @@ export class LogoutComponent {
 
   public async confirm() {
     this.dialogRef.close();
+    if (this.roomId) {
+      this.handleMulti();
+    } else {
+      this.handleMono();
+    }
     this.authService.logout();
-    this.roomId ? this.handleMulti : this.handleMono;
     this.router.navigateByUrl('/');
   }
-  
+
   private handleMono() {
+    console.log(this.settingsService.messages);
     this.roomId = (10000000 + Math.floor(Math.random() * 10000000)).toString();
-    this.chatService.create(this.roomId);
+    //this.chatService.create(this.roomId, Support.MONODEVICE);
   }
-  
+
   private handleMulti() {
     this.settingsService.reset();
     if (this.isGuest) {

@@ -14,8 +14,8 @@ import { Role } from '../models/role';
 export class ChatService {
   constructor(private db: AngularFireDatabase, private cryptService: CryptService) { }
 
-  create(roomId: string): Promise<boolean> {
-    const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], messagesWrapped: [], active: true, support: Support.MULTIDEVICE };
+  create(roomId: string, support: Support): Promise<boolean> {
+    const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], messagesWrapped: [], active: true, support: support };
     const promise = this.db.object(`chats/${roomId}`).set(chat);
     return promise
       .then((_) => true)

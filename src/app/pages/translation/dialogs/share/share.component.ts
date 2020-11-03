@@ -6,6 +6,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import { Member } from 'src/app/models/db/member';
 import { DeviceService } from 'src/app/services/device.service';
 import { Role } from 'src/app/models/role';
+import { Support } from 'src/app/models/support';
 
 @Component({
   selector: 'app-share',
@@ -61,12 +62,11 @@ export class ShareComponent implements OnInit {
     user.language = { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written };
     user.roomId = this.roomId;
     localStorage.setItem('user', JSON.stringify(user));
-    this.chatService.create(this.roomId).then((_) => {
+    this.chatService.create(this.roomId, Support.MULTIDEVICE).then((_) => {
       this.dialogRef.close();
       const member: Member = { id: "1", firstname: this.settingsService.user.value.firstname, role: user.role, device: this.deviceService.getUserDevice() }; // TODO merge role
       this.chatService.addMember(this.roomId, member);
     });
-
   }
 
   public cancel() {

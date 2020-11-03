@@ -87,7 +87,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   scrollToBottom(): void {
     try {
       this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
-    } catch (err) { }
+    } catch (err) {}
   }
 
   public goto(where: string): void {
@@ -142,20 +142,20 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   @HostListener('window:unload')
   public canDeactivate(): any {
-      this.deactivate();
+    this.deactivate();
   }
 
   private async deactivate() {
     if (this.user.roomId) {
       if (this.isGuest) {
-          const isEndClosed: boolean = this.endIdDialogRef === undefined;
-          if (isEndClosed) {
-            this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname, this.user.id);
-            this.settingsService.reset();
-          }
+        const isEndClosed: boolean = this.endIdDialogRef === undefined;
+        if (isEndClosed) {
+          this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname, this.user.id);
+          this.settingsService.reset();
+        }
       } else {
-          this.chatService.delete(this.user.roomId);
-          this.settingsService.reset()
+        this.chatService.delete(this.user.roomId);
+        this.settingsService.reset();
       }
     }
   }
@@ -171,7 +171,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  }
+  };
 
   private addMultiMessageToChat(roomId: string) {
     this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
@@ -248,5 +248,4 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       disableClose,
     });
   }
-
 }
