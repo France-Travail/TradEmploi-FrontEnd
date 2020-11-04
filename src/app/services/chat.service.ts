@@ -16,6 +16,8 @@ import { advisorName } from './settings.service';
 })
 export class ChatService {
   public messagesStored: MessageWrapped[] = [];
+  public support: Support;
+  public switchTime: number;
 
   private device: Device;
 
@@ -28,24 +30,28 @@ export class ChatService {
   }
 
   initChatMono(advisorRole: Role) {
+    this.support = Support.MONODEVICE
     const roomId = this.getRoomId();
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
     if(this.messagesStored.length > 0){
       const advisor = { id: Date.now().toString(), firstname: advisorName, role: advisorRole, device: this.device };
       const guest: Member = { id: Date.now().toString(), firstname: 'DE', role: Role.GUEST, device: this.device };
-      this.create(roomId, [advisor, guest], this.messagesStored, Support.MONODEVICE);
+      this.create(roomId, [advisor, guest], this.messagesStored,this.support, 0);
     }
   }
 
   initChatMulti(roomId: string, advisorRole: Role): Promise<boolean> {
+    this.support = Support.MULTIDEVICE
     const advisor = { id: Date.now().toString(), firstname: advisorName, role: advisorRole, device: this.device };
-    return this.create(roomId, [advisor], [], Support.MULTIDEVICE);
+    return this.create(roomId, [advisor], [], this.support,0);
   }
 
   initChatMonoMulti(roomId: string, advisorRole: Role): Promise<boolean> {
+    this.support = Support.MONOANDMULTIDEVICE
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
     const advisor = { id: Date.now().toString(), firstname: advisorName, role: advisorRole, device: this.device };
-    return this.create(roomId, [advisor], this.messagesStored, Support.MONOANDMULTIDEVICE);
+    this.switchTime = Date.now()
+    return this.create(roomId, [advisor], this.messagesStored,this.support, this.switchTime);
   }
 
   hasRoom(roomId: string): Observable<boolean> {
@@ -62,6 +68,10 @@ export class ChatService {
 
   getMessagesWrapped(roomId: string): Observable<Array<MessageWrapped>> {
     return this.db.list(`chats/${roomId}/messages`).valueChanges() as Observable<Array<MessageWrapped>>;
+  }
+
+  getSwitchTime(roomId: string): Observable<number> {
+    return this.db.object(`chats/${roomId}/switchTime`).valueChanges() as Observable<number>;
   }
 
   sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
@@ -117,8 +127,8 @@ export class ChatService {
       });
   }
 
-  private create(roomId: string, members: Member[], messagesWrapped: MessageWrapped[], support: Support): Promise<boolean> {
-    const chat: Chat = { lasttime: new Date().getTime().toString(), members: members, messages: messagesWrapped, active: true, support: support };
+  private create(roomId: string, members: Member[], messagesWrapped: MessageWrapped[], support: Support, switchTime: number): Promise<boolean> {
+    const chat: Chat = { lasttime: new Date().getTime().toString(), members: members, messages: messagesWrapped, active: true, support: support, switchTime: switchTime };
     const promise = this.db.object(`chats/${roomId}`).set(chat);
     return promise
       .then((_) => true)

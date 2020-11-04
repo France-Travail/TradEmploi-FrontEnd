@@ -18,6 +18,7 @@ import { EndComponent } from './dialogs/end/end.component';
 import { CryptService } from 'src/app/services/crypt.service';
 import { Language } from 'src/app/models/language';
 import { advisorName } from './../../services/settings.service';
+import { Support } from 'src/app/models/support';
 
 @Component({
   selector: 'app-translation',
@@ -173,8 +174,14 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     });
   };
 
-  private addMultiMessageToChat(roomId: string) {
+  private async addMultiMessageToChat(roomId: string) {
+    const support: Support = this.chatService.support;
+    let switchTime: number
+    this.chatService.getSwitchTime(roomId).subscribe(s => switchTime = s)
     this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
+      if(support === Support.MONOANDMULTIDEVICE || this.user.role === Role.GUEST){
+        messagesWrapped = messagesWrapped.filter((messagesWrapped) => messagesWrapped.time > switchTime);
+      }
       if (messagesWrapped.length > 0) {
         if (this.messagesWrapped.length === 0) {
           messagesWrapped.forEach((messageWrapped) => {
@@ -186,8 +193,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
           this.addToChat(messagesWrapped[messagesWrapped.length - 1]);
         }
       }
+      
     });
   }
+
+
+
   private translateMessage(message: Message) {
     const languageTarget: Language = this.getLanguageTarget(message);
     if (this.isMultiDevices && message.languageOrigin === languageTarget.written) {

@@ -8,4 +8,5 @@ export interface Chat {
   members: Array<Member>;
   messages: Array<MessageWrapped>;
   support : Support;
+  switchTime: number;
 }
