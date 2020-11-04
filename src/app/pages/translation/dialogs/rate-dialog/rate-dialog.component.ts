@@ -56,7 +56,7 @@ export class RateDialogComponent implements OnInit {
     private toastService: ToastService,
     private router: Router,
     private chatService: ChatService,
-    private kpiService : KpiService,
+    private kpiService: KpiService,
     private authService: AuthService
   ) {
     this.settingsService.user.subscribe((user) => {
@@ -108,9 +108,8 @@ export class RateDialogComponent implements OnInit {
         .saveRate()
         .then(async () => {
           this.dialogRef.close();
-          if(this.roomId){
-            await this.kpiService.create(this.roomId)
-            this.chatService.delete(this.roomId);
+          if (!this.roomId) {
+            this.chatService.initChatMono();
           }
           this.settingsService.reset();
           this.router.navigate(['thanks']);
@@ -121,7 +120,7 @@ export class RateDialogComponent implements OnInit {
           setTimeout(() => {
             this.router.navigate(['thanks']);
           }, 3500);
-        })
+        });
     }
   }
 

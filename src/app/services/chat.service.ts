@@ -37,6 +37,7 @@ export class ChatService {
   initChatMulti(roomId: string): Promise<boolean>{
     return this.create(roomId, [], [], Support.MULTIDEVICE)
   }
+  
 
   hasRoom(roomId: string): Observable<boolean> {
     return new Observable((observer) => {
