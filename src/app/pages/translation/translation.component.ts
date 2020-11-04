@@ -26,7 +26,6 @@ import { Language } from 'src/app/models/language';
 export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate, OnDestroy {
   @ViewChild('scrollMe') private chatScroll: ElementRef;
   public messagesWrapped: MessageWrapped[] = [];
-  public messages: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
@@ -56,6 +55,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
         this.isGuest = user.firstname !== undefined && user.firstname !== this.settingsService.defaultName;
         this.isMultiDevices = user.roomId !== undefined;
+        this.messagesWrapped = [];
+        this.chatService.messagesStored = []
         if (this.isMultiDevices) {
           this.initMultiDevices(user.roomId);
         }
@@ -94,11 +95,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.router.navigate([where]);
   }
 
-  public editChat(message) {
+  public editChat(message: Message) {
     if (message.role === Role.GUEST) {
-      this.guestTextToEdit = message;
+      this.guestTextToEdit = message.text;
     } else {
-      this.advisorTextToEdit = message;
+      this.advisorTextToEdit = message.text;
     }
   }
 
@@ -160,7 +161,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
   private initMultiDevices = (roomId) => {
-    this.messagesWrapped = [];
     this.chatService.getChatStatus(roomId).subscribe((active) => {
       if (active != null && active) {
         this.addMultiMessageToChat(roomId);
@@ -215,17 +215,21 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private sendMessage(message: Message) {
+    const isSender: boolean = this.isSender(message.member)
+    const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
+    this.messagesWrapped.push(messageWrapped);
+    this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
+    this.chatService.messagesStored.push({ message, time: message.time })
+  }
+
+  private isSender(member: string){
     if (this.isMultiDevices) {
-      let isSender = message.member === this.user.firstname;
-      if (!isSender && this.user.firstname === undefined && message.member === this.settingsService.defaultName) {
-        isSender = true;
+      const isSender = member === this.user.firstname;
+      if (!isSender && this.user.firstname === undefined && member === this.settingsService.defaultName) {
+        return true;
       }
-      const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
-      this.messagesWrapped.push(messageWrapped);
-      this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
-    } else {
-      this.messages.push(message);
-    }
+    } 
+    return false
   }
 
   private sendNotification(messageWrapped: MessageWrapped) {

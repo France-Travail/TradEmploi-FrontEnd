@@ -8,8 +8,6 @@ import { Role } from 'src/app/models/role';
 import { User } from 'src/app/models/user';
 import { Logout } from 'src/app/models/vocabulary';
 import { FRENCH, ENGLISH } from 'src/app/data/sentence';
-import { KpiService } from 'src/app/services/kpi.service';
-import { Support } from 'src/app/models/support';
 
 @Component({
   selector: 'app-logout',
@@ -27,8 +25,7 @@ export class LogoutComponent {
     public router: Router,
     private authService: AuthService,
     private chatService: ChatService,
-    private settingsService: SettingsService,
-    private kpiService: KpiService
+    private settingsService: SettingsService
   ) {
     this.settingsService.user.subscribe((user: User) => {
       if (user !== null) {
@@ -52,9 +49,7 @@ export class LogoutComponent {
   }
 
   private handleMono() {
-    console.log(this.settingsService.messages);
-    this.roomId = (10000000 + Math.floor(Math.random() * 10000000)).toString();
-    //this.chatService.create(this.roomId, Support.MONODEVICE);
+    this.chatService.initChatMono();
   }
 
   private handleMulti() {

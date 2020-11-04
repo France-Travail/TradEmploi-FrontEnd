@@ -6,6 +6,6 @@ export interface Chat {
   lasttime: string;
   active: boolean;
   members: Array<Member>;
-  messagesWrapped: Array<MessageWrapped>;
+  messages: Array<MessageWrapped>;
   support : Support;
 }

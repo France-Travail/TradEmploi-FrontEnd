@@ -14,7 +14,7 @@ export class SettingsService {
   public defaultLanguage: Language = { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' };
   public defaultName: string = 'Pôle emploi';
   public token:string;
-  public messages: MessageWrapped[] = [];
+  
   constructor(private deviceService: DeviceDetectorService) {
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();

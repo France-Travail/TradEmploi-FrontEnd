@@ -1,34 +1,34 @@
-<ng-container *ngFor="let message of messages; let i = index">
+<ng-container *ngFor="let messageWrapped of messagesWrapped; let i = index">
   <div *ngIf="!shared" class="translation">
-    <div id="{{ 'msg-translate-' + i }}" dir="auto" [ngStyle]="{ 'text-align': message.target === 'ar-XA' ? 'right' : 'left' }">
-      <bdi>{{ message.translation }}</bdi>
+    <div id="{{ 'msg-translate-' + i }}" dir="auto" [ngStyle]="{ 'text-align': messageWrapped.message.target === 'ar-XA' ? 'right' : 'left' }">
+      <bdi>{{ messageWrapped.message.translation }}</bdi>
     </div>
-    <a class="listen" (click)="listen(i)" *ngIf="message.audioHtml">
+    <a class="listen" (click)="listen(i)" *ngIf="messageWrapped.message.audioHtml">
       <img src="../../../assets/icons/icon-listen-black.svg" alt="Ecoute de la traduction" />
     </a>
   </div>
   <div class="message-sended">
     <div class="flag">
-      <span *ngIf="message.flag !== 'xa'" class="flag-icon flag-icon-{{ message.flag }}"></span>
-      <img *ngIf="message.flag === 'xa'" class="flag-icon" src="assets/images/arab-flag.png" alt="drapeau" />
+      <span *ngIf="messageWrapped.message.flag !== 'xa'" class="flag-icon flag-icon-{{ messageWrapped.message.flag }}"></span>
+      <img *ngIf="messageWrapped.message.flag === 'xa'" class="flag-icon" src="assets/images/arab-flag.png" alt="drapeau" />
     </div>
     <div class="text">
       <span>  
         <div *ngIf="!visible; then longText; else shortText"></div>
         <ng-template #shortText>
-          <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': message.language === 'ar-XA' ? 'right' : 'left' }">
-            <bdi>{{ message.text }}</bdi>
+          <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': messageWrapped.message.language === 'ar-XA' ? 'right' : 'left' }">
+            <bdi>{{ messageWrapped.message.text }}</bdi>
           </a>
-          <a class="extand" *ngIf="message.text !== undefined && message.text.length > 98" (click)="extand()">
+          <a class="extand" *ngIf="messageWrapped.message.text !== undefined && messageWrapped.message.text.length > 98" (click)="extand()">
             <img src="./assets/icons/icon-chevron-close-blue.svg" alt="réduire le texte" />
           </a>
         </ng-template>
         <ng-template #longText>
-          <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': message.language === 'ar-XA' ? 'right' : 'left' }" lang="ar">
-            <bdi>{{ message.text | slice: 0:98 }}</bdi>
-            <strong *ngIf="message.text !== undefined && message.text.length > 98">...</strong>
+          <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': messageWrapped.message.language === 'ar-XA' ? 'right' : 'left' }" lang="ar">
+            <bdi>{{ messageWrapped.message.text | slice: 0:98 }}</bdi>
+            <strong *ngIf="messageWrapped.message.text !== undefined && messageWrapped.message.text.length > 98">...</strong>
           </a>
-          <a class="extand" *ngIf="message.text !== undefined && message.text.length > 98" (click)="extand()">
+          <a class="extand" *ngIf="messageWrapped.message.text !== undefined && messageWrapped.message.text.length > 98" (click)="extand()">
             <img src="./assets/icons/icon-chevron-open-blue.svg" alt="étendre le texte" />
           </a>
         </ng-template>

@@ -5,7 +5,6 @@ import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
 import { Member } from 'src/app/models/db/member';
 import { DeviceService } from 'src/app/services/device.service';
-import { Role } from 'src/app/models/role';
 import { Support } from 'src/app/models/support';
 
 @Component({
@@ -26,7 +25,7 @@ export class ShareComponent implements OnInit {
     this.settingsService.user.subscribe((user) => {
       if (user != null && user.roomId === undefined) {
         this.canCreate = true;
-        this.roomId = (10000000 + Math.floor(Math.random() * 10000000)).toString();
+        this.roomId = this.chatService.getRoomId();
         this.link = window.location.origin + '/invite/' + this.roomId;
       } else {
         this.link = window.location.origin + '/invite/' + user.roomId;
@@ -62,7 +61,7 @@ export class ShareComponent implements OnInit {
     user.language = { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written };
     user.roomId = this.roomId;
     localStorage.setItem('user', JSON.stringify(user));
-    this.chatService.create(this.roomId, Support.MULTIDEVICE).then((_) => {
+    this.chatService.initChatMulti(this.roomId).then((_) => {
       this.dialogRef.close();
       const member: Member = { id: "1", firstname: this.settingsService.user.value.firstname, role: user.role, device: this.deviceService.getUserDevice() }; // TODO merge role
       this.chatService.addMember(this.roomId, member);

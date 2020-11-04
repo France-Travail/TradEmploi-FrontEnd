@@ -23,7 +23,7 @@ import { ErrorCodes } from 'src/app/models/errorCodes';
 export class MessageWrapperComponent implements OnInit, OnChanges {
   @Input() title: string;
   @Input() role: string;
-  @Input() originText: Message;
+  @Input() originText: string;
 
   @Output() messagesToEmit = new EventEmitter<MessageWrapped>();
 
@@ -70,7 +70,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.originText) {
-      this.rawText = this.originText.text;
+      this.rawText = this.originText;
     }
   }
 

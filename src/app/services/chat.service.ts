@@ -7,21 +7,35 @@ import { MessageWrapped } from '../models/translate/message-wrapped';
 import { CryptService } from './crypt.service';
 import { Support } from '../models/support';
 import { Role } from '../models/role';
+import { DeviceService } from './device.service';
+import { Device } from '../models/device';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
-  constructor(private db: AngularFireDatabase, private cryptService: CryptService) { }
 
-  create(roomId: string, support: Support): Promise<boolean> {
-    const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], messagesWrapped: [], active: true, support: support };
-    const promise = this.db.object(`chats/${roomId}`).set(chat);
-    return promise
-      .then((_) => true)
-      .catch((err) => {
-        return false;
-      });
+  public messagesStored: MessageWrapped[] = [];
+
+  constructor(private db: AngularFireDatabase, private cryptService: CryptService, private deviceService : DeviceService) { }
+
+  getRoomId(){
+    return (10000000 + Math.floor(Math.random() * 10000000)).toString()
+  }
+  
+  initChatMono(): Promise<boolean>{
+    const roomId = this.getRoomId()
+    this.messagesStored = this.messagesStored
+      .map(m => this.cryptService.encryptWrapped(m,roomId))
+    const device: Device = this.deviceService.getUserDevice()
+    const advisor: Member = { id: "1", firstname: 'Pôle emploi', role: Role.ADVISOR, device: device };
+    const guest: Member = { id: "2", firstname: 'DE', role: Role.GUEST, device: device };
+    const members: Member[] = [advisor, guest]
+    return this.create(roomId, members, this.messagesStored, Support.MONODEVICE)
+  }
+  
+  initChatMulti(roomId: string): Promise<boolean>{
+    return this.create(roomId, [], [], Support.MULTIDEVICE)
   }
 
   hasRoom(roomId: string): Observable<boolean> {
@@ -42,7 +56,9 @@ export class ChatService {
 
   sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
     messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
-    return this.db.list(`chats/${roomId}/messages`).push(messageWrapped).key;
+    const itemsRef = this.db.list(`chats/${roomId}/messages`);
+    itemsRef.set(messageWrapped.time.toString(), messageWrapped);
+    return messageWrapped.time.toString()
   }
 
   addMember(roomId: string, newMember: Member): string {
@@ -61,13 +77,6 @@ export class ChatService {
   deleteMember(roomId: string, firstname: string, key: string) {
     const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
     this.sendMessageWrapped(roomId, messageWrapped);
-    // return this.db
-    //   .list(`chats/${roomId}/members/${key}`)
-    //   .remove()
-    //   .then((_) => true)
-    //   .catch((err) => {
-    //     return false;
-    //   });
   }
 
   notifyAdvisor(roomId: string, firstname: string, key: string) {
@@ -97,4 +106,15 @@ export class ChatService {
         return false;
       });
   }
+
+  private create(roomId: string, members: Member[], messagesWrapped: MessageWrapped[], support: Support): Promise<boolean> {
+    const chat: Chat = { lasttime: new Date().getTime().toString(), members: members, messages: messagesWrapped, active: true, support: support };
+    const promise = this.db.object(`chats/${roomId}`).set(chat);
+    return promise
+      .then((_) => true)
+      .catch((err) => {
+        return false;
+      });
+  }
+
 }
