@@ -55,9 +55,7 @@ export class RateDialogComponent implements OnInit {
     private settingsService: SettingsService,
     private toastService: ToastService,
     private router: Router,
-    private chatService: ChatService,
-    private kpiService: KpiService,
-    private authService: AuthService
+    private chatService: ChatService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null && user.roomId !== undefined) {
@@ -108,8 +106,10 @@ export class RateDialogComponent implements OnInit {
         .saveRate()
         .then(async () => {
           this.dialogRef.close();
-          if (!this.roomId) {
-            this.chatService.initChatMono();
+          const isMono = !this.roomId
+          if (isMono) {
+            const advisorRole = this.settingsService.user.value.role
+            this.chatService.initChatMono(advisorRole);
           }
           this.settingsService.reset();
           this.router.navigate(['thanks']);

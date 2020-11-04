@@ -27,12 +27,14 @@ export class ChatService {
     return (10000000 + Math.floor(Math.random() * 10000000)).toString();
   }
 
-  initChatMono(advisorRole: Role): Promise<boolean> {
+  initChatMono(advisorRole: Role) {
     const roomId = this.getRoomId();
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
-    const advisor = { id: Date.now().toString(), firstname: advisorName, role: advisorRole, device: this.device };
-    const guest: Member = { id: Date.now().toString(), firstname: 'DE', role: Role.GUEST, device: this.device };
-    return this.create(roomId, [advisor, guest], this.messagesStored, Support.MONODEVICE);
+    if(this.messagesStored.length > 0){
+      const advisor = { id: Date.now().toString(), firstname: advisorName, role: advisorRole, device: this.device };
+      const guest: Member = { id: Date.now().toString(), firstname: 'DE', role: Role.GUEST, device: this.device };
+      this.create(roomId, [advisor, guest], this.messagesStored, Support.MONODEVICE);
+    }
   }
 
   initChatMulti(roomId: string, advisorRole: Role): Promise<boolean> {
