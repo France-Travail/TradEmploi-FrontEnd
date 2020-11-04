@@ -4,9 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
-import { Member } from 'src/app/models/db/member';
-import { DeviceService } from 'src/app/services/device.service';
-import { Support } from 'src/app/models/support';
 
 @Component({
   selector: 'app-share',
@@ -54,10 +51,24 @@ export class ShareComponent implements OnInit {
     document.body.removeChild(selBox);
   }
 
-  public confirm() {
+  public share() {
+    this.initChat()
+    this.userOnLocalStorage()
     this.dialogRef.close();
   }
-  public share() {
+
+  public cancel() {
+    this.dialogRef.close();
+  }
+
+  private initChat(){
+    const advisorRole: Role = this.settingsService.user.value.role
+    this.chatService.messagesStored.length > 0 ?
+      this.chatService.initChatMonoMulti(this.roomId, advisorRole):
+      this.chatService.initChatMulti(this.roomId, advisorRole);
+  }
+
+  private userOnLocalStorage(){
     this.settingsService.user.next({
       ...this.settingsService.user.value,
       language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written, languageName: this.settingsService.defaultLanguage.languageName },
@@ -67,16 +78,5 @@ export class ShareComponent implements OnInit {
     user.language = { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written };
     user.roomId = this.roomId;
     localStorage.setItem('user', JSON.stringify(user));
-    const advisorRole: Role = this.settingsService.user.value.role
-    if (this.chatService.messagesStored.length > 0) {
-      this.chatService.initChatMonoMulti(this.roomId, advisorRole);
-    } else {
-      this.chatService.initChatMulti(this.roomId, advisorRole);
-    }
-    this.dialogRef.close();
-  }
-
-  public cancel() {
-    this.dialogRef.close();
   }
 }
