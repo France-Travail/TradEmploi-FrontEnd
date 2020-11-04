@@ -17,6 +17,7 @@ import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
 import { EndComponent } from './dialogs/end/end.component';
 import { CryptService } from 'src/app/services/crypt.service';
 import { Language } from 'src/app/models/language';
+import { advisorName } from './../../services/settings.service';
 
 @Component({
   selector: 'app-translation',
@@ -53,7 +54,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         if (user.language !== undefined && user.language.audio === undefined) {
           this.goto('choice');
         }
-        this.isGuest = user.firstname !== undefined && user.firstname !== this.settingsService.defaultName;
+        this.isGuest = user.firstname !== undefined && user.firstname !== advisorName;
         this.isMultiDevices = user.roomId !== undefined;
         this.messagesWrapped = [];
         this.chatService.messagesStored = [];
@@ -224,7 +225,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private isSender(member: string): boolean {
     if (this.isMultiDevices) {
       const isSender = member === this.user.firstname;
-      return !isSender && this.user.firstname === undefined && member === this.settingsService.defaultName ? true : isSender;
+      return !isSender && this.user.firstname === undefined && member === advisorName ? true : isSender;
     }
     return false;
   }

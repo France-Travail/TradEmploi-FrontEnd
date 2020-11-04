@@ -9,6 +9,7 @@ import { Support } from '../models/support';
 import { Role } from '../models/role';
 import { DeviceService } from './device.service';
 import { Device } from '../models/device';
+import { advisorName } from './settings.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,36 +17,33 @@ import { Device } from '../models/device';
 export class ChatService {
   public messagesStored: MessageWrapped[] = [];
 
-  constructor(private db: AngularFireDatabase, private cryptService: CryptService, private deviceService: DeviceService) {}
+  private device: Device;
+
+  constructor(private db: AngularFireDatabase, private cryptService: CryptService, private deviceService: DeviceService) {
+    this.device = this.deviceService.getUserDevice();
+  }
 
   getRoomId() {
     return (10000000 + Math.floor(Math.random() * 10000000)).toString();
   }
 
-  initChatMono(): Promise<boolean> {
+  initChatMono(advisorRole: Role): Promise<boolean> {
     const roomId = this.getRoomId();
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
-    const device: Device = this.deviceService.getUserDevice();
-    const advisor: Member = { id: Date.now().toString(), firstname: 'Pôle emploi', role: Role.ADVISOR, device: device };
-    const guest: Member = { id: Date.now().toString(), firstname: 'DE', role: Role.GUEST, device: device };
-    const members: Member[] = [advisor, guest];
-    return this.create(roomId, members, this.messagesStored, Support.MONODEVICE);
+    const advisor = { id: Date.now().toString(), firstname: advisorName, role: advisorRole, device: this.device };
+    const guest: Member = { id: Date.now().toString(), firstname: 'DE', role: Role.GUEST, device: this.device };
+    return this.create(roomId, [advisor, guest], this.messagesStored, Support.MONODEVICE);
   }
 
-  initChatMulti(roomId: string): Promise<boolean> {
-  
-    const device: Device = this.deviceService.getUserDevice();
-    const advisor: Member = { id: Date.now().toString(), firstname: 'Pôle emploi', role: Role.ADVISOR, device: device };
+  initChatMulti(roomId: string, advisorRole: Role): Promise<boolean> {
+    const advisor = { id: Date.now().toString(), firstname: advisorName, role: advisorRole, device: this.device };
     return this.create(roomId, [advisor], [], Support.MULTIDEVICE);
   }
 
-  initChatMonoMulti(roomId: string): Promise<boolean> {
-   
+  initChatMonoMulti(roomId: string, advisorRole: Role): Promise<boolean> {
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
-    const device: Device = this.deviceService.getUserDevice();
-    const advisor: Member = { id: Date.now().toString(), firstname: 'Pôle emploi', role: Role.ADVISOR, device: device };
-    const members: Member[] = [advisor];
-    return this.create(roomId, members, this.messagesStored, Support.MONOANDMULTIDEVICE);
+    const advisor = { id: Date.now().toString(), firstname: advisorName, role: advisorRole, device: this.device };
+    return this.create(roomId, [advisor], this.messagesStored, Support.MONOANDMULTIDEVICE);
   }
 
   hasRoom(roomId: string): Observable<boolean> {

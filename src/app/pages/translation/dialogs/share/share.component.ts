@@ -1,3 +1,4 @@
+import { Role } from 'src/app/models/role';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -23,8 +24,7 @@ export class ShareComponent implements OnInit {
     private dialogRef: MatDialogRef<ShareComponent>,
     public router: Router,
     private chatService: ChatService,
-    private settingsService: SettingsService,
-    private deviceService: DeviceService
+    private settingsService: SettingsService
   ) {}
 
   ngOnInit(): void {
@@ -67,10 +67,11 @@ export class ShareComponent implements OnInit {
     user.language = { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written };
     user.roomId = this.roomId;
     localStorage.setItem('user', JSON.stringify(user));
+    const advisorRole: Role = this.settingsService.user.value.role
     if (this.chatService.messagesStored.length > 0) {
-      this.chatService.initChatMonoMulti(this.roomId);
+      this.chatService.initChatMonoMulti(this.roomId, advisorRole);
     } else {
-      this.chatService.initChatMulti(this.roomId);
+      this.chatService.initChatMulti(this.roomId, advisorRole);
     }
     this.dialogRef.close();
   }
