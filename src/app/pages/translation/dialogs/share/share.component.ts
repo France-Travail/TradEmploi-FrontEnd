@@ -19,7 +19,13 @@ export class ShareComponent implements OnInit {
 
   private roomId: string;
 
-  constructor(private dialogRef: MatDialogRef<ShareComponent>, public router: Router, private chatService: ChatService, private settingsService: SettingsService, private deviceService: DeviceService) { }
+  constructor(
+    private dialogRef: MatDialogRef<ShareComponent>,
+    public router: Router,
+    private chatService: ChatService,
+    private settingsService: SettingsService,
+    private deviceService: DeviceService
+  ) {}
 
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {
@@ -54,18 +60,19 @@ export class ShareComponent implements OnInit {
   public share() {
     this.settingsService.user.next({
       ...this.settingsService.user.value,
-      language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written , languageName: this.settingsService.defaultLanguage.languageName},
+      language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written, languageName: this.settingsService.defaultLanguage.languageName },
       roomId: this.roomId,
     });
     const user = JSON.parse(localStorage.getItem('user'));
     user.language = { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written };
     user.roomId = this.roomId;
     localStorage.setItem('user', JSON.stringify(user));
-    this.chatService.initChatMulti(this.roomId).then((_) => {
-      this.dialogRef.close();
-      const member: Member = { id: "1", firstname: this.settingsService.user.value.firstname, role: user.role, device: this.deviceService.getUserDevice() }; // TODO merge role
-      this.chatService.addMember(this.roomId, member);
-    });
+    if (this.chatService.messagesStored.length > 0) {
+      this.chatService.initChatMonoMulti(this.roomId);
+    } else {
+      this.chatService.initChatMulti(this.roomId);
+    }
+    this.dialogRef.close();
   }
 
   public cancel() {

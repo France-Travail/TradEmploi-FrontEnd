@@ -20,13 +20,7 @@ export class LogoutComponent {
   private isGuest: boolean = false;
   private user: User;
 
-  constructor(
-    private dialogRef: MatDialogRef<LogoutComponent>,
-    public router: Router,
-    private authService: AuthService,
-    private chatService: ChatService,
-    private settingsService: SettingsService
-  ) {
+  constructor(private dialogRef: MatDialogRef<LogoutComponent>, public router: Router, private authService: AuthService, private chatService: ChatService, private settingsService: SettingsService) {
     this.settingsService.user.subscribe((user: User) => {
       if (user !== null) {
         this.roomId = user.roomId ? user.roomId : undefined;
@@ -53,17 +47,15 @@ export class LogoutComponent {
   }
 
   private handleMulti() {
-    this.settingsService.reset();
     if (this.isGuest) {
-      this.chatService.notifyAdvisor(this.roomId, this.user.firstname, this.user.id);
-      this.chatService.deleteMember(this.roomId, this.user.firstname, this.user.id);
+      this.chatService.notifyAdvisor(this.roomId, this.user.firstname);
+      this.chatService.deleteMember(this.roomId, this.user.firstname);
     } else {
       this.chatService.updateChatStatus(this.roomId, false);
-      this.chatService.delete(this.roomId);
     }
+    this.settingsService.reset();
   }
   public cancel() {
     this.dialogRef.close();
   }
 }
- 

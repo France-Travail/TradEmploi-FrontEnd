@@ -114,7 +114,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
       if (this.user.role === Role.GUEST) {
         const isEndClosed: boolean = this.endIdDialogRef === undefined;
         if (isEndClosed) {
-          this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname, this.user.id);
+          this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
           this.settingsService.reset();
         }
       } else {

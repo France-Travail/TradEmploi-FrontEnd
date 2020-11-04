@@ -56,7 +56,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.isGuest = user.firstname !== undefined && user.firstname !== this.settingsService.defaultName;
         this.isMultiDevices = user.roomId !== undefined;
         this.messagesWrapped = [];
-        this.chatService.messagesStored = []
+        this.chatService.messagesStored = [];
         if (this.isMultiDevices) {
           this.initMultiDevices(user.roomId);
         }
@@ -151,11 +151,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (this.isGuest) {
         const isEndClosed: boolean = this.endIdDialogRef === undefined;
         if (isEndClosed) {
-          this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname, this.user.id);
+          this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
           this.settingsService.reset();
         }
       } else {
-        this.chatService.delete(this.user.roomId);
         this.settingsService.reset();
       }
     }
@@ -215,21 +214,19 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private sendMessage(message: Message) {
-    const isSender: boolean = this.isSender(message.member)
+    const isSender: boolean = this.isSender(message.member);
     const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
     this.messagesWrapped.push(messageWrapped);
     this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
-    this.chatService.messagesStored.push({ message, time: message.time })
+    this.chatService.messagesStored.push({ message, time: message.time });
   }
 
-  private isSender(member: string){
+  private isSender(member: string): boolean {
     if (this.isMultiDevices) {
       const isSender = member === this.user.firstname;
-      if (!isSender && this.user.firstname === undefined && member === this.settingsService.defaultName) {
-        return true;
-      }
-    } 
-    return false
+      return !isSender && this.user.firstname === undefined && member === this.settingsService.defaultName ? true : isSender;
+    }
+    return false;
   }
 
   private sendNotification(messageWrapped: MessageWrapped) {

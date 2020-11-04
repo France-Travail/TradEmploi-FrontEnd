@@ -14,30 +14,39 @@ import { Device } from '../models/device';
   providedIn: 'root',
 })
 export class ChatService {
-
   public messagesStored: MessageWrapped[] = [];
 
-  constructor(private db: AngularFireDatabase, private cryptService: CryptService, private deviceService : DeviceService) { }
+  constructor(private db: AngularFireDatabase, private cryptService: CryptService, private deviceService: DeviceService) {}
 
-  getRoomId(){
-    return (10000000 + Math.floor(Math.random() * 10000000)).toString()
+  getRoomId() {
+    return (10000000 + Math.floor(Math.random() * 10000000)).toString();
   }
-  
-  initChatMono(): Promise<boolean>{
-    const roomId = this.getRoomId()
-    this.messagesStored = this.messagesStored
-      .map(m => this.cryptService.encryptWrapped(m,roomId))
-    const device: Device = this.deviceService.getUserDevice()
-    const advisor: Member = { id: "1", firstname: 'Pôle emploi', role: Role.ADVISOR, device: device };
-    const guest: Member = { id: "2", firstname: 'DE', role: Role.GUEST, device: device };
-    const members: Member[] = [advisor, guest]
-    return this.create(roomId, members, this.messagesStored, Support.MONODEVICE)
+
+  initChatMono(): Promise<boolean> {
+    const roomId = this.getRoomId();
+    this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
+    const device: Device = this.deviceService.getUserDevice();
+    const advisor: Member = { id: Date.now().toString(), firstname: 'Pôle emploi', role: Role.ADVISOR, device: device };
+    const guest: Member = { id: Date.now().toString(), firstname: 'DE', role: Role.GUEST, device: device };
+    const members: Member[] = [advisor, guest];
+    return this.create(roomId, members, this.messagesStored, Support.MONODEVICE);
   }
+
+  initChatMulti(roomId: string): Promise<boolean> {
   
-  initChatMulti(roomId: string): Promise<boolean>{
-    return this.create(roomId, [], [], Support.MULTIDEVICE)
+    const device: Device = this.deviceService.getUserDevice();
+    const advisor: Member = { id: Date.now().toString(), firstname: 'Pôle emploi', role: Role.ADVISOR, device: device };
+    return this.create(roomId, [advisor], [], Support.MULTIDEVICE);
   }
-  
+
+  initChatMonoMulti(roomId: string): Promise<boolean> {
+   
+    this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
+    const device: Device = this.deviceService.getUserDevice();
+    const advisor: Member = { id: Date.now().toString(), firstname: 'Pôle emploi', role: Role.ADVISOR, device: device };
+    const members: Member[] = [advisor];
+    return this.create(roomId, members, this.messagesStored, Support.MONOANDMULTIDEVICE);
+  }
 
   hasRoom(roomId: string): Observable<boolean> {
     return new Observable((observer) => {
@@ -59,15 +68,15 @@ export class ChatService {
     messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
     const itemsRef = this.db.list(`chats/${roomId}/messages`);
     itemsRef.set(messageWrapped.time.toString(), messageWrapped);
-    return messageWrapped.time.toString()
+    return messageWrapped.time.toString();
   }
 
   addMember(roomId: string, newMember: Member): string {
-    const key = this.db.list(`chats/${roomId}/members`).push(newMember).key;
+    const itemsRef = this.db.list(`chats/${roomId}/members`);
+    itemsRef.set(Date.now().toString(), newMember);
     if (newMember.role === Role.GUEST) {
       const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
-      this.sendMessageWrapped(roomId, messageWrapped);
-      return key;
+      return this.sendMessageWrapped(roomId, messageWrapped);
     }
   }
 
@@ -75,12 +84,12 @@ export class ChatService {
     return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>;
   }
 
-  deleteMember(roomId: string, firstname: string, key: string) {
+  deleteMember(roomId: string, firstname: string) {
     const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
     this.sendMessageWrapped(roomId, messageWrapped);
   }
 
-  notifyAdvisor(roomId: string, firstname: string, key: string) {
+  notifyAdvisor(roomId: string, firstname: string) {
     const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
     this.sendMessageWrapped(roomId, messageWrapped);
   }
@@ -117,5 +126,4 @@ export class ChatService {
         return false;
       });
   }
-
 }
