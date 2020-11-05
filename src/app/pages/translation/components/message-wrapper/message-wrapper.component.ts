@@ -5,7 +5,7 @@ import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { Stream } from 'src/app/models/stream';
 import { Message } from 'src/app/models/translate/message';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
-import { advisorName, SettingsService } from 'src/app/services/settings.service';
+import { AdvisorDefaultName, SettingsService } from 'src/app/services/settings.service';
 import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -175,7 +175,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   private async sendToMultiDevices(user: User, text: string) {
     const message: Message = {
       ...this.buildMessage(text),
-      member: user.firstname ? user.firstname : advisorName,
+      member: user.firstname ? user.firstname : AdvisorDefaultName,
     };
     const messageWrapped: MessageWrapped = {
       message,

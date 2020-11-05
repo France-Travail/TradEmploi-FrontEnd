@@ -17,7 +17,7 @@ import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
 import { EndComponent } from './dialogs/end/end.component';
 import { CryptService } from 'src/app/services/crypt.service';
 import { Language } from 'src/app/models/language';
-import { advisorName } from './../../services/settings.service';
+import { AdvisorDefaultName } from './../../services/settings.service';
 import { Support } from 'src/app/models/support';
 
 @Component({
@@ -55,7 +55,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         if (user.language !== undefined && user.language.audio === undefined) {
           this.goto('choice');
         }
-        this.isGuest = user.firstname !== undefined && user.firstname !== advisorName;
+        this.isGuest = user.role === Role.GUEST;
         this.isMultiDevices = user.roomId !== undefined;
         this.messagesWrapped = [];
         this.chatService.messagesStored = [];
@@ -176,11 +176,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private async addMultiMessageToChat(roomId: string) {
     const support: Support = this.chatService.support;
-    let switchTime: number
-    this.chatService.getSwitchTime(roomId).subscribe(s => switchTime = s)
+    let monoToMultiTime: number
+    if(support === Support.MONOANDMULTIDEVICE || this.isGuest){
+      this.chatService.getMonoToMultiTime(roomId).subscribe(s => monoToMultiTime = s)
+    }
     this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
-      if(support === Support.MONOANDMULTIDEVICE || this.user.role === Role.GUEST){
-        messagesWrapped = messagesWrapped.filter((messagesWrapped) => messagesWrapped.time > switchTime);
+      if(support === Support.MONOANDMULTIDEVICE || this.isGuest){
+        messagesWrapped = messagesWrapped.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
       }
       if (messagesWrapped.length > 0) {
         if (this.messagesWrapped.length === 0) {
@@ -193,11 +195,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
           this.addToChat(messagesWrapped[messagesWrapped.length - 1]);
         }
       }
-      
     });
   }
-
-
 
   private translateMessage(message: Message) {
     const languageTarget: Language = this.getLanguageTarget(message);
@@ -236,7 +235,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private isSender(member: string): boolean {
     if (this.isMultiDevices) {
       const isSender = member === this.user.firstname;
-      return !isSender && this.user.firstname === undefined && member === advisorName ? true : isSender;
+      return !isSender && this.user.firstname === undefined && member === AdvisorDefaultName ? true : isSender;
     }
     return false;
   }

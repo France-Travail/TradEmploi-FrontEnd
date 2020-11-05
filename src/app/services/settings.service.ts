@@ -29,4 +29,5 @@ export class SettingsService {
   }
 }
 
-export const advisorName: string = 'Pôle emploi';
+export const AdvisorDefaultName: string = 'Pôle emploi';
+export const GuestDefaultName: string = 'DE';

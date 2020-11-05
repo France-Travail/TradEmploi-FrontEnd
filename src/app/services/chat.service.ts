@@ -9,15 +9,15 @@ import { Support } from '../models/support';
 import { Role } from '../models/role';
 import { DeviceService } from './device.service';
 import { Device } from '../models/device';
-import { advisorName } from './settings.service';
+import { AdvisorDefaultName, GuestDefaultName } from './settings.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
+
   public messagesStored: MessageWrapped[] = [];
   public support: Support;
-  public switchTime: number;
 
   private device: Device;
 
@@ -34,24 +34,26 @@ export class ChatService {
     const roomId = this.getRoomId();
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
     if(this.messagesStored.length > 0){
-      const advisor = { id: Date.now().toString(), firstname: advisorName, role: advisorRole, device: this.device };
-      const guest: Member = { id: Date.now().toString(), firstname: 'DE', role: Role.GUEST, device: this.device };
-      this.create(roomId, [advisor, guest], this.messagesStored,this.support, 0);
+      const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
+      const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
+      const chatCreateDto: initChatDto = {members: [advisor,guest], messages: this.messagesStored}
+      this.create(roomId, chatCreateDto);
     }
   }
 
   initChatMulti(roomId: string, advisorRole: Role): Promise<boolean> {
     this.support = Support.MULTIDEVICE
-    const advisor = { id: Date.now().toString(), firstname: advisorName, role: advisorRole, device: this.device };
-    return this.create(roomId, [advisor], [], this.support,0);
+    const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
+    const chatCreateDto: initChatDto = {members: [advisor]}
+    return this.create(roomId, chatCreateDto);
   }
 
   initChatMonoMulti(roomId: string, advisorRole: Role): Promise<boolean> {
     this.support = Support.MONOANDMULTIDEVICE
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
-    const advisor = { id: Date.now().toString(), firstname: advisorName, role: advisorRole, device: this.device };
-    this.switchTime = Date.now()
-    return this.create(roomId, [advisor], this.messagesStored,this.support, this.switchTime);
+    const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
+    const chatCreateDto: initChatDto = {members: [advisor], messages: this.messagesStored, monoToMultiTime: Date.now()}
+    return this.create(roomId, chatCreateDto);
   }
 
   hasRoom(roomId: string): Observable<boolean> {
@@ -70,8 +72,8 @@ export class ChatService {
     return this.db.list(`chats/${roomId}/messages`).valueChanges() as Observable<Array<MessageWrapped>>;
   }
 
-  getSwitchTime(roomId: string): Observable<number> {
-    return this.db.object(`chats/${roomId}/switchTime`).valueChanges() as Observable<number>;
+  getMonoToMultiTime(roomId: string): Observable<number> {
+    return this.db.object(`chats/${roomId}/monoToMultiTime`).valueChanges() as Observable<number>;
   }
 
   sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
@@ -107,8 +109,8 @@ export class ChatService {
   delete(roomId: string): Promise<boolean> {
     const promise = this.db.object(`chats/${roomId}`).remove();
     return promise
-      .then((_) => true)
-      .catch((err) => {
+      .then( _ => true)
+      .catch( _ => {
         return false;
       });
   }
@@ -121,19 +123,29 @@ export class ChatService {
     return this.db
       .object(`chats/${roomId}/active`)
       .set(active)
-      .then((_) => true)
-      .catch((err) => {
+      .then( _ => true)
+      .catch( _ => {
         return false;
       });
   }
 
-  private create(roomId: string, members: Member[], messagesWrapped: MessageWrapped[], support: Support, switchTime: number): Promise<boolean> {
-    const chat: Chat = { lasttime: new Date().getTime().toString(), members: members, messages: messagesWrapped, active: true, support: support, switchTime: switchTime };
-    const promise = this.db.object(`chats/${roomId}`).set(chat);
-    return promise
-      .then((_) => true)
-      .catch((err) => {
+  private create(roomId: string, initChatDto: initChatDto): Promise<boolean> {
+    const chat: Chat = {
+      lasttime: new Date().getTime().toString(), 
+      active: true,
+      support: this.support,
+      ... initChatDto
+    };
+    return this.db.object(`chats/${roomId}`).set(chat)
+      .then(_ => true)
+      .catch(_ => {
         return false;
       });
   }
+}
+
+interface initChatDto {
+  members: Array<Member>;
+  messages?: Array<MessageWrapped>;
+  monoToMultiTime?: number;
 }
