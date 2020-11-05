@@ -14,6 +14,7 @@ import { Role } from 'src/app/models/role';
 import { User } from 'src/app/models/user';
 import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 import { ErrorCodes } from 'src/app/models/errorCodes';
+import { TranslationMode } from 'src/app/models/translationMode';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -40,7 +41,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public interim: string = '';
   public recordMode: boolean = false;
   public speak: boolean = false;
-  public translationMode: string = "text"
+  public translationMode: string = TranslationMode.TEXT
   public languageName: string;
   private isMobile: boolean = false;
 
@@ -82,7 +83,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         this.rawText = '';
         this.stream();
       }
-      this.translationMode = "vocal"
+      this.translationMode = TranslationMode.VOCAL
       this.speak = true;
     } else {
       this.toastService.showToast(ErrorCodes.UNAUTHORIZEDMICRO, 'toast-info');

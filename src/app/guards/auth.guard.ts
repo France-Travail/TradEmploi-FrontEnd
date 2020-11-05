@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
             }
           } else if (sessionStorage.getItem('user') != null)
           {  const user = JSON.parse(sessionStorage.getItem('user'));
-             try {
+            try {
               this.settingsService.user.next({ ...this.settingsService.user.value, firstname: user.firstname, role: user.role, language: user.language, roomId: user.roomId, connectionTime: user.connectionTime });
             } catch (error) {
               this.router.navigate(['/start']);

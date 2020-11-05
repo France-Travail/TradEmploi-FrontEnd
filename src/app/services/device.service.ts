@@ -23,8 +23,8 @@ export class DeviceService {
   private getDeviceType() {
     const deviceType = Object.keys(DeviceType).map(key => ({id: key, name: DeviceType[key]})); 
     let i = 1;
-    const istablet: boolean = this.deviceDetectorService.isTablet() === true;
-    const isMobile: boolean = this.deviceDetectorService.isMobile() === true;
+    const istablet: boolean = this.deviceDetectorService.isTablet();
+    const isMobile: boolean = this.deviceDetectorService.isMobile();
     if (istablet) i += 1;
     if (isMobile) i -= 1
     return deviceType[i].name;

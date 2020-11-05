@@ -50,7 +50,6 @@ export class LogoutComponent {
   private handleMulti() {
     if (this.isGuest) {
       this.chatService.notifyAdvisor(this.roomId, this.user.firstname);
-      this.chatService.deleteMember(this.roomId, this.user.firstname);
     } else {
       this.chatService.updateChatStatus(this.roomId, false);
     }

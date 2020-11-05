@@ -10,10 +10,8 @@ import { NavbarService } from 'src/app/services/navbar.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
 import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
-import { Observable } from 'rxjs';
 import { Vocabulary } from 'src/app/models/vocabulary';
 import { User } from 'src/app/models/user';
-import { KpiService } from 'src/app/services/kpi.service';
 
 @Component({
   selector: 'app-choice',
@@ -37,8 +35,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     private settingsService: SettingsService,
     public dialog: MatDialog,
     private navService: NavbarService,
-    private chatService: ChatService,
-    private kpiService : KpiService
+    private chatService: ChatService
   ) {
     this.navService.handleTabsChoice();
     this.settingsService.user.subscribe((user) => {
@@ -118,7 +115,9 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
           this.settingsService.reset();
         }
       } else {
+        this.chatService.updateChatStatus(this.user.roomId, false)
         this.chatService.delete(this.user.roomId);
+        this.settingsService.reset();
       }
     }
   }

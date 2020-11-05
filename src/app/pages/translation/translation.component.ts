@@ -38,6 +38,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private isAudioPlay: boolean;
   private user: User;
   private endIdDialogRef: MatDialogRef<any, any>;
+  private support: Support;
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -59,6 +61,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.isMultiDevices = user.roomId !== undefined;
         this.messagesWrapped = [];
         this.chatService.messagesStored = [];
+        this.support = this.chatService.support;
         if (this.isMultiDevices) {
           this.initMultiDevices(user.roomId);
         }
@@ -157,6 +160,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
           this.settingsService.reset();
         }
       } else {
+        this.chatService.updateChatStatus(this.user.roomId, false)
+        this.chatService.delete(this.user.roomId)
         this.settingsService.reset();
       }
     }
@@ -175,13 +180,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   };
 
   private async addMultiMessageToChat(roomId: string) {
-    const support: Support = this.chatService.support;
     let monoToMultiTime: number
-    if(support === Support.MONOANDMULTIDEVICE || this.isGuest){
+    if(this.support === Support.MONOANDMULTIDEVICE || this.isGuest){
       this.chatService.getMonoToMultiTime(roomId).subscribe(s => monoToMultiTime = s)
     }
     this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
-      if(support === Support.MONOANDMULTIDEVICE || this.isGuest){
+      if(this.support === Support.MONOANDMULTIDEVICE || this.isGuest){
         messagesWrapped = messagesWrapped.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
       }
       if (messagesWrapped.length > 0) {
@@ -229,7 +233,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
     this.messagesWrapped.push(messageWrapped);
     this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
-    this.chatService.messagesStored.push({ message, time: message.time });
+    this.chatService.messagesStored.push({ message, time: message.time });    
   }
 
   private isSender(member: string): boolean {

@@ -9,9 +9,8 @@ import { Member } from 'src/app/models/db/member';
 import { ErrorCodes } from 'src/app/models/errorCodes';
 import { Role } from 'src/app/models/role';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { DeviceDetectorService } from 'ngx-device-detector';
-import { Device } from 'src/app/models/device';
 import { DeviceService } from 'src/app/services/device.service';
+import { Support } from 'src/app/models/support';
 
 @Component({
   selector: 'app-anonymous',
@@ -30,7 +29,6 @@ export class AnonymousComponent implements OnInit {
     private chatService: ChatService,
     private settingsService: SettingsService,
     private afAuth: AngularFireAuth,
-    private deviceDetectorService: DeviceDetectorService,
     private deviceService: DeviceService
   ) {
     this.settingsService.user.subscribe((user) => {
@@ -55,27 +53,32 @@ export class AnonymousComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     try {
       const auth = await this.authService.loginAnonymous();
-      const user = {
-        roomId: this.roomId,
-        connectionTime: Date.now(),
-        firstname: this.username.value,
-      };
-      sessionStorage.setItem('user', JSON.stringify(user));
       this.chatService.hasRoom(this.roomId).subscribe(async (hasRoom) => {
-        if (!hasRoom) {
-          this.afAuth.auth.currentUser.delete();
-          this.toastService.showToast(ErrorCodes.NONEXISTANTCHAT, 'toast-error');
-          this.router.navigate(['/start']);
-        } else {
-          const member: Member = { id: Date.now().toString(), firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
-          const key = this.chatService.addMember(this.roomId, member);
-          this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST, connectionTime: Date.now() });
-          this.toastService.showToast(auth.message, 'toast-success');
-          this.router.navigateByUrl('choice');
-        }
+        !hasRoom ? this.onSubmitWithoutRoom(): this.onSubmitWithRoom(auth.message)
       });
     } catch (error) {
       this.toastService.showToast(error.message, 'toast-error');
     }
+  }
+
+  private onSubmitWithoutRoom(){
+    this.afAuth.auth.currentUser.delete();
+    this.toastService.showToast(ErrorCodes.NONEXISTANTCHAT, 'toast-error');
+    this.router.navigate(['/start']);
+  }
+
+  private onSubmitWithRoom(message: string){
+    const user = {
+      roomId: this.roomId,
+      connectionTime: Date.now(),
+      firstname: this.username.value,
+    };
+    sessionStorage.setItem('user', JSON.stringify(user));
+    const member: Member = { id: Date.now().toString(), firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
+    const key = this.chatService.addMember(this.roomId, member);
+    this.chatService.support = Support.MONOANDMULTIDEVICE;
+    this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST, connectionTime: Date.now() });
+    this.toastService.showToast(message, 'toast-success');
+    this.router.navigateByUrl('choice');
   }
 }

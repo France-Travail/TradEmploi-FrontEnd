@@ -17,7 +17,7 @@ import { AdvisorDefaultName, GuestDefaultName } from './settings.service';
 export class ChatService {
 
   public messagesStored: MessageWrapped[] = [];
-  public support: Support;
+  public support: Support = Support.MONODEVICE;
 
   private device: Device;
 
@@ -34,7 +34,7 @@ export class ChatService {
     const roomId = this.getRoomId();
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
     if(this.messagesStored.length > 0){
-      const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
+      const advisor: Member = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
       const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
       const chatCreateDto: initChatDto = {members: [advisor,guest], messages: this.messagesStored}
       this.create(roomId, chatCreateDto);
