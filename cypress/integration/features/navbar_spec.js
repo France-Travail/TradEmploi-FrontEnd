@@ -35,6 +35,7 @@ describe('Navbar Component From Translate', () => {
   afterEach(() => {
     cy.get('#logout-header').click();
     cy.get('.logout-btn').click();
+    cy.url().should('include', '/start');
   });
 });
 
@@ -58,6 +59,7 @@ describe('Navbar Component From Choice', () => {
   afterEach(() => {
     cy.get('#logout-header').click();
     cy.get('.logout-btn').click();
+    cy.url().should('include', '/start');
   });
 });
 
@@ -96,5 +98,6 @@ describe('Navbar Component multi device From translate', () => {
   afterEach(() => {
     cy.get('#logout-header').click();
     cy.get('.logout-btn').click(); 
+    cy.url().should('include', '/start');
   });
 });
