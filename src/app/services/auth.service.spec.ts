@@ -86,7 +86,7 @@ describe('AuthService', () => {
   it('should fail login', async () => {
     const mock = TestBed.get(AngularFireAuth);
     const authSpy = spyOn(authStub.auth, 'signInWithEmailAndPassword').and.
-      callFake(function() {
+      callFake(() => {
         return Promise.reject({ isAuth: false, message: 'There is no user record corresponding to this identifier. The user may have been deleted.' });
       });
     mock.auth = authStub.auth;
@@ -99,7 +99,7 @@ describe('AuthService', () => {
 
   it('should successfully login anonymously ', inject([SettingsService], async () => {
     const mock = TestBed.get(AngularFireAuth);
-    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(function() {
+    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
       return Promise.resolve({ user: { uid: '12345677' } });
     });
     mock.auth = authStub.auth;
@@ -110,7 +110,7 @@ describe('AuthService', () => {
 
   it('should successfully login anonymously with admin config ', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
-    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(function() {
+    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
       return Promise.resolve({ user: { uid: '12345677' } });
     });
     settingsService.user.next({ connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi' });
@@ -122,7 +122,7 @@ describe('AuthService', () => {
 
   it('should successfully login anonymously with advisor config ', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
-    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(function() {
+    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
       return Promise.resolve({ user: { uid: '12345677' } });
     });
     settingsService.user.next({ connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi' });
@@ -137,7 +137,7 @@ describe('AuthService', () => {
 
   it('should successfully login anonymously with guest config ', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
-    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(function() {
+    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
       return Promise.resolve({ user: { uid: '12345677' } });
     });
     settingsService.user.next({ connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi' });

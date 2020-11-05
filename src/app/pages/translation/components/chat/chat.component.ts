@@ -14,7 +14,7 @@ export class ChatComponent {
   @Output() editMessageEmit = new EventEmitter();
 
   constructor(private chatService: ChatService){}
-  
+
   public visible: boolean = false;
 
   public extand() {

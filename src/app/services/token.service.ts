@@ -18,23 +18,23 @@ export class TokenService {
     const data = {
       query: `
     mutation LoginUser {
-        login(key: "`+ environment.firefunction.key + `")
+        login(key: "` + environment.firefunction.key + `")
     }`
-    }
+    };
     return new Promise(async (resolve, reject) => {
       axios({
         method: 'post',
         data,
         url
       }).then((response) => {
-        const token = response.data.data.login
-        this.settingService.token = token
-        resolve(token)
+        const token = response.data.data.login;
+        this.settingService.token = token;
+        resolve(token);
       }).catch((err) => {
         this.toastService.showToast(ErrorCodes.KPIERROR, 'toast-error');
-        reject(err)
-      })
-    })
+        reject(err);
+      });
+    });
   }
 
 }

@@ -41,7 +41,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public interim: string = '';
   public recordMode: boolean = false;
   public speak: boolean = false;
-  public translationMode: string = TranslationMode.TEXT
+  public translationMode: string = TranslationMode.TEXT;
   public languageName: string;
   private isMobile: boolean = false;
 
@@ -83,7 +83,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         this.rawText = '';
         this.stream();
       }
-      this.translationMode = TranslationMode.VOCAL
+      this.translationMode = TranslationMode.VOCAL;
       this.speak = true;
     } else {
       this.toastService.showToast(ErrorCodes.UNAUTHORIZEDMICRO, 'toast-info');
@@ -128,7 +128,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         this.sendToOneDevice(message);
       }
       this.rawText = '';
-      this.translationMode = "text"
+      this.translationMode = 'text';
       this.speak = false;
     }
   }
@@ -165,7 +165,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   }
 
   private async sendToOneDevice(text: string) {
-    const message = this.buildMessage(text)
+    const message = this.buildMessage(text);
     const messageWrapped: MessageWrapped = {
       message,
       time: Date.now(),
@@ -186,7 +186,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   }
 
   private buildMessage(text: string) {
-    const date = new Date()
+    const date = new Date();
     return {
       time: Date.now(),
       date: date.toLocaleDateString('fr-FR'),
@@ -195,7 +195,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       languageName : this.languageName,
       flag: this.flag,
       role: this.role,
-      text: text,
+      text,
       translationMode: this.translationMode
     };
   }

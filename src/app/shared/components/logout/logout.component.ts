@@ -43,7 +43,7 @@ export class LogoutComponent {
   }
 
   private handleMono() {
-    const advisorRole: Role = this.user.role
+    const advisorRole: Role = this.user.role;
     this.chatService.initChatMono(advisorRole);
   }
 

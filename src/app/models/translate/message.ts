@@ -1,7 +1,7 @@
 export interface Message {
   time: number;
   date: string;
-  hour:string;
+  hour: string;
   text: string;
   languageOrigin: string;
   flag: string;

@@ -12,7 +12,7 @@ import { KpiService } from 'src/app/services/kpi.service';
 })
 export class SettingsComponent {
   constructor(
-    private navService: NavbarService, 
+    private navService: NavbarService,
     private settingsService: SettingsService,
     private rateService: RateService,
     private kpiService: KpiService) {
@@ -20,12 +20,12 @@ export class SettingsComponent {
   }
 
   public async exportKpi(){
-    const kpi = await this.kpiService.getkpi()
-    this.exportCsv(kpi,"kpi")
+    const kpi = await this.kpiService.getkpi();
+    this.exportCsv(kpi, 'kpi');
   }
   public async exportEval() {
-    const rates = await this.rateService.getRates()
-    this.exportCsv(rates,"eval")
+    const rates = await this.rateService.getRates();
+    this.exportCsv(rates, 'eval');
   }
 
   private exportCsv(rates, name: string) {

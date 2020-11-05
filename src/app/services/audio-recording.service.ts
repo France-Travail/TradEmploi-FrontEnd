@@ -75,5 +75,5 @@ export class AudioRecordingService {
         resolve(audioData);
       };
     });
-  };
+  }
 }

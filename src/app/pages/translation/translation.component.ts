@@ -160,8 +160,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
           this.settingsService.reset();
         }
       } else {
-        this.chatService.updateChatStatus(this.user.roomId, false)
-        this.chatService.delete(this.user.roomId)
+        this.chatService.updateChatStatus(this.user.roomId, false);
+        this.chatService.delete(this.user.roomId);
         this.settingsService.reset();
       }
     }
@@ -177,26 +177,26 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  };
+  }
 
   private async addMultiMessageToChat(roomId: string) {
-    let monoToMultiTime: number
-    if(this.support === Support.MONOANDMULTIDEVICE || this.isGuest){
-      this.chatService.getMonoToMultiTime(roomId).subscribe(s => monoToMultiTime = s)
+    let monoToMultiTime: number;
+    if (this.support === Support.MONOANDMULTIDEVICE || this.isGuest){
+      this.chatService.getMonoToMultiTime(roomId).subscribe(s => monoToMultiTime = s);
     }
-    this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
-      if(this.support === Support.MONOANDMULTIDEVICE || this.isGuest){
-        messagesWrapped = messagesWrapped.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
+    this.chatService.getMessagesWrapped(roomId).subscribe((mw: MessageWrapped[]) => {
+      if (this.support === Support.MONOANDMULTIDEVICE || this.isGuest){
+        mw = mw.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
       }
-      if (messagesWrapped.length > 0) {
+      if (mw.length > 0) {
         if (this.messagesWrapped.length === 0) {
-          messagesWrapped.forEach((messageWrapped) => {
-            messageWrapped = this.cryptService.decryptWrapped(messageWrapped, roomId);
-            this.addToChat(messageWrapped);
+          mw.forEach((m: MessageWrapped) => {
+            m = this.cryptService.decryptWrapped(m, roomId);
+            this.addToChat(m);
           });
         } else {
-          messagesWrapped[messagesWrapped.length - 1] = this.cryptService.decryptWrapped(messagesWrapped[messagesWrapped.length - 1], roomId);
-          this.addToChat(messagesWrapped[messagesWrapped.length - 1]);
+          mw[mw.length - 1] = this.cryptService.decryptWrapped(mw[mw.length - 1], roomId);
+          this.addToChat(mw[mw.length - 1]);
         }
       }
     });
@@ -233,7 +233,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
     this.messagesWrapped.push(messageWrapped);
     this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
-    this.chatService.messagesStored.push({ message, time: message.time });    
+    this.chatService.messagesStored.push({ message, time: message.time });
   }
 
   private isSender(member: string): boolean {

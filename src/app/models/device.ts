@@ -4,4 +4,4 @@ export interface Device {
     osVersion: string;
     browser: string;
     browserVersion: string;
-} 
+}

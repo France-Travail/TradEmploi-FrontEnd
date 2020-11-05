@@ -106,9 +106,9 @@ export class RateDialogComponent implements OnInit {
         .saveRate()
         .then(async () => {
           this.dialogRef.close();
-          const isMono = !this.roomId
+          const isMono = !this.roomId;
           if (isMono) {
-            const advisorRole = this.settingsService.user.value.role
+            const advisorRole = this.settingsService.user.value.role;
             this.chatService.initChatMono(advisorRole);
           }
           this.settingsService.reset();

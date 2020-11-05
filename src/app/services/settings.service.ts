@@ -11,7 +11,7 @@ export class SettingsService {
   public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   public recordMode: boolean = false;
   public defaultLanguage: Language = { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' };
-  public token:string;
+  public token: string;
 
   constructor(private deviceService: DeviceDetectorService) {
     const isMobile = this.deviceService.isMobile();
@@ -24,8 +24,8 @@ export class SettingsService {
   reset = () => {
     this.user.next(null);
     this.token = null;
-    sessionStorage.removeItem('user')
-    localStorage.removeItem('user')
+    sessionStorage.removeItem('user');
+    localStorage.removeItem('user');
   }
 }
 

@@ -29,9 +29,9 @@ export class RateService {
   }
 
   public async getRates(){
-    const key = await this.tokenService.getKey()
-    const url = environment.firefunction.url
-    const data= {
+    const key = await this.tokenService.getKey();
+    const url = environment.firefunction.url;
+    const data = {
       query: `
         query rates {
           rates{
@@ -44,32 +44,32 @@ export class RateService {
             comment
           }
         }`
-    }
+    };
     return new Promise(async (resolve, reject) => {axios({
-        method:'post',
-        headers:{'Authorization': key },
+        method: 'post',
+        headers: {Authorization: key },
         data,
         url
-      }).then((response) =>{
-          const data = response.data.data.rates
-          let rates = []
-          data.forEach(element => {
+      }).then((response) => {
+          const dataRates = response.data.data.rates;
+          const rates = [];
+          dataRates.forEach(element => {
             rates.push({
               Date: element.day,
               Heure: element.hour,
               Langage: element.language,
-              "Facilité de l'outil": element.facilityGrade,
-              "Efficacité de l'outil": element.efficientGrade,
-              "Echange liée aux missions Pôle Emploi": element.offerLinked,
-              "Commentaire libre": element.comment,
+              'Facilité de l\'outil': element.facilityGrade,
+              'Efficacité de l\'outil': element.efficientGrade,
+              'Echange liée aux missions Pôle Emploi': element.offerLinked,
+              'Commentaire libre': element.comment,
             });
           });
-          resolve(rates)
+          resolve(rates);
       }).catch((err) => {
           this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
-          reject(err)
-      })
-    })
+          reject(err);
+      });
+    });
   }
 
   public getRateByHistoricId(id: string): Observable<Rate[]> {

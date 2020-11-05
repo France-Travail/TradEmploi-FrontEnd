@@ -52,8 +52,8 @@ export class ShareComponent implements OnInit {
   }
 
   public share() {
-    this.initChat()
-    this.userOnLocalStorage()
+    this.initChat();
+    this.userOnLocalStorage();
     this.dialogRef.close();
   }
 
@@ -62,9 +62,9 @@ export class ShareComponent implements OnInit {
   }
 
   private initChat(){
-    const advisorRole: Role = this.settingsService.user.value.role
+    const advisorRole: Role = this.settingsService.user.value.role;
     this.chatService.messagesStored.length > 0 ?
-      this.chatService.initChatMonoMulti(this.roomId, advisorRole):
+      this.chatService.initChatMonoMulti(this.roomId, advisorRole) :
       this.chatService.initChatMulti(this.roomId, advisorRole);
   }
 

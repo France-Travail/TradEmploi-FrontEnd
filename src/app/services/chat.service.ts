@@ -30,29 +30,29 @@ export class ChatService {
   }
 
   initChatMono(advisorRole: Role) {
-    this.support = Support.MONODEVICE
+    this.support = Support.MONODEVICE;
     const roomId = this.getRoomId();
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
-    if(this.messagesStored.length > 0){
+    if (this.messagesStored.length > 0){
       const advisor: Member = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
       const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
-      const chatCreateDto: initChatDto = {members: [advisor,guest], messages: this.messagesStored}
+      const chatCreateDto: InitChatDto = {members: [advisor, guest], messages: this.messagesStored};
       this.create(roomId, chatCreateDto);
     }
   }
 
   initChatMulti(roomId: string, advisorRole: Role): Promise<boolean> {
-    this.support = Support.MULTIDEVICE
+    this.support = Support.MULTIDEVICE;
     const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
-    const chatCreateDto: initChatDto = {members: [advisor]}
+    const chatCreateDto: InitChatDto = {members: [advisor]};
     return this.create(roomId, chatCreateDto);
   }
 
   initChatMonoMulti(roomId: string, advisorRole: Role): Promise<boolean> {
-    this.support = Support.MONOANDMULTIDEVICE
+    this.support = Support.MONOANDMULTIDEVICE;
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
     const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
-    const chatCreateDto: initChatDto = {members: [advisor], messages: this.messagesStored, monoToMultiTime: Date.now()}
+    const chatCreateDto: InitChatDto = {members: [advisor], messages: this.messagesStored, monoToMultiTime: Date.now()};
     return this.create(roomId, chatCreateDto);
   }
 
@@ -129,9 +129,9 @@ export class ChatService {
       });
   }
 
-  private create(roomId: string, initChatDto: initChatDto): Promise<boolean> {
+  private create(roomId: string, initChatDto: InitChatDto): Promise<boolean> {
     const chat: Chat = {
-      lasttime: new Date().getTime().toString(), 
+      lasttime: new Date().getTime().toString(),
       active: true,
       support: this.support,
       ... initChatDto
@@ -144,7 +144,7 @@ export class ChatService {
   }
 }
 
-interface initChatDto {
+interface InitChatDto {
   members: Array<Member>;
   messages?: Array<MessageWrapped>;
   monoToMultiTime?: number;

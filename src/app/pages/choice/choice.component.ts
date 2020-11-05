@@ -97,7 +97,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   @HostListener('window:beforeunload', ['$event'])
   public openPopUp(event): any {
     const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
-    (event || window.event).returnValue = confirmationMessage; // Gecko + IE 
+    (event || window.event).returnValue = confirmationMessage; // Gecko + IE
     return confirmationMessage;
   }
 
@@ -115,7 +115,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
           this.settingsService.reset();
         }
       } else {
-        this.chatService.updateChatStatus(this.user.roomId, false)
+        this.chatService.updateChatStatus(this.user.roomId, false);
         this.chatService.delete(this.user.roomId);
         this.settingsService.reset();
       }
