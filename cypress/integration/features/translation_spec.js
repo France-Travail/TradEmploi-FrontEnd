@@ -41,7 +41,6 @@ describe('Translation component on mono', () => {
         cy.get('.incoming-message').eq(0).click()
         cy.get('#msg-wrapper-advisor').should('have.value', 'bonjour')
         cy.contains('Hello').should('not.exist')
-        cy.contains('bonjour').should('exist')
     })
 
 
@@ -73,7 +72,6 @@ describe('Translation component on mono', () => {
         cy.get('.incoming-message').eq(0).click()
         cy.get('#msg-wrapper-guest').should('have.value', 'hello')
         cy.contains('Bonjour').should('not.exist')
-        cy.contains('hello').should('exist')
     })
 
     afterEach(() => {
