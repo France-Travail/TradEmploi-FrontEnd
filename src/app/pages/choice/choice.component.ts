@@ -107,19 +107,28 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   }
 
   private deactivate() {
-    if (this.user.roomId) {
-      if (this.user.role === Role.GUEST) {
-        const isEndClosed: boolean = this.endIdDialogRef === undefined;
-        if (isEndClosed) {
-          this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
-          this.settingsService.reset();
-        }
-      } else {
-        this.chatService.updateChatStatus(this.user.roomId, false);
-        this.chatService.delete(this.user.roomId);
-        this.settingsService.reset();
-      }
+    const isMulti : string = this.user.roomId
+    if (isMulti) {
+      this.deactivateMulti()
+    }else{
+      this.deactivateMono()
     }
+    this.settingsService.reset();
+  }
+
+  private deactivateMulti(){
+    if (this.user.role === Role.GUEST) {
+      const isEndClosed: boolean = this.endIdDialogRef === undefined;
+      if (isEndClosed) {
+        this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
+      }
+    } else {
+      this.chatService.updateChatStatus(this.user.roomId, false);
+    }
+  }
+
+  private deactivateMono(){
+    this.chatService.initChatMono(this.user.role)
   }
 
   public isoCodeToFlag(isoCode: string) {
