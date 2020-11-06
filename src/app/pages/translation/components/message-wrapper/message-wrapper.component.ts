@@ -128,7 +128,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         this.sendToOneDevice(message);
       }
       this.rawText = '';
-      this.translationMode = 'text';
+      this.translationMode = TranslationMode.TEXT;
       this.speak = false;
     }
   }
