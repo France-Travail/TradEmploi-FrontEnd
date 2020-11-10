@@ -14,7 +14,7 @@ export class KpiService {
     constructor(private toastService: ToastService, private tokenService: TokenService, private settingsService: SettingsService) { }
 
     public async create(roomId: string) {
-        if (roomId){
+        if (roomId) {
             const key = this.settingsService.token ? this.settingsService.token : await this.tokenService.getKey();
             const url = environment.firefunction.url;
             const data = {
@@ -57,8 +57,28 @@ export class KpiService {
                     }
                     device{
                         support
-                        guest
-                        advisor
+                        guest {
+                            equipment
+                            os {
+                                name
+                                version
+                            }
+                            browser {
+                                name
+                                version
+                            }
+                        }
+                        advisor {
+                            equipment
+                            os {
+                                name
+                                version
+                            }
+                            browser {
+                                name
+                                version
+                            }
+                        }
                     }
                 }
             }`
@@ -78,12 +98,20 @@ export class KpiService {
                         'Durée conversation': element.conversation.duration,
                         'Heure début conversation': element.conversation.begin,
                         'Heure fin conversation': element.conversation.end,
-                        'Nb utilisateurs' : element.conversation.nbUsers,
+                        'Nb utilisateurs': element.conversation.nbUsers,
                         'Langue(s)': element.conversation.languages,
                         'Mode traduction': element.conversation.translationMode,
                         'Support traduction': element.device.support,
-                        'Conseiller : Device': element.device.advisor,
-                        'DE(s) : Device': element.device.guest
+                        'Conseiller : Device': element.device.advisor.equipment,
+                        'DE(s) : Device': element.device.guest.equipment,
+                        'Conseiller : Système d\'exploitation (OS)': element.device.advisor.os.name,
+                        'Conseiller : Version OS': element.device.advisor.os.version,
+                        'Conseiller : Navigateur': element.device.advisor.browser.name,
+                        'Conseiller : Version Navigateur': element.device.advisor.browser.version,
+                        'DE(s) : Système d\'exploitation (OS)': element.device.guest.os.name,
+                        'DE(s)  : Version OS': element.device.guest.os.version,
+                        'DE(s): Navigateur': element.device.guest.browser.name,
+                        'DE : Version Navigateur': element.device.guest.browser.version
                     });
                 });
                 resolve(kpi);

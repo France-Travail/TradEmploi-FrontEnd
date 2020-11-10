@@ -28,10 +28,10 @@ export class SettingsComponent {
     this.exportCsv(rates, 'eval');
   }
 
-  private exportCsv(rates, name: string) {
+  private exportCsv(data, name: string) {
     const json2csvParser = new Parser({ delimiter: ';', encoding: 'utf8' });
-    const data = json2csvParser.parse(rates);
-    const blob = new Blob([data], { type: 'text/csv' });
+    const csv = json2csvParser.parse(data);
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.setAttribute('hidden', '');

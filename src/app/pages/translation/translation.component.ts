@@ -93,7 +93,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   scrollToBottom(): void {
     try {
       this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
-    } catch (err) {}
+    } catch (err) { }
   }
 
   public goto(where: string): void {
@@ -152,16 +152,16 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private async deactivate() {
-    const isMulti : string = this.user.roomId
+    const isMulti: string = this.user.roomId;
     if (isMulti) {
-      this.deactivateMulti()
-    }else{
-      this.deactivateMono()
+      this.deactivateMulti();
+    } else {
+      this.deactivateMono();
     }
     this.settingsService.reset();
   }
 
-  private deactivateMulti(){
+  private deactivateMulti() {
     if (this.isGuest) {
       const isEndClosed: boolean = this.endIdDialogRef === undefined;
       if (isEndClosed) {
@@ -172,8 +172,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
-  private deactivateMono(){
-    this.chatService.initChatMono(this.user.role)
+  private deactivateMono() {
+    this.chatService.initChatMono(this.user.role);
   }
 
   private initMultiDevices = (roomId) => {
@@ -191,11 +191,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private async addMultiMessageToChat(roomId: string) {
     let monoToMultiTime: number;
-    if (this.support === Support.MONOANDMULTIDEVICE || this.isGuest){
+    if (this.support === Support.MONOANDMULTIDEVICE || this.isGuest) {
       this.chatService.getMonoToMultiTime(roomId).subscribe(s => monoToMultiTime = s);
     }
     this.chatService.getMessagesWrapped(roomId).subscribe((mw: MessageWrapped[]) => {
-      if (this.support === Support.MONOANDMULTIDEVICE || this.isGuest){
+      if (this.support === Support.MONOANDMULTIDEVICE || this.isGuest) {
         mw = mw.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
       }
       if (mw.length > 0) {

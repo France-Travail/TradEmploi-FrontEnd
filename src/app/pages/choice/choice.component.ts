@@ -58,15 +58,15 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
 
   public selectLanguage(item: Vocabulary): void {
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode, languageName : item.languageNameFr }, connectionTime: Date.now() });
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr }, connectionTime: Date.now() });
     if (this.user.role === Role.GUEST) {
       const user = JSON.parse(sessionStorage.getItem('user'));
-      user.language = { audio: audioLanguage, written: item.isoCode, languageName : item.languageNameFr };
+      user.language = { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr };
       user.connectionTime = Date.now();
       sessionStorage.setItem('user', JSON.stringify(user));
     } else {
       const user = JSON.parse(localStorage.getItem('user'));
-      user.language = { audio: audioLanguage, written: item.isoCode, languageName : item.languageNameFr };
+      user.language = { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr };
       user.connectionTime = Date.now();
       localStorage.setItem('user', JSON.stringify(user));
     }
@@ -107,16 +107,16 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   }
 
   private deactivate() {
-    const isMulti : string = this.user.roomId
+    const isMulti: string = this.user.roomId;
     if (isMulti) {
-      this.deactivateMulti()
-    }else{
-      this.deactivateMono()
+      this.deactivateMulti();
+    } else {
+      this.deactivateMono();
     }
     this.settingsService.reset();
   }
 
-  private deactivateMulti(){
+  private deactivateMulti() {
     if (this.user.role === Role.GUEST) {
       const isEndClosed: boolean = this.endIdDialogRef === undefined;
       if (isEndClosed) {
@@ -127,8 +127,8 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     }
   }
 
-  private deactivateMono(){
-    this.chatService.initChatMono(this.user.role)
+  private deactivateMono() {
+    this.chatService.initChatMono(this.user.role);
   }
 
   public isoCodeToFlag(isoCode: string) {
