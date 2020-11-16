@@ -8,8 +8,6 @@ import { Rate } from 'src/app/models/rate';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
 import { ErrorCodes } from 'src/app/models/errorCodes';
-import { KpiService } from 'src/app/services/kpi.service';
-import { AuthService } from 'src/app/services/auth.service';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -47,7 +45,7 @@ export class RateDialogComponent implements OnInit {
       foreign: '',
     },
   };
-  private roomId: string;
+  private isMultiDevices: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<RateDialogComponent>,
@@ -58,8 +56,8 @@ export class RateDialogComponent implements OnInit {
     private chatService: ChatService
   ) {
     this.settingsService.user.subscribe((user) => {
-      if (user !== null && user.roomId !== undefined) {
-        this.roomId = user.roomId;
+      if (user !== null) {
+        this.isMultiDevices = user.isMultiDevices;
       }
     });
   }
@@ -106,10 +104,11 @@ export class RateDialogComponent implements OnInit {
         .saveRate()
         .then(async () => {
           this.dialogRef.close();
-          const isMono = !this.roomId;
+          const isMono = !this.isMultiDevices;
           if (isMono) {
-            const advisorRole = this.settingsService.user.value.role;
-            this.chatService.initChatMono(advisorRole);
+            const user = this.settingsService.user.value
+            const advisorRole = user.role;
+            this.chatService.initChatMono(user.roomId, advisorRole);
           }
           this.settingsService.reset();
           this.router.navigate(['thanks']);

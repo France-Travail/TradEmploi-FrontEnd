@@ -58,7 +58,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
           this.goto('choice');
         }
         this.isGuest = user.role === Role.GUEST;
-        this.isMultiDevices = user.roomId !== undefined;
+        this.isMultiDevices = user.isMultiDevices;
         this.messagesWrapped = [];
         this.chatService.messagesStored = [];
         this.chatService.errors = [];
@@ -153,8 +153,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private async deactivate() {
-    const isMulti: string = this.user.roomId;
-    if (isMulti) {
+    if (this.user.isMultiDevices) {
       this.deactivateMulti();
     } else {
       this.deactivateMono();
@@ -174,11 +173,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private deactivateMono() {
-    this.chatService.initChatMono(this.user.role);
+    this.chatService.initChatMono(this.user.roomId, this.user.role);
   }
 
   private initMultiDevices = (roomId) => {
     this.chatService.getChatStatus(roomId).subscribe((active) => {
+      console.log('active :>> ', active);
       if (active != null && active) {
         this.addMultiMessageToChat(roomId);
       } else {

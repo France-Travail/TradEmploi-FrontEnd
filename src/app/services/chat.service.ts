@@ -12,6 +12,8 @@ import { Device } from '../models/kpis/device';
 import { AdvisorDefaultName, GuestDefaultName } from './settings.service';
 import { ChatError } from '../models/kpis/chatError';
 import { ErrorTypes } from '../models/kpis/errorTypes';
+import { ErrorService } from './error.service';
+import { ERROR_UNKNOWCHAT } from '../models/error/errorFunctionnal';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +25,7 @@ export class ChatService {
   public errors: ChatError[] = [];
   private device: Device;
 
-  constructor(private db: AngularFireDatabase, private cryptService: CryptService, private deviceService: DeviceService) {
+  constructor(private db: AngularFireDatabase, private cryptService: CryptService, private deviceService: DeviceService, private errorService: ErrorService) {
     this.device = this.deviceService.getUserDevice();
   }
 
@@ -31,9 +33,8 @@ export class ChatService {
     return (10000000 + Math.floor(Math.random() * 10000000)).toString();
   }
 
-  initChatMono(advisorRole: Role) {
+  initChatMono(roomId: string, advisorRole: Role) {
     this.support = Support.MONODEVICE;
-    const roomId = this.getRoomId();
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
     if (this.messagesStored.length > 0 || this.errors.length > 0) {
       const advisor: Member = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
@@ -60,12 +61,11 @@ export class ChatService {
 
   initUnknownChat() {
     this.support = Support.MULTIDEVICE;
-    const date = new Date();
-    this.addError(date, ErrorTypes.UNKNOWNCHAT);
     const roomId = this.getRoomId();
     const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
     const chatCreateDto: InitChatDto = { members: [guest], messages: [] };
     this.create(roomId, chatCreateDto);
+    this.errorService.saveError(ERROR_UNKNOWCHAT)
   }
 
   hasRoom(roomId: string): Observable<boolean> {
@@ -146,7 +146,7 @@ export class ChatService {
       lasttime: new Date().getTime().toString(),
       active: true,
       support: this.support,
-      errors: this.errors,
+      // errors: this.errors,
       ...initChatDto
     };
     return this.db.object(`chats/${roomId}`).set(chat)
@@ -156,13 +156,13 @@ export class ChatService {
       });
   }
 
-  addError(date: Date, error: ErrorTypes) {
-    this.errors.push({
-      date: date.toLocaleDateString('fr-FR'),
-      hour: date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
-      type: error
-    });
-  }
+  // addError(date: Date, error: ErrorTypes) {
+  //   this.errors.push({
+  //     date: date.toLocaleDateString('fr-FR'),
+  //     hour: date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
+  //     type: error
+  //   });
+  // }
 }
 
 interface InitChatDto {

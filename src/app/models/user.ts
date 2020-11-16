@@ -9,4 +9,5 @@ export interface User {
   roomId: string;
   role: Role;
   connectionTime: number;
+  isMultiDevices: boolean;
 }

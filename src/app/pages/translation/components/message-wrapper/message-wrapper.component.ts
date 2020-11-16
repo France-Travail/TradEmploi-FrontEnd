@@ -1,3 +1,4 @@
+import { ERROR_NOSOUND, ERROR_UNAUTHORIZEDMICRO, ERROR_TRANSLATIONUNAVAILABLE } from './../../../../models/error/errorFunctionnal';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,7 +16,7 @@ import { User } from 'src/app/models/user';
 import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 import { ErrorCodes } from 'src/app/models/errorCodes';
 import { TranslationMode } from 'src/app/models/kpis/translationMode';
-import { ErrorTypes } from 'src/app/models/kpis/errorTypes';
+import { ErrorService } from 'src/app/services/error.service';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -44,6 +45,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public speak: boolean = false;
   public translationMode: string = TranslationMode.TEXT;
   public languageName: string;
+
   private isMobile: boolean = false;
 
   constructor(
@@ -54,7 +56,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     public router: Router,
     private breakpointObserver: BreakpointObserver,
     private speechRecognitionService: SpeechRecognitionService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private errorService: ErrorService
   ) { }
 
   ngOnInit(): void {
@@ -88,8 +91,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       this.speak = true;
     } else {
       this.toastService.showToast(ErrorCodes.UNAUTHORIZEDMICRO, 'toast-info');
-      const date = new Date();
-      this.chatService.addError(date, ErrorTypes.UNAUTHORIZEDMICRO);
+      this.errorService.saveError(ERROR_UNAUTHORIZEDMICRO)
     }
   }
 
@@ -124,8 +126,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     if (this.rawText !== '') {
       const user = this.settingsService.user.value;
       const message = messageAudio === undefined ? this.rawText : messageAudio;
-      const isMultiDevices = user.roomId !== undefined;
-      if (isMultiDevices) {
+      if (user.isMultiDevices) {
         this.sendToMultiDevices(user, message);
       } else {
         this.sendToOneDevice(message);
@@ -152,15 +153,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.rawText = undefined;
     if (message === ErrorCodes.NOSOUNDERROR) {
       this.toastService.showToast(ErrorCodes.NOSOUNDERROR, 'toast-error');
-      const date = new Date();
-      this.chatService.addError(date, ErrorTypes.NOSOUNDERROR);
+      this.errorService.saveError(ERROR_NOSOUND)
     } else {
       if (message !== '') {
         this.send(false, message);
       } else {
         this.toastService.showToast(ErrorCodes.TRANSLATIONUNAVAILABLE, 'toast-error');
-        const date = new Date();
-        this.chatService.addError(date, ErrorTypes.TRANSLATIONUNAVAILABLE);
+        this.errorService.saveError(ERROR_TRANSLATIONUNAVAILABLE)
       }
     }
   }

@@ -10,5 +10,4 @@ export interface Chat {
   members: Array<Member>;
   messages?: Array<MessageWrapped>;
   monoToMultiTime?: number;
-  errors: Array<ChatError>;
 }

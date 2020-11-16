@@ -1,11 +1,12 @@
+import { ERROR_TTS_API } from './../models/error/errorTechnical';
 // Angular
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VoicesService } from './voices.service';
 import { environment } from 'src/environments/environment';
 import { Voice } from '../models/voice';
-import { ChatService } from './chat.service';
 import { ErrorTypes } from '../models/kpis/errorTypes';
+import { ErrorService } from './error.service';
 
 interface Body {
   audioConfig: {
@@ -42,7 +43,7 @@ export class TextToSpeechService {
     }),
   };
 
-  constructor(private httpClient: HttpClient, private voicesService: VoicesService, private chatService: ChatService) {}
+  constructor(private httpClient: HttpClient, private voicesService: VoicesService, private errorService: ErrorService) {}
 
   public async getSpeech(text: string, language: string): Promise<boolean> {
     return new Promise((resolve) => {
@@ -79,8 +80,7 @@ export class TextToSpeechService {
           },
           (error) => {
             resolve(false);
-            const date = new Date();
-            this.chatService.addError(date, ErrorTypes.TTSERROR);
+            this.errorService.saveError(ERROR_TTS_API)
             throw new Error(error.message);
           }
         );

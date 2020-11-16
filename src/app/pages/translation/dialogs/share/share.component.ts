@@ -26,7 +26,7 @@ export class ShareComponent implements OnInit {
 
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {
-      if (user != null && user.roomId === undefined) {
+      if (user != null && !user.isMultiDevices) {
         this.canCreate = true;
         this.roomId = this.chatService.getRoomId();
         this.link = window.location.origin + '/invite/' + this.roomId;
@@ -64,8 +64,13 @@ export class ShareComponent implements OnInit {
   private initChat(){
     const advisorRole: Role = this.settingsService.user.value.role;
     (this.chatService.messagesStored.length > 0) ?
-      this.chatService.initChatMonoMulti(this.roomId, advisorRole) :
+      this.initChatMonoMulti(advisorRole) :
       this.chatService.initChatMulti(this.roomId, advisorRole);
+  }
+
+  private initChatMonoMulti(advisorRole: Role){
+    const roomId: string = this.settingsService.user.value.roomId ? this.settingsService.user.value.roomId: this.roomId
+    this.chatService.initChatMonoMulti(roomId, advisorRole) 
   }
 
   private userOnLocalStorage(){
@@ -73,10 +78,12 @@ export class ShareComponent implements OnInit {
       ...this.settingsService.user.value,
       language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written, languageName: this.settingsService.defaultLanguage.languageName },
       roomId: this.roomId,
+      isMultiDevices: true
     });
     const user = JSON.parse(localStorage.getItem('user'));
     user.language = { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written };
     user.roomId = this.roomId;
+    user.isMultiDevices = true;
     localStorage.setItem('user', JSON.stringify(user));
   }
 }

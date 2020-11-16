@@ -1,8 +1,9 @@
+import { ERROR_NOSOUND } from './../models/error/errorFunctionnal';
 import { Injectable } from '@angular/core';
 import { SpeechToTextSyncService } from './speech-to-text-sync.service';
 import { Subject } from 'rxjs';
-import { ErrorTypes } from '../models/kpis/errorTypes';
-import { ChatService } from './chat.service';
+import { ErrorService } from './error.service';
+import { SettingsService } from './settings.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,7 +20,7 @@ export class AudioRecordingService {
   private worker: Worker;
 
 
-  constructor(private chatService: ChatService) {
+  constructor(private errorService: ErrorService) {
     this.worker = new Worker('../worker/flac.worker', { type: 'module' });
   }
 
@@ -57,8 +58,7 @@ export class AudioRecordingService {
             (resultat) => this.speechToText.next(resultat),
             (error) => {
               this.speechToText.error(error);
-              const date = new Date();
-              this.chatService.addError(date, ErrorTypes.NOSOUNDERROR);
+              this.errorService.saveError(ERROR_NOSOUND)
             }
           );
         }

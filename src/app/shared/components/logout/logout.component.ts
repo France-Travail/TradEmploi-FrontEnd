@@ -16,14 +16,12 @@ import { FRENCH, ENGLISH } from 'src/app/data/sentence';
 })
 export class LogoutComponent {
   public logoutWording: Logout;
-  private roomId: string;
   private isGuest: boolean = false;
   private user: User;
 
   constructor(private dialogRef: MatDialogRef<LogoutComponent>, public router: Router, private authService: AuthService, private chatService: ChatService, private settingsService: SettingsService) {
     this.settingsService.user.subscribe((user: User) => {
       if (user !== null) {
-        this.roomId = user.roomId ? user.roomId : undefined;
         this.isGuest = user.role === Role.GUEST;
         this.user = user;
         this.logoutWording = this.isGuest ? ENGLISH.logout : FRENCH.logout;
@@ -33,7 +31,7 @@ export class LogoutComponent {
 
   public async confirm() {
     this.dialogRef.close();
-    if (this.roomId) {
+    if (this.user.isMultiDevices) {
       this.handleMulti();
     } else {
       this.handleMono();
@@ -44,14 +42,14 @@ export class LogoutComponent {
 
   private handleMono() {
     const advisorRole: Role = this.user.role;
-    this.chatService.initChatMono(advisorRole);
+    this.chatService.initChatMono(this.user.roomId, advisorRole);
   }
 
   private handleMulti() {
     if (this.isGuest) {
-      this.chatService.notifyAdvisor(this.roomId, this.user.firstname);
+      this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
     } else {
-      this.chatService.updateChatStatus(this.roomId, false);
+      this.chatService.updateChatStatus(this.user.roomId, false);
     }
     this.settingsService.reset();
   }

@@ -27,7 +27,6 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   public otherLanguageEn: string = 'OTHER LANGUAGES';
 
   private endIdDialogRef: MatDialogRef<any, any>;
-  private isMultiDevices: boolean = false;
   private user: User;
   constructor(
     private textToSpeechService: TextToSpeechService,
@@ -40,8 +39,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     this.navService.handleTabsChoice();
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
-        this.isMultiDevices = user.roomId !== undefined;
-        if (this.isMultiDevices && user.role === Role.GUEST) {
+        if (user.isMultiDevices && user.role === Role.GUEST) {
           this.endConversation(user.roomId);
         }
         this.user = user;
@@ -107,8 +105,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   }
 
   private deactivate() {
-    const isMulti: string = this.user.roomId;
-    if (isMulti) {
+    if (this.user.isMultiDevices) {
       this.deactivateMulti();
     } else {
       this.deactivateMono();
@@ -128,7 +125,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   }
 
   private deactivateMono() {
-    this.chatService.initChatMono(this.user.role);
+    this.chatService.initChatMono(this.user.roomId, this.user.role);
   }
 
   public isoCodeToFlag(isoCode: string) {
