@@ -18,7 +18,7 @@ import { EndComponent } from './dialogs/end/end.component';
 import { CryptService } from 'src/app/services/crypt.service';
 import { Language } from 'src/app/models/language';
 import { AdvisorDefaultName } from './../../services/settings.service';
-import { Support } from 'src/app/models/support';
+import { Support } from 'src/app/models/kpis/support';
 
 @Component({
   selector: 'app-translation',
@@ -61,6 +61,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.isMultiDevices = user.roomId !== undefined;
         this.messagesWrapped = [];
         this.chatService.messagesStored = [];
+        this.chatService.errors = [];
         this.support = this.chatService.support;
         if (this.isMultiDevices) {
           this.initMultiDevices(user.roomId);

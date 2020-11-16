@@ -6,6 +6,8 @@ import { ToastService } from 'src/app/services/toast.service';
 import { Role } from 'src/app/models/role';
 import { ErrorCodes } from 'src/app/models/errorCodes';
 import { Vocabulary } from 'src/app/models/vocabulary';
+import { ErrorTypes } from 'src/app/models/kpis/errorTypes';
+import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-record',
@@ -28,7 +30,8 @@ export class RecordComponent implements OnInit {
   public canSend: boolean = false;
   public inProgress: boolean = false;
 
-  constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService, private toastService: ToastService) { }
+  constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService, private toastService: ToastService, private chatService: ChatService) { }
+
 
   ngOnInit(): void {
     this.start();
@@ -108,6 +111,8 @@ export class RecordComponent implements OnInit {
         (err) => {
           this.inProgress = false;
           this.toastService.showToast(ErrorCodes.STOTERROR, 'toast-error');
+          const date = new Date();
+          this.chatService.addError(date, ErrorTypes.STTERROR);
           this.send.emit('');
         }
       );

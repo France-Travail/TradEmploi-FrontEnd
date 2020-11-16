@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SpeechToTextSyncService } from './speech-to-text-sync.service';
 import { Subject } from 'rxjs';
+import { ErrorTypes } from '../models/kpis/errorTypes';
+import { ChatService } from './chat.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +18,8 @@ export class AudioRecordingService {
   private audioOnBlob: Blob;
   private worker: Worker;
 
-  constructor() {
+
+  constructor(private chatService: ChatService) {
     this.worker = new Worker('../worker/flac.worker', { type: 'module' });
   }
 
@@ -54,6 +57,8 @@ export class AudioRecordingService {
             (resultat) => this.speechToText.next(resultat),
             (error) => {
               this.speechToText.error(error);
+              const date = new Date();
+              this.chatService.addError(date, ErrorTypes.NOSOUNDERROR);
             }
           );
         }

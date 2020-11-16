@@ -14,7 +14,8 @@ import { Role } from 'src/app/models/role';
 import { User } from 'src/app/models/user';
 import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 import { ErrorCodes } from 'src/app/models/errorCodes';
-import { TranslationMode } from 'src/app/models/translationMode';
+import { TranslationMode } from 'src/app/models/kpis/translationMode';
+import { ErrorTypes } from 'src/app/models/kpis/errorTypes';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -87,6 +88,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       this.speak = true;
     } else {
       this.toastService.showToast(ErrorCodes.UNAUTHORIZEDMICRO, 'toast-info');
+      const date = new Date();
+      this.chatService.addError(date, ErrorTypes.UNAUTHORIZEDMICRO);
     }
   }
 
@@ -149,11 +152,15 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.rawText = undefined;
     if (message === ErrorCodes.NOSOUNDERROR) {
       this.toastService.showToast(ErrorCodes.NOSOUNDERROR, 'toast-error');
+      const date = new Date();
+      this.chatService.addError(date, ErrorTypes.NOSOUNDERROR);
     } else {
       if (message !== '') {
         this.send(false, message);
       } else {
         this.toastService.showToast(ErrorCodes.TRANSLATIONUNAVAILABLE, 'toast-error');
+        const date = new Date();
+        this.chatService.addError(date, ErrorTypes.TRANSLATIONUNAVAILABLE);
       }
     }
   }
@@ -192,7 +199,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       date: date.toLocaleDateString('fr-FR'),
       hour: date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
       languageOrigin: this.languageOrigin,
-      languageName : this.languageName,
+      languageName: this.languageName,
       flag: this.flag,
       role: this.role,
       text,

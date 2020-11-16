@@ -63,7 +63,7 @@ export class ShareComponent implements OnInit {
 
   private initChat(){
     const advisorRole: Role = this.settingsService.user.value.role;
-    this.chatService.messagesStored.length > 0 ?
+    (this.chatService.messagesStored.length > 0) ?
       this.chatService.initChatMonoMulti(this.roomId, advisorRole) :
       this.chatService.initChatMulti(this.roomId, advisorRole);
   }

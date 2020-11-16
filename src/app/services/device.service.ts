@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { Device } from '../models/device';
-import { DeviceType } from '../models/deviceType';
+import { Device } from '../models/kpis/device';
+import { DeviceType } from '../models/kpis/deviceType';
 
 @Injectable({
   providedIn: 'root'

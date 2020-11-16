@@ -80,6 +80,11 @@ export class KpiService {
                             }
                         }
                     }
+                    errors {
+                        date
+                        hour
+                        type
+                    }
                 }
             }`
         };
@@ -94,24 +99,27 @@ export class KpiService {
                 const kpi = [];
                 dataKpi.forEach(element => {
                     kpi.push({
-                        'Date conversation': element.conversation.day,
-                        'Durée conversation': element.conversation.duration,
-                        'Heure début conversation': element.conversation.begin,
-                        'Heure fin conversation': element.conversation.end,
-                        'Nb utilisateurs': element.conversation.nbUsers,
-                        'Langue(s)': element.conversation.languages,
-                        'Mode traduction': element.conversation.translationMode,
-                        'Support traduction': element.device.support,
-                        'Conseiller : Device': element.device.advisor.equipment,
-                        'DE(s) : Device': element.device.guest.equipment,
-                        'Conseiller : Système d\'exploitation (OS)': element.device.advisor.os.name,
-                        'Conseiller : Version OS': element.device.advisor.os.version,
-                        'Conseiller : Navigateur': element.device.advisor.browser.name,
-                        'Conseiller : Version Navigateur': element.device.advisor.browser.version,
-                        'DE(s) : Système d\'exploitation (OS)': element.device.guest.os.name,
-                        'DE(s)  : Version OS': element.device.guest.os.version,
-                        'DE(s): Navigateur': element.device.guest.browser.name,
-                        'DE : Version Navigateur': element.device.guest.browser.version
+                        'Date conversation': element.conversation.day ? element.conversation.day : 'N.A',
+                        'Durée conversation': element.conversation.duration ? element.conversation.duration : 'N.A',
+                        'Heure début conversation': element.conversation.begin ? element.conversation.begin : 'N.A',
+                        'Heure fin conversation': element.conversation.end ? element.conversation.end : 'N.A',
+                        'Nb utilisateurs': element.conversation.nbUsers ? element.conversation.nbUsers : 'N.A',
+                        'Langue(s)': element.conversation.languages ? element.conversation.languages : 'N.A',
+                        'Mode traduction': element.conversation.translationMode ? element.conversation.translationMode : 'N.A',
+                        'Support traduction': element.device.support ? element.device.support : 'N.A',
+                        'Conseiller : Device': element.device.advisor.equipment ? element.device.advisor.equipment : 'N.A',
+                        'DE(s) : Device': element.device.guest.equipment ? element.device.guest.equipment : 'N.A',
+                        'Conseiller : Système d\'exploitation (OS)': element.device.advisor.os.name ? element.device.advisor.os.name : 'N.A',
+                        'Conseiller : Version OS': element.device.advisor.os.version ? element.device.advisor.os.version : 'N.A',
+                        'Conseiller : Navigateur': element.device.advisor.browser.name ? element.device.advisor.browser.name : 'N.A',
+                        'Conseiller : Version Navigateur': element.device.advisor.browser.version ? element.device.advisor.browser.version : 'N.A',
+                        'DE(s) : Système d\'exploitation (OS)': element.device.guest.os.name ? element.device.guest.os.name : 'N.A',
+                        'DE(s)  : Version OS': element.device.guest.os.version ? element.device.guest.os.version : 'N.A',
+                        'DE(s): Navigateur': element.device.guest.browser.name ? element.device.guest.browser.name : 'N.A',
+                        'DE : Version Navigateur': element.device.guest.browser.version ? element.device.guest.browser.version : 'N.A',
+                        'Date erreur': element.errors ? element.errors.date : '',
+                        'Heure erreur': element.errors ? element.errors.hour : '',
+                        'Erreur technique': element.errors ? element.errors.type : ''
                     });
                 });
                 resolve(kpi);

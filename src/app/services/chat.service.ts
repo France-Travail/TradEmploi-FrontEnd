@@ -5,11 +5,13 @@ import { Observable } from 'rxjs';
 import { Member } from '../models/db/member';
 import { MessageWrapped } from '../models/translate/message-wrapped';
 import { CryptService } from './crypt.service';
-import { Support } from '../models/support';
+import { Support } from '../models/kpis/support';
 import { Role } from '../models/role';
 import { DeviceService } from './device.service';
-import { Device } from '../models/device';
+import { Device } from '../models/kpis/device';
 import { AdvisorDefaultName, GuestDefaultName } from './settings.service';
+import { ChatError } from '../models/kpis/chatError';
+import { ErrorTypes } from '../models/kpis/errorTypes';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +20,7 @@ export class ChatService {
 
   public messagesStored: MessageWrapped[] = [];
   public support: Support = Support.MONODEVICE;
-
+  public errors: ChatError[] = [];
   private device: Device;
 
   constructor(private db: AngularFireDatabase, private cryptService: CryptService, private deviceService: DeviceService) {
@@ -33,10 +35,10 @@ export class ChatService {
     this.support = Support.MONODEVICE;
     const roomId = this.getRoomId();
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
-    if (this.messagesStored.length > 0){
+    if (this.messagesStored.length > 0 || this.errors.length > 0) {
       const advisor: Member = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
       const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
-      const chatCreateDto: InitChatDto = {members: [advisor, guest], messages: this.messagesStored};
+      const chatCreateDto: InitChatDto = { members: [advisor, guest], messages: this.messagesStored };
       this.create(roomId, chatCreateDto);
     }
   }
@@ -44,7 +46,7 @@ export class ChatService {
   initChatMulti(roomId: string, advisorRole: Role): Promise<boolean> {
     this.support = Support.MULTIDEVICE;
     const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
-    const chatCreateDto: InitChatDto = {members: [advisor]};
+    const chatCreateDto: InitChatDto = { members: [advisor] };
     return this.create(roomId, chatCreateDto);
   }
 
@@ -52,8 +54,18 @@ export class ChatService {
     this.support = Support.MONOANDMULTIDEVICE;
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
     const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
-    const chatCreateDto: InitChatDto = {members: [advisor], messages: this.messagesStored, monoToMultiTime: Date.now()};
+    const chatCreateDto: InitChatDto = { members: [advisor], messages: this.messagesStored, monoToMultiTime: Date.now() };
     return this.create(roomId, chatCreateDto);
+  }
+
+  initUnknownChat() {
+    this.support = Support.MULTIDEVICE;
+    const date = new Date();
+    this.addError(date, ErrorTypes.UNKNOWNCHAT);
+    const roomId = this.getRoomId();
+    const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
+    const chatCreateDto: InitChatDto = { members: [guest], messages: [] };
+    this.create(roomId, chatCreateDto);
   }
 
   hasRoom(roomId: string): Observable<boolean> {
@@ -109,8 +121,8 @@ export class ChatService {
   delete(roomId: string): Promise<boolean> {
     const promise = this.db.object(`chats/${roomId}`).remove();
     return promise
-      .then( _ => true)
-      .catch( _ => {
+      .then(_ => true)
+      .catch(_ => {
         return false;
       });
   }
@@ -123,8 +135,8 @@ export class ChatService {
     return this.db
       .object(`chats/${roomId}/active`)
       .set(active)
-      .then( _ => true)
-      .catch( _ => {
+      .then(_ => true)
+      .catch(_ => {
         return false;
       });
   }
@@ -134,13 +146,22 @@ export class ChatService {
       lasttime: new Date().getTime().toString(),
       active: true,
       support: this.support,
-      ... initChatDto
+      errors: this.errors,
+      ...initChatDto
     };
     return this.db.object(`chats/${roomId}`).set(chat)
       .then(_ => true)
       .catch(_ => {
         return false;
       });
+  }
+
+  addError(date: Date, error: ErrorTypes) {
+    this.errors.push({
+      date: date.toLocaleDateString('fr-FR'),
+      hour: date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
+      type: error
+    });
   }
 }
 

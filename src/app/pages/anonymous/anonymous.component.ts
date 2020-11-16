@@ -10,7 +10,8 @@ import { ErrorCodes } from 'src/app/models/errorCodes';
 import { Role } from 'src/app/models/role';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DeviceService } from 'src/app/services/device.service';
-import { Support } from 'src/app/models/support';
+import { Support } from 'src/app/models/kpis/support';
+import { ErrorTypes } from 'src/app/models/kpis/errorTypes';
 
 @Component({
   selector: 'app-anonymous',
@@ -64,6 +65,7 @@ export class AnonymousComponent implements OnInit {
   private onSubmitWithoutRoom(){
     this.afAuth.auth.currentUser.delete();
     this.toastService.showToast(ErrorCodes.NONEXISTANTCHAT, 'toast-error');
+    this.chatService.initNonexistantChat();
     this.router.navigate(['/start']);
   }
 

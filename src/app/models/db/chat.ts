@@ -1,6 +1,7 @@
 import { Member } from './member';
 import { MessageWrapped } from '../translate/message-wrapped';
-import { Support } from '../support';
+import { Support } from '../kpis/support';
+import { ChatError } from '../kpis/chatError';
 
 export interface Chat {
   lasttime: string;
@@ -9,4 +10,5 @@ export interface Chat {
   members: Array<Member>;
   messages?: Array<MessageWrapped>;
   monoToMultiTime?: number;
+  errors: Array<ChatError>;
 }

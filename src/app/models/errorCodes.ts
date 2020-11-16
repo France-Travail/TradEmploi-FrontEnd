@@ -1,8 +1,8 @@
 export enum ErrorCodes {
-  NOSOUNDERROR = 'No sound detected',
-  UNAUTHORIZEDMICRO = 'Microphone access is unauthorized',
-  TRANSLATIONUNAVAILABLE = 'Translation temporarily unavailable. Please try again later.',
-  NONEXISTANTCHAT = 'The chat doesn\'t exist',
+  NOSOUNDERROR = 'Pas de son détecté',
+  UNAUTHORIZEDMICRO = 'Inaccès au microphone',
+  TRANSLATIONUNAVAILABLE = 'Traduction de la voix au texte est indisponible momentanément. Merci de réessayer plus tard.',
+  NONEXISTANTCHAT = 'Chat inexistant',
   EXPORTERROR = 'Erreur lors de l\'export du fichier',
   KPIERROR = 'Erreur lors de la récupération de la clef des statistiques',
   KPICALLERROR = 'Erreur lors de la récupération des statistiques',

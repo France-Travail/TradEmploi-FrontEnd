@@ -1,4 +1,4 @@
-import { Device } from '../device';
+import { Device } from '../kpis/device';
 import { Role } from '../role';
 
 export interface Member {

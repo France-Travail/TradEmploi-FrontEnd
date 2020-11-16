@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VoicesService } from './voices.service';
 import { environment } from 'src/environments/environment';
 import { Voice } from '../models/voice';
+import { ChatService } from './chat.service';
+import { ErrorTypes } from '../models/kpis/errorTypes';
 
 interface Body {
   audioConfig: {
@@ -40,7 +42,7 @@ export class TextToSpeechService {
     }),
   };
 
-  constructor(private httpClient: HttpClient, private voicesService: VoicesService) {}
+  constructor(private httpClient: HttpClient, private voicesService: VoicesService, private chatService: ChatService) {}
 
   public async getSpeech(text: string, language: string): Promise<boolean> {
     return new Promise((resolve) => {
@@ -77,6 +79,8 @@ export class TextToSpeechService {
           },
           (error) => {
             resolve(false);
+            const date = new Date();
+            this.chatService.addError(date, ErrorTypes.TTSERROR);
             throw new Error(error.message);
           }
         );
