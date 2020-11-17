@@ -3,9 +3,6 @@ import axios from 'axios';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { ErrorCodes } from '../models/errorCodes';
-import { ChatService } from './chat.service';
-import { ErrorTypes } from '../models/kpis/errorTypes';
-
 @Injectable({
   providedIn: 'root',
 })

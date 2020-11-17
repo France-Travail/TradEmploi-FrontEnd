@@ -11,7 +11,6 @@ import { Role } from 'src/app/models/role';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DeviceService } from 'src/app/services/device.service';
 import { Support } from 'src/app/models/kpis/support';
-import { ErrorTypes } from 'src/app/models/kpis/errorTypes';
 
 @Component({
   selector: 'app-anonymous',

@@ -1,6 +1,7 @@
 export interface ErrorPe {
     roomId: String,
-    date: Date,
+    day: String,
+    hour: String,
     detail: ErrorDetail
 }
 export interface ErrorDetail{

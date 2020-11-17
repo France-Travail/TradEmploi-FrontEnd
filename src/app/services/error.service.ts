@@ -13,14 +13,18 @@ export class ErrorService {
 
     public saveError(detail: ErrorDetail): Promise<void> {
         const roomId: string = this.settingService.user.value.roomId
+        const date = new Date()
+        const day = date.toLocaleDateString('fr-FR')
+        const hour = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
         const error: ErrorPe = {
             roomId: roomId,
-            date: new Date(),
+            day: day,
+            hour: hour,
             detail: detail
         }
         return this.afs
         .collection(this.db)
-        .doc<ErrorPe>(roomId)
+        .doc<ErrorPe>(this.afs.createId())
         .set(error);
     }
 }

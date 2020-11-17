@@ -11,7 +11,6 @@ import { DeviceService } from './device.service';
 import { Device } from '../models/kpis/device';
 import { AdvisorDefaultName, GuestDefaultName } from './settings.service';
 import { ChatError } from '../models/kpis/chatError';
-import { ErrorTypes } from '../models/kpis/errorTypes';
 import { ErrorService } from './error.service';
 import { ERROR_UNKNOWCHAT } from '../models/error/errorFunctionnal';
 
@@ -22,7 +21,6 @@ export class ChatService {
 
   public messagesStored: MessageWrapped[] = [];
   public support: Support = Support.MONODEVICE;
-  public errors: ChatError[] = [];
   private device: Device;
 
   constructor(private db: AngularFireDatabase, private cryptService: CryptService, private deviceService: DeviceService, private errorService: ErrorService) {
@@ -36,7 +34,7 @@ export class ChatService {
   initChatMono(roomId: string, advisorRole: Role) {
     this.support = Support.MONODEVICE;
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
-    if (this.messagesStored.length > 0 || this.errors.length > 0) {
+    if (this.messagesStored.length > 0) {
       const advisor: Member = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
       const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
       const chatCreateDto: InitChatDto = { members: [advisor, guest], messages: this.messagesStored };

@@ -1,3 +1,5 @@
+import { ERROR_EXPORT_KPI } from './../models/error/errorTechnical';
+import { ErrorService } from 'src/app/services/error.service';
 import axios from 'axios';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
@@ -11,7 +13,7 @@ import { SettingsService } from './settings.service';
 })
 export class KpiService {
 
-    constructor(private toastService: ToastService, private tokenService: TokenService, private settingsService: SettingsService) { }
+    constructor(private toastService: ToastService, private tokenService: TokenService, private settingsService: SettingsService, private errorService: ErrorService) { }
 
     public async create(roomId: string) {
         if (roomId) {
@@ -80,10 +82,10 @@ export class KpiService {
                             }
                         }
                     }
-                    errors {
-                        date
-                        hour
-                        type
+                    error {
+                        day
+                        hours
+                        descriptions
                     }
                 }
             }`
@@ -117,14 +119,15 @@ export class KpiService {
                         'DE(s)  : Version OS': element.device.guest.os.version ? element.device.guest.os.version : 'N.A',
                         'DE(s): Navigateur': element.device.guest.browser.name ? element.device.guest.browser.name : 'N.A',
                         'DE : Version Navigateur': element.device.guest.browser.version ? element.device.guest.browser.version : 'N.A',
-                        'Date erreur': element.errors ? element.errors.date : '',
-                        'Heure erreur': element.errors ? element.errors.hour : '',
-                        'Erreur technique': element.errors ? element.errors.type : ''
+                        'Date erreur': element.error ? element.error.day : '',
+                        'Heure erreur': element.error ? element.error.hours : '',
+                        'Erreur technique': element.error ? element.error.descriptions : ''
                     });
                 });
                 resolve(kpi);
             }).catch((err) => {
-                this.toastService.showToast(ErrorCodes.KPICALLERROR, 'toast-error');
+                this.toastService.showToast(ERROR_EXPORT_KPI.description as string, 'toast-error');
+                this.errorService.saveError(ERROR_EXPORT_KPI)
                 reject(err);
             });
         });

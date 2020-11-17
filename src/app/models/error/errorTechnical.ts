@@ -5,23 +5,23 @@ export const ERROR_EXPORT: ErrorDetail  = {
     description: 'Erreur lors de l\'export du fichier'
 }
 
-export const ERROR_KPI: ErrorDetail  = {
+export const ERROR_EXPORT_STATS: ErrorDetail  = {
     code: '501',
-    description: 'Erreur lors de la récupération de la clef des statistiques'
+    description: 'Erreur lors de la récupération du fichier de statistiques'
 }
 
-export const ERROR_KPICALL: ErrorDetail  = {
-    code: '502',
-    description: 'Erreur lors de la récupération de la clef des statistiques'
+export const ERROR_EXPORT_KPI: ErrorDetail  = {
+    code: '501',
+    description: 'Erreur lors de la récupération du fichier des kpis'
 }
 
 export const ERROR_DB: ErrorDetail  = {
-    code: '503',
+    code: '502',
     description: 'La base de donnée est indisponible momentanément. Merci de réessayer plus tard'
 }
 
 export const ERROR_NOTATION: ErrorDetail  = {
-    code: '504',
+    code: '503',
     description: 'La notation n\'a pas pu être envoyée. Redirection en cours'
 }
 

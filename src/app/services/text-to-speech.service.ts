@@ -1,11 +1,9 @@
 import { ERROR_TTS_API } from './../models/error/errorTechnical';
-// Angular
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VoicesService } from './voices.service';
 import { environment } from 'src/environments/environment';
 import { Voice } from '../models/voice';
-import { ErrorTypes } from '../models/kpis/errorTypes';
 import { ErrorService } from './error.service';
 
 interface Body {
@@ -32,7 +30,7 @@ interface Body {
   providedIn: 'root',
 })
 export class TextToSpeechService {
-  private url: string = 'https://texttospeech.googleapis.com/v1beta1/text:synthesize';
+  private url: string = 'https://texttospeech2.googleapis.com/v1beta1/text:synthesize';
   public guestVoiceGender: string = 'MALE';
   public advisorVoiceGender: string = 'MALE';
   public audioSpeech: HTMLAudioElement = undefined;
