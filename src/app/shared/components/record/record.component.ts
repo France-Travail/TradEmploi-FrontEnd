@@ -4,10 +4,10 @@ import { AudioRecordingService } from 'src/app/services/audio-recording.service'
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ToastService } from 'src/app/services/toast.service';
 import { Role } from 'src/app/models/role';
-import { ErrorCodes } from 'src/app/models/errorCodes';
 import { Vocabulary } from 'src/app/models/vocabulary';
-import { ERROR_STT_API } from 'src/app/models/error/errorTechnical';
+import { ERROR_TECH_STT } from 'src/app/models/error/errorTechnical';
 import { ErrorService } from 'src/app/services/error.service';
+import { ERROR_FUNC_STT } from 'src/app/models/error/errorFunctionnal';
 
 @Component({
   selector: 'app-record',
@@ -113,8 +113,7 @@ export class RecordComponent implements OnInit {
         },
         (err) => {
           this.inProgress = false;
-          this.toastService.showToast(ErrorCodes.STOTERROR, 'toast-error');
-          this.errorService.saveError(ERROR_STT_API)
+          this.toastService.showToast(ERROR_FUNC_STT.description as string, 'toast-error');
           this.send.emit('');
         }
       );

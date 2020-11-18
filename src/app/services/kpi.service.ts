@@ -127,7 +127,7 @@ export class KpiService {
                 resolve(kpi);
             }).catch((err) => {
                 this.toastService.showToast(ERROR_EXPORT_KPI.description as string, 'toast-error');
-                this.errorService.saveError(ERROR_EXPORT_KPI)
+                this.errorService.save(ERROR_EXPORT_KPI)
                 reject(err);
             });
         });

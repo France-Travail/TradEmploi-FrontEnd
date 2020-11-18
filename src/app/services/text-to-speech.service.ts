@@ -1,10 +1,12 @@
-import { ERROR_TTS_API } from './../models/error/errorTechnical';
+import { ERROR_TECH_TTS } from './../models/error/errorTechnical';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VoicesService } from './voices.service';
 import { environment } from 'src/environments/environment';
 import { Voice } from '../models/voice';
 import { ErrorService } from './error.service';
+import { ToastService } from './toast.service';
+import { ERROR_FUNC_TTS } from '../models/error/errorFunctionnal';
 
 interface Body {
   audioConfig: {
@@ -44,7 +46,7 @@ export class TextToSpeechService {
   constructor(private httpClient: HttpClient, private voicesService: VoicesService, private errorService: ErrorService) {}
 
   public async getSpeech(text: string, language: string): Promise<boolean> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const url = `${this.url}?key=${environment.gcp.apiKey}`;
       const names: Voice[] = [];
 
@@ -78,7 +80,6 @@ export class TextToSpeechService {
           },
           (error) => {
             resolve(false);
-            this.errorService.saveError(ERROR_TTS_API)
             throw new Error(error.message);
           }
         );

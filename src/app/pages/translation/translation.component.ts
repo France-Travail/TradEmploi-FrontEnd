@@ -19,6 +19,9 @@ import { CryptService } from 'src/app/services/crypt.service';
 import { Language } from 'src/app/models/language';
 import { AdvisorDefaultName } from './../../services/settings.service';
 import { Support } from 'src/app/models/kpis/support';
+import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
+import { ErrorService } from 'src/app/services/error.service';
+import { ERROR_TECH_TTS } from 'src/app/models/error/errorTechnical';
 
 @Component({
   selector: 'app-translation',
@@ -50,7 +53,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     private textToSpeechService: TextToSpeechService,
     private navbarService: NavbarService,
     private translateService: TranslateService,
-    private cryptService: CryptService
+    private cryptService: CryptService,
+    private errorService: ErrorService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
@@ -219,6 +223,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     } else {
       this.translateService.translate(message.text, languageTarget.written).subscribe(async (translate) => {
         this.setTranslateMessage(message, translate, languageTarget.audio);
+      },
+      error => {
+        this.toastService.showToast(ERROR_FUNC_TRANSLATION.description as string, 'toast-error')
       });
     }
   }
@@ -234,6 +241,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       }
       message.audioHtml = this.textToSpeechService.audioSpeech;
       this.textToSpeechService.audioSpeech = undefined;
+    }else{
+        this.toastService.showToast(ERROR_FUNC_TTS.description as string, 'toast-error')
+        this.errorService.save(ERROR_TECH_TTS) //TODO put on service tts
     }
     this.sendMessage(message);
   }

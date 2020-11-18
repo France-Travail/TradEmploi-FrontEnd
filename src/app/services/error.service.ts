@@ -11,7 +11,7 @@ export class ErrorService {
 
     constructor(private afs: AngularFirestore, private settingService: SettingsService) {}
 
-    public saveError(detail: ErrorDetail): Promise<void> {
+    public save(detail: ErrorDetail): Promise<void> {
         const roomId: string = this.settingService.user.value.roomId
         const date = new Date()
         const day = date.toLocaleDateString('fr-FR')

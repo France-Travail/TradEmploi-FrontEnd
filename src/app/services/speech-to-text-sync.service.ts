@@ -3,10 +3,16 @@ import axios from 'axios';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { ErrorCodes } from '../models/errorCodes';
+import { ErrorService } from './error.service';
+import { ERROR_TECH_STT } from '../models/error/errorTechnical';
 @Injectable({
   providedIn: 'root',
 })
 export class SpeechToTextSyncService {
+
+    constructor(private errorService: ErrorService) {}
+
+
   recognizeSync = (audioBytes: any, language: string, time: number): Observable<string> => {
     if (audioBytes !== null || audioBytes !== undefined) {
       const urlRecognize: string = `https://speech.googleapis.com/v1/speech:recognize?key=${environment.gcp.apiKey}`;
@@ -35,6 +41,7 @@ export class SpeechToTextSyncService {
           })
           .catch((error) => {
             observer.error(error);
+            this.errorService.save(ERROR_TECH_STT)
             throw new Error('An error occurred when api async speech to text longrunningrecognize called');
           });
       });

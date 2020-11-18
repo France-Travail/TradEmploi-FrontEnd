@@ -57,13 +57,12 @@ export class ChatService {
     return this.create(roomId, chatCreateDto);
   }
 
-  initUnknownChat() {
+  initUnknownChat(roomId: string) {
     this.support = Support.MULTIDEVICE;
-    const roomId = this.getRoomId();
     const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
     const chatCreateDto: InitChatDto = { members: [guest], messages: [] };
     this.create(roomId, chatCreateDto);
-    this.errorService.saveError(ERROR_UNKNOWCHAT)
+    this.errorService.save(ERROR_UNKNOWCHAT)
   }
 
   hasRoom(roomId: string): Observable<boolean> {

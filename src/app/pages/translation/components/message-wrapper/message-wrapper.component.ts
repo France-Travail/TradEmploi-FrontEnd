@@ -1,4 +1,4 @@
-import { ERROR_NOSOUND, ERROR_UNAUTHORIZEDMICRO, ERROR_TRANSLATIONUNAVAILABLE } from './../../../../models/error/errorFunctionnal';
+import { ERROR_NOSOUND, ERROR_UNAUTHORIZEDMICRO, ERROR_FUNC_TRANSLATION } from './../../../../models/error/errorFunctionnal';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
@@ -90,8 +90,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       this.translationMode = TranslationMode.VOCAL;
       this.speak = true;
     } else {
-      this.toastService.showToast(ErrorCodes.UNAUTHORIZEDMICRO, 'toast-info');
-      this.errorService.saveError(ERROR_UNAUTHORIZEDMICRO)
+      this.toastService.showToast(ERROR_UNAUTHORIZEDMICRO.description as string, 'toast-info');
+      this.errorService.save(ERROR_UNAUTHORIZEDMICRO)
     }
   }
 
@@ -151,15 +151,15 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
-    if (message === ErrorCodes.NOSOUNDERROR) {
-      this.toastService.showToast(ErrorCodes.NOSOUNDERROR, 'toast-error');
-      this.errorService.saveError(ERROR_NOSOUND)
+    if (message === ERROR_NOSOUND.description) {
+      this.toastService.showToast(ERROR_NOSOUND.description as string, 'toast-error');
+      this.errorService.save(ERROR_NOSOUND)
     } else {
       if (message !== '') {
         this.send(false, message);
       } else {
-        this.toastService.showToast(ErrorCodes.TRANSLATIONUNAVAILABLE, 'toast-error');
-        this.errorService.saveError(ERROR_TRANSLATIONUNAVAILABLE)
+       // this.toastService.showToast(ERROR_TRANSLATIONUNAVAILABLE.description as string, 'toast-error');
+        //this.errorService.save(ERROR_TRANSLATIONUNAVAILABLE)
       }
     }
   }

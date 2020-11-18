@@ -28,7 +28,7 @@ export class ShareComponent implements OnInit {
     this.settingsService.user.subscribe((user) => {
       if (user != null && !user.isMultiDevices) {
         this.canCreate = true;
-        this.roomId = this.chatService.getRoomId();
+        this.roomId = user.roomId;
         this.link = window.location.origin + '/invite/' + this.roomId;
       } else {
         this.link = window.location.origin + '/invite/' + user.roomId;
@@ -69,8 +69,7 @@ export class ShareComponent implements OnInit {
   }
 
   private initChatMonoMulti(advisorRole: Role){
-    const roomId: string = this.settingsService.user.value.roomId ? this.settingsService.user.value.roomId: this.roomId
-    this.chatService.initChatMonoMulti(roomId, advisorRole) 
+    this.chatService.initChatMonoMulti(this.roomId, advisorRole) 
   }
 
   private userOnLocalStorage(){
