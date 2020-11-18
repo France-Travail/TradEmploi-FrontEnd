@@ -12,7 +12,7 @@ import { Device } from '../models/kpis/device';
 import { AdvisorDefaultName, GuestDefaultName } from './settings.service';
 import { ChatError } from '../models/kpis/chatError';
 import { ErrorService } from './error.service';
-import { ERROR_UNKNOWCHAT } from '../models/error/errorFunctionnal';
+import { ERROR_FUNC_UNKNOWCHAT } from '../models/error/errorFunctionnal';
 
 @Injectable({
   providedIn: 'root',
@@ -62,7 +62,7 @@ export class ChatService {
     const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
     const chatCreateDto: InitChatDto = { members: [guest], messages: [] };
     this.create(roomId, chatCreateDto);
-    this.errorService.save(ERROR_UNKNOWCHAT)
+    this.errorService.save(ERROR_FUNC_UNKNOWCHAT)
   }
 
   hasRoom(roomId: string): Observable<boolean> {

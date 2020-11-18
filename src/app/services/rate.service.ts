@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Rate } from '../models/rate';
 import { environment } from '../../environments/environment';
-import { ToastService } from 'src/app/services/toast.service';
-import { ErrorCodes } from '../models/errorCodes';
 import { TokenService } from './token.service';
+import { ErrorService } from './error.service';
+import { ERROR_TECH_EXPORT_STATS } from '../models/error/errorTechnical';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class RateService {
   private rate: Rate;
   private db: string = 'rates';
 
-  constructor(private afs: AngularFirestore, private toastService: ToastService, private tokenService: TokenService) {}
+  constructor(private afs: AngularFirestore, private errorService: ErrorService, private tokenService: TokenService) {}
 
   public rateConversation(rate: Rate): void {
     this.rate = rate;
@@ -45,7 +45,7 @@ export class RateService {
           }
         }`
     };
-    return new Promise(async (resolve, reject) => {axios({
+    return axios({
         method: 'post',
         headers: {Authorization: key },
         data,
@@ -64,12 +64,11 @@ export class RateService {
               'Commentaire libre': element.comment,
             });
           });
-          resolve(rates);
-      }).catch((err) => {
-          this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
-          reject(err);
+          return rates;
+      }).catch((_) => {
+        this.errorService.save(ERROR_TECH_EXPORT_STATS)
+        throw new Error(ERROR_TECH_EXPORT_STATS.description.toString());
       });
-    });
   }
 
   public getRateByHistoricId(id: string): Observable<Rate[]> {

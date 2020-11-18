@@ -4,6 +4,8 @@ import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { RateService } from 'src/app/services/rate.service';
 import { KpiService } from 'src/app/services/kpi.service';
+import { ERROR_FUNC_EXPORT_KPI, ERROR_FUNC_EXPORT_STATS } from 'src/app/models/error/errorFunctionnal';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-settings',
@@ -15,17 +17,18 @@ export class SettingsComponent {
     private navService: NavbarService,
     private settingsService: SettingsService,
     private rateService: RateService,
-    private kpiService: KpiService) {
+    private kpiService: KpiService,
+    private toastService: ToastService) {
     this.navService.handleTabsSettings();
   }
 
-  public async exportKpi(){
-    const kpi = await this.kpiService.getkpi();
-    this.exportCsv(kpi, 'kpi');
+  public exportKpi(){
+    this.kpiService.getkpi().then(kpi=> this.exportCsv(kpi, 'kpi'))
+    .catch(_ => this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'))
   }
-  public async exportEval() {
-    const rates = await this.rateService.getRates();
-    this.exportCsv(rates, 'eval');
+  public exportEval() {
+    this.rateService.getRates().then(rates => this.exportCsv(rates, 'eval'))
+    .catch(_ => this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'))
   }
 
   private exportCsv(data, name: string) {

@@ -15,7 +15,6 @@ import { RemoveComponent } from './dialogs/remove/remove.component';
 // Models
 import { Conversation } from 'src/app/models/history/conversation';
 import { Rate } from 'src/app/models/rate';
-import { ErrorCodes } from 'src/app/models/errorCodes';
 
 @Component({
   selector: 'app-historic',
@@ -39,7 +38,7 @@ export class HistoricComponent implements OnInit {
         }
       },
       (error) => {
-        this.toastService.showToast(ErrorCodes.HISTORICERROR, 'toast-error');
+        this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.', 'toast-error');
       }
     );
   }

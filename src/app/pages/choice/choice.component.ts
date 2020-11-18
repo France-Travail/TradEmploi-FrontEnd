@@ -12,6 +12,8 @@ import { Role } from 'src/app/models/role';
 import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
 import { Vocabulary } from 'src/app/models/vocabulary';
 import { User } from 'src/app/models/user';
+import { ToastService } from 'src/app/services/toast.service';
+import { ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
 
 @Component({
   selector: 'app-choice',
@@ -34,7 +36,8 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     private settingsService: SettingsService,
     public dialog: MatDialog,
     private navService: NavbarService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private toastService: ToastService
   ) {
     this.navService.handleTabsChoice();
     this.settingsService.user.subscribe((user) => {
@@ -74,12 +77,14 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   public showMainLanguages(): void {
     this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country));
   }
-  async audioDescription(item: Vocabulary) {
+  
+  public audioDescription(item: Vocabulary) {
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-    const audio = await this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage);
-    if (audio) {
+    this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage).then(_ => {
       this.textToSpeechService.audioSpeech.play();
-    }
+    }).catch(_ => {
+      this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error')
+    })
   }
 
   public moreLanguage(): void {

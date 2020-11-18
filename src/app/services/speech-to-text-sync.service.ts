@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
-import { ErrorCodes } from '../models/errorCodes';
 import { ErrorService } from './error.service';
-import { ERROR_TECH_STT } from '../models/error/errorTechnical';
+import {ERROR_TECH_STT } from '../models/error/errorTechnical';
+import { ERROR_FUNC_NOSOUND } from '../models/error/errorFunctionnal';
 @Injectable({
   providedIn: 'root',
 })
 export class SpeechToTextSyncService {
 
-    constructor(private errorService: ErrorService) {}
+  constructor(private errorService: ErrorService) {}
 
-
-  recognizeSync = (audioBytes: any, language: string, time: number): Observable<string> => {
+  recognizeSync = (audioBytes: any, language: string): Promise<string> => {
     if (audioBytes !== null || audioBytes !== undefined) {
       const urlRecognize: string = `https://speech.googleapis.com/v1/speech:recognize?key=${environment.gcp.apiKey}`;
       const data = {
@@ -26,25 +24,23 @@ export class SpeechToTextSyncService {
           content: audioBytes,
         },
       };
-      return new Observable((observer) => {
-        axios({
+      return axios({
           method: 'post',
           headers: { 'content-type': 'application/json; charset=utf-8' },
           url: urlRecognize,
           timeout: 60000,
           data,
         })
-          .then((response) => {
-            const transcription = response.data.results !== undefined ? response.data.results[0].alternatives[0].transcript : ErrorCodes.NOSOUNDERROR;
-            observer.next(transcription);
-            observer.complete();
+          .then(response => {
+            if(response.data.results !== undefined){
+              return response.data.results[0].alternatives[0].transcript 
+            }
+            return ERROR_FUNC_NOSOUND.description;
           })
-          .catch((error) => {
-            observer.error(error);
+          .catch(_ => {
             this.errorService.save(ERROR_TECH_STT)
-            throw new Error('An error occurred when api async speech to text longrunningrecognize called');
+            throw new Error(ERROR_TECH_STT.description.toString());
           });
-      });
     }
   }
 }

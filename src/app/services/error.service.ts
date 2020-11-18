@@ -1,4 +1,4 @@
-import { ErrorDetail, ErrorPe } from '../models/error/errorPe';
+import { ErrorDetail, ErrorType } from '../models/error/errorType';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { SettingsService } from './settings.service';
@@ -16,7 +16,7 @@ export class ErrorService {
         const date = new Date()
         const day = date.toLocaleDateString('fr-FR')
         const hour = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
-        const error: ErrorPe = {
+        const error: ErrorType = {
             roomId: roomId,
             day: day,
             hour: hour,
@@ -24,7 +24,7 @@ export class ErrorService {
         }
         return this.afs
         .collection(this.db)
-        .doc<ErrorPe>(this.afs.createId())
+        .doc<ErrorType>(this.afs.createId())
         .set(error);
     }
 }

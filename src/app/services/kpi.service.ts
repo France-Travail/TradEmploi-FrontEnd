@@ -1,45 +1,16 @@
-import { ERROR_EXPORT_KPI } from './../models/error/errorTechnical';
-import { ErrorService } from 'src/app/services/error.service';
 import axios from 'axios';
+import { ERROR_TECH_EXPORT_KPI } from './../models/error/errorTechnical';
+import { ErrorService } from 'src/app/services/error.service';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { ToastService } from 'src/app/services/toast.service';
-import { ErrorCodes } from '../models/errorCodes';
 import { TokenService } from './token.service';
-import { SettingsService } from './settings.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class KpiService {
 
-    constructor(private toastService: ToastService, private tokenService: TokenService, private settingsService: SettingsService, private errorService: ErrorService) { }
-
-    public async create(roomId: string) {
-        if (roomId) {
-            const key = this.settingsService.token ? this.settingsService.token : await this.tokenService.getKey();
-            const url = environment.firefunction.url;
-            const data = {
-                query: `
-                    mutation kpi {
-                    kpi(roomId: "` + roomId + `")
-                    }`
-            };
-            return new Promise(async (resolve, reject) => {
-                axios({
-                    method: 'post',
-                    headers: { Authorization: key },
-                    data,
-                    url
-                }).then((_) => {
-                    resolve();
-                }).catch((err) => {
-                    this.toastService.showToast(ErrorCodes.DBERROR, 'toast-error');
-                    reject(err);
-                });
-            });
-        }
-    }
+    constructor(private tokenService: TokenService, private errorService: ErrorService) { }
 
     public async getkpi() {
         const key = await this.tokenService.getKey();
@@ -90,8 +61,7 @@ export class KpiService {
                 }
             }`
         };
-        return new Promise(async (resolve, reject) => {
-            axios({
+        return axios({
                 method: 'post',
                 headers: { Authorization: key },
                 data,
@@ -119,18 +89,16 @@ export class KpiService {
                         'DE(s)  : Version OS': element.device.guest.os.version ? element.device.guest.os.version : 'N.A',
                         'DE(s): Navigateur': element.device.guest.browser.name ? element.device.guest.browser.name : 'N.A',
                         'DE : Version Navigateur': element.device.guest.browser.version ? element.device.guest.browser.version : 'N.A',
-                        'Date erreur': element.error ? element.error.day : '',
-                        'Heure erreur': element.error ? element.error.hours : '',
-                        'Erreur technique': element.error ? element.error.descriptions : ''
+                        'Date erreur': element.error && element.error != null ? element.error.day : '',
+                        'Heure erreur': element.error && element.error != null? element.error.hours : '',
+                        'Erreur technique': element.error && element.error != null ? element.error.descriptions : ''
                     });
                 });
-                resolve(kpi);
-            }).catch((err) => {
-                this.toastService.showToast(ERROR_EXPORT_KPI.description as string, 'toast-error');
-                this.errorService.save(ERROR_EXPORT_KPI)
-                reject(err);
+                return kpi
+            }).catch(_ => {
+                this.errorService.save(ERROR_TECH_EXPORT_KPI)
+                throw new Error(ERROR_TECH_EXPORT_KPI.description.toString());
             });
-        });
     }
 
 

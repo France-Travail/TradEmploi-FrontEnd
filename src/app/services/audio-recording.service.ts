@@ -1,10 +1,8 @@
-import { ERROR_NOSOUND } from './../models/error/errorFunctionnal';
 import { Injectable } from '@angular/core';
 import { SpeechToTextSyncService } from './speech-to-text-sync.service';
 import { Subject } from 'rxjs';
 import { ErrorService } from './error.service';
-import { SettingsService } from './settings.service';
-import { ERROR_TECH_NOSOUND } from '../models/error/errorTechnical';
+import { ERROR_FUNC_NOSOUND } from '../models/error/errorFunctionnal';
 @Injectable({
   providedIn: 'root',
 })
@@ -54,13 +52,18 @@ export class AudioRecordingService {
         this.audioSpeech = new Audio(audioUrl);
         if (this.audioOnBlob !== undefined) {
           const audioOnBase64 = await this.convertBlobToBase64(this.audioOnBlob);
-          this.speechToTextService.recognizeSync(audioOnBase64, this.language, time).subscribe(
-            (resultat) => this.speechToText.next(resultat),
-            (error) => {
-              this.speechToText.error(error);
-              this.errorService.save(ERROR_TECH_NOSOUND)
+          this.speechToTextService.recognizeSync(audioOnBase64, this.language).then(
+            (resultat) => {
+              if(resultat === ERROR_FUNC_NOSOUND.description){
+                this.errorService.save(ERROR_FUNC_NOSOUND)
+                this.speechToText.next("")
+              }else{
+                this.speechToText.next(resultat)
+              }
             }
-          );
+          ).catch( error => {
+            this.speechToText.error(error);
+          });
         }
       }
     };

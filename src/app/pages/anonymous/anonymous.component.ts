@@ -6,11 +6,11 @@ import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { Member } from 'src/app/models/db/member';
-import { ErrorCodes } from 'src/app/models/errorCodes';
 import { Role } from 'src/app/models/role';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DeviceService } from 'src/app/services/device.service';
 import { Support } from 'src/app/models/kpis/support';
+import { ERROR_FUNC_UNKNOWCHAT } from 'src/app/models/error/errorFunctionnal';
 
 @Component({
   selector: 'app-anonymous',
@@ -63,7 +63,7 @@ export class AnonymousComponent implements OnInit {
 
   private onSubmitWithoutRoom(){
     this.afAuth.auth.currentUser.delete();
-    this.toastService.showToast(ErrorCodes.NONEXISTANTCHAT, 'toast-error');
+    this.toastService.showToast(ERROR_FUNC_UNKNOWCHAT.description, 'toast-error');
     this.chatService.initUnknownChat(this.roomId);
     this.settingsService.user.next({...this.settingsService.user.value, roomId: this.roomId});
     this.router.navigate(['/start']);

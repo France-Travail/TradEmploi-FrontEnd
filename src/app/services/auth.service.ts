@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastService } from 'src/app/services/toast.service';
-import { ErrorCodes } from '../models/errorCodes';
+import { ERROR_TECH_DB } from '../models/error/errorTechnical';
 
 @Injectable({
   providedIn: 'root',
@@ -78,8 +78,7 @@ export class AuthService {
             if (config !== undefined && config.length >= 0) {
               this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
             } else {
-              const error = ErrorCodes.DBERROR;
-              this.toastService.showToast(error, 'toast-error');
+              this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
             }
           });
       }

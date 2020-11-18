@@ -1,4 +1,4 @@
-export interface ErrorPe {
+export interface ErrorType {
     roomId: String,
     day: String,
     hour: String,

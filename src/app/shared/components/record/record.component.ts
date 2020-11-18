@@ -5,9 +5,8 @@ import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ToastService } from 'src/app/services/toast.service';
 import { Role } from 'src/app/models/role';
 import { Vocabulary } from 'src/app/models/vocabulary';
-import { ERROR_TECH_STT } from 'src/app/models/error/errorTechnical';
 import { ErrorService } from 'src/app/services/error.service';
-import { ERROR_FUNC_STT } from 'src/app/models/error/errorFunctionnal';
+import { ERROR_FUNC_NOSOUND, ERROR_FUNC_STT } from 'src/app/models/error/errorFunctionnal';
 
 @Component({
   selector: 'app-record',
@@ -109,11 +108,14 @@ export class RecordComponent implements OnInit {
       this.audioRecordingService.speechToText.subscribe(
         (response) => {
           this.inProgress = false;
+          if(response === ""){
+            this.toastService.showToast(ERROR_FUNC_NOSOUND.description, 'toast-error');
+          }
           this.send.emit(response);
         },
-        (err) => {
+        (_) => {
           this.inProgress = false;
-          this.toastService.showToast(ERROR_FUNC_STT.description as string, 'toast-error');
+          this.toastService.showToast(ERROR_FUNC_STT.description, 'toast-error');
           this.send.emit('');
         }
       );

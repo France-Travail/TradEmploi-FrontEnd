@@ -1,26 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
 import { ErrorService } from './error.service';
 import { ERROR_TECH_TRANSLATION } from '../models/error/errorTechnical';
+import { ERROR_FUNC_TRANSLATION_EMPTY } from '../models/error/errorFunctionnal';
 @Injectable({
   providedIn: 'root',
 })
 export class TranslateService {
 
-
   constructor(private errorService: ErrorService) {}
 
-  public translate(text: string, lang: string): Observable<string> {
+  public translate(text: string, lang: string): Promise<string> {
     const url = `https://translation.googleapis.com/language/translate/v2?key=${environment.gcp.apiKey}`;
     const data = {
       q: text,
       target: lang.split('-')[0],
       format: 'text',
     };
-    return new Observable((observer) => {
-      axios({
+    return axios({
         method: 'post',
         headers: { 'content-type': 'application/json; charset=utf-8' },
         data,
@@ -28,18 +26,13 @@ export class TranslateService {
       })
         .then((response) => {
           if (response.data.data.translatation !== undefined || response.data.data.translatation !== null) {
-            const res = response.data.data.translations[0].translatedText;
-            observer.next(res);
-            observer.complete();
-          } else {
-            throw new Error('An error occurred when api translate called: response is empty');
+            return response.data.data.translations[0].translatedText;
           }
+          return ERROR_FUNC_TRANSLATION_EMPTY.description
         })
-        .catch((error) => {
-          observer.error(error);
+        .catch(_ => {
           this.errorService.save(ERROR_TECH_TRANSLATION)
-          throw new Error('An error occurred when api translate called: api not available');
+          throw new Error(ERROR_TECH_TRANSLATION.description.toString());
         });
-    });
   }
 }

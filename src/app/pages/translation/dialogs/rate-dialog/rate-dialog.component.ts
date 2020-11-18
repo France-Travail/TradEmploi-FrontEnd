@@ -7,7 +7,7 @@ import { VOCABULARY } from 'src/app/data/vocabulary';
 import { Rate } from 'src/app/models/rate';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
-import { ErrorCodes } from 'src/app/models/errorCodes';
+import { ERROR_FUNC_SEND_STATS } from 'src/app/models/error/errorFunctionnal';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -115,7 +115,7 @@ export class RateDialogComponent implements OnInit {
         })
         .catch(() => {
           this.dialogRef.close();
-          this.toastService.showToast(ErrorCodes.NOTATIONERROR, 'toast-error');
+          this.toastService.showToast(ERROR_FUNC_SEND_STATS.description, 'toast-error');
           setTimeout(() => {
             this.router.navigate(['thanks']);
           }, 3500);

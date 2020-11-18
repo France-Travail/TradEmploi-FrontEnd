@@ -1,4 +1,4 @@
-import { ErrorDetail } from './errorPe'
+import { ErrorDetail } from './errorType'
 
 export const ERROR_TECH_TRANSLATION: ErrorDetail  = {
     code: '500',
@@ -10,33 +10,32 @@ export const ERROR_TECH_STT: ErrorDetail  = {
     description: 'STT KO'
 }
 
-export const ERROR_TECH_TTS: ErrorDetail  = {
+export const ERROR_TECH_GET_VOICE: ErrorDetail  = {
     code: '502',
+    description: 'GET VOICE LIST KO'
+}
+
+export const ERROR_TECH_TTS: ErrorDetail  = {
+    code: '503',
     description: 'TTS KO'
 }
 
-export const ERROR_TECH_NOSOUND: ErrorDetail  = {
+export const ERROR_TECH_EXPORT_KPI: ErrorDetail  = {
     code: '502',
-    description: 'Pas de son détecté'
+    description: 'Export kpi file KO'
 }
 
-
-export const ERROR_EXPORT: ErrorDetail  = {
-    code: '500',
-    description: 'Erreur lors de l\'export du fichier'
-}
-
-export const ERROR_EXPORT_STATS: ErrorDetail  = {
+export const ERROR_TECH_EXPORT_STATS: ErrorDetail  = {
     code: '501',
     description: 'Export rate file KO'
 }
 
-export const ERROR_EXPORT_KPI: ErrorDetail  = {
+export const ERROR_TECH_EXPORT_TOKEN: ErrorDetail  = {
     code: '502',
-    description: 'Erreur lors de la récupération du fichier des kpis'
+    description: 'Token KO'
 }
 
-export const ERROR_DB: ErrorDetail  = {
+export const ERROR_TECH_DB: ErrorDetail  = {
     code: '503',
     description: 'La base de donnée est indisponible momentanément. Merci de réessayer plus tard'
 }
