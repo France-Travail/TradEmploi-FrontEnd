@@ -32,13 +32,13 @@ export class SpeechToTextSyncService {
           data,
         })
           .then(response => {
-            if(response.data.results !== undefined){
-              return response.data.results[0].alternatives[0].transcript 
+            if (response.data.results !== undefined){
+              return response.data.results[0].alternatives[0].transcript;
             }
             return ERROR_FUNC_NOSOUND.description;
           })
           .catch(error => {
-            this.errorService.save(ERROR_TECH_STT)
+            this.errorService.save(ERROR_TECH_STT);
             throw new Error(error);
           });
     }

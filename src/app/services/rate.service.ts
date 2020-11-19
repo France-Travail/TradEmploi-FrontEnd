@@ -66,7 +66,7 @@ export class RateService {
           });
           return rates;
       }).catch(error => {
-        this.errorService.save(ERROR_TECH_EXPORT_STATS)
+        this.errorService.save(ERROR_TECH_EXPORT_STATS);
         throw new Error(error);
       });
   }

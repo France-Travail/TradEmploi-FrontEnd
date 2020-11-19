@@ -37,8 +37,8 @@ export class TextToSpeechService {
 
     getSpeech = async (text: string, language: string): Promise<void> => {
       const urlRecognize: string = `https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=${environment.gcp.apiKey}`;
-      const voices = await this.voicesService.getVoices()
-      const voiceSelected : Voice[] = voices.filter(v => v.languageCodes.includes(language))
+      const voices = await this.voicesService.getVoices();
+      const voiceSelected: Voice[] = voices.filter(v => v.languageCodes.includes(language));
       const data: Body = {
         audioConfig: {
           audioEncoding: 'MP3',
@@ -66,10 +66,10 @@ export class TextToSpeechService {
               this.audioSpeech = new Audio('data:audio/mp3;base64,' + response.data.audioContent);
             })
             .catch(error => {
-              this.errorService.save(ERROR_TECH_TTS)
+              this.errorService.save(ERROR_TECH_TTS);
               throw new Error(error);
             });
-        
+
       }
     }
 }

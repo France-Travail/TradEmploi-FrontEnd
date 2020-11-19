@@ -90,7 +90,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       this.speak = true;
     } else {
       this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-info');
-      this.errorService.save(ERROR_FUNC_UNAUTHORIZEDMICRO)
+      this.errorService.save(ERROR_FUNC_UNAUTHORIZEDMICRO);
     }
   }
 
@@ -150,7 +150,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
-    if(message !== ''){
+    if (message !== ''){
       this.send(false, message);
     }
     // if (message === ERROR_FUN_NOSOUND.description) {

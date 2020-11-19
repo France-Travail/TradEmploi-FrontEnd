@@ -62,7 +62,7 @@ export class ChatService {
     const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
     const chatCreateDto: InitChatDto = { members: [guest], messages: [] };
     this.create(roomId, chatCreateDto);
-    this.errorService.save(ERROR_FUNC_UNKNOWCHAT)
+    this.errorService.save(ERROR_FUNC_UNKNOWCHAT);
   }
 
   hasRoom(roomId: string): Observable<boolean> {

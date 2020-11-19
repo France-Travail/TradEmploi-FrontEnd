@@ -1,10 +1,10 @@
 export interface ErrorType {
-    roomId: String,
-    day: String,
-    hour: String,
-    detail: ErrorDetail
+    roomId: string;
+    day: string;
+    hour: string;
+    detail: ErrorDetail;
 }
 export interface ErrorDetail{
-    code: String,
-    description: String
+    code: string;
+    description: string;
 }

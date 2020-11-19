@@ -69,7 +69,7 @@ export class ShareComponent implements OnInit {
   }
 
   private initChatMonoMulti(advisorRole: Role){
-    this.chatService.initChatMonoMulti(this.roomId, advisorRole) 
+    this.chatService.initChatMonoMulti(this.roomId, advisorRole);
   }
 
   private userOnLocalStorage(){

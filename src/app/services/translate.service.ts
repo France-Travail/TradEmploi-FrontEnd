@@ -29,7 +29,7 @@ export class TranslateService {
           }
         })
         .catch(error => {
-          this.errorService.save(ERROR_TECH_TRANSLATION)
+          this.errorService.save(ERROR_TECH_TRANSLATION);
           throw new Error(error);
         });
   }

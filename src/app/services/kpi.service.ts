@@ -90,13 +90,13 @@ export class KpiService {
                         'DE(s): Navigateur': element.device.guest.browser.name ? element.device.guest.browser.name : 'N.A',
                         'DE : Version Navigateur': element.device.guest.browser.version ? element.device.guest.browser.version : 'N.A',
                         'Date erreur': element.error && element.error != null ? element.error.day : '',
-                        'Heure erreur': element.error && element.error != null? element.error.hours : '',
+                        'Heure erreur': element.error && element.error != null ? element.error.hours : '',
                         'Erreur technique': element.error && element.error != null ? element.error.descriptions : ''
                     });
                 });
-                return kpi
+                return kpi;
             }).catch(error => {
-                this.errorService.save(ERROR_TECH_EXPORT_KPI)
+                this.errorService.save(ERROR_TECH_EXPORT_KPI);
                 throw new Error(error);
             });
     }

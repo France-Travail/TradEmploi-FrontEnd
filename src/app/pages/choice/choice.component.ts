@@ -77,14 +77,14 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   public showMainLanguages(): void {
     this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country));
   }
-  
+
   public audioDescription(item: Vocabulary) {
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
     this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage).then(_ => {
       this.textToSpeechService.audioSpeech.play();
     }).catch(_ => {
-      this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error')
-    })
+      this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
+    });
   }
 
   public moreLanguage(): void {

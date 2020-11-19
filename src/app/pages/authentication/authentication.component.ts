@@ -15,12 +15,12 @@ import { ChatService } from 'src/app/services/chat.service';
 export class AuthenticationComponent implements OnInit {
   public form: FormGroup;
 
-  constructor(private authService: AuthService, 
-    private settingsService: SettingsService, 
-    private chatService: ChatService, 
-    private router: Router, 
-    private fb: FormBuilder, 
-    private toastService: ToastService) {
+  constructor(private authService: AuthService,
+              private settingsService: SettingsService,
+              private chatService: ChatService,
+              private router: Router,
+              private fb: FormBuilder,
+              private toastService: ToastService) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         const isFromAuth: boolean = window.location.pathname === '/auth';
@@ -54,8 +54,8 @@ export class AuthenticationComponent implements OnInit {
     try {
       const auth = await this.authService.login(this.email.value, this.password.value);
       const role = this.form.get('email').value === 'admin@pe.fr' ? Role.ADMIN : Role.ADVISOR;
-      const roomId = this.chatService.getRoomId()
-      this.settingsService.user.next({ ...this.settingsService.user.value, role, firstname: 'Pôle emploi', connectionTime: Date.now(), roomId: roomId, isMultiDevices: false });
+      const roomId = this.chatService.getRoomId();
+      this.settingsService.user.next({ ...this.settingsService.user.value, role, firstname: 'Pôle emploi', connectionTime: Date.now(), roomId, isMultiDevices: false });
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.toastService.showToast(auth.message, 'toast-success');
       this.router.navigateByUrl('choice');

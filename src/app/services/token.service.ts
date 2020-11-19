@@ -27,10 +27,10 @@ export class TokenService {
       }).then((response) => {
         const token = response.data.data.login;
         this.settingService.token = token;
-        return token
+        return token;
       }).catch(error => {
-        this.errorService.save(ERROR_TECH_EXPORT_TOKEN)
-        throw new Error(error); 
+        this.errorService.save(ERROR_TECH_EXPORT_TOKEN);
+        throw new Error(error);
       });
   }
 

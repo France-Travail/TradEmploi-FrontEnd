@@ -28,9 +28,9 @@ export class RecordComponent implements OnInit {
   public canSend: boolean = false;
   public inProgress: boolean = false;
 
-  constructor(private settingsService: SettingsService, 
-    private audioRecordingService: AudioRecordingService, 
-    private toastService: ToastService) { }
+  constructor(private settingsService: SettingsService,
+              private audioRecordingService: AudioRecordingService,
+              private toastService: ToastService) { }
 
 
   ngOnInit(): void {
@@ -106,7 +106,7 @@ export class RecordComponent implements OnInit {
       this.audioRecordingService.speechToText.subscribe(
         (response) => {
           this.inProgress = false;
-          if(response === ""){
+          if (response === ''){
             this.toastService.showToast(ERROR_FUNC_NOSOUND.description, 'toast-error');
           }
           this.send.emit(response);

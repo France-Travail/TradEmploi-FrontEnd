@@ -54,11 +54,11 @@ export class AudioRecordingService {
           const audioOnBase64 = await this.convertBlobToBase64(this.audioOnBlob);
           this.speechToTextService.recognizeSync(audioOnBase64, this.language).then(
             (resultat) => {
-              if(resultat === ERROR_FUNC_NOSOUND.description){
-                this.errorService.save(ERROR_FUNC_NOSOUND)
-                this.speechToText.next("")
+              if (resultat === ERROR_FUNC_NOSOUND.description){
+                this.errorService.save(ERROR_FUNC_NOSOUND);
+                this.speechToText.next('');
               }else{
-                this.speechToText.next(resultat)
+                this.speechToText.next(resultat);
               }
             }
           ).catch( error => {

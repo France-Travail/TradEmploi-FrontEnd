@@ -219,7 +219,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.isMultiDevices && message.languageOrigin === languageTarget.written) {
       this.setTranslateMessage(message, message.text, languageTarget.audio);
     } else {
-      this.callTranslateApi(message, languageTarget)
+      this.callTranslateApi(message, languageTarget);
     }
   }
 
@@ -228,7 +228,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       (translate) => {
         this.setTranslateMessage(message, translate, languageTarget.audio);
     }).catch(_ => {
-      this.toastService.showToast(ERROR_FUNC_TRANSLATION.description, 'toast-error')
+      this.toastService.showToast(ERROR_FUNC_TRANSLATION.description, 'toast-error');
     });
   }
 
@@ -242,8 +242,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         message.audioHtml = this.textToSpeechService.audioSpeech;
       }
     ).catch(_ => {
-      this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error')
-    })
+      this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
+    });
     this.textToSpeechService.audioSpeech = undefined;
     this.sendMessage(message);
   }

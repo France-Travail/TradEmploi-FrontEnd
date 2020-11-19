@@ -106,7 +106,7 @@ export class RateDialogComponent implements OnInit {
           this.dialogRef.close();
           const isMono = !this.isMultiDevices;
           if (isMono) {
-            const user = this.settingsService.user.value
+            const user = this.settingsService.user.value;
             const advisorRole = user.role;
             this.chatService.initChatMono(user.roomId, advisorRole);
           }
