@@ -21,9 +21,9 @@ export class VoicesService {
         .then((response: any) => {
           return  response.data.voices
         })
-        .catch(_ => {
+        .catch(error => {
           this.errorService.save(ERROR_TECH_GET_VOICE)
-          throw new Error(ERROR_TECH_GET_VOICE.description.toString());
+          throw new Error(error);
         });
   }
 }

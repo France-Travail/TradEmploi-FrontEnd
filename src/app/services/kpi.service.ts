@@ -95,9 +95,9 @@ export class KpiService {
                     });
                 });
                 return kpi
-            }).catch(_ => {
+            }).catch(error => {
                 this.errorService.save(ERROR_TECH_EXPORT_KPI)
-                throw new Error(ERROR_TECH_EXPORT_KPI.description.toString());
+                throw new Error(error);
             });
     }
 

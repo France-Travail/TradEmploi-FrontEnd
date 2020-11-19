@@ -65,9 +65,9 @@ export class TextToSpeechService {
             .then((response: any) => {
               this.audioSpeech = new Audio('data:audio/mp3;base64,' + response.data.audioContent);
             })
-            .catch(_ => {
+            .catch(error => {
               this.errorService.save(ERROR_TECH_TTS)
-              throw new Error(ERROR_TECH_TTS.description.toString());
+              throw new Error(error);
             });
         
       }

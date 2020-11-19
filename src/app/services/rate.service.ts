@@ -65,9 +65,9 @@ export class RateService {
             });
           });
           return rates;
-      }).catch((_) => {
+      }).catch(error => {
         this.errorService.save(ERROR_TECH_EXPORT_STATS)
-        throw new Error(ERROR_TECH_EXPORT_STATS.description.toString());
+        throw new Error(error);
       });
   }
 

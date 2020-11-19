@@ -28,9 +28,9 @@ export class TokenService {
         const token = response.data.data.login;
         this.settingService.token = token;
         return token
-      }).catch(_ => {
+      }).catch(error => {
         this.errorService.save(ERROR_TECH_EXPORT_TOKEN)
-        throw new Error(ERROR_TECH_EXPORT_TOKEN.description.toString()); 
+        throw new Error(error); 
       });
   }
 

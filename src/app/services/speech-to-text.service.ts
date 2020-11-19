@@ -51,7 +51,7 @@ export class SpeechToTextService {
         })
         .catch((error) => {
           observer.error(error);
-          throw new Error('An error occurred when api async speech to text longrunningrecognize called');
+          throw new Error(error);
         });
     });
   };

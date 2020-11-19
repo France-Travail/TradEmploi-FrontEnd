@@ -37,9 +37,9 @@ export class SpeechToTextSyncService {
             }
             return ERROR_FUNC_NOSOUND.description;
           })
-          .catch(_ => {
+          .catch(error => {
             this.errorService.save(ERROR_TECH_STT)
-            throw new Error(ERROR_TECH_STT.description.toString());
+            throw new Error(error);
           });
     }
   }

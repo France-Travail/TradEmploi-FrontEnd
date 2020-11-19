@@ -3,7 +3,6 @@ import axios from 'axios';
 import { environment } from 'src/environments/environment';
 import { ErrorService } from './error.service';
 import { ERROR_TECH_TRANSLATION } from '../models/error/errorTechnical';
-import { ERROR_FUNC_TRANSLATION_EMPTY } from '../models/error/errorFunctionnal';
 @Injectable({
   providedIn: 'root',
 })
@@ -28,11 +27,10 @@ export class TranslateService {
           if (response.data.data.translatation !== undefined || response.data.data.translatation !== null) {
             return response.data.data.translations[0].translatedText;
           }
-          return ERROR_FUNC_TRANSLATION_EMPTY.description
         })
-        .catch(_ => {
+        .catch(error => {
           this.errorService.save(ERROR_TECH_TRANSLATION)
-          throw new Error(ERROR_TECH_TRANSLATION.description.toString());
+          throw new Error(error);
         });
   }
 }

@@ -5,12 +5,6 @@ export const ERROR_FUNC_TRANSLATION: ErrorDetail  = {
     description: 'La traduction est indisponible momentanément. Merci de réessayer plus tard'
 }
 
-export const ERROR_FUNC_TRANSLATION_EMPTY: ErrorDetail  = {
-    code: '400',
-    description: 'La traduction ne retoune pas de résultat. Merci de réessayer plus tard'
-}
-
-
 export const ERROR_FUNC_STT: ErrorDetail  = {
     code: '401',
     description: 'Transcription de la voix au texte est indisponible momentanément. Merci de réessayer plus tard'
@@ -22,12 +16,12 @@ export const ERROR_FUNC_TTS: ErrorDetail  = {
 }
 
 export const ERROR_FUNC_NOSOUND: ErrorDetail  = {
-    code: '404',
+    code: '403',
     description: 'Pas de son détecté'
 }
 
 export const ERROR_FUNC_EXPORT_KPI: ErrorDetail  = {
-    code: '405',
+    code: '404',
     description: 'Erreur lors de la récupération du fichier des kpis. Merci de réessayer plus tard'
 }
 
@@ -37,16 +31,16 @@ export const ERROR_FUNC_EXPORT_STATS: ErrorDetail  = {
 }
 
 export const ERROR_FUNC_SEND_STATS: ErrorDetail  = {
-    code: '405',
+    code: '406',
     description: 'La notation n\'a pas pu être envoyée. Redirection en cours.'
 }
 
 export const ERROR_FUNC_UNAUTHORIZEDMICRO: ErrorDetail  = {
-    code: '402',
+    code: '407',
     description: 'Inaccès au microphone'
 }
 
 export const ERROR_FUNC_UNKNOWCHAT: ErrorDetail  = {
-    code: '100',
+    code: '408',
     description: 'Chat inexistant'
 }

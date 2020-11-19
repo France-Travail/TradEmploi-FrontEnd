@@ -21,27 +21,27 @@ export const ERROR_TECH_TTS: ErrorDetail  = {
 }
 
 export const ERROR_TECH_EXPORT_KPI: ErrorDetail  = {
-    code: '502',
+    code: '504',
     description: 'Export kpi file KO'
 }
 
 export const ERROR_TECH_EXPORT_STATS: ErrorDetail  = {
-    code: '501',
+    code: '505',
     description: 'Export rate file KO'
 }
 
 export const ERROR_TECH_EXPORT_TOKEN: ErrorDetail  = {
-    code: '502',
+    code: '506',
     description: 'Token KO'
 }
 
 export const ERROR_TECH_DB: ErrorDetail  = {
-    code: '503',
+    code: '507',
     description: 'La base de donnée est indisponible momentanément. Merci de réessayer plus tard'
 }
 
 export const ERROR_NOTATION: ErrorDetail  = {
-    code: '504',
+    code: '508',
     description: 'La notation n\'a pas pu être envoyée. Redirection en cours'
 }
 

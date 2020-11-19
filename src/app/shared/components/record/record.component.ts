@@ -5,7 +5,6 @@ import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ToastService } from 'src/app/services/toast.service';
 import { Role } from 'src/app/models/role';
 import { Vocabulary } from 'src/app/models/vocabulary';
-import { ErrorService } from 'src/app/services/error.service';
 import { ERROR_FUNC_NOSOUND, ERROR_FUNC_STT } from 'src/app/models/error/errorFunctionnal';
 
 @Component({
@@ -31,8 +30,7 @@ export class RecordComponent implements OnInit {
 
   constructor(private settingsService: SettingsService, 
     private audioRecordingService: AudioRecordingService, 
-    private toastService: ToastService, 
-    private errorService: ErrorService) { }
+    private toastService: ToastService) { }
 
 
   ngOnInit(): void {

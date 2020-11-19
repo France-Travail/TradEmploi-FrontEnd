@@ -19,9 +19,8 @@ import { CryptService } from 'src/app/services/crypt.service';
 import { Language } from 'src/app/models/language';
 import { AdvisorDefaultName } from './../../services/settings.service';
 import { Support } from 'src/app/models/kpis/support';
-import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TRANSLATION_EMPTY, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
+import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
 import { ErrorService } from 'src/app/services/error.service';
-import { ERROR_TECH_TTS } from 'src/app/models/error/errorTechnical';
 
 @Component({
   selector: 'app-translation',
@@ -227,19 +226,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private callTranslateApi(message: any, languageTarget: any){
     this.translateService.translate(message.text, languageTarget.written).then(
       (translate) => {
-        this.handleTranslateResponse(message, translate, languageTarget.audio)
+        this.setTranslateMessage(message, translate, languageTarget.audio);
     }).catch(_ => {
       this.toastService.showToast(ERROR_FUNC_TRANSLATION.description, 'toast-error')
     });
-  }
-
-  private handleTranslateResponse(message: any, translate: string, audio: string){
-    if(translate !== ERROR_FUNC_TRANSLATION_EMPTY.description){
-      this.setTranslateMessage(message, translate, audio);
-    }else{
-      this.errorService.save(ERROR_FUNC_TRANSLATION_EMPTY)
-      this.toastService.showToast(ERROR_FUNC_TRANSLATION_EMPTY.description, 'toast-error')
-    }
   }
 
   private setTranslateMessage(message: Message, translate: string, languageTarget: string) {
