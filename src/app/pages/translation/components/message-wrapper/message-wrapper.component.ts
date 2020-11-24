@@ -89,7 +89,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       this.translationMode = TranslationMode.VOCAL;
       this.speak = true;
     } else {
-      this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-info');
+      this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
       this.errorService.save(ERROR_FUNC_UNAUTHORIZEDMICRO);
     }
   }
@@ -153,17 +153,6 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     if (message !== ''){
       this.send(false, message);
     }
-    // if (message === ERROR_FUN_NOSOUND.description) {
-    //   this.toastService.showToast(ERROR_NOSOUND.description as string, 'toast-error');
-    //   this.errorService.save(ERROR_NOSOUND)
-    // } else {
-    //   if (message !== '') {
-    //     this.send(false, message);
-    //   } else {
-    //    // this.toastService.showToast(ERROR_TRANSLATIONUNAVAILABLE.description as string, 'toast-error');
-    //     //this.errorService.save(ERROR_TRANSLATIONUNAVAILABLE)
-    //   }
-    // }
   }
 
   public exitRecord() {

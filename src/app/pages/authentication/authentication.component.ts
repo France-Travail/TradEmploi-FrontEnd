@@ -6,6 +6,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Role } from 'src/app/models/role';
 import { ChatService } from 'src/app/services/chat.service';
+import { ERROR_TECH_DB } from 'src/app/models/error/errorTechnical';
 
 @Component({
   selector: 'app-authentication',
@@ -60,7 +61,7 @@ export class AuthenticationComponent implements OnInit {
       this.toastService.showToast(auth.message, 'toast-success');
       this.router.navigateByUrl('choice');
     } catch (error) {
-      this.toastService.showToast(error.message, 'toast-error');
+      this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
     }
   }
 }

@@ -22,25 +22,25 @@ export const ERROR_FUNC_NOSOUND: ErrorDetail  = {
 
 export const ERROR_FUNC_EXPORT_KPI: ErrorDetail  = {
     code: '404',
-    description: 'Erreur lors de la récupération du fichier des kpis. Merci de réessayer plus tard'
+    description: 'Serveur est indisponible momentanément pour le fichier des kpis. Merci de réessayer plus tard'
 };
 
 export const ERROR_FUNC_EXPORT_STATS: ErrorDetail  = {
     code: '405',
-    description: 'Erreur lors de la récupération du fichier de statistiques. Merci de réessayer plus tard'
+    description: 'Serveur est indisponible momentanément pour le fichier des évaluations. Merci de réessayer plus tard'
 };
 
 export const ERROR_FUNC_SEND_STATS: ErrorDetail  = {
     code: '406',
-    description: 'La notation n\'a pas pu être envoyée. Redirection en cours.'
+    description: 'Le formulaire d\'évaluation n\'a pas pu être envoyée, il n\'est pas possible de le resaisir. Vous allez être redirigé vers la page d\'accueil.'
 };
 
 export const ERROR_FUNC_UNAUTHORIZEDMICRO: ErrorDetail  = {
     code: '407',
-    description: 'Inaccès au microphone'
+    description: 'Accès au microphone n\'est pas autorisé, veuillez l\'activer dans les paramètres du navigateur'
 };
 
 export const ERROR_FUNC_UNKNOWCHAT: ErrorDetail  = {
     code: '408',
-    description: 'Chat inexistant'
+    description: 'L\'espace de conversation est inexistant, veuillez vérifier l\'adresse web avec votre conseiller'
 };

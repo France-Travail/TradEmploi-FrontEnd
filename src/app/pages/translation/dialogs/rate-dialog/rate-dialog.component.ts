@@ -119,8 +119,8 @@ export class RateDialogComponent implements OnInit {
           this.router.navigate(['thanks']);
         })
         .catch(() => {
-          this.dialogRef.close();
           this.toastService.showToast(ERROR_FUNC_SEND_STATS.description, 'toast-error');
+          this.dialogRef.close();
           setTimeout(() => {
             this.router.navigate(['thanks']);
           }, 3500);
