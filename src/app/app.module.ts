@@ -61,7 +61,6 @@ import { NavbarService } from './services/navbar.service';
 import { ChatMultiDevicesComponent } from './pages/translation/components/chat-multi-devices/chat-multi-devices.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @NgModule({
   declarations: [
@@ -108,8 +107,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     LayoutModule,
     QRCodeModule,
     DeviceDetectorModule.forRoot(),
-    OverlayModule,
-    NgxUiLoaderModule
+    OverlayModule
 
   ],
   providers: [

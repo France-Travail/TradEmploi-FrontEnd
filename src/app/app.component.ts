@@ -7,7 +7,6 @@ import { SPINNER } from 'ngx-ui-loader';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public spinner = SPINNER;
   title: string = 'translation';
   constructor() {}
 }
