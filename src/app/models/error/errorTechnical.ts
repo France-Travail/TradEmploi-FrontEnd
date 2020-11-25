@@ -46,3 +46,8 @@ export const ERROR_NOTATION: ErrorDetail  = {
 };
 
 
+export const ERROR_TECH_UNAUTHORIZEDMICRO: ErrorDetail  = {
+    code: '509',
+    description: 'Inaccès au microphone'
+};
+

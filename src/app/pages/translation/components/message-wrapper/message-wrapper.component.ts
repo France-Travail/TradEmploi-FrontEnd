@@ -16,6 +16,7 @@ import { User } from 'src/app/models/user';
 import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 import { TranslationMode } from 'src/app/models/kpis/translationMode';
 import { ErrorService } from 'src/app/services/error.service';
+import { ERROR_TECH_UNAUTHORIZEDMICRO } from 'src/app/models/error/errorTechnical';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -90,7 +91,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       this.speak = true;
     } else {
       this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
-      this.errorService.save(ERROR_FUNC_UNAUTHORIZEDMICRO);
+      this.errorService.save(ERROR_TECH_UNAUTHORIZEDMICRO);
     }
   }
 
