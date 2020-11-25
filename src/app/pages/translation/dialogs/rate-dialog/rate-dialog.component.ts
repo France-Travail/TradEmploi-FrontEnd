@@ -78,9 +78,11 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionThree.foreign = rateForeign.comment;
       this.sentences.questionFour.foreign = rateForeign.offerLinked;
     }
+    const date = new Date();
     this.rate = {
       language: vocabularyForeign.languageNameFr,
-      date: new Date(),
+      date: date,
+      hour: date.getHours() + ':' + date.getMinutes(),
       grades: [undefined, undefined],
       comment: '',
       offerLinked: 'non',
@@ -88,9 +90,10 @@ export class RateDialogComponent implements OnInit {
   }
 
   public eval(value: number, question: number) {
+    const date = new Date();
     this.rate.grades[question] = value + 1;
-    this.rate.date = new Date();
-
+    this.rate.date = date;
+    this.rate.hour = date.getHours() + ':' + date.getMinutes();
     this.rateService.rateConversation(this.rate);
 
     this.rates[question].forEach((r, i) => {
@@ -105,10 +108,12 @@ export class RateDialogComponent implements OnInit {
         .then(async () => {
           this.dialogRef.close();
           const isMono = !this.isMultiDevices;
+          const user = this.settingsService.user.value;
           if (isMono) {
-            const user = this.settingsService.user.value;
             const advisorRole = user.role;
             this.chatService.initChatMono(user.roomId, advisorRole);
+          } else {
+            this.chatService.updateChatStatus(user.roomId, false);
           }
           this.settingsService.reset();
           this.router.navigate(['thanks']);

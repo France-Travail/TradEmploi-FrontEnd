@@ -4,4 +4,5 @@ export interface Rate {
   comment?: string;
   offerLinked: string;
   date: Date;
+  hour: string;
 }

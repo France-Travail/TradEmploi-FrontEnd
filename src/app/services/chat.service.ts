@@ -10,7 +10,6 @@ import { Role } from '../models/role';
 import { DeviceService } from './device.service';
 import { Device } from '../models/kpis/device';
 import { AdvisorDefaultName, GuestDefaultName } from './settings.service';
-import { ChatError } from '../models/kpis/chatError';
 import { ErrorService } from './error.service';
 import { ERROR_FUNC_UNKNOWCHAT } from '../models/error/errorFunctionnal';
 
@@ -143,7 +142,6 @@ export class ChatService {
       lasttime: new Date().getTime().toString(),
       active: true,
       support: this.support,
-      // errors: this.errors,
       ...initChatDto
     };
     return this.db.object(`chats/${roomId}`).set(chat)
@@ -152,14 +150,6 @@ export class ChatService {
         return false;
       });
   }
-
-  // addError(date: Date, error: ErrorTypes) {
-  //   this.errors.push({
-  //     date: date.toLocaleDateString('fr-FR'),
-  //     hour: date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
-  //     type: error
-  //   });
-  // }
 }
 
 interface InitChatDto {
