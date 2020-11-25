@@ -23,11 +23,11 @@ export class SettingsComponent {
   }
 
   public exportKpi() {
-    this.kpiService.getkpi().then(kpi =>this.exportCsv(kpi, 'kpi'))
+    this.kpiService.getkpi().then(kpi => this.exportCsv(kpi, 'kpi'))
       .catch(_ => this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'));
   }
   public exportEval() {
-    this.rateService.getRates().then(rates =>this.exportCsv(rates, 'eval'))
+    this.rateService.getRates().then(rates => this.exportCsv(rates, 'eval'))
       .catch(_ => this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'));
   }
 

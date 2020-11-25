@@ -81,7 +81,7 @@ export class RateDialogComponent implements OnInit {
     const date = new Date();
     this.rate = {
       language: vocabularyForeign.languageNameFr,
-      date: date,
+      date,
       hour: date.getHours() + ':' + date.getMinutes(),
       grades: [undefined, undefined],
       comment: '',

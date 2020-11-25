@@ -12,7 +12,7 @@ export class TranslateService {
   constructor(private errorService: ErrorService) {}
 
   public translate(text: string, lang: string): Promise<string> {
-    const url = `https://translation.googleapis.com/language/translate/v2?key=${environment.gcp.apiKey}`
+    const url = `https://translation.googleapis.com/language/translate/v2?key=${environment.gcp.apiKey}`;
     const data = {
       q: text,
       target: lang.split('-')[0],
