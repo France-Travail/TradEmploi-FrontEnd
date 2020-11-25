@@ -44,6 +44,7 @@
     "libflacjs": "^5.0.0",
     "moment": "^2.24.0",
     "ngx-device-detector": "^1.4.5",
+    "ngx-ui-loader": "^9.1.1",
     "recordrtc": "^5.5.8",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",

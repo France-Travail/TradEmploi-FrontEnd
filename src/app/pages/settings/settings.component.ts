@@ -6,6 +6,7 @@ import { RateService } from 'src/app/services/rate.service';
 import { KpiService } from 'src/app/services/kpi.service';
 import { ERROR_FUNC_EXPORT_KPI, ERROR_FUNC_EXPORT_STATS } from 'src/app/models/error/errorFunctionnal';
 import { ToastService } from 'src/app/services/toast.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-settings',
@@ -18,17 +19,26 @@ export class SettingsComponent {
     private settingsService: SettingsService,
     private rateService: RateService,
     private kpiService: KpiService,
-    private toastService: ToastService) {
+    private toastService: ToastService,
+    private ngxLoader: NgxUiLoaderService) {
     this.navService.handleTabsSettings();
   }
 
-  public exportKpi(){
-    this.kpiService.getkpi().then(kpi => this.exportCsv(kpi, 'kpi'))
-    .catch(_ => this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'));
+  public exportKpi() {
+    this.ngxLoader.start()
+    this.kpiService.getkpi().then(kpi => {
+      this.exportCsv(kpi, 'kpi');
+      this.ngxLoader.stop();
+    })
+      .catch(_ => this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'));
   }
   public exportEval() {
-    this.rateService.getRates().then(rates => this.exportCsv(rates, 'eval'))
-    .catch(_ => this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'));
+    this.ngxLoader.start()
+    this.rateService.getRates().then(rates => {
+      this.exportCsv(rates, 'eval');
+      this.ngxLoader.stop();
+    })
+      .catch(_ => this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'));
   }
 
   private exportCsv(data, name: string) {
