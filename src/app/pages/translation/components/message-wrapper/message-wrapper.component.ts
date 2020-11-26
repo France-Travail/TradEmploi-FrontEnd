@@ -57,7 +57,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     private speechRecognitionService: SpeechRecognitionService,
     private chatService: ChatService,
     private errorService: ErrorService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
@@ -150,20 +150,9 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
-    if (message !== ''){
+    if (message !== '') {
       this.send(false, message);
     }
-    // if (message === ERROR_FUN_NOSOUND.description) {
-    //   this.toastService.showToast(ERROR_NOSOUND.description as string, 'toast-error');
-    //   this.errorService.save(ERROR_NOSOUND)
-    // } else {
-    //   if (message !== '') {
-    //     this.send(false, message);
-    //   } else {
-    //    // this.toastService.showToast(ERROR_TRANSLATIONUNAVAILABLE.description as string, 'toast-error');
-    //     //this.errorService.save(ERROR_TRANSLATIONUNAVAILABLE)
-    //   }
-    // }
   }
 
   public exitRecord() {
@@ -197,14 +186,14 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     const date = new Date();
     return {
       time: Date.now(),
-      date: date.toLocaleDateString('fr-FR'),
+      date: date.toString(),
       hour: date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
       languageOrigin: this.languageOrigin,
       languageName: this.languageName,
       flag: this.flag,
       role: this.role,
       text,
-      translationMode: this.translationMode
+      translationMode: this.translationMode,
     };
   }
 }
