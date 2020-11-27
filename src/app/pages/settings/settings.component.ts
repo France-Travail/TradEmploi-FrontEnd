@@ -6,6 +6,8 @@ import { RateService } from 'src/app/services/rate.service';
 import { KpiService } from 'src/app/services/kpi.service';
 import { ERROR_FUNC_EXPORT_KPI, ERROR_FUNC_EXPORT_STATS } from 'src/app/models/error/errorFunctionnal';
 import { ToastService } from 'src/app/services/toast.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { LoaderComponent } from './loader/loader.component';
 
 @Component({
   selector: 'app-settings',
@@ -18,17 +20,31 @@ export class SettingsComponent {
     private settingsService: SettingsService,
     private rateService: RateService,
     private kpiService: KpiService,
-    private toastService: ToastService) {
+    private toastService: ToastService,
+    public dialog: MatDialog
+  ) {
     this.navService.handleTabsSettings();
   }
 
   public exportKpi() {
-    this.kpiService.getkpi().then(kpi => this.exportCsv(kpi, 'kpi'))
-      .catch(_ => this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'));
+    this.dialog.open(LoaderComponent);
+    this.kpiService
+      .getkpi()
+      .then((kpi) => {
+        this.exportCsv(kpi, 'kpi');
+        this.dialog.closeAll();
+      })
+      .catch((_) => this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'));
   }
   public exportEval() {
-    this.rateService.getRates().then(rates => this.exportCsv(rates, 'eval'))
-      .catch(_ => this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'));
+    this.dialog.open(LoaderComponent);
+    this.rateService
+      .getRates()
+      .then((rates) => {
+        this.exportCsv(rates, 'eval');
+        this.dialog.closeAll();
+      })
+      .catch((_) => this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'));
   }
 
   private exportCsv(data, name: string) {
