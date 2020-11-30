@@ -63,3 +63,8 @@
     color: $black !important;
   }
 }
+
+.loader .mat-dialog-container {
+  background: none;
+  box-shadow: none;
+}
