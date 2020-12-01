@@ -26,7 +26,7 @@ export class SettingsService {
     this.token = null;
     sessionStorage.removeItem('user');
     localStorage.removeItem('user');
-  };
+  }
 }
 
 export const AdvisorDefaultName: string = 'Pôle emploi';
