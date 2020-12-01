@@ -31,12 +31,14 @@ export class LogoutComponent {
 
   public async confirm() {
     this.dialogRef.close();
+    localStorage.setItem('isLogged', 'false');
     if (this.user.isMultiDevices) {
       this.handleMulti();
     } else {
       this.handleMono();
     }
     this.authService.logout();
+    this.settingsService.reset();
     this.router.navigateByUrl('/');
   }
 
@@ -51,7 +53,6 @@ export class LogoutComponent {
     } else {
       this.chatService.updateChatStatus(this.user.roomId, false);
     }
-    this.settingsService.reset();
   }
   public cancel() {
     this.dialogRef.close();

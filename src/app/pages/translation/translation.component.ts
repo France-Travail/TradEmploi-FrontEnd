@@ -21,6 +21,7 @@ import { AdvisorDefaultName } from './../../services/settings.service';
 import { Support } from 'src/app/models/kpis/support';
 import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
 import { ErrorService } from 'src/app/services/error.service';
+import { VOCABULARY } from 'src/app/data/vocabulary';
 
 @Component({
   selector: 'app-translation',
@@ -41,7 +42,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private user: User;
   private endIdDialogRef: MatDialogRef<any, any>;
   private support: Support;
-
+  private isAudioSupported = false;
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -77,6 +78,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   ngOnInit(): void {
+    const language = VOCABULARY.find((i) => i.isoCode === this.user.language.audio);
+    this.isAudioSupported = language.sentences.audioSupported;
     this.navbarService.handleTabsTranslation();
     this.isAudioPlay = true;
     this.scrollToBottom();
@@ -160,6 +163,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     } else {
       this.deactivateMono();
     }
+    localStorage.setItem('isLogged', 'false');
     this.settingsService.reset();
   }
 
@@ -216,6 +220,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private translateMessage(message: Message) {
     const languageTarget: Language = this.getLanguageTarget(message);
+    // item.sentences.audioSupported
     if (this.isMultiDevices && message.languageOrigin === languageTarget.written) {
       this.setTranslateMessage(message, message.text, languageTarget.audio);
     } else {
@@ -223,27 +228,29 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
-  private callTranslateApi(message: any, languageTarget: any){
+  private callTranslateApi(message: any, languageTarget: any) {
     this.translateService.translate(message.text, languageTarget.written).then(
       (translate) => {
         this.setTranslateMessage(message, translate, languageTarget.audio);
-    }).catch(_ => {
-      this.toastService.showToast(ERROR_FUNC_TRANSLATION.description, 'toast-error');
-    });
+      }).catch(_ => {
+        this.toastService.showToast(ERROR_FUNC_TRANSLATION.description, 'toast-error');
+      });
   }
 
   private setTranslateMessage(message: Message, translate: string, languageTarget: string) {
     message.translation = translate;
-    this.textToSpeechService.getSpeech(translate, languageTarget).then(
-      _ => {
-        if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
+    if (this.isAudioSupported){
+      this.textToSpeechService.getSpeech(translate, languageTarget).then(
+        _ => {
+          if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
             this.textToSpeechService.audioSpeech.play();
+          }
+          message.audioHtml = this.textToSpeechService.audioSpeech;
         }
-        message.audioHtml = this.textToSpeechService.audioSpeech;
-      }
-    ).catch(_ => {
-      this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
-    });
+      ).catch(_ => {
+        this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
+      });
+    }
     this.textToSpeechService.audioSpeech = undefined;
     this.sendMessage(message);
   }

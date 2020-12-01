@@ -58,6 +58,8 @@ export class RateDialogComponent implements OnInit {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         this.isMultiDevices = user.isMultiDevices;
+      } else {
+        this.router.navigate(['/start']);
       }
     });
   }
@@ -115,6 +117,7 @@ export class RateDialogComponent implements OnInit {
           } else {
             this.chatService.updateChatStatus(user.roomId, false);
           }
+          localStorage.setItem('isLogged', 'false');
           this.settingsService.reset();
           this.router.navigate(['thanks']);
         })

@@ -57,6 +57,8 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     this.navService.show();
   }
 
+
+
   public selectLanguage(item: Vocabulary): void {
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
     this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr }, connectionTime: Date.now() });
@@ -115,6 +117,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     } else {
       this.deactivateMono();
     }
+    localStorage.setItem('isLogged', 'false');
     this.settingsService.reset();
   }
 

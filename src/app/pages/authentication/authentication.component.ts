@@ -56,6 +56,7 @@ export class AuthenticationComponent implements OnInit {
       const auth = await this.authService.login(this.email.value, this.password.value);
       const role = this.form.get('email').value === 'admin@pe.fr' ? Role.ADMIN : Role.ADVISOR;
       const roomId = this.chatService.getRoomId();
+      localStorage.setItem('isLogged', 'true');
       this.settingsService.user.next({ ...this.settingsService.user.value, role, firstname: 'Pôle emploi', connectionTime: Date.now(), roomId, isMultiDevices: false });
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.toastService.showToast(auth.message, 'toast-success');

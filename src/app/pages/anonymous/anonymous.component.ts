@@ -75,6 +75,7 @@ export class AnonymousComponent implements OnInit {
       connectionTime: Date.now(),
       firstname: this.username.value,
     };
+    localStorage.setItem('isLogged', 'true');
     sessionStorage.setItem('user', JSON.stringify(user));
     const member: Member = { id: Date.now().toString(), firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
     const key = this.chatService.addMember(this.roomId, member);
