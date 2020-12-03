@@ -36,7 +36,7 @@ export class TextToSpeechService {
     constructor(private voicesService: VoicesService, private errorService: ErrorService) {}
 
     getSpeech = async (text: string, language: string): Promise<void> => {
-      const urlRecognize: string = `https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=${environment.gcp.apiKey}`;
+      const urlRecognize: string = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${environment.gcp.apiKey}`;
       const voices = await this.voicesService.getVoices();
       const voiceSelected: Voice[] = voices.filter(v => v.languageCodes.includes(language));
       const data: Body = {

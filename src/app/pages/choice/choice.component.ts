@@ -27,9 +27,11 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
+  public speakEnabled = true;
 
   private endIdDialogRef: MatDialogRef<any, any>;
   private user: User;
+
   constructor(
     private textToSpeechService: TextToSpeechService,
     private router: Router,
@@ -81,11 +83,16 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   }
 
   public audioDescription(item: Vocabulary) {
+    this.speakEnabled = false;
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
     this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage).then(_ => {
       this.textToSpeechService.audioSpeech.play();
+      setTimeout(() => {
+        this.speakEnabled = true;
+      }, 2000)
     }).catch(_ => {
       this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
+      this.speakEnabled = true;
     });
   }
 
