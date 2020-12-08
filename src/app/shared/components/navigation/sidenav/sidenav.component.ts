@@ -6,6 +6,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { Role } from 'src/app/models/role';
 import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
+import { RateDialogComponent } from 'src/app/pages/translation/dialogs/rate-dialog/rate-dialog.component';
 
 @Component({
   selector: 'app-sidenav',
@@ -18,8 +19,6 @@ export class SidenavComponent {
 
   public choiceLink: string = 'langues';
   public logoutLink: string = 'deconnexion';
-  public isGuest: boolean = false;
-  public isAdmin: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -27,15 +26,11 @@ export class SidenavComponent {
     public navbarService: NavbarService,
     ) {
       this.settingsService.user.subscribe((user) => {
-        if (user !== null) {
-          this.isGuest = user.role === Role.GUEST;
-          this.isAdmin = user.role === Role.ADMIN;
-        }
-        if (this.isGuest) {
+        if (user && user.role === Role.GUEST) {
           this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
           this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
         }
-      });
+      })
     }
 
   public onSidenavClose() {
@@ -48,6 +43,10 @@ export class SidenavComponent {
 
   public share() {
     this.openModal(ShareComponent);
+  }
+
+  public end() {
+    this.openModal(RateDialogComponent);
   }
 
   private openModal(component) {

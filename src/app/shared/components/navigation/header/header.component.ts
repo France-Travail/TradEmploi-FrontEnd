@@ -9,6 +9,7 @@ import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { RateDialogComponent } from 'src/app/pages/translation/dialogs/rate-dialog/rate-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -20,8 +21,6 @@ export class HeaderComponent {
 
   public choiceLink: string = 'langues';
   public logoutLink: string = 'deconnexion';
-  public isGuest: boolean = false;
-  public isAdmin: boolean = false;
   public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
 
@@ -29,15 +28,11 @@ export class HeaderComponent {
     this.isWideScreen = this.breakpointObserver.observe(['(min-width: 821px)']).pipe(map(({ matches }) => matches));
     this.isSmallScreen = this.breakpointObserver.observe(['(max-width: 820px)']).pipe(map(({ matches }) => matches));
     this.settingsService.user.subscribe((user) => {
-      if (user !== null) {
-        this.isGuest = user.role === Role.GUEST;
-        this.isAdmin = user.role === Role.ADMIN;
-      }
-      if (this.isGuest) {
+      if (user && user.role === Role.GUEST) {
         this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
         this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
       }
-    });
+    })
   }
 
   public onToggleSidenav() {
@@ -50,6 +45,10 @@ export class HeaderComponent {
 
   public share() {
     this.openModal(ShareComponent, '500px');
+  }
+
+  public end() {
+    this.openModal(RateDialogComponent, '700px');
   }
 
   private openModal(component, height) {

@@ -53,8 +53,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     private textToSpeechService: TextToSpeechService,
     private navbarService: NavbarService,
     private translateService: TranslateService,
-    private cryptService: CryptService,
-    private errorService: ErrorService
+    private cryptService: CryptService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {

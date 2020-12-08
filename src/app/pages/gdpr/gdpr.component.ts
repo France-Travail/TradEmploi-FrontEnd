@@ -4,6 +4,7 @@ import { ENGLISH } from 'src/app/data/sentence';
 import { FRENCH } from '../../data/sentence';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Gdpr } from 'src/app/models/gdpr';
+import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-gdpr',
@@ -19,9 +20,12 @@ export class GdprComponent {
 
   constructor(
     private router: Router,
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    private navbarService: NavbarService,
   ) {
     this.isMobile = this.deviceService.isMobile();
+    this.navbarService.handleTabGRPD();
+    this.navbarService.show();
   }
 
 
