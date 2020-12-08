@@ -1,0 +1,36 @@
+@import '../../../sass/panel.scss';
+@import '../../../sass/colors.scss';
+
+.choice {
+  display: flex;
+  justify-content: space-between;
+  .mono,
+  .multi {
+    .checkbox {
+      display: flex;
+      margin-bottom: 10px;
+      justify-content: flex-end;
+      .circle {
+        border: 1px solid $gray74;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+    }
+    background-color: $white-smoke;
+    width: 45%;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: $gray74;
+    text-align: center;
+    .translation {
+      color: $gray74;
+    }
+    &.mono:hover,
+    &.multi:hover {
+      border-color: $primary-color;
+      background-color: $light-blue;
+    }
+  }
+}

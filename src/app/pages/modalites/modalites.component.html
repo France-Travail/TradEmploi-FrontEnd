@@ -1,0 +1,37 @@
+<form>
+  <div class="title">
+    <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
+    <h1 class="t2">{{ sentences.title }}</h1>
+  </div>
+  <div class="choice">
+    <div class="mono" (click)="switchModalites('mono')">
+      <div class="checkbox">
+        <span class="circle" [ngStyle]="{ background: target === 'mono' ? checkIconStyle : 'white' }"> </span>
+      </div>
+      <span class="icons">
+        <img src="assets/icons/person.svg" alt="Demandeur" />
+        <img src="assets/icons/desktop.svg" alt="Ordinateur" />
+        <img src="assets/icons/person.svg" alt="Conseiller" />
+      </span>
+      <p>{{ sentences.monoSupport }}</p>
+      <p>{{ sentences.monoSentenceFR }}</p>
+      <p class="translation">{{ sentences.monoSentenceENG }}</p>
+    </div>
+    <div class="multi" (click)="switchModalites('multi')">
+      <div class="checkbox">
+        <span class="circle" [ngStyle]="{ background: target === 'multi' ? checkIconStyle : 'white' }"></span>
+      </div>
+      <span class="icons">
+        <img src="assets/icons/person.svg" alt="Conseiller" />
+        <img src="assets/icons/desktop.svg" alt="Ordinateur" />
+        <img src="assets/icons/phone.svg" alt="Smartphone" />
+        <img src="assets/icons/person.svg" alt="Demandeur" />
+      </span>
+      <p>{{ sentences.multiSupport }}</p>
+      <p>{{ sentences.multiSentenceFR }}</p>
+      <p class="translation">{{ sentences.multiSentenceENG }}</p>
+    </div>
+  </div>
+
+  <button type="submit">Confirmer</button>
+</form>

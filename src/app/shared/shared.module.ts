@@ -33,13 +33,7 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/navigation/header/header.component';
 import { SidenavComponent } from './components/navigation/sidenav/sidenav.component';
 
-const COMPONENTS = [
-  AudioAnimationComponent,
-  RecordComponent,
-  TranslationTitleComponent,
-  HeaderComponent,
-  SidenavComponent
-];
+const COMPONENTS = [AudioAnimationComponent, RecordComponent, TranslationTitleComponent, HeaderComponent, SidenavComponent];
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -59,7 +53,7 @@ const MATERIAL_MODULES = [
   MatSidenavModule,
   MatToolbarModule,
   MatListModule,
-  MatMenuModule
+  MatMenuModule,
 ];
 
 const MODULES = [RouterModule, CommonModule, ReactiveFormsModule, FormsModule, ...MATERIAL_MODULES];

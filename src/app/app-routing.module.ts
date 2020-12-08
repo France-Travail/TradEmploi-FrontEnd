@@ -15,6 +15,7 @@ import { AnonymousComponent } from './pages/anonymous/anonymous.component';
 import { GdprComponent } from './pages/gdpr/gdpr.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PendingChangesGuard } from './guards/pending-changes.guard';
+import { ModalitesComponent } from './pages/modalites/modalites.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
@@ -25,6 +26,10 @@ export const routes: Routes = [
   {
     path: 'auth',
     component: AuthenticationComponent,
+  },
+  {
+    path: 'modalites',
+    component: ModalitesComponent,
   },
   {
     path: 'auth/:id',

@@ -16,22 +16,31 @@ import { ERROR_TECH_DB } from 'src/app/models/error/errorTechnical';
 export class AuthenticationComponent implements OnInit {
   public form: FormGroup;
 
-  constructor(private authService: AuthService,
-              private settingsService: SettingsService,
-              private chatService: ChatService,
-              private router: Router,
-              private fb: FormBuilder,
-              private toastService: ToastService) {
+  constructor(
+    private authService: AuthService,
+    private settingsService: SettingsService,
+    private chatService: ChatService,
+    private router: Router,
+    private fb: FormBuilder,
+    private toastService: ToastService
+  ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         const isFromAuth: boolean = window.location.pathname === '/auth';
         if (isFromAuth) {
-          this.router.navigateByUrl('choice');
+          this.router.navigateByUrl('modalites');
         }
       } else if (localStorage.getItem('user') != null) {
         const USER = JSON.parse(localStorage.getItem('user'));
-        this.settingsService.user.next({ ...this.settingsService.user.value, firstname: USER.firstname, role: USER.role, language: USER.language, connectionTime: USER.connectionTime , isMultiDevices: USER.isMultiDevices});
-        this.router.navigateByUrl('choice');
+        this.settingsService.user.next({
+          ...this.settingsService.user.value,
+          firstname: USER.firstname,
+          role: USER.role,
+          language: USER.language,
+          connectionTime: USER.connectionTime,
+          isMultiDevices: USER.isMultiDevices,
+        });
+        this.router.navigateByUrl('modalites');
       }
     });
   }
@@ -60,7 +69,7 @@ export class AuthenticationComponent implements OnInit {
       this.settingsService.user.next({ ...this.settingsService.user.value, role, firstname: 'Pôle emploi', connectionTime: Date.now(), roomId, isMultiDevices: false });
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.toastService.showToast(auth.message, 'toast-success');
-      this.router.navigateByUrl('choice');
+      this.router.navigateByUrl('modalites');
     } catch (error) {
       this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
     }

@@ -28,8 +28,19 @@ export interface Sentence {
   rate?: Rate;
   gdpr?: Gdpr;
   logout?: Logout;
+  modalites?: Modalites;
 }
 
+export interface Modalites {
+  title: string;
+  monoSupport: string;
+  multiSupport: string;
+  monoSentenceFR: string;
+  monoSentenceENG: string;
+  multiSentenceFR: string;
+  multiSentenceENG: string;
+  confirm: string;
+}
 export interface Rate {
   easyToUse: string;
   understand: string;

@@ -62,6 +62,7 @@ import { ChatMultiDevicesComponent } from './pages/translation/components/chat-m
 import { QRCodeModule } from 'angularx-qrcode';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { LoaderComponent } from './pages/settings/loader/loader.component';
+import { ModalitesComponent } from './pages/modalites/modalites.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { LoaderComponent } from './pages/settings/loader/loader.component';
     ShareComponent,
     EndComponent,
     LoaderComponent,
+    ModalitesComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,8 +111,7 @@ import { LoaderComponent } from './pages/settings/loader/loader.component';
     LayoutModule,
     QRCodeModule,
     DeviceDetectorModule.forRoot(),
-    OverlayModule
-
+    OverlayModule,
   ],
   providers: [
     NavbarService,
