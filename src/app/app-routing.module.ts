@@ -32,6 +32,10 @@ export const routes: Routes = [
     component: ModalitesComponent,
   },
   {
+    path: 'gdpr/mono',
+    component: GdprComponent,
+  },
+  {
     path: 'auth/:id',
     component: AnonymousComponent,
   },

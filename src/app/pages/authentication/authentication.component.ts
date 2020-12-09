@@ -27,7 +27,7 @@ export class AuthenticationComponent implements OnInit {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         const isFromAuth: boolean = window.location.pathname === '/auth';
-        if (isFromAuth) {
+        if (isFromAuth ) {
           this.router.navigateByUrl('modalites');
         }
       } else if (localStorage.getItem('user') != null) {
