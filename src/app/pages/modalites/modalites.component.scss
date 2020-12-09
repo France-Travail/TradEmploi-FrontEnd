@@ -34,3 +34,17 @@
     }
   }
 }
+
+@media screen and (max-width: 720px) {
+  form {
+    margin-top: 0;
+  }
+  .choice {
+    flex-direction: column;
+    .mono,
+    .multi {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+}

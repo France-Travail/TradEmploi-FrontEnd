@@ -43,7 +43,7 @@ export class ModalitesComponent implements OnInit {
     }
   }
 
-  public share() {
+  private share() {
     this.initChat();
     this.userOnLocalStorage();
   }

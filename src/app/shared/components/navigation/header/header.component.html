@@ -19,7 +19,7 @@
         <img src="assets/icons/icon-languages-black.svg" />
         <span class="name">{{ choiceLink | uppercase }}</span>
       </button>
-      <button id="modality-header" *ngIf="navbarService.modalityTab">
+      <button id="modality-header" routerLink="modalites" *ngIf="navbarService.modalityTab">
         <img src="assets/icons/icon-modality-black.svg" />
         <span class="name">MODALITÉ</span>
       </button>

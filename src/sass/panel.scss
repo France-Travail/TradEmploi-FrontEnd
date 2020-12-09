@@ -11,7 +11,8 @@
   background-color: $light-blue;
 }
 
-form, .panel {
+form,
+.panel {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -20,18 +21,18 @@ form, .panel {
   background-color: #ffffff;
   box-shadow: 0 0 3px #aaaaaa;
   color: #333333;
-  border-radius:5px;
-
+  border-radius: 5px;
+  margin-top: 64px;
   .title {
     margin-bottom: 20px;
     text-align: center;
 
     .t2 {
-      font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
       font-weight: 100;
       font-size: 28px;
       letter-spacing: 0.05em;
-      color: #666
+      color: #666;
     }
     .t3 {
       font-size: 16px;
@@ -43,10 +44,10 @@ form, .panel {
     }
   }
 
-  .input{
-    margin:10px;
-    .text{
-      color:red
+  .input {
+    margin: 10px;
+    .text {
+      color: red;
     }
   }
 
@@ -73,7 +74,8 @@ form, .panel {
 }
 
 @media screen and (max-width: 720px) {
-  form, .panel {
+  form,
+  .panel {
     width: 90%;
   }
 }
