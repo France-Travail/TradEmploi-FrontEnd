@@ -12,9 +12,9 @@ export class NavbarService {
   public settingsTab: boolean = false;
   public helpTab: boolean = false;
   public endTab: boolean = false;
-  public shareTab: boolean = true;
+  public shareTab: boolean= true; //TODO: shareTab must be deleted when modality component is created
 
-  constructor(private settingsService: SettingsService, private router: Router, private breakpointObserver: BreakpointObserver) {}
+  constructor(private settingsService: SettingsService, private router: Router) {}
 
   public hide() {
     this.visible = false;
@@ -45,14 +45,17 @@ export class NavbarService {
     this.modalityTab = this.settingsService.user.value.role !== Role.GUEST;
     this.settingsTab = this.settingsService.user.value.role === Role.ADMIN;
     this.helpTab = true;
-    this.breakpointObserver.observe(['(max-width: 820px)']).subscribe((result) => {
-      const isSmallScreen = result.matches
-      const isOnTranslation =  this.router.url.indexOf('translation') > 0
-      const isNotGuest = this.settingsService.user.value.role !== Role.GUEST
-      this.endTab = isSmallScreen
-        && isOnTranslation
-        && isNotGuest
-    });
+    const isOnTranslation =  this.router.url.indexOf('translation') > 0
+    const isNotGuest = this.settingsService.user.value.role !== Role.GUEST
+    this.endTab = isOnTranslation && isNotGuest
+    // this.breakpointObserver.observe(['(max-width: 820px)']).subscribe((result) => {
+    //   const isSmallScreen = result.matches
+    //   const isOnTranslation =  this.router.url.indexOf('translation') > 0
+    //   const isNotGuest = this.settingsService.user.value.role !== Role.GUEST
+    //   this.endTab = isSmallScreen
+    //     && isOnTranslation
+    //     && isNotGuest
+    // });
   }
 
   public handleTabsChoice() {
@@ -65,12 +68,9 @@ export class NavbarService {
 
   public handleTabsSettings() {
     this.choiceTab = true;
-    this.modalityTab = this.settingsService.user.value.role === Role.ADMIN;
+    this.modalityTab = true;
     this.settingsTab = false;
-    this.helpTab = this.settingsService.user.value.role === Role.ADMIN;
+    this.helpTab = true;
     this.endTab = false;
   }
-
-
-
 }

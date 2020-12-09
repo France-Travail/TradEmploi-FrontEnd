@@ -9,7 +9,6 @@ import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { RateDialogComponent } from 'src/app/pages/translation/dialogs/rate-dialog/rate-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +19,7 @@ export class HeaderComponent {
   @Output() public sidenavToggle = new EventEmitter();
 
   public choiceLink: string;
-  public logoutLink: string ;
+  public logoutLink: string;
   public helpLink: string;
   public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
@@ -46,10 +45,6 @@ export class HeaderComponent {
 
   public share() {
     this.openModal(ShareComponent, '500px');
-  }
-
-  public end() {
-    this.openModal(RateDialogComponent, '700px');
   }
 
   private openModal(component, height) {
