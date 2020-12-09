@@ -21,24 +21,16 @@ export class SidenavComponent {
   public logoutLink: string = 'deconnexion';
   public helpLink: string = 'aide';
 
-  private isGuest: boolean = false;
-
   constructor(
     public dialog: MatDialog,
     public settingsService: SettingsService,
     public navbarService: NavbarService,
     ) {
       this.settingsService.user.subscribe((user) => {
-        if(user !== null){
-          this.isGuest = user.role === Role.GUEST;
-        }else{
-          this.isGuest = true
-        }
-        if (this.isGuest) {
-          this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
-          this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
-          this.helpLink = VOCABULARY_DEFAULT.navbarTabs.help;
-        }
+        const isGuest = (user !== null) ? user.role === Role.GUEST: true
+        this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
+        this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout: 'deconnexion';
+        this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'aide';
       })
     }
 

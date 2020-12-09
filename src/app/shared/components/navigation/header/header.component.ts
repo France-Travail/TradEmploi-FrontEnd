@@ -10,8 +10,6 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RateDialogComponent } from 'src/app/pages/translation/dialogs/rate-dialog/rate-dialog.component';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -21,32 +19,20 @@ import { filter } from 'rxjs/operators';
 export class HeaderComponent {
   @Output() public sidenavToggle = new EventEmitter();
 
-  public choiceLink: string = 'langues';
-  public logoutLink: string = 'deconnexion';
-  public helpLink: string = 'aide';
+  public choiceLink: string;
+  public logoutLink: string ;
+  public helpLink: string;
   public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
 
-  private isGuest: boolean = false;
-
-  constructor(public dialog: MatDialog, public navbarService: NavbarService, public settingsService: SettingsService, private breakpointObserver: BreakpointObserver, private router: Router) {
+  constructor(public dialog: MatDialog, public navbarService: NavbarService, public settingsService: SettingsService, private breakpointObserver: BreakpointObserver) {
     this.isWideScreen = this.breakpointObserver.observe(['(min-width: 821px)']).pipe(map(({ matches }) => matches));
     this.isSmallScreen = this.breakpointObserver.observe(['(max-width: 820px)']).pipe(map(({ matches }) => matches));
     this.settingsService.user.subscribe((user) => {
-        if(user !== null){
-          this.isGuest = user.role === Role.GUEST;
-        }else{
-          this.isGuest = true;
-        }
-        if (this.isGuest) {
-          this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
-          this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
-          this.helpLink = VOCABULARY_DEFAULT.navbarTabs.help;
-        }else{
-          this.choiceLink = 'langues'
-          this.logoutLink = 'deconnexion'
-          this.helpLink = 'aide'
-        }
+      const isGuest = (user !== null) ? user.role === Role.GUEST: true
+      this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
+      this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout: 'deconnexion';
+      this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'aide';
     })
   }
 
