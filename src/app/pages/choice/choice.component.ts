@@ -89,7 +89,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
       this.textToSpeechService.audioSpeech.play();
       setTimeout(() => {
         this.speakEnabled = true;
-      }, 2000)
+      }, 2000);
     }).catch(_ => {
       this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
       this.speakEnabled = true;
@@ -115,7 +115,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
 
   @HostListener('window:unload')
   public canDeactivate(): any {
-    this.deactivate();
+   this.deactivate();
   }
 
   private deactivate() {
