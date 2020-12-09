@@ -1,8 +1,11 @@
 @import 'styles';
 
+
 mat-toolbar {
   justify-content: space-between;
-  background: white!important;
+  background: white !important;
+  position: fixed;
+  z-index: 99;
   #logo {
     display: flex;
     align-items: center;

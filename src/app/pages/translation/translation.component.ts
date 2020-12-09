@@ -20,7 +20,6 @@ import { Language } from 'src/app/models/language';
 import { AdvisorDefaultName } from './../../services/settings.service';
 import { Support } from 'src/app/models/kpis/support';
 import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
-import { ErrorService } from 'src/app/services/error.service';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 
 @Component({
@@ -29,6 +28,7 @@ import { VOCABULARY } from 'src/app/data/vocabulary';
   styleUrls: ['./translation.component.scss'],
 })
 export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate, OnDestroy {
+
   @ViewChild('scrollMe') private chatScroll: ElementRef;
   public messagesWrapped: MessageWrapped[] = [];
   public guestTextToEdit: string;
@@ -53,8 +53,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     private textToSpeechService: TextToSpeechService,
     private navbarService: NavbarService,
     private translateService: TranslateService,
-    private cryptService: CryptService,
-    private errorService: ErrorService
+    private cryptService: CryptService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
@@ -239,7 +238,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private setTranslateMessage(message: Message, translate: string, languageTarget: string) {
     message.translation = translate;
-    if (this.isAudioSupported){
+    if (this.isAudioSupported) {
       this.textToSpeechService.getSpeech(translate, languageTarget).then(
         _ => {
           if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {

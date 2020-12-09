@@ -18,10 +18,9 @@ import { map } from 'rxjs/operators';
 export class HeaderComponent {
   @Output() public sidenavToggle = new EventEmitter();
 
-  public choiceLink: string = 'langues';
-  public logoutLink: string = 'deconnexion';
-  public isGuest: boolean = false;
-  public isAdmin: boolean = false;
+  public choiceLink: string;
+  public logoutLink: string;
+  public helpLink: string;
   public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
 
@@ -29,14 +28,10 @@ export class HeaderComponent {
     this.isWideScreen = this.breakpointObserver.observe(['(min-width: 821px)']).pipe(map(({ matches }) => matches));
     this.isSmallScreen = this.breakpointObserver.observe(['(max-width: 820px)']).pipe(map(({ matches }) => matches));
     this.settingsService.user.subscribe((user) => {
-      if (user !== null) {
-        this.isGuest = user.role === Role.GUEST;
-        this.isAdmin = user.role === Role.ADMIN;
-      }
-      if (this.isGuest) {
-        this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
-        this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
-      }
+      const isGuest = (user !== null) ? user.role === Role.GUEST : true;
+      this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
+      this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
+      this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'aide';
     });
   }
 

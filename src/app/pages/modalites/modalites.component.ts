@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Role } from 'src/app/models/role';
 import { ChatService } from 'src/app/services/chat.service';
+import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { FRENCH } from '../../data/sentence';
 
@@ -16,7 +17,10 @@ export class ModalitesComponent implements OnInit {
   public checkIconStyle = "url('../../../assets/icons/check-circle.svg') no-repeat center center";
 
   private roomId: string;
-  constructor(private router: Router, private chatService: ChatService, private settingsService: SettingsService) {}
+  constructor(private router: Router, private navbarService: NavbarService, private chatService: ChatService, private settingsService: SettingsService) {
+    this.navbarService.handleTabModality();
+    this.navbarService.show();
+  }
 
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {

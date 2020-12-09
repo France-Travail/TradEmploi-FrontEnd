@@ -6,6 +6,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { Role } from 'src/app/models/role';
 import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
+import { RateDialogComponent } from 'src/app/pages/translation/dialogs/rate-dialog/rate-dialog.component';
 
 @Component({
   selector: 'app-sidenav',
@@ -16,10 +17,9 @@ export class SidenavComponent {
 
   @Output() sidenavClose = new EventEmitter();
 
-  public choiceLink: string = 'langues';
-  public logoutLink: string = 'deconnexion';
-  public isGuest: boolean = false;
-  public isAdmin: boolean = false;
+  public choiceLink: string;
+  public logoutLink: string;
+  public helpLink: string;
 
   constructor(
     public dialog: MatDialog,
@@ -27,14 +27,10 @@ export class SidenavComponent {
     public navbarService: NavbarService,
     ) {
       this.settingsService.user.subscribe((user) => {
-        if (user !== null) {
-          this.isGuest = user.role === Role.GUEST;
-          this.isAdmin = user.role === Role.ADMIN;
-        }
-        if (this.isGuest) {
-          this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
-          this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
-        }
+        const isGuest = (user !== null) ? user.role === Role.GUEST : true;
+        this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
+        this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
+        this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'aide';
       });
     }
 
@@ -48,6 +44,10 @@ export class SidenavComponent {
 
   public share() {
     this.openModal(ShareComponent);
+  }
+
+  public end() {
+    this.openModal(RateDialogComponent);
   }
 
   private openModal(component) {

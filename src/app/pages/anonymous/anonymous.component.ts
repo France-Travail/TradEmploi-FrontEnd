@@ -11,6 +11,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { DeviceService } from 'src/app/services/device.service';
 import { Support } from 'src/app/models/kpis/support';
 import { ERROR_FUNC_UNKNOWCHAT } from 'src/app/models/error/errorFunctionnal';
+import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-anonymous',
@@ -29,8 +30,10 @@ export class AnonymousComponent implements OnInit {
     private chatService: ChatService,
     private settingsService: SettingsService,
     private afAuth: AngularFireAuth,
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private navbarService: NavbarService
   ) {
+    this.navbarService.hide();
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         this.router.navigateByUrl('choice');

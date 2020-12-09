@@ -1,19 +1,27 @@
 <mat-nav-list>
   <div class="logo">
     <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
-    <span class="title">TRADUCTION INSTANTANÉE</span>
+    <span class="title">Traduction Instantanée</span>
   </div>
   <a mat-list-item routerLink="choice" (click)="onSidenavClose()" *ngIf="navbarService.choiceTab">
     <img src="assets/icons/icon-languages-black.svg" />
     <span class="name">{{ choiceLink | uppercase }}</span>
   </a>
-  <a mat-list-item (click)="share()" (click)="onSidenavClose()" *ngIf="!isGuest && navbarService.shareTab">
-    <img src="assets/icons/icon-share-alt-solid.svg" />
-    <span class="name">PARTAGER</span>
+  <a mat-list-item (click)="onSidenavClose()" *ngIf="navbarService.modalityTab">
+    <img src="assets/icons/icon-modality-black.svg" />
+    <span class="name">MODALITÉ</span>
   </a>
-  <a mat-list-item routerLink="settings" (click)="onSidenavClose()" *ngIf="isAdmin && navbarService.settingsTab">
+  <a mat-list-item routerLink="settings" (click)="onSidenavClose()" *ngIf="navbarService.settingsTab">
     <img src="assets/icons/icon-settings-black.svg" />
     <span class="name">PARAMÈTRES</span>
+  </a>
+  <a mat-list-item (click)="onSidenavClose()" *ngIf="navbarService.helpTab">
+    <img src="assets/icons/icon-help-black.svg" />
+    <span class="name">{{ helpLink | uppercase }}</span>
+  </a>
+  <a mat-list-item (click)="end()"(click)="onSidenavClose()" *ngIf="navbarService.endTab">
+    <img src="assets/icons/icon-end-black.svg" />
+    <span class="name">TERMINER LE CHAT</span>
   </a>
   <a mat-list-item (click)="logout()" (click)="onSidenavClose()">
     <img src="assets/icons/icon-logout.svg" />
