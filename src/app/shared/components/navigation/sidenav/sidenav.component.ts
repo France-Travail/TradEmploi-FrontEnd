@@ -27,11 +27,11 @@ export class SidenavComponent {
     public navbarService: NavbarService,
     ) {
       this.settingsService.user.subscribe((user) => {
-        const isGuest = (user !== null) ? user.role === Role.GUEST: true
+        const isGuest = (user !== null) ? user.role === Role.GUEST : true;
         this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
-        this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout: 'deconnexion';
+        this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
         this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'aide';
-      })
+      });
     }
 
   public onSidenavClose() {
