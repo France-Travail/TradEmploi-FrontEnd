@@ -24,7 +24,7 @@ export class GdprComponent {
     private navbarService: NavbarService,
   ) {
     this.isMobile = this.deviceService.isMobile();
-    this.navbarService.handleTabGRPD();
+    this.navbarService.handleTabGDPR();
     this.navbarService.show();
   }
 

@@ -40,6 +40,7 @@ export interface Rate {
 export interface NavbarTab {
   language: string;
   logout: string;
+  help: string;
 }
 
 export interface Logout {

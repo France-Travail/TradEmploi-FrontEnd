@@ -29,20 +29,16 @@
       </button>
       <button id="help-header" *ngIf="navbarService.helpTab">
         <img src="assets/icons/icon-help-black.svg" />
-        <span class="name">AIDE</span>
-      </button>
-      <button id="help-header"  (click)="end()" *ngIf="navbarService.endTab">
-        <img src="assets/icons/icon-end-black.svg" />
-        <span class="name">TERMINER</span>
+        <span class="name">{{ helpLink | uppercase }}</span>
       </button>
       <button id="logout-header" (click)="logout()">
         <img src="assets/icons/icon-logout.svg" />
         <span class="name">{{ logoutLink | uppercase }}</span>
       </button>
-      <!-- <button id="share-header" (click)="share()" *ngIf="navbarService.shareTab">
+      <button id="share-header" (click)="share()" *ngIf="navbarService.shareTab">
         <img src="assets/icons/icon-share-alt-solid.svg" />
         <span class="name">PARTAGER</span>
-      </button> -->
+      </button>
     </div>
   </ng-container>
 </mat-toolbar>

@@ -19,6 +19,9 @@ export class SidenavComponent {
 
   public choiceLink: string = 'langues';
   public logoutLink: string = 'deconnexion';
+  public helpLink: string = 'aide';
+
+  private isGuest: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -26,9 +29,15 @@ export class SidenavComponent {
     public navbarService: NavbarService,
     ) {
       this.settingsService.user.subscribe((user) => {
-        if (user && user.role === Role.GUEST) {
+        if(user !== null){
+          this.isGuest = user.role === Role.GUEST;
+        }else{
+          this.isGuest = true
+        }
+        if (this.isGuest) {
           this.choiceLink = VOCABULARY_DEFAULT.navbarTabs.language;
           this.logoutLink = VOCABULARY_DEFAULT.navbarTabs.logout;
+          this.helpLink = VOCABULARY_DEFAULT.navbarTabs.help;
         }
       })
     }

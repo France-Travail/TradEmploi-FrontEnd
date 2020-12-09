@@ -17,11 +17,11 @@
   </a>
   <a mat-list-item (click)="onSidenavClose()" *ngIf="navbarService.helpTab">
     <img src="assets/icons/icon-help-black.svg" />
-    <span class="name">AIDE</span>
+    <span class="name">{{ helpLink | uppercase }}</span>
   </a>
   <a mat-list-item (click)="end()"(click)="onSidenavClose()" *ngIf="navbarService.endTab">
     <img src="assets/icons/icon-end-black.svg" />
-    <span class="name">TERMINER</span>
+    <span class="name">TERMINER LE CHAT</span>
   </a>
   <a mat-list-item (click)="logout()" (click)="onSidenavClose()">
     <img src="assets/icons/icon-logout.svg" />
