@@ -45,7 +45,6 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public speak: boolean = false;
   public translationMode: string = TranslationMode.TEXT;
   public languageName: string;
-
   private isMobile: boolean = false;
 
   constructor(
