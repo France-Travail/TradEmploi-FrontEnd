@@ -17,9 +17,9 @@ export class SidenavComponent {
 
   @Output() sidenavClose = new EventEmitter();
 
-  public choiceLink: string = 'langues';
-  public logoutLink: string = 'deconnexion';
-  public helpLink: string = 'aide';
+  public choiceLink: string;
+  public logoutLink: string;
+  public helpLink: string;
 
   constructor(
     public dialog: MatDialog,

@@ -27,7 +27,7 @@ export class NavbarService {
   public handleTabModality() {
     this.choiceTab = false;
     this.modalityTab = false;
-    this.settingsTab = this.settingsService.user.value && this.settingsService.user.value.role === Role.ADMIN;
+    this.settingsTab = this.settingsService.user.value.role === Role.ADMIN;
     this.helpTab = true;
     this.endTab = false;
   }
