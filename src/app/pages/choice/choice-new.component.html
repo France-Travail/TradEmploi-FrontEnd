@@ -5,6 +5,13 @@
   <input matInput (keyup)="applyFilter($event)" />
 </mat-form-field>
 
+<div class="action">
+    <button class="options" (click)="displayMost()"> MOST </button>
+    <button class="options" (click)="displayAll()">ALL</button>
+    <button class="options" (click)="displayList()">LIST</button>
+    <button class="options" (click)="displayGrid()">GRID</button>
+</div>
+
 <mat-table [dataSource]="dataCountriesSource" matSort matSortStart="asc" class="mat-dialog-content">
   <ng-container matColumnDef="traduction">
     <mat-header-cell *matHeaderCellDef mat-sort-header="countryNameFr">Pays (FR)</mat-header-cell>
@@ -28,6 +35,6 @@
       <img *ngIf="element.isoCode === 'ar-XA'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag"
     /></mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
