@@ -63,12 +63,14 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { LoaderComponent } from './pages/settings/loader/loader.component';
 import { ChoiceNewComponent } from './pages/choice/choice-new.component';
+import { LanguageListComponent } from './pages/choice/language/language-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChoiceComponent,
     ChoiceNewComponent,
+    LanguageListComponent,
     HistoricComponent,
     TranslationComponent,
     LanguagesComponent,

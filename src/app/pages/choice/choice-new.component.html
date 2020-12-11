@@ -6,35 +6,10 @@
 </mat-form-field>
 
 <div class="action">
-    <button class="options" (click)="displayMost()"> MOST </button>
-    <button class="options" (click)="displayAll()">ALL</button>
-    <button class="options" (click)="displayList()">LIST</button>
-    <button class="options" (click)="displayGrid()">GRID</button>
+    <button class="options" (click)="getMost()"> MOST </button>
+    <button class="options" (click)="getAll()">ALL</button>
+    <button class="options" (click)="getList()">LIST</button>
+    <button class="options" (click)="getGrid()">GRID</button>
 </div>
 
-<mat-table [dataSource]="dataCountriesSource" matSort matSortStart="asc" class="mat-dialog-content">
-  <ng-container matColumnDef="traduction">
-    <mat-header-cell *matHeaderCellDef mat-sort-header="countryNameFr">Pays (FR)</mat-header-cell>
-    <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)">{{ element.countryNameFr }}</mat-cell>
-  </ng-container>
-  <!-- country Column-->
-  <ng-container matColumnDef="country">
-    <mat-header-cell *matHeaderCellDef mat-sort-header="countryNameRaw">Pays</mat-header-cell>
-    <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)">{{ element.countryNameRaw }}</mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="language">
-    <mat-header-cell *matHeaderCellDef mat-sort-header="languageNameRaw">Langue</mat-header-cell>
-    <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)">{{ element.languageNameRaw }}</mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="flag">
-    <mat-header-cell *matHeaderCellDef>Drapeau</mat-header-cell>
-    <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)"
-      ><span *ngIf="element.isoCode !== 'ar-XA'" class="flag-icon flag-icon-{{ isoCodeToFlag(element.isoCode) }}"></span>
-      <img *ngIf="element.isoCode === 'ar-XA'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag"
-    /></mat-cell>
-  </ng-container>
-  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns"></mat-row>
-</mat-table>
+<app-language-list [displayAll]='displayAll' [search]='search'></app-language-list>
