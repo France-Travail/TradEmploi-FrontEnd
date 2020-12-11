@@ -1,0 +1,56 @@
+@import 'styles';
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .mat-paginator {
+    width: 100%;
+  }
+  
+  .flag-icon {
+    width: 86px;
+    height: 64px;
+  }
+  
+  .mat-table {
+    height: 800px;
+  }
+
+  .action{
+    display: flex;
+    button {
+        width: 170px;
+    }
+    .options {
+        background-color: $white-smoke;
+        color: black;
+    }
+}
+
+  @media screen and (max-width: 750px) {
+    .mat-cell:first-of-type,
+    .mat-header-cell:first-of-type {
+      padding-left: 0;
+    }
+  
+    .mat-header-cell:last-of-type {
+      padding-right: 0px;
+    }
+    .mat-column-country,
+    .mat-column-traduction {
+      padding-right: 20px;
+      font-size: 8pt;
+    }
+  
+    .flag-icon {
+      margin-right: 10px;
+      width: 56px;
+      height: 40px;
+    }
+    .mat-column-language {
+      font-size: 8pt;
+    }
+  }
+  

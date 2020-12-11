@@ -1,9 +1,10 @@
-<h1 mat-dialog-title class="dialogTitle">Choix de la langue</h1>
+<h2><strong>Choix de langues </strong>/ Choice of language</h2>
 
 <mat-form-field>
   <mat-label>Recherche :</mat-label>
   <input matInput (keyup)="applyFilter($event)" />
 </mat-form-field>
+
 <mat-table [dataSource]="dataCountriesSource" matSort matSortStart="asc" class="mat-dialog-content">
   <ng-container matColumnDef="traduction">
     <mat-header-cell *matHeaderCellDef mat-sort-header="countryNameFr">Pays (FR)</mat-header-cell>
@@ -30,5 +31,3 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
-
-<mat-paginator [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons></mat-paginator>

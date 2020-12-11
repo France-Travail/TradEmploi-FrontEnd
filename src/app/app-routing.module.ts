@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Components
-import { ChoiceComponent } from './pages/choice/choice.component';
 import { HistoricComponent } from './pages/historic/historic.component';
 import { TranslationComponent } from './pages/translation/translation.component';
 import { StartComponent } from './pages/start/start.component';
@@ -15,6 +14,7 @@ import { AnonymousComponent } from './pages/anonymous/anonymous.component';
 import { GdprComponent } from './pages/gdpr/gdpr.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PendingChangesGuard } from './guards/pending-changes.guard';
+import { ChoiceNewComponent } from './pages/choice/choice-new.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
@@ -36,7 +36,7 @@ export const routes: Routes = [
   },
   {
     path: 'choice',
-    component: ChoiceComponent,
+    component: ChoiceNewComponent,
     canActivate: [AuthGuard],
   },
   {
