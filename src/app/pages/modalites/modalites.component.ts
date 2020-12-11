@@ -36,8 +36,10 @@ export class ModalitesComponent implements OnInit {
 
   public confirm(): void {
     if (this.target === 'mono') {
+      this.settingsService.user.next({ ...this.settingsService.user.value, isMultiDevices: false });
       this.router.navigateByUrl('gdpr/mono');
     } else {
+      this.chatService.updateChatStatus(this.settingsService.user.value.roomId, false);
       this.share();
       this.router.navigateByUrl('translation');
     }

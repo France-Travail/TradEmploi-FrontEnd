@@ -7,7 +7,7 @@
     <img src="assets/icons/icon-languages-black.svg" />
     <span class="name">{{ choiceLink | uppercase }}</span>
   </a>
-  <a mat-list-item (click)="onSidenavClose()" *ngIf="navbarService.modalityTab">
+  <a mat-list-item routerLink="modalites" (click)="onSidenavClose()" *ngIf="navbarService.modalityTab">
     <img src="assets/icons/icon-modality-black.svg" />
     <span class="name">MODALITÉ</span>
   </a>

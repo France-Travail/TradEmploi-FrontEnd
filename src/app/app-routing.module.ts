@@ -30,10 +30,12 @@ export const routes: Routes = [
   {
     path: 'modalites',
     component: ModalitesComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'gdpr/mono',
     component: GdprComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth/:id',
