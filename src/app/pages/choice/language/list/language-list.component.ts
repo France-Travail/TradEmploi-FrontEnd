@@ -24,7 +24,7 @@ export class LanguageListComponent implements OnChanges{
     constructor(private settingsService: SettingsService) {}
     
     ngOnChanges() {
-        this.displayAll ? this.getCountriesALl() : this.getCountriesSelected()
+        this.displayAll ? this.getCountriesAll() : this.getCountriesSelected()
         this.dataCountriesSource.filter = this.search.trim().toLowerCase();
     }
 
@@ -33,7 +33,7 @@ export class LanguageListComponent implements OnChanges{
         this.dataCountriesSource = new MatTableDataSource(this.countries);
     }
     
-    public getCountriesALl(){
+    public getCountriesAll(){
         this.countries = VOCABULARY.filter((country) => country.isoCode !== 'ar-XA')
         this.dataCountriesSource = new MatTableDataSource(this.countries);
         this.sorting.direction = 'asc';

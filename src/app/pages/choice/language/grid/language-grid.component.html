@@ -1,23 +1,15 @@
-<mat-table [dataSource]="dataCountriesSource" matSort matSortStart="asc" class="mat-dialog-content">
-    <ng-container matColumnDef="traduction">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="countryNameFr">Pays (FR) GRIDDDD</mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)">{{ element.countryNameFr }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="country">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="countryNameRaw">Pays</mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)">{{ element.countryNameRaw }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="language">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="languageNameRaw">Langue</mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)">{{ element.languageNameRaw }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="flag">
-      <mat-header-cell *matHeaderCellDef>Drapeau</mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="chooseLanguage(element.isoCode)"
-        ><span *ngIf="element.isoCode !== 'ar-XA'" class="flag-icon flag-icon-{{ isoCodeToFlag(element.isoCode) }}"></span>
-        <img *ngIf="element.isoCode === 'ar-XA'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag"
-    /></mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: columns"></mat-row>
-</mat-table>
+
+<div class="countries">
+  <div class="country" *ngFor="let item of countries">
+    <div class="title">
+      <strong>{{ item.languageNameFr }} </strong> / {{ item.languageNameRaw }}
+    </div>
+    <div class="middle">
+      <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="speakEnabled? audioDescription(item) :''"></div>
+    </div>
+    <div class="selectLanguageButton">
+      <span *ngIf="item.isoCode !== 'ar-XA'" class="flag-icon flag-icon-{{ isoCodeToFlag(item.isoCode) }}"></span>
+      <img *ngIf="item.isoCode === 'ar-XA'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag" />
+    </div>
+  </div>
+</div>
