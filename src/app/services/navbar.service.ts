@@ -12,7 +12,6 @@ export class NavbarService {
   public settingsTab: boolean = false;
   public helpTab: boolean = false;
   public endTab: boolean = false;
-  public shareTab: boolean = true; // TODO: shareTab must be deleted when modality component is created
 
   constructor(private settingsService: SettingsService, private router: Router) {}
 
@@ -48,14 +47,6 @@ export class NavbarService {
     const isOnTranslation =  this.router.url.indexOf('translation') > 0;
     const isNotGuest = this.settingsService.user.value.role !== Role.GUEST;
     this.endTab = isOnTranslation && isNotGuest;
-    // this.breakpointObserver.observe(['(max-width: 820px)']).subscribe((result) => {
-    //   const isSmallScreen = result.matches
-    //   const isOnTranslation =  this.router.url.indexOf('translation') > 0
-    //   const isNotGuest = this.settingsService.user.value.role !== Role.GUEST
-    //   this.endTab = isSmallScreen
-    //     && isOnTranslation
-    //     && isNotGuest
-    // });
   }
 
   public handleTabsChoice() {

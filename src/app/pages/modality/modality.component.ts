@@ -7,11 +7,11 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { FRENCH } from '../../data/sentence';
 
 @Component({
-  selector: 'app-modalites',
-  templateUrl: './modalites.component.html',
-  styleUrls: ['./modalites.component.scss'],
+  selector: 'app-modality',
+  templateUrl: './modality.component.html',
+  styleUrls: ['./modality.component.scss'],
 })
-export class ModalitesComponent implements OnInit {
+export class ModalityComponent implements OnInit {
   public sentences = FRENCH.modalites;
   public target = 'mono';
   public checkIconStyle = "url('../../../assets/icons/check-circle.svg') no-repeat center center";

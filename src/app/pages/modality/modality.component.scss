@@ -4,8 +4,7 @@
 .choice {
   display: flex;
   justify-content: space-between;
-  .mono,
-  .multi {
+  .mode {
     .checkbox {
       display: flex;
       margin-bottom: 10px;
@@ -27,8 +26,7 @@
     .translation {
       color: $gray74;
     }
-    &.mono:hover,
-    &.multi:hover {
+    &.mode:hover {
       border-color: $primary-color;
       background-color: $light-blue;
     }
@@ -41,8 +39,7 @@
   }
   .choice {
     flex-direction: column;
-    .mono,
-    .multi {
+    .mode {
       width: 100%;
       margin-bottom: 10px;
     }

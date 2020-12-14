@@ -4,7 +4,7 @@
     <h1 class="t2">{{ sentences.title }}</h1>
   </div>
   <div class="choice">
-    <div class="mono" (click)="switchModalites('mono')">
+    <div class="mode" (click)="switchModalites('mono')">
       <div class="checkbox">
         <span class="circle" [ngStyle]="{ background: target === 'mono' ? checkIconStyle : 'white' }"> </span>
       </div>
@@ -17,7 +17,7 @@
       <p>{{ sentences.monoSentenceFR }}</p>
       <p class="translation">{{ sentences.monoSentenceENG }}</p>
     </div>
-    <div class="multi" (click)="switchModalites('multi')">
+    <div class="mode" (click)="switchModalites('multi')">
       <div class="checkbox">
         <span class="circle" [ngStyle]="{ background: target === 'multi' ? checkIconStyle : 'white' }"></span>
       </div>
