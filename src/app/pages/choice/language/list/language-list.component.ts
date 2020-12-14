@@ -14,7 +14,7 @@ export class LanguageListComponent implements OnChanges{
     @Input() search: String;
     @Input() displayAll: Boolean = false;
 
-    public columns: string[] = ['country', 'flag', 'traduction', 'language'];
+    public columns: string[] = ['flag','language','country' ,'traduction'];
     public countries: Vocabulary[] = [];
     public dataCountriesSource: MatTableDataSource<Vocabulary>;
     public countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
@@ -37,7 +37,7 @@ export class LanguageListComponent implements OnChanges{
         this.countries = VOCABULARY.filter((country) => country.isoCode !== 'ar-XA')
         this.dataCountriesSource = new MatTableDataSource(this.countries);
         this.sorting.direction = 'asc';
-        this.sorting.active = 'countryNameFr';
+        this.sorting.active = 'languageNameFr';
         this.dataCountriesSource.sort = this.sorting;
     }
 
