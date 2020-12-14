@@ -12,4 +12,10 @@
     <button class="options" (click)="getGrid()">GRID</button>
 </div>
 
-<app-language-list [displayAll]='displayAll' [search]='search'></app-language-list>
+<ng-template [ngIf]="listSelected">
+  <app-language-list [displayAll]='displayAll' [search]='search'></app-language-list>
+</ng-template>
+<ng-template [ngIf]="!listSelected">
+  <app-language-grid [displayAll]='displayAll' [search]='search'></app-language-grid>
+</ng-template>
+

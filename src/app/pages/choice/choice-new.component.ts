@@ -7,29 +7,29 @@ import { Component } from '@angular/core';
 })
 export class ChoiceNewComponent {
 
-  public displayAll:Boolean = false;
   public search:String;
-
+  public listSelected:Boolean = false;
+  public displayAll:Boolean = false;
 
   public applyFilter(event: Event) {
     this.search = (event.target as HTMLInputElement).value;
-    //this.search = filterValue
-    //this.dataCountriesSource.filter = filterValue.trim().toLowerCase();
   }
 
   public getMost(){
-    this.displayAll = false
+    this.displayAll = false;
   }
 
   public getAll(){
-    this.displayAll = true
+    this.displayAll = true;
   }
 
   public getList(){
-    
+    this.listSelected = true;
+    console.log('listSelected :>> ', this.listSelected);
   }
 
   public getGrid(){
-    
+    this.listSelected = false;
+    console.log('listSelected :>> ', this.listSelected);
   }
 }
