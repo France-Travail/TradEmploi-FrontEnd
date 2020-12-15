@@ -16,7 +16,7 @@ import { NavbarService } from 'src/app/services/navbar.service';
 @Component({
   selector: 'app-anonymous',
   templateUrl: './anonymous.component.html',
-  styleUrls: ['../../../sass/panel.scss'],
+  styleUrls: ['./anonymous.component.scss'],
 })
 export class AnonymousComponent implements OnInit {
   public form: FormGroup;

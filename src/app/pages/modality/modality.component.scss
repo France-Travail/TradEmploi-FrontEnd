@@ -1,6 +1,10 @@
 @import '../../../sass/panel.scss';
 @import '../../../sass/colors.scss';
 
+:host {
+  padding-top: 20px;
+}
+
 .choice {
   display: flex;
   justify-content: space-between;
