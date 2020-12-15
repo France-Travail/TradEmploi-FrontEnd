@@ -16,12 +16,17 @@ import { GdprComponent } from './pages/gdpr/gdpr.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PendingChangesGuard } from './guards/pending-changes.guard';
 import { ModalityComponent } from './pages/modality/modality.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
   {
     path: 'start',
     component: StartComponent,
+  },
+  {
+    path: 'invite/:id',
+    component: WelcomeComponent,
   },
   {
     path: 'auth',
@@ -42,7 +47,7 @@ export const routes: Routes = [
     component: AnonymousComponent,
   },
   {
-    path: 'invite/:id',
+    path: 'gdpr/:id',
     component: GdprComponent,
   },
   {

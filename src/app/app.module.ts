@@ -63,6 +63,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { LoaderComponent } from './pages/settings/loader/loader.component';
 import { ModalityComponent } from './pages/modality/modality.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { ModalityComponent } from './pages/modality/modality.component';
     EndComponent,
     LoaderComponent,
     ModalityComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
