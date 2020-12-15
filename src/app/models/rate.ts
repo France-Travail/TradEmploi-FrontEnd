@@ -3,5 +3,6 @@ export interface Rate {
   language: string;
   comment?: string;
   offerLinked: string;
-  date?: Date | any;
+  date: Date;
+  hour: string;
 }

@@ -4,8 +4,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastService } from 'src/app/services/toast.service';
-import { ErrorCodes } from '../models/errorCodes';
-import { ClassGetter } from '@angular/compiler/src/output/output_ast';
+import { ERROR_TECH_DB } from '../models/error/errorTechnical';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +16,6 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-        this.settingsService.user.next({ ...this.settingsService.user.value, firstname: 'Pôle emploi' });
         if (auth.user != null) {
           this.setRole();
           resolve({ isAuth: true, message: 'Authentification réussie' });
@@ -28,14 +26,14 @@ export class AuthService {
     });
   }
 
-  public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string }> {
+  public async loginAnonymous(): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInAnonymously();
         if (auth.user != null) {
           this.setRole();
-          const id = auth.user.uid;
-          resolve({ id, isAuth: true, message: 'Authentification réussie' });
+          this.settingsService.user.next({ ...this.settingsService.user.value, role: Role.GUEST, connectionTime: Date.now() });
+          resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
         reject({ isAuth: false, message: error.message });
@@ -80,8 +78,7 @@ export class AuthService {
             if (config !== undefined && config.length >= 0) {
               this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
             } else {
-              const error = ErrorCodes.DBERROR;
-              this.toastService.showToast(error, 'toast-error');
+              this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
             }
           });
       }

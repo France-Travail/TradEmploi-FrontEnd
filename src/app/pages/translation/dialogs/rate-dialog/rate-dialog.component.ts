@@ -7,8 +7,7 @@ import { VOCABULARY } from 'src/app/data/vocabulary';
 import { Rate } from 'src/app/models/rate';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
-import { Role } from 'src/app/models/role';
-import { ErrorCodes } from 'src/app/models/errorCodes';
+import { ERROR_FUNC_SEND_STATS } from 'src/app/models/error/errorFunctionnal';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -46,7 +45,7 @@ export class RateDialogComponent implements OnInit {
       foreign: '',
     },
   };
-  private roomId: string;
+  private isMultiDevices: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<RateDialogComponent>,
@@ -57,8 +56,10 @@ export class RateDialogComponent implements OnInit {
     private chatService: ChatService
   ) {
     this.settingsService.user.subscribe((user) => {
-      if (user !== null && user.roomId !== undefined) {
-        this.roomId = user.roomId;
+      if (user !== null) {
+        this.isMultiDevices = user.isMultiDevices;
+      } else {
+        this.router.navigate(['/start']);
       }
     });
   }
@@ -79,9 +80,11 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionThree.foreign = rateForeign.comment;
       this.sentences.questionFour.foreign = rateForeign.offerLinked;
     }
+    const date = new Date();
     this.rate = {
       language: vocabularyForeign.languageNameFr,
-      date: new Date(),
+      date,
+      hour: date.getHours() + ':' + date.getMinutes(),
       grades: [undefined, undefined],
       comment: '',
       offerLinked: 'non',
@@ -89,9 +92,10 @@ export class RateDialogComponent implements OnInit {
   }
 
   public eval(value: number, question: number) {
+    const date = new Date();
     this.rate.grades[question] = value + 1;
-    this.rate.date = new Date();
-
+    this.rate.date = date;
+    this.rate.hour = date.getHours() + ':' + date.getMinutes();
     this.rateService.rateConversation(this.rate);
 
     this.rates[question].forEach((r, i) => {
@@ -103,20 +107,26 @@ export class RateDialogComponent implements OnInit {
     if (this.rate !== undefined) {
       this.rateService
         .saveRate()
-        .then(() => {
+        .then(async () => {
           this.dialogRef.close();
+          const isMono = !this.isMultiDevices;
+          const user = this.settingsService.user.value;
+          if (isMono) {
+            const advisorRole = user.role;
+            this.chatService.initChatMono(user.roomId, advisorRole);
+          } else {
+            this.chatService.updateChatStatus(user.roomId, false);
+          }
+          localStorage.setItem('isLogged', 'false');
+          this.settingsService.reset();
           this.router.navigate(['thanks']);
         })
-        .catch((error) => {
+        .catch(() => {
+          this.toastService.showToast(ERROR_FUNC_SEND_STATS.description, 'toast-error');
           this.dialogRef.close();
-          this.toastService.showToast(ErrorCodes.NOTATIONERROR, 'toast-error');
           setTimeout(() => {
             this.router.navigate(['thanks']);
           }, 3500);
-        })
-        .finally(() => {
-          this.chatService.updateChatStatus(this.roomId, false);
-          this.chatService.delete(this.roomId);
         });
     }
   }

@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class SpeechToTextService {
+
+  
   recognizeAsync = (audioBytes: any, language: string, time: number): Observable<string> => {
     const urlRecognize: string = `https://speech.googleapis.com/v1/speech:longrunningrecognize?key=${environment.gcp.apiKey}`;
     const data = {
@@ -49,7 +51,7 @@ export class SpeechToTextService {
         })
         .catch((error) => {
           observer.error(error);
-          throw new Error('An error occurred when api async speech to text longrunningrecognize called');
+          throw new Error(error);
         });
     });
   };

@@ -4,7 +4,8 @@ import { AudioRecordingService } from 'src/app/services/audio-recording.service'
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ToastService } from 'src/app/services/toast.service';
 import { Role } from 'src/app/models/role';
-import { ErrorCodes } from 'src/app/models/errorCodes';
+import { Vocabulary } from 'src/app/models/vocabulary';
+import { ERROR_FUNC_NOSOUND, ERROR_FUNC_STT } from 'src/app/models/error/errorFunctionnal';
 
 @Component({
   selector: 'app-record',
@@ -27,7 +28,10 @@ export class RecordComponent implements OnInit {
   public canSend: boolean = false;
   public inProgress: boolean = false;
 
-  constructor(private settingsService: SettingsService, private audioRecordingService: AudioRecordingService, private toastService: ToastService) {}
+  constructor(private settingsService: SettingsService,
+              private audioRecordingService: AudioRecordingService,
+              private toastService: ToastService) { }
+
 
   ngOnInit(): void {
     this.start();
@@ -46,7 +50,8 @@ export class RecordComponent implements OnInit {
 
   putTitle = () => {
     const language: string = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.audio : this.settingsService.user.value.language.audio;
-    this.text = VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
+    const audioCode: Vocabulary = VOCABULARY.find((item) => item.audioCode === language);
+    this.text = audioCode ? audioCode.sentences.recordText : VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
   }
 
   private recordBarLoad = () => {
@@ -101,11 +106,14 @@ export class RecordComponent implements OnInit {
       this.audioRecordingService.speechToText.subscribe(
         (response) => {
           this.inProgress = false;
+          if (response === ''){
+            this.toastService.showToast(ERROR_FUNC_NOSOUND.description, 'toast-error');
+          }
           this.send.emit(response);
         },
-        (err) => {
+        (_) => {
           this.inProgress = false;
-          this.toastService.showToast(ErrorCodes.STOTERROR, 'toast-error');
+          this.toastService.showToast(ERROR_FUNC_STT.description, 'toast-error');
           this.send.emit('');
         }
       );

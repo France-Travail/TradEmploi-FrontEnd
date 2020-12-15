@@ -10,9 +10,10 @@ import { NavbarService } from 'src/app/services/navbar.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
 import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
-import { Observable } from 'rxjs';
 import { Vocabulary } from 'src/app/models/vocabulary';
 import { User } from 'src/app/models/user';
+import { ToastService } from 'src/app/services/toast.service';
+import { ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
 
 @Component({
   selector: 'app-choice',
@@ -26,9 +27,9 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   public audioSpeech: HTMLAudioElement;
   public otherLanguageFr: string = 'AUTRES LANGUES';
   public otherLanguageEn: string = 'OTHER LANGUAGES';
+  public speakEnabled = true;
 
   private endIdDialogRef: MatDialogRef<any, any>;
-  private isMultiDevices: boolean = false;
   private user: User;
 
   constructor(
@@ -37,16 +38,18 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     private settingsService: SettingsService,
     public dialog: MatDialog,
     private navService: NavbarService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private toastService: ToastService
   ) {
     this.navService.handleTabsChoice();
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
-        this.isMultiDevices = user.roomId !== undefined;
-        if (this.isMultiDevices && user.role === Role.GUEST) {
+        if (user.isMultiDevices && user.role === Role.GUEST) {
           this.endConversation(user.roomId);
         }
         this.user = user;
+      } else {
+        this.router.navigate(['/auth']);
       }
     });
   }
@@ -56,21 +59,41 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     this.navService.show();
   }
 
+
+
   public selectLanguage(item: Vocabulary): void {
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode }, connectionTime: Date.now() });
+    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr }, connectionTime: Date.now() });
+    if (this.user.role === Role.GUEST) {
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      user.language = { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr };
+      user.connectionTime = Date.now();
+      sessionStorage.setItem('user', JSON.stringify(user));
+    } else {
+      const user = JSON.parse(localStorage.getItem('user'));
+      user.language = { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr };
+      user.connectionTime = Date.now();
+      localStorage.setItem('user', JSON.stringify(user));
+    }
     this.router.navigate(['translation']);
   }
 
   public showMainLanguages(): void {
     this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country));
   }
-  async audioDescription(item: Vocabulary) {
+
+  public audioDescription(item: Vocabulary) {
+    this.speakEnabled = false;
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-    const audio = await this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage);
-    if (audio) {
+    this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage).then(_ => {
       this.textToSpeechService.audioSpeech.play();
-    }
+      setTimeout(() => {
+        this.speakEnabled = true;
+      }, 2000)
+    }).catch(_ => {
+      this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
+      this.speakEnabled = true;
+    });
   }
 
   public moreLanguage(): void {
@@ -83,37 +106,41 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
         }
       });
   }
-
-  @HostListener('window:unload')
-  public canDeactivate(): Observable<boolean> | boolean {
-    this.deactivate();
-    return true;
+  @HostListener('window:beforeunload', ['$event'])
+  public openPopUp(event): any {
+    const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
+    (event || window.event).returnValue = confirmationMessage; // Gecko + IE
+    return confirmationMessage;
   }
 
-  // @HostListener('window:blur')
-  // public blur(): Observable<boolean> | boolean {
-  //   if (this.settingsService.recordMode) {
-  //     const isEndClosed: boolean = this.endIdDialogRef === undefined;
-  //     if (isEndClosed) {
-  //       this.deactivate();
-  //       this.endIdDialogRef = this.openModal(EndComponent, '300px', true);
-  //     }
-  //   }
-  //   return true;
-  // }
+  @HostListener('window:unload')
+  public canDeactivate(): any {
+    this.deactivate();
+  }
 
   private deactivate() {
-    if (this.isMultiDevices) {
-      this.settingsService.reset();
-      if (this.user.role === Role.GUEST) {
-        const isEndClosed: boolean = this.endIdDialogRef === undefined;
-        if (isEndClosed) {
-          this.chatService.deleteMember(this.user.roomId, this.user.firstname, this.user.id);
-        }
-      } else {
-        this.chatService.delete(this.user.roomId);
-      }
+    if (this.user.isMultiDevices) {
+      this.deactivateMulti();
+    } else {
+      this.deactivateMono();
     }
+    localStorage.setItem('isLogged', 'false');
+    this.settingsService.reset();
+  }
+
+  private deactivateMulti() {
+    if (this.user.role === Role.GUEST) {
+      const isEndClosed: boolean = this.endIdDialogRef === undefined;
+      if (isEndClosed) {
+        this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
+      }
+    } else {
+      this.chatService.updateChatStatus(this.user.roomId, false);
+    }
+  }
+
+  private deactivateMono() {
+    this.chatService.initChatMono(this.user.roomId, this.user.role);
   }
 
   public isoCodeToFlag(isoCode: string) {

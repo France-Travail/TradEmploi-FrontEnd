@@ -90,7 +90,7 @@ describe('AuthenticationComponent', () => {
         const promiseData = { isAuth: true, message: 'Authentification réussie' };
         const toastSpy = spyOn(ToastService.prototype, 'showToast');
         const authSpy = spyOn(AuthService.prototype, 'login').and
-            .callFake(function() {
+            .callFake(() => {
                 return Promise.resolve(promiseData);
             });
         await component.onSubmit();
@@ -102,7 +102,7 @@ describe('AuthenticationComponent', () => {
     it('should reject submit', async () => {
         const promiseData = { isAuth: false, message: 'Authentification échouée' };
         const toastSpy = spyOn(ToastService.prototype, 'showToast').and.callThrough();
-        const authSpy = spyOn(AuthService.prototype, 'login').and.callFake(function() {
+        const authSpy = spyOn(AuthService.prototype, 'login').and.callFake(() => {
             return Promise.reject(promiseData);
         });
         await component.onSubmit();

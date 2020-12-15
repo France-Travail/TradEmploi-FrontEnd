@@ -5,21 +5,63 @@ import { Observable } from 'rxjs';
 import { Member } from '../models/db/member';
 import { MessageWrapped } from '../models/translate/message-wrapped';
 import { CryptService } from './crypt.service';
+import { Support } from '../models/kpis/support';
+import { Role } from '../models/role';
+import { DeviceService } from './device.service';
+import { Device } from '../models/kpis/device';
+import { AdvisorDefaultName, GuestDefaultName } from './settings.service';
+import { ErrorService } from './error.service';
+import { ERROR_FUNC_UNKNOWCHAT } from '../models/error/errorFunctionnal';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
-  constructor(private db: AngularFireDatabase, private cryptService: CryptService) {}
 
-  create(roomId: string): Promise<boolean> {
-    const chat: Chat = { lasttime: new Date().getTime().toString(), members: [], messagesWrapped: [], active: true };
-    const promise = this.db.object(`chats/${roomId}`).set(chat);
-    return promise
-      .then((_) => true)
-      .catch((err) => {
-        return false;
-      });
+  public messagesStored: MessageWrapped[] = [];
+  public support: Support = Support.MONODEVICE;
+  private device: Device;
+
+  constructor(private db: AngularFireDatabase, private cryptService: CryptService, private deviceService: DeviceService, private errorService: ErrorService) {
+    this.device = this.deviceService.getUserDevice();
+  }
+
+  getRoomId() {
+    return (10000000 + Math.floor(Math.random() * 10000000)).toString();
+  }
+
+  initChatMono(roomId: string, advisorRole: Role) {
+    this.support = Support.MONODEVICE;
+    this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
+    if (this.messagesStored.length > 0) {
+      const advisor: Member = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
+      const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
+      const chatCreateDto: InitChatDto = { members: [advisor, guest], messages: this.messagesStored };
+      this.create(roomId, chatCreateDto);
+    }
+  }
+
+  initChatMulti(roomId: string, advisorRole: Role): Promise<boolean> {
+    this.support = Support.MULTIDEVICE;
+    const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
+    const chatCreateDto: InitChatDto = { members: [advisor] };
+    return this.create(roomId, chatCreateDto);
+  }
+
+  initChatMonoMulti(roomId: string, advisorRole: Role): Promise<boolean> {
+    this.support = Support.MONOANDMULTIDEVICE;
+    this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
+    const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
+    const chatCreateDto: InitChatDto = { members: [advisor], messages: this.messagesStored, monoToMultiTime: Date.now() };
+    return this.create(roomId, chatCreateDto);
+  }
+
+  initUnknownChat(roomId: string) {
+    this.support = Support.MULTIDEVICE;
+    const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
+    const chatCreateDto: InitChatDto = { members: [guest], messages: [] };
+    this.create(roomId, chatCreateDto);
+    this.errorService.save(ERROR_FUNC_UNKNOWCHAT);
   }
 
   hasRoom(roomId: string): Observable<boolean> {
@@ -38,39 +80,45 @@ export class ChatService {
     return this.db.list(`chats/${roomId}/messages`).valueChanges() as Observable<Array<MessageWrapped>>;
   }
 
+  getMonoToMultiTime(roomId: string): Observable<number> {
+    return this.db.object(`chats/${roomId}/monoToMultiTime`).valueChanges() as Observable<number>;
+  }
+
   sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
     messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
-    return this.db.list(`chats/${roomId}/messages`).push(messageWrapped).key;
+    const itemsRef = this.db.list(`chats/${roomId}/messages`);
+    itemsRef.set(messageWrapped.time.toString(), messageWrapped);
+    return messageWrapped.time.toString();
   }
 
   addMember(roomId: string, newMember: Member): string {
-    const key = this.db.list(`chats/${roomId}/members`).push(newMember).key;
-    const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
-    this.sendMessageWrapped(roomId, messageWrapped);
-    return key;
+    const itemsRef = this.db.list(`chats/${roomId}/members`);
+    itemsRef.set(Date.now().toString(), newMember);
+    if (newMember.role === Role.GUEST) {
+      const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
+      return this.sendMessageWrapped(roomId, messageWrapped);
+    }
   }
 
   getMembers(roomId: string): Observable<Array<Member>> {
     return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>;
   }
 
-  deleteMember(roomId: string, firstname: string, key: string) {
+  deleteMember(roomId: string, firstname: string) {
     const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
     this.sendMessageWrapped(roomId, messageWrapped);
-    return this.db
-      .list(`chats/${roomId}/members/${key}`)
-      .remove()
-      .then((_) => true)
-      .catch((err) => {
-        return false;
-      });
+  }
+
+  notifyAdvisor(roomId: string, firstname: string) {
+    const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
+    this.sendMessageWrapped(roomId, messageWrapped);
   }
 
   delete(roomId: string): Promise<boolean> {
     const promise = this.db.object(`chats/${roomId}`).remove();
     return promise
-      .then((_) => true)
-      .catch((err) => {
+      .then(_ => true)
+      .catch(_ => {
         return false;
       });
   }
@@ -83,9 +131,29 @@ export class ChatService {
     return this.db
       .object(`chats/${roomId}/active`)
       .set(active)
-      .then((_) => true)
-      .catch((err) => {
+      .then(_ => true)
+      .catch(_ => {
         return false;
       });
   }
+
+  private create(roomId: string, initChatDto: InitChatDto): Promise<boolean> {
+    const chat: Chat = {
+      lasttime: new Date().getTime().toString(),
+      active: true,
+      support: this.support,
+      ...initChatDto
+    };
+    return this.db.object(`chats/${roomId}`).set(chat)
+      .then(_ => true)
+      .catch(_ => {
+        return false;
+      });
+  }
+}
+
+interface InitChatDto {
+  members: Array<Member>;
+  messages?: Array<MessageWrapped>;
+  monoToMultiTime?: number;
 }

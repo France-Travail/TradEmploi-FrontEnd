@@ -11,6 +11,7 @@ describe('Auth component', () => {
       cy.url().should('include', '/choice')
       cy.get('#logout-header').click()
       cy.get('.logout-btn').click()
+      cy.url().should('include', '/start');
   
     })
 

@@ -1,37 +1,31 @@
-// Angular
+import { ERROR_TECH_GET_VOICE } from './../models/error/errorTechnical';
+import axios from 'axios';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-
-// Env
 import { environment } from 'src/environments/environment';
-
-// Models
+import { ErrorService } from './error.service';
 import { Voice } from '../models/voice';
-import { Language } from '../models/language';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VoicesService {
-  public voicesList: Voice[] = [];
-  public guest: Language = { audio: '', written: '' };
-  public advisor: string = 'fr-FR';
 
-  private url: string = 'https://texttospeech.googleapis.com/v1beta1';
+  constructor(private errorService: ErrorService) {}
 
-  constructor(private httpClient: HttpClient) {
-    this.getVoices().subscribe(data => {
-      this.voicesList = data.voices;
-    });
-  }
-
-  /**
-   * Get the voices from Google API
-   */
-  public getVoices(): Observable<any> {
-    const url = `${this.url}/voices?key=${environment.gcp.apiKey}`;
-
-    return this.httpClient.get<any>(url);
+  getVoices(): Promise<Array<Voice>> {
+    const urlVoice: string = `https://texttospeech.googleapis.com/v1beta1/voices?key=${environment.gcp.apiKey}`;
+    return axios({
+        method: 'get',
+        url: urlVoice
+      })
+        .then((response: any) => {
+          return  response.data.voices;
+        })
+        .catch(error => {
+          this.errorService.save(ERROR_TECH_GET_VOICE);
+          throw new Error(error);
+        });
   }
 }
+
+

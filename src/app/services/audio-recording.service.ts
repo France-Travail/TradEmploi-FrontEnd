@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SpeechToTextSyncService } from './speech-to-text-sync.service';
 import { Subject } from 'rxjs';
+import { ErrorService } from './error.service';
+import { ERROR_FUNC_NOSOUND } from '../models/error/errorFunctionnal';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +18,8 @@ export class AudioRecordingService {
   private audioOnBlob: Blob;
   private worker: Worker;
 
-  constructor() {
+
+  constructor(private errorService: ErrorService, private speechToTextService: SpeechToTextSyncService) {
     this.worker = new Worker('../worker/flac.worker', { type: 'module' });
   }
 
@@ -49,11 +52,18 @@ export class AudioRecordingService {
         this.audioSpeech = new Audio(audioUrl);
         if (this.audioOnBlob !== undefined) {
           const audioOnBase64 = await this.convertBlobToBase64(this.audioOnBlob);
-          const speechToTextService = new SpeechToTextSyncService();
-          speechToTextService.recognizeSync(audioOnBase64, this.language, time).subscribe(
-            (resultat) => this.speechToText.next(resultat),
-            (error) => this.speechToText.error(error)
-          );
+          this.speechToTextService.recognizeSync(audioOnBase64, this.language).then(
+            (resultat) => {
+              if (resultat === ERROR_FUNC_NOSOUND.description){
+                this.errorService.save(ERROR_FUNC_NOSOUND);
+                this.speechToText.next('');
+              }else{
+                this.speechToText.next(resultat);
+              }
+            }
+          ).catch( error => {
+            this.speechToText.error(error);
+          });
         }
       }
     };

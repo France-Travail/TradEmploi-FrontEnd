@@ -55,3 +55,16 @@
     color: #ffffff !important;
   }
 }
+
+.toast-warning {
+  background-color: $warning-color;
+  color: $black;
+  button {
+    color: $black !important;
+  }
+}
+
+.loader .mat-dialog-container {
+  background: none;
+  box-shadow: none;
+}

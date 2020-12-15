@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Message } from 'src/app/models/translate/message';
+import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
+import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -7,9 +9,11 @@ import { Message } from 'src/app/models/translate/message';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent {
-  @Input() messages: Message[];
+  @Input() messagesWrapped: MessageWrapped[];
   @Input() shared: boolean;
   @Output() editMessageEmit = new EventEmitter();
+
+  constructor(private chatService: ChatService){}
 
   public visible: boolean = false;
 
@@ -17,18 +21,20 @@ export class ChatComponent {
     this.visible = !this.visible;
   }
 
-  public deleteMessage(index) {
-    this.messages.splice(index, 1);
+  public deleteMessage(index: number) {
+    this.messagesWrapped.splice(index, 1);
+    this.chatService.messagesStored.splice(index, 1);
   }
 
-  public editMessage(index) {
-    const sentMessage: Message = this.messages[index];
+  public editMessage(index: number) {
+    const sentMessage: Message = this.messagesWrapped[index].message;
     this.editMessageEmit.emit(sentMessage);
-    this.messages.splice(index, 1);
+    this.messagesWrapped.splice(index, 1);
+    this.chatService.messagesStored.splice(index, 1);
   }
 
-  public listen(index) {
-    const sentMessage: Message = this.messages[index];
+  public listen(index: number) {
+    const sentMessage: Message = this.messagesWrapped[index].message;
     if (sentMessage && sentMessage.audioHtml) {
       sentMessage.audioHtml.play();
     }

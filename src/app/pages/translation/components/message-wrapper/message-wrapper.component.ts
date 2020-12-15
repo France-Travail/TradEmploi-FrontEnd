@@ -1,3 +1,4 @@
+import { ERROR_FUNC_UNAUTHORIZEDMICRO } from './../../../../models/error/errorFunctionnal';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
@@ -5,7 +6,7 @@ import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { Stream } from 'src/app/models/stream';
 import { Message } from 'src/app/models/translate/message';
 import { AudioRecordingService } from 'src/app/services/audio-recording.service';
-import { SettingsService } from 'src/app/services/settings.service';
+import { AdvisorDefaultName, SettingsService } from 'src/app/services/settings.service';
 import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -13,7 +14,9 @@ import { ChatService } from 'src/app/services/chat.service';
 import { Role } from 'src/app/models/role';
 import { User } from 'src/app/models/user';
 import { MessageWrapped } from '../../../../models/translate/message-wrapped';
-import { ErrorCodes } from 'src/app/models/errorCodes';
+import { TranslationMode } from 'src/app/models/kpis/translationMode';
+import { ErrorService } from 'src/app/services/error.service';
+import { ERROR_TECH_UNAUTHORIZEDMICRO } from 'src/app/models/error/errorTechnical';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -23,7 +26,7 @@ import { ErrorCodes } from 'src/app/models/errorCodes';
 export class MessageWrapperComponent implements OnInit, OnChanges {
   @Input() title: string;
   @Input() role: string;
-  @Input() originText: Message;
+  @Input() originText: string;
 
   @Output() messagesToEmit = new EventEmitter<MessageWrapped>();
 
@@ -40,6 +43,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public interim: string = '';
   public recordMode: boolean = false;
   public speak: boolean = false;
+  public translationMode: string = TranslationMode.TEXT;
+  public languageName: string;
 
   private isMobile: boolean = false;
 
@@ -51,11 +56,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     public router: Router,
     private breakpointObserver: BreakpointObserver,
     private speechRecognitionService: SpeechRecognitionService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private errorService: ErrorService
   ) {}
 
   ngOnInit(): void {
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
+    this.languageName = this.settingsService.user.value.language.languageName;
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
     const data = isLanguageExist || this.role === Role.ADVISOR ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     this.title = data.sentences.translationH2;
@@ -68,7 +75,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.originText) {
-      this.rawText = this.originText.text;
+      this.rawText = this.originText;
     }
   }
 
@@ -80,9 +87,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         this.rawText = '';
         this.stream();
       }
+      this.translationMode = TranslationMode.VOCAL;
       this.speak = true;
     } else {
-      this.toastService.showToast(ErrorCodes.UNAUTHORIZEDMICRO, 'toast-info');
+      this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
+      this.errorService.save(ERROR_TECH_UNAUTHORIZEDMICRO);
     }
   }
 
@@ -117,13 +126,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     if (this.rawText !== '') {
       const user = this.settingsService.user.value;
       const message = messageAudio === undefined ? this.rawText : messageAudio;
-      const isMultiDevices = user.roomId !== undefined;
-      if (isMultiDevices) {
+      if (user.isMultiDevices) {
         this.sendToMultiDevices(user, message);
       } else {
         this.sendToOneDevice(message);
       }
       this.rawText = '';
+      this.translationMode = TranslationMode.TEXT;
       this.speak = false;
     }
   }
@@ -142,14 +151,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
-    if (message === ErrorCodes.NOSOUNDERROR) {
-      this.toastService.showToast(ErrorCodes.NOSOUNDERROR, 'toast-error');
-    } else {
-      if (message !== '') {
-        this.send(false, message);
-      } else {
-        this.toastService.showToast(ErrorCodes.TRANSLATIONUNAVAILABLE, 'toast-error');
-      }
+    if (message !== '') {
+      this.send(false, message);
     }
   }
 
@@ -160,13 +163,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   }
 
   private async sendToOneDevice(text: string) {
-    const message = {
-      time: Date.now(),
-      text,
-      languageOrigin: this.languageOrigin,
-      flag: this.flag,
-      role: this.role,
-    };
+    const message = this.buildMessage(text);
     const messageWrapped: MessageWrapped = {
       message,
       time: Date.now(),
@@ -176,17 +173,28 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   private async sendToMultiDevices(user: User, text: string) {
     const message: Message = {
-      time: Date.now(),
-      text,
-      languageOrigin: this.languageOrigin,
-      flag: this.flag,
-      role: this.role,
-      member: user.firstname ? user.firstname : this.settingsService.defaultName,
+      ...this.buildMessage(text),
+      member: user.firstname ? user.firstname : AdvisorDefaultName,
     };
     const messageWrapped: MessageWrapped = {
       message,
       time: Date.now(),
     };
     this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
+  }
+
+  private buildMessage(text: string) {
+    const date = new Date();
+    return {
+      time: Date.now(),
+      date: date.toString(),
+      hour: date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
+      languageOrigin: this.languageOrigin,
+      languageName: this.languageName,
+      flag: this.flag,
+      role: this.role,
+      text,
+      translationMode: this.translationMode,
+    };
   }
 }

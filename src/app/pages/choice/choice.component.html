@@ -8,7 +8,7 @@
       <div class="sentence">
         {{ item.sentences.displayedWelcome }}
       </div>
-      <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="audioDescription(item)"></div>
+      <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="speakEnabled? audioDescription(item) :''"></div>
     </div>
     <div class="selectLanguageButton" (click)="selectLanguage(item)">
       <span *ngIf="item.isoCode !== 'ar-XA'" class="flag-icon flag-icon-{{ isoCodeToFlag(item.isoCode) }}"></span>

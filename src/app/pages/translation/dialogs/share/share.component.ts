@@ -1,3 +1,4 @@
+import { Role } from 'src/app/models/role';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -16,13 +17,18 @@ export class ShareComponent implements OnInit {
 
   private roomId: string;
 
-  constructor(private dialogRef: MatDialogRef<ShareComponent>, public router: Router, private chatService: ChatService, private settingsService: SettingsService) {}
+  constructor(
+    private dialogRef: MatDialogRef<ShareComponent>,
+    public router: Router,
+    private chatService: ChatService,
+    private settingsService: SettingsService
+  ) {}
 
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {
-      if (user != null && user.roomId === undefined) {
+      if (user != null && !user.isMultiDevices) {
         this.canCreate = true;
-        this.roomId = (10000000 + Math.floor(Math.random() * 10000000)).toString();
+        this.roomId = user.roomId;
         this.link = window.location.origin + '/invite/' + this.roomId;
       } else {
         this.link = window.location.origin + '/invite/' + user.roomId;
@@ -45,19 +51,38 @@ export class ShareComponent implements OnInit {
     document.body.removeChild(selBox);
   }
 
-  public confirm() {
-    this.dialogRef.close();
-  }
   public share() {
-    this.settingsService.user.next({
-      ...this.settingsService.user.value,
-      language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written },
-      roomId: this.roomId,
-    });
-    this.chatService.create(this.roomId).then((_) => this.dialogRef.close());
+    this.initChat();
+    this.userOnLocalStorage();
+    this.dialogRef.close();
   }
 
   public cancel() {
     this.dialogRef.close();
+  }
+
+  private initChat(){
+    const advisorRole: Role = this.settingsService.user.value.role;
+    (this.chatService.messagesStored.length > 0) ?
+      this.initChatMonoMulti(advisorRole) :
+      this.chatService.initChatMulti(this.roomId, advisorRole);
+  }
+
+  private initChatMonoMulti(advisorRole: Role){
+    this.chatService.initChatMonoMulti(this.roomId, advisorRole);
+  }
+
+  private userOnLocalStorage(){
+    this.settingsService.user.next({
+      ...this.settingsService.user.value,
+      language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written, languageName: this.settingsService.defaultLanguage.languageName },
+      roomId: this.roomId,
+      isMultiDevices: true
+    });
+    const user = JSON.parse(localStorage.getItem('user'));
+    user.language = { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written };
+    user.roomId = this.roomId;
+    user.isMultiDevices = true;
+    localStorage.setItem('user', JSON.stringify(user));
   }
 }

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { AngularFireFunctions } from '@angular/fire/functions';
-import { environment } from '../../../environments/environment';
 import { Parser } from 'json2csv';
-import { ToastService } from 'src/app/services/toast.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
-import { ErrorCodes } from 'src/app/models/errorCodes';
+import { RateService } from 'src/app/services/rate.service';
+import { KpiService } from 'src/app/services/kpi.service';
+import { ERROR_FUNC_EXPORT_KPI, ERROR_FUNC_EXPORT_STATS } from 'src/app/models/error/errorFunctionnal';
+import { ToastService } from 'src/app/services/toast.service';
+import { MatDialog } from '@angular/material';
+import { LoaderComponent } from './loader/loader.component';
 
 @Component({
   selector: 'app-settings',
@@ -13,36 +15,52 @@ import { ErrorCodes } from 'src/app/models/errorCodes';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent {
-  constructor(private fireFunction: AngularFireFunctions, private toastService: ToastService, private navService: NavbarService, private settingsService: SettingsService) {
+  constructor(
+    private navService: NavbarService,
+    private settingsService: SettingsService,
+    private rateService: RateService,
+    private kpiService: KpiService,
+    private toastService: ToastService,
+    public dialog: MatDialog
+  ) {
     this.navService.handleTabsSettings();
   }
 
-  public export(name:string): void {
-    if (environment.name === 'local') {
-      this.fireFunction.functions.useFunctionsEmulator(environment.firefunction.url);
-    }
-    this.fireFunction
-      .httpsCallable('rates')({ login: environment.firefunction.login, password: environment.firefunction.password })
-      .toPromise()
-      .then((response) => {
-        this.exportCsv(response, name);
+  public exportKpi() {
+    this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+    this.kpiService
+      .getkpi()
+      .then((kpi) => {
+        this.exportCsv(kpi, 'kpi');
+        this.dialog.closeAll();
       })
-      .catch((err) => {
-        this.toastService.showToast(ErrorCodes.EXPORTERROR, 'toast-error');
-        throw new Error('An error occurred when export csv file');
+      .catch((_) => {
+        this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'), this.dialog.closeAll();
+      });
+  }
+  public exportEval() {
+    this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+    this.rateService
+      .getRates()
+      .then((rates) => {
+        this.exportCsv(rates, 'eval');
+        this.dialog.closeAll();
+      })
+      .catch((_) => {
+        this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'), this.dialog.closeAll();
       });
   }
 
-  private exportCsv(rates, name: string) {
+  private exportCsv(data, name: string) {
     const json2csvParser = new Parser({ delimiter: ';', encoding: 'utf8' });
-    const data = json2csvParser.parse(rates);
-    const blob = new Blob([data], { type: 'text/csv' });
+    const csv = json2csvParser.parse(data);
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.setAttribute('hidden', '');
     a.setAttribute('href', url);
     const date = new Date().toLocaleDateString('ko-KR').replace(/. /g, '');
-    const filename = name === "eval" ? 'PE_Outil_Traduction_Evaluation_' + date + '.csv' : 'PE_Outil_Traduction_KPIs_' + date + '.csv';
+    const filename = name === 'eval' ? 'PE_Outil_Traduction_Evaluation_' + date + '.csv' : 'PE_Outil_Traduction_KPIs_' + date + '.csv';
     a.setAttribute('download', filename);
     document.body.append(a);
     a.click();

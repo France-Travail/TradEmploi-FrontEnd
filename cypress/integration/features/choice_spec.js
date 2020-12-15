@@ -35,5 +35,6 @@ describe('Choice component', () => {
   afterEach(() => {
     cy.get('#logout-header').click();
     cy.get('.logout-btn').click();
+    cy.url().should('include', '/start');
   });
 });

@@ -13,11 +13,15 @@ import { NavbarService } from 'src/app/services/navbar.service';
 import { TranslateService } from 'src/app/services/translate.service';
 import { User } from 'src/app/models/user';
 import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
-import { Observable } from 'rxjs';
 import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
 import { EndComponent } from './dialogs/end/end.component';
 import { CryptService } from 'src/app/services/crypt.service';
 import { Language } from 'src/app/models/language';
+import { AdvisorDefaultName } from './../../services/settings.service';
+import { Support } from 'src/app/models/kpis/support';
+import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
+import { ErrorService } from 'src/app/services/error.service';
+import { VOCABULARY } from 'src/app/data/vocabulary';
 
 @Component({
   selector: 'app-translation',
@@ -27,7 +31,6 @@ import { Language } from 'src/app/models/language';
 export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate, OnDestroy {
   @ViewChild('scrollMe') private chatScroll: ElementRef;
   public messagesWrapped: MessageWrapped[] = [];
-  public messages: Message[] = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
@@ -38,7 +41,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private isAudioPlay: boolean;
   private user: User;
   private endIdDialogRef: MatDialogRef<any, any>;
-
+  private support: Support;
+  private isAudioSupported = false;
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -49,18 +53,21 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     private textToSpeechService: TextToSpeechService,
     private navbarService: NavbarService,
     private translateService: TranslateService,
-    private cryptService: CryptService
+    private cryptService: CryptService,
+    private errorService: ErrorService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
         if (user.language !== undefined && user.language.audio === undefined) {
           this.goto('choice');
         }
-        this.isGuest = user.firstname !== undefined;
-        this.isMultiDevices = user.roomId !== undefined;
+        this.isGuest = user.role === Role.GUEST;
+        this.isMultiDevices = user.isMultiDevices;
+        this.messagesWrapped = [];
+        this.chatService.messagesStored = [];
+        this.support = this.chatService.support;
         if (this.isMultiDevices) {
           this.initMultiDevices(user.roomId);
-          this.isGuest = user.firstname !== undefined && user.firstname !== this.settingsService.defaultName;
         }
         this.user = user;
       }
@@ -68,21 +75,23 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
-    this.navbarService.handleTabsTranslation();
   }
 
   ngOnInit(): void {
+    const language = VOCABULARY.find((i) => i.isoCode === this.user.language.audio);
+    this.isAudioSupported = language.sentences.audioSupported;
+    this.navbarService.handleTabsTranslation();
     this.isAudioPlay = true;
     this.scrollToBottom();
   }
 
   ngAfterViewChecked() {
     this.scrollToBottom();
+    this.navbarService.show();
   }
 
   ngOnDestroy() {
     if (this.isMultiDevices) {
-      this.settingsService.user.next({ ...this.settingsService.user.value, connectionTime: Date.now() });
       this.isAudioPlay = false;
     }
   }
@@ -90,18 +99,18 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   scrollToBottom(): void {
     try {
       this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
-    } catch (err) {}
+    } catch (err) { }
   }
 
   public goto(where: string): void {
     this.router.navigate([where]);
   }
 
-  public editChat(message) {
+  public editChat(message: Message) {
     if (message.role === Role.GUEST) {
-      this.guestTextToEdit = message;
+      this.guestTextToEdit = message.text;
     } else {
-      this.advisorTextToEdit = message;
+      this.advisorTextToEdit = message.text;
     }
   }
 
@@ -136,41 +145,44 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.isAudioPlay = !this.isAudioPlay;
   }
 
-  @HostListener('window:unload')
-  public canDeactivate(): Observable<boolean> | boolean {
-    this.toastService.showToast('unload ?', 'toast-error');
-    this.deactivate();
-    return true;
+  @HostListener('window:beforeunload', ['$event'])
+  public async openPopUp(event) {
+    const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
+    (event || window.event).returnValue = confirmationMessage;
+    return 'confirmationMessage';
   }
 
-  // @HostListener('window:blur')
-  // public blur(): Observable<boolean> | boolean {
-  //   if (this.settingsService.recordMode) {
-  //     const isEndClosed: boolean = this.endIdDialogRef === undefined;
-  //     if (isEndClosed) {
-  //       this.deactivate();
-  //       this.endIdDialogRef = this.openModal(EndComponent, '300px', true);
-  //     }
-  //   }
-  //   return true;
-  // }
+  @HostListener('window:unload')
+  public canDeactivate(): any {
+    this.deactivate();
+  }
 
-  private deactivate() {
-    const isMultiDevices = this.user.roomId !== undefined;
-    if (isMultiDevices) {
-      this.settingsService.reset();
-      if (this.isGuest) {
-        const isEndClosed: boolean = this.endIdDialogRef === undefined;
-        if (isEndClosed) {
-          this.chatService.deleteMember(this.user.roomId, this.user.firstname, this.user.id);
-        }
-      } else {
-        this.chatService.delete(this.user.roomId);
+  private async deactivate() {
+    if (this.user.isMultiDevices) {
+      this.deactivateMulti();
+    } else {
+      this.deactivateMono();
+    }
+    localStorage.setItem('isLogged', 'false');
+    this.settingsService.reset();
+  }
+
+  private deactivateMulti() {
+    if (this.isGuest) {
+      const isEndClosed: boolean = this.endIdDialogRef === undefined;
+      if (isEndClosed) {
+        this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
       }
+    } else {
+      this.chatService.updateChatStatus(this.user.roomId, false);
     }
   }
+
+  private deactivateMono() {
+    this.chatService.initChatMono(this.user.roomId, this.user.role);
+  }
+
   private initMultiDevices = (roomId) => {
-    this.messagesWrapped = [];
     this.chatService.getChatStatus(roomId).subscribe((active) => {
       if (active != null && active) {
         this.addMultiMessageToChat(roomId);
@@ -183,59 +195,80 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     });
   }
 
-  private addMultiMessageToChat(roomId: string) {
-    this.chatService.getMessagesWrapped(roomId).subscribe((messagesWrapped) => {
-      if (messagesWrapped.length > 0) {
+  private async addMultiMessageToChat(roomId: string) {
+    let monoToMultiTime: number;
+    if (this.support === Support.MONOANDMULTIDEVICE || this.isGuest) {
+      this.chatService.getMonoToMultiTime(roomId).subscribe(s => monoToMultiTime = s);
+    }
+    this.chatService.getMessagesWrapped(roomId).subscribe((mw: MessageWrapped[]) => {
+      if (this.support === Support.MONOANDMULTIDEVICE || this.isGuest) {
+        mw = mw.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
+      }
+      if (mw.length > 0) {
         if (this.messagesWrapped.length === 0) {
-          messagesWrapped.forEach((messageWrapped) => {
-            messageWrapped = this.cryptService.decryptWrapped(messageWrapped, roomId);
-            this.addToChat(messageWrapped);
+          mw.forEach((m: MessageWrapped) => {
+            m = this.cryptService.decryptWrapped(m, roomId);
+            this.addToChat(m);
           });
         } else {
-          messagesWrapped[messagesWrapped.length - 1] = this.cryptService.decryptWrapped(messagesWrapped[messagesWrapped.length - 1], roomId);
-          this.addToChat(messagesWrapped[messagesWrapped.length - 1]);
+          mw[mw.length - 1] = this.cryptService.decryptWrapped(mw[mw.length - 1], roomId);
+          this.addToChat(mw[mw.length - 1]);
         }
       }
     });
   }
+
   private translateMessage(message: Message) {
     const languageTarget: Language = this.getLanguageTarget(message);
+    // item.sentences.audioSupported
     if (this.isMultiDevices && message.languageOrigin === languageTarget.written) {
       this.setTranslateMessage(message, message.text, languageTarget.audio);
     } else {
-      this.translateService.translate(message.text, languageTarget.written).subscribe(async (translate) => {
-        this.setTranslateMessage(message, translate, languageTarget.audio);
-      });
+      this.callTranslateApi(message, languageTarget);
     }
   }
 
-  private async setTranslateMessage(message: Message, translate: string, languageTarget: string) {
+  private callTranslateApi(message: any, languageTarget: any) {
+    this.translateService.translate(message.text, languageTarget.written).then(
+      (translate) => {
+        this.setTranslateMessage(message, translate, languageTarget.audio);
+      }).catch(_ => {
+        this.toastService.showToast(ERROR_FUNC_TRANSLATION.description, 'toast-error');
+      });
+  }
+
+  private setTranslateMessage(message: Message, translate: string, languageTarget: string) {
     message.translation = translate;
-    const audio = await this.textToSpeechService.getSpeech(translate, languageTarget);
-    if (audio) {
-      if (message.time > this.settingsService.user.value.connectionTime) {
-        if (this.isAudioPlay) {
-          this.textToSpeechService.audioSpeech.play();
+    if (this.isAudioSupported){
+      this.textToSpeechService.getSpeech(translate, languageTarget).then(
+        _ => {
+          if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
+            this.textToSpeechService.audioSpeech.play();
+          }
+          message.audioHtml = this.textToSpeechService.audioSpeech;
         }
-      }
-      message.audioHtml = this.textToSpeechService.audioSpeech;
-      this.textToSpeechService.audioSpeech = undefined;
+      ).catch(_ => {
+        this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
+      });
     }
+    this.textToSpeechService.audioSpeech = undefined;
     this.sendMessage(message);
   }
 
   private sendMessage(message: Message) {
+    const isSender: boolean = this.isSender(message.member);
+    const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
+    this.messagesWrapped.push(messageWrapped);
+    this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
+    this.chatService.messagesStored.push({ message, time: message.time });
+  }
+
+  private isSender(member: string): boolean {
     if (this.isMultiDevices) {
-      let isSender = message.member === this.user.firstname;
-      if (!isSender && this.user.firstname === undefined && message.member === this.settingsService.defaultName) {
-        isSender = true;
-      }
-      const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
-      this.messagesWrapped.push(messageWrapped);
-      this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
-    } else {
-      this.messages.push(message);
+      const isSender = member === this.user.firstname;
+      return !isSender && this.user.firstname === undefined && member === AdvisorDefaultName ? true : isSender;
     }
+    return false;
   }
 
   private sendNotification(messageWrapped: MessageWrapped) {
