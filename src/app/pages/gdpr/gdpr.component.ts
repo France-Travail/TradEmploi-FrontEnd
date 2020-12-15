@@ -28,13 +28,7 @@ export class GdprComponent {
   }
 
   public agree() {
-    const url = this.router.url;
-    if (url.includes('mono')) {
       this.router.navigateByUrl('choice');
-    } else {
-      const roomId = url.substring(url.lastIndexOf('/') + 1, url.length);
-      this.router.navigateByUrl('auth/' + roomId);
-    }
   }
 
   public moreOptions() {

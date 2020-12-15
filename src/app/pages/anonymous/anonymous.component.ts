@@ -34,19 +34,12 @@ export class AnonymousComponent implements OnInit {
     private navbarService: NavbarService
   ) {
     this.navbarService.hide();
-    this.settingsService.user.subscribe((user) => {
-      if (user !== null) {
-        this.router.navigateByUrl('choice');
-      }
-    });
   }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       username: ['', [Validators.minLength(2), Validators.maxLength(32), Validators.required]],
     });
-    const url = this.router.url;
-    this.roomId = url.substring(url.lastIndexOf('/') + 1, url.length);
   }
 
   get username(): AbstractControl {
@@ -85,6 +78,8 @@ export class AnonymousComponent implements OnInit {
     this.chatService.support = Support.MONOANDMULTIDEVICE;
     this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST, connectionTime: Date.now(), isMultiDevices: true });
     this.toastService.showToast(message, 'toast-success');
-    this.router.navigateByUrl('choice');
+    const url = this.router.url;
+    this.roomId = url.substring(url.lastIndexOf('/') + 1, url.length);
+    this.router.navigateByUrl('gdpr/' + this.roomId);
   }
 }

@@ -49,6 +49,7 @@ export const routes: Routes = [
   {
     path: 'gdpr/:id',
     component: GdprComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'choice',

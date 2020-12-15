@@ -10,15 +10,18 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 export class WelcomeComponent implements OnInit {
 
   public isMobile: boolean = false;
-  public roomId : string;
+  public roomId: string;
 
   constructor(private deviceService: DeviceDetectorService, private router: Router) {
     this.isMobile = this.deviceService.isMobile();
-    const url = this.router.url;
-    this.roomId = url.substring(url.lastIndexOf('/') + 1, url.length);
   }
 
   ngOnInit(): void {
   }
 
+  public agree() {
+    const url = this.router.url;
+    const roomId = url.substring(url.lastIndexOf('/') + 1, url.length);
+    this.router.navigateByUrl('auth/' + roomId);
+  }
 }

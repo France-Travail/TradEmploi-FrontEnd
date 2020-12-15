@@ -2,7 +2,7 @@
     <div class="title">
         <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
         <h1 class="t2">Welcome</h1>
-        <p class="t3">Access to <span class="text-app">translation service</span></p>
+        <p class="t3">Access to pole emploi <span class="text-app">translation service</span></p>
     </div>
 
     <div class="description">
@@ -10,7 +10,7 @@
         <p class="t3">Use you phone or tablet to discuss with your advisor in your own language</p>
     </div>
     <div class="action">
-        <button  routerLink="gdpr/:roomId" [ngClass]="{ 'mobileBtn': isMobile }">Go</button>
-        <button class="options" [ngClass]="{ 'mobileBtn': isMobile }">Help</button>
+        <button  (click)="agree()   " [ngClass]="{ 'mobileBtn': isMobile }">Go <i class="fa fa-angle-right"></i></button>
+        <button class="options" [ngClass]="{ 'mobileBtn': isMobile }">Help <i class="fa fa-question-circle"></i></button>
     </div>
 </div>
