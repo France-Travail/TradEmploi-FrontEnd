@@ -14,7 +14,7 @@ import { FRENCH } from '../../data/sentence';
 export class ModalityComponent implements OnInit {
   public sentences = FRENCH.modality;
   public target = 'mono';
-  public checkIconStyle = "url('../../../assets/icons/check-circle.svg') no-repeat center center";
+  public checkIconStyle = 'url(\'../../../assets/icons/check-circle.svg\') no-repeat center center';
 
   private roomId: string;
   constructor(private router: Router, private navbarService: NavbarService, private chatService: ChatService, private settingsService: SettingsService) {
