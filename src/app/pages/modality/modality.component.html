@@ -1,10 +1,10 @@
 <form>
   <div class="title">
-    <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
+    <!-- <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" /> -->
     <h1 class="t2">{{ sentences.title }}</h1>
   </div>
   <div class="choice">
-    <div class="mode" (click)="switchModalites('mono')">
+    <div class="mode" (click)="switchModality('mono')">
       <div class="checkbox">
         <span class="circle" [ngStyle]="{ background: target === 'mono' ? checkIconStyle : 'white' }"> </span>
       </div>
@@ -17,7 +17,7 @@
       <p>{{ sentences.monoSentenceFR }}</p>
       <p class="translation">{{ sentences.monoSentenceENG }}</p>
     </div>
-    <div class="mode" (click)="switchModalites('multi')">
+    <div class="mode" (click)="switchModality('multi')">
       <div class="checkbox">
         <span class="circle" [ngStyle]="{ background: target === 'multi' ? checkIconStyle : 'white' }"></span>
       </div>
@@ -33,5 +33,5 @@
     </div>
   </div>
 
-  <button type="button" (click)="confirm()">{{sentences.confirm}}</button>
+  <button class="confirmBtn" type="button" (click)="confirm()">{{sentences.confirm}}</button>
 </form>

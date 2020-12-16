@@ -28,7 +28,7 @@ export const routes: Routes = [
     component: AuthenticationComponent,
   },
   {
-    path: 'modalites',
+    path: 'modality',
     component: ModalityComponent,
     canActivate: [AuthGuard],
   },

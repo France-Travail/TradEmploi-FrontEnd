@@ -83,7 +83,7 @@ export const FRENCH: Sentence = {
     cancel: 'Annuler',
     confirm: 'Se déconnecter',
   },
-  modalites: {
+  modality: {
     title: 'Modalité de conversation',
     monoSupport: 'Mono support',
     multiSupport: 'Multi supports',

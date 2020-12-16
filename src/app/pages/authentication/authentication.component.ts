@@ -28,7 +28,7 @@ export class AuthenticationComponent implements OnInit {
       if (user !== null) {
         const isFromAuth: boolean = window.location.pathname === '/auth';
         if (isFromAuth ) {
-          this.router.navigateByUrl('modalites');
+          this.router.navigateByUrl('modality');
         }
       } else if (localStorage.getItem('user') != null) {
         const USER = JSON.parse(localStorage.getItem('user'));
@@ -40,7 +40,7 @@ export class AuthenticationComponent implements OnInit {
           connectionTime: USER.connectionTime,
           isMultiDevices: USER.isMultiDevices,
         });
-        this.router.navigateByUrl('modalites');
+        this.router.navigateByUrl('modality');
       }
     });
   }
@@ -69,7 +69,7 @@ export class AuthenticationComponent implements OnInit {
       this.settingsService.user.next({ ...this.settingsService.user.value, role, firstname: 'Pôle emploi', connectionTime: Date.now(), roomId, isMultiDevices: false });
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.toastService.showToast(auth.message, 'toast-success');
-      this.router.navigateByUrl('modalites');
+      this.router.navigateByUrl('modality');
     } catch (error) {
       this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
     }

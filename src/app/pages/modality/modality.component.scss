@@ -34,9 +34,20 @@
 }
 
 @media screen and (max-width: 720px) {
-  form {
-    margin-top: 0;
+  form, 
+  .panel {
+    padding: 10px;
+    .confirmBtn{
+      margin-top: 0;
+    }
+    .title{
+      margin:0;
+    }
+    .t2{
+      font-size: 20px !important;
+    }
   }
+
   .choice {
     flex-direction: column;
     .mode {

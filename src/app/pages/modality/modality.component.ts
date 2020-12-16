@@ -12,7 +12,7 @@ import { FRENCH } from '../../data/sentence';
   styleUrls: ['./modality.component.scss'],
 })
 export class ModalityComponent implements OnInit {
-  public sentences = FRENCH.modalites;
+  public sentences = FRENCH.modality;
   public target = 'mono';
   public checkIconStyle = "url('../../../assets/icons/check-circle.svg') no-repeat center center";
 
@@ -30,7 +30,7 @@ export class ModalityComponent implements OnInit {
     });
   }
 
-  public switchModalites(current: string) {
+  public switchModality(current: string) {
     this.target = current;
   }
 

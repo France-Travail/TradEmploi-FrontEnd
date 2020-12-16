@@ -28,10 +28,10 @@ export interface Sentence {
   rate?: Rate;
   gdpr?: Gdpr;
   logout?: Logout;
-  modalites?: Modalites;
+  modality?: Modality;
 }
 
-export interface Modalites {
+export interface Modality {
   title: string;
   monoSupport: string;
   multiSupport: string;
