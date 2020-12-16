@@ -3,11 +3,13 @@
 
 :host {
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .choice {
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
   .mode {
     .checkbox {
       display: flex;
@@ -40,7 +42,7 @@
 @media screen and (max-width: 720px) {
   form, 
   .panel {
-    padding: 10px;
+    padding: 5px;
     .confirmBtn{
       margin-top: 0;
     }
