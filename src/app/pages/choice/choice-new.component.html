@@ -1,21 +1,21 @@
-<h2><strong>Choix de langues </strong>/ Choice of language</h2>
-
-<mat-form-field>
-  <mat-label>Recherche :</mat-label>
-  <input matInput (keyup)="applyFilter($event)" />
-</mat-form-field>
-
-<div class="action">
-    <button class="options" (click)="getMost()"> MOST </button>
-    <button class="options" (click)="getAll()">ALL</button>
-    <button class="options" (click)="getList()">LIST</button>
-    <button class="options" (click)="getGrid()">GRID</button>
+<div class="choice">
+  <h2><strong>Choix de langues </strong>/ Choice of language</h2>
+  <mat-form-field>
+    <mat-label>Recherche :</mat-label>
+    <input matInput (keyup)="applyFilter($event)" />
+  </mat-form-field>
+  <div class="action">
+      <button class="options" (click)="getMost()"> MOST </button>
+      <button class="options" (click)="getAll()">ALL</button>
+      <button class="options" (click)="getList()">LIST</button>
+      <button class="options" (click)="getGrid()">GRID</button>
+  </div>
+  <ng-template [ngIf]="listSelected">
+    <app-language-list [displayAll]='displayAll' [search]='search'></app-language-list>
+  </ng-template>
+  <ng-template [ngIf]="!listSelected">
+    <app-language-grid [displayAll]='displayAll' [search]='search'></app-language-grid>
+  </ng-template>
 </div>
 
-<ng-template [ngIf]="listSelected">
-  <app-language-list [displayAll]='displayAll' [search]='search'></app-language-list>
-</ng-template>
-<ng-template [ngIf]="!listSelected">
-  <app-language-grid [displayAll]='displayAll' [search]='search'></app-language-grid>
-</ng-template>
 
