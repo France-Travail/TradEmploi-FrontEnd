@@ -1,8 +1,8 @@
 <div class="choice">
   <h2><strong>Choix de langues </strong>/ Choice of language</h2>
-  <mat-form-field>
-    <mat-label>Recherche :</mat-label>
-    <input matInput (keyup)="applyFilter($event)" />
+  <mat-form-field class="search" appearance="outline">
+    <mat-icon matPrefix>search</mat-icon>
+    <input type="search" placeholder="Saisissez la langue recherchée" aria-label="Search" autocomplete="off" matInput (keyup)="applyFilter($event)" />
   </mat-form-field>
   <div class="action">
       <button class="options" (click)="getMost()"> MOST </button>

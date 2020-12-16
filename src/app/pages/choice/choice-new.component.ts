@@ -34,11 +34,9 @@ export class ChoiceNewComponent implements AfterContentInit{
 
   public getList(){
     this.listSelected = true;
-    console.log('listSelected :>> ', this.listSelected);
   }
 
   public getGrid(){
     this.listSelected = false;
-    console.log('listSelected :>> ', this.listSelected);
   }
 }
