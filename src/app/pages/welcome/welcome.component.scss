@@ -2,6 +2,7 @@
 
 :host {
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .title {
@@ -9,16 +10,13 @@
 }
 
 .description {
-    display: flexbox;
-    flex-direction: column;
-    justify-content: center;
+    text-align: center;
+    margin: auto;
     .img {
-        width: 50%;
-        // padding: 30px 150px 30px 150px;
+        width: 35%;
     }
     .t3 {
-        padding: 0px 100px 30px 100px;
-        text-align: center;
+        padding: 0px 100px;
     }
 }
 

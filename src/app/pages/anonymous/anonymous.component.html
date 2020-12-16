@@ -5,8 +5,10 @@
     <p class="t3">Access to pole emploi <span class="text-app">translation service</span></p>
   </div>
   <mat-form-field [color]="username.valid && 'accent'" class="input">
-    <mat-label> <mat-icon>perm_identity</mat-icon> Write your firstname</mat-label>
-    <input matInput class="text" formControlName="username"autocomplete="off" />
+    <mat-label>
+      <mat-icon>perm_identity</mat-icon> Write your firstname
+    </mat-label>
+    <input matInput class="text" formControlName="username" autocomplete="off" />
     <mat-error *ngIf="username.hasError('required')">A name is required.</mat-error>
     <mat-error *ngIf="username.invalid && username.dirty">The name must be between 2 and 32 characters.</mat-error>
   </mat-form-field>
