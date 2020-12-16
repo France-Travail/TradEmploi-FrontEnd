@@ -7,16 +7,13 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent {
 
   public isMobile: boolean = false;
   public roomId: string;
 
   constructor(private deviceService: DeviceDetectorService, private router: Router) {
     this.isMobile = this.deviceService.isMobile();
-  }
-
-  ngOnInit(): void {
   }
 
   public agree() {

@@ -9,9 +9,12 @@
 }
 
 .description {
+    display: flexbox;
+    flex-direction: column;
+    justify-content: center;
     .img {
-        width: 100%;
-        padding: 30px 150px 30px 150px;
+        width: 50%;
+        // padding: 30px 150px 30px 150px;
     }
     .t3 {
         padding: 0px 100px 30px 100px;
