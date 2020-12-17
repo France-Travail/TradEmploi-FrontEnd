@@ -34,6 +34,8 @@ export class AnonymousComponent implements OnInit {
     private navbarService: NavbarService
   ) {
     this.navbarService.hide();
+    const url = this.router.url;
+    this.roomId = url.substring(url.lastIndexOf('/') + 1, url.length);
   }
 
   ngOnInit(): void {
@@ -78,8 +80,6 @@ export class AnonymousComponent implements OnInit {
     this.chatService.support = Support.MONOANDMULTIDEVICE;
     this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: key, role: Role.GUEST, connectionTime: Date.now(), isMultiDevices: true });
     this.toastService.showToast(message, 'toast-success');
-    const url = this.router.url;
-    this.roomId = url.substring(url.lastIndexOf('/') + 1, url.length);
     this.router.navigateByUrl('gdpr/' + this.roomId);
   }
 }
