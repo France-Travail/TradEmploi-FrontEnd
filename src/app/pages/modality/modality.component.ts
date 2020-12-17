@@ -1,3 +1,4 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Role } from 'src/app/models/role';
@@ -15,11 +16,20 @@ export class ModalityComponent implements OnInit {
   public sentences = FRENCH.modality;
   public target = 'mono';
   public checkIconStyle = 'url(\'../../../assets/icons/check-circle.svg\') no-repeat center center';
+  public isSmallScreen:Boolean = false;
 
   private roomId: string;
-  constructor(private router: Router, private navbarService: NavbarService, private chatService: ChatService, private settingsService: SettingsService) {
+
+  constructor(private router: Router, 
+    private navbarService: NavbarService, 
+    private chatService: ChatService, 
+    private settingsService: SettingsService,
+    private breakpointObserver: BreakpointObserver) {
     this.navbarService.handleTabModality();
     this.navbarService.show();
+    this.breakpointObserver.observe(['(max-width: 820px)']).subscribe((result) => {
+      this.isSmallScreen = result.matches;
+    });
   }
 
   ngOnInit(): void {

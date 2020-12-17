@@ -1,6 +1,8 @@
 <form>
   <div class="title">
-    <!-- <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" /> -->
+    <ng-template [ngIf]="!isSmallScreen">
+      <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
+    </ng-template>
     <h1 class="t2">{{ sentences.title }}</h1>
   </div>
   <div class="choice">
