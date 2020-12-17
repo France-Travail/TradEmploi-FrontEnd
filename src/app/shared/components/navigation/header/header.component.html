@@ -19,7 +19,7 @@
         <img src="assets/icons/icon-languages-black.svg" />
         <span class="name">{{ choiceLink | uppercase }}</span>
       </button>
-      <button id="modality-header" *ngIf="navbarService.modalityTab">
+      <button id="modality-header" routerLink="modality" *ngIf="navbarService.modalityTab">
         <img src="assets/icons/icon-modality-black.svg" />
         <span class="name">MODALITÉ</span>
       </button>
@@ -34,11 +34,6 @@
       <button id="logout-header" (click)="logout()">
         <img src="assets/icons/icon-logout.svg" />
         <span class="name">{{ logoutLink | uppercase }}</span>
-      </button>
-      <!-- //TODO: share-header must be deleted when modality component is created-->
-      <button id="share-header" (click)="share()" *ngIf="navbarService.shareTab">
-        <img src="assets/icons/icon-share-alt-solid.svg" />
-        <span class="name">PARTAGER</span>
       </button>
     </div>
   </ng-container>

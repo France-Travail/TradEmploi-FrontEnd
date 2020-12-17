@@ -1,13 +1,9 @@
 <mat-nav-list>
-  <div class="logo">
-    <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
-    <span class="title">Traduction Instantanée</span>
-  </div>
   <a mat-list-item routerLink="choice" (click)="onSidenavClose()" *ngIf="navbarService.choiceTab">
     <img src="assets/icons/icon-languages-black.svg" />
     <span class="name">{{ choiceLink | uppercase }}</span>
   </a>
-  <a mat-list-item (click)="onSidenavClose()" *ngIf="navbarService.modalityTab">
+  <a mat-list-item routerLink="modality" (click)="onSidenavClose()" *ngIf="navbarService.modalityTab">
     <img src="assets/icons/icon-modality-black.svg" />
     <span class="name">MODALITÉ</span>
   </a>

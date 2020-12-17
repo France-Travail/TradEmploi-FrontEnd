@@ -83,6 +83,16 @@ export const FRENCH: Sentence = {
     cancel: 'Annuler',
     confirm: 'Se déconnecter',
   },
+  modality: {
+    title: 'Modalité de conversation',
+    monoSupport: 'Mono support',
+    multiSupport: 'Multi supports',
+    monoSentenceFR: 'Échangez avec un seul support PC ou tablette',
+    monoSentenceENG: 'Chat with a single PC or tablet support.',
+    multiSentenceFR: 'Échangez avec plusieurs supports PC, téléphones ou tablettes.',
+    multiSentenceENG: 'Chat with several PCs, phones or tablets supports ',
+    confirm: 'Confirmer',
+  },
 };
 
 export const ENGLISH: Sentence = {

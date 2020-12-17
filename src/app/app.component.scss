@@ -4,7 +4,7 @@ mat-sidenav-container,
 mat-sidenav-content,
 mat-sidenav {
   height: 100%;
-  background-color: $light-blue;
+  background-color: $warm-white;
 }
 
 mat-sidenav {
@@ -15,4 +15,10 @@ mat-sidenav {
 
 .content {
   padding-top: 64px;
+}
+
+@media (max-width: 599px) {
+  .content {
+    padding-top: 56px;
+  }
 }

@@ -65,6 +65,8 @@ import { LoaderComponent } from './pages/settings/loader/loader.component';
 import { ChoiceNewComponent } from './pages/choice/choice-new.component';
 import { LanguageListComponent } from './pages/choice/language/list/language-list.component';
 import { LanguageGridComponent } from './pages/choice/language/grid/language-grid.component';
+import { ModalityComponent } from './pages/modality/modality.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,8 @@ import { LanguageGridComponent } from './pages/choice/language/grid/language-gri
     ShareComponent,
     EndComponent,
     LoaderComponent,
+    ModalityComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -115,8 +119,7 @@ import { LanguageGridComponent } from './pages/choice/language/grid/language-gri
     LayoutModule,
     QRCodeModule,
     DeviceDetectorModule.forRoot(),
-    OverlayModule
-
+    OverlayModule,
   ],
   providers: [
     NavbarService,
