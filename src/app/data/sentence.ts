@@ -91,7 +91,7 @@ export const FRENCH: Sentence = {
     monoSentenceENG: 'Chat with a single PC or tablet support.',
     multiSentenceFR: 'Échangez avec plusieurs supports PC, téléphones ou tablettes.',
     multiSentenceENG: 'Chat with several PCs, phones or tablets supports ',
-    confirm: 'Confirmer',
+    confirm: 'CONFIRMER',
   },
 };
 
