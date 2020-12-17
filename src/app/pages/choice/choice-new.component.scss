@@ -1,9 +1,17 @@
 @import 'styles';
 
+:host {
+  width: 100%;
+  min-height: 100%;
+  display: block;
+  background-color: $light-blue;
+  padding-top: 20px;
+}
+
 .choice {
   width: 90%;
-  padding-top:66px;
   margin:auto;
+  background-color: $light-blue;
 }
 
 h2 {
