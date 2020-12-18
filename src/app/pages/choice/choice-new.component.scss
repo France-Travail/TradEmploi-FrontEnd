@@ -23,6 +23,40 @@ h2 {
   }
 }
 
+.action{
+  display: flex;
+  background-color: white;
+  padding:10px;
+  button {
+    background-color: white;
+    width: 200px;
+    justify-content: space-evenly;
+    font-size: 12px;
+    height: 35px;
+    border: 1px solid lightgray;
+    margin-left: 10px;
+    border-radius: 5px;
+    .description{
+      margin-left:10px
+    }
+  }
+  .optionNoClicked{
+    background: white;
+    color:$primary-color;
+    border-color:$primary-color;
+  }
+  .optionClicked{
+    background: $primary-color;
+    color: white;
+  }
+  .optionListGrid{
+    border: transparent;
+    width: fit-content;
+    margin-left: auto;
+  }
+}
+
+
 .search{
   width:50%;
   height: 50%;

@@ -93,6 +93,13 @@ export const FRENCH: Sentence = {
     multiSentenceENG: 'Chat with several PCs, phones or tablets supports ',
     confirm: 'Confirmer',
   },
+  choice: {
+    mostBtn: 'Langues les plus utilisées',
+    allBtn: 'Toutes les langues',
+    listBtn: 'Liste',
+    gridBtn: 'Grille',
+    chooseBtn: 'Choisir'
+  }
 };
 
 export const ENGLISH: Sentence = {
@@ -134,6 +141,13 @@ export const ENGLISH: Sentence = {
     cancel: 'Cancel',
     confirm: 'Logout',
   },
+  choice: {
+    mostBtn: 'Most used languages',
+    allBtn: 'All languages',
+    listBtn: 'List',
+    gridBtn: 'Grid',
+    chooseBtn: 'Choose'
+  }
 };
 
 export const SPANISH: Sentence = {

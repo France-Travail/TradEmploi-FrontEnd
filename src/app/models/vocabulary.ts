@@ -29,6 +29,15 @@ export interface Sentence {
   gdpr?: Gdpr;
   logout?: Logout;
   modality?: Modality;
+  choice?: Choice;
+}
+
+export interface Choice{
+  mostBtn: string;
+  allBtn: string;
+  listBtn: string;
+  gridBtn: string;
+  chooseBtn: string;
 }
 
 export interface Modality {
