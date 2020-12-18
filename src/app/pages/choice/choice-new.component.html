@@ -10,7 +10,7 @@
       <img style="vertical-align:middle"  src="assets/icons/all-languages.svg" alt="Multi Language" />
       <span class="description">{{wordings.allBtn}}</span>
     </button>
-    <button class="optionListGrid" (click)="getList()">{{listGridWording}}</button>
+    <button class="optionListGrid" (click)="getList()"><i [ngClass]="{'fas fa-th': listSelected, 'fa fa-list': !listSelected}"></i></button>
   </div>
   <ng-template [ngIf]="listSelected">
     <app-language-list [displayAll]='displayAll' [search]='search'></app-language-list>
