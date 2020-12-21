@@ -24,9 +24,10 @@ export class LanguageListComponent implements OnChanges{
     constructor(private settingsService: SettingsService) {}
     
     ngOnChanges() {
-        console.log('optionAll :>> ', this.optionAll);
         this.optionAll ? this.getCountriesAll() : this.getCountriesSelected()
-        this.dataCountriesSource.filter = this.search.trim().toLowerCase();
+        if(this.search && this.search != ""){
+            this.dataCountriesSource.filter  = this.search.trim().toLowerCase();
+        }
     }
 
     public getCountriesSelected(){

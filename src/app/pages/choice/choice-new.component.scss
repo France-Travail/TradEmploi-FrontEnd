@@ -33,42 +33,6 @@ h2 {
   }
 }
 
-.option{
-  display: flex;
-  background-color: white;
-  padding:10px;
-  button {
-    background-color: white;
-    width: 200px;
-    justify-content: space-evenly;
-    font-size: 12px;
-    height: 35px;
-    border: 1px solid lightgray;
-    margin-left: 10px;
-    border-radius: 5px;
-    outline: none;
-    .description{
-      margin-left:10px
-    }
-  }
-  .no-clicked{
-    background: white;
-    color:$primary-color;
-    border-color:$primary-color;
-  }
-  .clicked{
-    background: $primary-color;
-    color: white;
-  }
-  .listgrid{
-    border: transparent;
-    width: fit-content;
-    margin-left: auto;
-    font-size: 20px;
-    color: $primary-color;
-  }
-}
-
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: white;
   border-radius: 5px;
@@ -89,11 +53,5 @@ h2 {
   .search{
     width:100%;
     padding:5px
-  }
-  .option{
-    padding-left: 0px;
-    button {
-      margin-left:5px;
-    }
   }
 }

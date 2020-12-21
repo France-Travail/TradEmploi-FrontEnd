@@ -5,20 +5,10 @@
     <input type="search" placeholder="Saisissez la langue ou le pays recherché" aria-label="Search" autocomplete="off" matInput (keyup)="applyFilter($event)" />
   </mat-form-field>
   <app-language-option (optionListEmit)="emitOptionList($event)" (optionAllEmit)="emitOptionAll($event)"></app-language-option>
-  <!-- <div class="option">
-    <button [ngClass]="{'no-clicked': optionAll, 'clicked': !optionAll}" (click)="getMost()">{{wordings.mostBtn}}</button>
-    <button [ngClass]="{'no-clicked': !optionAll, 'clicked': optionAll}" (click)="getMost()">
-      <img style="vertical-align:middle"  src="assets/icons/all-languages.svg" alt="Multi Language" />
-      <span class="description">{{wordings.allBtn}}</span>
-    </button>
-    <button class="listgrid" (click)="getList()"><i [ngClass]="{'fas fa-th': optionList, 'fa fa-list': !optionList}"></i></button>
-  </div> -->
   <ng-template [ngIf]="optionList">
-    <h1>list event</h1>
-    <!-- <app-language-list [optionAll]='optionAll' [search]='search'></app-language-list> -->
+    <app-language-list [optionAll]='optionAll' [search]='search'></app-language-list>
   </ng-template>
   <ng-template [ngIf]="!optionList">
-    <!-- <h1>grid event</h1> -->
     <app-language-grid [optionAll]='optionAll' [search]='search'></app-language-grid>
   </ng-template>
 </div>
