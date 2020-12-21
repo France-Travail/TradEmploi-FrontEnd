@@ -5,6 +5,7 @@ import { Role } from 'src/app/models/role';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { VOCABULARY } from 'src/app/data/vocabulary';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-choice-new',

@@ -3,6 +3,7 @@ import { Choice } from 'src/app/models/vocabulary';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Role } from 'src/app/models/role';
 import { SettingsService } from 'src/app/services/settings.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-language-option',
@@ -17,9 +18,14 @@ export class LanguageOptionComponent{
   public optionList:Boolean = false;
   public optionAll:Boolean = false;
   public wordings: Choice;
+  public isSmallScreen: Boolean = false;
 
-  constructor(private settingsService: SettingsService){
+  constructor(private settingsService: SettingsService,  private breakpointObserver: BreakpointObserver){
     this.wordings = this.settingsService.user.value.role === Role.GUEST ? ENGLISH.choice: FRENCH.choice;
+    this.breakpointObserver.observe(['(max-width: 820px)']).subscribe((result) => {
+      this.isSmallScreen = result.matches;
+      this.isSmallScreen ? this.optionListEmit.emit(true): this.optionListEmit.emit(this.optionList);
+    });
   }
 
   public getMost(){
