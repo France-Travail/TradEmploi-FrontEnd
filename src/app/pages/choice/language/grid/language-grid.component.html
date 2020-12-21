@@ -1,14 +1,24 @@
 <div class="countries">
   <div class="country" *ngFor="let item of countries">
     <div class="title">
-      <strong>{{ item.languageNameFr }} </strong> / {{ item.languageNameRaw }} / {{ item.countryNameFr }}
+      <span class="fr">{{ item.languageNameFr }} ({{ item.countryNameFr }})</span>
+      <span class="raw">{{ item.languageNameRaw }} <bdi>({{ item.countryNameRaw }})</bdi></span>
     </div>
-    <div class="middle">
-      <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="speakEnabled? audioDescription(item) :''"></div>
-    </div>
-    <div class="selectLanguageButton">
+    <div class="flag">
       <span *ngIf="item.isoCode !== 'ar-XA'" class="flag-icon flag-icon-{{ isoCodeToFlag(item.isoCode) }}"></span>
       <img *ngIf="item.isoCode === 'ar-XA'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag" />
+    </div>
+    <div class="option">
+      <div class="option-col">
+        <img src="assets/icons/pronounce.svg" alt="Pronounce" />
+      </div>
+      <div class="option-col">
+        <img src="assets/icons/listen.svg" alt="Listen" />
+        <img *ngIf="!item.sentences.audioSupported" style="margin-left:-25px;" src="assets/icons/no-listen.svg" alt="Listen" />
+      </div>
+      <div class="option-col">
+        <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="speakEnabled? audioDescription(item) :''"></div>
+      </div>
     </div>
   </div>
 </div>

@@ -3,80 +3,151 @@
   margin: auto;
   padding: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 40px;
   justify-content: space-evenly;
   background-color: $white;
+  
+  // .country {
+  //   margin: auto;
+  //   width: 300px;
+  //   padding: 10px;
+  //   flex-direction: column;
+  //   color: #666666;
+  //   border-radius: 5px;
+  //   background-color: $white-smoke;
+  //   .title {
+  //     width: 300px;
+  //     background-color: red;
+  //   }
+  //   .middle {
+  //     margin-top: 15px;
+  //     height: 40px;
+  //     display: flex;
+  //     justify-content: space-between;
+  //     .speaker {
+  //       background-image: url('../../../../../assets/icons/icon-listen-blue.svg');
+  //       background-repeat: no-repeat;
+  //       background-position: center;
+  //       border-radius: 40px;
+  //       background-color: white;
+  //       background-size: 20px;
+  //       width: 40px;
+  //       height: 40px;
+  //     }
+  //     background-color: yellow;
+  //   }
+  //   .selectLanguageButton {
+  //     background-color: $white;
+  //     align-items: baseline;
+  //     display: flex;
+  //     color: $button-black;
+  //     width: 170px;
+  //     flex-direction: row;
+  //     flex-wrap: wrap;
+  //     margin: auto;
+  //     align-items: baseline;
+  //     height: 35px;
+  //     border: 1px solid $gray74;
+  //     border-radius: 10px;
+  //     cursor: pointer;
+  //     .flag-icon {
+  //       width: 29px;
+  //       height: 20px;
+  //       border: 1px solid $gray74;
+  //       box-sizing: border-box;
+  //       border-radius: 5px;
+  //       background-size: cover;
+  //       margin: auto 10px;
+  //     }
 
-  .country {
-    margin: auto;
-    width: 300px;
-    padding: 10px;
+  //     .sentences {
+  //       margin: auto 0;
+  //       flex-direction: column;
+  //       .buttonSentenceFR {
+  //         font-size: 11px;
+  //       }
+  //       .buttonSentenceRAW {
+  //         font-size: 9px;
+  //       }
+  //     }
+  //     background-color: blue;
+  //   }
+  //   &:hover {
+  //     color: white;
+  //     background: $primary-color;
+  //     .selectLanguageButton {
+  //       color: white;
+  //       background-color: $primary-color;
+  //     }
+  //   }
+  // }
+}
+
+.country{
+  display: flex;
+  width: 250px;
+  height: 200px;
+  flex-direction: column;
+  border-radius: 5px;
+  background-color: $white-smoke;
+  align-items: center;
+  cursor: pointer;
+  .title{
+    display: flex;
     flex-direction: column;
-    color: #666666;
-    border-radius: 5px;
-    background-color: $white-smoke;
-    .title {
-      width: 300px;
+    padding: 20px;
+    align-items: center;
+    height:70px;
+    .fr{
+      font-size:12px;
+      font-weight: 200;
     }
-    .middle {
-      margin-top: 15px;
+    .raw{
+      font-size:16px;
+      font-weight: 400;
+    }
+  }
+  .flag{
+    height:60px;
+    .flag-icon {
+      width: 50px;
       height: 40px;
-      display: flex;
-      justify-content: space-between;
-      .speaker {
-        background-image: url('../../../../../assets/icons/icon-listen-blue.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        border-radius: 40px;
-        background-color: white;
-        background-size: 20px;
-        width: 40px;
-        height: 40px;
-      }
-    }
-    .selectLanguageButton {
-      background-color: $white;
-      align-items: baseline;
-      display: flex;
-      color: $button-black;
-      width: 170px;
-      flex-direction: row;
-      flex-wrap: wrap;
-      margin: auto;
-      align-items: baseline;
-      height: 35px;
       border: 1px solid $gray74;
-      border-radius: 10px;
-      cursor: pointer;
-      .flag-icon {
-        width: 29px;
-        height: 20px;
-        border: 1px solid $gray74;
-        box-sizing: border-box;
-        border-radius: 5px;
-        background-size: cover;
-        margin: auto 10px;
-      }
+      box-sizing: border-box;
+      border-radius: 5px;
+      background-size: cover;
+      margin:10px;
+    }
+  }
+  .option{
+    display: flex;
+    justify-content: space-evenly;
+    width: inherit;
+    padding: 0px 30px;
+    height:60px;
+    .option-col{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: inherit;
+      height: inherit;
+    }
+    .speaker {
+      background-image: url('../../../../../assets/icons/icon-listen-blue.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 35px;
+      background-color: white;
+      background-size: 15px;
+      width: 30px;
+      height: 30px;
+      border: solid grey 0.5px;
+    }
 
-      .sentences {
-        margin: auto 0;
-        flex-direction: column;
-        .buttonSentenceFR {
-          font-size: 11px;
-        }
-        .buttonSentenceRAW {
-          font-size: 9px;
-        }
-      }
-    }
-    &:hover {
-      color: white;
-      background: $primary-color;
-      .selectLanguageButton {
-        color: white;
-        background-color: $primary-color;
-      }
-    }
+  }
+  &:hover {
+    border-color: $primary-color;
+    border: solid;
   }
 }
