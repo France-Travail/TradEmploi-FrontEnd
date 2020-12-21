@@ -1,0 +1,118 @@
+@import '../../../../../sass/colors';
+
+.content {
+  h2,
+  h3 {
+    font-weight: normal;
+  }
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  .top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .top:hover {
+    cursor: pointer;
+  }
+  .vertical-line {
+    border-left: 2px solid $gray74;
+  }
+  .indication {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 16pt;
+    height: 16pt;
+  }
+  .middle {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    height: 80%;
+    .chevron {
+      border: solid 1px $gray74;
+      border-radius: 50%;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+    .chevron:hover {
+      cursor: pointer;
+    }
+    .imageDesktop {
+      width: 400px;
+      height: 300px;
+      margin: 0 70px;
+    }
+    .imageMobile {
+      margin-top: auto;
+      width: 200px;
+      height: 150px;
+      margin: auto;
+    }
+  }
+  .helps {
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10%;
+    .helpFR {
+      margin-right: 10px;
+    }
+  }
+  .bottom {
+    display: flex;
+    justify-content: center;
+    ul {
+      padding-inline-start: 0;
+      li {
+        border-radius: 50%;
+        border: 1px solid $gray74;
+        width: 15px;
+        height: 15px;
+        margin: 0 2px;
+      }
+    }
+    .circle {
+      background-color: white;
+    }
+    .coloredCircle {
+      background-color: $primary-color;
+    }
+  }
+}
+
+.contentMobile {
+  .indication {
+    margin-top: 30px;
+  }
+  .helpFR,
+  .helpEN {
+    text-align: center;
+  }
+  .middle {
+    margin: 25% 0;
+  }
+  .close {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    bottom: 0;
+    width: fit-content;
+    margin: 30px auto;
+    padding: 10px 30px;
+    background: $white-smoke;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: Roboto;
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+}

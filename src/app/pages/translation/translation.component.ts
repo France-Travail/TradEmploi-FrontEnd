@@ -22,6 +22,7 @@ import { Support } from 'src/app/models/kpis/support';
 import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 
+
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',

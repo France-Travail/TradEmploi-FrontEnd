@@ -1,0 +1,29 @@
+<div class="content" [ngClass]="isMobile ? 'contentMobile' : 'content'">
+  <div class="top" *ngIf="!isMobile">
+    <h2 class="title">Aide</h2>
+    <mat-icon aria-hidden="false" (click)="closeDialog()" class="close">close</mat-icon>
+  </div>
+  <h3 class="description" *ngIf="!isMobile">Présentation de l'outil</h3>
+  <div class="indication">{{ data[i].indication }}</div>
+  <div class="middle">
+    <mat-icon aria-hidden="false" (click)="previousItem()" class="chevron" aria-label="Précédent">chevron_left</mat-icon>
+    <span class="vertical-line" *ngIf="!isMobile"></span>
+    <img [ngClass]="isMobile ? 'imageMobile' : 'imageDesktop'" src="../../../../../assets/images/{{ data[i].image }}" />
+    <span class="vertical-line" *ngIf="!isMobile"></span>
+    <mat-icon aria-hidden="false" class="chevron" (click)="nextItem()" aria-label="Suivant">chevron_right</mat-icon>
+  </div>
+  <div class="helps">
+    <div class="helpFR" *ngIf="!isMobile">
+      {{ data[i].textFR }}
+    </div>
+    <div class="helpEN">
+      {{ data[i].textEN }}
+    </div>
+  </div>
+  <div class="bottom" *ngIf="isMobile">
+    <ul style="list-style-type: none; display: flex">
+      <li *ngFor="let elem of data; index as index" [ngClass]="i == index ? 'coloredCircle' : 'circle'"></li>
+    </ul>
+  </div>
+  <button class="close" *ngIf="isMobile" (click)="closeDialog()">CLOSE</button>
+</div>

@@ -64,6 +64,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { LoaderComponent } from './pages/settings/loader/loader.component';
 import { ModalityComponent } from './pages/modality/modality.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { OnboardingComponent } from './pages/translation/dialogs/onboarding/onboarding.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
     LoaderComponent,
     ModalityComponent,
     WelcomeComponent,
+    OnboardingComponent,
   ],
   imports: [
     BrowserModule,

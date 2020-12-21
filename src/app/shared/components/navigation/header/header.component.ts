@@ -9,6 +9,7 @@ import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { OnboardingComponent } from 'src/app/pages/translation/dialogs/onboarding/onboarding.component';
 
 @Component({
   selector: 'app-header',
@@ -28,7 +29,7 @@ export class HeaderComponent {
     this.isWideScreen = this.breakpointObserver.observe(['(min-width: 821px)']).pipe(map(({ matches }) => matches));
     this.isSmallScreen = this.breakpointObserver.observe(['(max-width: 820px)']).pipe(map(({ matches }) => matches));
     this.settingsService.user.subscribe((user) => {
-      const isGuest = (user !== null) ? user.role === Role.GUEST : true;
+      const isGuest = user !== null ? user.role === Role.GUEST : true;
       this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
       this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
       this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'aide';
@@ -45,6 +46,10 @@ export class HeaderComponent {
 
   public share() {
     this.openModal(ShareComponent, '500px');
+  }
+
+  public help() {
+    this.openModal(OnboardingComponent, '700px');
   }
 
   private openModal(component, height) {
