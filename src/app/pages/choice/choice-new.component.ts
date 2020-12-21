@@ -1,9 +1,10 @@
 import { ENGLISH, FRENCH } from 'src/app/data/sentence';
-import { Choice } from 'src/app/models/vocabulary';
+import { Choice, Vocabulary } from 'src/app/models/vocabulary';
 import { AfterContentInit, Component } from '@angular/core';
 import { Role } from 'src/app/models/role';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { VOCABULARY } from 'src/app/data/vocabulary';
 
 @Component({
   selector: 'app-choice-new',
@@ -14,14 +15,14 @@ export class ChoiceNewComponent implements AfterContentInit{
 
   public search:String;
   public listSelected:Boolean = false;
-  public displayAll:Boolean = false;
+
+  public optionList:Boolean = false;
+  public optionAll:Boolean = false;
   public wordings: Choice;
-  public listGridWording: String;
 
   constructor(private navService: NavbarService, private settingsService: SettingsService){
     this.navService.handleTabsChoice();
     this.wordings = this.settingsService.user.value.role === Role.GUEST ? ENGLISH.choice: FRENCH.choice;
-    this.listGridWording = this.wordings.gridBtn;
   }
 
   ngAfterContentInit(): void {
@@ -32,19 +33,11 @@ export class ChoiceNewComponent implements AfterContentInit{
     this.search = (event.target as HTMLInputElement).value;
   }
 
-  public getMost(){
-    console.log('Most');
-    this.displayAll = false;
+  public emitOptionAll(optionAllEvent: Boolean){
+    this.optionAll = optionAllEvent;
   }
 
-  public getAll(){
-    console.log('All');
-    this.displayAll = true;
-  }
-
-  public getList(){
-    console.log("getList");
-    this.listSelected = this.listSelected ? false: true;
-    this.listGridWording = this.listSelected ? this.wordings.gridBtn: this.wordings.listBtn;
+  public emitOptionList(optionListEvent: Boolean){
+    this.optionList = optionListEvent;
   }
 }

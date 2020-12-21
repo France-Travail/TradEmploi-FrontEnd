@@ -2,21 +2,24 @@
   <h2><strong>Choix de langues </strong>/ Choice of language</h2>
   <mat-form-field class="search" appearance="outline">
     <mat-icon matPrefix>search</mat-icon>
-    <input type="search" placeholder="Saisissez la langue recherchée" aria-label="Search" autocomplete="off" matInput (keyup)="applyFilter($event)" />
+    <input type="search" placeholder="Saisissez la langue ou le pays recherché" aria-label="Search" autocomplete="off" matInput (keyup)="applyFilter($event)" />
   </mat-form-field>
-  <div class="action">
-    <button [ngClass]="{'optionNoClicked': displayAll, 'optionClicked': !displayAll}" (click)="getMost()">{{wordings.mostBtn}}</button>
-    <button [ngClass]="{'optionNoClicked': !displayAll, 'optionClicked': displayAll}" (click)="getAll()">
+  <app-language-option (optionListEmit)="emitOptionList($event)" (optionAllEmit)="emitOptionAll($event)"></app-language-option>
+  <!-- <div class="option">
+    <button [ngClass]="{'no-clicked': optionAll, 'clicked': !optionAll}" (click)="getMost()">{{wordings.mostBtn}}</button>
+    <button [ngClass]="{'no-clicked': !optionAll, 'clicked': optionAll}" (click)="getMost()">
       <img style="vertical-align:middle"  src="assets/icons/all-languages.svg" alt="Multi Language" />
       <span class="description">{{wordings.allBtn}}</span>
     </button>
-    <button class="optionListGrid" (click)="getList()"><i [ngClass]="{'fas fa-th': listSelected, 'fa fa-list': !listSelected}"></i></button>
-  </div>
-  <ng-template [ngIf]="listSelected">
-    <app-language-list [displayAll]='displayAll' [search]='search'></app-language-list>
+    <button class="listgrid" (click)="getList()"><i [ngClass]="{'fas fa-th': optionList, 'fa fa-list': !optionList}"></i></button>
+  </div> -->
+  <ng-template [ngIf]="optionList">
+    <h1>list event</h1>
+    <!-- <app-language-list [optionAll]='optionAll' [search]='search'></app-language-list> -->
   </ng-template>
-  <ng-template [ngIf]="!listSelected">
-    <app-language-grid [displayAll]='displayAll' [search]='search'></app-language-grid>
+  <ng-template [ngIf]="!optionList">
+    <!-- <h1>grid event</h1> -->
+    <app-language-grid [optionAll]='optionAll' [search]='search'></app-language-grid>
   </ng-template>
 </div>
 

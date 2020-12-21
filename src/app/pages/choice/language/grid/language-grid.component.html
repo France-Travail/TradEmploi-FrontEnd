@@ -1,8 +1,7 @@
-
 <div class="countries">
   <div class="country" *ngFor="let item of countries">
     <div class="title">
-      <strong>{{ item.languageNameFr }} </strong> / {{ item.languageNameRaw }}
+      <strong>{{ item.languageNameFr }} </strong> / {{ item.languageNameRaw }} / {{ item.countryNameFr }}
     </div>
     <div class="middle">
       <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="speakEnabled? audioDescription(item) :''"></div>

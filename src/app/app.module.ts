@@ -42,6 +42,9 @@ import { TranslationComponent } from './pages/translation/translation.component'
 import { HistoricComponent } from './pages/historic/historic.component';
 
 // Dialogs
+import { LanguageListComponent } from './pages/choice/language/list/language-list.component';
+import { LanguageGridComponent } from './pages/choice/language/grid/language-grid.component';
+import { LanguageOptionComponent } from './pages/choice/language/option/language-option.component';
 import { LanguagesComponent } from './pages/choice/dialog/languages/languages.component';
 import { MeetingComponent } from './pages/translation/dialogs/meeting/meeting.component';
 import { SettingsComponent } from './pages/settings/settings.component';
@@ -63,8 +66,6 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { LoaderComponent } from './pages/settings/loader/loader.component';
 import { ChoiceNewComponent } from './pages/choice/choice-new.component';
-import { LanguageListComponent } from './pages/choice/language/list/language-list.component';
-import { LanguageGridComponent } from './pages/choice/language/grid/language-grid.component';
 import { ModalityComponent } from './pages/modality/modality.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 
@@ -75,6 +76,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
     ChoiceNewComponent,
     LanguageListComponent,
     LanguageGridComponent,
+    LanguageOptionComponent,
     HistoricComponent,
     TranslationComponent,
     LanguagesComponent,

@@ -1,0 +1,9 @@
+<div class="option">
+  <button [ngClass]="{'no-clicked': optionAll, 'clicked': !optionAll}" (click)="getMost()">{{wordings.mostBtn}}</button>
+  <button [ngClass]="{'no-clicked': !optionAll, 'clicked': optionAll}" (click)="getMost()">
+    <img style="vertical-align:middle"  src="assets/icons/all-languages.svg" alt="Multi Language" />
+    <span class="description">{{wordings.allBtn}}</span>
+  </button>
+  <button class="listgrid" (click)="getList()"><i [ngClass]="{'fas fa-th': optionList, 'fa fa-list': !optionList}"></i></button>
+</div>
+

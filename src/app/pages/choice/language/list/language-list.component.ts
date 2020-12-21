@@ -12,7 +12,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 export class LanguageListComponent implements OnChanges{
     
     @Input() search: String;
-    @Input() displayAll: Boolean = false;
+    @Input() optionAll: Boolean = false;
 
     public columns: string[] = ['flag','language','country' ,'traduction'];
     public countries: Vocabulary[] = [];
@@ -24,7 +24,8 @@ export class LanguageListComponent implements OnChanges{
     constructor(private settingsService: SettingsService) {}
     
     ngOnChanges() {
-        this.displayAll ? this.getCountriesAll() : this.getCountriesSelected()
+        console.log('optionAll :>> ', this.optionAll);
+        this.optionAll ? this.getCountriesAll() : this.getCountriesSelected()
         this.dataCountriesSource.filter = this.search.trim().toLowerCase();
     }
 

@@ -10,15 +10,21 @@ import { Vocabulary } from 'src/app/models/vocabulary';
 export class LanguageGridComponent implements OnChanges{
     
     @Input() search: String;
-    @Input() displayAll: Boolean = false;
+    @Input() optionAll: Boolean;
 
     public countries: Vocabulary[] = [];
     public countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
-    
+
     ngOnChanges() {
-        this.displayAll ? this.getCountriesAll() : this.getCountriesSelected();
-        const searchName = this.search.trim().toLowerCase();
-        this.countries = this.countries.filter(c => c.languageNameFr.toLowerCase().indexOf(searchName) === 0);
+        this.init()
+    }
+
+    private init(){
+        this.optionAll ? this.getCountriesAll() : this.getCountriesSelected();
+        if(this.search && this.search != ""){
+            const searchName = this.search.trim().toLowerCase();
+            this.countries = this.countries.filter(c => c.languageNameFr.toLowerCase().indexOf(searchName) === 0 || c.countryNameFr.toLowerCase().indexOf(searchName) === 0);
+        }
     }
 
     public getCountriesSelected(){
