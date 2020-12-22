@@ -10,6 +10,8 @@ export const OnboardingTabs = [
     indication: 'Go to this website',
     textFR: "Rendez-vous sur le site grâce à un QR code ou en saisissant l'URL sur votre navigateur chrome",
     textEN: 'Go to the website with a QR code or typing the URL on your chrome browser',
+    browserFR: 'Seulement sur Google chrome',
+    browserEN: 'Only on Google chrome',
   },
   {
     image: 'illu-qrcode.png',

@@ -61,25 +61,14 @@
     .helpFR {
       margin-right: 10px;
     }
-  }
-  .bottom {
-    display: flex;
-    justify-content: center;
-    ul {
-      padding-inline-start: 0;
-      li {
-        border-radius: 50%;
-        border: 1px solid $gray74;
-        width: 15px;
-        height: 15px;
-        margin: 0 2px;
+    .browser {
+      margin-top: 20px;
+      img {
+        margin-right: 10px;
+        vertical-align: middle;
+        width: 32px;
+        height: 32px;
       }
-    }
-    .circle {
-      background-color: white;
-    }
-    .coloredCircle {
-      background-color: $primary-color;
     }
   }
 }
@@ -95,24 +84,49 @@
   .middle {
     margin: 25% 0;
   }
-  .close {
+  .bottom {
     position: absolute;
+  }
+  .bottom {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     left: 0;
     right: 0;
-    text-align: center;
     bottom: 0;
-    width: fit-content;
     margin: 30px auto;
-    padding: 10px 30px;
-    background: $white-smoke;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    outline: none;
-    cursor: pointer;
-    font-size: 12px;
-    font-family: Roboto;
-    &:disabled {
-      cursor: not-allowed;
+    ul {
+      display: flex;
+      list-style-type: none;
+      padding-inline-start: 0;
+      li {
+        border-radius: 50%;
+        border: 1px solid $gray74;
+        width: 15px;
+        height: 15px;
+        margin: 0 2px;
+      }
+    }
+    .circle {
+      background-color: white;
+    }
+    .coloredCircle {
+      background-color: $primary-color;
+    }
+    .closeBtn {
+      padding: 10px 30px;
+      text-align: center;
+      width: fit-content;
+      background: $white-smoke;
+      border: 1px solid #dddddd;
+      border-radius: 5px;
+      outline: none;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: Roboto;
+      &:disabled {
+        cursor: not-allowed;
+      }
     }
   }
 }
