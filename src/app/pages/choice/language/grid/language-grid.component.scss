@@ -7,83 +7,7 @@
   gap: 40px;
   justify-content: space-evenly;
   background-color: $white;
-  
-  // .country {
-  //   margin: auto;
-  //   width: 300px;
-  //   padding: 10px;
-  //   flex-direction: column;
-  //   color: #666666;
-  //   border-radius: 5px;
-  //   background-color: $white-smoke;
-  //   .title {
-  //     width: 300px;
-  //     background-color: red;
-  //   }
-  //   .middle {
-  //     margin-top: 15px;
-  //     height: 40px;
-  //     display: flex;
-  //     justify-content: space-between;
-  //     .speaker {
-  //       background-image: url('../../../../../assets/icons/icon-listen-blue.svg');
-  //       background-repeat: no-repeat;
-  //       background-position: center;
-  //       border-radius: 40px;
-  //       background-color: white;
-  //       background-size: 20px;
-  //       width: 40px;
-  //       height: 40px;
-  //     }
-  //     background-color: yellow;
-  //   }
-  //   .selectLanguageButton {
-  //     background-color: $white;
-  //     align-items: baseline;
-  //     display: flex;
-  //     color: $button-black;
-  //     width: 170px;
-  //     flex-direction: row;
-  //     flex-wrap: wrap;
-  //     margin: auto;
-  //     align-items: baseline;
-  //     height: 35px;
-  //     border: 1px solid $gray74;
-  //     border-radius: 10px;
-  //     cursor: pointer;
-  //     .flag-icon {
-  //       width: 29px;
-  //       height: 20px;
-  //       border: 1px solid $gray74;
-  //       box-sizing: border-box;
-  //       border-radius: 5px;
-  //       background-size: cover;
-  //       margin: auto 10px;
-  //     }
-
-  //     .sentences {
-  //       margin: auto 0;
-  //       flex-direction: column;
-  //       .buttonSentenceFR {
-  //         font-size: 11px;
-  //       }
-  //       .buttonSentenceRAW {
-  //         font-size: 9px;
-  //       }
-  //     }
-  //     background-color: blue;
-  //   }
-  //   &:hover {
-  //     color: white;
-  //     background: $primary-color;
-  //     .selectLanguageButton {
-  //       color: white;
-  //       background-color: $primary-color;
-  //     }
-  //   }
-  // }
 }
-
 .country{
   display: flex;
   width: 250px;
@@ -148,11 +72,37 @@
       background-color: $primary-color;
       background-image: url('../../../../../assets/icons/icon-listen-white.svg');
     }
-    
-
+    .no-listen{
+      margin-left:-25px;
+    }
   }
   &:hover {
-    border-color: $primary-color;
-    border: solid;
+    border: solid $primary-color;
   }
+}
+
+@media screen and (max-width: 576px) { 
+  .countries{
+    gap:15px;
+  }
+  .country{
+    height:100%;
+    width:100%;
+    flex-direction: row;
+    .title{
+      width: 100%;
+      padding: 10px 0;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .option{
+      .no-listen{
+        margin-left:0;
+        margin-right: -20px;
+      }
+    }
+  }
+  .country :nth-child(1) { order: 2; }
+  .country :nth-child(2) { order: 1; }
+  .country :nth-child(3) { order: 3; }
 }

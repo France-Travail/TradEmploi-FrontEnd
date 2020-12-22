@@ -1,6 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { VOCABULARY } from 'src/app/data/vocabulary';
+import { ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
 import { Vocabulary } from 'src/app/models/vocabulary';
+import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
     selector: 'app-language-grid',
@@ -15,11 +18,9 @@ export class LanguageGridComponent implements OnChanges{
     public countries: Vocabulary[] = [];
     public countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
 
+    constructor(private textToSpeechService: TextToSpeechService,  private toastService: ToastService){}
+    
     ngOnChanges() {
-        this.init()
-    }
-
-    private init(){
         this.optionAll ? this.getCountriesAll() : this.getCountriesSelected();
         if(this.search && this.search != ""){
             const searchName = this.search.trim().toLowerCase();
@@ -47,5 +48,15 @@ export class LanguageGridComponent implements OnChanges{
         if (a > b) return 1;
         if (a < b) return -1;
         return 0;  
-    } 
+    }
+    
+    
+    public audioDescription(item: Vocabulary) {
+        const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
+        this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage).then(_ => {
+            this.textToSpeechService.audioSpeech.play();
+        }).catch(_ => {
+            this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
+        });
+    }
 }

@@ -14,10 +14,10 @@
       </div>
       <div class="option-col">
         <img src="assets/icons/listen.svg" alt="Listen" />
-        <img *ngIf="!item.sentences.audioSupported" style="margin-left:-25px;" src="assets/icons/no-listen.svg" alt="Listen" />
+        <img *ngIf="!item.sentences.audioSupported" class="no-listen" src="assets/icons/no-listen.svg" alt="Listen" />
       </div>
       <div class="option-col">
-        <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="speakEnabled? audioDescription(item) :''"></div>
+        <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="audioDescription(item)"></div>
       </div>
     </div>
   </div>

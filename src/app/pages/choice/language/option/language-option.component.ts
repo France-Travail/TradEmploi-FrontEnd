@@ -24,7 +24,7 @@ export class LanguageOptionComponent{
     this.wordings = this.settingsService.user.value.role === Role.GUEST ? ENGLISH.choice: FRENCH.choice;
     this.breakpointObserver.observe(['(max-width: 820px)']).subscribe((result) => {
       this.isSmallScreen = result.matches;
-      this.isSmallScreen ? this.optionListEmit.emit(true): this.optionListEmit.emit(this.optionList);
+      //this.isSmallScreen ? this.optionListEmit.emit(true): this.optionListEmit.emit(this.optionList);
     });
   }
 
