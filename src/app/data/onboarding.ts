@@ -1,4 +1,4 @@
-export const OnboardingTabs = [
+export const onboardingTabs = [
   {
     image: 'presentation.png',
     indication: ' ',
@@ -8,8 +8,8 @@ export const OnboardingTabs = [
   {
     image: 'illu-chrome.png',
     indication: 'Go to this website',
-    textFR: "Rendez-vous sur le site grâce à un QR code ou en saisissant l'URL sur votre navigateur chrome",
-    textEN: 'Go to the website with a QR code or typing the URL on your chrome browser',
+    textFR: "Rendez-vous sur le site grâce à un QR code ou en saisissant l'adresse sur votre navigateur chrome",
+    textEN: 'Go to the website with a QR code or typing this adress on your chrome browser',
     browserFR: 'Seulement sur Google chrome',
     browserEN: 'Only on Google chrome',
   },
@@ -31,10 +31,11 @@ export const OnboardingTabs = [
     textFR: 'Sélectionner votre langue usuelle parmis plus de 110 langues disponibles.',
     textEN: 'Select your usual language among more 110 available languages.',
   },
-  {
-    image: 'protection.png',
-    indication: 'Enter a conversation code',
-    textFR: 'Rejoignez un espace de conversation sécurisé en entrant le code fourni par votre conseiller.',
-    textEN: 'Join a securated conversation entering the code provided by your advisor',
-  },
 ];
+
+export const onboardbingTitles = {
+  helpFr: 'Aide',
+  helpEn: 'Help',
+  descriptionFR: "Présentation de l'outil de traduction",
+  descriptionEN: 'Presentation of the translation tool',
+};

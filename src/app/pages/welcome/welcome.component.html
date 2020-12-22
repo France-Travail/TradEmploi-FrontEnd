@@ -1,15 +1,15 @@
 <div class="panel">
-    <div class="title">
-        <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
-        <h1 class="t2">Welcome</h1>
-        <p class="t3">Access to pole emploi <span class="text-app">translation service</span></p>
-    </div>
-    <div class="description">
-        <img class="img" src="assets/images/presentation.png" alt="image presentation" />
-        <p class="t3">Use you phone or tablet to discuss with your advisor in your own language</p>
-    </div>
-    <div class="action">
-        <button  (click)="agree()" [ngClass]="{ 'mobileBtn': isMobile }">GO <i class="fa fa-angle-right"></i></button>
-        <button class="options" [ngClass]="{ 'mobileBtn': isMobile }">HELP <i class="fa fa-question-circle"></i></button>
-    </div>
+  <div class="title">
+    <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
+    <h1 class="t2">Welcome</h1>
+    <p class="t3">Access to pole emploi <span class="text-app">translation service</span></p>
+  </div>
+  <div class="description">
+    <img class="img" src="assets/images/presentation.png" alt="image presentation" />
+    <p class="t3">Use you phone or tablet to discuss with your advisor in your own language</p>
+  </div>
+  <div class="action">
+    <button (click)="agree()" [ngClass]="{ mobileBtn: isMobile }">GO <i class="fa fa-angle-right"></i></button>
+    <button class="options" (click)="help()" [ngClass]="{ mobileBtn: isMobile }">HELP <i class="fa fa-question-circle"></i></button>
+  </div>
 </div>

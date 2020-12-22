@@ -1,36 +1,36 @@
 <div class="content" [ngClass]="isMobile ? 'contentMobile' : 'content'">
   <div class="top" *ngIf="!isMobile">
-    <h2 class="title">Aide</h2>
+    <h2 class="title">{{ isGuest ? titles.helpEn : titles.helpFr }}</h2>
     <mat-icon aria-hidden="false" (click)="closeDialog()" class="close">close</mat-icon>
   </div>
-  <h3 class="description" *ngIf="!isMobile">Présentation de l'outil</h3>
-  <div class="indication">{{ data[i].indication }}</div>
+  <h3 class="description" *ngIf="!isMobile">{{ isGuest ? titles.descriptionEN : titles.descriptionFR }}</h3>
+  <div class="indication">{{ sentences[i].indication }}</div>
   <div class="middle">
     <mat-icon aria-hidden="false" (click)="previousItem()" class="chevron" aria-label="Précédent">chevron_left</mat-icon>
     <span class="vertical-line" *ngIf="!isMobile"></span>
-    <img [ngClass]="isMobile ? 'imageMobile' : 'imageDesktop'" src="../../../../../assets/images/{{ data[i].image }}" />
+    <img [ngClass]="isMobile ? 'imageMobile' : 'imageDesktop'" src="../../../../../assets/images/{{ sentences[i].image }}" />
     <span class="vertical-line" *ngIf="!isMobile"></span>
     <mat-icon aria-hidden="false" class="chevron" (click)="nextItem()" aria-label="Suivant">chevron_right</mat-icon>
   </div>
   <div class="helps">
-    <div class="helpFR" *ngIf="!isMobile">
-      {{ data[i].textFR }}
-      <div class="browser" *ngIf="data[i].browserEN">
+    <div class="helpFR" *ngIf="!isMobile && !this.isGuest">
+      {{ sentences[i].textFR }}
+      <div class="browser" *ngIf="sentences[i].browserEN">
         <img src="../../../../../assets/images/chrome.png" />
-        <span>{{ data[i].browserFR }}</span>
+        <span>{{ sentences[i].browserFR }}</span>
       </div>
     </div>
     <div class="helpEN">
-      {{ data[i].textEN }}
-      <div class="browser" *ngIf="data[i].browserEN">
+      {{ sentences[i].textEN }}
+      <div class="browser" *ngIf="sentences[i].browserEN">
         <img src="../../../../../assets/images/chrome.png" />
-        <span>{{ data[i].browserEN }}</span>
+        <span>{{ sentences[i].browserEN }}</span>
       </div>
     </div>
   </div>
   <div class="bottom" *ngIf="isMobile">
     <ul>
-      <li *ngFor="let elem of data; index as index" [ngClass]="i == index ? 'coloredCircle' : 'circle'"></li>
+      <li *ngFor="let elem of sentences; index as index" [ngClass]="i == index ? 'coloredCircle' : 'circle'"></li>
     </ul>
     <button class="closeBtn" *ngIf="isMobile" (click)="closeDialog()">CLOSE</button>
   </div>
