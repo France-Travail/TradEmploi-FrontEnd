@@ -144,6 +144,11 @@
       height: 30px;
       border: solid grey 0.5px;
     }
+    .speaker:hover{
+      background-color: $primary-color;
+      background-image: url('../../../../../assets/icons/icon-listen-white.svg');
+    }
+    
 
   }
   &:hover {

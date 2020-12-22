@@ -23,7 +23,10 @@ export class LanguageGridComponent implements OnChanges{
         this.optionAll ? this.getCountriesAll() : this.getCountriesSelected();
         if(this.search && this.search != ""){
             const searchName = this.search.trim().toLowerCase();
-            this.countries = this.countries.filter(c => c.languageNameFr.toLowerCase().indexOf(searchName) === 0 || c.countryNameFr.toLowerCase().indexOf(searchName) === 0);
+            this.countries = this.countries.filter(c => 
+                c.languageNameFr.toLowerCase().indexOf(searchName) === 0 
+                || c.countryNameFr.toLowerCase().indexOf(searchName) === 0 
+                || c.languageNameRaw.toLowerCase().indexOf(searchName) === 0);
         }
     }
 
