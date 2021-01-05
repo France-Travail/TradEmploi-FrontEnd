@@ -2,7 +2,7 @@
   <h2><strong>Choix de langues </strong>/ Choice of language</h2>
   <mat-form-field class="search" appearance="outline">
     <mat-icon matPrefix>search</mat-icon>
-    <input type="search" placeholder="Saisissez la langue ou le pays recherché" aria-label="Search" autocomplete="off" matInput (keyup)="applyFilter($event)" />
+    <input type="search" placeholder="{{wordings.search}}" aria-label="Search" autocomplete="off" matInput (keyup)="applyFilter($event)" />
   </mat-form-field>
   <div class="option">
     <button [ngClass]="{'no-clicked': optionAll, 'clicked': !optionAll}" (click)="getMost()">{{wordings.mostBtn}}</button>

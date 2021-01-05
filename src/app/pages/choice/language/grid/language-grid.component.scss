@@ -55,13 +55,12 @@
       justify-content: center;
       align-items: center;
       width: inherit;
-      height: inherit;
     }
     .speaker {
       background-image: url('../../../../../assets/icons/icon-listen-blue.svg');
       background-repeat: no-repeat;
       background-position: center;
-      border-radius: 35px;
+      border-radius: 50%;
       background-color: white;
       background-size: 15px;
       width: 30px;
@@ -89,7 +88,6 @@
   }
   .country{
     height:100%;
-    width:100%;
     flex-direction: row;
     .title{
       width: 100%;

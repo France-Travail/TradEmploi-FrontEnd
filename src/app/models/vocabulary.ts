@@ -45,6 +45,7 @@ export interface Choice{
   listBtn: string;
   gridBtn: string;
   chooseBtn: string;
+  search:string;
 }
 
 export interface Modality {

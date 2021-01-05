@@ -18,13 +18,10 @@ import { User } from 'src/app/models/user';
 export class ChoiceComponent implements AfterContentInit{
 
   public search:String;
-  public listSelected:Boolean = false;
 
-  public optionList:Boolean = false;
   public optionAll:Boolean = false;
   public isGuest:Boolean = true;
   public wordings: Choice;
-  public isSmallScreen: Boolean = false;
 
   private endIdDialogRef: MatDialogRef<any, any>;
   private user: User;
@@ -61,10 +58,6 @@ export class ChoiceComponent implements AfterContentInit{
 
   public getMost(){
     this.optionAll = !this.optionAll;
-  }
-
-  public getList(){
-    this.optionList =  !this.optionList;
   }
 
   @HostListener('window:beforeunload', ['$event'])

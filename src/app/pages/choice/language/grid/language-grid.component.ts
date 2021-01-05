@@ -41,7 +41,8 @@ export class LanguageGridComponent implements OnChanges{
             this.countries = this.countries.filter(c => 
                 c.languageNameFr.toLowerCase().indexOf(searchName) === 0 
                 || c.countryNameFr.toLowerCase().indexOf(searchName) === 0 
-                || c.languageNameRaw.toLowerCase().indexOf(searchName) === 0);
+                || c.languageNameRaw.toLowerCase().indexOf(searchName) === 0
+                || c.countryNameRaw.toLowerCase().indexOf(searchName) === 0 );
         }
     }
 
@@ -100,4 +101,5 @@ export class LanguageGridComponent implements OnChanges{
         if (a < b) return -1;
         return 0;  
     }
+
 }
