@@ -1,7 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
 import { Vocabulary } from 'src/app/models/vocabulary';
+import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
 
@@ -14,11 +16,19 @@ export class LanguageGridComponent implements OnChanges{
     
     @Input() search: String;
     @Input() optionAll: Boolean;
+    @Input() isGuest: Boolean;
 
     public countries: Vocabulary[] = [];
     public countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
 
-    constructor(private textToSpeechService: TextToSpeechService,  private toastService: ToastService){}
+    private audioClick:Boolean = false;
+
+    constructor(
+        private textToSpeechService: TextToSpeechService,  
+        private toastService: ToastService,
+        private settingsService: SettingsService,
+        private router: Router
+    ){}
     
     ngOnChanges() {
         this.optionAll ? this.getCountriesAll() : this.getCountriesSelected();
@@ -43,20 +53,41 @@ export class LanguageGridComponent implements OnChanges{
     public isoCodeToFlag(isoCode: string) {
         return  isoCode.split('-')[1].toLowerCase()
     }
-
-    private sortCountryNameFr (a: String, b: String) {  
-        if (a > b) return 1;
-        if (a < b) return -1;
-        return 0;  
-    }
-    
     
     public audioDescription(item: Vocabulary) {
+        this.audioClick = true
         const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
         this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage).then(_ => {
             this.textToSpeechService.audioSpeech.play();
         }).catch(_ => {
             this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
         });
+    }
+
+    public selectLanguage(item: Vocabulary): void {
+        this.audioClick ? this.audioClick = false : this.goToTransation(item)
+    }
+
+    private goToTransation(item: Vocabulary){
+        const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
+        this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr }, connectionTime: Date.now() });
+        if (this.isGuest) {
+            const user = JSON.parse(sessionStorage.getItem('user'));
+            user.language = { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr };
+            user.connectionTime = Date.now();
+            sessionStorage.setItem('user', JSON.stringify(user));
+        } else {
+            const user = JSON.parse(localStorage.getItem('user'));
+            user.language = { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr };
+            user.connectionTime = Date.now();
+            localStorage.setItem('user', JSON.stringify(user));
+        }
+        this.router.navigate(['translation']);
+    }
+
+    private sortCountryNameFr (a: String, b: String) {  
+        if (a > b) return 1;
+        if (a < b) return -1;
+        return 0;  
     }
 }

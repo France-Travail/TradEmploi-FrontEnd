@@ -9,7 +9,7 @@
     <app-language-list [optionAll]='optionAll' [search]='search'></app-language-list>
   </ng-template>
   <ng-template [ngIf]="!optionList">
-    <app-language-grid [optionAll]='optionAll' [search]='search'></app-language-grid>
+    <app-language-grid [optionAll]='optionAll' [search]='search' [isGuest]='isGuest'></app-language-grid>
   </ng-template>
 </div>
 

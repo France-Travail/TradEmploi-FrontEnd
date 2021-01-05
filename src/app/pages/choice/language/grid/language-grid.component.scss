@@ -10,7 +10,7 @@
 }
 .country{
   display: flex;
-  width: 250px;
+  width: 100%;
   height: 200px;
   flex-direction: column;
   border-radius: 5px;
@@ -81,9 +81,11 @@
   }
 }
 
-@media screen and (max-width: 576px) { 
+@media screen and (max-width: 576px){ 
   .countries{
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     gap:15px;
+    padding: 5px;
   }
   .country{
     height:100%;

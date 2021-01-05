@@ -1,5 +1,5 @@
 <div class="countries">
-  <div class="country" *ngFor="let item of countries">
+  <div class="country" *ngFor="let item of countries" (click)="selectLanguage(item)">
     <div class="title">
       <span class="fr">{{ item.languageNameFr }} ({{ item.countryNameFr }})</span>
       <span class="raw">{{ item.languageNameRaw }} <bdi>({{ item.countryNameRaw }})</bdi></span>
