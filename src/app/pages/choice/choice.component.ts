@@ -41,8 +41,6 @@ export class ChoiceComponent implements AfterContentInit{
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
         this.isGuest = user.role === Role.GUEST;
-        console.log(' user.role :>> ',  user.role);
-        console.log('this.isGuest :>> ', this.isGuest);
         if (user.isMultiDevices && this.isGuest) {
           this.endConversation(user.roomId);
         }
