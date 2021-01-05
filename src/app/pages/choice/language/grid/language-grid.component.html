@@ -10,14 +10,14 @@
     </div>
     <div class="option">
       <div class="option-col">
-        <img src="assets/icons/pronounce.svg" alt="Pronounce" />
+        <img src="assets/icons/pronounce.svg" alt="Pronounce" matTooltip="{{tooltip.pronouce}}" matTooltipClass="tooltip-info"/>
       </div>
       <div class="option-col">
-        <img src="assets/icons/listen.svg" alt="Listen" />
-        <img *ngIf="!item.sentences.audioSupported" class="no-listen" src="assets/icons/no-listen.svg" alt="Listen" />
+        <img src="assets/icons/listen.svg" alt="Listen"  matTooltip="{{tooltip.listen}}" matTooltipClass="tooltip-info"/>
+        <img *ngIf="!item.sentences.audioSupported" class="no-listen" src="assets/icons/no-listen.svg" alt="Listen"  matTooltip="{{tooltip.noListen}}" matTooltipClass="tooltip-info"/>
       </div>
       <div class="option-col">
-        <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="audioDescription(item)"></div>
+        <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="audioDescription(item)"  matTooltip="{{tooltip.audio}}" matTooltipClass="tooltip-info"></div>
       </div>
     </div>
   </div>

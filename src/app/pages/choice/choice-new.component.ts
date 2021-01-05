@@ -24,6 +24,7 @@ export class ChoiceNewComponent implements AfterContentInit{
   public optionAll:Boolean = false;
   public isGuest:Boolean = true;
   public wordings: Choice;
+  public isSmallScreen: Boolean = false;
 
   private endIdDialogRef: MatDialogRef<any, any>;
   private user: User;
@@ -33,7 +34,7 @@ export class ChoiceNewComponent implements AfterContentInit{
     private settingsService: SettingsService,
     private chatService: ChatService,
     private router: Router,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ){
     this.navService.handleTabsChoice();
     this.wordings = this.settingsService.user.value.role === Role.GUEST ? ENGLISH.choice: FRENCH.choice;
@@ -58,12 +59,12 @@ export class ChoiceNewComponent implements AfterContentInit{
     this.search = (event.target as HTMLInputElement).value;
   }
 
-  public emitOptionAll(optionAllEvent: Boolean){
-    this.optionAll = optionAllEvent;
+  public getMost(){
+    this.optionAll = !this.optionAll;
   }
 
-  public emitOptionList(optionListEvent: Boolean){
-    this.optionList = optionListEvent;
+  public getList(){
+    this.optionList =  !this.optionList;
   }
 
   @HostListener('window:beforeunload', ['$event'])

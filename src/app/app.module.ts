@@ -42,7 +42,6 @@ import { TranslationComponent } from './pages/translation/translation.component'
 import { HistoricComponent } from './pages/historic/historic.component';
 
 // Dialogs
-import { LanguageListComponent } from './pages/choice/language/list/language-list.component';
 import { LanguageGridComponent } from './pages/choice/language/grid/language-grid.component';
 import { LanguageOptionComponent } from './pages/choice/language/option/language-option.component';
 import { LanguagesComponent } from './pages/choice/dialog/languages/languages.component';
@@ -74,7 +73,6 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
     AppComponent,
     ChoiceComponent,
     ChoiceNewComponent,
-    LanguageListComponent,
     LanguageGridComponent,
     LanguageOptionComponent,
     HistoricComponent,

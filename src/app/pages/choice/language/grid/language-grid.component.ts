@@ -6,6 +6,8 @@ import { Vocabulary } from 'src/app/models/vocabulary';
 import { SettingsService } from 'src/app/services/settings.service';
 import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { ENGLISH, FRENCH } from 'src/app/data/sentence';
+import { Tooltip } from './../../../../models/vocabulary';
 
 @Component({
     selector: 'app-language-grid',
@@ -19,8 +21,9 @@ export class LanguageGridComponent implements OnChanges{
     @Input() isGuest: Boolean;
 
     public countries: Vocabulary[] = [];
-    public countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
+    public tooltip: Tooltip;
 
+    private countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
     private audioClick:Boolean = false;
 
     constructor(
@@ -28,7 +31,9 @@ export class LanguageGridComponent implements OnChanges{
         private toastService: ToastService,
         private settingsService: SettingsService,
         private router: Router
-    ){}
+    ){
+        this.tooltip = this.isGuest ? ENGLISH.tooltip: FRENCH.tooltip;
+    }
     
     ngOnChanges() {
         this.optionAll ? this.getCountriesAll() : this.getCountriesSelected();
@@ -71,18 +76,24 @@ export class LanguageGridComponent implements OnChanges{
     private goToTransation(item: Vocabulary){
         const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
         this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr }, connectionTime: Date.now() });
-        if (this.isGuest) {
-            const user = JSON.parse(sessionStorage.getItem('user'));
-            user.language = { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr };
-            user.connectionTime = Date.now();
-            sessionStorage.setItem('user', JSON.stringify(user));
-        } else {
-            const user = JSON.parse(localStorage.getItem('user'));
-            user.language = { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr };
-            user.connectionTime = Date.now();
-            localStorage.setItem('user', JSON.stringify(user));
-        }
+        this.isGuest ? 
+            this.onSessionStorage(audioLanguage,item.isoCode,item.languageNameFr )
+            : this.onLocalStorage(audioLanguage,item.isoCode,item.languageNameFr)
         this.router.navigate(['translation']);
+    }
+
+    private onSessionStorage(audioLanguage: string, isoCode: string, languageNameFr: string){
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        user.language = { audio: audioLanguage, written: isoCode, languageName: languageNameFr };
+        user.connectionTime = Date.now();
+        sessionStorage.setItem('user', JSON.stringify(user));
+    }
+
+    private onLocalStorage(audioLanguage: string, isoCode: string, languageNameFr: string){
+        const user = JSON.parse(localStorage.getItem('user'));
+        user.language = { audio: audioLanguage, written: isoCode, languageName: languageNameFr };
+        user.connectionTime = Date.now();
+        localStorage.setItem('user', JSON.stringify(user));
     }
 
     private sortCountryNameFr (a: String, b: String) {  

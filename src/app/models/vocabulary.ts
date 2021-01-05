@@ -30,6 +30,13 @@ export interface Sentence {
   logout?: Logout;
   modality?: Modality;
   choice?: Choice;
+  tooltip?: Tooltip;
+}
+export interface Tooltip{
+  pronouce: string;
+  listen:string;
+  noListen:string;
+  audio:string;
 }
 
 export interface Choice{
