@@ -41,15 +41,9 @@
       cursor: pointer;
     }
     .imageDesktop {
-      width: 400px;
+      width: 300px;
       height: 300px;
       margin: 0 70px;
-    }
-    .imageMobile {
-      margin-top: auto;
-      width: 200px;
-      height: 150px;
-      margin: auto;
     }
   }
   .helps {
@@ -83,6 +77,10 @@
   }
   .middle {
     margin: 25% 0;
+    .imageMobile {
+      width: 200px;
+      height: 200px;
+    }
   }
   .bottom {
     position: absolute;
@@ -124,9 +122,6 @@
       cursor: pointer;
       font-size: 12px;
       font-family: Roboto;
-      &:disabled {
-        cursor: not-allowed;
-      }
     }
   }
 }

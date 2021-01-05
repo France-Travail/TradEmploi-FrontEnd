@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Role } from 'src/app/models/role';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -16,9 +16,8 @@ export class OnboardingComponent implements OnInit {
   public isMobile: boolean;
   public isGuest: boolean;
 
-  constructor(public dialogRef: MatDialogRef<OnboardingComponent>, private deviceService: DeviceDetectorService, private settingsService: SettingsService, @Inject(MAT_DIALOG_DATA) data) {
+  constructor(public dialogRef: MatDialogRef<OnboardingComponent>, private deviceService: DeviceDetectorService, private settingsService: SettingsService) {
     this.isMobile = this.deviceService.isMobile();
-    data ? (this.isGuest = data.isGuest) : false;
   }
   ngOnInit() {
     this.settingsService.user.subscribe((user) => {

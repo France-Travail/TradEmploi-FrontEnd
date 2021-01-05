@@ -13,17 +13,17 @@
     <mat-icon aria-hidden="false" class="chevron" (click)="nextItem()" aria-label="Suivant">chevron_right</mat-icon>
   </div>
   <div class="helps">
-    <div class="helpFR" *ngIf="!isMobile && !this.isGuest">
+    <div class="helpFR" *ngIf="!this.isGuest">
       {{ sentences[i].textFR }}
-      <div class="browser" *ngIf="sentences[i].browserEN">
-        <img src="../../../../../assets/images/chrome.png" />
+      <div class="browser" *ngIf="sentences[i].browserFR">
+        <img src="../../../../../assets/images/chrome-icon.png" />
         <span>{{ sentences[i].browserFR }}</span>
       </div>
     </div>
-    <div class="helpEN">
+    <div class="helpEN" *ngIf="this.isGuest || !this.isMobile">
       {{ sentences[i].textEN }}
       <div class="browser" *ngIf="sentences[i].browserEN">
-        <img src="../../../../../assets/images/chrome.png" />
+        <img src="../../../../../assets/images/chrome-icon.png" />
         <span>{{ sentences[i].browserEN }}</span>
       </div>
     </div>
