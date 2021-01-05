@@ -12,6 +12,7 @@ export class NavbarService {
   public settingsTab: boolean = false;
   public helpTab: boolean = false;
   public endTab: boolean = false;
+  public shareTab: boolean = false;
 
   constructor(private settingsService: SettingsService, private router: Router) {}
 

@@ -31,11 +31,10 @@ export class LanguageGridComponent implements OnChanges{
         private toastService: ToastService,
         private settingsService: SettingsService,
         private router: Router
-    ){
-        this.tooltip = this.isGuest ? ENGLISH.tooltip: FRENCH.tooltip;
-    }
+    ){}
     
     ngOnChanges() {
+        this.tooltip = this.isGuest ? ENGLISH.tooltip: FRENCH.tooltip;
         this.optionAll ? this.getCountriesAll() : this.getCountriesSelected();
         if(this.search && this.search != ""){
             const searchName = this.search.trim().toLowerCase();

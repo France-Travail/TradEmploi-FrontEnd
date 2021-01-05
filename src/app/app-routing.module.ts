@@ -14,7 +14,7 @@ import { AnonymousComponent } from './pages/anonymous/anonymous.component';
 import { GdprComponent } from './pages/gdpr/gdpr.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PendingChangesGuard } from './guards/pending-changes.guard';
-import { ChoiceNewComponent } from './pages/choice/choice-new.component';
+import { ChoiceComponent } from './pages/choice/choice.component';
 import { ModalityComponent } from './pages/modality/modality.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 
@@ -53,7 +53,7 @@ export const routes: Routes = [
   },
   {
     path: 'choice',
-    component: ChoiceNewComponent,
+    component: ChoiceComponent,
     canActivate: [AuthGuard],
   },
   {

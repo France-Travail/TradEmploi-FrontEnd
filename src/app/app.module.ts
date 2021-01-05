@@ -37,14 +37,11 @@ import { EndComponent } from './pages/translation/dialogs/end/end.component';
 // Main Components
 import { AppComponent } from './app.component';
 import { StartComponent } from './pages/start/start.component';
-import { ChoiceComponent } from './pages/choice/choice.component';
 import { TranslationComponent } from './pages/translation/translation.component';
 import { HistoricComponent } from './pages/historic/historic.component';
 
 // Dialogs
 import { LanguageGridComponent } from './pages/choice/language/grid/language-grid.component';
-import { LanguageOptionComponent } from './pages/choice/language/option/language-option.component';
-import { LanguagesComponent } from './pages/choice/dialog/languages/languages.component';
 import { MeetingComponent } from './pages/translation/dialogs/meeting/meeting.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { RemoveComponent } from './pages/historic/dialogs/remove/remove.component';
@@ -64,7 +61,7 @@ import { ChatMultiDevicesComponent } from './pages/translation/components/chat-m
 import { QRCodeModule } from 'angularx-qrcode';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { LoaderComponent } from './pages/settings/loader/loader.component';
-import { ChoiceNewComponent } from './pages/choice/choice-new.component';
+import { ChoiceComponent } from './pages/choice/choice.component';
 import { ModalityComponent } from './pages/modality/modality.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 
@@ -72,12 +69,9 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
   declarations: [
     AppComponent,
     ChoiceComponent,
-    ChoiceNewComponent,
     LanguageGridComponent,
-    LanguageOptionComponent,
     HistoricComponent,
     TranslationComponent,
-    LanguagesComponent,
     StartComponent,
     MeetingComponent,
     SettingsComponent,
@@ -130,6 +124,6 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
     { provide: ErrorHandler, useClass: SentryErrorHandler },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent],
+  entryComponents: [MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent],
 })
 export class AppModule {}

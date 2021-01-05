@@ -1,50 +1,49 @@
-import { EndComponent } from './../translation/dialogs/end/end.component';
-import { Component, AfterContentInit, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { VOCABULARY } from 'src/app/data/vocabulary';
-import { LanguagesComponent } from './dialog/languages/languages.component';
-import { SettingsService } from 'src/app/services/settings.service';
-import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
-import { NavbarService } from 'src/app/services/navbar.service';
-import { ChatService } from 'src/app/services/chat.service';
+import { ENGLISH, FRENCH } from 'src/app/data/sentence';
+import { Choice } from 'src/app/models/vocabulary';
+import { AfterContentInit, Component, HostListener } from '@angular/core';
 import { Role } from 'src/app/models/role';
-import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
-import { Vocabulary } from 'src/app/models/vocabulary';
+import { NavbarService } from 'src/app/services/navbar.service';
+import { SettingsService } from 'src/app/services/settings.service';
+import { ChatService } from 'src/app/services/chat.service';
+import { Router } from '@angular/router';
+import { EndComponent } from '../translation/dialogs/end/end.component';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { User } from 'src/app/models/user';
-import { ToastService } from 'src/app/services/toast.service';
-import { ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
 
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
   styleUrls: ['./choice.component.scss'],
 })
-export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate {
-  public selectedCountriesData = [];
-  public selectedCountries: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
-  public toolTips: string[] = ['Autres langues'];
-  public audioSpeech: HTMLAudioElement;
-  public otherLanguageFr: string = 'AUTRES LANGUES';
-  public otherLanguageEn: string = 'OTHER LANGUAGES';
-  public speakEnabled = true;
+export class ChoiceComponent implements AfterContentInit{
+
+  public search:String;
+  public listSelected:Boolean = false;
+
+  public optionList:Boolean = false;
+  public optionAll:Boolean = false;
+  public isGuest:Boolean = true;
+  public wordings: Choice;
+  public isSmallScreen: Boolean = false;
 
   private endIdDialogRef: MatDialogRef<any, any>;
   private user: User;
 
   constructor(
-    private textToSpeechService: TextToSpeechService,
-    private router: Router,
+    private navService: NavbarService, 
     private settingsService: SettingsService,
-    public dialog: MatDialog,
-    private navService: NavbarService,
     private chatService: ChatService,
-    private toastService: ToastService
-  ) {
+    private router: Router,
+    private dialog: MatDialog
+  ){
     this.navService.handleTabsChoice();
+    this.wordings = this.settingsService.user.value.role === Role.GUEST ? ENGLISH.choice: FRENCH.choice;
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
-        if (user.isMultiDevices && user.role === Role.GUEST) {
+        this.isGuest = user.role === Role.GUEST;
+        console.log(' user.role :>> ',  user.role);
+        console.log('this.isGuest :>> ', this.isGuest);
+        if (user.isMultiDevices && this.isGuest) {
           this.endConversation(user.roomId);
         }
         this.user = user;
@@ -55,57 +54,21 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
   }
 
   ngAfterContentInit(): void {
-    this.showMainLanguages();
     this.navService.show();
   }
 
-
-
-  public selectLanguage(item: Vocabulary): void {
-    const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-    this.settingsService.user.next({ ...this.settingsService.user.value, language: { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr }, connectionTime: Date.now() });
-    if (this.user.role === Role.GUEST) {
-      const user = JSON.parse(sessionStorage.getItem('user'));
-      user.language = { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr };
-      user.connectionTime = Date.now();
-      sessionStorage.setItem('user', JSON.stringify(user));
-    } else {
-      const user = JSON.parse(localStorage.getItem('user'));
-      user.language = { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr };
-      user.connectionTime = Date.now();
-      localStorage.setItem('user', JSON.stringify(user));
-    }
-    this.router.navigate(['translation']);
+  public applyFilter(event: Event) {
+    this.search = (event.target as HTMLInputElement).value;
   }
 
-  public showMainLanguages(): void {
-    this.selectedCountriesData = this.selectedCountries.map((country) => VOCABULARY.find((i) => i.isoCode === country));
+  public getMost(){
+    this.optionAll = !this.optionAll;
   }
 
-  public audioDescription(item: Vocabulary) {
-    this.speakEnabled = false;
-    const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-    this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage).then(_ => {
-      this.textToSpeechService.audioSpeech.play();
-      setTimeout(() => {
-        this.speakEnabled = true;
-      }, 2000);
-    }).catch(_ => {
-      this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
-      this.speakEnabled = true;
-    });
+  public getList(){
+    this.optionList =  !this.optionList;
   }
 
-  public moreLanguage(): void {
-    this.dialog
-      .open(LanguagesComponent, { width: '900px', height: '900px' })
-      .afterClosed()
-      .subscribe((response) => {
-        if (response === 'chosen') {
-          this.router.navigate(['translation']);
-        }
-      });
-  }
   @HostListener('window:beforeunload', ['$event'])
   public openPopUp(event): any {
     const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
@@ -115,7 +78,7 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
 
   @HostListener('window:unload')
   public canDeactivate(): any {
-   this.deactivate();
+    this.deactivate();
   }
 
   private deactivate() {
@@ -143,9 +106,6 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
     this.chatService.initChatMono(this.user.roomId, this.user.role);
   }
 
-  public isoCodeToFlag(isoCode: string) {
-    return isoCode.split('-')[1].toLowerCase();
-  }
   private endConversation(roomId: string) {
     this.chatService.getChatStatus(roomId).subscribe((active) => {
       if (active !== null && !active) {
@@ -162,4 +122,5 @@ export class ChoiceComponent implements AfterContentInit, ComponentCanDeactivate
       disableClose,
     });
   }
+
 }
