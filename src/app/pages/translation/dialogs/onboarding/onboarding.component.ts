@@ -22,7 +22,7 @@ export class OnboardingComponent implements OnInit {
   }
   ngOnInit() {
     this.settingsService.user.subscribe((user) => {
-      user !== null ? (this.isGuest = user.role === Role.GUEST) : (this.isGuest = this.isGuest === undefined);
+      this.isGuest = user !== null ? user.role === Role.GUEST : this.isGuest === undefined;
     });
   }
   public nextItem() {
