@@ -11,11 +11,11 @@
     <img src="assets/icons/icon-settings-black.svg" />
     <span class="name">PARAMÈTRES</span>
   </a>
-  <a mat-list-item (click)="onSidenavClose()" *ngIf="navbarService.helpTab">
+  <a mat-list-item (click)="onSidenavClose()" (click)="help()" *ngIf="navbarService.helpTab">
     <img src="assets/icons/icon-help-black.svg" />
     <span class="name">{{ helpLink | uppercase }}</span>
   </a>
-  <a mat-list-item (click)="end()"(click)="onSidenavClose()" *ngIf="navbarService.endTab">
+  <a mat-list-item (click)="end()" (click)="onSidenavClose()" *ngIf="navbarService.endTab">
     <img src="assets/icons/icon-end-black.svg" />
     <span class="name">TERMINER LE CHAT</span>
   </a>

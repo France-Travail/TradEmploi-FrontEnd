@@ -27,7 +27,7 @@
         <img src="assets/icons/icon-settings-black.svg" />
         <span class="name">PARAMÈTRES</span>
       </button>
-      <button id="help-header" *ngIf="navbarService.helpTab">
+      <button id="help-header" *ngIf="navbarService.helpTab" (click)="help()">
         <img src="assets/icons/icon-help-black.svg" />
         <span class="name">{{ helpLink | uppercase }}</span>
       </button>
