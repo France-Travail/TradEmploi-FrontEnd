@@ -8,7 +8,7 @@
   justify-content: space-evenly;
   background-color: $white;
 }
-.country{
+.country {
   display: flex;
   width: 100%;
   height: 200px;
@@ -17,23 +17,23 @@
   background-color: $white-smoke;
   align-items: center;
   cursor: pointer;
-  .title{
+  .title {
     display: flex;
     flex-direction: column;
     padding: 20px;
     align-items: center;
-    height:70px;
-    .fr{
-      font-size:12px;
+    height: 70px;
+    .fr {
+      font-size: 12px;
       font-weight: 200;
     }
-    .raw{
-      font-size:16px;
+    .raw {
+      font-size: 16px;
       font-weight: 400;
     }
   }
-  .flag{
-    height:60px;
+  .flag {
+    height: 60px;
     .flag-icon {
       width: 50px;
       height: 40px;
@@ -41,16 +41,16 @@
       box-sizing: border-box;
       border-radius: 5px;
       background-size: cover;
-      margin:10px;
+      margin: 10px;
     }
   }
-  .option{
+  .option {
     display: flex;
     justify-content: space-evenly;
     width: inherit;
     padding: 0px 30px;
-    height:60px;
-    .option-col{
+    height: 60px;
+    .option-col {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -67,12 +67,12 @@
       height: 30px;
       border: solid grey 0.5px;
     }
-    .speaker:hover{
+    .speaker:hover {
       background-color: $primary-color;
       background-image: url('../../../../../assets/icons/icon-listen-white.svg');
     }
-    .no-listen{
-      margin-left:-25px;
+    .no-listen {
+      margin-left: -25px;
     }
   }
   &:hover {
@@ -80,20 +80,24 @@
   }
 }
 
-@media screen and (max-width: 576px){ 
-  .countries{
+@media screen and (max-width: 576px) {
+  .countries {
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-    gap:15px;
+    gap: 15px;
     padding: 5px;
   }
-  .country{
-    height:100%;
+  .country {
+    height: 100%;
     flex-direction: row;
-    .title{
+    .title {
       width: 100%;
       padding: 10px 10px;
       align-items: flex-start;
       justify-content: center;
+      .fr,
+      .raw {
+        font-size: 12px;
+      }
     }
   }
 }

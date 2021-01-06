@@ -27,7 +27,7 @@ export class ModalityComponent implements OnInit {
               private breakpointObserver: BreakpointObserver) {
     this.navbarService.handleTabModality();
     this.navbarService.show();
-    this.breakpointObserver.observe(['(max-width: 820px)']).subscribe((result) => {
+    this.breakpointObserver.observe(['(max-width: 1050px)']).subscribe((result) => {
       this.isSmallScreen = result.matches;
     });
   }

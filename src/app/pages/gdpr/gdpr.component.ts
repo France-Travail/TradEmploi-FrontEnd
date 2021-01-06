@@ -22,7 +22,7 @@ export class GdprComponent {
     private navbarService: NavbarService,
     private breakpointObserver: BreakpointObserver
   ) {
-    this.breakpointObserver.observe(['(max-width: 820px)']).subscribe((result) => {
+    this.breakpointObserver.observe(['(max-width: 1050px)']).subscribe((result) => {
       this.isSmallScreen = result.matches;
     });
     this.navbarService.handleTabGDPR();
