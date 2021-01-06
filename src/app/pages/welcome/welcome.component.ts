@@ -27,9 +27,6 @@ export class WelcomeComponent {
       width: '800px',
       height: '700px',
       panelClass: 'customDialog',
-      data: {
-        isGuest: true,
-      },
     });
   }
 }

@@ -60,3 +60,18 @@ export interface Logout {
   cancel: string;
   confirm: string;
 }
+export interface Onboarding {
+  image: string;
+  indication: string;
+  textFR: string;
+  textEN: string;
+  browserFR?: string;
+  browserEN?: string;
+}
+
+export interface OnboardingTitle {
+  helpFR: string;
+  helpEN: string;
+  descriptionFR: string;
+  descriptionEN: string;
+}

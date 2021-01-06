@@ -1,4 +1,6 @@
-export const onboardingTabs = [
+import { Onboarding, OnboardingTitle } from "../models/vocabulary";
+
+export const onboardingTabs: Onboarding[] = [
   {
     image: 'illu-accueil.png',
     indication: ' ',
@@ -33,9 +35,9 @@ export const onboardingTabs = [
   },
 ];
 
-export const onboardbingTitles = {
-  helpFr: 'Aide',
-  helpEn: 'Help',
+export const onboardbingTitle: OnboardingTitle = {
+  helpFR: 'Aide',
+  helpEN: 'Help',
   descriptionFR: 'Présentation de l\'outil de traduction',
   descriptionEN: 'Presentation of the translation tool',
 };
