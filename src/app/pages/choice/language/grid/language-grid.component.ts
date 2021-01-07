@@ -25,6 +25,7 @@ export class LanguageGridComponent implements OnChanges{
 
     private countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
     private audioClick:Boolean = false;
+    private audioEnabled = true;
 
     constructor(
         private textToSpeechService: TextToSpeechService,  
@@ -61,12 +62,19 @@ export class LanguageGridComponent implements OnChanges{
     
     public audioDescription(item: Vocabulary) {
         this.audioClick = true
-        const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-        this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage).then(_ => {
-            this.textToSpeechService.audioSpeech.play();
-        }).catch(_ => {
-            this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
-        });
+        if(this.audioEnabled){
+            this.audioEnabled = false;
+            const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
+            this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage).then(_ => {
+                this.textToSpeechService.audioSpeech.play();
+                setTimeout(() => {
+                    this.audioEnabled = true;
+                }, 2000);
+            }).catch(_ => {
+                this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
+                this.audioEnabled = true;
+            });
+        }
     }
 
     public selectLanguage(item: Vocabulary): void {
