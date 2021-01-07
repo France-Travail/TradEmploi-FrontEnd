@@ -53,7 +53,7 @@ export class LanguageGridComponent implements OnChanges{
     
     public getCountriesAll(){
         const data = VOCABULARY.filter((country) => country.isoCode !== 'ar-XA')
-        this.countries = data.sort((a,b) => this.sortCountryNameFr(a.languageNameFr,b.languageNameFr));   
+        this.countries = data.sort((a,b) => this.sortCountryNameFr(a.languageNameFr,b.languageNameFr));
     }
 
     public isoCodeToFlag(isoCode: string) {
@@ -67,6 +67,7 @@ export class LanguageGridComponent implements OnChanges{
             const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
             this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage).then(_ => {
                 this.textToSpeechService.audioSpeech.play();
+                this.textToSpeechService.audioSpeech = undefined;
                 setTimeout(() => {
                     this.audioEnabled = true;
                 }, 2000);

@@ -248,6 +248,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
           message.audioHtml = this.textToSpeechService.audioSpeech;
         }
       ).catch(_ => {
+        console.log("Entre");
         this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
       });
     }
