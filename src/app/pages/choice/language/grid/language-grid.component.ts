@@ -74,6 +74,7 @@ export class LanguageGridComponent implements OnChanges{
             }).catch(_ => {
                 this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
                 this.audioEnabled = true;
+                this.textToSpeechService.audioSpeech = undefined;
             });
         }
     }
