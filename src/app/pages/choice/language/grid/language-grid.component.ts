@@ -17,14 +17,14 @@ import { Tooltip } from './../../../../models/vocabulary';
 export class LanguageGridComponent implements OnChanges{
     
     @Input() search: String;
-    @Input() optionAll: Boolean;
-    @Input() isGuest: Boolean;
+    @Input() optionAll: boolean;
+    @Input() isGuest: boolean;
 
     public countries: Vocabulary[] = [];
     public tooltip: Tooltip;
 
     private countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
-    private audioClick:Boolean = false;
+    private audioClick:boolean = false;
     private audioEnabled = true;
 
     constructor(
