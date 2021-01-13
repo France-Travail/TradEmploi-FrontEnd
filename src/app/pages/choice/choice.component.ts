@@ -19,8 +19,8 @@ export class ChoiceComponent implements AfterContentInit{
 
   public search:String;
 
-  public optionAll:Boolean = false;
-  public isGuest:Boolean = true;
+  public optionAll:boolean = false;
+  public isGuest:boolean = true;
   public wordings: Choice;
 
   private endIdDialogRef: MatDialogRef<any, any>;
@@ -54,6 +54,7 @@ export class ChoiceComponent implements AfterContentInit{
 
   public applyFilter(event: Event) {
     this.search = (event.target as HTMLInputElement).value;
+    this.optionAll = this.search !== "";
   }
 
   public getMost(){
