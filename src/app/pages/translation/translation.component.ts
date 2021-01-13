@@ -239,7 +239,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private setTranslateMessage(message: Message, translate: string, languageTarget: string) {
     message.translation = translate;
-    if (this.isAudioSupported) {
+    const listen = this.isMultiDevices ? 
+      this.isAudioSupported && ( message.languageOrigin != languageTarget)
+      : this.isAudioSupported || message.role === Role.GUEST
+    if (listen) {
       this.textToSpeechService.getSpeech(translate, languageTarget).then(
         _ => {
           if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {

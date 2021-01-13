@@ -164,6 +164,10 @@ export const ENGLISH: Sentence = {
   }
 };
 
+export const ENGLISH_DEFAULT: Sentence = {
+  ...ENGLISH, audioSupported: false
+};
+
 export const SPANISH: Sentence = {
   audioSupported: true,
   applicationName: 'Traducción instantánea',
