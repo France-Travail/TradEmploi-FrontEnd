@@ -41,13 +41,13 @@ export class NavbarService {
   }
 
   public handleTabsTranslation() {
-    this.choiceTab = true;
     this.modalityTab = this.settingsService.user.value.role !== Role.GUEST;
     this.settingsTab = this.settingsService.user.value.role === Role.ADMIN;
     this.helpTab = true;
     const isOnTranslation =  this.router.url.indexOf('translation') > 0;
     const isNotGuest = this.settingsService.user.value.role !== Role.GUEST;
     this.endTab = isOnTranslation && isNotGuest;
+    this.choiceTab = true;
   }
 
   public handleTabsChoice() {

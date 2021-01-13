@@ -3,9 +3,9 @@ import { Onboarding, OnboardingTitle } from "../models/vocabulary";
 export const onboardingTabs: Onboarding[] = [
   {
     image: 'illu-accueil.png',
-    indication: ' ',
-    textFR: 'Utilisez un téléphone ou une tablette pour échanger avec votre conseiller dans votre langue.',
-    textEN: 'Use your phone or a tablet to discuss with your advisor in your language.  ',
+    indication: 'Compatible devices',
+    textFR: 'Utilisez un ordinateur, un téléphone ou une tablette pour échanger avec votre conseiller dans votre langue.',
+    textEN: 'Use your computer, your phone or a tablet to discuss with your advisor in your language.  ',
   },
   {
     image: 'illu-chrome.png',
@@ -18,8 +18,10 @@ export const onboardingTabs: Onboarding[] = [
   {
     image: 'illu-qrcode.png',
     indication: 'How to scan a QR code',
-    textFR: 'Utiliser l\'application photo de votre mobile pour scanner le QR code. Si votre téléphone supporte la lecture de QR code, un lien vers ce site apparaîtra sur votre écran.',
-    textEN: 'Use the camera application on your phone to scan the QR code. If your device supports QR codes, a link to the website will appear on your screen.',
+    textFR: `Utiliser l\'application photo de votre mobile pour scanner le QR code. 
+    Si votre téléphone supporte la lecture de QR code, un lien vers ce site apparaîtra sur votre écran.`,
+    textEN: `Use the camera application on your phone to scan the QR code. 
+    If your device supports QR codes, a link to the website will appear on your screen.`,
   },
   {
     image: 'illu-name.png',

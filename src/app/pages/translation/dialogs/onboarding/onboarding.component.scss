@@ -48,14 +48,27 @@
     flex-direction: row;
     justify-content: center;
     margin-top: 10%;
+    white-space: pre-line;
     .browser {
-      margin-top: 20px;
+      display: inline-block;
+      margin: auto;
       img {
         margin-right: 10px;
         vertical-align: middle;
         width: 32px;
         height: 32px;
       }
+    }
+    .helpFR,
+    .helpEN {
+      width: 45%;
+      text-align: justify;
+      .helpText {
+        height: 75px;
+      }
+    }
+    .helpFR {
+      margin-right: 5%;
     }
   }
 }

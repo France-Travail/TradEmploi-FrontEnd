@@ -22,14 +22,12 @@ import { Support } from 'src/app/models/kpis/support';
 import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 
-
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
   styleUrls: ['./translation.component.scss'],
 })
 export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate, OnDestroy {
-
   @ViewChild('scrollMe') private chatScroll: ElementRef;
   public messagesWrapped: MessageWrapped[] = [];
   public guestTextToEdit: string;
@@ -78,7 +76,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   ngOnInit(): void {
-    const language = VOCABULARY.find((i) => i.isoCode === this.user.language.audio);
+    const chineseLanguages = ['cmn-CN', 'yue-HK', 'cmn-TW'];
+    const language = chineseLanguages.includes(this.user.language.audio)
+      ? VOCABULARY.find((i) => i.audioCode === this.user.language.audio)
+      : VOCABULARY.find((i) => i.isoCode === this.user.language.audio);
     this.isAudioSupported = language.sentences.audioSupported;
     this.navbarService.handleTabsTranslation();
     this.isAudioPlay = true;
@@ -99,7 +100,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   scrollToBottom(): void {
     try {
       this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
-    } catch (err) { }
+    } catch (err) {}
   }
 
   public goto(where: string): void {
@@ -193,12 +194,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  }
+  };
 
   private async addMultiMessageToChat(roomId: string) {
     let monoToMultiTime: number;
     if (this.support === Support.MONOANDMULTIDEVICE || this.isGuest) {
-      this.chatService.getMonoToMultiTime(roomId).subscribe(s => monoToMultiTime = s);
+      this.chatService.getMonoToMultiTime(roomId).subscribe((s) => (monoToMultiTime = s));
     }
     this.chatService.getMessagesWrapped(roomId).subscribe((mw: MessageWrapped[]) => {
       if (this.support === Support.MONOANDMULTIDEVICE || this.isGuest) {
@@ -229,10 +230,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private callTranslateApi(message: any, languageTarget: any) {
-    this.translateService.translate(message.text, languageTarget.written).then(
-      (translate) => {
+    this.translateService
+      .translate(message.text, languageTarget.written)
+      .then((translate) => {
         this.setTranslateMessage(message, translate, languageTarget.audio);
-      }).catch(_ => {
+      })
+      .catch((_) => {
         this.toastService.showToast(ERROR_FUNC_TRANSLATION.description, 'toast-error');
       });
   }
@@ -240,16 +243,17 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private setTranslateMessage(message: Message, translate: string, languageTarget: string) {
     message.translation = translate;
     if (this.isAudioSupported) {
-      this.textToSpeechService.getSpeech(translate, languageTarget).then(
-        _ => {
+      this.textToSpeechService
+        .getSpeech(translate, languageTarget)
+        .then((_) => {
           if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
             this.textToSpeechService.audioSpeech.play();
           }
           message.audioHtml = this.textToSpeechService.audioSpeech;
-        }
-      ).catch(_ => {
-        this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
-      });
+        })
+        .catch((_) => {
+          this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
+        });
     }
     this.textToSpeechService.audioSpeech = undefined;
     this.sendMessage(message);
