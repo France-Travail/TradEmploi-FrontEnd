@@ -220,7 +220,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private translateMessage(message: Message) {
     const languageTarget: Language = this.getLanguageTarget(message);
-    // item.sentences.audioSupported
     if (this.isMultiDevices && message.languageOrigin === languageTarget.written) {
       this.setTranslateMessage(message, message.text, languageTarget.audio);
     } else {
@@ -239,9 +238,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private setTranslateMessage(message: Message, translate: string, languageTarget: string) {
     message.translation = translate;
-    const listen = this.isMultiDevices ? 
-      this.isAudioSupported && ( message.languageOrigin != languageTarget)
-      : this.isAudioSupported || message.role === Role.GUEST
+    const listenMulti = !this.isSender(message.member) && this.isAudioSupported;
+    const listenMono = this.isAudioSupported || message.role === Role.GUEST;
+    const listen = this.isMultiDevices ? listenMulti  : listenMono
     if (listen) {
       this.textToSpeechService.getSpeech(translate, languageTarget).then(
         _ => {
@@ -251,7 +250,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
           message.audioHtml = this.textToSpeechService.audioSpeech;
         }
       ).catch(_ => {
-        console.log("Entre");
         this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
       });
     }
