@@ -10,7 +10,6 @@
   }
   .top {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
   }
   .vertical-line {
@@ -25,7 +24,7 @@
   }
   .middle {
     display: flex;
-    flex-direction: row;
+
     justify-content: space-between;
     height: 80%;
     .chevron {

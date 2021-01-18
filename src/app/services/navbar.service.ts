@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { SettingsService } from './settings.service';
 import { Role } from '../models/role';
 import { Router } from '@angular/router';
-import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Injectable()
 export class NavbarService {
