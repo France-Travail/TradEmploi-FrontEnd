@@ -10,6 +10,9 @@
       <img style="vertical-align:middle"  src="assets/icons/all-languages.svg" alt="Multi Language" />
       <span class="description">{{wordings.allBtn}}</span>
     </button>
+    <ng-template [ngIf]="!isSmallScreen">
+      <button class="listgrid" (click)="getList()"><i [ngClass]="{'fas fa-th': optionList, 'fa fa-list': !optionList}"></i></button>
+    </ng-template>
   </div>
   <app-language-grid [optionAll]='optionAll' [search]='search' [isGuest]='isGuest'></app-language-grid>
 </div>

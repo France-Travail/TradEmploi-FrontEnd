@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { EndComponent } from '../translation/dialogs/end/end.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { User } from 'src/app/models/user';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-choice',
@@ -25,16 +26,22 @@ export class ChoiceComponent implements AfterContentInit{
 
   private endIdDialogRef: MatDialogRef<any, any>;
   private user: User;
+  public isSmallScreen: Boolean = false;
 
   constructor(
     private navService: NavbarService, 
     private settingsService: SettingsService,
     private chatService: ChatService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private breakpointObserver: BreakpointObserver
   ){
     this.navService.handleTabsChoice();
     this.wordings = this.settingsService.user.value.role === Role.GUEST ? ENGLISH.choice: FRENCH.choice;
+    this.breakpointObserver.observe(['(max-width: 820px)']).subscribe((result) => {
+      this.isSmallScreen = result.matches;
+    });
+
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
         this.isGuest = user.role === Role.GUEST;
@@ -59,6 +66,10 @@ export class ChoiceComponent implements AfterContentInit{
 
   public getMost(){
     this.optionAll = !this.optionAll;
+  }
+
+  public getList(){
+
   }
 
   @HostListener('window:beforeunload', ['$event'])
