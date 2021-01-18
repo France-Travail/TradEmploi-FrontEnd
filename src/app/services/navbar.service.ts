@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { SettingsService } from './settings.service';
 import { Role } from '../models/role';
 import { Router } from '@angular/router';
-import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Injectable()
 export class NavbarService {
@@ -46,7 +45,7 @@ export class NavbarService {
     this.modalityTab = this.settingsService.user.value.role !== Role.GUEST;
     this.settingsTab = this.settingsService.user.value.role === Role.ADMIN;
     this.helpTab = true;
-    const isOnTranslation =  this.router.url.indexOf('translation') > 0;
+    const isOnTranslation = this.router.url.indexOf('translation') > 0;
     const isNotGuest = this.settingsService.user.value.role !== Role.GUEST;
     this.endTab = isOnTranslation && isNotGuest;
   }

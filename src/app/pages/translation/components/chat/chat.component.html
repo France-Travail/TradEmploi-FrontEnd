@@ -16,7 +16,7 @@
       <span>  
         <div *ngIf="!visible; then longText; else shortText"></div>
         <ng-template #shortText>
-          <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': messageWrapped.message.language === 'ar-XA' ? 'right' : 'left' }">
+          <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': messageWrapped.message.languageOrigin === 'ar-XA' ? 'right' : 'left' }">
             <bdi>{{ messageWrapped.message.text }}</bdi>
           </a>
           <a class="extand" *ngIf="messageWrapped.message.text !== undefined && messageWrapped.message.text.length > 98" (click)="extand()">
@@ -24,7 +24,7 @@
           </a>
         </ng-template>
         <ng-template #longText>
-          <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': messageWrapped.message.language === 'ar-XA' ? 'right' : 'left' }" lang="ar">
+          <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': messageWrapped.message.languageOrigin === 'ar-XA' ? 'right' : 'left' }" lang="ar">
             <bdi>{{ messageWrapped.message.text | slice: 0:98 }}</bdi>
             <strong *ngIf="messageWrapped.message.text !== undefined && messageWrapped.message.text.length > 98">...</strong>
           </a>

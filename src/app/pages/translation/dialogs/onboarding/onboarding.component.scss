@@ -10,7 +10,6 @@
   }
   .top {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
   }
   .vertical-line {
@@ -19,13 +18,12 @@
   .indication {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     font-size: 16pt;
     height: 16pt;
   }
   .middle {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     height: 80%;
     .chevron {
@@ -45,17 +43,28 @@
   .helps {
     margin-top: auto;
     display: flex;
-    flex-direction: row;
+  
     justify-content: center;
     margin-top: 10%;
+    white-space: pre-line;
     .browser {
-      margin-top: 20px;
       img {
         margin-right: 10px;
         vertical-align: middle;
         width: 32px;
         height: 32px;
       }
+    }
+    .helpFR,
+    .helpEN {
+      width: 45%;
+      text-align: justify;
+      .helpText {
+        height: 75px;
+      }
+    }
+    .helpFR {
+      margin-right: 5%;
     }
   }
 }
