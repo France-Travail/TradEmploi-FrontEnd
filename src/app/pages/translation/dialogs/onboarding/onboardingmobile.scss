@@ -1,6 +1,9 @@
 .contentMobile {
-  margin: 50% 10px;
-
+  margin: 25% 10px;
+  .indication {
+    display: flex;
+    justify-content: center;
+  }
   .middle {
     display: flex;
     justify-content: space-between;
