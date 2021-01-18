@@ -76,12 +76,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   ngOnInit(): void {
+    this.navbarService.handleTabsTranslation();
     const chineseLanguages = ['cmn-CN', 'yue-HK', 'cmn-TW'];
     const language = chineseLanguages.includes(this.user.language.audio)
       ? VOCABULARY.find((i) => i.audioCode === this.user.language.audio)
       : VOCABULARY.find((i) => i.isoCode === this.user.language.audio);
     this.isAudioSupported = language.sentences.audioSupported;
-    this.navbarService.handleTabsTranslation();
+
     this.isAudioPlay = true;
     this.scrollToBottom();
   }

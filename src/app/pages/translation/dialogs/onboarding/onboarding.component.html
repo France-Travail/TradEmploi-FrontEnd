@@ -1,4 +1,4 @@
-<div class="content" [ngClass]="isMobile ? 'contentMobile' : 'content'">
+<div [ngClass]="isMobile ? 'contentMobile' : 'content'">
   <div class="top" *ngIf="!isMobile">
     <h2 class="title">{{ isGuest ? title.helpEN : title.helpFR }}</h2>
     <mat-icon aria-hidden="false" (click)="closeDialog()" class="close">close</mat-icon>

@@ -237,7 +237,7 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameRaw: '香港',
     countryNameFr: 'Hong Kong',
     languageNameRaw: '普通话',
-    languageNameFr: 'Cantonais',
+    languageNameFr: 'Mandarin',
     sentences: MANDARIN,
   },
   {
