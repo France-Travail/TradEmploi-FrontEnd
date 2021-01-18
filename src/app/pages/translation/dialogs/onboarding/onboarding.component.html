@@ -4,7 +4,7 @@
     <mat-icon aria-hidden="false" (click)="closeDialog()" class="close">close</mat-icon>
   </div>
   <h3 class="description" *ngIf="!isMobile">{{ isGuest ? title.descriptionEN : title.descriptionFR }}</h3>
-  <div class="indication" *ngIf="this.isGuest || !this.isMobile">{{ sentences[tabNumber].indication }}</div>
+  <div class="indication" *ngIf="!this.isMobile">{{ sentences[tabNumber].indication }}</div>
   <div class="middle">
     <mat-icon aria-hidden="false" (click)="previousItem()" class="chevron" aria-label="Précédent">chevron_left</mat-icon>
     <span class="vertical-line" *ngIf="!isMobile"></span>
