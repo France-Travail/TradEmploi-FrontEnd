@@ -168,6 +168,75 @@ export const ENGLISH_DEFAULT: Sentence = {
   ...ENGLISH, audioSupported: false
 };
 
+export const DANISH: Sentence = {
+  ...ENGLISH, readedWelcome: 'Vil du udveksle på dette sprog?'
+};
+
+export const KOREA: Sentence = {
+  ...ENGLISH, readedWelcome: '이 언어로 교환 하시겠습니까?'
+};
+
+export const FINLAND: Sentence = {
+  ...ENGLISH, readedWelcome: 'Haluatko vaihtaa tällä kielellä?'
+};
+
+export const GUJARATI: Sentence = {
+  ...ENGLISH, readedWelcome: 'શું તમે આ ભાષામાં ચાલુ રાખવા માંગો છો?'
+};
+
+export const HUNGARIAN: Sentence = {
+  ...ENGLISH, readedWelcome: 'Szeretne ezen a nyelven cserélni?'
+};
+
+export const INDONESIA: Sentence = {
+  ...ENGLISH, readedWelcome: 'Apakah Anda ingin bertukar dalam bahasa ini?'
+};
+
+export const KANNADA: Sentence = {
+  ...ENGLISH, readedWelcome: 'ಈ ಭಾಷೆಯಲ್ಲಿ ವಿನಿಮಯ ಮಾಡಲು ನೀವು ಬಯಸುವಿರಾ?'
+};
+
+export const MALAYALAM: Sentence = {
+  ...ENGLISH, readedWelcome: 'ഈ ഭാഷയിൽ കൈമാറ്റം ചെയ്യാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?'
+};
+
+export const NORWAY: Sentence = {
+  ...ENGLISH, readedWelcome: 'Vil du utveksle på dette språket?'
+};
+
+export const HOLLAND: Sentence = {
+  ...ENGLISH, readedWelcome: 'Wilt u uitwisselen in deze taal?'
+};
+
+export const POLAND: Sentence = {
+  ...ENGLISH, readedWelcome: 'Czy chciałbyś wymienić się w tym języku?'
+};
+
+export const SLOVENIA: Sentence = {
+  ...ENGLISH, readedWelcome: 'Prajete si výmenu v tomto jazyku?'
+};
+
+export const SWEDEN: Sentence = {
+  ...ENGLISH, readedWelcome: 'Vill du byta på det här språket?'
+};
+
+export const CZECH: Sentence = {
+  ...ENGLISH, readedWelcome: 'Chcete si vyměnit v tomto jazyce?'
+};
+
+export const THAILAND: Sentence = {
+  ...ENGLISH, readedWelcome: 'คุณต้องการแลกเปลี่ยนเป็นภาษานี้หรือไม่?'
+};
+
+export const TELUGU: Sentence = {
+  ...ENGLISH, readedWelcome: 'మీరు ఈ భాషలో కొనసాగాలనుకుంటున్నారా?'
+};
+
+export const UKRAINE: Sentence = {
+  ...ENGLISH, readedWelcome: 'Ви хочете обмінюватися цією мовою?'
+};
+
+
 export const SPANISH: Sentence = {
   audioSupported: true,
   applicationName: 'Traducción instantánea',
@@ -401,6 +470,7 @@ export const KHMER: Sentence = {
 };
 
 export const HINDI: Sentence = {
+  audioSupported: true,
   displayedWelcome: 'नमस्कार, मैं आपके सलाहकार के साथ आसानी से आदान-प्रदान करने वाला आपका दुभाषिया बनूंगा।',
   readedWelcome: 'क्या आप इस भाषा में विनिमय करना चाहेंगे?',
   applicationName: 'Instant Translation',
