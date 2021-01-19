@@ -18,6 +18,7 @@ export class LanguageGridComponent implements OnChanges{
     
     @Input() search: String;
     @Input() optionAll: boolean;
+    @Input() optionList: boolean;
     @Input() isGuest: boolean;
 
     public countries: Vocabulary[] = [];
@@ -35,6 +36,7 @@ export class LanguageGridComponent implements OnChanges{
     ){}
     
     ngOnChanges() {
+        console.log('optionList :>> ', this.optionList);
         this.tooltip = this.isGuest ? ENGLISH.tooltip: FRENCH.tooltip;
         this.optionAll ? this.getCountriesAll() : this.getCountriesSelected();
         if(this.search && this.search != ""){

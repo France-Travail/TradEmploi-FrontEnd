@@ -21,6 +21,7 @@ export class ChoiceComponent implements AfterContentInit{
   public search:String;
 
   public optionAll:boolean = false;
+  public optionList:boolean = false;
   public isGuest:boolean = true;
   public wordings: Choice;
 
@@ -69,7 +70,7 @@ export class ChoiceComponent implements AfterContentInit{
   }
 
   public getList(){
-
+    this.optionList = !this.optionList;
   }
 
   @HostListener('window:beforeunload', ['$event'])
