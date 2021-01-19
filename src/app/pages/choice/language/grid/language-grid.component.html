@@ -14,7 +14,9 @@
       </div>
       <div class="option-col">
         <img *ngIf="item.sentences.audioSupported" src="assets/icons/listen.svg" alt="Listen"  matTooltip="{{tooltip.listen}}" matTooltipClass="tooltip-info"/>
-        <img *ngIf="!item.sentences.audioSupported"src="assets/icons/no-listen.svg" alt="Listen"  matTooltip="{{tooltip.noListen}}" matTooltipClass="tooltip-info"/>
+        <!-- <div class="listen" *ngIf="item.sentences.audioSupported"  matTooltip="{{tooltip.listen}}" matTooltipClass="tooltip-info"></div>
+        <div class="no-listen" *ngIf="!item.sentences.audioSupported"  matTooltip="{{tooltip.listen}}" matTooltipClass="tooltip-info"></div> -->
+        <img *ngIf="!item.sentences.audioSupported" src="assets/icons/no-listen.svg" alt="Listen"  matTooltip="{{tooltip.noListen}}" matTooltipClass="tooltip-info"/>
       </div>
       <div class="option-col">
         <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="audioDescription(item)"  matTooltip="{{tooltip.audio}}" matTooltipClass="tooltip-info"></div>

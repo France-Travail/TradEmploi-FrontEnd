@@ -20,7 +20,7 @@
     }
     .title {
       display: flex;
-      flex-direction: raw;
+      flex-direction: row;
       padding: 20px;
       align-items: center;
       height: 70px;
@@ -28,10 +28,56 @@
       .fr,
       .raw {
         font-size: 16px;
-        font-weight: 200;
         width: 100%;
       }
-    }  
+    }
+    .flag {
+      height: 60px;
+      .flag-icon {
+        width: 50px;
+        height: 40px;
+        border: 1px solid $gray74;
+        box-sizing: border-box;
+        border-radius: 5px;
+        background-size: cover;
+        margin: 10px;
+      }
+    }
+    .option {
+      display: flex;
+      justify-content: space-evenly;
+      width: inherit;
+      padding: 0px 30px;
+      height: 60px;
+      .option-col {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: inherit;
+      }
+      .speaker {
+        background-image: url('../../../../../assets/icons/icon-listen-blue.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 50%;
+        background-color: white;
+        background-size: 15px;
+        width: 30px;
+        height: 30px;
+        border: solid grey 0.5px;
+      }
+      .speaker:hover {
+        background-color: $primary-color;
+        background-image: url('../../../../../assets/icons/icon-listen-white.svg');
+      }
+      .no-listen {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    .option :nth-child(1) { order: 1; }
+    .option :nth-child(2) { order: 2; }
+    .option :nth-child(3) { order: 3; }  
   }
   .country :nth-child(1) { order: 2; }
   .country :nth-child(2) { order: 1; }
@@ -49,7 +95,18 @@
         padding: 10px 10px;
         align-items: flex-start;
         justify-content: center;
+        flex-direction: column;
+        .fr,
+        .raw {
+          font-size: 12px;
+        }
+        .raw {
+          font-weight: 400;
+        }
       }
     }
+    .country :nth-child(1) { order: 1; }
+    .country :nth-child(2) { order: 2; }
+    .country :nth-child(3) { order: 3; }
   }
 }
