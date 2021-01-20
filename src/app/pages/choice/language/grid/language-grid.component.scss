@@ -26,24 +26,23 @@
     align-items: center;
     height: 70px;
     .fr {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 200;
     }
     .raw {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 400;
     }
   }
   .flag {
     height: 60px;
     .flag-icon {
-      width: 50px;
-      height: 40px;
+      width: 90px;
+      height: 60px;
       border: 1px solid $gray74;
       box-sizing: border-box;
       border-radius: 5px;
       background-size: cover;
-      margin: 10px;
     }
   }
   .option {
@@ -98,5 +97,12 @@
         font-size: 12px;
       }
     }
+    .flag {
+      .flag-icon {
+        width: 50px;
+        height: 40px;
+      }
+    }
+
   }
 }
