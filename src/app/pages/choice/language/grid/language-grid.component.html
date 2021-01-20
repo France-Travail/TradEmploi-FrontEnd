@@ -1,4 +1,18 @@
 <div [ngClass]="{'countriesList': optionList, 'countries': !optionList}" >
+  <div class="header country" *ngIf="optionList">
+    <div class="title">
+      <span class="fr">Langue</span>
+      <span class="raw">Language</span>
+    </div>
+    <div class="flag">
+      <span class="flag-icon" [ngStyle]="{'border': 0}"></span>
+    </div>
+    <div class="option">
+      <div class="option-col">Voice</div>
+      <div class="option-col">Audio</div>
+      <div class="option-col">Test</div>
+    </div>
+  </div>
   <div class="country" *ngFor="let item of countries" (click)="selectLanguage(item)">
     <div class="title">
       <span class="fr">{{ item.languageNameFr }} ({{ item.countryNameFr }})</span>
@@ -14,8 +28,6 @@
       </div>
       <div class="option-col">
         <img *ngIf="item.sentences.audioSupported" src="assets/icons/listen.svg" alt="Listen"  matTooltip="{{tooltip.listen}}" matTooltipClass="tooltip-info"/>
-        <!-- <div class="listen" *ngIf="item.sentences.audioSupported"  matTooltip="{{tooltip.listen}}" matTooltipClass="tooltip-info"></div>
-        <div class="no-listen" *ngIf="!item.sentences.audioSupported"  matTooltip="{{tooltip.listen}}" matTooltipClass="tooltip-info"></div> -->
         <img *ngIf="!item.sentences.audioSupported" src="assets/icons/no-listen.svg" alt="Listen"  matTooltip="{{tooltip.noListen}}" matTooltipClass="tooltip-info"/>
       </div>
       <div class="option-col">

@@ -1,6 +1,6 @@
 .countriesList {
   margin: auto;
-  padding: 20px;
+  padding: 10px 20px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
   gap: 15px;
@@ -21,7 +21,6 @@
     .title {
       display: flex;
       flex-direction: row;
-      padding: 20px;
       align-items: center;
       height: 70px;
       width: 100%;
@@ -29,8 +28,11 @@
       .raw {
         font-size: 16px;
         width: 100%;
+        font-weight: 200;
       }
-    }
+    }  
+    .title :nth-child(1) { order: 1; }
+    .title :nth-child(2) { order: 2; }
     .flag {
       height: 60px;
       .flag-icon {
@@ -84,6 +86,20 @@
   .country :nth-child(3) { order: 3; }
 }
 
+.header{
+  background-color: white !important;
+  border-top: 1px solid $white-smoke;
+  border-radius: 0px !important;
+  pointer-events: none;
+  padding-top: 10px;
+  .title {
+    .fr,
+    .raw {
+      font-weight: 400 !important;
+    }
+  }
+}
+
 @media screen and (max-width: 576px) {
   .countriesList {
     padding: 5px;
@@ -108,5 +124,8 @@
     .country :nth-child(1) { order: 1; }
     .country :nth-child(2) { order: 2; }
     .country :nth-child(3) { order: 3; }
+  }
+  .header{
+    display: none !important;
   }
 }

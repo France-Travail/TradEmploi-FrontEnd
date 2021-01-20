@@ -53,3 +53,9 @@ h2 {
     width:99%;
   }
 }
+
+@media screen and (max-width: 576px) {
+  .listgrid{
+    display:none;
+  }
+}
