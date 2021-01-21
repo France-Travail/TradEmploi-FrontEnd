@@ -46,6 +46,7 @@ import {
   SLOVENIA,
   SWEDEN,
   THAILAND,
+  JAPANESE,
 } from './sentence';
 
 export const VOCABULARY_DEFAULT: Vocabulary = {
@@ -269,7 +270,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-AU',
-    audioCode: 'en-GB',
+    audioCode: 'en-AU',
     countryNameRaw: 'Australia',
     countryNameFr: 'Australie',
     languageNameRaw: 'English',
@@ -743,7 +744,7 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Japon',
     languageNameRaw: '日本語',
     languageNameFr: 'Japonais',
-    sentences: ENGLISH,
+    sentences: JAPANESE,
   },
   {
     isoCode: 'en-HK',
@@ -805,11 +806,11 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Espagne',
     languageNameFr: 'Basque',
     languageNameRaw: 'Euskara',
-    sentences: ENGLISH_DEFAULT,
+    sentences: ENGLISH,
   },
   { isoCode: 'af-ZA', countryNameRaw: 'Suid-Afrika', countryNameFr: 'Afrique du Sud', languageNameRaw: 'Afrikaans', languageNameFr: 'Afrikaans', sentences: ENGLISH_DEFAULT },
-  { isoCode: 'hy-AM', countryNameRaw: 'Հայաստան', countryNameFr: 'Arménie', languageNameRaw: 'Հայ', languageNameFr: 'Arménien', sentences: ENGLISH_DEFAULT },
-  { isoCode: 'az-AZ', countryNameRaw: 'Azərbaycan', countryNameFr: 'Azerbaïjan', languageNameRaw: 'Azərbaycan', languageNameFr: 'Azerbaïdjan', sentences: ENGLISH_DEFAULT },
+  { isoCode: 'hy-AM', countryNameRaw: 'Հայաստան', countryNameFr: 'Arménie', languageNameRaw: 'Հայ', languageNameFr: 'Arménien', sentences: ENGLISH },
+  { isoCode: 'az-AZ', countryNameRaw: 'Azərbaycan', countryNameFr: 'Azerbaïjan', languageNameRaw: 'Azərbaycan', languageNameFr: 'Azerbaïdjan', sentences: ENGLISH },
   { isoCode: 'da-DK', countryNameRaw: 'Danmark', countryNameFr: 'Danemark', languageNameRaw: 'Dansk', languageNameFr: 'Danois', sentences: DANISH },
   { isoCode: 'ca-ES', countryNameRaw: 'Espanya', countryNameFr: 'Espagne', languageNameRaw: 'Català', languageNameFr: 'Catalan', sentences: ENGLISH_DEFAULT },
   { isoCode: 'id-ID', countryNameRaw: 'Indonesia', countryNameFr: 'Indonésie', languageNameRaw: 'Bahasa Indonesia', languageNameFr: 'Indonésien', sentences: INDONESIA },

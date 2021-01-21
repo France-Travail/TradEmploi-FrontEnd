@@ -236,6 +236,10 @@ export const UKRAINE: Sentence = {
   ...ENGLISH, readedWelcome: 'Ви хочете обмінюватися цією мовою?'
 };
 
+export const JAPANESE: Sentence = {
+  ...ENGLISH, readedWelcome: 'この言語で交換しますか？'
+};
+
 
 export const SPANISH: Sentence = {
   audioSupported: true,
@@ -281,6 +285,7 @@ export const MANDARIN: Sentence = {
 };
 
 export const BENGALI: Sentence = {
+  audioSupported: true,
   applicationName: 'তাত্ক্ষণিক অনুবাদ',
   send: 'পাঠান',
   translate: 'অনুবাদ',
