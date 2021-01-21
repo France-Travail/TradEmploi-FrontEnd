@@ -46,6 +46,7 @@ export interface Choice{
   gridBtn: string;
   chooseBtn: string;
   search:string;
+  voice?:string;
 }
 
 export interface Modality {

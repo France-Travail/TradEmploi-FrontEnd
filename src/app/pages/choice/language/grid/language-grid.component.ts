@@ -23,6 +23,7 @@ export class LanguageGridComponent implements OnChanges{
 
     public countries: Vocabulary[] = [];
     public tooltip: Tooltip;
+    public voiceTitle: string;
 
     private countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
     private audioClick:boolean = false;
@@ -37,6 +38,7 @@ export class LanguageGridComponent implements OnChanges{
     
     ngOnChanges() {
         this.tooltip = this.isGuest ? ENGLISH.tooltip: FRENCH.tooltip;
+        this.voiceTitle = this.isGuest ? ENGLISH.choice.voice: FRENCH.choice.voice;
         this.optionAll ? this.getCountriesAll() : this.getCountriesSelected();
         if(this.search && this.search != ""){
             const searchName = this.search.trim().toLowerCase();

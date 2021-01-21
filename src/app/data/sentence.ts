@@ -99,7 +99,8 @@ export const FRENCH: Sentence = {
     listBtn: 'Liste',
     gridBtn: 'Grille',
     chooseBtn: 'Choisir',
-    search: 'Saisissez la langue ou le pays recherché'
+    search: 'Saisissez la langue ou le pays recherché',
+    voice: "Voix"
   },
   tooltip: {
     pronouce: 'Vous pouvez prononcer la phrase à traduire',
@@ -154,7 +155,8 @@ export const ENGLISH: Sentence = {
     listBtn: 'List',
     gridBtn: 'Grid',
     chooseBtn: 'Choose',
-    search: 'Enter the desired language or country'
+    search: 'Enter the desired language or country',
+    voice: 'Voice'
   },
   tooltip: {
     pronouce: 'You can pronounce the sentence to translate',
