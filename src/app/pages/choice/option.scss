@@ -42,6 +42,14 @@
   }
 }
 
+@media screen and (max-width: 1024px) { 
+  .option{
+    img{
+      display: none;
+    }
+  }
+}
+
 @media screen and (max-width: 576px) { 
   .option{
     padding-left: 0px;
