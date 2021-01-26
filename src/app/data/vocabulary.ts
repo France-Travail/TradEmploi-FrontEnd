@@ -47,6 +47,7 @@ import {
   SWEDEN,
   THAILAND,
   JAPANESE,
+  ALBANIAN
 } from './sentence';
 
 export const VOCABULARY_DEFAULT: Vocabulary = {
@@ -322,6 +323,14 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: ENGLISH,
   },
   {
+    isoCode: 'sq-AL',
+    countryNameRaw: 'Shqiperia',
+    countryNameFr: 'Albanie',
+    languageNameRaw: 'Shqiptare',
+    languageNameFr: 'Albanais',
+    sentences: ALBANIAN,
+  },
+  {
     isoCode: 'en-IE',
     audioCode: 'en-GB',
     countryNameRaw: 'Ireland',
@@ -408,14 +417,14 @@ export const VOCABULARY: Vocabulary[] = [
     languageNameFr: 'Bengali',
     sentences: BENGALI,
   },
-  // {
-  //   isoCode: 'fa-AF',
-  //   countryNameRaw: 'افغانستان',
-  //   countryNameFr: 'Afghanistan',
-  //   languageNameFr: 'Dari',
-  //   languageNameRaw: 'دري',
-  //   sentences: DARI,
-  // },
+  {
+    isoCode: 'fa-AF',
+    countryNameRaw: 'افغانستان',
+    countryNameFr: 'Afghanistan',
+    languageNameFr: 'Dari',
+    languageNameRaw: 'دري',
+    sentences: DARI,
+  },
   {
     isoCode: 'ps-AF',
     countryNameRaw: 'افغانستان',

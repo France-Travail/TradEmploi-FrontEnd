@@ -25,7 +25,7 @@ export class LanguageGridComponent implements OnChanges{
     public tooltip: Tooltip;
     public voiceTitle: string;
 
-    private countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-IR', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
+    private countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-AF', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
     private audioClick:boolean = false;
     private audioEnabled = true;
 
@@ -55,8 +55,7 @@ export class LanguageGridComponent implements OnChanges{
     }
     
     public getCountriesAll(){
-        const data = VOCABULARY.filter((country) => country.isoCode !== 'ar-XA')
-        this.countries = data.sort((a,b) => this.sortCountryNameFr(a.languageNameFr,b.languageNameFr));
+        this.countries = VOCABULARY.sort((a,b) => this.sortCountryNameFr(a.languageNameFr,b.languageNameFr));
     }
 
     public isoCodeToFlag(isoCode: string) {

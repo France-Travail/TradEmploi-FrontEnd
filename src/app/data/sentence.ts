@@ -3,7 +3,7 @@ import { Sentence, NavbarTab } from '../models/vocabulary';
 export const NAVBAR_ENGLISH_TABS: NavbarTab = {
   language: 'language',
   logout: 'logout',
-  help: 'help'
+  help: 'help',
 };
 
 export const HEBREW: Sentence = {
@@ -68,10 +68,10 @@ export const FRENCH: Sentence = {
     preApplicationName: 'Accédez au service de ',
     applicationName: 'traduction instantanée',
     privacyText:
-      'Nous stockons et accédons aux informations sur un appareil, telles que les cookies et traitons les données personnelles pour la mesure du contenu et les informations d\'audience, ainsi que pour développer et améliorer les produits.\n\nVous pouvez cliquer pour consentir à notre traitement comme décrit ci-dessus.\nVous pouvez également cliquer pour refuser de donner votre consentement ou accéder à des informations plus détaillées et modifier vos préférences avant de consentir.\nVeuillez noter que certains traitements de vos données personnelles peuvent ne pas nécessiter votre consentement, mais vous avez le droit de vous opposer à un tel traitement.',
+      "Nous stockons et accédons aux informations sur un appareil, telles que les cookies et traitons les données personnelles pour la mesure du contenu et les informations d'audience, ainsi que pour développer et améliorer les produits.\n\nVous pouvez cliquer pour consentir à notre traitement comme décrit ci-dessus.\nVous pouvez également cliquer pour refuser de donner votre consentement ou accéder à des informations plus détaillées et modifier vos préférences avant de consentir.\nVeuillez noter que certains traitements de vos données personnelles peuvent ne pas nécessiter votre consentement, mais vous avez le droit de vous opposer à un tel traitement.",
     optionTitle: 'Usages spéciaux et fonctionnalités',
     optionText:
-      'Nous utilisons la technologie de cryptage 256-AES pour crypter les données telles que les conversations envoyées à notre produit.\nCela signifie que tous les messages que vous envoyez sont cryptés et sécurisés.\nTout cela se produit automatiquement : pas besoin d\'activer les paramètres ou de configurer une requête spéciale pour sécuriser vos messages. AES-256 est toujours activé. Il n\'y a aucun moyen de désactiver le cryptage AES-256.\nPour une protection supplémentaire, tous les messages stockés pendant l\'utilisation du produit seront supprimés à la fermeture de l\'application.',
+      "Nous utilisons la technologie de cryptage 256-AES pour crypter les données telles que les conversations envoyées à notre produit.\nCela signifie que tous les messages que vous envoyez sont cryptés et sécurisés.\nTout cela se produit automatiquement : pas besoin d'activer les paramètres ou de configurer une requête spéciale pour sécuriser vos messages. AES-256 est toujours activé. Il n'y a aucun moyen de désactiver le cryptage AES-256.\nPour une protection supplémentaire, tous les messages stockés pendant l'utilisation du produit seront supprimés à la fermeture de l'application.",
     disagreeBtn: 'REFUSER',
     learnBtn: 'EN SAVOIR PLUS',
     agreeBtn: 'ACCEPTER',
@@ -100,14 +100,14 @@ export const FRENCH: Sentence = {
     gridBtn: 'Grille',
     chooseBtn: 'Choisir',
     search: 'Saisissez la langue ou le pays recherché',
-    voice: "Voix"
+    voice: 'Voix',
   },
   tooltip: {
     pronouce: 'Vous pouvez prononcer la phrase à traduire',
     listen: 'Vous pouvez écouter la phrase à traduire',
     noListen: 'Vous ne pouvez pas écouter la phrase à traduire',
-    audio:'Écouter une phrase traduite dans la langue'
-  }
+    audio: 'Écouter une phrase traduite dans la langue',
+  },
 };
 
 export const ENGLISH: Sentence = {
@@ -137,7 +137,7 @@ export const ENGLISH: Sentence = {
       'We store and access information on a device, such as cookies and process personal data for content measurement, and audience insights, as well as to develop and improve products.\n\nYou may click to consent to our processing as described above.\nAlternatively you may click to refuse to consent or access more detailed information and change your preferences before consenting.\nPlease note that some processing of your personal data may not require your consent, but you have a right to object to such processing.',
     optionTitle: 'Special purposes and features',
     optionText:
-      'We use 256-AES Encryption Technology to encrypt data such as conversation sent to our Product.\nIt\'s mean that every messages you send are encryped and secured.\nAll of this happens automatically: No need to turn on settings or set up special quiery to secure your messages. AES-256 is always activated.\n There\'s no way to turn off AES-256 encryption.\nFor added protection, all messages stored during the Product use will be deleted when the app is closed.',
+      "We use 256-AES Encryption Technology to encrypt data such as conversation sent to our Product.\nIt's mean that every messages you send are encryped and secured.\nAll of this happens automatically: No need to turn on settings or set up special quiery to secure your messages. AES-256 is always activated.\n There's no way to turn off AES-256 encryption.\nFor added protection, all messages stored during the Product use will be deleted when the app is closed.",
     disagreeBtn: 'DISAGREE',
     learnBtn: 'LEARN MORE',
     agreeBtn: 'AGREE',
@@ -156,92 +156,110 @@ export const ENGLISH: Sentence = {
     gridBtn: 'Grid',
     chooseBtn: 'Choose',
     search: 'Enter the desired language or country',
-    voice: 'Voice'
+    voice: 'Voice',
   },
   tooltip: {
     pronouce: 'You can pronounce the sentence to translate',
     listen: 'You can listen the sentence to translate',
     noListen: 'You can not listen the sentence to translate',
-    audio:'Listen a sentence translated into the language'
-  }
+    audio: 'Listen a sentence translated into the language',
+  },
 };
 
 export const ENGLISH_DEFAULT: Sentence = {
-  ...ENGLISH, audioSupported: false
+  ...ENGLISH,
+  audioSupported: false,
 };
 
 export const DANISH: Sentence = {
-  ...ENGLISH, readedWelcome: 'Vil du udveksle på dette sprog?'
+  ...ENGLISH,
+  readedWelcome: 'Vil du udveksle på dette sprog?',
 };
 
 export const KOREA: Sentence = {
-  ...ENGLISH, readedWelcome: '이 언어로 교환 하시겠습니까?'
+  ...ENGLISH,
+  readedWelcome: '이 언어로 교환 하시겠습니까?',
 };
 
 export const FINLAND: Sentence = {
-  ...ENGLISH, readedWelcome: 'Haluatko vaihtaa tällä kielellä?'
+  ...ENGLISH,
+  readedWelcome: 'Haluatko vaihtaa tällä kielellä?',
 };
 
 export const GUJARATI: Sentence = {
-  ...ENGLISH, readedWelcome: 'શું તમે આ ભાષામાં ચાલુ રાખવા માંગો છો?'
+  ...ENGLISH,
+  readedWelcome: 'શું તમે આ ભાષામાં ચાલુ રાખવા માંગો છો?',
 };
 
 export const HUNGARIAN: Sentence = {
-  ...ENGLISH, readedWelcome: 'Szeretne ezen a nyelven cserélni?'
+  ...ENGLISH,
+  readedWelcome: 'Szeretne ezen a nyelven cserélni?',
 };
 
 export const INDONESIA: Sentence = {
-  ...ENGLISH, readedWelcome: 'Apakah Anda ingin bertukar dalam bahasa ini?'
+  ...ENGLISH,
+  readedWelcome: 'Apakah Anda ingin bertukar dalam bahasa ini?',
 };
 
 export const KANNADA: Sentence = {
-  ...ENGLISH, readedWelcome: 'ಈ ಭಾಷೆಯಲ್ಲಿ ವಿನಿಮಯ ಮಾಡಲು ನೀವು ಬಯಸುವಿರಾ?'
+  ...ENGLISH,
+  readedWelcome: 'ಈ ಭಾಷೆಯಲ್ಲಿ ವಿನಿಮಯ ಮಾಡಲು ನೀವು ಬಯಸುವಿರಾ?',
 };
 
 export const MALAYALAM: Sentence = {
-  ...ENGLISH, readedWelcome: 'ഈ ഭാഷയിൽ കൈമാറ്റം ചെയ്യാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?'
+  ...ENGLISH,
+  readedWelcome: 'ഈ ഭാഷയിൽ കൈമാറ്റം ചെയ്യാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?',
 };
 
 export const NORWAY: Sentence = {
-  ...ENGLISH, readedWelcome: 'Vil du utveksle på dette språket?'
+  ...ENGLISH,
+  readedWelcome: 'Vil du utveksle på dette språket?',
 };
 
 export const HOLLAND: Sentence = {
-  ...ENGLISH, readedWelcome: 'Wilt u uitwisselen in deze taal?'
+  ...ENGLISH,
+  readedWelcome: 'Wilt u uitwisselen in deze taal?',
 };
 
 export const POLAND: Sentence = {
-  ...ENGLISH, readedWelcome: 'Czy chciałbyś wymienić się w tym języku?'
+  ...ENGLISH,
+  readedWelcome: 'Czy chciałbyś wymienić się w tym języku?',
 };
 
 export const SLOVENIA: Sentence = {
-  ...ENGLISH, readedWelcome: 'Prajete si výmenu v tomto jazyku?'
+  ...ENGLISH,
+  readedWelcome: 'Prajete si výmenu v tomto jazyku?',
 };
 
 export const SWEDEN: Sentence = {
-  ...ENGLISH, readedWelcome: 'Vill du byta på det här språket?'
+  ...ENGLISH,
+  readedWelcome: 'Vill du byta på det här språket?',
 };
 
 export const CZECH: Sentence = {
-  ...ENGLISH, readedWelcome: 'Chcete si vyměnit v tomto jazyce?'
+  ...ENGLISH,
+  readedWelcome: 'Chcete si vyměnit v tomto jazyce?',
 };
 
 export const THAILAND: Sentence = {
-  ...ENGLISH, readedWelcome: 'คุณต้องการแลกเปลี่ยนเป็นภาษานี้หรือไม่?'
+  ...ENGLISH,
+  readedWelcome: 'คุณต้องการแลกเปลี่ยนเป็นภาษานี้หรือไม่?',
 };
 
 export const TELUGU: Sentence = {
-  ...ENGLISH, readedWelcome: 'మీరు ఈ భాషలో కొనసాగాలనుకుంటున్నారా?'
+  ...ENGLISH,
+  readedWelcome: 'మీరు ఈ భాషలో కొనసాగాలనుకుంటున్నారా?',
 };
 
 export const UKRAINE: Sentence = {
-  ...ENGLISH, readedWelcome: 'Ви хочете обмінюватися цією мовою?'
+  ...ENGLISH,
+  readedWelcome: 'Ви хочете обмінюватися цією мовою?',
 };
 
 export const JAPANESE: Sentence = {
-  ...ENGLISH, readedWelcome: 'この言語で交換しますか？'
+  ...ENGLISH,
+  readedWelcome: 'この言語で交換しますか？',
 };
-
 
 export const SPANISH: Sentence = {
   audioSupported: true,
@@ -264,7 +282,26 @@ export const SPANISH: Sentence = {
     offerLinked: '¿El objeto de este intercambio está vinculado a los servicios ofrecidos por Pôle Emploi?',
   },
 };
-
+export const ALBANIAN: Sentence = {
+  applicationName: 'Përkthim i menjëhershëm',
+  send: 'Dërgoni te',
+  translate: 'Përkthimi',
+  languageButtonRAW: 'Gjuhë shqipe',
+  languageButtonFR: 'langue albanaise',
+  translationH2: 'Shkruaj ose shqipto fjalinë që do të përkthehet',
+  thanks: 'Pôle Emploi te agradece',
+  listen: 'Degjo',
+  recordText: 'Fol tani',
+  displayedWelcome: 'Përshëndetje, unë jam përkthyesi juaj',
+  readedWelcome: 'Dëshironi të shkëmbeni në këtë gjuhë?',
+  autoListen: 'Dëgjoni automatikisht',
+  rate: {
+    easyToUse: 'A është ky mjet i lehtë për t’u përdorur?',
+    understand: 'A na ndihmoi ky mjet të kuptohemi?',
+    comment: 'Koment falas',
+    offerLinked: 'A lidhet qëllimi i këtij shkëmbimi me shërbimet e ofruara nga Pôle Emploi?',
+  },
+};
 export const MANDARIN: Sentence = {
   audioSupported: true,
   applicationName: '即時翻譯',
@@ -536,7 +573,7 @@ export const ITALIAN: Sentence = {
     easyToUse: 'Questo strumento è facile da usare?',
     understand: 'Questo strumento ti ha permesso di dialogare facilmente con il tuo interlocutore?',
     comment: 'Commento gratuito',
-    offerLinked: 'L\'oggetto di questo scambio è collegato ai servizi offerti da Pôle Emploi?',
+    offerLinked: "L'oggetto di questo scambio è collegato ai servizi offerti da Pôle Emploi?",
   },
 };
 
@@ -604,7 +641,7 @@ export const RUSSIA: Sentence = {
 };
 
 export const OUZBEK: Sentence = {
-  displayedWelcome: 'Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo\'lardim.',
+  displayedWelcome: "Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo'lardim.",
   readedWelcome: 'Ushbu tilda almashishni xohlaysizmi?',
   applicationName: 'Instant Translation',
   send: 'Send',
@@ -619,7 +656,7 @@ export const OUZBEK: Sentence = {
     easyToUse: 'Ushbu vositadan foydalanish osonmi?',
     understand: 'Ushbu vosita suhbatdoshingiz bilan osongina suhbatlashishga imkon berdimi?',
     comment: 'Bepul sharh',
-    offerLinked: 'Ushbu almashish ob\'ekti Pôle Emploi tomonidan taklif qilinadigan xizmatlar bilan bog\'liqmi?',
+    offerLinked: "Ushbu almashish ob'ekti Pôle Emploi tomonidan taklif qilinadigan xizmatlar bilan bog'liqmi?",
   },
 };
 
