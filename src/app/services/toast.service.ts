@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ToastService {
-
   constructor(private snackBar: MatSnackBar) {}
 
   /**
@@ -16,7 +15,15 @@ export class ToastService {
       duration: duration == null ? duration : duration,
       horizontalPosition: 'center',
       verticalPosition: 'top',
-      panelClass: [type]
+      panelClass: [type],
+    });
+  }
+
+  public showMultipleToast(messages: string[], type: string, duration: number = 5000, button: string = 'OK'): void {
+    messages.forEach((message) => {
+      setTimeout(() => {
+        this.showToast(message, type);
+      }, duration * messages.indexOf(message));
     });
   }
 }

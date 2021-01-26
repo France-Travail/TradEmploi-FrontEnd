@@ -1,0 +1,20 @@
+image: node:current-alpine
+
+before-script: 
+  - npm i -g firebase/tools @angular/cli
+
+stages: 
+  - prepare
+  - deploy
+
+prepare:
+  stage: prepare
+  script:
+    - npm install
+    - npm run build
+    - firebase use summer
+
+deploy: 
+  stage:deploy
+  script:
+    - firebase deploy --toker $FIREBASE_TOKEN

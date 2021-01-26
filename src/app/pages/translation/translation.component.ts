@@ -21,6 +21,7 @@ import { AdvisorDefaultName } from './../../services/settings.service';
 import { Support } from 'src/app/models/kpis/support';
 import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
 import { VOCABULARY } from 'src/app/data/vocabulary';
+import { notifications } from 'src/app/data/notifications';
 
 @Component({
   selector: 'app-translation',
@@ -81,6 +82,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.isAudioSupported = language.sentences.audioSupported;
     this.isAudioPlay = true;
     this.scrollToBottom();
+    this.showNotifications();
   }
 
   ngAfterViewChecked() {
@@ -93,7 +95,16 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.isAudioPlay = false;
     }
   }
+  private showNotifications(): void {
+    let selectedNotifs: string[];
+    if (this.isMultiDevices) {
+      selectedNotifs = this.isGuest ? [notifications.notifMultiEN, notifications.welcomeEN] : [notifications.notifMultiFR, notifications.welcomeFR];
+    } else {
+      selectedNotifs = [notifications.welcomeFR];
+    }
 
+    this.toastService.showMultipleToast(selectedNotifs, 'toast-success');
+  }
   scrollToBottom(): void {
     try {
       this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
@@ -240,10 +251,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     message.translation = translate;
     const listenMulti = !this.isSender(message.member) && this.isAudioSupported;
     const listenMono = this.isAudioSupported || message.role === Role.GUEST;
-    const listen = this.isMultiDevices ? listenMulti  : listenMono
+    const listen = this.isMultiDevices ? listenMulti : listenMono;
     if (listen) {
-      this.textToSpeechService.getSpeech(translate, languageTarget).then(
-        _ => {
+      this.textToSpeechService
+        .getSpeech(translate, languageTarget)
+        .then((_) => {
           if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
             this.textToSpeechService.audioSpeech.play();
           }
