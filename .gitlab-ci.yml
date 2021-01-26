@@ -1,3 +1,6 @@
+image: node:alpine
+before_script:
+  - npm i -g firebase-tools
 deploy-functions:
   stage: deploy
   script:
