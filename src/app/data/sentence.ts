@@ -661,6 +661,7 @@ export const OUZBEK: Sentence = {
 };
 
 export const ROMANIAN: Sentence = {
+  audioSupported: true,
   displayedWelcome: 'Buna ziua, eu as fi interpretul tau pentru a schimba usor cu consilierul tau.',
   readedWelcome: 'Buna ziua, eu as fi interpretul tau pentru a schimba usor cu consilierul tau.',
   applicationName: 'Instant Translation',
