@@ -4,8 +4,8 @@ export const onboardingTabs: Onboarding[] = [
   {
     image: 'illu-accueil.png',
     indication: 'Compatible devices',
-    textFR: 'Utilisez un ordinateur, un téléphone ou une tablette pour échanger avec votre conseiller dans votre langue.',
-    textEN: 'Use your computer, your phone or a tablet to discuss with your advisor in your language.  ',
+    textFR: 'Utilisez un téléphone, une tablette ou un ordinateur pour échanger avec votre conseiller dans votre langue.',
+    textEN: 'Use your phone, a tablet or a computer to discuss with your advisor in your language.',
   },
   {
     image: 'illu-chrome.png',
