@@ -1,0 +1,9 @@
+deploy-functions:
+  stage: deploy
+  script:
+    - npm install
+    - npm run build:dev
+    - firebase deploy project:dev --token $FIREBASE_TOKEN 
+  only:
+    refs:
+      - develop
