@@ -20,7 +20,9 @@ import { Language } from 'src/app/models/language';
 import { AdvisorDefaultName } from './../../services/settings.service';
 import { Support } from 'src/app/models/kpis/support';
 import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
-import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
+import { VOCABULARY } from 'src/app/data/vocabulary';
+import { ENGLISH } from 'src/app/data/sentence';
+import { IntroMessage } from 'src/app/models/vocabulary';
 
 @Component({
   selector: 'app-translation',
@@ -96,20 +98,22 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private selectStartNotifications(): void {
-    const notifications = VOCABULARY_DEFAULT.sentences.notifications;
+    const introMessage = ENGLISH.introMessage;
     if (this.isMultiDevices) {
-      if (this.isGuest) {
-        this.sendNotification({ notification: notifications.notifMultiRAW, time: Date.now() });
-        this.sendNotification({ notification: notifications.welcomeRAW, time: Date.now() });
-      } else {
-        this.sendNotification({ notification: notifications.notifMultiFR, time: Date.now() });
-        this.sendNotification({ notification: notifications.welcomeFR, time: Date.now() });
-      }
+      this.isGuest ? this.introMessageGuest(introMessage) : this.introMessageAdmin(introMessage);
     } else {
-      this.sendNotification({ notification: notifications.welcomeFR, time: Date.now() });
+      this.sendNotification({ notification: introMessage.welcomeFR, time: Date.now() });
     }
   }
-  
+
+  private introMessageGuest(notification: IntroMessage) {
+    this.sendNotification({ notification: notification.notifMultiRAW, time: Date.now() });
+    this.sendNotification({ notification: notification.welcomeRAW, time: Date.now() });
+  }
+  private introMessageAdmin(notification: IntroMessage) {
+    this.sendNotification({ notification: notification.notifMultiFR, time: Date.now() });
+    this.sendNotification({ notification: notification.welcomeFR, time: Date.now() });
+  }
   scrollToBottom(): void {
     try {
       this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;

@@ -1,6 +1,5 @@
 import { Gdpr } from './gdpr';
 
-
 export interface Vocabulary {
   isoCode: string;
   countryNameRaw?: any;
@@ -32,7 +31,7 @@ export interface Sentence {
   modality?: Modality;
   choice?: Choice;
   tooltip?: Tooltip;
-  notifications?: Notifications;
+  introMessage?: IntroMessage;
 }
 export interface Tooltip {
   pronouce: string;
@@ -40,7 +39,7 @@ export interface Tooltip {
   noListen: string;
   audio: string;
 }
-export interface Notifications {
+export interface IntroMessage {
   welcomeFR: string;
   welcomeRAW: string;
   notifMultiFR: string;
