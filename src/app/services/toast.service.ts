@@ -18,12 +18,4 @@ export class ToastService {
       panelClass: [type],
     });
   }
-
-  public showMultipleToast(messages: string[], type: string, duration: number = 5000, button: string = 'OK'): void {
-    messages.forEach((message) => {
-      setTimeout(() => {
-        this.showToast(message, type);
-      }, duration * messages.indexOf(message));
-    });
-  }
 }

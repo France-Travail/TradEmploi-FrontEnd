@@ -81,7 +81,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.isAudioSupported = language.sentences.audioSupported;
     this.isAudioPlay = true;
     this.scrollToBottom();
-    this.showNotifications();
+    this.selectStartNotifications();
   }
 
   ngAfterViewChecked() {
@@ -94,16 +94,22 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.isAudioPlay = false;
     }
   }
-  private showNotifications(): void {
+
+  private selectStartNotifications(): void {
     const notifications = VOCABULARY_DEFAULT.sentences.notifications;
-    let selectedNotifs: string[];
     if (this.isMultiDevices) {
-      selectedNotifs = this.isGuest ? [notifications.notifMultiRAW, notifications.welcomeRAW] : [notifications.notifMultiFR, notifications.welcomeFR];
+      if (this.isGuest) {
+        this.sendNotification({ notification: notifications.notifMultiRAW, time: Date.now() });
+        this.sendNotification({ notification: notifications.welcomeRAW, time: Date.now() });
+      } else {
+        this.sendNotification({ notification: notifications.notifMultiFR, time: Date.now() });
+        this.sendNotification({ notification: notifications.welcomeFR, time: Date.now() });
+      }
     } else {
-      selectedNotifs = [notifications.welcomeFR];
+      this.sendNotification({ notification: notifications.welcomeFR, time: Date.now() });
     }
-    this.toastService.showMultipleToast(selectedNotifs, 'toast-success');
   }
+  
   scrollToBottom(): void {
     try {
       this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
