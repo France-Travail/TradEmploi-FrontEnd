@@ -1,5 +1,6 @@
 import { Gdpr } from './gdpr';
 
+
 export interface Vocabulary {
   isoCode: string;
   countryNameRaw?: any;
@@ -31,22 +32,28 @@ export interface Sentence {
   modality?: Modality;
   choice?: Choice;
   tooltip?: Tooltip;
+  notifications?: Notifications;
 }
-export interface Tooltip{
+export interface Tooltip {
   pronouce: string;
-  listen:string;
-  noListen:string;
-  audio:string;
+  listen: string;
+  noListen: string;
+  audio: string;
 }
-
-export interface Choice{
+export interface Notifications {
+  welcomeFR: string;
+  welcomeRAW: string;
+  notifMultiFR: string;
+  notifMultiRAW: string;
+}
+export interface Choice {
   mostBtn: string;
   allBtn: string;
   listBtn: string;
   gridBtn: string;
   chooseBtn: string;
-  search:string;
-  voice?:string;
+  search: string;
+  voice?: string;
 }
 
 export interface Modality {

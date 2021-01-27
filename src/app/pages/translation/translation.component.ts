@@ -20,8 +20,7 @@ import { Language } from 'src/app/models/language';
 import { AdvisorDefaultName } from './../../services/settings.service';
 import { Support } from 'src/app/models/kpis/support';
 import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
-import { VOCABULARY } from 'src/app/data/vocabulary';
-import { notifications } from 'src/app/data/notifications';
+import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 
 @Component({
   selector: 'app-translation',
@@ -96,13 +95,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
   private showNotifications(): void {
+    const notifications = VOCABULARY_DEFAULT.sentences.notifications;
     let selectedNotifs: string[];
     if (this.isMultiDevices) {
-      selectedNotifs = this.isGuest ? [notifications.notifMultiEN, notifications.welcomeEN] : [notifications.notifMultiFR, notifications.welcomeFR];
+      selectedNotifs = this.isGuest ? [notifications.notifMultiRAW, notifications.welcomeRAW] : [notifications.notifMultiFR, notifications.welcomeFR];
     } else {
       selectedNotifs = [notifications.welcomeFR];
     }
-
     this.toastService.showMultipleToast(selectedNotifs, 'toast-success');
   }
   scrollToBottom(): void {
