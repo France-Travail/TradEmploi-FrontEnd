@@ -1,5 +1,6 @@
 <ng-container *ngFor="let messageWrapped of messagesWrapped; let i = index">
-  <div *ngIf="!shared" class="translation">
+  <div *ngIf="messageWrapped.notification" class="notification">{{ messageWrapped.notification }}</div>
+  <div *ngIf="!shared && messageWrapped.message" class="translation">
     <div id="{{ 'msg-translate-' + i }}" dir="auto" [ngStyle]="{ 'text-align': messageWrapped.message.target === 'ar-XA' ? 'right' : 'left' }">
       <bdi>{{ messageWrapped.message.translation }}</bdi>
     </div>
@@ -7,13 +8,13 @@
       <img src="../../../assets/icons/icon-listen-black.svg" alt="Ecoute de la traduction" />
     </a>
   </div>
-  <div class="message-sended">
+  <div *ngIf="messageWrapped.message" class="message-sended">
     <div class="flag">
       <span *ngIf="messageWrapped.message.flag !== 'xa'" class="flag-icon flag-icon-{{ messageWrapped.message.flag }}"></span>
       <img *ngIf="messageWrapped.message.flag === 'xa'" class="flag-icon" src="assets/images/arab-flag.png" alt="drapeau" />
     </div>
     <div class="text">
-      <span>  
+      <span>
         <div *ngIf="!visible; then longText; else shortText"></div>
         <ng-template #shortText>
           <a class="incoming-message" dir="auto" (click)="editMessage(i)" [ngStyle]="{ 'text-align': messageWrapped.message.languageOrigin === 'ar-XA' ? 'right' : 'left' }">

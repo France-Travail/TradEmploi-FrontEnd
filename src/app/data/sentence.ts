@@ -164,6 +164,12 @@ export const ENGLISH: Sentence = {
     noListen: 'You can not listen the sentence to translate',
     audio: 'Listen a sentence translated into the language',
   },
+  introMessage: {
+    welcomeFR: 'Pour améliorer l’expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',
+    welcomeRAW: 'To improve the translation experience, make short and simple sentences and speak loudly.',
+    notifMultiFR: 'L’espace de conversation a été créé en modalité multi-support.',
+    notifMultiRAW: 'You joined the conversation.',
+  },
 };
 
 export const ENGLISH_DEFAULT: Sentence = {

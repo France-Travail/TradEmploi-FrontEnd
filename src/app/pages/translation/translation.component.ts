@@ -21,6 +21,8 @@ import { AdvisorDefaultName } from './../../services/settings.service';
 import { Support } from 'src/app/models/kpis/support';
 import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
 import { VOCABULARY } from 'src/app/data/vocabulary';
+import { ENGLISH } from 'src/app/data/sentence';
+import { IntroMessage } from 'src/app/models/vocabulary';
 
 @Component({
   selector: 'app-translation',
@@ -81,6 +83,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.isAudioSupported = language.sentences.audioSupported;
     this.isAudioPlay = true;
     this.scrollToBottom();
+    this.selectStartNotifications();
   }
 
   ngAfterViewChecked() {
@@ -94,6 +97,23 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
+  private selectStartNotifications(): void {
+    const introMessage = ENGLISH.introMessage;
+    if (this.isMultiDevices) {
+      this.isGuest ? this.introMessageGuest(introMessage) : this.introMessageAdmin(introMessage);
+    } else {
+      this.sendNotification({ notification: introMessage.welcomeFR, time: Date.now() });
+    }
+  }
+
+  private introMessageGuest(notification: IntroMessage) {
+    this.sendNotification({ notification: notification.notifMultiRAW, time: Date.now() });
+    this.sendNotification({ notification: notification.welcomeRAW, time: Date.now() });
+  }
+  private introMessageAdmin(notification: IntroMessage) {
+    this.sendNotification({ notification: notification.notifMultiFR, time: Date.now() });
+    this.sendNotification({ notification: notification.welcomeFR, time: Date.now() });
+  }
   scrollToBottom(): void {
     try {
       this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
@@ -240,10 +260,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     message.translation = translate;
     const listenMulti = !this.isSender(message.member) && this.isAudioSupported;
     const listenMono = this.isAudioSupported || message.role === Role.GUEST;
-    const listen = this.isMultiDevices ? listenMulti  : listenMono
+    const listen = this.isMultiDevices ? listenMulti : listenMono;
     if (listen) {
-      this.textToSpeechService.getSpeech(translate, languageTarget).then(
-        _ => {
+      this.textToSpeechService
+        .getSpeech(translate, languageTarget)
+        .then((_) => {
           if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
             this.textToSpeechService.audioSpeech.play();
           }
