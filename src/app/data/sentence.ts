@@ -554,6 +554,10 @@ export const TAMOUL: Sentence = {
   },
 };
 
+export const TAMOUL_INDIA: Sentence = {
+  ... TAMOUL, audioSupported: true
+};
+
 export const ITALIAN: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Ciao sono il tuo interprete.',

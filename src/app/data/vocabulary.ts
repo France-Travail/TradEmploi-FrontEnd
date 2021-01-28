@@ -47,7 +47,8 @@ import {
   SWEDEN,
   THAILAND,
   JAPANESE,
-  ALBANIAN
+  ALBANIAN,
+  TAMOUL_INDIA
 } from './sentence';
 
 export const VOCABULARY_DEFAULT: Vocabulary = {
@@ -495,7 +496,7 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameFr: 'Tamoul',
     languageNameRaw: 'தமிழ்',
-    sentences: TAMOUL,
+    sentences: TAMOUL_INDIA,
   },
   {
     isoCode: 'it-IT',
