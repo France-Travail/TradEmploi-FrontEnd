@@ -371,6 +371,7 @@ export const DARI: Sentence = {
 };
 
 export const PACHTO: Sentence = {
+  voiceNotSupported:true,
   displayedWelcome: 'سلام زه ستاسو تفسیر یم',
   readedWelcome: 'ایا تاسو غواړئ پدې ژبه کې تبادله وکړئ؟',
   applicationName: 'فوري ژباړه',
@@ -692,6 +693,7 @@ export const ROMANIAN: Sentence = {
 };
 
 export const SOMALI: Sentence = {
+  voiceNotSupported:true,
   displayedWelcome: 'Salaan, waxaan noqon lahaa turjubaankaaga si aan si fudud ula beddelo la-taliyahaaga.',
   readedWelcome: 'Ma jeceshahay inaad ku badasho luqadan?',
   applicationName: 'Instant Translation',

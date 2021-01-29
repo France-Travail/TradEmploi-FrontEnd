@@ -22,6 +22,7 @@ export interface Sentence {
   readedWelcome: string;
   autoListen?: string;
   audioSupported?: boolean;
+  voiceNotSupported?: boolean;
   languageButtonRAW?: string;
   languageButtonFR?: string;
   gaugeText?: string;
