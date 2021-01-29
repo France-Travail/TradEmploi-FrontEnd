@@ -24,8 +24,8 @@
     </div>
     <div class="option">
       <div class="option-col">
-        <img *ngIf="item.sentences.voiceNotSupported === undefined" src="assets/icons/pronounce.svg" alt="Pronounce" matTooltip="{{tooltip.pronouce}}" matTooltipClass="tooltip-info"/>
-        <img *ngIf="item.sentences.voiceNotSupported !== undefined && item.sentences.voiceNotSupported" src="assets/icons/no-pronounce.svg" alt="Pronounce" matTooltip="{{tooltip.noPronouce}}" matTooltipClass="tooltip-info"/>
+        <img *ngIf="item.sentences.voiceNotSupported === undefined" src="assets/icons/pronounce.svg" alt="Pronounce" matTooltip="{{tooltip.pronounce}}" matTooltipClass="tooltip-info"/>
+        <img *ngIf="item.sentences.voiceNotSupported !== undefined && item.sentences.voiceNotSupported" src="assets/icons/no-pronounce.svg" alt="Pronounce" matTooltip="{{tooltip.noPronounce}}" matTooltipClass="tooltip-info"/>
       </div>
       <div class="option-col">
         <img *ngIf="item.sentences.audioSupported" src="assets/icons/listen.svg" alt="Listen"  matTooltip="{{tooltip.listen}}" matTooltipClass="tooltip-info"/>

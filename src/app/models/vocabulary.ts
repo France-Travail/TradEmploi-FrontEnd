@@ -35,8 +35,8 @@ export interface Sentence {
   introMessage?: IntroMessage;
 }
 export interface Tooltip {
-  pronouce: string;
-  noPronouce: string;
+  pronounce: string;
+  noPronounce: string;
   listen: string;
   noListen: string;
   audio: string;
