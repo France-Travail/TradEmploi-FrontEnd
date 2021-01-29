@@ -795,7 +795,7 @@ export const VOCABULARY: Vocabulary[] = [
   { isoCode: 'si-LK', countryNameRaw: 'ශ්රී ලංකාව', countryNameFr: 'Sri Lanka', languageNameRaw: 'සිංහල', languageNameFr: 'Cingalais', sentences: ENGLISH_DEFAULT },
   { isoCode: 'sk-SK', countryNameRaw: 'Slovensko', countryNameFr: 'Slovaquie', languageNameRaw: 'Slovenčina', languageNameFr: 'Slovaque', sentences: SLOVENIA },
   { isoCode: 'sl-SI', countryNameRaw: 'Slovenija', countryNameFr: 'Slovénie', languageNameRaw: 'Slovenščina', languageNameFr: 'Slovène', sentences: ENGLISH_DEFAULT },
-  { isoCode: 'su-ID', countryNameRaw: 'Indonesia', countryNameFr: 'Indonésie', languageNameRaw: 'Sunda', languageNameFr: 'Soudanais', sentences: ENGLISH_DEFAULT },
+  { isoCode: 'su-ID', countryNameRaw: 'Indonesia', countryNameFr: 'Indonésie', languageNameRaw: 'Sundanese', languageNameFr: 'Soundanais', sentences: ENGLISH_DEFAULT },
   { isoCode: 'sw-TZ', countryNameRaw: 'Tanzania', countryNameFr: 'Tanzanie', languageNameRaw: 'Swahili', languageNameFr: 'Swahili', sentences: ENGLISH_DEFAULT },
   { isoCode: 'sw-KE', countryNameRaw: 'Kenya', countryNameFr: 'Kenya', languageNameRaw: 'Swahili', languageNameFr: 'Swahili', sentences: ENGLISH_DEFAULT },
   { isoCode: 'fi-FI', countryNameRaw: 'Suomi', countryNameFr: 'Finlande', languageNameRaw: 'Suomalainen', languageNameFr: 'Finnois', sentences: FINLAND },
