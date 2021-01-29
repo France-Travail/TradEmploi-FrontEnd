@@ -36,6 +36,7 @@ export interface Sentence {
 }
 export interface Tooltip {
   pronouce: string;
+  noPronouce: string;
   listen: string;
   noListen: string;
   audio: string;

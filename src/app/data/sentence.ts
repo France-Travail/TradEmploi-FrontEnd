@@ -104,6 +104,7 @@ export const FRENCH: Sentence = {
   },
   tooltip: {
     pronouce: 'Vous pouvez prononcer la phrase à traduire',
+    noPronouce: 'Vous ne pouvez pas prononcer la phrase à traduire',
     listen: 'Vous pouvez écouter la phrase à traduire',
     noListen: 'Vous ne pouvez pas écouter la phrase à traduire',
     audio: 'Écouter une phrase traduite dans la langue',
@@ -160,6 +161,7 @@ export const ENGLISH: Sentence = {
   },
   tooltip: {
     pronouce: 'You can pronounce the sentence to translate',
+    noPronouce: 'You can not pronounce the sentence to translate',
     listen: 'You can listen the sentence to translate',
     noListen: 'You can not listen the sentence to translate',
     audio: 'Listen a sentence translated into the language',
