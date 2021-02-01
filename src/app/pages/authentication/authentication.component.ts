@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
@@ -27,7 +27,7 @@ export class AuthenticationComponent implements OnInit {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         const isFromAuth: boolean = window.location.pathname === '/auth';
-        if (isFromAuth ) {
+        if (isFromAuth) {
           this.router.navigateByUrl('modality');
         }
       } else if (localStorage.getItem('user') != null) {

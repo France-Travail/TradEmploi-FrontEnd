@@ -95,6 +95,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.isMultiDevices) {
       this.isAudioPlay = false;
     }
+    this.toastService.closeToast();
   }
 
   private selectStartNotifications(): void {
