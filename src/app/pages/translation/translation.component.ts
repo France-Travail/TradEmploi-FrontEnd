@@ -104,6 +104,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.isGuest ? this.introMessageGuest(introMessage) : this.introMessageAdmin(introMessage);
     } else {
       this.sendNotification({ notification: introMessage.welcomeFR, time: Date.now() });
+      this.sendNotification({ notification: introMessage.welcomeRAW, time: Date.now() });
     }
   }
 
