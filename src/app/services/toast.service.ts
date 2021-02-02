@@ -18,4 +18,7 @@ export class ToastService {
       panelClass: [type],
     });
   }
+  public closeToast(){
+    this.snackBar.dismiss()
+  }
 }
