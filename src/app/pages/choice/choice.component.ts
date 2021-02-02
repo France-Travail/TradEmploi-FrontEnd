@@ -1,6 +1,6 @@
 import { ENGLISH, FRENCH } from 'src/app/data/sentence';
 import { Choice } from 'src/app/models/vocabulary';
-import { AfterContentInit, Component, HostListener } from '@angular/core';
+import { AfterContentInit, Component, HostListener, OnDestroy } from '@angular/core';
 import { Role } from 'src/app/models/role';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -10,19 +10,19 @@ import { EndComponent } from '../translation/dialogs/end/end.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { User } from 'src/app/models/user';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
   styleUrls: ['./choice.component.scss'],
 })
-export class ChoiceComponent implements AfterContentInit{
+export class ChoiceComponent implements AfterContentInit, OnDestroy {
+  public search: String;
 
-  public search:String;
-
-  public optionAll:boolean = false;
-  public optionList:boolean = false;
-  public isGuest:boolean = true;
+  public optionAll: boolean = false;
+  public optionList: boolean = false;
+  public isGuest: boolean = true;
   public wordings: Choice;
 
   private endIdDialogRef: MatDialogRef<any, any>;
@@ -30,15 +30,16 @@ export class ChoiceComponent implements AfterContentInit{
   public isSmallScreen: Boolean = false;
 
   constructor(
-    private navService: NavbarService, 
+    private navService: NavbarService,
     private settingsService: SettingsService,
     private chatService: ChatService,
     private router: Router,
     private dialog: MatDialog,
-    private breakpointObserver: BreakpointObserver
-  ){
+    private breakpointObserver: BreakpointObserver,
+    private toastService: ToastService
+  ) {
     this.navService.handleTabsChoice();
-    this.wordings = this.settingsService.user.value.role === Role.GUEST ? ENGLISH.choice: FRENCH.choice;
+    this.wordings = this.settingsService.user.value.role === Role.GUEST ? ENGLISH.choice : FRENCH.choice;
     this.breakpointObserver.observe(['(max-width: 820px)']).subscribe((result) => {
       this.isSmallScreen = result.matches;
     });
@@ -60,16 +61,20 @@ export class ChoiceComponent implements AfterContentInit{
     this.navService.show();
   }
 
-  public applyFilter(event: Event) {
-    this.search = (event.target as HTMLInputElement).value;
-    this.optionAll = this.search !== "";
+  ngOnDestroy() {
+    this.toastService.closeToast();
   }
 
-  public getMost(){
+  public applyFilter(event: Event) {
+    this.search = (event.target as HTMLInputElement).value;
+    this.optionAll = this.search !== '';
+  }
+
+  public getMost() {
     this.optionAll = !this.optionAll;
   }
 
-  public getList(){
+  public getList() {
     this.optionList = !this.optionList;
   }
 
@@ -126,5 +131,4 @@ export class ChoiceComponent implements AfterContentInit{
       disableClose,
     });
   }
-
 }
