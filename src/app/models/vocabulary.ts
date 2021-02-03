@@ -88,16 +88,16 @@ export interface Logout {
 }
 export interface Onboarding {
   image: string;
-  indication: string;
-  textFR: string;
+  indicationFR?: string;
+  indicationEN: string;
+  textFR?: string;
   textEN: string;
   browserFR?: string;
   browserEN?: string;
 }
-
 export interface OnboardingTitle {
-  helpFR: string;
+  helpFR?: string;
   helpEN: string;
-  descriptionFR: string;
+  descriptionFR?: string;
   descriptionEN: string;
 }

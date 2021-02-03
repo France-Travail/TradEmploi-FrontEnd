@@ -1,70 +1,126 @@
 @import '../../../../../sass/colors';
 @import 'onboardingmobile';
+
 .content {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  h2,
-  h3 {
-    font-weight: normal;
-  }
+  margin: 20px;
   .top {
     display: flex;
     justify-content: space-between;
+    .titles {
+      font-size: x-large;
+    }
+    .close:hover {
+      cursor: pointer;
+    }
   }
-  .vertical-line {
-    border-left: 2px solid $gray74;
-  }
-  .indication {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 25px;
-    font-size: 16pt;
-    height: 16pt;
+  .descriptions {
+    font-size: large;
+    margin: 20px 0;
   }
   .middle {
     display: flex;
-    justify-content: space-between;
-    height: 80%;
-    .chevron {
-      border: solid 1px $gray74;
-      border-radius: 50%;
-      margin: auto 0;
+    flex-direction: column;
+    .indications {
+      margin: auto;
     }
-    .chevron:hover {
-      cursor: pointer;
+    .helpFigures {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+      .vertical-line {
+        border-left: 2px solid $gray74;
+      }
+      .chevron {
+        border: solid 1px $gray74;
+        border-radius: 50%;
+        margin: auto 0;
+      }
+      .chevron:hover {
+        cursor: pointer;
+      }
+      .helpImage {
+        width: 50%;
+        height: auto;
+      }
     }
-    .imageDesktop {
-      width: 300px;
-      height: 300px;
-      margin: 0 70px;
+    .helpSentences {
+      white-space: pre-line;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      align-self: center;
+      .helpFR,
+      .helpEN {
+        margin: 20px;
+        height: 75px;
+        white-space: pre-line;
+        text-align: justify;
+        .helpText {
+          margin: 20px 0;
+        }
+        .browser {
+          img {
+            margin-right: 10px;
+            vertical-align: middle;
+            width: 32px;
+            height: 32px;
+          }
+        }
+      }
     }
   }
-  .helps {
-    margin-top: auto;
+}
+
+@media screen and (max-width: 576px) {
+  .content {
+    .middle {
+      .helpSentences {
+        font-size: small;
+        flex-direction: column;
+        margin-top: 0;
+        .helpFR,
+        .helpEN {
+          margin: 10px 20px;
+          .helpText {
+            margin-bottom: 10px;
+          }
+          .browser {
+            img {
+              margin-right: 10px;
+              vertical-align: middle;
+              width: 24px;
+              height: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .bottom {
     display: flex;
-  
-    justify-content: center;
-    margin-top: 10%;
-    white-space: pre-line;
-    .browser {
-      img {
-        margin-right: 10px;
-        vertical-align: middle;
-        width: 32px;
-        height: 32px;
+    position: absolute;
+    align-items: center;
+    flex-direction: column;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    ul {
+      display: flex;
+      list-style-type: none;
+      padding-inline-start: 0;
+      li {
+        border-radius: 50%;
+        border: 1px solid $gray74;
+        width: 15px;
+        height: 15px;
+        margin: 0 2px;
       }
-    }
-    .helpFR,
-    .helpEN {
-      width: 45%;
-      text-align: justify;
-      .helpText {
-        height: 75px;
+      .circle {
+        background-color: white;
       }
-    }
-    .helpFR {
-      margin-right: 5%;
+      .coloredCircle {
+        background-color: $primary-color;
+      }
     }
   }
 }

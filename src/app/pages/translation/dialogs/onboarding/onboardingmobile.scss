@@ -1,75 +1,95 @@
-.contentMobile {
-  margin: 25% 10px;
-  .indication {
-    display: flex;
-    justify-content: center;
-  }
-  .middle {
-    display: flex;
-    justify-content: space-between;
-    .chevron {
-      border: solid 1px $gray74;
-      border-radius: 50%;
-      margin: auto 0;
-    }
-    .chevron:hover {
-      cursor: pointer;
-    }
-    .imageMobile {
-      width: 65%;
-    }
-  }
-  .helps {
-    margin: 20% 10px;
-    white-space: pre-line;
-    .browser {
-      margin-top: 20px;
-      img {
-        margin-right: 10px;
-        vertical-align: middle;
-        width: 24px;
-        height: 24px;
-      }
-    }
-  }
-  .bottom {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: 30px auto;
-    ul {
-      display: flex;
-      list-style-type: none;
-      padding-inline-start: 0;
-      li {
-        border-radius: 50%;
-        border: 1px solid $gray74;
-        width: 15px;
-        height: 15px;
-        margin: 0 2px;
-      }
-      .circle {
-        background-color: white;
-      }
-      .coloredCircle {
-        background-color: $primary-color;
-      }
-    }
-    .closeBtn {
-      padding: 10px 30px;
-      text-align: center;
-      width: fit-content;
-      background: $white-smoke;
-      border: 1px solid #dddddd;
-      border-radius: 5px;
-      outline: none;
-      cursor: pointer;
-      font-size: 12px;
-      font-family: Roboto;
-    }
-  }
-}
+// // .bottom {
+// //   display: flex;
+// //   position: absolute;
+// //   align-items: center;
+// //   flex-direction: column;
+// //   left: 0;
+// //   right: 0;
+// //   bottom: 50px;
+// //   ul {
+// //     display: flex;
+// //     list-style-type: none;
+// //     padding-inline-start: 0;
+// //     li {
+// //       border-radius: 50%;
+// //       border: 1px solid $gray74;
+// //       width: 15px;
+// //       height: 15px;
+// //       margin: 0 2px;
+// //     }
+// //     .circle {
+// //       background-color: white;
+// //     }
+// //     .coloredCircle {
+// //       background-color: $primary-color;
+// //     }
+// //   }
+// //   // .closeBtn {
+// //   //   padding: 10px 30px;
+// //   //   text-align: center;
+// //   //   width: fit-content;
+// //   //   background: $white-smoke;
+// //   //   border: 1px solid #dddddd;
+// //   //   border-radius: 5px;
+// //   //   outline: none;
+// //   //   cursor: pointer;
+// //   //   font-size: 12px;
+// //   //   font-family: Roboto;
+// //   // }
+// // }
+// // .helpSentences {
+// //   flex-direction: column;
+// //   .helpFR,
+// //   .helpEN {
+// //     background-color: chartreuse;
+// //     margin: 10px;
+// //     .helpText {
+// //       margin-bottom: 10px;
+// //     }
+// //   }
+// // }
+// .content {
+//   display: flex;
+//   flex-direction: column;
+//   .middle {
+//     .helpSentences {
+//       display: flex;
+//       flex-direction: column;
+//       margin-top: 0;
+//       .helpFR,
+//       .helpEN {
+//         margin: 10px;
+//         .helpText {
+//           margin: 0;
+//         }
+//       }
+//     }
+//   }
+//   .bottom {
+//     // display: flex;
+//     // position: absolute;
+//     align-items: center;
+//     flex-direction: column;
+//     // left: 0;
+//     // right: 0;
+//     // bottom: 50px;
+//     ul {
+//       display: flex;
+//       list-style-type: none;
+//       padding-inline-start: 0;
+//       li {
+//         border-radius: 50%;
+//         border: 1px solid $gray74;
+//         width: 15px;
+//         height: 15px;
+//         margin: 0 2px;
+//       }
+//       .circle {
+//         background-color: white;
+//       }
+//       .coloredCircle {
+//         background-color: $primary-color;
+//       }
+//     }
+//   }
+// }

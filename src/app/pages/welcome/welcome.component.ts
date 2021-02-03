@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -25,8 +25,11 @@ export class WelcomeComponent {
   public help() {
     this.dialog.open(OnboardingComponent, {
       width: '800px',
-      height: '700px',
+      height: '720px',
       panelClass: 'customDialog',
+      data: {
+        guest: true,
+      },
     });
   }
 }
