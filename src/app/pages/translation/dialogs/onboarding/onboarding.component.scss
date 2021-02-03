@@ -1,5 +1,4 @@
 @import '../../../../../sass/colors';
-@import 'onboardingmobile';
 
 .content {
   margin: 20px;
@@ -73,9 +72,9 @@
 
 @media screen and (max-width: 576px) {
   .content {
+    font-size: small;
     .middle {
       .helpSentences {
-        font-size: small;
         flex-direction: column;
         margin-top: 0;
         .helpFR,
@@ -103,7 +102,7 @@
     flex-direction: column;
     left: 0;
     right: 0;
-    bottom: 50px;
+    bottom: 5%;
     ul {
       display: flex;
       list-style-type: none;
