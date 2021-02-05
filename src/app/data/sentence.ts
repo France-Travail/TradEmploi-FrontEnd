@@ -103,11 +103,11 @@ export const FRENCH: Sentence = {
     voice: 'Voix',
   },
   tooltip: {
-    pronounce: 'Vous pouvez prononcer la phrase à traduire',
-    noPronounce: 'Vous ne pouvez pas prononcer la phrase à traduire',
-    listen: 'Vous pouvez écouter la phrase à traduire',
-    noListen: 'Vous ne pouvez pas écouter la phrase à traduire',
-    audio: 'Écouter une phrase traduite dans la langue',
+    pronounce: 'Je peux parler dans cette langue',
+    noPronounce: 'Je ne peux pas parler dans cette langue',
+    listen: 'Je peux entendre la traduction dans cette langue',
+    noListen: 'Je ne peux pas entendre la traduction dans cette langue',
+    audio: 'Je peux entendre un échantillon vocal dans cette langue',
   },
 };
 
@@ -160,11 +160,11 @@ export const ENGLISH: Sentence = {
     voice: 'Voice',
   },
   tooltip: {
-    pronounce: 'You can pronounce the sentence to translate',
-    noPronounce: 'You can not pronounce the sentence to translate',
-    listen: 'You can listen the sentence to translate',
-    noListen: 'You can not listen the sentence to translate',
-    audio: 'Listen a sentence translated into the language',
+    pronounce: 'I can speak in this language',
+    noPronounce: 'I cannot speak in this language',
+    listen: 'I can hear the translation in this language ',
+    noListen: 'I cannot hear the translation in this language ',
+    audio: 'I can hear a voice sample in this language',
   },
   introMessage: {
     welcomeFR: 'Pour améliorer l’expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',
