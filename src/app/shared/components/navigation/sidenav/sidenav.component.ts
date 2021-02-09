@@ -53,7 +53,7 @@ export class SidenavComponent {
   private openModal(component) {
     this.dialog.open(component, {
       width: '90%',
-      height: '100%',
+      height: '90%',
       panelClass: 'customDialog',
     });
   }

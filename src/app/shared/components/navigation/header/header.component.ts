@@ -49,7 +49,7 @@ export class HeaderComponent {
   }
 
   public help() {
-    this.openModal(OnboardingComponent, '700px');
+    this.openModal(OnboardingComponent, '720px');
   }
 
   private openModal(component, height) {
