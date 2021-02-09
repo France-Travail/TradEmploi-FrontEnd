@@ -24,15 +24,15 @@ export class HeaderComponent {
   public helpLink: string;
   public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
-  private isGuest: boolean;
+
   constructor(public dialog: MatDialog, public navbarService: NavbarService, public settingsService: SettingsService, private breakpointObserver: BreakpointObserver) {
     this.isWideScreen = this.breakpointObserver.observe(['(min-width: 1051px)']).pipe(map(({ matches }) => matches));
     this.isSmallScreen = this.breakpointObserver.observe(['(max-width: 1050px)']).pipe(map(({ matches }) => matches));
     this.settingsService.user.subscribe((user) => {
-      this.isGuest = user !== null ? user.role === Role.GUEST : true;
-      this.choiceLink = this.isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
-      this.logoutLink = this.isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
-      this.helpLink = this.isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'aide';
+      const isGuest = user !== null ? user.role === Role.GUEST : true;
+      this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
+      this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
+      this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'aide';
     });
   }
 
