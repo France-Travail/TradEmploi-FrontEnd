@@ -1,8 +1,8 @@
 @import '../../../../../sass/colors';
 
-.content {
+.slide {
   margin: 20px;
-  .top {
+  .slide-top {
     display: flex;
     justify-content: space-between;
     .titles {
@@ -12,11 +12,11 @@
       cursor: pointer;
     }
   }
-  .descriptions {
+  .sub-title {
     font-size: large;
     margin: 20px 0;
   }
-  .middle {
+  .slide-inner {
     display: flex;
     flex-direction: column;
     .indications {
@@ -71,16 +71,14 @@
 }
 
 @media screen and (max-width: 576px) {
-  // @media screen and (orientation: portrait) {
-
-  .content {
+  .slide {
     font-size: small;
     text-align: center;
-    .descriptions {
+    .sub-title {
       font-size: 12pt;
       margin: 10px 0;
     }
-    .middle {
+    .slide-inner {
       .helpSentences {
         margin-top: 15px 0;
         flex-direction: column;
@@ -103,7 +101,7 @@
     }
   }
 
-  .bottom {
+  .slide-indicator {
     display: flex;
     position: absolute;
     align-items: center;

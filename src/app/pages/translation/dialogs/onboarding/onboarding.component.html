@@ -1,10 +1,10 @@
-<div class="content">
-  <div class="top">
+<div class="slide">
+  <div class="slide-top">
     <div class="titles">{{ title.helpFR }}{{ title.helpEN }}</div>
     <mat-icon aria-hidden="false" (click)="closeDialog()" class="close">close</mat-icon>
   </div>
-  <div class="descriptions">{{ title.descriptionFR }} {{ title.descriptionEN }}</div>
-  <div class="middle">
+  <div class="sub-title">{{ title.descriptionFR }} {{ title.descriptionEN }}</div>
+  <div class="slide-inner">
     <div class="indications">{{ sentences[tabNumber].indicationFR }} {{ sentences[tabNumber].indicationEN }}</div>
     <div class="helpFigures">
       <mat-icon aria-hidden="false" class="chevron" (click)="previousItem()" aria-label="Précédent">chevron_left</mat-icon>
@@ -31,8 +31,7 @@
     </div>
   </div>
 </div>
-<div class="bottom" *ngIf="isMobile">
-  <!-- <button class="closeBtn" (click)="closeDialog()">CLOSE</button> -->
+<div class="slide-indicator" *ngIf="isMobile">
   <ul>
     <li *ngFor="let elem of sentences; index as index" [ngClass]="tabNumber == index ? 'coloredCircle' : 'circle'"></li>
   </ul>
