@@ -332,7 +332,7 @@ export const MANDARIN: Sentence = {
 };
 
 export const BENGALI: Sentence = {
-  audioSupported: true,
+  audioSupported: false,
   applicationName: 'তাত্ক্ষণিক অনুবাদ',
   send: 'পাঠান',
   translate: 'অনুবাদ',
