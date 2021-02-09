@@ -24,8 +24,8 @@ export class WelcomeComponent {
   }
   public help() {
     this.dialog.open(OnboardingComponent, {
-      width: '800px',
-      height: '720px',
+      width: this.isMobile ? '90%' : '800px',
+      height: this.isMobile ? '90%' : '720px',
       panelClass: 'customDialog',
       data: {
         guest: true,

@@ -31,7 +31,11 @@ export const onboardingTabs: Onboarding[] = [
 ];
 
 export const onboardingTabsAdvisor: Onboarding[] = [
-  { ...onboardingTabs[0], indicationFR: 'Appareils compatibles / ', textFR: 'Utilisez un téléphone, une tablette ou un ordinateur pour échanger avec votre conseiller dans votre langue.' },
+  {
+    ...onboardingTabs[0],
+    indicationFR: 'Appareils compatibles / ',
+    textFR: 'Utilisez un téléphone, une tablette ou un ordinateur pour échanger avec votre conseiller dans votre langue.',
+  },
   {
     ...onboardingTabs[1],
     indicationFR: 'Allez sur ce site / ',
@@ -56,12 +60,12 @@ export const onboardingTabsAdvisor: Onboarding[] = [
   },
 ];
 
-export const onboardbingTitle: OnboardingTitle = {
+export const onboardingTitle: OnboardingTitle = {
   helpEN: 'Help',
   descriptionEN: 'Presentation of the translation tool',
 };
 export const onboardbingTitleAdvisor: OnboardingTitle = {
-  ...onboardbingTitle,
+  ...onboardingTitle,
   helpFR: 'Aide / ',
   descriptionFR: "Présentation de l'outil de traduction /",
 };

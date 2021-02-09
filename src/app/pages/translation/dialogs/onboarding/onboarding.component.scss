@@ -71,21 +71,28 @@
 }
 
 @media screen and (max-width: 576px) {
+  // @media screen and (orientation: portrait) {
+
   .content {
     font-size: small;
+    text-align: center;
+    .descriptions {
+      font-size: 12pt;
+      margin: 10px 0;
+    }
     .middle {
       .helpSentences {
+        margin-top: 15px 0;
         flex-direction: column;
-        margin-top: 0;
         .helpFR,
         .helpEN {
-          margin: 10px 20px;
+          margin: 5px;
           .helpText {
-            margin-bottom: 10px;
+            margin: 0;
           }
           .browser {
+            margin: 10px 0;
             img {
-              margin-right: 10px;
               vertical-align: middle;
               width: 24px;
               height: 24px;
@@ -95,6 +102,7 @@
       }
     }
   }
+
   .bottom {
     display: flex;
     position: absolute;
@@ -103,17 +111,6 @@
     left: 0;
     right: 0;
     bottom: 4%;
-    .closeBtn {
-      padding: 10px 30px;
-      text-align: center;
-      width: fit-content;
-      background: $white-smoke;
-      border: 1px solid #dddddd;
-      border-radius: 5px;
-      outline: none;
-      cursor: pointer;
-      font-size: 12px;
-    }
     ul {
       display: flex;
       list-style-type: none;

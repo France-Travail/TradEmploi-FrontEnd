@@ -4,7 +4,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { Role } from 'src/app/models/role';
 import { Onboarding, OnboardingTitle } from 'src/app/models/vocabulary';
 import { SettingsService } from 'src/app/services/settings.service';
-import { onboardingTabs, onboardbingTitle, onboardingTabsAdvisor, onboardbingTitleAdvisor } from '../../../../data/onboarding';
+import { onboardingTabs, onboardingTitle, onboardingTabsAdvisor, onboardbingTitleAdvisor } from '../../../../data/onboarding';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-onboarding',
@@ -30,8 +30,7 @@ export class OnboardingComponent implements OnInit {
     this.settingsService.user.subscribe((user) => {
       this.isGuest = (user !== null ? user.role === Role.GUEST : this.isGuest === undefined) || this.data.guest;
     });
-    console.log(this.isGuest)
-    this.title = this.isGuest ? onboardbingTitle : onboardbingTitleAdvisor;
+    this.title = this.isGuest ? onboardingTitle : onboardbingTitleAdvisor;
     this.sentences = this.isGuest ? onboardingTabs : onboardingTabsAdvisor;
   }
   public nextItem() {

@@ -225,7 +225,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         mw = mw.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
       }
       if (mw.length > 0) {
-        if (this.messagesWrapped.length === 0) {
+        if (this.messagesWrapped.length === 2) {
           mw.forEach((m: MessageWrapped) => {
             m = this.cryptService.decryptWrapped(m, roomId);
             this.addToChat(m);

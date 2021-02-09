@@ -32,7 +32,7 @@
   </div>
 </div>
 <div class="bottom" *ngIf="isMobile">
-  <button class="closeBtn" *ngIf="isMobile" (click)="closeDialog()">CLOSE</button>
+  <!-- <button class="closeBtn" (click)="closeDialog()">CLOSE</button> -->
   <ul>
     <li *ngFor="let elem of sentences; index as index" [ngClass]="tabNumber == index ? 'coloredCircle' : 'circle'"></li>
   </ul>
