@@ -50,7 +50,8 @@
       align-self: center;
       .helpFR,
       .helpEN {
-        max-width: 50%;
+        // max-width: 50%;
+        flex-grow: 1;
         margin: 0 20px;
         white-space: pre-line;
         text-align: justify;
