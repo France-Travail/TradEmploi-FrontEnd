@@ -3,7 +3,7 @@ import { Sentence, NavbarTab } from '../models/vocabulary';
 export const NAVBAR_ENGLISH_TABS: NavbarTab = {
   language: 'language',
   logout: 'logout',
-  help: 'help',
+  help: 'Start guide',
 };
 
 export const HEBREW: Sentence = {
@@ -373,7 +373,7 @@ export const DARI: Sentence = {
 };
 
 export const PACHTO: Sentence = {
-  voiceNotSupported:true,
+  voiceNotSupported: true,
   displayedWelcome: 'سلام زه ستاسو تفسیر یم',
   readedWelcome: 'ایا تاسو غواړئ پدې ژبه کې تبادله وکړئ؟',
   applicationName: 'فوري ژباړه',
@@ -564,7 +564,8 @@ export const TAMOUL: Sentence = {
 };
 
 export const TAMOUL_INDIA: Sentence = {
-  ... TAMOUL, audioSupported: true
+  ...TAMOUL,
+  audioSupported: true,
 };
 
 export const ITALIAN: Sentence = {
@@ -695,7 +696,7 @@ export const ROMANIAN: Sentence = {
 };
 
 export const SOMALI: Sentence = {
-  voiceNotSupported:true,
+  voiceNotSupported: true,
   displayedWelcome: 'Salaan, waxaan noqon lahaa turjubaankaaga si aan si fudud ula beddelo la-taliyahaaga.',
   readedWelcome: 'Ma jeceshahay inaad ku badasho luqadan?',
   applicationName: 'Instant Translation',
