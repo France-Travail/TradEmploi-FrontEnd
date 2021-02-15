@@ -32,7 +32,7 @@ export class HeaderComponent {
       const isGuest = user !== null ? user.role === Role.GUEST : true;
       this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
       this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
-      this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'aide';
+      this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'Guide de démarrage';
     });
   }
 
@@ -49,7 +49,7 @@ export class HeaderComponent {
   }
 
   public help() {
-    this.openModal(OnboardingComponent, '720px');
+    this.openModal(OnboardingComponent, '680px');
   }
 
   private openModal(component, height) {
