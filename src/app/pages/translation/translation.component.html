@@ -1,5 +1,4 @@
-<app-translation-title (finish)="closeConversation()"></app-translation-title>
-<div class="translate" [ngClass]="{'translate-one': !isMultiDevices, 'translate-multi': isMultiDevices}">
+<!-- <div class="translate" [ngClass]="{'translate-one': !isMultiDevices, 'translate-multi': isMultiDevices}">
   <div class="conversation" [ngClass]="{'conversation-one': !isMultiDevices, 'conversation-multi': isMultiDevices}">
     <div class="head-conversation"  [ngClass]="{'head-conversation-multi': isMultiDevices}">
       <h2>Conversation</h2>
@@ -22,4 +21,25 @@
       <app-message-wrapper *ngIf="!isGuest" role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
     </ng-template>
   </div>
+</div> -->
+
+<div class="wrapper">
+  <header class="header">
+    <app-translation-title (finish)="closeConversation()"></app-translation-title>
+  </header>
+  <div class="main">
+      <mat-slide-toggle class="auto-listen-btn" (click)="switchAudio()" checked labelPosition="before" color="primary">{{ autoListenValue }}</mat-slide-toggle>
+      <app-chat *ngIf="!isMultiDevices" [messagesWrapped]="messagesWrapped" (editMessageEmit)="editChat($event)"></app-chat>
+      <app-chat-multi-devices *ngIf="isMultiDevices" [messagesWrapped]="messagesWrapped"></app-chat-multi-devices>
+  </div>
+  <footer class="footer">
+    <ng-template [ngIf]="!isMultiDevices">
+      <app-message-wrapper role="DE" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
+      <app-message-wrapper role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
+    </ng-template>
+    <ng-template [ngIf]="isMultiDevices">
+      <app-message-wrapper *ngIf="isGuest" role="DE" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
+      <app-message-wrapper *ngIf="!isGuest" role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
+    </ng-template>
+  </footer>
 </div>
