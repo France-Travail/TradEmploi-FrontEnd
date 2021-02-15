@@ -25,10 +25,14 @@
 
 <div class="wrapper">
   <header class="header">
-    <app-translation-title (finish)="closeConversation()"></app-translation-title>
+    <ul class="option">
+      <li><button id="end-btn" (click)="closeConversation()">TERMINER LA CONVERSATION</button></li>
+      <li>
+        <!-- <div class="speaker-icon"></div> -->
+        <mat-slide-toggle class="auto-listen-btn" (click)="switchAudio()" checked labelPosition="before" color="primary">{{ autoListenValue }}</mat-slide-toggle></li>
+    </ul>
   </header>
   <div class="main">
-      <mat-slide-toggle class="auto-listen-btn" (click)="switchAudio()" checked labelPosition="before" color="primary">{{ autoListenValue }}</mat-slide-toggle>
       <app-chat *ngIf="!isMultiDevices" [messagesWrapped]="messagesWrapped" (editMessageEmit)="editChat($event)"></app-chat>
       <app-chat-multi-devices *ngIf="isMultiDevices" [messagesWrapped]="messagesWrapped"></app-chat-multi-devices>
   </div>

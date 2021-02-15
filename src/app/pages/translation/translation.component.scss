@@ -146,17 +146,28 @@
 //   }
 // }
 
-
+html {
+  scroll-behavior: smooth;
+}
 
 .wrapper {
   display: flex;  
   flex-direction: column;
   min-height: 100%;
   background-color: $light-blue;
+  padding: 2%;
 }
 
 .header {
   flex-grow:1;
+}
+
+.option{
+  list-style: none;
+  text-align: end;
+  li{
+    margin-bottom: 5px;
+  }
 }
 
 .main {
@@ -179,12 +190,13 @@
 }
 
 #end-btn {
-  background-color: #ffffff;
+  background-color: $primary-color;
   border: 1px solid #cccccc;
+  color: white;
   border-radius: 5px;
-  outline: none;
   padding: 10px;
-  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
 }
 
 .auto-listen-btn {
@@ -192,3 +204,14 @@
   color: #4171da;
   font-size: 14px;
 }
+
+// .speaker-icon {
+//   background-image: url('../../../../../assets/icons/icon-listen-blue.svg');
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   border-radius: 50%;
+//   background-size: 15px;
+//   width: 30px;
+//   height: 30px;
+//   border: solid grey 0.5px;
+// }
