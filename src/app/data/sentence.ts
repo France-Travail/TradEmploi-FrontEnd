@@ -353,6 +353,10 @@ export const BENGALI: Sentence = {
   },
 };
 
+export const BENGALI_INDIA: Sentence = {
+  ...BENGALI , audioSupported: true
+};
+
 export const DARI: Sentence = {
   applicationName: 'ترجمه فوری',
   send: 'ارسال',

@@ -48,7 +48,8 @@ import {
   THAILAND,
   JAPANESE,
   ALBANIAN,
-  TAMOUL_INDIA
+  TAMOUL_INDIA,
+  BENGALI_INDIA
 } from './sentence';
 
 export const VOCABULARY_DEFAULT: Vocabulary = {
@@ -416,7 +417,7 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'বাংলা',
     languageNameFr: 'Bengali',
-    sentences: BENGALI,
+    sentences: BENGALI_INDIA,
   },
   {
     isoCode: 'fa-AF',
