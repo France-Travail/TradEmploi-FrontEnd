@@ -27,67 +27,64 @@
   text-align: center;
   margin: 10px;
 }
-.message-sended {
+
+.user {
   display: flex;
-  flex-direction: row;
-  margin-top: 10px;
-  margin-bottom: 25px;
+  flex-direction: row-reverse;
+}
 
-  .flag {
-    padding-top: 2px;
-    .flag-icon {
-      width: 34px;
-      height: 24px;
-      border: 1px solid $gray74;
-      box-sizing: border-box;
-      border-radius: 5px;
-      background-size: cover;
-      cursor: default;
-    }
-  }
-
-  .text {
+.bubble {
+  background-color: darkseagreen;
+  width: 80%;
+  margin: 10px;
+  .message-sended {
     display: flex;
     flex-direction: row;
-    width: 100%;
-    padding: 0 5px 0 10px;
-    text-align: justify;
-    font-size: 16px;
-    span {
-      display: flex;
-      width: 100%;
-      .incoming-message {
-        width: 100%;
-        text-decoration: none;
-        color: #4171da;
-        padding-top: 5px;
-        cursor: pointer;
-      }
-      .extand {
-        img {
-          width: 30px;
-          height: 30px;
-          background: #f5f5f5;
-          -moz-border-radius: 70px;
-          -webkit-border-radius: 70px;
-          border-radius: 70px;
-          cursor: pointer;
-        }
+    margin-top: 10px;
+    margin-bottom: 25px;
+
+    .flag {
+      padding-top: 2px;
+      .flag-icon {
+        width: 34px;
+        height: 24px;
+        border: 1px solid $gray74;
+        box-sizing: border-box;
+        border-radius: 5px;
+        background-size: cover;
+        cursor: default;
       }
     }
-  }
-  .delete {
-    margin-right: 15px;
-    margin-left: 15px;
-    img {
-      margin-right: 3px;
-      width: 30px;
-      height: 30px;
-      background: #f5f5f5;
-      -moz-border-radius: 70px;
-      -webkit-border-radius: 70px;
-      border-radius: 70px;
-      cursor: pointer;
+
+    .text {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      padding: 0 5px 0 10px;
+      text-align: justify;
+      font-size: 16px;
+      span {
+        display: flex;
+        width: 100%;
+        .incoming-message {
+          width: 100%;
+          text-decoration: none;
+          color: #4171da;
+          padding-top: 5px;
+          cursor: pointer;
+        }
+        .extand {
+          img {
+            width: 30px;
+            height: 30px;
+            background: #f5f5f5;
+            -moz-border-radius: 70px;
+            -webkit-border-radius: 70px;
+            border-radius: 70px;
+            cursor: pointer;
+          }
+        }
+      }
     }
   }
 }
