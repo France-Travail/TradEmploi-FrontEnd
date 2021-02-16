@@ -23,6 +23,7 @@ import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/err
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ENGLISH } from 'src/app/data/sentence';
 import { IntroMessage } from 'src/app/models/vocabulary';
+import { ShareComponent } from './dialogs/share/share.component';
 
 @Component({
   selector: 'app-translation',
@@ -35,9 +36,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
-  public autoListenValue: string = 'Ecouter automatiquement';
+  public autoListenValue: string = 'Ecoute automatique';
   public isGuest: boolean = false;
   public isMultiDevices: boolean = false;
+  public roomId: string;
 
   private isAudioPlay: boolean;
   private user: User;
@@ -67,7 +69,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.chatService.messagesStored = [];
         this.support = this.chatService.support;
         if (this.isMultiDevices) {
+          this.roomId = user.roomId
           this.initMultiDevices(user.roomId);
+        }
+        if(this.isGuest){
+          this.autoListenValue = "Listen automatically"
         }
         this.user = user;
       }
@@ -163,6 +169,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   public switchAudio() {
     this.isAudioPlay = !this.isAudioPlay;
+  }
+
+  public share() {
+    this.openModal(ShareComponent, '500px', false);
   }
 
   @HostListener('window:beforeunload', ['$event'])
