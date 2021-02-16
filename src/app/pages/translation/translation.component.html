@@ -5,8 +5,8 @@
         <ng-template [ngIf]="isMultiDevices" *ngIf="!isGuest">
           <span class="roomId">{{ roomId }}</span> 
           <button class="share-btn" (click)="share()">INVITER</button>
-          <button class="end-btn" (click)="closeConversation()">TERMINER LA CONVERSATION</button>
         </ng-template>
+        <button *ngIf="!isGuest" class="end-btn" (click)="closeConversation()">TERMINER LA CONVERSATION</button>
       </li>
       <li>
         <mat-slide-toggle class="auto-listen-btn" (click)="switchAudio()" checked labelPosition="before" color="primary">{{ autoListenValue }}</mat-slide-toggle>
