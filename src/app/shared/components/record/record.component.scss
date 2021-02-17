@@ -7,6 +7,7 @@
   border-radius: 5px;
   color: #ffffff;
   padding: 10px;
+  min-width: 350px;
 
   .top {
     display: flex;
@@ -35,6 +36,7 @@
         background-color: #ffffff;
         padding: 3px;
         border-radius: 4px;
+        width: 100%;
         .bar {
           background-color: $primary-color;
           height: 4px;
@@ -46,17 +48,19 @@
 
     .actions {
       display: flex;
-      flex-direction: column;
+      // flex-direction: column;
       margin-left: 10px;
       button {
         display: flex;
-        justify-content: center;
+        align-items: center;
+        justify-content: space-evenly;
         border: 1px solid #ffffff;
         background-color: $primary-color;
         border-radius: 5px;
         width: 30px;
         height: 30px;
-        margin-bottom: 8px;
+        // margin-bottom: 8px;
+        margin-left: 5px;
         outline: none;
         cursor: pointer;
 
@@ -75,14 +79,6 @@
     display: flex;
     justify-content: center;
   }
-}
-
-.loading {
-  background-color: #ffffff;
-  border-radius: 5px;
-  border: 1px solid #bdbdbd;
-  height: 142px;
-  padding: 20px;
 }
 .spinner {
   margin: auto;
