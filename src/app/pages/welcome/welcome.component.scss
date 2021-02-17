@@ -41,7 +41,19 @@
   }
 }
 
+
+
 @media screen and (max-width: 576px) {
+  .description {
+    .img {
+      width: 100%;
+      padding: 0;
+    }
+    .t3 {
+      text-align: center;
+      padding: 0px 20px 0px 20px;
+    }
+  }
   .action {
     button {
       padding: 10px 0;
@@ -50,15 +62,11 @@
   }
 }
 
-@media screen and (max-width: 576px) {
-  .description {
-    .img {
-      width: 100%;
-      padding: 0px 0px 0px 0px;
-    }
-    .t3 {
-      text-align: center;
-      padding: 0px 20px 0px 20px;
+@media (max-width: 320px) {
+  .action {
+    button {
+      padding: 10px 0;
+      width: 105px;
     }
   }
 }
