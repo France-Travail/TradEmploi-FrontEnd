@@ -10,7 +10,7 @@ html {
 }
 
 .wrapper {
-  display: flex;  
+  display: flex;
   flex-direction: column;
   height: 100%;
   background-color: $light-blue;
@@ -18,33 +18,33 @@ html {
 }
 
 .header {
-  flex-grow:1;
+  flex-grow: 1;
 }
 
-.option{
+.option {
   list-style: none;
   text-align: end;
-  li{
+  li {
     margin-bottom: 5px;
   }
 }
 
-.roomId{
-  font-weight: bold; 
-  margin-right:10px
+.roomId {
+  font-weight: bold;
+  margin-right: 10px;
 }
 
-.end-btn{
+.end-btn {
   @extend %option-btn;
   background-color: $primary-color;
   color: white;
 }
 
-.share-btn{
+.share-btn {
   @extend %option-btn;
-  background-color: white; 
-  color:black; 
-  margin-right: 10px; 
+  background-color: white;
+  color: black;
+  margin-right: 10px;
   font-weight: bold;
 }
 
@@ -57,11 +57,10 @@ html {
 .main {
   overflow-y: auto;
   overflow-x: hidden;
-  flex-grow:10;
+  flex-grow: 10;
   width: 50vw;
   height: 50vh;
   margin: auto;
-  
   &::-webkit-scrollbar {
     width: 5px;
     background-color: #e0e0e0;
@@ -73,17 +72,18 @@ html {
 }
 
 .footer {
-  flex-grow:1;
-  margin:auto;
+  flex-grow: 1;
+  margin: auto;
   width: 50vw;
 }
 
 @media screen and (max-width: 800px) {
-  .main, .footer {
+  .main,
+  .footer {
     width: 100%;
   }
-  .roomId{
-    font-size:12px;
+  .roomId {
+    font-size: 12px;
   }
   .auto-listen-btn {
     font-size: 12px;
