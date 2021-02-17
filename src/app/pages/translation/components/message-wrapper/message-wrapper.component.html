@@ -1,5 +1,4 @@
 <div class="container">
-  <!-- <h2 [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }">{{ title }} :</h2> -->
   <div class="input-wrapper">
     <div class="field" *ngIf="!micro || !recordMode">
       <div class="flag">
@@ -17,7 +16,6 @@
     <div class="actions" *ngIf="!micro || !recordMode">
       <button class="btn-send" [ngClass]="{ 'btn-send-disabled': speak && !recordMode }" (click)="send(true)" [disabled]="speak && !recordMode">
         <img src="./assets/icons/icon-send-white.svg" alt="send text" />
-        <!-- {{ sendBtnValue | uppercase }} -->
       </button>
     </div>
     <app-record class="record" *ngIf="recordMode" duration="500" [role]="role" [language]="languageOrigin" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>

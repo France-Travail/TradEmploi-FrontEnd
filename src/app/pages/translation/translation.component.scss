@@ -54,7 +54,6 @@ html {
   font-size: 14px;
 }
 
-
 .main {
   overflow-y: auto;
   overflow-x: hidden;
@@ -90,5 +89,14 @@ html {
   }
   %option-btn {
     font-size: 9px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .roomId{
+    font-size:10px;
+  }
+  %option-btn {
+    font-size: 7px;
   }
 }

@@ -1,12 +1,12 @@
 <div class="wrapper">
   <header class="header">
     <ul class="option">
-      <li>
-        <ng-template [ngIf]="isMultiDevices" *ngIf="!isGuest">
+      <li *ngIf="!isGuest">
+        <ng-template [ngIf]="isMultiDevices">
           <span class="roomId">{{ roomId }}</span> 
           <button class="share-btn" (click)="share()">INVITER</button>
         </ng-template>
-        <button *ngIf="!isGuest" class="end-btn" (click)="closeConversation()">TERMINER LA CONVERSATION</button>
+        <button class="end-btn" (click)="closeConversation()">TERMINER LA CONVERSATION</button>
       </li>
       <li>
         <mat-slide-toggle class="auto-listen-btn" (click)="switchAudio()" checked labelPosition="before" color="primary">{{ autoListenValue }}</mat-slide-toggle>

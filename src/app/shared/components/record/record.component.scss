@@ -7,7 +7,6 @@
   border-radius: 5px;
   color: #ffffff;
   padding: 10px;
-  min-width: 350px;
 
   .top {
     display: flex;
@@ -48,7 +47,6 @@
 
     .actions {
       display: flex;
-      // flex-direction: column;
       margin-left: 10px;
       button {
         display: flex;
@@ -59,7 +57,6 @@
         border-radius: 5px;
         width: 30px;
         height: 30px;
-        // margin-bottom: 8px;
         margin-left: 5px;
         outline: none;
         cursor: pointer;

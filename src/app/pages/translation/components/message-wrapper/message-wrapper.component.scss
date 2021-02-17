@@ -1,5 +1,4 @@
 @import 'styles';
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 :host {
   background-color: $light-blue;
@@ -29,7 +28,6 @@
       padding: 5px;
       border-radius: 5px;
       border: 1px solid #bdbdbd;
-      // height: 40px;
       flex-grow:2;
 
       .flag {
@@ -67,7 +65,6 @@
 
       .buttons {
         display: flex;
-        height: 30px;
         align-items: center;
 
         img {
@@ -131,13 +128,11 @@
 
     .translation {
       position: relative;
-      // height: 300px;
       background-color: $white-smoke;
       .value {
         padding: 20px;
         color: $black;
         font-size: 36px;
-        // height: 260px;
         width: 100%;
         text-align: justify;
         overflow-y: auto;
@@ -179,9 +174,7 @@
 
 @media screen and (max-width: 800px) {
   .container {
-    // height: 210px !important;
     .input-wrapper {
-      // height: 140px;
       .flag {
         margin-right: 10px;
       }
@@ -194,9 +187,7 @@
     }
 
     .translation {
-      // height: 220px !important;
       .value {
-        // height: 180px !important;
         font-size: 24px !important;
       }
     }
