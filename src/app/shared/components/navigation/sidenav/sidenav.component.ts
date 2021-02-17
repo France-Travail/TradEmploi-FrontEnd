@@ -26,7 +26,7 @@ export class SidenavComponent {
       const isGuest = user !== null ? user.role === Role.GUEST : true;
       this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
       this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
-      this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'aide';
+      this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'Guide de démarrage';
     });
   }
 

@@ -51,7 +51,7 @@ export const onboardingTabsAdvisor: Onboarding[] = [
   {
     ...onboardingTabs[3],
     indicationFR: 'Entrez votre prénom / ',
-    textFR: 'Une fois sur le site traduction instant, saisissez votre prénom.',
+    textFR: 'Une fois sur le site de traduction, saisissez votre prénom.',
   },
   {
     ...onboardingTabs[4],
@@ -61,11 +61,11 @@ export const onboardingTabsAdvisor: Onboarding[] = [
 ];
 
 export const onboardingTitle: OnboardingTitle = {
-  helpEN: 'Help',
+  helpEN: 'Start guide',
   descriptionEN: 'Presentation of the translation tool',
 };
 export const onboardbingTitleAdvisor: OnboardingTitle = {
   ...onboardingTitle,
-  helpFR: 'Aide / ',
+  helpFR: 'Guide de démarrage / ',
   descriptionFR: "Présentation de l'outil de traduction /",
 };

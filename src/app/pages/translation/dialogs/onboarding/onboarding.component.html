@@ -21,6 +21,7 @@
           <span>{{ sentences[tabNumber].browserFR }}</span>
         </div>
       </div>
+      <span class="vertical-line" *ngIf="!isGuest"></span>
       <div class="helpEN">
         <div class="helpText">{{ sentences[tabNumber].textEN }}</div>
         <div class="browser" *ngIf="sentences[tabNumber].browserEN">

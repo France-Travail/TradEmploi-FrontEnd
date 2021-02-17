@@ -22,13 +22,14 @@
     .indications {
       margin: auto;
     }
+    .vertical-line {
+      border-left: 2px solid $gray74;
+      margin: 0 15px;
+    }
     .helpFigures {
       display: flex;
       justify-content: space-between;
       margin: 15px 0;
-      .vertical-line {
-        border-left: 2px solid $gray74;
-      }
       .chevron {
         border: solid 1px $gray74;
         border-radius: 50%;
@@ -45,19 +46,16 @@
     .helpSentences {
       white-space: pre-line;
       display: flex;
-      justify-content: space-between;
-      margin-top: 15px;
-      align-self: center;
       .helpFR,
       .helpEN {
-        margin: 20px;
-        height: 75px;
+        flex-grow: 1;
         white-space: pre-line;
         text-align: justify;
         .helpText {
-          margin: 20px 0;
+          height: fit-content;
         }
         .browser {
+          margin-top: 15px;
           img {
             margin-right: 10px;
             vertical-align: middle;
@@ -65,6 +63,9 @@
             height: 32px;
           }
         }
+      }
+      .helpFR {
+        max-width: 50%;
       }
     }
   }
@@ -74,6 +75,11 @@
   .slide {
     font-size: small;
     text-align: center;
+    .slide-top {
+      .titles {
+        font-size: large;
+      }
+    }
     .sub-title {
       font-size: 12pt;
       margin: 10px 0;
@@ -84,8 +90,10 @@
         flex-direction: column;
         .helpFR,
         .helpEN {
+          max-width: 100%;
           margin: 5px;
           .helpText {
+            height: max-content;
             margin: 0;
           }
           .browser {
