@@ -92,3 +92,12 @@ html {
     font-size: 9px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .roomId{
+    font-size:10px;
+  }
+  %option-btn {
+    font-size: 7px;
+  }
+}
