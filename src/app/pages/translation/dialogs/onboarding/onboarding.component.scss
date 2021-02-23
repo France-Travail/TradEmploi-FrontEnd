@@ -45,17 +45,18 @@
     .helpSentences {
       white-space: pre-line;
       display: flex;
-      justify-content: space-between;
       margin-top: 15px;
+      justify-content: center;
       align-self: center;
       .helpFR,
       .helpEN {
-        margin: 20px;
-        height: 75px;
+        // max-width: 50%;
+        flex-grow: 1;
+        margin: 0 20px;
         white-space: pre-line;
         text-align: justify;
         .helpText {
-          margin: 20px 0;
+          height: 75px;
         }
         .browser {
           img {
@@ -74,6 +75,11 @@
   .slide {
     font-size: small;
     text-align: center;
+    .slide-top {
+      .titles {
+        font-size: large;
+      }
+    }
     .sub-title {
       font-size: 12pt;
       margin: 10px 0;
@@ -84,8 +90,10 @@
         flex-direction: column;
         .helpFR,
         .helpEN {
+          max-width: 100%;
           margin: 5px;
           .helpText {
+            height: max-content;
             margin: 0;
           }
           .browser {
