@@ -1,26 +1,5 @@
 @import 'styles';
 
-.translation {
-  display: flex;
-  padding: 10px;
-  font-size: 20px;
-  min-height: auto;
-  height: auto;
-  width: 98%;
-  text-align: justify;
-  overflow-y: auto;
-  background-color: #f5f5f5;
-  border-radius: 5px;
-  justify-content: space-between;
-
-  a {
-    img {
-      margin-left: 10px;
-      width: 20px;
-      cursor: pointer;
-    }
-  }
-}
 .notification {
   font-size: 13px;
   color: grey;
@@ -28,63 +7,148 @@
   margin: 10px;
 }
 
-.user {
+.bubble {
+  margin: 20px 10px;
+  margin-left: 0;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bubble-user {
+  @extend .bubble;
   flex-direction: row-reverse;
 }
+.advisor {
+  // display: flex;
+  // flex-direction: row-reverse;
+  background-color: $white-smoke;
+}
+.user {
+  background-color: $primary-color;
+  color: white;
+}
 
-.bubble {
-  background-color: darkseagreen;
-  width: 80%;
-  margin: 10px;
-  .message-sended {
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-    margin-bottom: 25px;
+.advisor,
+.user {
+  max-width: 80%;
+  padding: 10px;
+  border: solid 1px $gray74;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  font-weight: lighter;
+  // margin-top: 5px;
+}
+.senderTitle {
+  display: flex;
+  .logo {
+    width: 20px;
+  }
+  margin-bottom: 5px;
+}
+.messageTranslated {
+  // border-top: solid thin $gray74;
+  margin-top: 5px;
+  font-size: 14pt;
+}
 
-    .flag {
-      padding-top: 2px;
-      .flag-icon {
-        width: 34px;
-        height: 24px;
-        border: 1px solid $gray74;
-        box-sizing: border-box;
-        border-radius: 5px;
-        background-size: cover;
-        cursor: default;
-      }
-    }
-
-    .text {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-      padding: 0 5px 0 10px;
-      text-align: justify;
-      font-size: 16px;
-      span {
-        display: flex;
-        width: 100%;
-        .incoming-message {
-          width: 100%;
-          text-decoration: none;
-          color: #4171da;
-          padding-top: 5px;
-          cursor: pointer;
-        }
-        .extand {
-          img {
-            width: 30px;
-            height: 30px;
-            background: #f5f5f5;
-            -moz-border-radius: 70px;
-            -webkit-border-radius: 70px;
-            border-radius: 70px;
-            cursor: pointer;
-          }
-        }
-      }
-    }
+.listen {
+  background-image: url('../../../../../assets/icons/icon-listen-black.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  background-color: white;
+  background-size: 15px;
+  width: 30px;
+  height: 30px;
+  border: solid grey 0.5px;
+  &:hover {
+    cursor: pointer;
+    background-image: url('../../../../../assets/icons/icon-listen-blue.svg');
   }
 }
+
+.extand:hover {
+  cursor: pointer;
+}
+// .translation {
+//   display: flex;
+//   padding: 10px;
+//   font-size: 20px;
+//   min-height: auto;
+//   height: auto;
+//   width: 98%;
+//   text-align: justify;
+//   overflow-y: auto;
+//   background-color: #f5f5f5;
+//   border-radius: 5px;
+//   justify-content: space-between;
+
+//   a {
+//     img {
+//       margin-left: 10px;
+//       width: 20px;
+//       cursor: pointer;
+//     }
+//   }
+// }
+
+// .messageRaw{
+//   background-color: $primary-color;
+// }
+// .bubble {
+
+//   width: 80%;
+//   margin: 10px;
+//   .message-sended {
+//     display: flex;
+//     flex-direction: row;
+//     margin-top: 10px;
+//     margin-bottom: 25px;
+
+//     .flag {
+//       padding-top: 2px;
+//       .flag-icon {
+//         width: 34px;
+//         height: 24px;
+//         border: 1px solid $gray74;
+//         box-sizing: border-box;
+//         border-radius: 5px;
+//         background-size: cover;
+//         cursor: default;
+//       }
+//     }
+
+//     .text {
+//       display: flex;
+//       flex-direction: row;
+//       width: 100%;
+//       padding: 0 5px 0 10px;
+//       text-align: justify;
+//       font-size: 16px;
+//       span {
+//         display: flex;
+//         width: 100%;
+//         .incoming-message {
+//           width: 100%;
+//           text-decoration: none;
+//           color: #4171da;
+//           padding-top: 5px;
+//           cursor: pointer;
+//         }
+//         .extand {
+//           img {
+//             width: 30px;
+//             height: 30px;
+//             background: #f5f5f5;
+//             -moz-border-radius: 70px;
+//             -webkit-border-radius: 70px;
+//             border-radius: 70px;
+//             cursor: pointer;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

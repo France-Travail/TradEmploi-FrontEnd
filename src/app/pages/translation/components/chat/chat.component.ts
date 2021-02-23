@@ -10,15 +10,17 @@ import { ChatService } from 'src/app/services/chat.service';
 })
 export class ChatComponent {
   @Input() messagesWrapped: MessageWrapped[];
-  @Input() shared: boolean;
   @Output() editMessageEmit = new EventEmitter();
+  private fold: boolean;
+  constructor(private chatService: ChatService) {
+    this.fold = false;
+    console.log(this.fold);
+  }
 
-  constructor(private chatService: ChatService){}
-
-  public visible: boolean = false;
+  // public visible: boolean = false;
 
   public extand() {
-    this.visible = !this.visible;
+    this.fold = !this.fold;
   }
 
   public deleteMessage(index: number) {
