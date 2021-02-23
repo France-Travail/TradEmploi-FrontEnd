@@ -111,6 +111,7 @@
         border-radius: 50%;
         img {
           width: 50%;
+          animation: rightToLeftEffect 0.1s;
         }
       }
 
@@ -193,4 +194,20 @@
       }
     }
   }
+}
+
+@keyframes rightToLeftEffect {
+  0%   {transform: translateX(10px);} 
+  25%  {transform: translateX(7.5px);} 
+  50%  {transform: translateX(5px);} 
+  75%  {transform: translateX(2.5px);} 
+  100% {transform: translateX(0px);} 
+}
+
+@-webkit-keyframes rightToLeftEffect { 
+  0%   {-webkit-transform: translateX(10px);} 
+  25%  {-webkit-transform: translateX(7.5px);} 
+  50%  {-webkit-transform: translateX(5px);} 
+  75%  {-webkit-transform: translateX(2.5px);} 
+  100% {-webkit-transform: translateX(0px);} 
 }

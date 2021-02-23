@@ -43,6 +43,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public interim: string = '';
   public recordMode: boolean = false;
   public speak: boolean = false;
+  public canSend: boolean = false;
   public translationMode: string = TranslationMode.TEXT;
   public languageName: string;
   private isMobile: boolean = false;
@@ -105,6 +106,9 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         } else {
           this.rawText = saveText + value.final;
           saveText = this.rawText;
+          this.speak = false;
+          this.canSend = true;
+          this.exitStream()
         }
       }
     });
@@ -115,7 +119,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.speak = false;
     setTimeout(() => {
       this.send(false);
-    }, 2000);
+    }, 1000);
   }
   public delete(): void {
     this.rawText = '';
@@ -133,6 +137,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       this.rawText = '';
       this.translationMode = TranslationMode.TEXT;
       this.speak = false;
+      this.canSend = false;
     }
   }
 
@@ -159,6 +164,14 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.micro = false;
     this.speak = false;
     this.recordMode = false;
+  }
+
+  public displaySendOnClick(){
+    this.canSend = true ;
+  }
+
+  public displaySendOnBlur(){
+    this.canSend = false;
   }
 
   private async sendToOneDevice(text: string) {
