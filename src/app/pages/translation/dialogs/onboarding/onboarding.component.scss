@@ -22,13 +22,14 @@
     .indications {
       margin: auto;
     }
+    .vertical-line {
+      border-left: 2px solid $gray74;
+      margin: 0 15px;
+    }
     .helpFigures {
       display: flex;
       justify-content: space-between;
       margin: 15px 0;
-      .vertical-line {
-        border-left: 2px solid $gray74;
-      }
       .chevron {
         border: solid 1px $gray74;
         border-radius: 50%;
@@ -45,20 +46,16 @@
     .helpSentences {
       white-space: pre-line;
       display: flex;
-      margin-top: 15px;
-      justify-content: center;
-      align-self: center;
       .helpFR,
       .helpEN {
-        // max-width: 50%;
         flex-grow: 1;
-        margin: 0 20px;
         white-space: pre-line;
         text-align: justify;
         .helpText {
-          height: 75px;
+          height: fit-content;
         }
         .browser {
+          margin-top: 15px;
           img {
             margin-right: 10px;
             vertical-align: middle;
@@ -66,6 +63,9 @@
             height: 32px;
           }
         }
+      }
+      .helpFR {
+        max-width: 50%;
       }
     }
   }
