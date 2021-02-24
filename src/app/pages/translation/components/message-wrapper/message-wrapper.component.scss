@@ -6,199 +6,103 @@
 }
 
 .container {
-  // border-radius: 5px;
-  // box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
-  // padding: 5px;
+  display: flex;
   margin-top: 10px;
+}
 
-  h2 {
-    font-size: 14px;
-    line-height: 15px;
-    font-weight: bold;
-    margin-bottom: 15px;
+.field {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #bdbdbd;
+  background-color: #ffffff;
+  flex-grow:2;
+
+  textarea {
+    width: 100%;
+    color: $black;
+    font-size: 18px;
+    padding: 0 10px;
+    height: 35px;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: Roboto;
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: #e0e0e0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $black;
+      border-radius: 3px;
+    }
   }
 
-  .input-wrapper {
-    display: flex;
-    .field {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      padding: 5px;
-      border-radius: 5px;
-      border: 1px solid #bdbdbd;
-      background-color: #ffffff;
-      flex-grow:2;
+}
 
-      .flag {
-        cursor: default;
-        .flag-icon {
-          width: 34px;
-          height: 24px;
-          border: 1px solid $gray74;
-          box-sizing: border-box;
-          border-radius: 5px;
-          background-size: cover;
-        }
-      }
 
-      textarea {
-        width: 100%;
-        color: $black;
-        font-size: 18px;
-        padding: 0 10px;
-        height: 35px;
-        border: none;
-        outline: none;
-        resize: none;
-        font-family: Roboto;
-        &::-webkit-scrollbar {
-          width: 5px;
-          background-color: #e0e0e0;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background-color: $black;
-          border-radius: 3px;
-        }
-      }
-
-      .buttons {
-        display: flex;
-        align-items: center;
-
-        img {
-          cursor: pointer;
-        }
-
-        .micro {
-          height: 24px;
-          width: 36px;
-        }
-        .keyboard {
-          height: 24px;
-          width: 30px;
-        }
-        .micro-stream {
-          height: 24px;
-          width: 30px;
-          border-radius: 50px;
-          box-shadow: 1px 1px 5px #888888;
-          margin-top: 1px;
-        }
-
-        .delete {
-          height: 35px;
-        }
-      }
-    }
-
-    .actions {
-      margin-left:5px;
-      button {
-        padding: 4px;
-        height: 100%;
-        background: $primary-color;
-        color: $white;
-        border: 1px solid $btn-border;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        outline: none;
-        cursor: pointer;
-        width: 50px;
-        border-radius: 50%;
-        img {
-          width: 50%;
-          animation: rightToLeftEffect 0.1s;
-        }
-        .img-send {
-          width: 70%;
-          margin-right:5px;
-          margin-top:2px;
-          animation: rightToLeftEffect 0.1s;
-        }
-      }
-
-      .btn-send {
-        background: $primary-color;
-        color: $white;
-      }
-      .btn-send-disabled {
-        background: $white-smoke;
-      }
-    }
-
-    .record {
-      width: 100%
-    }
-
-    .translation {
-      position: relative;
-      background-color: $white-smoke;
-      .value {
-        padding: 20px;
-        color: $black;
-        font-size: 36px;
-        width: 100%;
-        text-align: justify;
-        overflow-y: auto;
-
-        &::-webkit-scrollbar {
-          width: 5px;
-          background-color: #e0e0e0;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background-color: $secondary-color;
-          border-radius: 3px;
-        }
-      }
-
-      button {
-        padding: 4px;
-        min-width: 110px;
-        background: $primary-color;
-        color: $white;
-        border: 1px solid $btn-border;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        position: absolute;
-        outline: none;
-        cursor: pointer;
-        right: 10px;
-        bottom: 10px;
-        img {
-          width: 13%;
-          margin-right: 10px;
-        }
-      }
-    }
+.flag {
+  cursor: default;
+  .flag-icon {
+    width: 34px;
+    height: 24px;
+    border: 1px solid $gray74;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-size: cover;
   }
 }
 
-@media screen and (max-width: 800px) {
-  .container {
-    .input-wrapper {
-      .flag {
-        margin-right: 10px;
-      }
-      textarea {
-        padding: 0px;
-      }
+.actions {
+  margin-left:5px;
+  button {
+    padding: 4px;
+    height: 100%;
+    background: $primary-color;
+    color: $white;
+    border: 1px solid $btn-border;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    outline: none;
+    cursor: pointer;
+    width: 50px;
+    border-radius: 50%;
+    img {
+      width: 50%;
+      animation: rightToLeftEffect 0.1s;
     }
-    .margin {
-      margin-bottom: 60px !important;
+    .img-send {
+      width: 70%;
+      margin-right:5px;
+      margin-top:2px;
+      animation: rightToLeftEffect 0.1s;
     }
+  }
 
-    .translation {
-      .value {
-        font-size: 24px !important;
-      }
-    }
+  .btn-send {
+    background: $primary-color;
+    color: $white;
+  }
+  .btn-send-disabled {
+    background: $white-smoke;
+  }
+}
+
+.record {
+  width: 100%
+}
+
+@media screen and (max-width: 800px) {
+  .flag {
+    margin-right: 10px;
+  }
+  textarea {
+    padding: 0px;
   }
 }
 

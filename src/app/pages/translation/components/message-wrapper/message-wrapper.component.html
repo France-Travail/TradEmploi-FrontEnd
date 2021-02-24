@@ -1,5 +1,4 @@
 <div class="container">
-  <div class="input-wrapper">
     <div class="field" *ngIf="!micro || !recordMode">
       <div class="flag">
         <span *ngIf="flag !== 'xa'" class="flag-icon flag-icon-{{ flag }}"></span>
@@ -8,8 +7,6 @@
       <textarea id="msg-wrapper-advisor" [placeholder]="interim" *ngIf="role == 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
       <textarea id="msg-wrapper-guest" [placeholder]="interim" *ngIf="role != 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
       <div class="buttons">
-        <!-- <img class="micro" *ngIf="!speak" src="./assets/icons/icon-micro-blue.svg" alt="activate micro" (click)="talk()" /> -->
-        <!-- <img class="micro-stream" *ngIf="speak && !recordMode" src="./assets/icons/icon-micro-red.svg" alt="activate micro" (click)="exitStream()" [disabled]="speak && !recordMode"/> -->
         <img class="delete" src="./assets/icons/icon-remove-blue.svg" alt="delete text" (click)="delete()" />
       </div>
     </div>
@@ -20,6 +17,5 @@
         <img class="micro-stream" *ngIf="speaking && !recordMode && !canSend" src="./assets/icons/icon-micro-red.svg" alt="activate micro" (click)="exitStream()"/>
       </button>
     </div>
-    <app-record class="record" *ngIf="recordMode" duration="500" [role]="role" [language]="languageOrigin" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
-  </div>
+    <app-record class="record" *ngIf="recordMode" duration="5000000" [role]="role" [language]="languageOrigin" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
 </div>
