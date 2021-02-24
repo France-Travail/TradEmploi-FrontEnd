@@ -42,10 +42,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
   public interim: string = '';
   public recordMode: boolean = false;
-  public speak: boolean = false;
+  public speaking: boolean = false;
   public canSend: boolean = false;
   public translationMode: string = TranslationMode.TEXT;
   public languageName: string;
+
   private isMobile: boolean = false;
 
   constructor(
@@ -88,7 +89,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         this.stream();
       }
       this.translationMode = TranslationMode.VOCAL;
-      this.speak = true;
+      this.speaking = true;
     } else {
       this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
       this.errorService.save(ERROR_TECH_UNAUTHORIZEDMICRO);
@@ -106,8 +107,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         } else {
           this.rawText = saveText + value.final;
           saveText = this.rawText;
-          this.speak = false;
-          this.canSend = true;
+          this.speaking = false;
+          this.canSend = false;
           this.exitStream()
         }
       }
@@ -116,13 +117,15 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   public exitStream() {
     this.speechRecognitionService.DestroySpeechObject();
-    this.speak = false;
+    this.speaking = false;
     setTimeout(() => {
       this.send(false);
     }, 1000);
   }
   public delete(): void {
     this.rawText = '';
+    this.canSend = false;
+    this.speaking = false;
   }
 
   public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
@@ -136,8 +139,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       }
       this.rawText = '';
       this.translationMode = TranslationMode.TEXT;
-      this.speak = false;
       this.canSend = false;
+      this.speaking = false;
     }
   }
 
@@ -151,7 +154,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   public audioSending(message: string): void {
     this.micro = false;
-    this.speak = false;
+    this.speaking = false;
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
@@ -162,7 +165,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   public exitRecord() {
     this.micro = false;
-    this.speak = false;
+    this.speaking = false;
     this.recordMode = false;
   }
 
@@ -171,7 +174,9 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   }
 
   public displaySendOnBlur(){
-    this.canSend = false;
+    if(this.rawText === undefined || this.rawText === ''){
+      this.canSend = false;
+    }
   }
 
   private async sendToOneDevice(text: string) {

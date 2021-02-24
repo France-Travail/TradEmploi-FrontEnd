@@ -9,15 +9,15 @@
       <textarea id="msg-wrapper-guest" [placeholder]="interim" *ngIf="role != 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
       <div class="buttons">
         <!-- <img class="micro" *ngIf="!speak" src="./assets/icons/icon-micro-blue.svg" alt="activate micro" (click)="talk()" /> -->
-        <!-- <img class="micro-stream" *ngIf="speak && !recordMode" src="./assets/icons/icon-micro-red.svg" alt="activate micro" (click)="exitStream()" /> -->
+        <!-- <img class="micro-stream" *ngIf="speak && !recordMode" src="./assets/icons/icon-micro-red.svg" alt="activate micro" (click)="exitStream()" [disabled]="speak && !recordMode"/> -->
         <img class="delete" src="./assets/icons/icon-remove-blue.svg" alt="delete text" (click)="delete()" />
       </div>
     </div>
     <div class="actions" *ngIf="!micro || !recordMode">
-      <button class="btn-send" [ngClass]="{ 'btn-send-disabled': speak && !recordMode }" (click)="send(true)" [disabled]="speak && !recordMode">
-        <img *ngIf="canSend" src="./assets/icons/icon-send-white.svg" alt="send text" />
-        <img *ngIf="!speak && !canSend" src="./assets/icons/icon-micro-white.svg" alt="activate micro" (click)="talk()" />
-        <img class="micro-stream" *ngIf="speak && !recordMode && !canSend" src="./assets/icons/icon-micro-red.svg" alt="activate micro" />
+      <button class="btn-send" [ngClass]="{ 'btn-send-disabled': speaking && !recordMode }">
+        <img class="img-send" *ngIf="canSend" src="./assets/icons/icon-send-white.svg" alt="send text"  (click)="send(false)"/>
+        <img *ngIf="!speaking && !canSend" src="./assets/icons/icon-micro-white.svg" alt="activate micro" (click)="talk()" />
+        <img class="micro-stream" *ngIf="speaking && !recordMode && !canSend" src="./assets/icons/icon-micro-red.svg" alt="activate micro" (click)="exitStream()"/>
       </button>
     </div>
     <app-record class="record" *ngIf="recordMode" duration="500" [role]="role" [language]="languageOrigin" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
