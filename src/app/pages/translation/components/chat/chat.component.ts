@@ -11,17 +11,17 @@ import { ChatService } from 'src/app/services/chat.service';
 export class ChatComponent {
   @Input() messagesWrapped: MessageWrapped[];
   @Output() editMessageEmit = new EventEmitter();
-  private fold: boolean;
+  public fold: boolean;
+  public messageSelected: number;
   constructor(private chatService: ChatService) {
     this.fold = false;
-    console.log(this.fold);
   }
 
   // public visible: boolean = false;
 
-  public extand() {
-    this.fold = !this.fold;
-  }
+  // public extand() {
+  //   this.fold = !this.fold;
+  // }
 
   public deleteMessage(index: number) {
     this.messagesWrapped.splice(index, 1);
@@ -40,5 +40,8 @@ export class ChatComponent {
     if (sentMessage && sentMessage.audioHtml) {
       sentMessage.audioHtml.play();
     }
+  }
+  public unFold(messageIndex: number) {
+    messageIndex === this.messageSelected ? (this.messageSelected = -1) : (this.messageSelected = messageIndex);
   }
 }

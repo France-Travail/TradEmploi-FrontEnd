@@ -1,87 +1,6 @@
 @import 'styles';
 @import '../chat/chat.component.scss';
-// .message {
-//   margin: 10px;
-//   width: fit-content;
-//   min-width: 15%;
-//   max-width: 70%;
-// }
 
-// .sender {
-//   background-color: $secondary-color;
-//   color: white;
-//   @extend .message;
-// }
-
-// .receiver {
-//   background-color: $white-smoke;
-//   @extend .message;
-// }
-
-// .sentence {
-//   font-size: 15px !important;
-// }
-
-// .avatar {
-//   margin: 0;
-//   width: 30px;
-// }
-
-// .flag-icon {
-//   width: 17px;
-//   height: 15px;
-//   border: 1px solid $gray74;
-//   box-sizing: border-box;
-//   border-radius: 5px;
-//   background-size: cover;
-// }
-
-// .notification {
-//   font-size: 13px;
-//   color: grey;
-//   text-align: center;
-//   margin: 10px;
-// }
-
-// .chat-sender {
-//   display: flex;
-//   flex-direction: row-reverse;
-// }
-
-// .chat-receiver {
-//   display: flex;
-// }
-
-// ::ng-deep .mat-card-header-text {
-//   padding-top: 5px !important;
-// }
-
-// ::ng-deep .mat-card-header {
-//   justify-content: flex-end;
-// }
-
-// .mat-card-avatar {
-//   height: 100%;
-// }
-
-// .mat-card-footer {
-//   margin: auto;
-//   font-size: 13px;
-// }
-// .sender {
-//   @extend .user;
-// }
-
-// .receiver {
-//   @extend .advisor;
-// }
-
-.bubble {
-  @extend .bubble;
-}
-.bubble-user {
-  @extend .bubble-user;
-}
 .sender {
   @extend .user;
 }
@@ -89,15 +8,17 @@
   @extend .advisor;
 }
 
-.bubbleTitle {
-  @extend .senderTitle;
+.messageTranslated {
+  font-weight: inherit;
 }
-// .advisor {
-//   // display: flex;
-//   // flex-direction: row-reverse;
-//   background-color: $white-smoke;
-// }
-// .user {
-//   background-color: $primary-color;
-//   color: white;
-// }
+
+.bubble-sender-area {
+  @extend .bubble-area-user;
+}
+
+.bubble-receiver-area {
+  @extend .bubble-area-advisor;
+}
+.bubbleTitle {
+  justify-content: flex-start;
+}
