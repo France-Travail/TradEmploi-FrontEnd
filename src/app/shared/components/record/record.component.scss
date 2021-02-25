@@ -1,5 +1,12 @@
 @import 'styles';
 
+.wrapper-loading{
+  background-color: white;
+  border-radius: 5px;
+  border: 2px solid $primary-color;
+  padding: 5px;
+}
+
 .container {
   display: flex;
   flex-direction: column;

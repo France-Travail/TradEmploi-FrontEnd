@@ -1,5 +1,7 @@
 <ng-container *ngIf="inProgress; else elseTemplate">
-  <mat-spinner class="spinner" [diameter]="40"></mat-spinner>
+  <div class="wrapper-loading">
+    <mat-spinner class="spinner" [diameter]="40"></mat-spinner>
+  </div>
 </ng-container>
 <ng-template #elseTemplate>
   <div class="container">
