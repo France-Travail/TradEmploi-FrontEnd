@@ -16,6 +16,7 @@ export class RecordComponent implements OnInit {
   @Input() duration: number;
   @Input() role: string;
   @Input() language: string;
+  @Input() flag: string;
 
   @Output() send: EventEmitter<string> = new EventEmitter<string>();
   @Output() exit: EventEmitter<void> = new EventEmitter<void>();

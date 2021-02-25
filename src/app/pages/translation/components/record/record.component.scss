@@ -1,0 +1,93 @@
+@import 'styles';
+@import '../message-wrapper/message-wrapper.component.scss';
+
+.field{
+  background-color: $light-blue;
+  color:$primary-color;
+  border-color: $primary-color;
+}
+
+.countdown{
+  margin: auto;
+}
+
+// .container {
+//   display: flex;
+//   // flex-direction: column;
+//   background-color: $primary-color;
+//   border-radius: 5px;
+//   color: #ffffff;
+//   padding: 10px;
+
+//   .top {
+//     display: flex;
+
+//     .record {
+//       display: flex;
+//       // flex-direction: column;
+//       justify-content: center;
+//       width: 100%;
+//       .title {
+//         display: flex;
+//         flex-direction: row;
+//         align-items: center;
+//         justify-content: center;
+//         margin-bottom: 10px;
+//         p {
+//           margin: 0;
+//         }
+//         img {
+//           width: 32px;
+//           margin-left: 40px;
+//         }
+//       }
+
+//       .progress-bar {
+//         background-color: #ffffff;
+//         padding: 3px;
+//         border-radius: 4px;
+//         width: 100%;
+//         .bar {
+//           background-color: $primary-color;
+//           height: 4px;
+//           border-radius: 4px;
+//           transition: width 0.1s;
+//         }
+//       }
+//     }
+
+//     .actions {
+//       display: flex;
+//       margin-left: 10px;
+//       button {
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-evenly;
+//         border: 1px solid #ffffff;
+//         background-color: $primary-color;
+//         border-radius: 5px;
+//         width: 30px;
+//         height: 30px;
+//         margin-left: 5px;
+//         outline: none;
+//         cursor: pointer;
+
+//         &:last-child {
+//           margin-bottom: 0;
+//         }
+
+//         img {
+//           height: 20px;
+//         }
+//       }
+//     }
+//   }
+
+//   .bottom {
+//     display: flex;
+//     justify-content: center;
+//   }
+// }
+// .spinner {
+//   margin: auto;
+// }

@@ -24,5 +24,5 @@
         </ng-template>
       </button>
     </div>
-    <app-record class="record" *ngIf="recordMode" duration="50" [role]="role" [language]="languageOrigin" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
+    <app-record class="record" *ngIf="recordMode" duration="500000" [role]="role" [language]="languageOrigin" [flag]="flag" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
 </div>

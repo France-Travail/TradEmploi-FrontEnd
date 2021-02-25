@@ -7,7 +7,6 @@
 
 .container {
   display: flex;
-  margin-top: 10px;
 }
 
 .field {
@@ -47,8 +46,10 @@
 .flag {
   cursor: default;
   .flag-icon {
-    width: 34px;
-    height: 24px;
+    // width: 34px;
+    // height: 24px;
+    width: 40px;
+    height: 85%;
     border: 1px solid $gray74;
     box-sizing: border-box;
     border-radius: 5px;
@@ -91,6 +92,10 @@
   .btn-send-disabled {
     background: $white-smoke;
   }
+}
+
+.delete{
+  cursor:pointer
 }
 
 .record {
