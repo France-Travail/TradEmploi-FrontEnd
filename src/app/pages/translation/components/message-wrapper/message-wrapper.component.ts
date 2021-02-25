@@ -17,6 +17,7 @@ import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 import { TranslationMode } from 'src/app/models/kpis/translationMode';
 import { ErrorService } from 'src/app/services/error.service';
 import { ERROR_TECH_UNAUTHORIZEDMICRO } from 'src/app/models/error/errorTechnical';
+import {isIOS} from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -46,6 +47,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public canSend: boolean = false;
   public translationMode: string = TranslationMode.TEXT;
   public languageName: string;
+  public isIOS: boolean = false;
 
   private isMobile: boolean = false;
 
@@ -62,6 +64,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
+    this.isIOS = isIOS()
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
     this.languageName = this.settingsService.user.value.language.languageName;
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
@@ -215,3 +218,5 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     };
   }
 }
+
+
