@@ -16,13 +16,14 @@ export class RecordComponent implements OnInit {
   @Input() duration: number;
   @Input() role: string;
   @Input() language: string;
+  @Input() flag: string;
 
   @Output() send: EventEmitter<string> = new EventEmitter<string>();
   @Output() exit: EventEmitter<void> = new EventEmitter<void>();
 
   public text: string = '';
   public width: number = 0;
-  public seconds: number = 0;
+  public seconds: number = 50;
   public isPaused: boolean = false;
   public intervalId: any;
   public canSend: boolean = false;
@@ -63,11 +64,14 @@ export class RecordComponent implements OnInit {
         time += 100;
       }
       if (time === 1000) {
-        this.seconds++;
+        this.seconds--;
         time = 0;
       }
-      if (this.seconds > 3) {
+      console.log('this.canSend :>> ', this.canSend);
+      if (this.seconds < 47) {
         this.canSend = true;
+        
+        console.log("entre",this.canSend);
       }
       if (this.width > 100) {
         this.width = 100;

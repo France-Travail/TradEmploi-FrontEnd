@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="field">
+    <div class="flag">
+      <span *ngIf="flag !== 'xa'" class="flag-icon flag-icon-{{ flag }}"></span>
+      <img *ngIf="flag === 'xa'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" />
+    </div>
+    <ng-container *ngIf="inProgress; else elseTemplate">
+      <mat-spinner class="spinner" [diameter]="35"></mat-spinner>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <div class="countdown">{{ seconds }}</div>
+    </ng-template>
+    <div class="buttons">
+      <img class="delete" src="./assets/icons/icon-remove-blue.svg" alt="delete text" (click)="exitAudio()" />
+    </div>
+  </div>
+  <div class="actions">
+    <button (click)="sendSpeech()" [disabled]="!canSend" [ngStyle]="{ backgroundColor: seconds < 47 ? '#135DFE' : '#b4cafc' }"><img src="assets/icons/icon-send-white.svg" alt="Envoyer" /></button>
+  </div>
+</div>
+
+
