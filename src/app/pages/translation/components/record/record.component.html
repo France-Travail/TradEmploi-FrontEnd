@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="actions">
-    <button (click)="sendSpeech()" [disabled]="!canSend" [ngStyle]="{ backgroundColor: seconds > 3 ? '#135DFE' : '#b4cafc' }"><img src="assets/icons/icon-send-white.svg" alt="Envoyer" /></button>
+    <button (click)="sendSpeech()" [disabled]="!canSend" [ngStyle]="{ backgroundColor: seconds < 47 ? '#135DFE' : '#b4cafc' }"><img src="assets/icons/icon-send-white.svg" alt="Envoyer" /></button>
   </div>
 </div>
 
