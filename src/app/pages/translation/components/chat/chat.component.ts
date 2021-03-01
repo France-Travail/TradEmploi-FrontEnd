@@ -13,6 +13,7 @@ export class ChatComponent {
   @Output() editMessageEmit = new EventEmitter();
   public fold: boolean;
   public messageSelected: number;
+  public foldIcon: string = 'Voir plus';
   constructor(private chatService: ChatService) {
     this.fold = false;
   }
@@ -43,5 +44,7 @@ export class ChatComponent {
   }
   public unFold(messageIndex: number) {
     messageIndex === this.messageSelected ? (this.messageSelected = -1) : (this.messageSelected = messageIndex);
+    this.foldIcon = this.fold ? 'Voir plus' : 'Voir moins';
+    this.fold = !this.fold;
   }
 }

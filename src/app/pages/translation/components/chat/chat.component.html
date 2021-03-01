@@ -35,6 +35,7 @@
         <div class="messageRaw" [ngStyle]="{ height: messageSelected === i ? '100%' : '1.2em' }">
           {{ messageWrapped.message.text }}
         </div>
+        <div class="unfold-icon" (click)="unFold(i)">[{{ foldIcon }}]</div>
         <div class="messageTranslated">
           <bdi>{{ messageWrapped.message.translation }}</bdi>
         </div>

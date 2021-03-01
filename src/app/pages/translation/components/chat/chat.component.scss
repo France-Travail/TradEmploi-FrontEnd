@@ -89,6 +89,15 @@
     background-image: url('../../../../../assets/icons/bubble-outline.svg');
   }
 }
+.unfold-icon {
+  display: flex;
+  flex-direction: row-reverse;
+  color: blue;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
+  }
+}
 // .extand:hover {
 //   cursor: pointer;
 // }
