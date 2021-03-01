@@ -14,8 +14,8 @@
     </ul>
   </header>
   <div class="main" #scrollMe>
-      <app-chat *ngIf="!isMultiDevices" [messagesWrapped]="messagesWrapped" (editMessageEmit)="editChat($event)"></app-chat>
-      <app-chat-multi-devices *ngIf="isMultiDevices" [messagesWrapped]="messagesWrapped"></app-chat-multi-devices>
+    <app-chat *ngIf="!isMultiDevices" [messagesWrapped]="messagesWrapped"></app-chat>
+    <app-chat-multi-devices *ngIf="isMultiDevices" [messagesWrapped]="messagesWrapped"></app-chat-multi-devices>
   </div>
   <footer class="footer">
     <ng-template [ngIf]="!isMultiDevices">

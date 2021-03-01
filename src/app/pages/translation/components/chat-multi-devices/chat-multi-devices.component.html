@@ -1,27 +1,29 @@
 <ng-container *ngFor="let input of messagesWrapped; let i = index">
   <ng-template [ngIf]="input.notification === undefined">
-    <div [ngClass]="{'chat-sender': input.isSender ,'chat-receiver': !input.isSender}">
-      <mat-card [ngClass]="{'sender': input.isSender ,'receiver': !input.isSender}">
-        <mat-card-header>
-          <mat-card-title class="sentence">{{ input.message.translation }}</mat-card-title>
-          <div class="listen">
-            <a (click)="listen(i)" *ngIf="input.message.audioHtml">
-              <img *ngIf="input.isSender" src="../../../assets/icons/icon-listen-white.svg" alt="Ecoute de la traduction" />
-              <img *ngIf="!input.isSender" src="../../../assets/icons/icon-listen-blue.svg" alt="Ecoute de la traduction" />
-            </a>
+    <div [ngClass]="input.isSender ? 'bubble-sender-area' : 'bubble-receiver-area'">
+      <div [ngClass]="input.isSender ? 'sender' : 'receiver'">
+        <div *ngIf="input.message.role === 'DE'; then user; else advisor"></div>
+        <ng-template #user>
+          <div class="bubbleTitle">
+            <span *ngIf="input.message.flag !== 'xa'" class="flag-icon flag-icon-{{ input.message.flag }}"></span>
+            <img *ngIf="input.message.flag === 'xa'" class="flag-icon" src="assets/images/arab-flag.png" alt="drapeau" />
+            <span>&nbsp;{{ input.message.member }}</span>
           </div>
-        </mat-card-header>
-        <mat-card-footer align="end" [ngStyle]="{ 'color': input.isSender ? 'lightgray' : 'black' }" >
-          <ng-template [ngIf]="!input.isSender">         
-            <span *ngIf="input.message.flag !== 'xa'" class="avatar flag-icon flag-icon-{{ input.message.flag }}"></span>
-            <img *ngIf="input.message.flag === 'xa'" class="avatar flag-icon" src="./assets/images/arab-flag.png" alt="flag" />
-          </ng-template>  
-          {{ input.message.member }}
-        </mat-card-footer>
-      </mat-card>
+        </ng-template>
+        <ng-template #advisor>
+          <div class="bubbleTitle">
+            <img src="../../../../../assets/icons/logo-pe.svg" alt="pole emploi" class="logo" />
+            <span>&nbsp;{{ peTitle }}</span>
+          </div>
+        </ng-template>
+        <div class="messageTranslated">
+          <bdi>{{ input.message.translation }}</bdi>
+        </div>
+      </div>
+      <div class="listen" (click)="listen(i)" *ngIf="input.message.audioHtml"></div>
     </div>
   </ng-template>
   <ng-template [ngIf]="input.notification">
-    <div class="notification">{{input.notification}}</div>
+    <div class="notification">{{ input.notification }}</div>
   </ng-template>
 </ng-container>

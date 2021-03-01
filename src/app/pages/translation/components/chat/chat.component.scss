@@ -1,93 +1,91 @@
 @import 'styles';
 
-.translation {
-  display: flex;
-  padding: 10px;
-  font-size: 20px;
-  min-height: auto;
-  height: auto;
-  width: 98%;
-  text-align: justify;
-  overflow-y: auto;
-  background-color: #f5f5f5;
-  border-radius: 5px;
-  justify-content: space-between;
-
-  a {
-    img {
-      margin-left: 10px;
-      width: 20px;
-      cursor: pointer;
-    }
-  }
-}
 .notification {
   font-size: 13px;
   color: grey;
   text-align: center;
   margin: 10px;
 }
-.message-sended {
+.bubble-area-advisor {
+  margin: 20px 10px;
+  margin-left: 0;
   display: flex;
-  flex-direction: row;
-  margin-top: 10px;
-  margin-bottom: 25px;
-
-  .flag {
-    padding-top: 2px;
-    .flag-icon {
-      width: 34px;
-      height: 24px;
-      border: 1px solid $gray74;
-      box-sizing: border-box;
-      border-radius: 5px;
-      background-size: cover;
-      cursor: default;
-    }
+  justify-content: space-between;
+  align-items: center;
+}
+.bubble-area-user {
+  @extend .bubble-area-advisor;
+  flex-direction: row-reverse;
+}
+.advisor,
+.user {
+  max-width: 80%;
+  min-width: 250px;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  font-weight: lighter;
+  // text-align: justify;
+}
+.advisor {
+  background-color: white;
+  border: solid 1px $gray74;
+  .messageRaw {
+    color: $light-grey66;
   }
-
-  .text {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    padding: 0 5px 0 10px;
-    text-align: justify;
-    font-size: 16px;
-    span {
-      display: flex;
-      width: 100%;
-      .incoming-message {
-        width: 100%;
-        text-decoration: none;
-        color: #4171da;
-        padding-top: 5px;
-        cursor: pointer;
-      }
-      .extand {
-        img {
-          width: 30px;
-          height: 30px;
-          background: #f5f5f5;
-          -moz-border-radius: 70px;
-          -webkit-border-radius: 70px;
-          border-radius: 70px;
-          cursor: pointer;
-        }
-      }
-    }
+}
+.user {
+  background-color: $blue-bubble;
+  color: white;
+}
+.bubbleTitle {
+  display: flex;
+  font-weight: bolder;
+  // justify-content: space-between;
+  .logo {
+    width: 20px;
+    vertical-align: text-top;
   }
-  .delete {
-    margin-right: 15px;
-    margin-left: 15px;
-    img {
-      margin-right: 3px;
-      width: 30px;
-      height: 30px;
-      background: #f5f5f5;
-      -moz-border-radius: 70px;
-      -webkit-border-radius: 70px;
-      border-radius: 70px;
-      cursor: pointer;
-    }
+  margin-bottom: 5px;
+}
+.messageTranslated {
+  margin-top: 5px;
+  font-size: 14pt;
+  font-weight: bolder;
+}
+.messageRaw {
+  overflow: hidden;
+}
+.listen {
+  background-image: url('../../../../../assets/icons/icon-listen-black.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  background-color: white;
+  background-size: 15px;
+  width: 30px;
+  height: 30px;
+  border: solid grey 0.5px;
+  &:hover {
+    cursor: pointer;
+    background-image: url('../../../../../assets/icons/icon-listen-blue.svg');
+  }
+}
+
+// .fold {
+//   @extend .listen;
+//   background-image: url('../../../../../assets/icons/bubble-full.svg');
+//   &:hover {
+//     background-image: url('../../../../../assets/icons/bubble-outline.svg');
+//   }
+// }
+.unfold-word {
+  display: flex;
+  flex-direction: row-reverse;
+  color: blue;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
   }
 }
