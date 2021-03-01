@@ -17,6 +17,7 @@ import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 import { TranslationMode } from 'src/app/models/kpis/translationMode';
 import { ErrorService } from 'src/app/services/error.service';
 import { ERROR_TECH_UNAUTHORIZEDMICRO } from 'src/app/models/error/errorTechnical';
+import {isIOS} from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -42,9 +43,12 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
   public interim: string = '';
   public recordMode: boolean = false;
-  public speak: boolean = false;
+  public speaking: boolean = false;
+  public canSend: boolean = false;
   public translationMode: string = TranslationMode.TEXT;
   public languageName: string;
+  public isIOS: boolean = false;
+
   private isMobile: boolean = false;
 
   constructor(
@@ -60,6 +64,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
+    this.isIOS = isIOS()
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
     this.languageName = this.settingsService.user.value.language.languageName;
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
@@ -87,7 +92,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         this.stream();
       }
       this.translationMode = TranslationMode.VOCAL;
-      this.speak = true;
+      this.speaking = true;
     } else {
       this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
       this.errorService.save(ERROR_TECH_UNAUTHORIZEDMICRO);
@@ -105,6 +110,9 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         } else {
           this.rawText = saveText + value.final;
           saveText = this.rawText;
+          this.speaking = false;
+          this.canSend = false;
+          this.exitStream()
         }
       }
     });
@@ -112,13 +120,15 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   public exitStream() {
     this.speechRecognitionService.DestroySpeechObject();
-    this.speak = false;
+    this.speaking = false;
     setTimeout(() => {
       this.send(false);
-    }, 2000);
+    }, 1000);
   }
   public delete(): void {
     this.rawText = '';
+    this.canSend = false;
+    this.speaking = false;
   }
 
   public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
@@ -132,7 +142,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       }
       this.rawText = '';
       this.translationMode = TranslationMode.TEXT;
-      this.speak = false;
+      this.canSend = false;
+      this.speaking = false;
     }
   }
 
@@ -146,7 +157,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   public audioSending(message: string): void {
     this.micro = false;
-    this.speak = false;
+    this.speaking = false;
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
@@ -157,8 +168,18 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   public exitRecord() {
     this.micro = false;
-    this.speak = false;
+    this.speaking = false;
     this.recordMode = false;
+  }
+
+  public displaySendOnClick(){
+    this.canSend = true ;
+  }
+
+  public displaySendOnBlur(){
+    if(this.rawText === undefined || this.rawText === ''){
+      this.canSend = false;
+    }
   }
 
   private async sendToOneDevice(text: string) {
@@ -197,3 +218,5 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     };
   }
 }
+
+
