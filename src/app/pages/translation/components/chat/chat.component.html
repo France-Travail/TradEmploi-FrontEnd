@@ -10,16 +10,16 @@
             <img *ngIf="messageWrapped.message.flag === 'xa'" class="flag-icon" src="assets/images/arab-flag.png" alt="drapeau" />
             <span>&nbsp;Participant</span>
           </div>
-          <div class="fold" *ngIf="messageWrapped.message.text && messageWrapped.message.text.length > 99" (click)="unFold(i)"></div>
+          <!-- <div class="fold" *ngIf="messageWrapped.message.text && messageWrapped.message.text.length > 99" (click)="unFold(i)"></div> -->
         </div>
       </ng-template>
       <ng-template #advisor>
         <div class="bubbleTitle">
           <div>
-            <img src="../../../../../assets/icons/logo-pe.svg" alt="pole emploi" class="logo" />
+            <img src="assets/icons/logo-pe.svg" alt="pole emploi" class="logo" />
             <span>&nbsp;Conseiller Pôle Emploi</span>
           </div>
-          <div class="fold" *ngIf="messageWrapped.message.text && messageWrapped.message.text.length > 99" (click)="unFold(i)"></div>
+          <!-- <div class="fold" *ngIf="messageWrapped.message.text && messageWrapped.message.text.length > 99" (click)="unFold(i)"></div> -->
         </div>
       </ng-template>
       <div *ngIf="messageWrapped.message.text.length > 99; then longText; else shortText"></div>
@@ -32,10 +32,10 @@
         </div>
       </ng-template>
       <ng-template #longText>
-        <div class="messageRaw" [ngStyle]="{ height: messageSelected === i ? '100%' : '1.2em' }">
+        <div class="messageRaw" [ngStyle]="{ height: messageNumberToFold === i ? '100%' : '1.2em' }">
           {{ messageWrapped.message.text }}
         </div>
-        <div class="unfold-icon" (click)="unFold(i)">[{{ foldIcon }}]</div>
+        <div class="unfold-word" (click)="unFold(i)">{{ messageNumberToFold === i ? '[Voir moins]' : '[Voir plus]' }}</div>
         <div class="messageTranslated">
           <bdi>{{ messageWrapped.message.translation }}</bdi>
         </div>

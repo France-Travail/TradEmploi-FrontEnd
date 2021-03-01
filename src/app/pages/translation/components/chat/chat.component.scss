@@ -6,7 +6,6 @@
   text-align: center;
   margin: 10px;
 }
-
 .bubble-area-advisor {
   margin: 20px 10px;
   margin-left: 0;
@@ -14,15 +13,22 @@
   justify-content: space-between;
   align-items: center;
 }
-
 .bubble-area-user {
   @extend .bubble-area-advisor;
   flex-direction: row-reverse;
 }
-
+.advisor,
+.user {
+  max-width: 80%;
+  min-width: 250px;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  font-weight: lighter;
+  // text-align: justify;
+}
 .advisor {
-  // display: flex;
-  // flex-direction: row-reverse;
   background-color: white;
   border: solid 1px $gray74;
   .messageRaw {
@@ -33,19 +39,6 @@
   background-color: $blue-bubble;
   color: white;
 }
-
-.advisor,
-.user {
-  max-width: 80%;
-  min-width: 250px;
-  padding: 10px;
-  // border: solid 1px $gray74;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  font-weight: lighter;
-  // margin-top: 5px;
-}
 .bubbleTitle {
   display: flex;
   font-weight: bolder;
@@ -55,10 +48,7 @@
   }
   margin-bottom: 5px;
 }
-
 .messageTranslated {
-  // border-top: solid thin $gray74;
-  // display: in;
   margin-top: 5px;
   font-size: 14pt;
   font-weight: bolder;
@@ -82,14 +72,14 @@
   }
 }
 
-.fold {
-  @extend .listen;
-  background-image: url('../../../../../assets/icons/bubble-full.svg');
-  &:hover {
-    background-image: url('../../../../../assets/icons/bubble-outline.svg');
-  }
-}
-.unfold-icon {
+// .fold {
+//   @extend .listen;
+//   background-image: url('../../../../../assets/icons/bubble-full.svg');
+//   &:hover {
+//     background-image: url('../../../../../assets/icons/bubble-outline.svg');
+//   }
+// }
+.unfold-word {
   display: flex;
   flex-direction: row-reverse;
   color: blue;
@@ -98,6 +88,3 @@
     cursor: pointer;
   }
 }
-// .extand:hover {
-//   cursor: pointer;
-// }
