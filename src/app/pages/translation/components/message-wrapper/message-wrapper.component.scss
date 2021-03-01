@@ -60,30 +60,20 @@
 
 .actions {
   margin-left:5px;
-  button {
-    padding: 4px;
-    height: 100%;
-    background: $primary-color;
-    color: $white;
-    border: 1px solid $btn-border;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    outline: none;
-    cursor: pointer;
+
+  img {
     width: 40px;
+    height: 100%;
     border-radius: 50%;
-    img {
-      width: 50%;
-      animation: rightToLeftEffect 0.1s;
-    }
-    .img-send {
-      width: 70%;
-      margin-right:5px;
-      margin-top:2px;
-      animation: rightToLeftEffect 0.1s;
-    }
+    padding: 3px;
+    cursor: pointer;
+    background-color: $primary-color;
+    animation: rightToLeftEffect 0.1s;
+  }
+  .img-send {
+    width: 40px;
+    background-color: $primary-color;
+    animation: rightToLeftEffect 0.1s;
   }
 
   .btn-send {

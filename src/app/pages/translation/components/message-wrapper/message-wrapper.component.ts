@@ -111,8 +111,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
           this.rawText = saveText + value.final;
           saveText = this.rawText;
           this.speaking = false;
-          this.canSend = false;
-          this.exitStream()
+          this.canSend = true;
         }
       }
     });
