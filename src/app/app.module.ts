@@ -49,6 +49,7 @@ import { ShowComponent } from './pages/historic/dialogs/show/show.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
+import { RecordComponent } from './pages/translation/components/record/record.component';
 import { ChatComponent } from './pages/translation/components/chat/chat.component';
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
 import { SentryErrorHandler } from './utils/sentry-error-handler';
@@ -81,6 +82,7 @@ import { OnboardingComponent } from './pages/translation/dialogs/onboarding/onbo
     ThanksComponent,
     ConversationComponent,
     MessageWrapperComponent,
+    RecordComponent,
     RateDialogComponent,
     LogoutComponent,
     AuthenticationComponent,

@@ -27,13 +27,12 @@ import {
 
 // Custom Components
 import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
-import { RecordComponent } from './components/record/record.component';
 import { TranslationTitleComponent } from './components/translation-title/translation-title.component';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/navigation/header/header.component';
 import { SidenavComponent } from './components/navigation/sidenav/sidenav.component';
 
-const COMPONENTS = [AudioAnimationComponent, RecordComponent, TranslationTitleComponent, HeaderComponent, SidenavComponent];
+const COMPONENTS = [AudioAnimationComponent, TranslationTitleComponent, HeaderComponent, SidenavComponent];
 
 const MATERIAL_MODULES = [
   MatInputModule,
