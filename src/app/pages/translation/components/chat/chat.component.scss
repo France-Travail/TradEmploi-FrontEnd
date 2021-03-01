@@ -42,9 +42,10 @@
 .bubbleTitle {
   display: flex;
   font-weight: bolder;
-  justify-content: space-between;
+  // justify-content: space-between;
   .logo {
     width: 20px;
+    vertical-align: text-top;
   }
   margin-bottom: 5px;
 }
