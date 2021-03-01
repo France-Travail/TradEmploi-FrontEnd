@@ -10,8 +10,9 @@
   margin: 20px 10px;
   margin-left: 0;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
+  font-size: 13px;
 }
 .bubble-area-user {
   @extend .bubble-area-advisor;
@@ -45,13 +46,12 @@
   // justify-content: space-between;
   .logo {
     width: 20px;
-    vertical-align: text-top;
+    vertical-align: middle;
   }
   margin-bottom: 5px;
 }
 .messageTranslated {
   margin-top: 5px;
-  font-size: 14pt;
   font-weight: bolder;
 }
 .messageRaw {
@@ -67,9 +67,28 @@
   width: 30px;
   height: 30px;
   border: solid grey 0.5px;
+  margin: 0 20px;
   &:hover {
     cursor: pointer;
     background-image: url('../../../../../assets/icons/icon-listen-blue.svg');
+  }
+}
+
+.flag-icon {
+  width: 28px;
+  height: 18px;
+  background-size: cover;
+  vertical-align: middle;
+  border-radius: 10%;
+}
+
+.unfold-word {
+  display: flex;
+  flex-direction: row-reverse;
+  color: blue;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -80,12 +99,3 @@
 //     background-image: url('../../../../../assets/icons/bubble-outline.svg');
 //   }
 // }
-.unfold-word {
-  display: flex;
-  flex-direction: row-reverse;
-  color: blue;
-  text-decoration: underline;
-  &:hover {
-    cursor: pointer;
-  }
-}
