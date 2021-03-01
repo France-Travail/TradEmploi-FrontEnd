@@ -35,13 +35,16 @@
         <div class="messageRaw" [ngStyle]="{ height: messageNumberToFold === i ? '100%' : '1.2em' }">
           {{ messageWrapped.message.text }}
         </div>
-        <div *ngIf="messageWrapped.message && messageWrapped.message.role === 'DE'; then foldEN; else foldFR"></div>
+        <div class="unfold-word" (click)="unFold(i)">
+          {{ messageNumberToFold === i ? selectFoldWording(messageWrapped.message, true) : selectFoldWording(messageWrapped.message, false) }}
+        </div>
+        <!-- <div *ngIf="messageWrapped.message && messageWrapped.message.role === 'DE'; then foldEN; else foldFR"></div>
         <ng-template #foldEN>
           <div class="unfold-word" (click)="unFold(i)">{{ messageNumberToFold === i ? '[See less]' : '[See more]' }}</div>
         </ng-template>
         <ng-template #foldFR>
           <div class="unfold-word" (click)="unFold(i)">{{ messageNumberToFold === i ? '[Voir moins]' : '[Voir plus]' }}</div>
-        </ng-template>
+        </ng-template> -->
         <div class="messageTranslated">
           <bdi>{{ messageWrapped.message.translation }}</bdi>
         </div>

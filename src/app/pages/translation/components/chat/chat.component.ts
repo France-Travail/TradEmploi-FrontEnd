@@ -21,4 +21,12 @@ export class ChatComponent {
   public unFold(messageIndex: number) {
     messageIndex === this.messageNumberToFold ? (this.messageNumberToFold = -1) : (this.messageNumberToFold = messageIndex);
   }
+
+  public selectFoldWording(message: Message, fold: boolean) {
+    if (fold) {
+      return message.role === 'DE' ? '[See less]' : '[Voir moins]';
+    } else {
+      return message.role === 'DE' ? '[See more]' : '[Voir plus]';
+    }
+  }
 }
