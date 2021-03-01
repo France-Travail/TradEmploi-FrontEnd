@@ -24,8 +24,8 @@
   textarea {
     width: 100%;
     color: $black;
-    font-size: 18px;
-    padding: 0 10px;
+    font-size: 15px;
+    padding: 5px 10px;
     height: 30px;
     border: none;
     outline: none;
@@ -52,7 +52,6 @@
   .flag-icon {
     width: 25px;
     height: 70%;
-    border: 1px solid $gray74;
     box-sizing: border-box;
     border-radius: 5px;
     background-size: cover;

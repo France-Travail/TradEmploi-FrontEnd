@@ -25,13 +25,12 @@ import {isIOS} from 'src/app/utils/utils';
   styleUrls: ['./message-wrapper.component.scss'],
 })
 export class MessageWrapperComponent implements OnInit, OnChanges {
-  @Input() title: string;
   @Input() role: string;
   @Input() originText: string;
 
   @Output() messagesToEmit = new EventEmitter<MessageWrapped>();
 
-  public rawText: string;
+  public rawText: string = '';
   public sendBtnValue: string;
   public flag: string;
   public languageOrigin: string;
@@ -69,7 +68,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.languageName = this.settingsService.user.value.language.languageName;
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
     const data = isLanguageExist || this.role === Role.ADVISOR ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
-    this.title = data.sentences.translationH2;
+    const translationPlaceHolderIos = this.role === Role.ADVISOR ? data.sentences.translationH2Ios: VOCABULARY_DEFAULT.sentences.translationH2Ios
+    this.interim = this.isIOS ? translationPlaceHolderIos: data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
     this.flag = data.isoCode.split('-')[1].toLowerCase();
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {

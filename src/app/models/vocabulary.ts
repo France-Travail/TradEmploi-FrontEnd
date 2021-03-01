@@ -33,6 +33,7 @@ export interface Sentence {
   choice?: Choice;
   tooltip?: Tooltip;
   introMessage?: IntroMessage;
+  translationH2Ios?: string;
 }
 export interface Tooltip {
   pronounce: string;
