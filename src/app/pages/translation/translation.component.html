@@ -3,13 +3,15 @@
     <ul class="option">
       <li *ngIf="!isGuest">
         <ng-template [ngIf]="isMultiDevices">
-          <span class="roomId">{{ roomId }}</span> 
+          <span class="roomId">{{ roomId }}</span>
           <button class="share-btn" (click)="share()">INVITER</button>
         </ng-template>
         <button class="end-btn" (click)="closeConversation()">TERMINER LA CONVERSATION</button>
       </li>
       <li>
-        <mat-slide-toggle class="auto-listen-btn" (click)="switchAudio()" checked labelPosition="before" color="primary">{{ autoListenValue }}</mat-slide-toggle>
+        <mat-slide-toggle class="auto-listen-btn" checked="{{ !isMultiDevices || isAudioSupported }}" disabled="{{ this.isGuest && !isAudioSupported }}" (click)="switchAudio()" labelPosition="before" color="primary">{{
+          autoListenValue
+        }}</mat-slide-toggle>
       </li>
     </ul>
   </header>

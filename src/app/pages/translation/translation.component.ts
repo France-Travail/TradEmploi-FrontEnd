@@ -45,7 +45,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private user: User;
   private endIdDialogRef: MatDialogRef<any, any>;
   private support: Support;
-  private isAudioSupported = false;
+  public isAudioSupported = false;
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -72,9 +72,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
           this.roomId = user.roomId;
           this.initMultiDevices(user.roomId);
         }
-        if (this.isGuest) {
-          this.autoListenValue = 'Listen automatically';
-        }
         this.user = user;
       }
     });
@@ -86,10 +83,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   ngOnInit(): void {
     this.navbarService.handleTabsTranslation();
     const language = VOCABULARY.find((i) => i.isoCode === this.user.language.audio || i.audioCode === this.user.language.audio);
-    this.isAudioSupported = language.sentences.audioSupported;
+    this.isAudioSupported = language.sentences.audioSupported !== undefined;
     this.isAudioPlay = true;
     this.scrollToBottom();
     this.selectStartNotifications();
+    if (this.isGuest) {
+      this.autoListenValue = this.isAudioSupported ? 'Listen automatically' : 'Audio unavailable';
+    }
   }
 
   ngAfterViewChecked() {
@@ -128,7 +128,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private introMessageAdmin(notification: IntroMessage) {
     this.sendNotification({ notification: notification.notifMultiFR, time: Date.now() });
     this.sendNotification({ notification: notification.welcomeFR, time: Date.now() });
-    console.log('ici');
     if (!this.isAudioSupported) {
       this.sendNotification({ notification: notification.voiceavailabilityFR, time: Date.now() });
     }
@@ -246,7 +245,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         mw = mw.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
       }
       if (mw.length > 0) {
-        if ([2, 3].includes(this.messagesWrapped.length)) {
+        const notifLength = this.isAudioSupported ? 2 : 3;
+        if (this.messagesWrapped.length === notifLength) {
           mw.forEach((m: MessageWrapped) => {
             m = this.cryptService.decryptWrapped(m, roomId);
             this.addToChat(m);
