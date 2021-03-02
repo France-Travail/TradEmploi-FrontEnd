@@ -53,7 +53,11 @@ html {
   color: #4171da;
   font-size: 14px;
 }
-
+.listen-icon {
+  height: 14pt;
+  vertical-align: middle;
+  margin-right: 8px;
+}
 .main {
   overflow-y: auto;
   overflow-x: hidden;
@@ -94,8 +98,8 @@ html {
 }
 
 @media screen and (max-width: 320px) {
-  .roomId{
-    font-size:10px;
+  .roomId {
+    font-size: 10px;
   }
   %option-btn {
     font-size: 7px;
