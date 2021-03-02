@@ -46,6 +46,8 @@ export interface IntroMessage {
   welcomeRAW: string;
   notifMultiFR: string;
   notifMultiRAW: string;
+  voiceavailabilityRAW: string;
+  voiceavailabilityFR: string;
 }
 export interface Choice {
   mostBtn: string;

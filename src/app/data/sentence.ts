@@ -171,6 +171,8 @@ export const ENGLISH: Sentence = {
     welcomeRAW: 'To improve the translation experience, make short and simple sentences and speak loudly.',
     notifMultiFR: 'L’espace de conversation a été créé en modalité multi-support.',
     notifMultiRAW: "You've joined the conversation.",
+    voiceavailabilityFR: 'Saisie vocale indisponible pour la langue sélectionnée',
+    voiceavailabilityRAW: 'Voice input is unavailable for this language',
   },
 };
 
@@ -354,7 +356,8 @@ export const BENGALI: Sentence = {
 };
 
 export const BENGALI_INDIA: Sentence = {
-  ...BENGALI , audioSupported: true
+  ...BENGALI,
+  audioSupported: true,
 };
 
 export const DARI: Sentence = {
