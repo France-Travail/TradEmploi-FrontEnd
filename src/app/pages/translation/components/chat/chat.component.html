@@ -10,7 +10,6 @@
             <img *ngIf="messageWrapped.message.flag === 'xa'" class="flag-icon" src="assets/images/arab-flag.png" alt="drapeau" />
             <span>&nbsp;Participant</span>
           </div>
-          <!-- <div class="fold" *ngIf="messageWrapped.message.text && messageWrapped.message.text.length > 99" (click)="unFold(i)"></div> -->
         </div>
       </ng-template>
       <ng-template #advisor>
@@ -19,7 +18,6 @@
             <img src="assets/icons/logo-pe.svg" alt="pole emploi" class="logo" />
             <span>&nbsp;Conseiller Pôle Emploi</span>
           </div>
-          <!-- <div class="fold" *ngIf="messageWrapped.message.text && messageWrapped.message.text.length > 99" (click)="unFold(i)"></div> -->
         </div>
       </ng-template>
       <div *ngIf="messageWrapped.message.text.length > 99; then longText; else shortText"></div>
@@ -35,7 +33,16 @@
         <div class="messageRaw" [ngStyle]="{ height: messageNumberToFold === i ? '100%' : '1.2em' }">
           {{ messageWrapped.message.text }}
         </div>
-        <div class="unfold-word" (click)="unFold(i)">{{ messageNumberToFold === i ? '[Voir moins]' : '[Voir plus]' }}</div>
+        <div class="unfold-word" (click)="unFold(i)">
+          {{ messageNumberToFold === i ? foldMessage(messageWrapped.message) : unFoldMessage(messageWrapped.message) }}
+        </div>
+        <!-- <div *ngIf="messageWrapped.message && messageWrapped.message.role === 'DE'; then foldEN; else foldFR"></div>
+        <ng-template #foldEN>
+          <div class="unfold-word" (click)="unFold(i)">{{ messageNumberToFold === i ? '[See less]' : '[See more]' }}</div>
+        </ng-template>
+        <ng-template #foldFR>
+          <div class="unfold-word" (click)="unFold(i)">{{ messageNumberToFold === i ? '[Voir moins]' : '[Voir plus]' }}</div>
+        </ng-template> -->
         <div class="messageTranslated">
           <bdi>{{ messageWrapped.message.translation }}</bdi>
         </div>
