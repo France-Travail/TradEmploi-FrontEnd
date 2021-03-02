@@ -9,7 +9,6 @@
         <button class="end-btn" (click)="closeConversation()">TERMINER LA CONVERSATION</button>
       </li>
       <li>
-        <!-- <img class="listen-icon" src="../../../assets/icons/icon-listen-blue.svg" /> -->
         <img class="listen-icon" src="{{ this.isGuest && !isAudioSupported ? 'assets/icons/icon-listen-blue-low-opacity.svg' : 'assets/icons/icon-listen-blue.svg' }}" />
         <mat-slide-toggle
           class="auto-listen-btn"
