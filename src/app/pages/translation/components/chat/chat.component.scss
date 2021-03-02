@@ -10,7 +10,6 @@
   margin: 20px 10px;
   margin-left: 0;
   display: flex;
-  // justify-content: space-between;
   align-items: center;
   font-size: 13px;
 }
@@ -20,14 +19,13 @@
 }
 .advisor,
 .user {
+  display: flex;
+  flex-direction: column;
   max-width: 80%;
   min-width: 250px;
   padding: 10px;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
   font-weight: lighter;
-  // text-align: justify;
 }
 .advisor {
   background-color: white;
@@ -39,11 +37,13 @@
 .user {
   background-color: $blue-bubble;
   color: white;
+  .unfold-word {
+    color: black;
+  }
 }
 .bubbleTitle {
   display: flex;
   font-weight: bolder;
-  // justify-content: space-between;
   .logo {
     width: 20px;
     vertical-align: middle;
@@ -53,6 +53,7 @@
 .messageTranslated {
   margin-top: 5px;
   font-weight: bolder;
+  font-size: 12pt;
 }
 .messageRaw {
   overflow: hidden;
@@ -73,7 +74,6 @@
     background-image: url('../../../../../assets/icons/icon-listen-blue.svg');
   }
 }
-
 .flag-icon {
   width: 28px;
   height: 18px;
@@ -81,7 +81,6 @@
   vertical-align: middle;
   border-radius: 10%;
 }
-
 .unfold-word {
   display: flex;
   flex-direction: row-reverse;
@@ -91,11 +90,3 @@
     cursor: pointer;
   }
 }
-
-// .fold {
-//   @extend .listen;
-//   background-image: url('../../../../../assets/icons/bubble-full.svg');
-//   &:hover {
-//     background-image: url('../../../../../assets/icons/bubble-outline.svg');
-//   }
-// }

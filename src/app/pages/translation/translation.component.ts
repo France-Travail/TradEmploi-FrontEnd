@@ -69,11 +69,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.chatService.messagesStored = [];
         this.support = this.chatService.support;
         if (this.isMultiDevices) {
-          this.roomId = user.roomId
+          this.roomId = user.roomId;
           this.initMultiDevices(user.roomId);
         }
-        if(this.isGuest){
-          this.autoListenValue = "Listen automatically"
+        if (this.isGuest) {
+          this.autoListenValue = 'Listen automatically';
         }
         this.user = user;
       }
