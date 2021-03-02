@@ -36,7 +36,7 @@
           {{ messageWrapped.message.text }}
         </div>
         <div class="unfold-word" (click)="unFold(i)">
-          {{ messageNumberToFold === i ? selectFoldWording(messageWrapped.message, true) : selectFoldWording(messageWrapped.message, false) }}
+          {{ messageNumberToFold === i ? foldMessage(messageWrapped.message) : unFoldMessage(messageWrapped.message) }}
         </div>
         <!-- <div *ngIf="messageWrapped.message && messageWrapped.message.role === 'DE'; then foldEN; else foldFR"></div>
         <ng-template #foldEN>

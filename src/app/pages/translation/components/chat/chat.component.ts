@@ -22,11 +22,10 @@ export class ChatComponent {
     messageIndex === this.messageNumberToFold ? (this.messageNumberToFold = -1) : (this.messageNumberToFold = messageIndex);
   }
 
-  public selectFoldWording(message: Message, fold: boolean) {
-    if (fold) {
-      return message.role === 'DE' ? '[See less]' : '[Voir moins]';
-    } else {
-      return message.role === 'DE' ? '[See more]' : '[Voir plus]';
-    }
+  public foldMessage(message: Message, fold: boolean) {
+    return message.role === 'DE' ? '[See more]' : '[Voir plus]';
+  }
+  public unFoldMessage(message: Message) {
+    return message.role === 'DE' ? '[See less]' : '[Voir moins]';
   }
 }
