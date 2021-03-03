@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="actions">
-      <img src="assets/icons/icon-send-white.svg" alt="Envoyer" (click)="sendSpeech()" />
+      <img [ngClass]="{'action-click': canSend, 'action-no-click': !canSend}" [ngStyle]="{ backgroundColor: seconds < 48 ? '#135DFE' : '#b4cafc' }" src="assets/icons/icon-send-white.svg" alt="Envoyer" (click)="sendSpeech()" />
   </div>
 </div>
 

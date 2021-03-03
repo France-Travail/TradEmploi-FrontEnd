@@ -14,9 +14,10 @@
   margin: auto;
 }
 
-.actions{
-  button{
-    background-color:transparent;
-    border: 0px;
-  }
+.action-click{
+    pointer-events:auto;
+}
+
+.action-no-click{
+    pointer-events:none;
 }
