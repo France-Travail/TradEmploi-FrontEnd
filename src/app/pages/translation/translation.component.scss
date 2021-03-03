@@ -65,6 +65,7 @@ html {
   width: 50vw;
   height: 50vh;
   margin: auto;
+
   &::-webkit-scrollbar {
     width: 5px;
     background-color: #e0e0e0;
@@ -85,6 +86,10 @@ html {
   .main,
   .footer {
     width: 100%;
+  }
+
+  .wrapper {
+    padding: 0 5%;
   }
   .roomId {
     font-size: 12px;
