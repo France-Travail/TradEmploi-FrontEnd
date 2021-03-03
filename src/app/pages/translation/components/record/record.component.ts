@@ -67,11 +67,8 @@ export class RecordComponent implements OnInit {
         this.seconds--;
         time = 0;
       }
-      console.log('this.canSend :>> ', this.canSend);
       if (this.seconds < 48) {
         this.canSend = true;
-        
-        console.log("entre",this.canSend);
       }
       if (this.width > 100) {
         this.width = 100;

@@ -40,12 +40,14 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   public isGuest: boolean = false;
   public isMultiDevices: boolean = false;
   public roomId: string;
+  public isAudioSupported = false;
 
   private isAudioPlay: boolean;
   private user: User;
   private endIdDialogRef: MatDialogRef<any, any>;
   private support: Support;
-  public isAudioSupported = false;
+  private vocalSupported = false;
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -84,6 +86,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.navbarService.handleTabsTranslation();
     const language = VOCABULARY.find((i) => i.isoCode === this.user.language.audio || i.audioCode === this.user.language.audio);
     this.isAudioSupported = language.sentences.audioSupported !== undefined;
+    this.vocalSupported = language.sentences.voiceNotSupported === undefined;
     this.isAudioPlay = true;
     this.scrollToBottom();
     this.selectStartNotifications();
@@ -111,7 +114,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     } else {
       this.sendNotification({ notification: introMessage.welcomeFR, time: Date.now() });
       this.sendNotification({ notification: introMessage.welcomeRAW, time: Date.now() });
-      if (!this.isAudioSupported) {
+      if (!this.vocalSupported) {
         this.sendNotification({ notification: introMessage.voiceavailabilityFR, time: Date.now() });
         this.sendNotification({ notification: introMessage.voiceavailabilityRAW, time: Date.now() });
       }
@@ -121,14 +124,14 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private introMessageGuest(notification: IntroMessage) {
     this.sendNotification({ notification: notification.notifMultiRAW, time: Date.now() });
     this.sendNotification({ notification: notification.welcomeRAW, time: Date.now() });
-    if (!this.isAudioSupported) {
+    if (!this.vocalSupported) {
       this.sendNotification({ notification: notification.voiceavailabilityRAW, time: Date.now() });
     }
   }
   private introMessageAdmin(notification: IntroMessage) {
     this.sendNotification({ notification: notification.notifMultiFR, time: Date.now() });
     this.sendNotification({ notification: notification.welcomeFR, time: Date.now() });
-    if (!this.isAudioSupported) {
+    if (!this.vocalSupported) {
       this.sendNotification({ notification: notification.voiceavailabilityFR, time: Date.now() });
     }
   }

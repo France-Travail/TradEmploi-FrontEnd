@@ -47,6 +47,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public translationMode: string = TranslationMode.TEXT;
   public languageName: string;
   public isIOS: boolean = false;
+  public voiceNotSupported:boolean = false
 
   private isMobile: boolean = false;
 
@@ -71,6 +72,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     const translationPlaceHolderIos = this.role === Role.ADVISOR ? data.sentences.translationH2Ios: VOCABULARY_DEFAULT.sentences.translationH2Ios
     this.interim = this.isIOS ? translationPlaceHolderIos: data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
+    this.voiceNotSupported = data.sentences.voiceNotSupported ? data.sentences.voiceNotSupported : false;
     this.flag = data.isoCode.split('-')[1].toLowerCase();
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
@@ -110,6 +112,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         } else {
           this.rawText = saveText + value.final;
           saveText = this.rawText;
+          this.speechRecognitionService.DestroySpeechObject();
           this.speaking = false;
           this.canSend = true;
         }

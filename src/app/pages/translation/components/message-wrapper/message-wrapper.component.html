@@ -16,10 +16,10 @@
       </div>
     </div>
     <div class="actions" *ngIf="!micro || !recordMode">
-        <ng-template [ngIf]="isIOS">
+        <ng-template [ngIf]="isIOS || voiceNotSupported">
           <img class="img-send"  src="./assets/icons/icon-send-white.svg" alt="send text"  (click)="send(false)"/>
         </ng-template>
-        <ng-template [ngIf]="!isIOS">
+        <ng-template [ngIf]="!isIOS && !voiceNotSupported">
           <img *ngIf="canSend" class="img-send"  src="./assets/icons/icon-send-white.svg" alt="send text"  (click)="send(false)"/>
           <ng-template [ngIf]="!canSend">
             <img *ngIf="!speaking" src="./assets/icons/icon-micro-white.svg" alt="activate micro" (click)="talk()" />
