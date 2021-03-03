@@ -23,9 +23,9 @@ export class ChatComponent {
   }
 
   public foldMessage(message: Message, fold: boolean) {
-    return message.role === 'DE' ? '[See more]' : '[Voir plus]';
+    return message.role === 'DE' ? '[See less]' : '[Voir moins]';
   }
   public unFoldMessage(message: Message) {
-    return message.role === 'DE' ? '[See less]' : '[Voir moins]';
+    return message.role === 'DE' ? '[See more]' : '[Voir plus]';
   }
 }

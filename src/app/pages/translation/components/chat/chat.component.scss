@@ -38,7 +38,7 @@
   background-color: $blue-bubble;
   color: white;
   .unfold-word {
-    color: black;
+    color: white;
   }
 }
 .bubbleTitle {
@@ -46,6 +46,7 @@
   font-weight: bolder;
   .logo {
     width: 20px;
+    height: 15px;
     vertical-align: middle;
   }
   margin-bottom: 5px;
@@ -54,6 +55,7 @@
   margin-top: 5px;
   font-weight: bolder;
   font-size: 12pt;
+  word-wrap: break-word; 
 }
 .messageRaw {
   overflow: hidden;
@@ -75,8 +77,8 @@
   }
 }
 .flag-icon {
-  width: 28px;
-  height: 18px;
+  width: 20px;
+  height: 15px;
   background-size: cover;
   vertical-align: middle;
   border-radius: 10%;
