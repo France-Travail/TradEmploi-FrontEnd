@@ -291,10 +291,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.textToSpeechService
         .getSpeech(translate, languageTarget)
         .then((_) => {
-          if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
-            this.textToSpeechService.audioSpeech.play();
+          if(this.textToSpeechService.audioSpeech){
+            if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
+              this.textToSpeechService.audioSpeech.play();
+            }
+            message.audioHtml = this.textToSpeechService.audioSpeech;
           }
-          message.audioHtml = this.textToSpeechService.audioSpeech;
         })
         .catch((_) => {
           this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
