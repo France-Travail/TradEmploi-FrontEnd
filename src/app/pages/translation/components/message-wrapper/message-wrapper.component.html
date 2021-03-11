@@ -17,15 +17,15 @@
     </div>
     <div class="actions" *ngIf="!micro || !recordMode">
         <ng-template [ngIf]="isIOS || voiceNotSupported">
-          <img class="img-send"  src="./assets/icons/icon-send-white.svg" alt="send text"  (click)="send(false)"/>
+          <img src="./assets/icons/icon-send-white.svg" alt="send text"  (click)="send(false)"/>
         </ng-template>
         <ng-template [ngIf]="!isIOS && !voiceNotSupported">
-          <img *ngIf="canSend" class="img-send"  src="./assets/icons/icon-send-white.svg" alt="send text"  (click)="send(false)"/>
+          <img *ngIf="canSend"  src="./assets/icons/icon-send-white.svg" alt="send text"  (click)="send(false)"/>
           <ng-template [ngIf]="!canSend">
             <img *ngIf="!speaking" src="./assets/icons/icon-micro-white.svg" alt="activate micro" (click)="talk()" />
             <img *ngIf="speaking && !recordMode" class="micro-stream"  [ngClass]="{ 'btn-send-disabled': speaking && !recordMode }" src="./assets/icons/icon-micro-red.svg" alt="activate micro" (click)="exitStream()"/>
           </ng-template>
         </ng-template>
     </div>
-    <app-record class="record" *ngIf="recordMode" duration="500000" [role]="role" [language]="languageOrigin" [flag]="flag" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
+    <app-record class="record" *ngIf="recordMode" duration="50" [role]="role" [language]="languageOrigin" [flag]="flag" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
 </div>

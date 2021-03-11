@@ -95,7 +95,6 @@ export class RecordComponent implements OnInit {
     if (this.intervalId !== undefined) {
       this.stopRecord();
     }
-    this.width = 0;
     this.seconds = 0;
     this.start();
   }

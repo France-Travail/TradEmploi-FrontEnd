@@ -5,6 +5,8 @@ import { ErrorService } from './error.service';
 import { ERROR_TECH_TTS } from '../models/error/errorTechnical';
 import { Voice } from '../models/voice';
 import { VoicesService } from './voices.service';
+import { VoiceSingleton } from '../models/voiceSingleton';
+import { VOICES } from '../data/voices';
 
 interface Body {
   audioConfig: {
@@ -37,8 +39,11 @@ export class TextToSpeechService {
 
     getSpeech = async (text: string, language: string): Promise<void> => {
       const urlRecognize: string = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${environment.gcp.apiKey}`;
-      const voices = await this.voicesService.getVoices();
-      const voiceSelected: Voice[] = voices.filter(v => v.languageCodes.includes(language));
+      let voiceSelected: Voice[] = VOICES.filter(v => v.languageCodes.includes(language));
+      if(voiceSelected.length === 0 ){
+        const apiVoiceResult = await this.voicesService.getVoices();
+        voiceSelected = apiVoiceResult.filter(v => v.languageCodes.includes(language));
+      }
       const data: Body = {
         audioConfig: {
           audioEncoding: 'MP3',

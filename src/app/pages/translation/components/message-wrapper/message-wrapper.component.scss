@@ -55,23 +55,18 @@
     box-sizing: border-box;
     border-radius: 5px;
     background-size: cover;
+    
   }
 }
 
 .actions {
   margin-left:5px;
-
   img {
     width: 35px;
     height: 85%;
     border-radius: 50%;
     margin-top: 3px;
     cursor: pointer;
-    background-color: $primary-color;
-    animation: rightToLeftEffect 0.1s;
-  }
-  .img-send {
-    width: 35px;
     background-color: $primary-color;
     animation: rightToLeftEffect 0.1s;
   }

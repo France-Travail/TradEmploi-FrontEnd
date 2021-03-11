@@ -79,9 +79,10 @@
 .flag-icon {
   width: 20px;
   height: 15px;
-  background-size: cover;
   vertical-align: middle;
-  border-radius: 10%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-size: cover;
 }
 .unfold-word {
   display: flex;
