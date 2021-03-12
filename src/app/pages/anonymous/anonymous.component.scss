@@ -5,3 +5,10 @@
     font-weight: bold;
 }
 
+@media screen and (max-width: 576px) {
+    .title{
+        img{
+            width: 30%;
+        }
+    }
+}
