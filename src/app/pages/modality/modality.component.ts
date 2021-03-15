@@ -62,7 +62,12 @@ export class ModalityComponent implements OnInit {
 
   private initChat() {
     const advisorRole: Role = this.settingsService.user.value.role;
-    this.chatService.messagesStored.length > 0 ? this.initChatMonoMulti(advisorRole) : this.chatService.initChatMulti(this.roomId, advisorRole);
+    // this.chatService.messagesStored.length > 0 ? this.initChatMonoMulti(advisorRole) : this.chatService.initChatMulti(this.roomId, advisorRole);
+    if(this.chatService.messagesStored.length > 0 ){
+      this.chatService.initChatMono(this.roomId, advisorRole)
+    }
+    this.chatService.messagesStored = [];
+    this.chatService.initChatMulti(this.roomId, advisorRole);
   }
 
   private initChatMonoMulti(advisorRole: Role) {

@@ -24,6 +24,7 @@ import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ENGLISH } from 'src/app/data/sentence';
 import { IntroMessage } from 'src/app/models/vocabulary';
 import { ShareComponent } from './dialogs/share/share.component';
+import { MessageSingleton } from 'src/app/models/MessageSingleton';
 
 @Component({
   selector: 'app-translation',
@@ -168,7 +169,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private addMessageToChat(message: Message) {
     const hasDot = new RegExp('^[ .s]+$').test(message.text);
     if (message.text !== '' && !hasDot) {
-      this.translateMessage(message);
+      const messageSingleton = MessageSingleton.getInstance();
+      if(messageSingleton.getMessage() === null || messageSingleton.getMessage().date !== message.date){
+        this.translateMessage(message);
+        messageSingleton.setMessage(message)
+      }else{
+        this.sendMessage(messageSingleton.getMessage());
+      }
     } else {
       if (!hasDot) {
         this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
@@ -304,6 +311,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
     this.textToSpeechService.audioSpeech = undefined;
     this.sendMessage(message);
+  }
+
+  private playAudio(time){
+    if (time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
+      this.textToSpeechService.audioSpeech.play();
+    }
   }
 
   private sendMessage(message: Message) {
