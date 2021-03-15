@@ -5,7 +5,6 @@ import { ErrorService } from './error.service';
 import { ERROR_TECH_TTS } from '../models/error/errorTechnical';
 import { Voice } from '../models/voice';
 import { VoicesService } from './voices.service';
-import { VoiceSingleton } from '../models/voiceSingleton';
 import { VOICES } from '../data/voices';
 
 interface Body {
