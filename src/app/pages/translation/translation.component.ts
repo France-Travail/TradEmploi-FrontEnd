@@ -313,12 +313,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.sendMessage(message);
   }
 
-  private playAudio(time){
-    if (time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
-      this.textToSpeechService.audioSpeech.play();
-    }
-  }
-
   private sendMessage(message: Message) {
     const isSender: boolean = this.isSender(message.member);
     const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
