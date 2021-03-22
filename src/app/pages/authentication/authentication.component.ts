@@ -1,3 +1,4 @@
+import { TokenBrokerService } from './../../services/token-broker.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
@@ -7,7 +8,6 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { Role } from 'src/app/models/role';
 import { ChatService } from 'src/app/services/chat.service';
 import { ERROR_TECH_DB } from 'src/app/models/error/errorTechnical';
-
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
@@ -22,7 +22,8 @@ export class AuthenticationComponent implements OnInit {
     private chatService: ChatService,
     private router: Router,
     private fb: FormBuilder,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private tbs: TokenBrokerService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
@@ -62,6 +63,7 @@ export class AuthenticationComponent implements OnInit {
 
   public async onSubmit(): Promise<void> {
     try {
+      this.tbs.getFbToken(this.email.value,this.password.value)
       const auth = await this.authService.login(this.email.value, this.password.value);
       const role = this.form.get('email').value === 'admin@pe.fr' ? Role.ADMIN : Role.ADVISOR;
       const roomId = this.chatService.getRoomId();
