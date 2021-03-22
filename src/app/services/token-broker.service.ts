@@ -43,27 +43,29 @@ export class TokenBrokerService {
   public getTokenAdmin(firebaseToken: string) {
     const jwtGwSingleton = JwtGwSingleton.getInstance()
     const jwtGcpSingleton = JwtGcpSingleton.getInstance()
-    if(jwtGwSingleton.getToken()=== null || jwtGwSingleton.getToken().expireTime.isAfter(moment())){
-      const url = `${environment.gcp.gateWayUrl}/token`;
-      return axios({
-        method: 'POST',
-        headers: { Authorization: `Bearer ${firebaseToken}` },
-        url,
-      })
-        .then((response) => {
-          const data = response.data
-          const expiryDateGW: Moment =  moment().add(data.apiGateway.expireTime, 'seconds')
-          const tokenGW = {token:  data.apiGateway.token, expireTime:  expiryDateGW}
-          jwtGwSingleton.setToken(tokenGW)
- 
-          const expiryDateGCP: Moment =  moment().add(data.gcp.expireTime.seconds, 'seconds')
-          const tokenGCP = {token:  data.gcp.token, expireTime:  expiryDateGCP}
-          jwtGcpSingleton.setToken(tokenGCP)
-        })
-        .catch((error) => {
-          throw new Error(error);
-        });
+    const hasJwtGwOnTime = jwtGwSingleton.getToken() !== null && jwtGwSingleton.getToken().expireTime.isAfter(moment())
+    const hasJwtGcpOnTime = jwtGcpSingleton.getToken() !== null && jwtGcpSingleton.getToken().expireTime.isAfter(moment())
+    if(hasJwtGwOnTime || hasJwtGcpOnTime){
+      return
     }
+    const url = `${environment.gcp.gateWayUrl}/token`;
+    return axios({
+      method: 'POST',
+      headers: { Authorization: `Bearer ${firebaseToken}` },
+      url,
+    })
+      .then((response) => {
+        const data = response.data
+        const expiryDateGW: Moment =  moment().add(data.apiGateway.expireTime, 'seconds')
+        const tokenGW = {token:  data.apiGateway.token, expireTime:  expiryDateGW}
+        jwtGwSingleton.setToken(tokenGW)
+        const expiryDateGCP: Moment =  moment().add(data.gcp.expireTime.seconds, 'seconds')
+        const tokenGCP = {token:  data.gcp.token, expireTime:  expiryDateGCP}
+        jwtGcpSingleton.setToken(tokenGCP)
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
   }
 
   public getTokenGuest(firebaseToken: string, roomId: string) {
