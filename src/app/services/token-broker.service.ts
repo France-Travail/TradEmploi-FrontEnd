@@ -31,7 +31,7 @@ export class TokenBrokerService {
       data,
     })
       .then((response) => {
-        const expiryDate: Moment =  moment().add(response.data.expiresIn, 'milliseconds')
+        const expiryDate: Moment =  moment().add(response.data.expiresIn, 'seconds')
         const token:Token = {token: response.data.idToken, expireTime :  expiryDate}
         jwtFbSingleton.setToken(token)
       })
