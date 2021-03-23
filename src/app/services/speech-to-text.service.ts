@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { TokenResponse } from '../models/token/tokensResponse';
+import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
+import { TokenBrokerService } from './token-broker.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SpeechToTextService {
-
-  
-  recognizeAsync = (audioBytes: any, language: string, time: number): Observable<string> => {
-    const urlRecognize: string = `https://speech.googleapis.com/v1/speech:longrunningrecognize?key=${environment.gcp.apiKey}`;
+  constructor(private tbs: TokenBrokerService) {}
+  recognizeAsync = async (audioBytes: any, language: string, time: number): Promise<Observable<string>> => {
+    const tokenResponse: TokenResponse = await this.tbs.getTokenAdmin(JwtFbSingleton.getInstance().getToken().token);
+    const urlRecognize: string = `https://speech.googleapis.com/v1/speech:longrunningrecognize`;
     const data = {
       config: {
         encoding: 'FLAC',
@@ -24,17 +26,17 @@ export class SpeechToTextService {
     return new Observable((observer) => {
       axios({
         method: 'post',
-        headers: { 'content-type': 'application/json; charset=utf-8' },
+        headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
         url: urlRecognize,
         data,
       })
         .then((operation) => {
-          const urlOperation: string = `https://speech.googleapis.com/v1/operations/${operation.data.name}?key=${environment.gcp.apiKey}`;
+          const urlOperation: string = `https://speech.googleapis.com/v1/operations/${operation.data.name}`;
           const wait = this.getWaitTime(time);
           setTimeout(() => {
             axios({
               method: 'get',
-              headers: { 'content-type': 'application/json; charset=utf-8' },
+              headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
               url: urlOperation,
             })
               .then((res) => {
