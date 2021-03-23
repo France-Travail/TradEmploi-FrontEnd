@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { ErrorService } from './error.service';
 import { ERROR_TECH_TRANSLATION } from '../models/error/errorTechnical';
-
 import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
-import { SettingsService } from './settings.service';
-import { Role } from '../models/role';
 import { TokenBrokerService } from './token-broker.service';
 
 import { TokenResponse } from '../models/token/tokensResponse';
@@ -13,10 +10,9 @@ import { TokenResponse } from '../models/token/tokensResponse';
   providedIn: 'root',
 })
 export class TranslateService {
-  constructor(private errorService: ErrorService, private settingsService: SettingsService, private tbs: TokenBrokerService) {}
+  constructor(private errorService: ErrorService, private tbs: TokenBrokerService) {}
 
   public async translate(text: string, lang: string): Promise<string> {
-    // add role handler.
     const tokenResponse: TokenResponse = await this.tbs.getTokenAdmin(JwtFbSingleton.getInstance().getToken().token);
     const url = `https://translation.googleapis.com/language/translate/v2`;
     const data = {

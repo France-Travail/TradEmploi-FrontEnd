@@ -9,7 +9,7 @@ import { Language } from '../models/language';
 })
 export class SettingsService {
   public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-  public recordMode: boolean = false;
+  public recordMode: boolean = true;
   public defaultLanguage: Language = { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' };
   public token: string;
 
@@ -26,7 +26,7 @@ export class SettingsService {
     this.token = null;
     sessionStorage.removeItem('user');
     localStorage.removeItem('user');
-  }
+  };
 }
 
 export const AdvisorDefaultName: string = 'Pôle emploi';

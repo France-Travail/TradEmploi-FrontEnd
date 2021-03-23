@@ -16,15 +16,26 @@ export class AuthService {
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService, private tbs: TokenBrokerService) {}
 
   public login(email: string, password: string): Promise<{ isAuth: boolean; message: string }> {
+    console.log('login .?. ');
     return new Promise(async (resolve, reject) => {
       try {
-        const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-        const token = await auth.user.getIdTokenResult();
-        this.tbs.setFbToken({ token: token.token, expireTime: moment().add(token.authTime, 'seconds') });
-        this.tbs.getTokenAdmin(JwtFbSingleton.getInstance().getToken().token);
-        if (auth.user != null) {
+        const jwtFbSingleton = JwtFbSingleton.getInstance();
+        console.log('🚀 ~ file: auth.service.ts ~ line 23 ~ AuthService ~ returnnewPromise ~ jwtFbSingleton', jwtFbSingleton.getToken());
+        if (jwtFbSingleton.getToken() !== null && jwtFbSingleton.getToken().expireTime.isAfter(moment()) && jwtFbSingleton.getToken().email === email) {
+          console.log("pas d'appel");
           this.setRole();
           resolve({ isAuth: true, message: 'Authentification réussie' });
+        } else {
+          console.log('appel');
+          const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+          const token = await auth.user.getIdTokenResult();
+          JwtFbSingleton.getInstance().setToken({ token: token.token, expireTime: moment(token.expirationTime), email: email });
+          this.tbs.getTokenAdmin(JwtFbSingleton.getInstance().getToken().token);
+          console.log('🚀 ~ file: auth.service.ts ~ line 36 ~ AuthService ~ returnnewPromise ~ token.authTime', token.authTime);
+          if (auth.user != null) {
+            this.setRole();
+            resolve({ isAuth: true, message: 'Authentification réussie' });
+          }
         }
       } catch (error) {
         reject({ isAuth: false, message: error.message });

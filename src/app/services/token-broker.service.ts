@@ -13,35 +13,7 @@ import { TokenResponse } from '../models/token/tokensResponse';
   providedIn: 'root',
 })
 export class TokenBrokerService {
-  // public async getFbToken(email: string, password?: string) {
-  //   const jwtFbSingleton = JwtFbSingleton.getInstance();
-  //   if (jwtFbSingleton.getToken() !== null && jwtFbSingleton.getToken().expireTime.isAfter(moment())) {
-  //     return;
-  //   }
-  //   const url = `${environment.gcp.identityUrlToken}?key=${environment.firebaseConfig.apiKey}`;
-  //   const data = {
-  //     email: email,
-  //     password: password,
-  //     returnSecureToken: true,
-  //   };
-  //   axios({
-  //     method: 'POST',
-  //     headers: { 'content-type': 'application/json; charset=utf-8' },
-  //     url,
-  //     data,
-  //   })
-  //     .then((response) => {
-  //       const expiryDate: Moment = moment().add(response.data.expiresIn, 'milliseconds');
-  //       const token: Token = { token: response.data.idToken, expireTime: expiryDate };
-  //       jwtFbSingleton.setToken(token);
-  //     })
-  //     .catch((error) => {
-  //       throw new Error(error);
-  //     });
-  // }
-  public setFbToken(token: Token) {
-    JwtFbSingleton.getInstance().setToken(token);
-  }
+ 
   public async getTokenAdmin(firebaseToken: string): Promise<TokenResponse> {
     const jwtGwSingleton = JwtGwSingleton.getInstance();
     const jwtGcpSingleton = JwtGcpSingleton.getInstance();

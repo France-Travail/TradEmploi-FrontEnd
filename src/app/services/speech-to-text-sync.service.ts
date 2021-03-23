@@ -14,10 +14,9 @@ export class SpeechToTextSyncService {
   constructor(private errorService: ErrorService, private tbs: TokenBrokerService) {}
 
   recognizeSync = async (audioBytes: any, language: string): Promise<string> => {
-    // add role handler.
     const tokenResponse: TokenResponse = await this.tbs.getTokenAdmin(JwtFbSingleton.getInstance().getToken().token);
     if (audioBytes !== null || audioBytes !== undefined) {
-      const urlRecognize: string = `https://speech.googleapis.com/v1/speech:recognize?key=${environment.gcp.apiKey}`;
+      const urlRecognize: string = `https://speech.googleapis.com/v1/speech:recognize`;
       const data = {
         config: {
           encoding: 'FLAC',
