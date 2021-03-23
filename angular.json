@@ -93,6 +93,14 @@
                 }
               ]
             },
+            "audit": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.audit.ts"
+                }
+              ]
+            },
             "prod": {
               "fileReplacements": [
                 {
