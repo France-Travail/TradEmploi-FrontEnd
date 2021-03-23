@@ -12,6 +12,8 @@ import { Device } from '../models/kpis/device';
 import { AdvisorDefaultName, GuestDefaultName } from './settings.service';
 import { ErrorService } from './error.service';
 import { ERROR_FUNC_UNKNOWCHAT } from '../models/error/errorFunctionnal';
+import { AngularFirestore } from '@angular/fire/firestore';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +24,7 @@ export class ChatService {
   public support: Support = Support.MONODEVICE;
   private device: Device;
 
-  constructor(private db: AngularFireDatabase, private cryptService: CryptService, private deviceService: DeviceService, private errorService: ErrorService) {
+  constructor(private db2: AngularFirestore, private db: AngularFireDatabase, private cryptService: CryptService, private deviceService: DeviceService, private errorService: ErrorService) {
     this.device = this.deviceService.getUserDevice();
   }
 
@@ -45,6 +47,7 @@ export class ChatService {
     this.support = Support.MULTIDEVICE;
     const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
     const chatCreateDto: InitChatDto = { members: [advisor] };
+    console.log("initChatMulti");
     return this.create(roomId, chatCreateDto);
   }
 
@@ -65,35 +68,33 @@ export class ChatService {
   }
 
   hasRoom(roomId: string): Observable<boolean> {
+    console.log("hasRoom");
     return new Observable((observer) => {
-      this.db
-        .list<Chat>(`chats/${roomId}`)
+      this.db2
+        .doc(`chats/${roomId}`)
         .valueChanges()
         .subscribe((chats) => {
-          observer.next(chats.length > 0);
+          console.log('chats :>> ', chats);
+          observer.next(chats !=null);
           observer.complete();
         });
     });
   }
 
-  getMessagesWrapped(roomId: string): Observable<Array<MessageWrapped>> {
-    return this.db.list(`chats/${roomId}/messages`).valueChanges() as Observable<Array<MessageWrapped>>;
-  }
-
-  getMonoToMultiTime(roomId: string): Observable<number> {
-    return this.db.object(`chats/${roomId}/monoToMultiTime`).valueChanges() as Observable<number>;
-  }
+  // getMessagesWrapped(roomId: string): Observable<Array<MessageWrapped>> {
+  //   return this.db2.doc(`chats/${roomId}`).valueChanges() as Observable<Array<MessageWrapped>>;
+  // }
 
   sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
     messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
-    const itemsRef = this.db.list(`chats/${roomId}/messages`);
-    itemsRef.set(messageWrapped.time.toString(), messageWrapped);
+    const itemsRef = this.db2.doc(`chats/${roomId}`);
+    itemsRef.update({messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
     return messageWrapped.time.toString();
   }
 
   addMember(roomId: string, newMember: Member): string {
-    const itemsRef = this.db.list(`chats/${roomId}/members`);
-    itemsRef.set(Date.now().toString(), newMember);
+    const itemsRef = this.db2.doc(`chats/${roomId}`);
+    itemsRef.update({members: firebase.firestore.FieldValue.arrayUnion(newMember)});
     if (newMember.role === Role.GUEST) {
       const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
       return this.sendMessageWrapped(roomId, messageWrapped);
@@ -101,21 +102,25 @@ export class ChatService {
   }
 
   getMembers(roomId: string): Observable<Array<Member>> {
-    return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>;
+    console.log("getMembers");
+    return this.db2.collection(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>;
   }
 
   deleteMember(roomId: string, firstname: string) {
+    console.log("deleteMember");
     const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
     this.sendMessageWrapped(roomId, messageWrapped);
   }
 
   notifyAdvisor(roomId: string, firstname: string) {
+    console.log("notifyAdvisor");
     const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
     this.sendMessageWrapped(roomId, messageWrapped);
   }
 
   delete(roomId: string): Promise<boolean> {
-    const promise = this.db.object(`chats/${roomId}`).remove();
+    console.log("delete");
+    const promise = this.db2.doc(`chats/${roomId}`).delete();
     return promise
       .then(_ => true)
       .catch(_ => {
@@ -123,14 +128,27 @@ export class ChatService {
       });
   }
 
-  getChatStatus(roomId: string): Observable<boolean> {
-    return this.db.object(`chats/${roomId}/active`).valueChanges() as Observable<boolean>;
+  // getChatStatus(roomId: string): Observable<boolean> {
+  //   console.log("getChatStatus");
+  //   return this.db2.doc(`chats/${roomId}/active`).valueChanges() as Observable<boolean>;
+  // }
+
+  // getMonoToMultiTime(roomId: string): Observable<number> {
+  //   console.log("getMonoToMultiTime");
+  //   return this.db2.collection('chats').doc(`${roomId}/monoToMultiTime`).valueChanges() as Observable<number>;
+  // }
+
+  getChat(roomId: string): Observable<Chat> {
+    console.log("getChat");
+    return this.db2.doc(`chats/${roomId}`).valueChanges() as Observable<Chat>;
   }
 
   updateChatStatus(roomId: string, active: boolean): Promise<boolean> {
-    return this.db
-      .object(`chats/${roomId}/active`)
-      .set(active)
+    console.log("updateChatStatus");
+    return this.db2
+      .collection('chats')
+      .doc(`${roomId}`)
+      .set({'active' : active})
       .then(_ => true)
       .catch(_ => {
         return false;
@@ -138,13 +156,16 @@ export class ChatService {
   }
 
   private create(roomId: string, initChatDto: InitChatDto): Promise<boolean> {
+    console.log("create");
     const chat: Chat = {
       lasttime: new Date().getTime().toString(),
       active: true,
       support: this.support,
       ...initChatDto
     };
-    return this.db.object(`chats/${roomId}`).set(chat)
+    return this.db2
+      .doc(`chats/${roomId}`)
+      .set(chat)
       .then(_ => true)
       .catch(_ => {
         return false;

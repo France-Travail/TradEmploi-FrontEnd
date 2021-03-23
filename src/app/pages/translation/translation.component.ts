@@ -25,6 +25,7 @@ import { ENGLISH } from 'src/app/data/sentence';
 import { IntroMessage } from 'src/app/models/vocabulary';
 import { ShareComponent } from './dialogs/share/share.component';
 import { MessageSingleton } from 'src/app/models/MessageSingleton';
+import { Chat } from 'src/app/models/db/chat';
 
 @Component({
   selector: 'app-translation',
@@ -155,6 +156,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   public addToChat(messageWrapped: MessageWrapped) {
+    console.log("addToChat");
     const isNotGuestOnMultiDevices = !this.isGuest && this.isMultiDevices;
     const isNotification = messageWrapped.notification !== undefined;
     if (isNotGuestOnMultiDevices && isNotification) {
@@ -233,9 +235,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private initMultiDevices = (roomId) => {
-    this.chatService.getChatStatus(roomId).subscribe((active) => {
-      if (active != null && active) {
-        this.addMultiMessageToChat(roomId);
+    this.chatService.getChat(roomId).subscribe((chat: Chat) => {
+      console.log("getChat");
+      if (chat.active != null && chat.active) {
+        this.addMultiMessageToChat(chat, roomId);
       } else {
         this.isAudioPlay = false;
         if (this.isGuest) {
@@ -245,28 +248,35 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     });
   };
 
-  private async addMultiMessageToChat(roomId: string) {
+  private async addMultiMessageToChat(chat: Chat, roomId: string) {
     let monoToMultiTime: number;
+    console.log('this.support :>> ', this.support);
     if (this.support === Support.MONOANDMULTIDEVICE || this.isGuest) {
-      this.chatService.getMonoToMultiTime(roomId).subscribe((s) => (monoToMultiTime = s));
+      //this.chatService.getChat(roomId).subscribe((s) => (monoToMultiTime = s.monoToMultiTime));
+      monoToMultiTime = chat.monoToMultiTime
     }
-    this.chatService.getMessagesWrapped(roomId).subscribe((mw: MessageWrapped[]) => {
+    let mw: MessageWrapped[] = chat.messages
+    // this.chatService.getMessagesWrapped(roomId).subscribe((mw: MessageWrapped[]) => {
+      console.log('mw :>> ', mw);
       if (this.support === Support.MONOANDMULTIDEVICE || this.isGuest) {
+        console.log('monoToMultiTime :>> ', monoToMultiTime);
         mw = mw.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
       }
       if (mw.length > 0) {
         const notifLength = this.vocalSupported ? 2 : 3;
         if (this.messagesWrapped.length === notifLength) {
+          console.log("1");
           mw.forEach((m: MessageWrapped) => {
             m = this.cryptService.decryptWrapped(m, roomId);
             this.addToChat(m);
           });
         } else {
+          console.log("2");
           mw[mw.length - 1] = this.cryptService.decryptWrapped(mw[mw.length - 1], roomId);
           this.addToChat(mw[mw.length - 1]);
         }
       }
-    });
+    // });
   }
 
   private translateMessage(message: Message) {

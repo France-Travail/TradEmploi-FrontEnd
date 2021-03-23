@@ -11,6 +11,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { User } from 'src/app/models/user';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ToastService } from 'src/app/services/toast.service';
+import { Chat } from 'src/app/models/db/chat';
 
 @Component({
   selector: 'app-choice',
@@ -116,8 +117,8 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
   }
 
   private endConversation(roomId: string) {
-    this.chatService.getChatStatus(roomId).subscribe((active) => {
-      if (active !== null && !active) {
+    this.chatService.getChat(roomId).subscribe((chat:Chat) => {
+      if (chat.active !== null && !chat.active) {
         this.openModal(EndComponent, '300px', true);
       }
     });
