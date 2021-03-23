@@ -21,7 +21,7 @@ export class JwtGcpSingleton {
         if (!JwtGcpSingleton.instance) {
             JwtGcpSingleton.instance = new JwtGcpSingleton();
         }
-
+        
         return JwtGcpSingleton.instance;
     }
 

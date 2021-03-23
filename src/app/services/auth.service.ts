@@ -5,22 +5,29 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastService } from 'src/app/services/toast.service';
 import { ERROR_TECH_DB } from '../models/error/errorTechnical';
+import { TokenBrokerService } from './token-broker.service';
+import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService) {}
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService, private tbs: TokenBrokerService) {}
 
   public login(email: string, password: string): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+        const token = await auth.user.getIdTokenResult();
+        this.tbs.setFbToken({ token: token.token, expireTime: moment().add(token.authTime, 'seconds') });
+        this.tbs.getTokenAdmin(JwtFbSingleton.getInstance().getToken().token);
         if (auth.user != null) {
           this.setRole();
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
+        console.log('ERROR login', error);
         reject({ isAuth: false, message: error.message });
       }
     });
