@@ -27,7 +27,6 @@ export class AuthService {
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
-        console.log('ERROR login', error);
         reject({ isAuth: false, message: error.message });
       }
     });
