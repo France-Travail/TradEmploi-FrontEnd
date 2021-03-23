@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { environment } from 'src/environments/environment';
 import { ErrorService } from './error.service';
 import { ERROR_TECH_TTS } from '../models/error/errorTechnical';
 import { Voice } from '../models/voice';

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { TokenResponse } from '../models/token/tokensResponse';
 import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
@@ -32,12 +31,12 @@ export class SpeechToTextService {
         data,
       })
         .then((operation) => {
-          const urlOperation: string = `https://speech.googleapis.com/v1/operations/${operation.data.name}?key=${environment.gcp.apiKey}`;
+          const urlOperation: string = `https://speech.googleapis.com/v1/operations/${operation.data.name}`;
           const wait = this.getWaitTime(time);
           setTimeout(() => {
             axios({
               method: 'get',
-              headers: { 'content-type': 'application/json; charset=utf-8' },
+              headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
               url: urlOperation,
             })
               .then((res) => {

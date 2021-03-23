@@ -1,10 +1,8 @@
 import { JwtGwSingleton } from './../models/token/JwtGwSingleton';
-import { JwtFbSingleton } from './../models/token/JwtFbSingleton';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import axios from 'axios';
 import * as moment from 'moment';
-import { Token } from '../models/token/token';
+import axios from 'axios';
 import { Moment } from 'moment';
 import { JwtGcpSingleton } from '../models/token/JwtGcpSingleton';
 import { TokenResponse } from '../models/token/tokensResponse';
