@@ -13,7 +13,6 @@ import { TokenResponse } from '../models/token/tokensResponse';
   providedIn: 'root',
 })
 export class TokenBrokerService {
- 
   public async getTokenAdmin(firebaseToken: string): Promise<TokenResponse> {
     const jwtGwSingleton = JwtGwSingleton.getInstance();
     const jwtGcpSingleton = JwtGcpSingleton.getInstance();
