@@ -26,6 +26,7 @@ import { IntroMessage } from 'src/app/models/vocabulary';
 import { ShareComponent } from './dialogs/share/share.component';
 import { MessageSingleton } from 'src/app/models/MessageSingleton';
 import { Chat } from 'src/app/models/db/chat';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-translation',
@@ -204,18 +205,25 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   @HostListener('window:unload')
-  public canDeactivate(): any {
-    this.deactivate();
+  public canDeactivate(): Observable<boolean> {
+    return this.deactivate();
   }
 
-  private async deactivate() {
-    if (this.user.isMultiDevices) {
-      this.deactivateMulti();
-    } else {
-      this.deactivateMono();
-    }
-    localStorage.setItem('isLogged', 'false');
-    this.settingsService.reset();
+  private deactivate(): Observable<boolean>  {
+    return new Observable((observer) => {
+      if (this.user.isMultiDevices) {
+        this.deactivateMulti();
+        localStorage.setItem('isLogged', 'false');
+        this.settingsService.reset();
+      } else {
+        this.deactivateMono().then(_ => {
+          localStorage.setItem('isLogged', 'false');
+          this.settingsService.reset();
+          observer.next(true);
+          observer.complete();
+        });
+      }
+    })
   }
 
   private deactivateMulti() {
@@ -229,8 +237,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
-  private deactivateMono() {
-    this.chatService.initChatMono(this.user.roomId, this.user.role);
+  private async deactivateMono() {
+    return await this.chatService.initChatMono(this.user.roomId, this.user.role);
   }
 
   private initMultiDevices = (roomId) => {
@@ -277,15 +285,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       }
     // }
     // });
-  }
-
-  private isSameLastMessage(mw:MessageWrapped[]){
-    if(this.messagesWrapped[mw.length - 1].message){
-      return this.messagesWrapped[this.messagesWrapped.length - 1].message.date === mw[mw.length - 1].message.date
-    }
-    if(this.messagesWrapped[this.messagesWrapped.length - 1].notification){
-      return this.messagesWrapped[this.messagesWrapped.length - 1].notification === mw[mw.length - 1].notification
-    }
   }
 
   private translateMessage(message: Message) {

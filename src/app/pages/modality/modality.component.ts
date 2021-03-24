@@ -58,6 +58,7 @@ export class ModalityComponent implements OnInit {
 
   private share() {
     this.initChat();
+    console.log("initchat finish");
     this.userOnLocalStorage();
   }
 
@@ -81,6 +82,7 @@ export class ModalityComponent implements OnInit {
     user.language = { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written };
     user.roomId = this.roomId;
     user.isMultiDevices = true;
+    console.log('user :>> ', user);
     localStorage.setItem('user', JSON.stringify(user));
   }
 }

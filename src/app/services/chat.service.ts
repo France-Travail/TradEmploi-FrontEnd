@@ -32,16 +32,24 @@ export class ChatService {
     return (10000000 + Math.floor(Math.random() * 10000000)).toString();
   }
 
-  initChatMono(roomId: string, advisorRole: Role) {
+  initChatMono(roomId: string, advisorRole: Role): Promise<boolean> {
     this.support = Support.MONODEVICE;
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
     if (this.messagesStored.length > 0) {
       const advisor: Member = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
       const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
-      const chatCreateDto: InitChatDto = { members: [advisor, guest], messages: this.messagesStored };
-      this.create(roomId, chatCreateDto);
+      const mwsWithoutAudio = this.messagesStored.map(mw => {
+        const {audioHtml, ...msg} = mw.message;
+        return{
+          ...mw,
+          message: msg
+        }
+      })
+      const chatCreateDto: InitChatDto = { members: [advisor, guest], messages: mwsWithoutAudio };
+      return this.create(roomId, chatCreateDto);
     }
   }
+
 
   initChatMulti(roomId: string, advisorRole: Role): Promise<boolean> {
     this.support = Support.MULTIDEVICE;
@@ -52,13 +60,18 @@ export class ChatService {
   }
 
   initChatMonoMulti(roomId: string, advisorRole: Role): Promise<boolean> {
-    console.log("initChatMonoMulti");
     this.support = Support.MONOANDMULTIDEVICE;
-    console.log('messagesStored :>> ', this.messagesStored);
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
-
+    const mwsWithoutAudio = this.messagesStored.map(mw => {
+      const {audioHtml, ...msg} = mw.message;
+      return{
+        ...mw,
+        message: msg
+      }
+    })
     const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
-    const chatCreateDto: InitChatDto = { members: [advisor], messages: this.messagesStored, monoToMultiTime: Date.now() };
+    const chatCreateDto: InitChatDto = { members: [advisor], messages: mwsWithoutAudio, monoToMultiTime: Date.now() };
+    console.log('initChatMonoMulti chatCreateDto :>> ', chatCreateDto);
     return this.create(roomId, chatCreateDto);
   }
 
@@ -100,6 +113,7 @@ export class ChatService {
   // }
 
   sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
+    console.log('messageWrapped :>> ', messageWrapped);
     messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
     const itemsRef = this.db2.doc(`chats/${roomId}`);
     itemsRef.update({messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
