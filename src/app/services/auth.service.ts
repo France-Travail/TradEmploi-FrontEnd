@@ -26,17 +26,17 @@ export class AuthService {
     });
   }
 
-  public async loginAnonymous(): Promise<{ isAuth: boolean; message: string }> {
+  public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInAnonymously();
         if (auth.user != null) {
           this.setRole();
           this.settingsService.user.next({ ...this.settingsService.user.value, role: Role.GUEST, connectionTime: Date.now() });
-          resolve({ isAuth: true, message: 'Authentification réussie' });
+          resolve({ id: auth.user.uid , isAuth: true , message: 'Authentification réussie' });
         }
       } catch (error) {
-        reject({ isAuth: false, message: error.message });
+        reject({ id:"", isAuth: false, message: error.message });
       }
     });
   }

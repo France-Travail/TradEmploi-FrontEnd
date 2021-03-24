@@ -49,7 +49,8 @@ export class ModalityComponent implements OnInit {
       this.settingsService.user.next({ ...this.settingsService.user.value, isMultiDevices: false });
       this.router.navigateByUrl('gdpr/mono');
     } else {
-      this.chatService.updateChatStatus(this.settingsService.user.value.roomId, false);
+      console.log("multi");
+      // this.chatService.updateChatStatus(this.settingsService.user.value.roomId, false);
       this.share();
       this.router.navigateByUrl('translation');
     }

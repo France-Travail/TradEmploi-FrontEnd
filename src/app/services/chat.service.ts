@@ -52,8 +52,11 @@ export class ChatService {
   }
 
   initChatMonoMulti(roomId: string, advisorRole: Role): Promise<boolean> {
+    console.log("initChatMonoMulti");
     this.support = Support.MONOANDMULTIDEVICE;
+    console.log('messagesStored :>> ', this.messagesStored);
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
+
     const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
     const chatCreateDto: InitChatDto = { members: [advisor], messages: this.messagesStored, monoToMultiTime: Date.now() };
     return this.create(roomId, chatCreateDto);
@@ -68,17 +71,28 @@ export class ChatService {
   }
 
   hasRoom(roomId: string): Observable<boolean> {
-    console.log("hasRoom");
     return new Observable((observer) => {
       this.db2
         .doc(`chats/${roomId}`)
         .valueChanges()
         .subscribe((chats) => {
-          console.log('chats :>> ', chats);
           observer.next(chats !=null);
           observer.complete();
         });
     });
+  }
+
+
+  hasRoom2(roomId: string):Observable<boolean>  {
+    return new Observable((observer) => {
+      this.db2
+        .doc(`chats/${roomId}`)
+        .get()
+        .subscribe((docSnapshot) => {
+          observer.next(docSnapshot.exists);
+          observer.complete();
+      });
+    })
   }
 
   // getMessagesWrapped(roomId: string): Observable<Array<MessageWrapped>> {
@@ -93,12 +107,16 @@ export class ChatService {
   }
 
   addMember(roomId: string, newMember: Member): string {
+    console.log("addMember");
+    const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
     const itemsRef = this.db2.doc(`chats/${roomId}`);
-    itemsRef.update({members: firebase.firestore.FieldValue.arrayUnion(newMember)});
-    if (newMember.role === Role.GUEST) {
-      const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
-      return this.sendMessageWrapped(roomId, messageWrapped);
-    }
+    itemsRef.update({members: firebase.firestore.FieldValue.arrayUnion(newMember)
+      , messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
+    return messageWrapped.time.toString();
+    // if (newMember.role === Role.GUEST) {
+    //   const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
+    //   return this.sendMessageWrapped(roomId, messageWrapped);
+    // }
   }
 
   getMembers(roomId: string): Observable<Array<Member>> {
@@ -139,30 +157,42 @@ export class ChatService {
   // }
 
   getChat(roomId: string): Observable<Chat> {
-    console.log("getChat");
     return this.db2.doc(`chats/${roomId}`).valueChanges() as Observable<Chat>;
   }
 
+  // updateChatStatus(roomId: string, active: boolean): Promise<boolean> {
+  //   console.log("updateChatStatus");
+  //   return this.db2
+  //     .collection('chats')
+  //     .doc(`${roomId}`)
+  //     .set({'active' : active})
+  //     .then(_ => true)
+  //     .catch(_ => {
+  //       return false;
+  //     });
+  // }
+
+
   updateChatStatus(roomId: string, active: boolean): Promise<boolean> {
-    console.log("updateChatStatus");
-    return this.db2
-      .collection('chats')
-      .doc(`${roomId}`)
-      .set({'active' : active})
+    console.log("updateChatStatus2");
+    return this.db2.doc(`chats/${roomId}`)
+      .update({'active' : active})
       .then(_ => true)
       .catch(_ => {
         return false;
-      });
+    });;
   }
 
+
   private create(roomId: string, initChatDto: InitChatDto): Promise<boolean> {
-    console.log("create");
     const chat: Chat = {
       lasttime: new Date().getTime().toString(),
       active: true,
       support: this.support,
       ...initChatDto
     };
+    console.log('roomId :>> ', roomId);
+    console.log('chat :>> ', chat);
     return this.db2
       .doc(`chats/${roomId}`)
       .set(chat)

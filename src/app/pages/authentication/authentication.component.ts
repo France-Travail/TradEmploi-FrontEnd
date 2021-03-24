@@ -8,6 +8,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { Role } from 'src/app/models/role';
 import { ChatService } from 'src/app/services/chat.service';
 import { ERROR_TECH_DB } from 'src/app/models/error/errorTechnical';
+import { ERROR_FUNC_PASSWORD } from 'src/app/models/error/errorFunctionnal';
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
@@ -73,7 +74,10 @@ export class AuthenticationComponent implements OnInit {
       this.toastService.showToast(auth.message, 'toast-success');
       this.router.navigateByUrl('modality');
     } catch (error) {
-      this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
+      console.log('error :>> ', error);
+      error.message.includes("password") ? 
+      this.toastService.showToast(ERROR_FUNC_PASSWORD.description, 'toast-error')
+      : this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
     }
   }
 }
