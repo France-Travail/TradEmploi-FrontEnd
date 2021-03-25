@@ -243,7 +243,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private initMultiDevices = (roomId) => {
     this.chatService.getChat(roomId).subscribe((chat: Chat) => {
-      console.log("call getChat");
       if (chat.active != null && chat.active) {
         this.addMultiMessageToChat(chat, roomId);
       } else {
@@ -258,33 +257,24 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private async addMultiMessageToChat(chat: Chat, roomId: string) {
     let monoToMultiTime: number;
     if (this.support === Support.MONOANDMULTIDEVICE) {
-      //this.chatService.getChat(roomId).subscribe((s) => (monoToMultiTime = s.monoToMultiTime));
       monoToMultiTime = chat.monoToMultiTime ? chat.monoToMultiTime : 0
     }
     let mw: MessageWrapped[] = chat.messages
-    // this.chatService.getMessagesWrapped(roomId).subscribe((mw: MessageWrapped[]) => {
-      // console.log('this.messagesWrapped last:>> ', this.messagesWrapped);
-      // console.log('mw last:>> ', mw);
-
-    //   const isSameLastMessage = this.isSameLastMessage(mw)
-    // if(true){
-      if (this.support === Support.MONOANDMULTIDEVICE) {
-        mw = mw.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
+    if (this.support === Support.MONOANDMULTIDEVICE) {
+      mw = mw.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
+    }
+    if (mw.length > 0) {
+      const notifLength = this.vocalSupported ? 2 : 3;
+      if (this.messagesWrapped.length === notifLength) {
+        mw.forEach((m: MessageWrapped) => {
+          m = this.cryptService.decryptWrapped(m, roomId);
+          this.addToChat(m);
+        });
+      } else {
+        mw[mw.length - 1] = this.cryptService.decryptWrapped(mw[mw.length - 1], roomId);
+        this.addToChat(mw[mw.length - 1]);
       }
-      if (mw.length > 0) {
-        const notifLength = this.vocalSupported ? 2 : 3;
-        if (this.messagesWrapped.length === notifLength) {
-          mw.forEach((m: MessageWrapped) => {
-            m = this.cryptService.decryptWrapped(m, roomId);
-            this.addToChat(m);
-          });
-        } else {
-          mw[mw.length - 1] = this.cryptService.decryptWrapped(mw[mw.length - 1], roomId);
-          this.addToChat(mw[mw.length - 1]);
-        }
-      }
-    // }
-    // });
+    }
   }
 
   private translateMessage(message: Message) {
@@ -350,7 +340,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private sendNotification(messageWrapped: MessageWrapped) {
     this.messagesWrapped.push(messageWrapped);
     this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
-    // console.log('this.messagesWrapped :>> ', this.messagesWrapped);
   }
 
   private getLanguageTarget(message: Message): Language {

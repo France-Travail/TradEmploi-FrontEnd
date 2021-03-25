@@ -74,7 +74,6 @@ export class AuthenticationComponent implements OnInit {
       this.toastService.showToast(auth.message, 'toast-success');
       this.router.navigateByUrl('modality');
     } catch (error) {
-      console.log('error :>> ', error);
       error.message.includes("password") ? 
       this.toastService.showToast(ERROR_FUNC_PASSWORD.description, 'toast-error')
       : this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');

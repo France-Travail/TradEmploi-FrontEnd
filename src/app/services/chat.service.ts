@@ -55,7 +55,6 @@ export class ChatService {
     this.support = Support.MULTIDEVICE;
     const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
     const chatCreateDto: InitChatDto = { members: [advisor] };
-    console.log("initChatMulti");
     return this.create(roomId, chatCreateDto);
   }
 
@@ -71,7 +70,6 @@ export class ChatService {
     })
     const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
     const chatCreateDto: InitChatDto = { members: [advisor], messages: mwsWithoutAudio, monoToMultiTime: Date.now() };
-    console.log('initChatMonoMulti chatCreateDto :>> ', chatCreateDto);
     return this.create(roomId, chatCreateDto);
   }
 
@@ -108,12 +106,7 @@ export class ChatService {
     })
   }
 
-  // getMessagesWrapped(roomId: string): Observable<Array<MessageWrapped>> {
-  //   return this.db2.doc(`chats/${roomId}`).valueChanges() as Observable<Array<MessageWrapped>>;
-  // }
-
   sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
-    console.log('messageWrapped :>> ', messageWrapped);
     messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
     const itemsRef = this.db2.doc(`chats/${roomId}`);
     itemsRef.update({messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
@@ -121,37 +114,28 @@ export class ChatService {
   }
 
   addMember(roomId: string, newMember: Member): string {
-    console.log("addMember");
     const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
     const itemsRef = this.db2.doc(`chats/${roomId}`);
     itemsRef.update({members: firebase.firestore.FieldValue.arrayUnion(newMember)
       , messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
     return messageWrapped.time.toString();
-    // if (newMember.role === Role.GUEST) {
-    //   const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
-    //   return this.sendMessageWrapped(roomId, messageWrapped);
-    // }
   }
 
   getMembers(roomId: string): Observable<Array<Member>> {
-    console.log("getMembers");
     return this.db2.collection(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>;
   }
 
   deleteMember(roomId: string, firstname: string) {
-    console.log("deleteMember");
     const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
     this.sendMessageWrapped(roomId, messageWrapped);
   }
 
   notifyAdvisor(roomId: string, firstname: string) {
-    console.log("notifyAdvisor");
     const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
     this.sendMessageWrapped(roomId, messageWrapped);
   }
 
   delete(roomId: string): Promise<boolean> {
-    console.log("delete");
     const promise = this.db2.doc(`chats/${roomId}`).delete();
     return promise
       .then(_ => true)
@@ -160,35 +144,11 @@ export class ChatService {
       });
   }
 
-  // getChatStatus(roomId: string): Observable<boolean> {
-  //   console.log("getChatStatus");
-  //   return this.db2.doc(`chats/${roomId}/active`).valueChanges() as Observable<boolean>;
-  // }
-
-  // getMonoToMultiTime(roomId: string): Observable<number> {
-  //   console.log("getMonoToMultiTime");
-  //   return this.db2.collection('chats').doc(`${roomId}/monoToMultiTime`).valueChanges() as Observable<number>;
-  // }
-
   getChat(roomId: string): Observable<Chat> {
     return this.db2.doc(`chats/${roomId}`).valueChanges() as Observable<Chat>;
   }
 
-  // updateChatStatus(roomId: string, active: boolean): Promise<boolean> {
-  //   console.log("updateChatStatus");
-  //   return this.db2
-  //     .collection('chats')
-  //     .doc(`${roomId}`)
-  //     .set({'active' : active})
-  //     .then(_ => true)
-  //     .catch(_ => {
-  //       return false;
-  //     });
-  // }
-
-
   updateChatStatus(roomId: string, active: boolean): Promise<boolean> {
-    console.log("updateChatStatus2");
     return this.db2.doc(`chats/${roomId}`)
       .update({'active' : active})
       .then(_ => true)
@@ -205,8 +165,6 @@ export class ChatService {
       support: this.support,
       ...initChatDto
     };
-    console.log('roomId :>> ', roomId);
-    console.log('chat :>> ', chat);
     return this.db2
       .doc(`chats/${roomId}`)
       .set(chat)
