@@ -205,26 +205,20 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   @HostListener('window:unload')
-  public canDeactivate(): Observable<boolean> {
-    return this.deactivate();
+  public canDeactivate(): any {
+    this.deactivate();
   }
 
-  private deactivate(): Observable<boolean>  {
-    return new Observable((observer) => {
-      if (this.user.isMultiDevices) {
-        this.deactivateMulti();
-        localStorage.setItem('isLogged', 'false');
-        this.settingsService.reset();
-      } else {
-        this.deactivateMono().then(_ => {
-          localStorage.setItem('isLogged', 'false');
-          this.settingsService.reset();
-          observer.next(true);
-          observer.complete();
-        });
-      }
-    })
+  private async deactivate() {
+    if (this.user.isMultiDevices) {
+      this.deactivateMulti();
+    } else {
+      this.deactivateMono();
+    }
+    localStorage.setItem('isLogged', 'false');
+    this.settingsService.reset();
   }
+
 
   private deactivateMulti() {
     if (this.isGuest) {

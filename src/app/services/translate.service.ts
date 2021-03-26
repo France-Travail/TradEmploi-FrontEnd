@@ -12,7 +12,7 @@ export class TranslateService {
   constructor(private errorService: ErrorService, private tbs: TokenBrokerService) {}
 
   public async translate(text: string, lang: string): Promise<string> {
-    const tokenResponse: TokenResponse = await this.tbs.getToken(JwtFbSingleton.getInstance().getToken().token);
+    const tokenResponse: TokenResponse = await this.tbs.getToken();
     const url = `https://translation.googleapis.com/language/translate/v2`;
     const data = {
       q: text,

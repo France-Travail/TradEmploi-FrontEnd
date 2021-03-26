@@ -25,8 +25,9 @@ export class AuthService {
         } else {
           const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
           const token = await auth.user.getIdTokenResult();
-          JwtFbSingleton.getInstance().setToken({ token: token.token, expireTime: moment(token.expirationTime), email: email });
-          this.tbs.getToken(JwtFbSingleton.getInstance().getToken().token, Role.ADVISOR);
+          JwtFbSingleton.getInstance().setToken({ token: token.token, expireTime: moment(token.expirationTime), email: email, password:password });
+          localStorage.setItem('fbtk',token.token);
+          this.tbs.getToken(token.token, Role.ADVISOR);
           if (auth.user != null) {
             this.setRole();
             resolve({ isAuth: true, message: 'Authentification réussie' });
@@ -46,7 +47,7 @@ export class AuthService {
           this.setRole();
           const token = await auth.user.getIdTokenResult();
           JwtFbSingleton.getInstance().setToken({ token: token.token, expireTime: moment(token.expirationTime) });
-          this.tbs.getToken(JwtFbSingleton.getInstance().getToken().token, Role.GUEST,roomId);
+          this.tbs.getToken(token.token, Role.GUEST, roomId);
           this.settingsService.user.next({ ...this.settingsService.user.value, role: Role.GUEST, connectionTime: Date.now() });
           resolve({ id: auth.user.uid , isAuth: true , message: 'Authentification réussie' });
         }

@@ -13,7 +13,7 @@ export class SpeechToTextSyncService {
   constructor(private errorService: ErrorService, private tbs: TokenBrokerService) {}
 
   recognizeSync = async (audioBytes: any, language: string): Promise<string> => {
-    const tokenResponse: TokenResponse = await this.tbs.getToken(JwtFbSingleton.getInstance().getToken().token);
+    const tokenResponse: TokenResponse = await this.tbs.getToken();
     if (audioBytes !== null || audioBytes !== undefined) {
       const urlRecognize: string = `https://speech.googleapis.com/v1/speech:recognize`;
       const data = {

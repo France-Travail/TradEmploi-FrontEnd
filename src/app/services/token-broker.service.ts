@@ -8,6 +8,8 @@ import { JwtGcpSingleton } from '../models/token/JwtGcpSingleton';
 import { TokenResponse } from '../models/token/tokensResponse';
 import { Role } from '../models/role';
 import { SettingsService } from './settings.service';
+import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
+import { Token } from '../models/token/token';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +18,43 @@ export class TokenBrokerService {
 
   constructor(private settingService: SettingsService) { }
 
-
-  public getToken(firebaseToken: string, role?: Role, roomId?: string): Promise<TokenResponse>{
+  public getToken(firebaseToken? : string, role?: Role, roomId?: string): Promise<TokenResponse>{
+    const fbToken = firebaseToken ? firebaseToken :  localStorage.getItem('fbtk')
+    console.log('fbToken :>> ', fbToken);
     const r = role ?  role : this.settingService.user.value.role
-    console.log("getToken");
-    return r === Role.GUEST ? this.getTokenGuest(firebaseToken, roomId): this.getTokenAdmin(firebaseToken)
+    return r === Role.GUEST ? this.getTokenGuest(fbToken,roomId): this.getTokenAdmin(fbToken)
   }
+
+  // private getFbToken(){
+  //   const jwtFbSingleton = JwtFbSingleton.getInstance()
+  //   console.log("getFbToken",jwtFbSingleton);
+  //   const token = jwtFbSingleton.getToken()
+  //   if(token!== null && token.expireTime.isAfter(moment())){
+  //     return
+  //   }
+  //   const url = `${environment.gcp.identityUrlToken}?key=${environment.firebaseConfig.apiKey}`
+  //   const data = {
+  //     email: token.email,
+  //     password: token.password,
+  //     returnSecureToken: true,
+  //   };
+
+  //   axios({
+  //     method: 'POST',
+  //     headers: { 'content-type': 'application/json; charset=utf-8' },
+  //     url,
+  //     data,
+  //   })
+  //     .then((response) => {
+  //       const expiryDate: Moment =  moment().add(response.data.expiresIn, 'milliseconds')
+  //       const token:Token = {token: response.data.idToken, expireTime :  expiryDate}
+  //       jwtFbSingleton.setToken(token)
+  //       console.log('token :>> ', token);
+  //     })
+  //     .catch((error) => {
+  //       throw new Error(error);
+  //     });
+  // }
 
   private getTokenAdmin(firebaseToken: string): Promise<TokenResponse> {
     const jwtGwSingleton = JwtGwSingleton.getInstance();
@@ -71,7 +104,6 @@ export class TokenBrokerService {
     const data = {
       roomId: roomId,
     };
-    console.log('data :>> ', data);
     return axios({
       method: 'POST',
       headers: { Authorization: `Bearer ${firebaseToken}` },
