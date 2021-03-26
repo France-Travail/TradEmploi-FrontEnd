@@ -1,6 +1,5 @@
 import { Chat } from '../models/db/chat';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { Member } from '../models/db/member';
 import { MessageWrapped } from '../models/translate/message-wrapped';
@@ -24,7 +23,7 @@ export class ChatService {
   public support: Support = Support.MONODEVICE;
   private device: Device;
 
-  constructor(private db2: AngularFirestore, private db: AngularFireDatabase, private cryptService: CryptService, private deviceService: DeviceService, private errorService: ErrorService) {
+  constructor(private db: AngularFirestore, private cryptService: CryptService, private deviceService: DeviceService, private errorService: ErrorService) {
     this.device = this.deviceService.getUserDevice();
   }
 
@@ -49,7 +48,6 @@ export class ChatService {
       return this.create(roomId, chatCreateDto);
     }
   }
-
 
   initChatMulti(roomId: string, advisorRole: Role): Promise<boolean> {
     this.support = Support.MULTIDEVICE;
@@ -83,7 +81,7 @@ export class ChatService {
 
   hasRoom(roomId: string): Observable<boolean> {
     return new Observable((observer) => {
-      this.db2
+      this.db
         .doc(`chats/${roomId}`)
         .valueChanges()
         .subscribe((chats) => {
@@ -96,7 +94,7 @@ export class ChatService {
 
   hasRoom2(roomId: string):Observable<boolean>  {
     return new Observable((observer) => {
-      this.db2
+      this.db
         .doc(`chats/${roomId}`)
         .get()
         .subscribe((docSnapshot) => {
@@ -108,21 +106,21 @@ export class ChatService {
 
   sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
     messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
-    const itemsRef = this.db2.doc(`chats/${roomId}`);
+    const itemsRef = this.db.doc(`chats/${roomId}`);
     itemsRef.update({messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
     return messageWrapped.time.toString();
   }
 
   addMember(roomId: string, newMember: Member): string {
     const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
-    const itemsRef = this.db2.doc(`chats/${roomId}`);
+    const itemsRef = this.db.doc(`chats/${roomId}`);
     itemsRef.update({members: firebase.firestore.FieldValue.arrayUnion(newMember)
       , messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
     return messageWrapped.time.toString();
   }
 
   getMembers(roomId: string): Observable<Array<Member>> {
-    return this.db2.collection(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>;
+    return this.db.collection(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>;
   }
 
   deleteMember(roomId: string, firstname: string) {
@@ -136,7 +134,7 @@ export class ChatService {
   }
 
   delete(roomId: string): Promise<boolean> {
-    const promise = this.db2.doc(`chats/${roomId}`).delete();
+    const promise = this.db.doc(`chats/${roomId}`).delete();
     return promise
       .then(_ => true)
       .catch(_ => {
@@ -145,11 +143,11 @@ export class ChatService {
   }
 
   getChat(roomId: string): Observable<Chat> {
-    return this.db2.doc(`chats/${roomId}`).valueChanges() as Observable<Chat>;
+    return this.db.doc(`chats/${roomId}`).valueChanges() as Observable<Chat>;
   }
 
   updateChatStatus(roomId: string, active: boolean): Promise<boolean> {
-    return this.db2.doc(`chats/${roomId}`)
+    return this.db.doc(`chats/${roomId}`)
       .update({'active' : active})
       .then(_ => true)
       .catch(_ => {
@@ -165,7 +163,7 @@ export class ChatService {
       support: this.support,
       ...initChatDto
     };
-    return this.db2
+    return this.db
       .doc(`chats/${roomId}`)
       .set(chat)
       .then(_ => true)
