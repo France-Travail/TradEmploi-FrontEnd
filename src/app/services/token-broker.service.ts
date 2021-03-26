@@ -1,52 +1,25 @@
 import { JwtGwSingleton } from './../models/token/JwtGwSingleton';
-import { JwtFbSingleton } from './../models/token/JwtFbSingleton';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import * as moment from 'moment';
 import axios from 'axios';
-import * as moment from 'moment'
-import { Token } from '../models/token/token';
 import { Moment } from 'moment';
 import { JwtGcpSingleton } from '../models/token/JwtGcpSingleton';
+import { TokenResponse } from '../models/token/tokensResponse';
+
 @Injectable({
   providedIn: 'root',
 })
 export class TokenBrokerService {
-
-  public getFbToken(email: string, password?: string){
-    const jwtFbSingleton = JwtFbSingleton.getInstance()
-    if(jwtFbSingleton.getToken() !== null && jwtFbSingleton.getToken().expireTime.isAfter(moment())){
-      return
-    }
-    const url = `${environment.gcp.identityUrlToken}?key=${environment.firebaseConfig.apiKey}`
-    const data = {
-      email: email,
-      password: password,
-      returnSecureToken: true,
-    };
-
-    axios({
-      method: 'POST',
-      headers: { 'content-type': 'application/json; charset=utf-8' },
-      url,
-      data,
-    })
-      .then((response) => {
-        const expiryDate: Moment =  moment().add(response.data.expiresIn, 'seconds')
-        const token:Token = {token: response.data.idToken, expireTime :  expiryDate}
-        jwtFbSingleton.setToken(token)
-      })
-      .catch((error) => {
-        throw new Error(error);
+  public async getTokenAdmin(firebaseToken: string): Promise<TokenResponse> {
+    const jwtGwSingleton = JwtGwSingleton.getInstance();
+    const jwtGcpSingleton = JwtGcpSingleton.getInstance();
+    const hasJwtGwOnTime = jwtGwSingleton.getToken() !== null && jwtGwSingleton.getToken().expireTime.isAfter(moment());
+    const hasJwtGcpOnTime = jwtGcpSingleton.getToken() !== null && jwtGcpSingleton.getToken().expireTime.isAfter(moment());
+    if (hasJwtGwOnTime || hasJwtGcpOnTime) {
+      return new Promise<TokenResponse>((resolve) => {
+        resolve({ tokenGCP: jwtGcpSingleton.getToken().token, tokenGW: jwtGwSingleton.getToken().token });
       });
-  }
-
-  public getTokenAdmin(firebaseToken: string) {
-    const jwtGwSingleton = JwtGwSingleton.getInstance()
-    const jwtGcpSingleton = JwtGcpSingleton.getInstance()
-    const hasJwtGwOnTime = jwtGwSingleton.getToken() !== null && jwtGwSingleton.getToken().expireTime.isAfter(moment())
-    const hasJwtGcpOnTime = jwtGcpSingleton.getToken() !== null && jwtGcpSingleton.getToken().expireTime.isAfter(moment())
-    if(hasJwtGwOnTime || hasJwtGcpOnTime){
-      return
     }
     const url = `${environment.gcp.gateWayUrl}/token`;
     return axios({
@@ -55,13 +28,17 @@ export class TokenBrokerService {
       url,
     })
       .then((response) => {
-        const data = response.data
-        const expiryDateGW: Moment =  moment().add(data.apiGateway.expireTime, 'seconds')
-        const tokenGW = {token:  data.apiGateway.token, expireTime:  expiryDateGW}
-        jwtGwSingleton.setToken(tokenGW)
-        const expiryDateGCP: Moment =  moment().add(data.gcp.expireTime.seconds, 'seconds')
-        const tokenGCP = {token:  data.gcp.token, expireTime:  expiryDateGCP}
-        jwtGcpSingleton.setToken(tokenGCP)
+        const data = response.data;
+        const expiryDateGW: Moment = moment().add(data.apiGateway.expireTime, 'seconds');
+        const tokenGW = { token: data.apiGateway.token, expireTime: expiryDateGW };
+        jwtGwSingleton.setToken(tokenGW);
+        const expiryDateGCP: Moment = moment().add(data.gcp.expireTime.seconds, 'seconds');
+        const tokenGCP = { token: data.gcp.token, expireTime: expiryDateGCP };
+        jwtGcpSingleton.setToken(tokenGCP);
+        return {
+          tokenGCP: JwtGcpSingleton.getInstance().getToken().token,
+          tokenGW: JwtGwSingleton.getInstance().getToken().token,
+        };
       })
       .catch((error) => {
         throw new Error(error);

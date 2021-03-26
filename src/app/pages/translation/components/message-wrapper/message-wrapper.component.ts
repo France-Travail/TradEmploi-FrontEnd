@@ -17,7 +17,7 @@ import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 import { TranslationMode } from 'src/app/models/kpis/translationMode';
 import { ErrorService } from 'src/app/services/error.service';
 import { ERROR_TECH_UNAUTHORIZEDMICRO } from 'src/app/models/error/errorTechnical';
-import {isIOS} from 'src/app/utils/utils';
+import { isIOS } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -47,7 +47,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public translationMode: string = TranslationMode.TEXT;
   public languageName: string;
   public isIOS: boolean = false;
-  public voiceNotSupported:boolean = false
+  public voiceNotSupported: boolean = false;
 
   private isMobile: boolean = false;
 
@@ -64,13 +64,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    this.isIOS = isIOS()
+    this.isIOS = isIOS();
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
     this.languageName = this.settingsService.user.value.language.languageName;
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
     const data = isLanguageExist || this.role === Role.ADVISOR ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
-    const translationPlaceHolderIos = this.role === Role.ADVISOR ? data.sentences.translationH2Ios: VOCABULARY_DEFAULT.sentences.translationH2Ios
-    this.interim = this.isIOS ? translationPlaceHolderIos: data.sentences.translationH2;
+    const translationPlaceHolderIos = this.role === Role.ADVISOR ? data.sentences.translationH2Ios : VOCABULARY_DEFAULT.sentences.translationH2Ios;
+    this.interim = this.isIOS ? translationPlaceHolderIos : data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
     this.voiceNotSupported = data.sentences.voiceNotSupported ? data.sentences.voiceNotSupported : false;
     this.flag = data.isoCode.split('-')[1].toLowerCase();
@@ -174,12 +174,12 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.recordMode = false;
   }
 
-  public displaySendOnClick(){
-    this.canSend = true ;
+  public displaySendOnClick() {
+    this.canSend = true;
   }
 
-  public displaySendOnBlur(){
-    if(this.rawText === undefined || this.rawText === ''){
+  public displaySendOnBlur() {
+    if (this.rawText === undefined || this.rawText === '') {
       this.canSend = false;
     }
   }
@@ -220,5 +220,3 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     };
   }
 }
-
-

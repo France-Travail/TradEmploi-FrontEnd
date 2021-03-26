@@ -9,6 +9,7 @@
     "build:dev": "ng build --configuration=dev",
     "build:qa": "ng build --configuration=qa",
     "build:summer": "ng build --configuration=summer",
+    "build:audit": "ng build --configuration=audit",
     "test": "ng test",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
