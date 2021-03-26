@@ -34,6 +34,7 @@ export class ChatService {
   initChatMono(roomId: string, advisorRole: Role): Promise<boolean> {
     this.support = Support.MONODEVICE;
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
+    console.log(this.messagesStored);
     if (this.messagesStored.length > 0) {
       const advisor: Member = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
       const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
