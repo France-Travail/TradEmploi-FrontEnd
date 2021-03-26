@@ -5,8 +5,8 @@ import { ERROR_TECH_TTS } from '../models/error/errorTechnical';
 import { Voice } from '../models/voice';
 import { VoicesService } from './voices.service';
 import { VOICES } from '../data/voices';
-import { TokenResponse } from '../models/token/tokensResponse';
 import { TokenBrokerService } from './token-broker.service';
+import { TokenResponse } from '../models/token/tokensResponse';
 import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
 
 interface Body {
@@ -38,7 +38,7 @@ export class TextToSpeechService {
   constructor(private voicesService: VoicesService, private errorService: ErrorService, private tbs: TokenBrokerService) {}
 
   getSpeech = async (text: string, language: string): Promise<void> => {
-    const tokenResponse: TokenResponse = await this.tbs.getTokenAdmin(JwtFbSingleton.getInstance().getToken().token);
+    const tokenResponse: TokenResponse = await this.tbs.getToken(JwtFbSingleton.getInstance().getToken().token);
     const urlRecognize: string = 'https://texttospeech.googleapis.com/v1/text:synthesize';
     let voiceSelected: Voice[] = VOICES.filter((v) => v.languageCodes.includes(language));
     if (voiceSelected.length === 0) {

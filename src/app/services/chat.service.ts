@@ -79,20 +79,8 @@ export class ChatService {
     this.errorService.save(ERROR_FUNC_UNKNOWCHAT);
   }
 
-  hasRoom(roomId: string): Observable<boolean> {
-    return new Observable((observer) => {
-      this.db
-        .doc(`chats/${roomId}`)
-        .valueChanges()
-        .subscribe((chats) => {
-          observer.next(chats !=null);
-          observer.complete();
-        });
-    });
-  }
 
-
-  hasRoom2(roomId: string):Observable<boolean>  {
+  hasRoom(roomId: string):Observable<boolean>  {
     return new Observable((observer) => {
       this.db
         .doc(`chats/${roomId}`)

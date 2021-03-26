@@ -50,8 +50,8 @@ export class AnonymousComponent implements OnInit {
 
   public async onSubmit(): Promise<void> {
     try {
-      const auth = await this.authService.loginAnonymous();
-      this.chatService.hasRoom2(this.roomId).subscribe(async (hasRoom) => {
+      const auth = await this.authService.loginAnonymous(this.roomId);
+      this.chatService.hasRoom(this.roomId).subscribe(async (hasRoom) => {
         !hasRoom ? this.onSubmitWithoutRoom() : this.onSubmitWithRoom(auth.id, auth.message);
       });
     } catch (error) {

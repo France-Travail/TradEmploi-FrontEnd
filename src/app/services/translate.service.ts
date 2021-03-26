@@ -3,9 +3,8 @@ import axios from 'axios';
 import { ErrorService } from './error.service';
 import { ERROR_TECH_TRANSLATION } from '../models/error/errorTechnical';
 import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
-import { TokenBrokerService } from './token-broker.service';
-
 import { TokenResponse } from '../models/token/tokensResponse';
+import { TokenBrokerService } from './token-broker.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,7 +12,7 @@ export class TranslateService {
   constructor(private errorService: ErrorService, private tbs: TokenBrokerService) {}
 
   public async translate(text: string, lang: string): Promise<string> {
-    const tokenResponse: TokenResponse = await this.tbs.getTokenAdmin(JwtFbSingleton.getInstance().getToken().token);
+    const tokenResponse: TokenResponse = await this.tbs.getToken(JwtFbSingleton.getInstance().getToken().token);
     const url = `https://translation.googleapis.com/language/translate/v2`;
     const data = {
       q: text,
