@@ -26,6 +26,7 @@ export class SettingsService {
     this.token = null;
     sessionStorage.removeItem('user');
     localStorage.removeItem('user');
+    localStorage.removeItem('fbtk');
   };
 }
 

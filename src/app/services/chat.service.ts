@@ -34,7 +34,6 @@ export class ChatService {
   initChatMono(roomId: string, advisorRole: Role): Promise<boolean> {
     this.support = Support.MONODEVICE;
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
-    console.log(this.messagesStored);
     if (this.messagesStored.length > 0) {
       const advisor: Member = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
       const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
@@ -93,11 +92,10 @@ export class ChatService {
     })
   }
 
-  sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
+  async sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped) {
     messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
     const itemsRef = this.db.doc(`chats/${roomId}`);
-    itemsRef.update({messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
-    return messageWrapped.time.toString();
+    await itemsRef.update({messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
   }
 
   addMember(roomId: string, newMember: Member): string {
@@ -112,14 +110,14 @@ export class ChatService {
     return this.db.collection(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>;
   }
 
-  deleteMember(roomId: string, firstname: string) {
-    const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
-    this.sendMessageWrapped(roomId, messageWrapped);
-  }
+  // async deleteMember(roomId: string, firstname: string) {
+  //   const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
+  //   await this.sendMessageWrapped(roomId, messageWrapped);
+  // }
 
-  notifyAdvisor(roomId: string, firstname: string) {
+  async notifyAdvisor(roomId: string, firstname: string) {
     const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
-    this.sendMessageWrapped(roomId, messageWrapped);
+    await this.sendMessageWrapped(roomId, messageWrapped);
   }
 
   delete(roomId: string): Promise<boolean> {

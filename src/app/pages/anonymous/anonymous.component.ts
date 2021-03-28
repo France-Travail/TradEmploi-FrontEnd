@@ -76,7 +76,7 @@ export class AnonymousComponent implements OnInit {
     localStorage.setItem('isLogged', 'true');
     sessionStorage.setItem('user', JSON.stringify(user));
     const member: Member = { id: id, firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
-    const key = this.chatService.addMember(this.roomId, member);
+    this.chatService.addMember(this.roomId, member);
     this.chatService.support = Support.MONOANDMULTIDEVICE;
     this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: "key", role: Role.GUEST, connectionTime: Date.now(), isMultiDevices: true });
     this.toastService.showToast(message, 'toast-success');

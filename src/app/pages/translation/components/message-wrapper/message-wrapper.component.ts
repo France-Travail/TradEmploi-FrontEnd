@@ -202,7 +202,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       message,
       time: Date.now(),
     };
-    this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
+    await this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
   }
 
   private buildMessage(text: string) {

@@ -91,29 +91,29 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
     this.deactivate();
   }
 
-  private deactivate() {
+  private async deactivate() {
     if (this.user.isMultiDevices) {
-      this.deactivateMulti();
+      await this.deactivateMulti();
     } else {
-      this.deactivateMono();
+      await this.deactivateMono();
     }
     localStorage.setItem('isLogged', 'false');
     this.settingsService.reset();
   }
 
-  private deactivateMulti() {
+  private async deactivateMulti() {
     if (this.user.role === Role.GUEST) {
       const isEndClosed: boolean = this.endIdDialogRef === undefined;
       if (isEndClosed) {
-        this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
+        await this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
       }
     } else {
-      this.chatService.updateChatStatus(this.user.roomId, false);
+      await this.chatService.updateChatStatus(this.user.roomId, false);
     }
   }
 
-  private deactivateMono() {
-    this.chatService.initChatMono(this.user.roomId, this.user.role);
+  private async deactivateMono() {
+    await this.chatService.initChatMono(this.user.roomId, this.user.role);
   }
 
   private endConversation(roomId: string) {

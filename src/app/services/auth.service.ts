@@ -18,16 +18,16 @@ export class AuthService {
   public login(email: string, password: string): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        const jwtFbSingleton = JwtFbSingleton.getInstance();
+        // const jwtFbSingleton = JwtFbSingleton.getInstance();
         // if (jwtFbSingleton.getToken() !== null && jwtFbSingleton.getToken().expireTime.isAfter(moment()) && jwtFbSingleton.getToken().email === email) {
         //   this.setRole();
+        //   localStorage.setItem('fbtk',jwtFbSingleton.getToken().token);
         //   resolve({ isAuth: true, message: 'Authentification réussie' });
         // } else {
           const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
           const token = await auth.user.getIdTokenResult();
           JwtFbSingleton.getInstance().setToken({ token: token.token, expireTime: moment(token.expirationTime), email: email, password:password });
           localStorage.setItem('fbtk',token.token);
-          console.log('token.token :>> ', token.token);
           this.tbs.getToken(token.token, Role.ADVISOR);
           if (auth.user != null) {
             this.setRole();

@@ -211,23 +211,23 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private async deactivate() {
     if (this.user.isMultiDevices) {
-      this.deactivateMulti();
+      await this.deactivateMulti();
     } else {
-      this.deactivateMono();
+      await this.deactivateMono();
     }
     localStorage.setItem('isLogged', 'false');
     this.settingsService.reset();
   }
 
 
-  private deactivateMulti() {
+  private async deactivateMulti() {
     if (this.isGuest) {
       const isEndClosed: boolean = this.endIdDialogRef === undefined;
       if (isEndClosed) {
-        this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
+        await this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
       }
     } else {
-      this.chatService.updateChatStatus(this.user.roomId, false);
+      await this.chatService.updateChatStatus(this.user.roomId, false);
     }
   }
 
