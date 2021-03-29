@@ -3,5 +3,4 @@ export interface Token {
     token:string
     expireTime:Moment
     email?:string
-    password?:string
 }

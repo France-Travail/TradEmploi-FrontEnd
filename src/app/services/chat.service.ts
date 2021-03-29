@@ -98,35 +98,16 @@ export class ChatService {
     await itemsRef.update({messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
   }
 
-  addMember(roomId: string, newMember: Member): string {
+  async addMember(roomId: string, newMember: Member) {
     const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
     const itemsRef = this.db.doc(`chats/${roomId}`);
-    itemsRef.update({members: firebase.firestore.FieldValue.arrayUnion(newMember)
-      , messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
-    return messageWrapped.time.toString();
+    await itemsRef.update({members: firebase.firestore.FieldValue.arrayUnion(newMember)
+    , messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
   }
-
-  getMembers(roomId: string): Observable<Array<Member>> {
-    return this.db.collection(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>;
-  }
-
-  // async deleteMember(roomId: string, firstname: string) {
-  //   const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
-  //   await this.sendMessageWrapped(roomId, messageWrapped);
-  // }
 
   async notifyAdvisor(roomId: string, firstname: string) {
     const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
     await this.sendMessageWrapped(roomId, messageWrapped);
-  }
-
-  delete(roomId: string): Promise<boolean> {
-    const promise = this.db.doc(`chats/${roomId}`).delete();
-    return promise
-      .then(_ => true)
-      .catch(_ => {
-        return false;
-      });
   }
 
   getChat(roomId: string): Observable<Chat> {

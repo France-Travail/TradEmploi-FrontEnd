@@ -26,7 +26,6 @@ import { IntroMessage } from 'src/app/models/vocabulary';
 import { ShareComponent } from './dialogs/share/share.component';
 import { MessageSingleton } from 'src/app/models/MessageSingleton';
 import { Chat } from 'src/app/models/db/chat';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-translation',
