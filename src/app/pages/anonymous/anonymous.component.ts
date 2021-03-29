@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
@@ -12,6 +13,7 @@ import { DeviceService } from 'src/app/services/device.service';
 import { Support } from 'src/app/models/kpis/support';
 import { ERROR_FUNC_UNKNOWCHAT } from 'src/app/models/error/errorFunctionnal';
 import { NavbarService } from 'src/app/services/navbar.service';
+import { LoaderComponent } from '../settings/loader/loader.component';
 
 @Component({
   selector: 'app-anonymous',
@@ -20,6 +22,7 @@ import { NavbarService } from 'src/app/services/navbar.service';
 })
 export class AnonymousComponent implements OnInit {
   public form: FormGroup;
+  public inProgress: boolean = false;
   private roomId: string;
 
   constructor(
@@ -31,7 +34,8 @@ export class AnonymousComponent implements OnInit {
     private settingsService: SettingsService,
     private afAuth: AngularFireAuth,
     private deviceService: DeviceService,
-    private navbarService: NavbarService
+    private navbarService: NavbarService,
+    public dialog: MatDialog
   ) {
     this.navbarService.hide();
     const url = this.router.url;
@@ -50,11 +54,13 @@ export class AnonymousComponent implements OnInit {
 
   public async onSubmit(): Promise<void> {
     try {
+      this.dialog.open(LoaderComponent, { panelClass: 'loader' });
       const auth = await this.authService.loginAnonymous(this.roomId);
       this.chatService.hasRoom(this.roomId).subscribe(async (hasRoom) => {
         !hasRoom ? this.onSubmitWithoutRoom() : await this.onSubmitWithRoom(auth.id, auth.message);
       });
     } catch (error) {
+      this.dialog.closeAll();
       this.toastService.showToast(error.message, 'toast-error');
     }
   }
@@ -64,6 +70,7 @@ export class AnonymousComponent implements OnInit {
     this.toastService.showToast(ERROR_FUNC_UNKNOWCHAT.description, 'toast-error');
     this.chatService.initUnknownChat(this.roomId);
     this.settingsService.user.next({...this.settingsService.user.value, roomId: this.roomId});
+    this.dialog.closeAll();
     this.router.navigate(['/start']);
   }
 
@@ -79,6 +86,7 @@ export class AnonymousComponent implements OnInit {
     await this.chatService.addMember(this.roomId, member);
     this.chatService.support = Support.MONOANDMULTIDEVICE;
     this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: id, role: Role.GUEST, connectionTime: Date.now(), isMultiDevices: true });
+    this.dialog.closeAll();
     this.toastService.showToast(message, 'toast-success');
     this.router.navigateByUrl('gdpr/' + this.roomId);
   }

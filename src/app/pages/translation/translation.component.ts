@@ -26,6 +26,7 @@ import { IntroMessage } from 'src/app/models/vocabulary';
 import { ShareComponent } from './dialogs/share/share.component';
 import { MessageSingleton } from 'src/app/models/MessageSingleton';
 import { Chat } from 'src/app/models/db/chat';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-translation',
@@ -49,6 +50,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private endIdDialogRef: MatDialogRef<any, any>;
   private support: Support;
   private vocalSupported = false;
+  private chat: Observable<Chat> = null;
 
   constructor(
     public dialog: MatDialog,
@@ -171,10 +173,14 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const hasDot = new RegExp('^[ .s]+$').test(message.text);
     if (message.text !== '' && !hasDot) {
       const messageSingleton = MessageSingleton.getInstance();
-      if(messageSingleton.getMessage() === null || messageSingleton.getMessage().date !== message.date){
+      if(messageSingleton.getMessage() === null 
+          || messageSingleton.getMessage().date !== message.date 
+          || !messageSingleton.getAlreadyPlay()){
         this.translateMessage(message);
         messageSingleton.setMessage(message)
+        messageSingleton.setAlreadyPlay(true)
       }else{
+        messageSingleton.setAlreadyPlay(false)
         this.sendMessage(messageSingleton.getMessage());
       }
     } else {
@@ -208,11 +214,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.deactivate();
   }
 
-  private async deactivate() {
+  private deactivate() {
     if (this.user.isMultiDevices) {
-      await this.deactivateMulti();
+      this.deactivateMulti();
     } else {
-      await this.deactivateMono();
+      this.deactivateMono();
     }
     localStorage.setItem('isLogged', 'false');
     this.settingsService.reset();
@@ -235,7 +241,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private initMultiDevices = (roomId) => {
-    this.chatService.getChat(roomId).subscribe((chat: Chat) => {
+    this.chat = this.chatService.getChat(roomId)
+    this.chat.subscribe((chat: Chat) => {
       if (chat.active != null && chat.active) {
         this.addMultiMessageToChat(chat, roomId);
       } else {

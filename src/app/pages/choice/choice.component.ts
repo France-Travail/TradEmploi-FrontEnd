@@ -6,12 +6,10 @@ import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { Router } from '@angular/router';
-import { EndComponent } from '../translation/dialogs/end/end.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { User } from 'src/app/models/user';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ToastService } from 'src/app/services/toast.service';
-import { Chat } from 'src/app/models/db/chat';
 
 @Component({
   selector: 'app-choice',
@@ -35,7 +33,6 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
     private settingsService: SettingsService,
     private chatService: ChatService,
     private router: Router,
-    private dialog: MatDialog,
     private breakpointObserver: BreakpointObserver,
     private toastService: ToastService
   ) {
@@ -47,10 +44,6 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
 
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
-        this.isGuest = user.role === Role.GUEST;
-        if (user.isMultiDevices && this.isGuest) {
-          this.endConversation(user.roomId);
-        }
         this.user = user;
       } else {
         this.router.navigate(['/auth']);
@@ -91,11 +84,11 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
     this.deactivate();
   }
 
-  private async deactivate() {
+  private deactivate() {
     if (this.user.isMultiDevices) {
-      await this.deactivateMulti();
+      this.deactivateMulti();
     } else {
-      await this.deactivateMono();
+      this.deactivateMono();
     }
     localStorage.setItem('isLogged', 'false');
     this.settingsService.reset();
@@ -114,22 +107,5 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
 
   private async deactivateMono() {
     await this.chatService.initChatMono(this.user.roomId, this.user.role);
-  }
-
-  private endConversation(roomId: string) {
-    this.chatService.getChat(roomId).subscribe((chat:Chat) => {
-      if (chat.active !== null && !chat.active) {
-        this.openModal(EndComponent, '300px', true);
-      }
-    });
-  }
-
-  private openModal(component, height, disableClose) {
-    return this.dialog.open(component, {
-      width: '800px',
-      height,
-      panelClass: 'customDialog',
-      disableClose,
-    });
   }
 }

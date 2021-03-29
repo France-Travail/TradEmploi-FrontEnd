@@ -13,5 +13,8 @@
     <mat-error *ngIf="username.invalid && username.dirty">The name must be between 2 and 32 characters.</mat-error>
   </mat-form-field>
 
-  <button type="submit" [disabled]="form.invalid">LOGIN</button>
+  <button type="submit" [disabled]="form.invalid || inProgress">LOGIN</button>
+  <ng-container *ngIf="inProgress">
+    <mat-spinner class="spinner" [diameter]="10"></mat-spinner>
+  </ng-container>
 </form>

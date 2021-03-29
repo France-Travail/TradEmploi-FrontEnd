@@ -4,6 +4,7 @@ export class MessageSingleton {
     private static instance: MessageSingleton;
 
     private _message:Message = null;
+    private _alreadyPlay:boolean = false;
 
     /**
      * The Singleton's constructor should always be private to prevent direct
@@ -34,5 +35,16 @@ export class MessageSingleton {
     {
         return this._message;
     }
+
+    public setAlreadyPlay(value:boolean):void
+    {
+        this._alreadyPlay = value;
+    }
+
+    public getAlreadyPlay():boolean
+    {
+        return this._alreadyPlay;
+    }
+
 
 }
