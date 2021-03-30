@@ -44,6 +44,7 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
 
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
+        this.isGuest = user.role === Role.GUEST;
         this.user = user;
       } else {
         this.router.navigate(['/auth']);

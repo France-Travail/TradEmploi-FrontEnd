@@ -319,11 +319,17 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private sendMessage(message: Message) {
-    const isSender: boolean = this.isSender(message.member);
-    const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
-    this.messagesWrapped.push(messageWrapped);
-    this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
-    this.chatService.messagesStored.push({ message, time: message.time });
+    let hasMessage = []
+    if(this.messagesWrapped != null){
+      hasMessage = this.messagesWrapped.filter(mw => mw.message === message)
+    }
+    if(hasMessage.length  === 0){
+      const isSender: boolean = this.isSender(message.member);
+      const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
+      this.messagesWrapped.push(messageWrapped);
+      this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
+      this.chatService.messagesStored.push({ message, time: message.time });
+    }
   }
 
   private isSender(member: string): boolean {
