@@ -26,7 +26,6 @@ import { IntroMessage } from 'src/app/models/vocabulary';
 import { ShareComponent } from './dialogs/share/share.component';
 import { MessageSingleton } from 'src/app/models/MessageSingleton';
 import { Chat } from 'src/app/models/db/chat';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-translation',
@@ -50,7 +49,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private endIdDialogRef: MatDialogRef<any, any>;
   private support: Support;
   private vocalSupported = false;
-  private chat: Observable<Chat> = null;
 
   constructor(
     public dialog: MatDialog,
@@ -241,8 +239,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private initMultiDevices = (roomId) => {
-    this.chat = this.chatService.getChat(roomId)
-    this.chat.subscribe((chat: Chat) => {
+    this.chatService.getChat(roomId).subscribe((chat: Chat) => {
       if (chat.active != null && chat.active) {
         this.addMultiMessageToChat(chat, roomId);
       } else {

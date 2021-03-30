@@ -60,17 +60,16 @@ export class AnonymousComponent implements OnInit {
         !hasRoom ? this.onSubmitWithoutRoom() : await this.onSubmitWithRoom(auth.id, auth.message);
       });
     } catch (error) {
-      this.dialog.closeAll();
       this.toastService.showToast(error.message, 'toast-error');
     }
   }
 
   private onSubmitWithoutRoom(){
+    this.dialog.closeAll();
     this.afAuth.auth.currentUser.delete();
     this.toastService.showToast(ERROR_FUNC_UNKNOWCHAT.description, 'toast-error');
     this.chatService.initUnknownChat(this.roomId);
     this.settingsService.user.next({...this.settingsService.user.value, roomId: this.roomId});
-    this.dialog.closeAll();
     this.router.navigate(['/start']);
   }
 
