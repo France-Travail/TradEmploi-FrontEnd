@@ -321,7 +321,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private sendMessage(message: Message) {
     let hasMessage = []
     if(this.messagesWrapped != null){
-      hasMessage = this.messagesWrapped.filter(mw => mw.message === message)
+      hasMessage = this.messagesWrapped.filter(mw => {
+        if(!mw.notification){
+          return mw.message.text === message.text &&  mw.message.time === message.time 
+        }
+      })
     }
     if(hasMessage.length  === 0){
       const isSender: boolean = this.isSender(message.member);
