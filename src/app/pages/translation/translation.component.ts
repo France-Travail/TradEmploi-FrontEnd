@@ -333,6 +333,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.messagesWrapped.push(messageWrapped);
       this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
       this.chatService.messagesStored.push({ message, time: message.time });
+    }else{
+      MessageSingleton.getInstance().setAlreadyPlay(true)
     }
   }
 
