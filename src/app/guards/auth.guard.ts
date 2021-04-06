@@ -8,7 +8,7 @@ import { SettingsService } from '../services/settings.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private settingsService: SettingsService, private chatService: ChatService, private router: Router) { }
+  constructor(private settingsService: SettingsService, private chatService: ChatService, private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return new Promise((resolve) => {
@@ -28,7 +28,14 @@ export class AuthGuard implements CanActivate {
           } else if (sessionStorage.getItem('user') != null) {
             const user = JSON.parse(sessionStorage.getItem('user'));
             try {
-              this.settingsService.user.next({ ...this.settingsService.user.value, firstname: user.firstname, role: user.role, language: user.language, roomId: user.roomId, connectionTime: user.connectionTime });
+              this.settingsService.user.next({
+                ...this.settingsService.user.value,
+                firstname: user.firstname,
+                role: user.role,
+                language: user.language,
+                roomId: user.roomId,
+                connectionTime: user.connectionTime,
+              });
             } catch (error) {
               this.router.navigate(['/start']);
             }

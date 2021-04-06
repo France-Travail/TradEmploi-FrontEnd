@@ -246,6 +246,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.isAudioPlay = false;
         if (this.isGuest) {
           this.openModal(EndComponent, '300px', true);
+          this.settingsService.reset()
         }
       }
     });
