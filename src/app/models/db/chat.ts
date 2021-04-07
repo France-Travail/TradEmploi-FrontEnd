@@ -5,6 +5,7 @@ import { ChatError } from '../kpis/chatError';
 
 export interface Chat {
   lasttime: string;
+  expiryDate: number;
   active: boolean;
   support: Support;
   members: Array<Member>;

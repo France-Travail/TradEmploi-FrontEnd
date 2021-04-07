@@ -13,6 +13,7 @@ import { ErrorService } from './error.service';
 import { ERROR_FUNC_UNKNOWCHAT } from '../models/error/errorFunctionnal';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -125,8 +126,10 @@ export class ChatService {
 
 
   private create(roomId: string, initChatDto: InitChatDto): Promise<boolean> {
+    const expiryDate = moment().add(2, 'hours');
     const chat: Chat = {
       lasttime: new Date().getTime().toString(),
+      expiryDate: parseInt(expiryDate.format('x')) ,
       active: true,
       support: this.support,
       ...initChatDto
