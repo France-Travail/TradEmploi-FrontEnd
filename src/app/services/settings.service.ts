@@ -26,10 +26,6 @@ export class SettingsService {
     this.token = null;
     localStorage.clear();
     sessionStorage.clear();
-    // sessionStorage.removeItem('user');
-    // localStorage.removeItem('user');
-    // localStorage.removeItem('fbtk');
-    // localStorage.removeItem('isLogged');
   };
 }
 
