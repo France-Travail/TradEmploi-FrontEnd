@@ -24,9 +24,8 @@ export class SettingsService {
   reset = () => {
     this.user.next(null);
     this.token = null;
-    sessionStorage.removeItem('user');
-    localStorage.removeItem('user');
-    localStorage.removeItem('fbtk');
+    localStorage.clear();
+    sessionStorage.clear();
   };
 }
 
