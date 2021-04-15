@@ -72,17 +72,26 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionThree.french = rateFr.comment;
       this.sentences.questionFour.french = rateFr.offerLinked;
     }
-    const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.user.value.language.written);
-    const rateForeign = vocabularyForeign.sentences.rate;
-    if (rateForeign) {
-      this.sentences.questionOne.foreign = rateForeign.easyToUse;
-      this.sentences.questionTwo.foreign = rateForeign.understand;
-      this.sentences.questionThree.foreign = rateForeign.comment;
-      this.sentences.questionFour.foreign = rateForeign.offerLinked;
+    let languageNameFr: string ='Français'
+    if(this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA'){
+      this.sentences.questionOne.foreign = '';
+      this.sentences.questionTwo.foreign = '';
+      this.sentences.questionThree.foreign = '';
+      this.sentences.questionFour.foreign = '';
+    }else{
+      const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.user.value.language.written);
+      const rateForeign = vocabularyForeign.sentences.rate;
+      if (rateForeign) {
+        this.sentences.questionOne.foreign = rateForeign.easyToUse;
+        this.sentences.questionTwo.foreign = rateForeign.understand;
+        this.sentences.questionThree.foreign = rateForeign.comment;
+        this.sentences.questionFour.foreign = rateForeign.offerLinked;
+        languageNameFr = vocabularyForeign.languageNameFr
+      }
     }
     const date = new Date();
     this.rate = {
-      language: vocabularyForeign.languageNameFr,
+      language: languageNameFr,
       date,
       hour: date.getHours() + ':' + date.getMinutes(),
       grades: [undefined, undefined],
