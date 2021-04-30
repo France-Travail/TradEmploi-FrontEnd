@@ -67,10 +67,10 @@ export class RateDialogComponent implements OnInit {
   ngOnInit(): void {
     const rateFr = VOCABULARY.find((v) => v.isoCode === 'fr-FR').sentences.rate;
     if (rateFr) {
-      this.sentences.questionOne.french = rateFr.easyToUse;
-      this.sentences.questionTwo.french = rateFr.understand;
+      this.sentences.questionOne.french = rateFr.qualityTranslate;
+      this.sentences.questionTwo.french = rateFr.rating;
       this.sentences.questionThree.french = rateFr.comment;
-      this.sentences.questionFour.french = rateFr.offerLinked;
+      this.sentences.questionFour.french = rateFr.technical;
     }
     let languageNameFr: string ='Français'
     if(this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA'){
@@ -82,10 +82,10 @@ export class RateDialogComponent implements OnInit {
       const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.user.value.language.written);
       const rateForeign = vocabularyForeign.sentences.rate;
       if (rateForeign) {
-        this.sentences.questionOne.foreign = rateForeign.easyToUse;
-        this.sentences.questionTwo.foreign = rateForeign.understand;
+        this.sentences.questionOne.foreign = rateForeign.qualityTranslate;
+        this.sentences.questionTwo.foreign = rateForeign.rating;
         this.sentences.questionThree.foreign = rateForeign.comment;
-        this.sentences.questionFour.foreign = rateForeign.offerLinked;
+        this.sentences.questionFour.foreign = rateForeign.technical;
         languageNameFr = vocabularyForeign.languageNameFr
       }
     }

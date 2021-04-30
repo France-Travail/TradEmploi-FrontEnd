@@ -56,9 +56,9 @@ export class RateService {
             Date: element.day,
             Heure: element.hour,
             Langage: element.language,
-            "Facilité de l'outil": element.facilityGrade,
-            "Efficacité de l'outil": element.efficientGrade,
-            'Echange liée aux missions Pôle Emploi': element.offerLinked,
+            "Qualité des traductions": element.facilityGrade,
+            "Note de l'outil": element.efficientGrade,
+            'Problème technique': element.offerLinked,
             'Commentaire libre': element.comment,
           });
         });

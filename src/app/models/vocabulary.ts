@@ -71,10 +71,10 @@ export interface Modality {
   confirm: string;
 }
 export interface Rate {
-  easyToUse: string;
-  understand: string;
+  qualityTranslate: string;
+  rating: string;
   comment: string;
-  offerLinked: string;
+  technical: string;
 }
 
 export interface NavbarTab {

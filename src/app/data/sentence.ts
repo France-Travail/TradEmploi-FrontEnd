@@ -18,10 +18,10 @@ export const HEBREW: Sentence = {
   readedWelcome: 'האם אתה רוצה להמשיך בשפה זו?',
   autoListen: 'האזן אוטומטית',
   rate: {
-    easyToUse: 'האם כלי זה קל לשימוש?',
-    understand: 'האם כלי זה עזר לנו להבין אחד את השני?',
+    qualityTranslate: 'מה הייתה איכות התרגומים?',
+    rating: 'איך מדרגים את הכלי?',
     comment: 'תגובה חינם',
-    offerLinked: 'האם מושא חילופי דברים זה קשור לשירותים המוצעים על ידי Pôle Emploi?',
+    technical: 'האם נתקלת בבעיות טכניות כלשהן בשימוש בכלי?',
   },
 };
 
@@ -39,10 +39,10 @@ export const ARAB: Sentence = {
   languageButtonFR: 'langue arabe',
   audioSupported: true,
   rate: {
-    easyToUse: 'هل هذه الأداة سهلة الاستخدام؟',
-    understand: 'هل تسمح لك هذه الأداة بالحوار بسهولة مع المحاور؟',
+    qualityTranslate: 'ما هي جودة الترجمات؟',
+    rating: 'كيف تقيم الأداة؟',
     comment: 'تعليق مجاني',
-    offerLinked: 'هل موضوع هذا التبادل مرتبط بالخدمات التي يقدمها Pôle Emploi؟',
+    technical: 'هل واجهت أي مشاكل فنية أثناء استخدام الأداة؟',
   },
 };
 
@@ -59,10 +59,10 @@ export const FRENCH: Sentence = {
   displayedWelcome: 'Je suis votre traducteur pour échanger facilement avec votre conseiller.',
   readedWelcome: 'Voulez-vous continuer dans cette langue ?',
   rate: {
-    easyToUse: 'Est-ce que cet outil est facile à utiliser ?',
-    understand: 'Est-ce que cet outil vous a permis de dialoguer facilement avec votre interlocuteur ?',
+    qualityTranslate: 'Quelle a été la qualité des traductions ?',
+    rating: 'Quelle note donnez vous à l’outil ?',
     comment: 'Commentaire libre',
-    offerLinked: 'Est-ce que l’objet de cet échange est lié à l’offre de services de Pôle Emploi ?',
+    technical: 'Avez vous rencontré des problèmes techniques dans l’utilisation de l’outil ?',
   },
   gdpr: {
     title: 'Paramètres de confidentialité',
@@ -127,10 +127,10 @@ export const ENGLISH: Sentence = {
   displayedWelcome: 'Hello I am your interpret.',
   readedWelcome: 'Would you like to exchange in this language?',
   rate: {
-    easyToUse: 'Is this tool easy to use?',
-    understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
+    qualityTranslate: 'What was the quality of the translations?',
+    rating: 'How do you rate this tool?',
     comment: 'Free Comment',
-    offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
+    technical: 'Have you encountered any technical problems using the tool?',
   },
   gdpr: {
     title: 'Privacy settings',
@@ -288,10 +288,10 @@ export const SPANISH: Sentence = {
   readedWelcome: '¿Te gustaría intercambiar en este idioma?',
   autoListen: 'Escuchar automáticamente',
   rate: {
-    easyToUse: '¿Es esta herramienta fácil de usar?',
-    understand: '¿Esta herramienta nos ayudó a entendernos?',
+    qualityTranslate: '¿Cuál fue la calidad de las traducciones?',
+    rating: '¿Cómo valora la herramienta?',
     comment: 'Comentario gratis',
-    offerLinked: '¿El objeto de este intercambio está vinculado a los servicios ofrecidos por Pôle Emploi?',
+    technical: '¿Ha encontrado algún problema técnico al utilizar la herramienta?',
   },
 };
 export const ALBANIAN: Sentence = {
@@ -308,10 +308,10 @@ export const ALBANIAN: Sentence = {
   readedWelcome: 'Dëshironi të shkëmbeni në këtë gjuhë?',
   autoListen: 'Dëgjoni automatikisht',
   rate: {
-    easyToUse: 'A është ky mjet i lehtë për t’u përdorur?',
-    understand: 'A na ndihmoi ky mjet të kuptohemi?',
+    qualityTranslate: 'Cila ishte cilësia e përkthimeve?',
+    rating: 'Si e vlerësoni mjetin?',
     comment: 'Koment falas',
-    offerLinked: 'A lidhet qëllimi i këtij shkëmbimi me shërbimet e ofruara nga Pôle Emploi?',
+    technical: 'A keni hasur ndonjë problem teknik duke përdorur mjetin?',
   },
 };
 export const MANDARIN: Sentence = {
@@ -328,10 +328,10 @@ export const MANDARIN: Sentence = {
   displayedWelcome: '你好，我是你的翻译',
   readedWelcome: '您想用这种语言交流吗？',
   rate: {
-    easyToUse: '这个工具好用吗？',
-    understand: '此工具是否有助于我们彼此了解？',
+    qualityTranslate: '翻译的质量如何？',
+    rating: '您如何评价该工具？',
     comment: '自由评论',
-    offerLinked: '交换对象是否与PôleEmploi提供的服务相关？',
+    technical: '您在使用该工具时遇到任何技术问题吗？',
   },
 };
 
@@ -350,10 +350,10 @@ export const BENGALI: Sentence = {
   displayedWelcome: 'হ্যালো আমি আপনার ব্যাখ্যা',
   readedWelcome: 'আপনি কি এই ভাষায় বিনিময় করতে চান?',
   rate: {
-    easyToUse: 'এই সরঞ্জামটি কি সহজে ব্যবহার করা যায়?',
-    understand: 'এই সরঞ্জামটি কি আপনাকে সহজেই আপনার কথোপকথকের সাথে কথোপকথনের অনুমতি দেয়?',
+    qualityTranslate: 'অনুবাদগুলির গুণমানটি কী ছিল?',
+    rating: 'আপনি কীভাবে সরঞ্জামটি রেট করেন?',
     comment: 'ফ্রি মন্তব্য',
-    offerLinked: 'এই এক্সচেঞ্জের বিষয়টি কি পলে কর্মী দ্বারা প্রদত্ত পরিষেবাদির সাথে যুক্ত?',
+    technical: 'আপনি কি সরঞ্জামটি ব্যবহার করে কোনও প্রযুক্তিগত সমস্যার সম্মুখীন হয়েছেন?',
   },
 };
 
@@ -374,10 +374,10 @@ export const DARI: Sentence = {
   readedWelcome: 'آیا می خواهید به این زبان ادامه دهید؟',
   autoListen: 'پخپله غوږ شه',
   rate: {
-    easyToUse: 'آیا این ابزار آسان است؟',
-    understand: 'آیا این ابزار به شما امکان می دهد تا به راحتی با گفتگوی خود گفتگو کنید؟',
+    qualityTranslate: 'کیفیت ترجمه ها چگونه بود؟',
+    rating: 'ابزار را چگونه ارزیابی می کنید؟',
     comment: 'نظر رایگان',
-    offerLinked: 'آیا موضوع این مبادله با خدمات ارائه شده توسط Pôle Emploi مرتبط است؟',
+    technical: 'آیا با استفاده از این ابزار به مشکلات فنی برخورد کرده اید؟',
   },
 };
 
@@ -397,10 +397,10 @@ export const PACHTO: Sentence = {
   languageButtonRAW: 'پښتو ژبه',
   languageButtonFR: 'langue pachto',
   rate: {
-    easyToUse: 'ایا دا وسیله کارول اسانه ده؟',
-    understand: 'ایا دا وسیله تاسو ته اجازه درکوي چې په اسانۍ سره د خپل خبرو اترو سره خبرو اترو ته ورشئ؟',
+    qualityTranslate: 'د ژباړې کیفیت څه و؟',
+    rating: 'تاسو د وسیلې درجه څنګه کوئ؟',
     comment: 'وړیا نظر',
-    offerLinked: 'ایا د دې تبادلې مقصود د پال انګار لخوا وړاندیز شوي خدماتو سره تړاو لري؟',
+    technical: 'ایا تاسو د وسیلې په کارولو سره کوم تخنیکي ستونزې سره مخ شوي یاست؟',
   },
 };
 
@@ -417,10 +417,10 @@ export const OURDOU: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'پخپله غوږ شه',
   rate: {
-    easyToUse: 'Is this tool easy to use?',
-    understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
+    qualityTranslate: 'What was the quality of the translations?',
+    rating: 'How do you rate this tool?',
     comment: 'Free Comment',
-    offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
+    technical: 'Have you encountered any technical problems using the tool?',
   },
 };
 
@@ -440,10 +440,10 @@ export const PORTUGUESE: Sentence = {
   languageButtonRAW: 'Língua portuguesa',
   languageButtonFR: 'langue portugaise',
   rate: {
-    easyToUse: 'Is this tool easy to use?',
-    understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
-    comment: 'Free Comment',
-    offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
+    qualityTranslate: 'Qual foi a qualidade das traduções?',
+    rating: 'Como você avalia a ferramenta?',
+    comment: 'Comentário grátis',
+    technical: 'Você encontrou algum problema técnico ao usar a ferramenta?',
   },
 };
 
@@ -463,10 +463,10 @@ export const GERMAN: Sentence = {
   recordText: 'Sprich jetzt',
   autoListen: 'Automatisch zuhören',
   rate: {
-    easyToUse: 'Ist dieses Tool einfach zu bedienen?',
-    understand: 'Konnten Sie mit diesem Tool problemlos mit Ihrem Gesprächspartner sprechen?',
+    qualityTranslate: 'Wie war die Qualität der Übersetzungen?',
+    rating: 'Wie bewerten Sie das Tool?',
     comment: 'Kostenloser Kommentar',
-    offerLinked: 'Ist der Gegenstand dieses Austauschs mit den von Pôle Emploi angebotenen Dienstleistungen verbunden?',
+    technical: 'Haben Sie technische Probleme mit dem Tool festgestellt?',
   },
 };
 
@@ -484,10 +484,10 @@ export const TURC: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'Otomatik olarak dinle',
   rate: {
-    easyToUse: 'Is this tool easy to use?',
-    understand: 'Did this tool allow you to easily dialogue with your interlocutor?',
-    comment: 'Free Comment',
-    offerLinked: 'Is this exchange linked to the services offered by Pôle Emploi?',
+    qualityTranslate: 'Çevirilerin kalitesi neydi?',
+    rating: 'Aracı nasıl değerlendiriyorsunuz?',
+    comment: 'Ücretsiz yorum',
+    technical: 'Aracı kullanırken herhangi bir teknik sorunla karşılaştınız mı?',
   },
 };
 
@@ -504,10 +504,10 @@ export const AMHARIC: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'በራስ-ሰር ያዳምጡ',
   rate: {
-    easyToUse: 'ይህ መሣሪያ ለመጠቀም ቀላል ነው?',
-    understand: 'ይህ መሣሪያ ከአገናኝዎ ጋር በቀላሉ እንዲወያዩ ይፈቅድልዎታል?',
+    qualityTranslate: 'የትርጉሞቹ ጥራት ምን ነበር?',
+    rating: 'መሣሪያውን እንዴት ደረጃ ይሰጣሉ?',
     comment: 'ነፃ አስተያየት',
-    offerLinked: 'የዚህ ልውውጥ ነገር በፔሌ አራይ ከሚሰጡት አገልግሎቶች ጋር የተገናኘ ነው?',
+    technical: 'መሣሪያውን በመጠቀም ማንኛውንም ቴክኒካዊ ችግሮች አጋጥመውዎታል?',
   },
 };
 
@@ -524,10 +524,10 @@ export const KHMER: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'ស្តាប់ដោយស្វ័យប្រវត្តិ',
   rate: {
-    easyToUse: 'តើកម្មវត្ថុនៃការផ្លាស់ប្តូរនេះមានជាប់ទាក់ទងនឹងសេវាកម្មដែលផ្តល់ដោយផេមអេមផៃដែរឬទេ?',
-    understand: 'តើឧបករណ៍នេះអនុញ្ញាតឱ្យអ្នកងាយស្រួលក្នុងការសន្ទនាជាមួយអ្នករួមការងាររបស់អ្នកទេ?',
+    qualityTranslate: 'តើការបកប្រែមានគុណភាពយ៉ាងណា?',
+    rating: 'តើអ្នកវាយតម្លៃឧបករណ៍យ៉ាងដូចម្តេច?',
     comment: 'មតិយោបល់ដោយឥតគិតថ្លៃ',
-    offerLinked: 'តើកម្មវត្ថុនៃការផ្លាស់ប្តូរនេះមានជាប់ទាក់ទងនឹងសេវាកម្មដែលផ្តល់ដោយផេមអេមផៃដែរឬទេ?',
+    technical: 'តើអ្នកបានជួបប្រទះបញ្ហាបច្ចេកទេសណាមួយដោយប្រើឧបករណ៍នេះទេ?',
   },
 };
 
@@ -545,10 +545,10 @@ export const HINDI: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'स्वचालित रूप से सुनो',
   rate: {
-    easyToUse: 'क्या यह उपकरण उपयोग करना आसान है?',
-    understand: 'क्या इस टूल ने आपको अपने वार्ताकार के साथ आसानी से संवाद करने की अनुमति दी?',
+    qualityTranslate: 'अनुवादों की गुणवत्ता क्या थी?',
+    rating: 'आप उपकरण को कैसे रेट करते हैं?',
     comment: 'नि: शुल्क टिप्पणी',
-    offerLinked: 'क्या इस एक्सचेंज का उद्देश्य पोले एम्पलोई द्वारा दी गई सेवाओं से जुड़ा है?',
+    technical: 'क्या आपने उपकरण का उपयोग करके किसी तकनीकी समस्या का सामना किया है?',
   },
 };
 
@@ -565,10 +565,10 @@ export const TAMOUL: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'தானாகவே கேளுங்கள்',
   rate: {
-    easyToUse: 'இந்த கருவி பயன்படுத்த எளிதானதா?',
-    understand: 'இந்த கருவி உங்கள் உரையாசிரியருடன் எளிதாக உரையாட அனுமதித்ததா?',
-    comment: 'இலவச கருத்து',
-    offerLinked: 'இந்த பரிமாற்றத்தின் பொருள் பால் எம்ப்ளாய் வழங்கும் சேவைகளுடன் இணைக்கப்பட்டுள்ளதா?',
+    qualityTranslate: 'What was the quality of the translations?',
+    rating: 'How do you rate this tool?',
+    comment: 'Free Comment',
+    technical: 'Have you encountered any technical problems using the tool?',
   },
 };
 
@@ -593,10 +593,10 @@ export const ITALIAN: Sentence = {
   recordText: 'Parla adesso',
   autoListen: 'Ascolta automaticamente',
   rate: {
-    easyToUse: 'Questo strumento è facile da usare?',
-    understand: 'Questo strumento ti ha permesso di dialogare facilmente con il tuo interlocutore?',
+    qualityTranslate: 'Qual era la qualità delle traduzioni?',
+    rating: 'Come valuti lo strumento?',
     comment: 'Commento gratuito',
-    offerLinked: "L'oggetto di questo scambio è collegato ai servizi offerti da Pôle Emploi?",
+    technical: "Hai riscontrato problemi tecnici utilizzando lo strumento?",
   },
 };
 
@@ -613,10 +613,10 @@ export const MONGOL: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'Автоматаар сонс',
   rate: {
-    easyToUse: 'Энэ хэрэгслийг ашиглахад хялбар юу?',
-    understand: 'Энэ хэрэгсэл нь ярилцагчтайгаа амархан ярилцах боломжийг олгосон уу?',
+    qualityTranslate: 'Орчуулгын чанар ямар байв?',
+    rating: 'Та багажийг хэрхэн үнэлдэг вэ?',
     comment: 'Үнэгүй сэтгэгдэл',
-    offerLinked: 'Энэхүү солилцооны объект нь Поэль Эмплойгийн санал болгож буй үйлчилгээнүүдтэй холбоотой юу?',
+    technical: 'Хэрэгслийг ашиглахад ямар нэгэн техникийн асуудал тулгарсан уу?',
   },
 };
 
@@ -633,10 +633,10 @@ export const NEPALESE: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'स्वचालित रूपमा सुन्नुहोस्',
   rate: {
-    easyToUse: 'के यो उपकरण प्रयोग गर्न सजिलो छ?',
-    understand: 'के यस उपकरणले तपाईंलाई सजिलैसँग तपाइँको वार्तालापकर्तासँग वार्तालाप गर्न अनुमति दियो?',
+    qualityTranslate: 'अनुवादको गुणस्तर के थियो?',
+    rating: 'तपाईं कसरी उपकरण मूल्या rate्कन गर्नुहुन्छ?',
     comment: 'नि: शुल्क टिप्पणी',
-    offerLinked: 'के यो एक्सचेन्जको वस्तु पोले एम्पलईले प्रस्ताव गरेको सेवाहरूसँग जोडिएको छ?',
+    technical: 'के तपाईंले उपकरण प्रयोग गर्दा कुनै प्राविधिक समस्याहरू सामना गर्नु भएको छ?',
   },
 };
 
@@ -656,10 +656,10 @@ export const RUSSIA: Sentence = {
   languageButtonRAW: 'Русский язык',
   languageButtonFR: 'langue russe',
   rate: {
-    easyToUse: 'Этот инструмент прост в использовании?',
-    understand: 'Этот инструмент позволил вам легко общаться с вашим собеседником?',
+    qualityTranslate: 'Какое было качество переводов?',
+    rating: 'Как вы оцениваете инструмент?',
     comment: 'Бесплатный комментарий',
-    offerLinked: 'Связан ли объект этого обмена с услугами, предлагаемыми Pôle Emploi?',
+    technical: 'Сталкивались ли вы с какими-либо техническими проблемами при использовании инструмента?',
   },
 };
 
@@ -676,10 +676,10 @@ export const OUZBEK: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'Avtomatik tinglash',
   rate: {
-    easyToUse: 'Ushbu vositadan foydalanish osonmi?',
-    understand: 'Ushbu vosita suhbatdoshingiz bilan osongina suhbatlashishga imkon berdimi?',
+    qualityTranslate: 'Tarjimalarning sifati qanday edi?',
+    rating: 'Asbobni qanday baholaysiz?',
     comment: 'Bepul sharh',
-    offerLinked: "Ushbu almashish ob'ekti Pôle Emploi tomonidan taklif qilinadigan xizmatlar bilan bog'liqmi?",
+    technical: "Asbobni ishlatishda biron bir texnik muammoga duch keldingizmi?",
   },
 };
 
@@ -697,10 +697,10 @@ export const ROMANIAN: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'Ascultă automat',
   rate: {
-    easyToUse: 'Este ușor de utilizat acest instrument?',
-    understand: 'Acest instrument v-a permis să dialogați cu interlocutorul cu ușurință?',
+    qualityTranslate: 'Care a fost calitatea traducerilor?',
+    rating: 'Cum evaluați instrumentul?',
     comment: 'Comentariu gratuit',
-    offerLinked: 'Obiectul acestui schimb este legat de serviciile oferite de Pôle Emploi?',
+    technical: 'Ați întâmpinat probleme tehnice folosind instrumentul?',
   },
 };
 
@@ -718,10 +718,10 @@ export const SOMALI: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'Si toos ah u dhagayso',
   rate: {
-    easyToUse: 'Qalabkaani ma fududahay in la isticmaalo?',
-    understand: 'Qalabkani miyaa kuu ogolaaday inaad si fudud ulahadasho qofka aad isweydaarsaneyso?',
+    qualityTranslate: 'Muxuu ahaa tayada tarjumaadaha?',
+    rating: 'Sideed u qiimeysaa qalabka?',
     comment: 'Faallo Bilaash ah',
-    offerLinked: 'Shayga isweydaarsiga ma wuxuu ku xiran yahay adeegyada ay bixiso Pôle Emploi?',
+    technical: 'Miyaad la kulantay wax dhibaato farsamo ah adoo adeegsanaya qalabka?',
   },
 };
 
@@ -739,10 +739,10 @@ export const VIETNAMESE: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'Tự động nghe',
   rate: {
-    easyToUse: 'Công cụ này có dễ sử dụng không?',
-    understand: 'Công cụ này có cho phép bạn dễ dàng đối thoại với người đối thoại của bạn không?',
+    qualityTranslate: 'Chất lượng của các bản dịch là gì?',
+    rating: 'Bạn đánh giá công cụ này như thế nào?',
     comment: 'Bình luận miễn phí',
-    offerLinked: 'Là đối tượng của trao đổi này được liên kết với các dịch vụ được cung cấp bởi Pôle Emploi?',
+    technical: 'Bạn có gặp bất kỳ sự cố kỹ thuật nào khi sử dụng công cụ này không?',
   },
 };
 
@@ -760,10 +760,10 @@ export const PERSAN: Sentence = {
   languageButtonRAW: 'زبان فارسی',
   languageButtonFR: 'langue persane',
   rate: {
-    easyToUse: 'آیا این ابزار آسان است؟',
-    understand: 'آیا این ابزار به شما امکان می دهد تا به راحتی با گفتگوی خود گفتگو کنید؟',
+    qualityTranslate: 'کیفیت ترجمه ها چگونه بود؟',
+    rating: 'ابزار را چگونه ارزیابی می کنید؟',
     comment: 'نظر رایگان',
-    offerLinked: 'آیا موضوع این مبادله با خدمات ارائه شده توسط Pôle Emploi مرتبط است؟',
+    technical: 'آیا با استفاده از این ابزار به مشکلات فنی برخورد کرده اید؟',
   },
 };
 
@@ -779,9 +779,9 @@ export const GREEK: Sentence = {
   displayedWelcome: 'Είμαι ο μεταφραστής σας για εύκολη ανταλλαγή με τον σύμβουλό σας.',
   readedWelcome: 'Θέλετε να συνεχίσετε σε αυτήν τη γλώσσα;',
   rate: {
-    easyToUse: 'Είναι αυτό το εργαλείο εύχρηστο;',
-    understand: 'Σας επέτρεψε αυτό το εργαλείο να συνομιλείτε εύκολα με τον συνομιλητή σας;',
+    qualityTranslate: 'Ποια ήταν η ποιότητα των μεταφράσεων;',
+    rating: 'Πώς αξιολογείτε το εργαλείο;',
     comment: 'Δωρεάν σχόλιο',
-    offerLinked: 'Συνδέεται το αντικείμενο αυτής της ανταλλαγής με τις υπηρεσίες που προσφέρει η Pôle Emploi;',
+    technical: 'Έχετε αντιμετωπίσει τεχνικά προβλήματα κατά τη χρήση του εργαλείου;',
   },
 };
