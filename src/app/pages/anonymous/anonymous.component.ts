@@ -55,9 +55,8 @@ export class AnonymousComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     try {
       this.dialog.open(LoaderComponent, { panelClass: 'loader' });
-      const auth = await this.authService.loginAnonymous(this.roomId);
       this.chatService.hasRoom(this.roomId).subscribe(async (hasRoom) => {
-        !hasRoom ? this.onSubmitWithoutRoom() : await this.onSubmitWithRoom(auth.id, auth.message);
+        !hasRoom ? this.onSubmitWithoutRoom() : await this.onSubmitWithRoom();
       });
     } catch (error) {
       this.toastService.showToast(error.message, 'toast-error');
@@ -73,7 +72,7 @@ export class AnonymousComponent implements OnInit {
     this.router.navigate(['/start']);
   }
 
-  private async onSubmitWithRoom(id:string, message: string){
+  private async onSubmitWithRoom(){
     const user = {
       roomId: this.roomId,
       connectionTime: Date.now(),
@@ -81,12 +80,13 @@ export class AnonymousComponent implements OnInit {
     };
     localStorage.setItem('isLogged', 'true');
     sessionStorage.setItem('user', JSON.stringify(user));
-    const member: Member = { id: id, firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
+    const member: Member = { id: Date.now().toString(), firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
     await this.chatService.addMember(this.roomId, member);
+    const auth = await this.authService.loginAnonymous(this.roomId);
     this.chatService.support = Support.MONOANDMULTIDEVICE;
     this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: id, role: Role.GUEST, connectionTime: Date.now(), isMultiDevices: true });
     this.dialog.closeAll();
-    this.toastService.showToast(message, 'toast-success');
+    this.toastService.showToast(auth.message, 'toast-success');
     this.router.navigateByUrl('gdpr/' + this.roomId);
   }
 }

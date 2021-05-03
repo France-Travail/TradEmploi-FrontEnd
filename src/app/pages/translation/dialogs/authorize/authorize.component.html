@@ -1,0 +1,6 @@
+<div mat-dialog-content>
+  <span class="question">{{name}} souhaite entrer dans la conversation.</span><br>
+</div><div mat-dialog-actions>
+  <button class="cancel-btn" (click)="cancel()">REFUSER</button>
+  <button [disabled]="!canCreate" [ngStyle]="{ backgroundColor: canCreate ? '#135DFE' : '#b4cafc'  }" class="share-btn" (click)="share()">ACCEPTER</button>
+</div>

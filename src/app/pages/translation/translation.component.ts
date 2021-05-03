@@ -26,6 +26,7 @@ import { IntroMessage } from 'src/app/models/vocabulary';
 import { ShareComponent } from './dialogs/share/share.component';
 import { MessageSingleton } from 'src/app/models/MessageSingleton';
 import { Chat } from 'src/app/models/db/chat';
+import { AuthorizeComponent } from './dialogs/authorize/authorize.component';
 
 @Component({
   selector: 'app-translation',
@@ -200,6 +201,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.openModal(ShareComponent, '500px', false);
   }
 
+  public test() {
+    this.openModal(AuthorizeComponent, '200px', false);
+  }
+
   @HostListener('window:beforeunload', ['$event'])
   public async openPopUp(event) {
     const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
@@ -368,3 +373,4 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     });
   }
 }
+

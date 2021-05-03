@@ -32,6 +32,7 @@ import { MAT_DATE_LOCALE, MatSortModule, MatTableModule } from '@angular/materia
 import { SharedModule } from './shared/shared.module';
 import { LogoutComponent } from './shared/components/logout/logout.component';
 import { ShareComponent } from './pages/translation/dialogs/share/share.component';
+import { AuthorizeComponent } from './pages/translation/dialogs/authorize/authorize.component';
 import { EndComponent } from './pages/translation/dialogs/end/end.component';
 
 // Main Components
@@ -91,6 +92,7 @@ import { OnboardingComponent } from './pages/translation/dialogs/onboarding/onbo
     ChatComponent,
     ChatMultiDevicesComponent,
     ShareComponent,
+    AuthorizeComponent,
     EndComponent,
     LoaderComponent,
     ModalityComponent,
