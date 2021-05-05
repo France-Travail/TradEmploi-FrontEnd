@@ -24,6 +24,27 @@ export class TokenBrokerService {
     return r === Role.GUEST ? this.getTokenGuest(fbToken,roomId): this.getTokenAdmin(fbToken)
   }
 
+  public addGuest(firebaseToken: string, roomId: string, id: string){
+    const url = `${environment.gcp.gateWayUrl}/token`;
+    const data = {
+      roomId: roomId,
+      guest: {id : id, status: false}
+    };
+    return axios({
+      method: 'POST',
+      headers: { Authorization: `Bearer ${firebaseToken}` },
+      data,
+      url,
+    })
+      .then((response) => {
+        const data = response.data;
+        console.log('data :>> ', data);
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+  }
+
   private getTokenAdmin(firebaseToken: string): Promise<TokenResponse> {
     const jwtGwSingleton = JwtGwSingleton.getInstance();
     const jwtGcpSingleton = JwtGcpSingleton.getInstance();
@@ -90,4 +111,5 @@ export class TokenBrokerService {
         throw new Error(error);
       });
   }
+
 }

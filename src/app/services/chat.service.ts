@@ -1,3 +1,4 @@
+import { ChatMultiDevicesComponent } from './../pages/translation/components/chat-multi-devices/chat-multi-devices.component';
 import { Chat } from '../models/db/chat';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -14,6 +15,7 @@ import { ERROR_FUNC_UNKNOWCHAT } from '../models/error/errorFunctionnal';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
+import { Guest } from '../models/db/guest';
 
 @Injectable({
   providedIn: 'root',
@@ -100,15 +102,43 @@ export class ChatService {
   }
 
   async addMember(roomId: string, newMember: Member) {
-    const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
+    const messageWrapped: MessageWrapped = { notification: {message: newMember.firstname + ' est connecté', memberId: newMember.id}, time: Date.now() };
     const itemsRef = this.db.doc(`chats/${roomId}`);
     await itemsRef.update({members: firebase.firestore.FieldValue.arrayUnion(newMember)
     , messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
   }
 
+  async deleteMember(roomId: string, member: Member) {
+    const itemsRef = this.db.doc(`chats/${roomId}`);
+    await itemsRef.update({members: firebase.firestore.FieldValue.arrayRemove(member)})
+  }
+
+
+  async deleteGuest(roomId: string, guest:Guest) {
+    // const newGuests = chat.guests.filter(x => !x.status);
+    // console.log("updateGuestStatus",guests);
+    // const guestWithStatusOK = guests.map(g => {return {id: g.id , status: true}})
+    // console.log('guestWithStatusOK :>> ', guestWithStatusOK);
+    const itemsRef = this.db.doc(`chats/${roomId}`);
+    await itemsRef.update({guests: firebase.firestore.FieldValue.arrayRemove({id: guest.id , status: false})});
+  }
+
+  async updateGuestStatus(roomId: string, guest:Guest) {
+    // const newGuests = chat.guests.filter(x => !x.status);
+    // console.log("updateGuestStatus",guests);
+    // const guestWithStatusOK = guests.map(g => {return {id: g.id , status: true}})
+    // console.log('guestWithStatusOK :>> ', guestWithStatusOK);
+    const itemsRef = this.db.doc(`chats/${roomId}`);
+    await itemsRef.update({guests: firebase.firestore.FieldValue.arrayUnion({id: guest.id , status: true})});
+  }
+
   async notifyAdvisor(roomId: string, firstname: string) {
-    const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
+    const messageWrapped: MessageWrapped = { notification: {message: firstname + ' est déconnecté'}, time: Date.now() };
     await this.sendMessageWrapped(roomId, messageWrapped);
+  }
+
+  getGuests(roomId: string):Observable<Array<string>>  {
+    return this.db.doc(`chats/${roomId}/guests`).valueChanges() as Observable<Array<string>>;
   }
 
   getChat(roomId: string): Observable<Chat> {
@@ -130,6 +160,7 @@ export class ChatService {
     const chat: Chat = {
       lasttime: new Date().getTime().toString(),
       expiryDate: parseInt(expiryDate.format('x')) ,
+      guests:[],
       active: true,
       support: this.support,
       ...initChatDto

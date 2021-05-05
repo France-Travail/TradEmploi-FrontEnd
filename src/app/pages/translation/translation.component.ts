@@ -1,3 +1,4 @@
+import { Member } from './../../models/db/member';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
@@ -27,6 +28,7 @@ import { ShareComponent } from './dialogs/share/share.component';
 import { MessageSingleton } from 'src/app/models/MessageSingleton';
 import { Chat } from 'src/app/models/db/chat';
 import { AuthorizeComponent } from './dialogs/authorize/authorize.component';
+import { Guest } from 'src/app/models/db/guest';
 
 @Component({
   selector: 'app-translation',
@@ -50,6 +52,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private endIdDialogRef: MatDialogRef<any, any>;
   private support: Support;
   private vocalSupported = false;
+  private guestsTemp:Guest[] = [];
+  private guestsIdTemp:string[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -115,27 +119,27 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.isMultiDevices) {
       this.isGuest ? this.introMessageGuest(introMessage) : this.introMessageAdmin(introMessage);
     } else {
-      this.sendNotification({ notification: introMessage.welcomeFR, time: Date.now() });
-      this.sendNotification({ notification: introMessage.welcomeRAW, time: Date.now() });
+      this.sendNotification({ notification: {message: introMessage.welcomeFR , memberId:""}, time: Date.now() });
+      this.sendNotification({ notification: {message:introMessage.welcomeRAW, memberId:""}, time: Date.now() });
       if (!this.vocalSupported) {
-        this.sendNotification({ notification: introMessage.voiceavailabilityFR, time: Date.now() });
-        this.sendNotification({ notification: introMessage.voiceavailabilityRAW, time: Date.now() });
+        this.sendNotification({ notification: {message:introMessage.voiceavailabilityFR, memberId:""}, time: Date.now() });
+        this.sendNotification({ notification: {message:introMessage.voiceavailabilityRAW, memberId:""}, time: Date.now() });
       }
     }
   }
 
   private introMessageGuest(notification: IntroMessage) {
-    this.sendNotification({ notification: notification.notifMultiRAW, time: Date.now() });
-    this.sendNotification({ notification: notification.welcomeRAW, time: Date.now() });
+    this.sendNotification({ notification: {message:notification.notifMultiRAW, memberId:""}, time: Date.now() });
+    this.sendNotification({ notification: {message:notification.welcomeRAW, memberId:""}, time: Date.now() });
     if (!this.vocalSupported) {
-      this.sendNotification({ notification: notification.voiceavailabilityRAW, time: Date.now() });
+      this.sendNotification({ notification: {message:notification.voiceavailabilityRAW, memberId:""}, time: Date.now() });
     }
   }
   private introMessageAdmin(notification: IntroMessage) {
-    this.sendNotification({ notification: notification.notifMultiFR, time: Date.now() });
-    this.sendNotification({ notification: notification.welcomeFR, time: Date.now() });
+    this.sendNotification({ notification: {message:notification.notifMultiFR, memberId:""}, time: Date.now() });
+    this.sendNotification({ notification: {message:notification.welcomeFR, memberId:""}, time: Date.now() });
     if (!this.vocalSupported) {
-      this.sendNotification({ notification: notification.voiceavailabilityFR, time: Date.now() });
+      this.sendNotification({ notification: {message:notification.voiceavailabilityFR, memberId:""}, time: Date.now() });
     }
   }
   scrollToBottom(): void {
@@ -156,10 +160,16 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
-  public addToChat(messageWrapped: MessageWrapped) {
+  public addToChat(messageWrapped: MessageWrapped, members: Member[]) {
     const isNotGuestOnMultiDevices = !this.isGuest && this.isMultiDevices;
     const isNotification = messageWrapped.notification !== undefined;
     if (isNotGuestOnMultiDevices && isNotification) {
+      // console.log('messageWrapped.notification :>> ', messageWrapped.notification);
+      // if( messageWrapped.notification.message.indexOf('est connecté') > 0){
+      //   const member = members.find(m => m.id === messageWrapped.notification.memberId);
+      //   let dialogRef = this.openModal(AuthorizeComponent, '200px', true, member);
+      //   // a voir
+      // }
       this.sendNotification(messageWrapped);
     } else {
       if (!isNotification) {
@@ -246,7 +256,25 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private initMultiDevices = (roomId) => {
     this.chatService.getChat(roomId).subscribe((chat: Chat) => {
       if (chat.active != null && chat.active) {
-        this.addMultiMessageToChat(chat, roomId);
+        // console.log('chat.guests :>> ', chat.guests);
+        // console.log('this.guestsTemp :>> ', this.guestsTemp);
+        // console.log('this.guestsIdTemp :>> ', this.guestsIdTemp);
+        const diffGuest = chat.guests.filter(g => this.guestsIdTemp.indexOf(g.id) === -1)
+        console.log('diffGuest :>> ', diffGuest);
+        // const isNewGuest = this.guestsTemp.length !== chat.guests.length
+        if(diffGuest.length > 0){
+          // console.log('isNewGuest :>> ', isNewGuest);
+          // const newGuestDiff = chat.guests.filter(x => this.guestsTemp.indexOf(x) === -1);
+          //how to know the guest updated
+          // console.log('newGuestDiff :>> ', newGuestDiff);
+          const lastGuest = chat.guests[chat.guests.length - 1]
+          let dialogRef = this.openModal(AuthorizeComponent, '200px', true, lastGuest);
+          // chat.guests.push({id:lastGuest.id, status: true})
+          // this.guestsTemp = chat.guests
+          this.guestsIdTemp.push(lastGuest.id)
+        }else{
+          this.addMultiMessageToChat(chat, roomId);
+        }
       } else {
         this.isAudioPlay = false;
         if (this.isGuest) {
@@ -256,6 +284,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       }
     });
   };
+  
 
   private async addMultiMessageToChat(chat: Chat, roomId: string) {
     let monoToMultiTime: number;
@@ -271,11 +300,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (this.messagesWrapped.length === notifLength) {
         mw.forEach((m: MessageWrapped) => {
           m = this.cryptService.decryptWrapped(m, roomId);
-          this.addToChat(m);
+          this.addToChat(m, chat.members);
         });
       } else {
         mw[mw.length - 1] = this.cryptService.decryptWrapped(mw[mw.length - 1], roomId);
-        this.addToChat(mw[mw.length - 1]);
+        this.addToChat(mw[mw.length - 1], chat.members);
       }
     }
   }
@@ -364,12 +393,16 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     return message.role === Role.ADVISOR || message.role === Role.ADMIN ? this.user.language : this.settingsService.defaultLanguage;
   }
 
-  private openModal(component, height, disableClose) {
+  private openModal(component, height, disableClose, guest?) {
     return this.dialog.open(component, {
       width: '800px',
       height,
       panelClass: 'customDialog',
       disableClose,
+      data: {
+        roomId: this.roomId,
+        guest: guest
+      },
     });
   }
 }

@@ -1,8 +1,9 @@
+import { Notification } from './notification';
 import { Message } from './message';
 
 export interface MessageWrapped {
     message?: Message;
-    notification?: string;
+    notification?: Notification;
     isSender?: boolean;
     time: number;
 }

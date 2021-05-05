@@ -14,6 +14,9 @@ import { Support } from 'src/app/models/kpis/support';
 import { ERROR_FUNC_UNKNOWCHAT } from 'src/app/models/error/errorFunctionnal';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { LoaderComponent } from '../settings/loader/loader.component';
+import { Chat } from 'src/app/models/db/chat';
+import { WelcomeDeComponent } from '../translation/dialogs/welcome-de/welcome-de.component';
+import { TokenBrokerService } from 'src/app/services/token-broker.service';
 
 @Component({
   selector: 'app-anonymous',
@@ -35,6 +38,7 @@ export class AnonymousComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private deviceService: DeviceService,
     private navbarService: NavbarService,
+    private tbs: TokenBrokerService,
     public dialog: MatDialog
   ) {
     this.navbarService.hide();
@@ -54,9 +58,12 @@ export class AnonymousComponent implements OnInit {
 
   public async onSubmit(): Promise<void> {
     try {
-      this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+      console.log("onSubmit",this.roomId);
+      //this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+      const auth = await this.authService.loginAnonymous(this.roomId);
       this.chatService.hasRoom(this.roomId).subscribe(async (hasRoom) => {
-        !hasRoom ? this.onSubmitWithoutRoom() : await this.onSubmitWithRoom();
+        console.log("hasRoom",hasRoom);
+        !hasRoom ? this.onSubmitWithoutRoom() : await this.onSubmitWithRoom(auth.id, auth.message);
       });
     } catch (error) {
       this.toastService.showToast(error.message, 'toast-error');
@@ -72,7 +79,7 @@ export class AnonymousComponent implements OnInit {
     this.router.navigate(['/start']);
   }
 
-  private async onSubmitWithRoom(){
+  private async onSubmitWithRoom(id: string, message:string){
     const user = {
       roomId: this.roomId,
       connectionTime: Date.now(),
@@ -80,13 +87,43 @@ export class AnonymousComponent implements OnInit {
     };
     localStorage.setItem('isLogged', 'true');
     sessionStorage.setItem('user', JSON.stringify(user));
-    const member: Member = { id: Date.now().toString(), firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
-    await this.chatService.addMember(this.roomId, member);
+
     const auth = await this.authService.loginAnonymous(this.roomId);
-    this.chatService.support = Support.MONOANDMULTIDEVICE;
-    this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: id, role: Role.GUEST, connectionTime: Date.now(), isMultiDevices: true });
-    this.dialog.closeAll();
-    this.toastService.showToast(auth.message, 'toast-success');
-    this.router.navigateByUrl('gdpr/' + this.roomId);
+    this.tbs.addGuest(auth.token, this.roomId,auth.id)
+    const dialogRef = this.openModal(WelcomeDeComponent, '200px', false);
+    // const member: Member = { id: id, firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
+    // console.log("member",member);
+    // await this.chatService.addMember(this.roomId, member);
+    // const dialogRef = this.openModal(WelcomeDeComponent, '200px', false);
+    // this.chatService.getGuestsId(this.roomId).subscribe((guestsId: Array<string>) => {
+    //   console.log("getGuestsId");
+    //   if(guestsId.includes(id)){
+    //     dialogRef.close()
+    //   }
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    // console.log(`Dialog result: ${result}`); // Pizza!
+
+      // const auth = await this.authService.loginAnonymous(this.roomId);
+      // this.chatService.support = Support.MONOANDMULTIDEVICE;
+      // this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: id, role: Role.GUEST, connectionTime: Date.now(), isMultiDevices: true });
+      // this.dialog.closeAll();
+      // this.toastService.showToast(auth.message, 'toast-success');
+      // this.router.navigateByUrl('gdpr/' + this.roomId);
+    // });
+
+  }
+
+  private openModal(component, height, disableClose) {
+    return this.dialog.open(component, {
+      width: '800px',
+      height,
+      panelClass: 'customDialog',
+      disableClose,
+    });
   }
 }
+function WelcomeDE(WelcomeDE: any, arg1: string, arg2: boolean) {
+  throw new Error('Function not implemented.');
+}
+

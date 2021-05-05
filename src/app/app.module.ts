@@ -33,6 +33,7 @@ import { SharedModule } from './shared/shared.module';
 import { LogoutComponent } from './shared/components/logout/logout.component';
 import { ShareComponent } from './pages/translation/dialogs/share/share.component';
 import { AuthorizeComponent } from './pages/translation/dialogs/authorize/authorize.component';
+import { WelcomeDeComponent } from './pages/translation/dialogs/welcome-de/welcome-de.component';
 import { EndComponent } from './pages/translation/dialogs/end/end.component';
 
 // Main Components
@@ -93,6 +94,7 @@ import { OnboardingComponent } from './pages/translation/dialogs/onboarding/onbo
     ChatMultiDevicesComponent,
     ShareComponent,
     AuthorizeComponent,
+    WelcomeDeComponent,
     EndComponent,
     LoaderComponent,
     ModalityComponent,
