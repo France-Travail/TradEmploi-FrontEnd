@@ -33,17 +33,15 @@ export class AuthService {
     });
   }
 
-  public async loginAnonymous(roomId: string): Promise<{ id: string; isAuth: boolean; message: string; token:string }> {
+  public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string; token:string, expirationTime:string }> {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInAnonymously();
         if (auth.user != null) {
           this.setRole();
           const token = await auth.user.getIdTokenResult();
-          // JwtFbSingleton.getInstance().setToken({ token: token.token, expireTime: moment(token.expirationTime) });
-          // this.tbs.getToken(token.token, Role.GUEST, roomId);
           this.settingsService.user.next({ ...this.settingsService.user.value, role: Role.GUEST, connectionTime: Date.now() });
-          resolve({ id: auth.user.uid, isAuth: true, message: 'Authentification réussie', token: token.token });
+          resolve({ id: auth.user.uid, isAuth: true, message: 'Authentification réussie', token: token.token, expirationTime: token.expirationTime });
         }
       } catch (error) {
         reject({ id: '', isAuth: false, message: error.message });

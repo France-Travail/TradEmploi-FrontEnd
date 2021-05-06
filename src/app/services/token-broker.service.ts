@@ -8,8 +8,6 @@ import { JwtGcpSingleton } from '../models/token/JwtGcpSingleton';
 import { TokenResponse } from '../models/token/tokensResponse';
 import { Role } from '../models/role';
 import { SettingsService } from './settings.service';
-import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
-import { Token } from '../models/token/token';
 
 @Injectable({
   providedIn: 'root',
@@ -24,23 +22,18 @@ export class TokenBrokerService {
     return r === Role.GUEST ? this.getTokenGuest(fbToken,roomId): this.getTokenAdmin(fbToken)
   }
 
-  public addGuest(firebaseToken: string, roomId: string, id: string){
+  public addGuest(firebaseToken: string, roomId: string, firstname: string){
     const url = `${environment.gcp.gateWayUrl}/token`;
     const data = {
       roomId: roomId,
-      guest: {id : id, status: false}
+      firstname: firstname
     };
     return axios({
       method: 'POST',
       headers: { Authorization: `Bearer ${firebaseToken}` },
       data,
       url,
-    })
-      .then((response) => {
-        const data = response.data;
-        console.log('data :>> ', data);
-      })
-      .catch((error) => {
+    }).then((_) => {}).catch((error) => {
         throw new Error(error);
       });
   }

@@ -164,12 +164,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const isNotGuestOnMultiDevices = !this.isGuest && this.isMultiDevices;
     const isNotification = messageWrapped.notification !== undefined;
     if (isNotGuestOnMultiDevices && isNotification) {
-      // console.log('messageWrapped.notification :>> ', messageWrapped.notification);
-      // if( messageWrapped.notification.message.indexOf('est connecté') > 0){
-      //   const member = members.find(m => m.id === messageWrapped.notification.memberId);
-      //   let dialogRef = this.openModal(AuthorizeComponent, '200px', true, member);
-      //   // a voir
-      // }
       this.sendNotification(messageWrapped);
     } else {
       if (!isNotification) {
@@ -256,21 +250,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private initMultiDevices = (roomId) => {
     this.chatService.getChat(roomId).subscribe((chat: Chat) => {
       if (chat.active != null && chat.active) {
-        // console.log('chat.guests :>> ', chat.guests);
-        // console.log('this.guestsTemp :>> ', this.guestsTemp);
-        // console.log('this.guestsIdTemp :>> ', this.guestsIdTemp);
         const diffGuest = chat.guests.filter(g => this.guestsIdTemp.indexOf(g.id) === -1)
-        console.log('diffGuest :>> ', diffGuest);
-        // const isNewGuest = this.guestsTemp.length !== chat.guests.length
-        if(diffGuest.length > 0){
-          // console.log('isNewGuest :>> ', isNewGuest);
-          // const newGuestDiff = chat.guests.filter(x => this.guestsTemp.indexOf(x) === -1);
-          //how to know the guest updated
-          // console.log('newGuestDiff :>> ', newGuestDiff);
+        if(diffGuest.length > 0 && !this.isGuest){
           const lastGuest = chat.guests[chat.guests.length - 1]
           let dialogRef = this.openModal(AuthorizeComponent, '200px', true, lastGuest);
-          // chat.guests.push({id:lastGuest.id, status: true})
-          // this.guestsTemp = chat.guests
           this.guestsIdTemp.push(lastGuest.id)
         }else{
           this.addMultiMessageToChat(chat, roomId);

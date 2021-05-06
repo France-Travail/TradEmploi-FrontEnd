@@ -18,19 +18,13 @@ export class AuthorizeComponent implements OnInit {
     private chatService: ChatService,
     @Inject(MAT_DIALOG_DATA) public data: { guest: Guest, roomId: string }
   ) {
-    // this.name = this.data.guests.map(g => {return g.id + ","}).toString()
-    this.name = this.data.guest.id
-    console.log('guests :>> ', this.data.guest);
-    console.log('roomId :>> ', this.data.roomId);
+    this.name = this.data.guest.firstname
   }
 
   ngOnInit(): void {
   }
 
   public async accept() {
-    console.log("accept");
-    // await this.chatService.deleteGuest(this.data.roomId, this.data.guest);
-    // this.dialogRef.close();
     await this.chatService.updateGuestStatus(this.data.roomId, this.data.guest);
     this.dialogRef.close();
   }
