@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
-import { Member } from 'src/app/models/db/member';
 import { Guest } from 'src/app/models/db/guest';
 
 @Component({
@@ -9,7 +8,7 @@ import { Guest } from 'src/app/models/db/guest';
   templateUrl: './authorize.component.html',
   styleUrls: ['./authorize.component.scss'],
 })
-export class AuthorizeComponent implements OnInit {
+export class AuthorizeComponent {
 
   public name:string = "";
   
@@ -19,9 +18,6 @@ export class AuthorizeComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { guest: Guest, roomId: string }
   ) {
     this.name = this.data.guest.firstname
-  }
-
-  ngOnInit(): void {
   }
 
   public async accept() {

@@ -52,8 +52,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private endIdDialogRef: MatDialogRef<any, any>;
   private support: Support;
   private vocalSupported = false;
-  private guestsTemp:Guest[] = [];
-  private guestsIdTemp:string[] = [];
+  private authorizationHandled:string[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -246,14 +245,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private initMultiDevices = (roomId) => {
     this.chatService.getChat(roomId).subscribe((chat: Chat) => {
       if (chat.active != null && chat.active) {
-        const diffGuest = chat.guests.filter(g => this.guestsIdTemp.indexOf(g.id) === -1)
-        if(diffGuest.length > 0 && !this.isGuest){
-          const lastGuest = chat.guests[chat.guests.length - 1]
-          let dialogRef = this.openModal(AuthorizeComponent, '200px', true, lastGuest);
-          this.guestsIdTemp.push(lastGuest.id)
-        }else{
-          this.addMultiMessageToChat(chat, roomId);
-        }
+        const isNewAuthorization = chat.guests.filter(g => this.authorizationHandled.indexOf(g.id) === -1).length > 0 && !this.isGuest
+        isNewAuthorization ? this.authorizeGuest(chat.guests): this.addMultiMessageToChat(chat, roomId);
       } else {
         this.isAudioPlay = false;
         if (this.isGuest) {
@@ -263,8 +256,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       }
     });
   };
-  
 
+  private authorizeGuest(guests){
+    const lastAuthorization = guests[guests.length - 1]
+    this.openModal(AuthorizeComponent, '200px', true, lastAuthorization);
+    this.authorizationHandled.push(lastAuthorization.id)
+  }
+  
   private async addMultiMessageToChat(chat: Chat, roomId: string) {
     let monoToMultiTime: number;
     if (this.support === Support.MONOANDMULTIDEVICE) {
