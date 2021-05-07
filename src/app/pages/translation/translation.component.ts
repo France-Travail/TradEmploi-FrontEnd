@@ -28,7 +28,6 @@ import { ShareComponent } from './dialogs/share/share.component';
 import { MessageSingleton } from 'src/app/models/MessageSingleton';
 import { Chat } from 'src/app/models/db/chat';
 import { AuthorizeComponent } from './dialogs/authorize/authorize.component';
-import { Guest } from 'src/app/models/db/guest';
 
 @Component({
   selector: 'app-translation',
@@ -159,7 +158,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
-  public addToChat(messageWrapped: MessageWrapped, members: Member[]) {
+  public addToChat(messageWrapped: MessageWrapped) {
     const isNotGuestOnMultiDevices = !this.isGuest && this.isMultiDevices;
     const isNotification = messageWrapped.notification !== undefined;
     if (isNotGuestOnMultiDevices && isNotification) {
@@ -277,11 +276,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (this.messagesWrapped.length === notifLength) {
         mw.forEach((m: MessageWrapped) => {
           m = this.cryptService.decryptWrapped(m, roomId);
-          this.addToChat(m, chat.members);
+          this.addToChat(m);
         });
       } else {
         mw[mw.length - 1] = this.cryptService.decryptWrapped(mw[mw.length - 1], roomId);
-        this.addToChat(mw[mw.length - 1], chat.members);
+        this.addToChat(mw[mw.length - 1]);
       }
     }
   }
@@ -359,8 +358,16 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private sendNotification(messageWrapped: MessageWrapped) {
-    this.messagesWrapped.push(messageWrapped);
-    this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
+    const isNotificationExist = this.messagesWrapped.find(mw => {
+      if(mw.notification){
+        return mw.notification.message === messageWrapped.notification.message
+      }
+      return false
+    })
+    if(isNotificationExist === undefined){
+      this.messagesWrapped.push(messageWrapped);
+      this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
+    }
   }
 
   private getLanguageTarget(message: Message): Language {

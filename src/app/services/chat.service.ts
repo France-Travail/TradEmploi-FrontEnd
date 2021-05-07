@@ -1,7 +1,6 @@
-import { ChatMultiDevicesComponent } from './../pages/translation/components/chat-multi-devices/chat-multi-devices.component';
 import { Chat } from '../models/db/chat';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Member } from '../models/db/member';
 import { MessageWrapped } from '../models/translate/message-wrapped';
 import { CryptService } from './crypt.service';
@@ -95,35 +94,6 @@ export class ChatService {
     })
   }
 
-  isGuestAuthorize(roomId: string, id:string):Observable<boolean> {
-    return new Observable((observer) => {
-      const roomReference = this.db.collection('chats').doc(roomId)
-      roomReference.get().subscribe(r => {
-        const data: Chat = r.data() as Chat
-        console.log('data.guests :>> ', data.guests);
-        console.log('{id:id, status:true} :>> ', {id:id, status:true});
-        const isGuestAuthorize =  data.guests.includes({id:id, status:true})
-        console.log('isGuestAuthorize :>> ', isGuestAuthorize);
-        observer.next(isGuestAuthorize);
-        observer.complete();
-      })
-    })
-
-    // return new Observable((observer) => {
-    //   this.db
-    //     .doc<Chat>(`chats/${roomId}`)
-    //     .get()
-    //     .subscribe((docSnapshot) => {
-    //       console.log('docSnapshot :>> ', docSnapshot);
-    //       const data = docSnapshot.data;
-    //       console.log('guests on bdd :>> ', data);
-    //       // const isGuestAuthorize = guests.includes({id:id, status:true})
-    //       observer.next(false);
-    //       observer.complete();
-    //   });
-    // })
-  }
-
   async sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped) {
     messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
     const itemsRef = this.db.doc(`chats/${roomId}`);
@@ -131,7 +101,6 @@ export class ChatService {
   }
 
   async addMember(roomId: string, newMember: Member) {
-    console.log("addMember");
     const messageWrapped: MessageWrapped = { notification: {message: newMember.firstname + ' est connecté', memberId: newMember.id}, time: Date.now() };
     const itemsRef = this.db.doc(`chats/${roomId}`);
     await itemsRef.update({members: firebase.firestore.FieldValue.arrayUnion(newMember)
@@ -144,21 +113,7 @@ export class ChatService {
   }
 
 
-  async deleteGuest(roomId: string, guest:Guest) {
-    // const newGuests = chat.guests.filter(x => !x.status);
-    // console.log("updateGuestStatus",guests);
-    // const guestWithStatusOK = guests.map(g => {return {id: g.id , status: true}})
-    // console.log('guestWithStatusOK :>> ', guestWithStatusOK);
-    const itemsRef = this.db.doc(`chats/${roomId}`);
-    await itemsRef.update({guests: firebase.firestore.FieldValue.arrayRemove({id: guest.id , status: false})});
-  }
-
   async updateGuestStatus(roomId: string, guest:Guest) {
-    // const newGuests = chat.guests.filter(x => !x.status);
-    // console.log("updateGuestStatus",guests);
-    // const guestWithStatusOK = guests.map(g => {return {id: g.id , status: true}})
-    // console.log('guestWithStatusOK :>> ', guestWithStatusOK);
-    console.log("updateGuestStatus");
     const itemsRef = this.db.doc(`chats/${roomId}`);
     await itemsRef.update({guests: firebase.firestore.FieldValue.arrayUnion({id: guest.id , status: true})});
   }
