@@ -18,6 +18,9 @@ export class AuthorizeComponent {
     @Inject(MAT_DIALOG_DATA) public data: { guest: Guest, roomId: string }
   ) {
     this.name = this.data.guest.firstname
+    setTimeout(() => {
+      this.dialogRef.close();
+  }, 30000);
   }
 
   public async accept() {
