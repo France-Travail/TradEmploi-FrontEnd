@@ -57,40 +57,35 @@ export class AnonymousComponent implements OnInit {
 
   public async onSubmit(): Promise<void> {
     try {
-      await this.onSubmitWithRoom();
+      this.setStorage();
+      const auth = await this.authService.loginAnonymous();
+      this.tbs.addGuest(auth.token, this.roomId, this.username.value)
+      this.openModal(WelcomeDeComponent, '200px', true);
+      let end:boolean = false;
+      let timer:number = 0;
+      let maxOnSecond:number = 60;
+      const timeValue = setInterval(async () => {
+        if (end || timer === maxOnSecond) {
+          clearInterval(timeValue);
+          !end ? this.disconnect() : await this.connect(auth)
+        }else{
+          this.chatService.hasRoom(this.roomId).subscribe(async hasRoom => {
+            if(hasRoom){
+              await this.addMember(auth.id)
+              end = true
+            }
+          })
+        }
+        timer ++
+      }, 1000);
     } catch (error) {
       this.toastService.showToast(error.message, 'toast-error');
     }
   }
 
-  private async onSubmitWithRoom(){
-    this.setStorage();
-    const auth = await this.authService.loginAnonymous();
-    this.tbs.addGuest(auth.token, this.roomId, this.username.value)
-    this.openModal(WelcomeDeComponent, '200px', true);
-    let end:boolean = false;
-    const timeValue = setInterval(() => {
-      if (end) {
-        clearInterval(timeValue);
-      }else{
-        this.chatService.hasRoom(this.roomId).subscribe(async hasRoom => {
-          if(hasRoom){
-            await this.addMember(auth.id)
-            end = true
-          }
-        })
-      }
-    }, 1000);
-
-    setTimeout(async () =>{
-        clearInterval(timeValue);
-        console.log("end",end);
-        if(!end) {
-          this.disconnect()
-        }else{
-          await this.connect(auth)
-        }
-    }, 10000);
+  private disconnect(){
+    this.afAuth.auth.currentUser.delete();
+    this.openModal(WelcomeDeComponent, '200px', true, true);
   }
 
   private async connect(auth){
@@ -103,9 +98,9 @@ export class AnonymousComponent implements OnInit {
     this.router.navigateByUrl('gdpr/' + this.roomId);
   }
 
-  private disconnect(){
-    this.afAuth.auth.currentUser.delete();
-    this.openModal(WelcomeDeComponent, '200px', true, true);
+  private async addMember(id: string){
+    const member: Member = { id: id, firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
+    await this.chatService.addMember(this.roomId, member);
   }
 
   private setStorage(){
@@ -116,11 +111,6 @@ export class AnonymousComponent implements OnInit {
     };
     localStorage.setItem('isLogged', 'true');
     sessionStorage.setItem('user', JSON.stringify(user));
-  }
-
-  private async addMember(id: string){
-    const member: Member = { id: id, firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
-    await this.chatService.addMember(this.roomId, member);
   }
 
   private openModal(component, height, disableClose, error?) {

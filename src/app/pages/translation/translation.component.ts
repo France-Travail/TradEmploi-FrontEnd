@@ -205,10 +205,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.openModal(ShareComponent, '500px', false);
   }
 
-  public test() {
-    this.openModal(AuthorizeComponent, '200px', false);
-  }
-
   @HostListener('window:beforeunload', ['$event'])
   public async openPopUp(event) {
     const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
