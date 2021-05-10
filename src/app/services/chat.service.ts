@@ -101,15 +101,10 @@ export class ChatService {
   }
 
   async addMember(roomId: string, newMember: Member) {
-    const messageWrapped: MessageWrapped = { notification: {message: newMember.firstname + ' est connecté', memberId: newMember.id}, time: Date.now() };
+    const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
     const itemsRef = this.db.doc(`chats/${roomId}`);
     await itemsRef.update({members: firebase.firestore.FieldValue.arrayUnion(newMember)
     , messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
-  }
-
-  async deleteMember(roomId: string, member: Member) {
-    const itemsRef = this.db.doc(`chats/${roomId}`);
-    await itemsRef.update({members: firebase.firestore.FieldValue.arrayRemove(member)})
   }
 
 
@@ -119,12 +114,8 @@ export class ChatService {
   }
 
   async notifyAdvisor(roomId: string, firstname: string) {
-    const messageWrapped: MessageWrapped = { notification: {message: firstname + ' est déconnecté'}, time: Date.now() };
+    const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
     await this.sendMessageWrapped(roomId, messageWrapped);
-  }
-
-  getGuests(roomId: string):Observable<Array<string>>  {
-    return this.db.doc(`chats/${roomId}/guests`).valueChanges() as Observable<Array<string>>;
   }
 
   getChat(roomId: string): Observable<Chat> {

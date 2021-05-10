@@ -1,5 +1,5 @@
 <ng-container *ngFor="let messageWrapped of messagesWrapped; let i = index">
-  <div *ngIf="messageWrapped.notification" class="notification">{{ messageWrapped.notification.message }}</div>
+  <div *ngIf="messageWrapped.notification" class="notification">{{ messageWrapped.notification }}</div>
   <div *ngIf="messageWrapped.message" [ngClass]="messageWrapped.message.role === 'DE' ? 'bubble-area-user' : 'bubble-area-advisor'">
     <div [ngClass]="messageWrapped.message.role === 'DE' ? 'user' : 'advisor'">
       <div *ngIf="messageWrapped.message && messageWrapped.message.role === 'DE'; then user; else advisor"></div>

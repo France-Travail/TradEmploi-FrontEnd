@@ -117,27 +117,27 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.isMultiDevices) {
       this.isGuest ? this.introMessageGuest(introMessage) : this.introMessageAdmin(introMessage);
     } else {
-      this.sendNotification({ notification: {message: introMessage.welcomeFR , memberId:""}, time: Date.now() });
-      this.sendNotification({ notification: {message:introMessage.welcomeRAW, memberId:""}, time: Date.now() });
+      this.sendNotification({ notification:  introMessage.welcomeFR , time: Date.now() });
+      this.sendNotification({ notification: introMessage.welcomeRAW, time: Date.now() });
       if (!this.vocalSupported) {
-        this.sendNotification({ notification: {message:introMessage.voiceavailabilityFR, memberId:""}, time: Date.now() });
-        this.sendNotification({ notification: {message:introMessage.voiceavailabilityRAW, memberId:""}, time: Date.now() });
+        this.sendNotification({ notification: introMessage.voiceavailabilityFR, time: Date.now() });
+        this.sendNotification({ notification: introMessage.voiceavailabilityRAW, time: Date.now() });
       }
     }
   }
 
   private introMessageGuest(notification: IntroMessage) {
-    this.sendNotification({ notification: {message:notification.notifMultiRAW, memberId:""}, time: Date.now() });
-    this.sendNotification({ notification: {message:notification.welcomeRAW, memberId:""}, time: Date.now() });
+    this.sendNotification({ notification: notification.notifMultiRAW, time: Date.now() });
+    this.sendNotification({ notification: notification.welcomeRAW, time: Date.now() });
     if (!this.vocalSupported) {
-      this.sendNotification({ notification: {message:notification.voiceavailabilityRAW, memberId:""}, time: Date.now() });
+      this.sendNotification({ notification: notification.voiceavailabilityRAW, time: Date.now() });
     }
   }
   private introMessageAdmin(notification: IntroMessage) {
-    this.sendNotification({ notification: {message:notification.notifMultiFR, memberId:""}, time: Date.now() });
-    this.sendNotification({ notification: {message:notification.welcomeFR, memberId:""}, time: Date.now() });
+    this.sendNotification({ notification: notification.notifMultiFR, time: Date.now() });
+    this.sendNotification({ notification: notification.welcomeFR, time: Date.now() });
     if (!this.vocalSupported) {
-      this.sendNotification({ notification: {message:notification.voiceavailabilityFR, memberId:""}, time: Date.now() });
+      this.sendNotification({ notification: notification.voiceavailabilityFR, time: Date.now() });
     }
   }
   scrollToBottom(): void {
@@ -360,7 +360,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private sendNotification(messageWrapped: MessageWrapped) {
     const isNotificationExist = this.messagesWrapped.find(mw => {
       if(mw.notification){
-        return mw.notification.message === messageWrapped.notification.message
+        return mw.notification === messageWrapped.notification
       }
       return false
     })
