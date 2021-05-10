@@ -1,15 +1,19 @@
 <h1 mat-dialog-title>Inviter des interlocuteurs</h1>
 <div mat-dialog-content>
-  <ul>
-    <li>
-      <span class="advise">soit par ce QR code à flasher par le support de votre interlocuteur</span><br>
-      <qrcode class="qrcode" [qrdata]="qrCode" [width]="4" [errorCorrectionLevel]="'M'"></qrcode>
-    </li>
-    <li>
-      <span class="advise">soit par le lien à saisir dans le navigateur de votre interlocuteur</span><br>
+  <div class="share">
+    <span class="title">1 - Partager cette conversation</span>
+    <div class="content">
+      <span class="advise">soit par ce QR code à scanner ou ce lien à donner</span>
+      <qrcode [qrdata]="qrCode" [width]="4" [errorCorrectionLevel]="'M'"></qrcode>
       <span class="link">{{link}}</span>
       <button class="copy-btn" (click)="copyLink()" value="cliquer pour copier" >COPIER</button>
-    </li>
-  </ul>
+    </div>
+  </div>
+  <div class="share">
+    <span class="title">2 - Accepter les demandes de participation</span>
+    <div class="content">
+      <span class="advise">les personnes doivent obtenir votre autorisation</span>
+    </div>
+  </div>
 </div>
 <div></div>

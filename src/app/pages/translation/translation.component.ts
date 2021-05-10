@@ -1,4 +1,3 @@
-import { Member } from './../../models/db/member';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
