@@ -189,7 +189,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   public closeConversation() {
-    this.openModal(RateDialogComponent, '700px', false);
+    const languages = this.messagesWrapped.filter(m => m.message !== undefined).map(m => m.message.languageOrigin)
+    this.openModal(RateDialogComponent, '700px', false, languages);
   }
 
   public switchAudio() {
@@ -359,12 +360,15 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     return message.role === Role.ADVISOR || message.role === Role.ADMIN ? this.user.language : this.settingsService.defaultLanguage;
   }
 
-  private openModal(component, height, disableClose) {
+  private openModal(component, height, disableClose, languages?) {
     return this.dialog.open(component, {
       width: '800px',
       height,
       panelClass: 'customDialog',
       disableClose,
+      data: {
+        languages: languages
+      },
     });
   }
 }
