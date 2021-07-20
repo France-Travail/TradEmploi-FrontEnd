@@ -13,7 +13,7 @@ deploy:
         url: https://pole-emploi-trad-dev.firebaseapp.com
     script:
         npm install
-        npm run build:dev
+        npm run ts-node ./src/assets/scripts/setEnv.ts -- --environment=dev && ng build --configuration=dev
         firebase deploy --project dev
     only:
       refs:
