@@ -15,5 +15,10 @@ deploy:
         npm install
         npm run build:dev
         firebase deploy --project dev
+    only:
+      refs:
+        - develop
 
-    
+
+
+      
