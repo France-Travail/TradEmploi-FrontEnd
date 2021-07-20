@@ -1,0 +1,20 @@
+image: node:12.18-stretch-slim
+
+before_script:
+  - npm i -g firebase @angular/cli@8.1.2
+
+stages:
+  - deploy
+
+deploy:
+    stage: deploy
+    environment:
+        name: staging
+        url: https://pole-emploi-trad-dev.firebaseapp.com
+    script:
+        npm install
+        npm run build:dev
+        firebase deploy --project dev
+    only:
+      refs:
+        - securing_api_keys
