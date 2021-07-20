@@ -1,27 +1,26 @@
-import { JwtGwSingleton } from './../models/token/JwtGwSingleton';
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
+import {JwtGwSingleton} from './../models/token/JwtGwSingleton';
+import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment';
 import * as moment from 'moment';
+import {Moment} from 'moment';
 import axios from 'axios';
-import { Moment } from 'moment';
-import { JwtGcpSingleton } from '../models/token/JwtGcpSingleton';
-import { TokenResponse } from '../models/token/tokensResponse';
-import { Role } from '../models/role';
-import { SettingsService } from './settings.service';
-import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
-import { Token } from '../models/token/token';
+import {JwtGcpSingleton} from '../models/token/JwtGcpSingleton';
+import {TokenResponse} from '../models/token/tokensResponse';
+import {Role} from '../models/role';
+import {SettingsService} from './settings.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TokenBrokerService {
 
-  constructor(private settingService: SettingsService) { }
+  constructor(private settingService: SettingsService) {
+  }
 
-  public getToken(firebaseToken? : string, role?: Role, roomId?: string): Promise<TokenResponse>{
-    const fbToken = firebaseToken ? firebaseToken :  localStorage.getItem('fbtk')
-    const r = role ?  role : this.settingService.user.value.role
-    return r === Role.GUEST ? this.getTokenGuest(fbToken,roomId): this.getTokenAdmin(fbToken)
+  public getToken(firebaseToken?: string, role?: Role, roomId?: string): Promise<TokenResponse> {
+    const fbToken = firebaseToken ? firebaseToken : localStorage.getItem('fbtk');
+    const r = role ? role : this.settingService.user.value.role;
+    return r === Role.GUEST ? this.getTokenGuest(fbToken, roomId) : this.getTokenAdmin(fbToken);
   }
 
   private getTokenAdmin(firebaseToken: string): Promise<TokenResponse> {
@@ -31,22 +30,22 @@ export class TokenBrokerService {
     const hasJwtGcpOnTime = jwtGcpSingleton.getToken() !== null && jwtGcpSingleton.getToken().expireTime.isAfter(moment());
     if (hasJwtGwOnTime || hasJwtGcpOnTime) {
       return new Promise<TokenResponse>((resolve) => {
-        resolve({ tokenGCP: jwtGcpSingleton.getToken().token, tokenGW: jwtGwSingleton.getToken().token });
+        resolve({tokenGCP: jwtGcpSingleton.getToken().token, tokenGW: jwtGwSingleton.getToken().token});
       });
     }
     const url = `${environment.gcp.gateWayUrl}/token`;
     return axios({
       method: 'POST',
-      headers: { Authorization: `Bearer ${firebaseToken}` },
+      headers: {Authorization: `Bearer ${firebaseToken}`},
       url,
     })
       .then((response) => {
         const data = response.data;
         const expiryDateGW: Moment = moment().add(data.apiGateway.expireTime, 'seconds');
-        const tokenGW = { token: data.apiGateway.token, expireTime: expiryDateGW };
+        const tokenGW = {token: data.apiGateway.token, expireTime: expiryDateGW};
         jwtGwSingleton.setToken(tokenGW);
         const expiryDateGCP: Moment = moment().add(data.gcp.expireTime.seconds, 'seconds');
-        const tokenGCP = { token: data.gcp.token, expireTime: expiryDateGCP };
+        const tokenGCP = {token: data.gcp.token, expireTime: expiryDateGCP};
         jwtGcpSingleton.setToken(tokenGCP);
         return {
           tokenGCP: JwtGcpSingleton.getInstance().getToken().token,
@@ -63,23 +62,23 @@ export class TokenBrokerService {
     const hasJwtGcpOnTime = jwtGcpSingleton.getToken() !== null && jwtGcpSingleton.getToken().expireTime.isAfter(moment());
     if (hasJwtGcpOnTime) {
       return new Promise<TokenResponse>((resolve) => {
-        resolve({ tokenGCP: jwtGcpSingleton.getToken().token, tokenGW: null });
+        resolve({tokenGCP: jwtGcpSingleton.getToken().token, tokenGW: null});
       });
     }
     const url = `${environment.gcp.gateWayUrl}/token`;
     const data = {
-      roomId: roomId,
+      roomId,
     };
     return axios({
       method: 'POST',
-      headers: { Authorization: `Bearer ${firebaseToken}` },
+      headers: {Authorization: `Bearer ${firebaseToken}`},
       data,
       url,
     })
       .then((response) => {
         const data = response.data;
         const expiryDateGCP: Moment = moment().add(data.gcp.expireTime.seconds, 'seconds');
-        const tokenGCP = { token: data.gcp.token, expireTime: expiryDateGCP };
+        const tokenGCP = {token: data.gcp.token, expireTime: expiryDateGCP};
         jwtGcpSingleton.setToken(tokenGCP);
         return {
           tokenGCP: JwtGcpSingleton.getInstance().getToken().token,

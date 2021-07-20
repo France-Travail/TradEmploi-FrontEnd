@@ -87,6 +87,6 @@ export class AnonymousComponent implements OnInit {
     this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: id, role: Role.GUEST, connectionTime: Date.now(), isMultiDevices: true });
     this.dialog.closeAll();
     this.toastService.showToast(message, 'toast-success');
-    this.router.navigateByUrl('gdpr/' + this.roomId);
+    this.router.navigateByUrl('choice');
   }
 }

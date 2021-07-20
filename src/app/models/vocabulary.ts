@@ -81,6 +81,7 @@ export interface NavbarTab {
   language: string;
   logout: string;
   help: string;
+  gdpr: string;
 }
 
 export interface Logout {

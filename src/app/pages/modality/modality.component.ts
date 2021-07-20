@@ -47,7 +47,7 @@ export class ModalityComponent implements OnInit {
   public confirm(): void {
     if (this.target === 'mono') {
       this.settingsService.user.next({ ...this.settingsService.user.value, isMultiDevices: false });
-      this.router.navigateByUrl('gdpr/mono');
+      this.router.navigateByUrl('choice');
     } else {
       this.share();
       this.router.navigateByUrl('translation');

@@ -4,6 +4,7 @@ export const NAVBAR_ENGLISH_TABS: NavbarTab = {
   language: 'language',
   logout: 'logout',
   help: 'Start guide',
+  gdpr: 'CGU'
 };
 
 export const HEBREW: Sentence = {
@@ -784,4 +785,9 @@ export const GREEK: Sentence = {
     comment: 'Δωρεάν σχόλιο',
     technical: 'Έχετε αντιμετωπίσει τεχνικά προβλήματα κατά τη χρήση του εργαλείου;',
   },
+};
+
+export const BULGARE: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Искате ли да превключите на този език?',
 };

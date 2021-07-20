@@ -1,15 +1,16 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { LogoutComponent } from '../../logout/logout.component';
-import { MatDialog } from '@angular/material';
-import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
-import { NavbarService } from '../../../../services/navbar.service';
-import { SettingsService } from '../../../../services/settings.service';
-import { Role } from 'src/app/models/role';
-import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { OnboardingComponent } from 'src/app/pages/translation/dialogs/onboarding/onboarding.component';
+import {Component, EventEmitter, Output} from '@angular/core';
+import {LogoutComponent} from '../../logout/logout.component';
+import {MatDialog} from '@angular/material';
+import {ShareComponent} from '../../../../pages/translation/dialogs/share/share.component';
+import {NavbarService} from '../../../../services/navbar.service';
+import {SettingsService} from '../../../../services/settings.service';
+import {Role} from 'src/app/models/role';
+import {VOCABULARY_DEFAULT} from 'src/app/data/vocabulary';
+import {BreakpointObserver} from '@angular/cdk/layout';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {OnboardingComponent} from 'src/app/pages/translation/dialogs/onboarding/onboarding.component';
+import {GdprComponent} from '../../../../pages/gdpr/gdpr.component';
 
 @Component({
   selector: 'app-header',
@@ -22,8 +23,10 @@ export class HeaderComponent {
   public choiceLink: string;
   public logoutLink: string;
   public helpLink: string;
+  public gdprLink: string;
   public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
+  private language: string;
 
   constructor(public dialog: MatDialog, public navbarService: NavbarService, public settingsService: SettingsService, private breakpointObserver: BreakpointObserver) {
     this.isWideScreen = this.breakpointObserver.observe(['(min-width: 1051px)']).pipe(map(({ matches }) => matches));
@@ -33,6 +36,8 @@ export class HeaderComponent {
       this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
       this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
       this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'Guide de démarrage';
+      this.gdprLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.gdpr : 'cgu';
+      this.language = isGuest ? 'english' : 'french';
     });
   }
 
@@ -52,6 +57,18 @@ export class HeaderComponent {
     this.openModal(OnboardingComponent, '680px');
   }
 
+  public gdpr() {
+    this.openGdprModal(GdprComponent);
+  }
+
+  private openGdprModal(component) {
+    this.dialog.open(component, {
+      panelClass: 'customDialog',
+      data: {
+        language: this.language
+      }
+    });
+  }
   private openModal(component, height) {
     this.dialog.open(component, {
       width: '800px',

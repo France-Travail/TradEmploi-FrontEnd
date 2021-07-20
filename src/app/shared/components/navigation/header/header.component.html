@@ -19,6 +19,10 @@
         <img src="assets/icons/icon-languages-black.svg" />
         <span class="name">{{ choiceLink | uppercase }}</span>
       </button>
+      <button id="gdpr-header"  (click)="gdpr()">
+        <img src="assets/icons/icon-policies-black.svg" />
+        <span class="name">{{ gdprLink | uppercase }}</span>
+      </button>
       <button id="modality-header" routerLink="modality" *ngIf="navbarService.modalityTab">
         <img src="assets/icons/icon-modality-black.svg" />
         <span class="name">MODALITÉ</span>
