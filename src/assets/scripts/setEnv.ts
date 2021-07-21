@@ -76,11 +76,6 @@ export const environment = {
   sentry: {
     url: '${process.env.SENTRY_URL}',
   },
-
-  firefunction: {
-    url: '${process.env.FIREFUNCTION_URL}',
-    key: '${process.env.FIREFUNCTION_KEY}',
-  },
 };
 `;
 
