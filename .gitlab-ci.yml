@@ -17,10 +17,9 @@ build:
         name: staging
         url: https://pole-emploi-trad-summer.firebaseapp.com
     before_script:
-      - touch .env
+      - cat $ENV_FILE
       - cp $ENV_FILE .env
       - ls
-      - cat $ENV_FILE
       - cat .env
     script:
         - npm install
