@@ -18,13 +18,11 @@ build:
         url: https://pole-emploi-trad-summer.firebaseapp.com
     before_script:
       - cat .env
-      - cat $ENV_FILE
-      - cp $ENV_FILE .env
-      - ls
-      - cat .env
     script:
         - npm install
         - npm run config "--environment=dev"
+        - cat src/environments/environment.ts
+        - cat src/environments/environment.dev.ts
         - ng build "--configuration=dev"
     only:
       refs:
