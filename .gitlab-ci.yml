@@ -1,24 +1,39 @@
 image: node:12.18-stretch-slim
 
 before_script:
-  - npm i -g firebase @angular/cli@8.1.2
+  - npm i -g firebase-tools @angular/cli@8.1.2
 
 stages:
+  - build
   - deploy
 
-deploy:
-    stage: deploy
+build:
+    stage: build
+    cache:
+      paths:
+        - node_modules/
+        - dist/
     environment:
         name: staging
-        url: https://pole-emploi-trad-dev.firebaseapp.com
+        url: https://pole-emploi-trad-summer.firebaseapp.com
     script:
-        npm install
-        npm run build:dev
-        firebase deploy --project dev
+        - npm install
+        - npm run config "--environment=dev"
+        - ng build "--configuration=dev"
     only:
       refs:
         - develop
 
-
-
-      
+deploy:
+    stage: deploy
+    cache:
+      paths:
+        - dist/
+    environment:
+        name: staging
+        url: https://pole-emploi-trad-summer.firebaseapp.com
+    script:
+        - firebase deploy --project summer --token $FIREBASE_TOKEN
+    only:
+      refs:
+        - develop
