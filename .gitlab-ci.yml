@@ -4,16 +4,27 @@ before_script:
   - npm i -g firebase-tools @angular/cli@8.1.2
 
 stages:
+  - build
   - deploy
+
+build:
+    stage: build
+    environment:
+        name: staging
+        url: https://pole-emploi-trad-summer.firebaseapp.com
+    script:
+        - npm install
+        - npm run config "--environment=dev" && ng build "--configuration=dev"
+    only:
+      refs:
+        - securing_api_keys
 
 deploy:
     stage: deploy
     environment:
         name: staging
-        url: https://pole-emploi-trad-dev.firebaseapp.com
+        url: https://pole-emploi-trad-summer.firebaseapp.com
     script:
-        - npm install
-        - npm run config "--environment=dev" && ng build "--configuration=dev"
         - firebase deploy --project summer --token $FIREBASE_TOKEN
     only:
       refs:
