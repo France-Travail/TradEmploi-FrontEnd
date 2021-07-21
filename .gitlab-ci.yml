@@ -14,8 +14,8 @@ deploy:
     script:
         npm install
         npm run config "--environment=dev" && ng build "--configuration=dev"
-        firebase projects:list
-        firebase deploy --project pole-emploi-trad-summer --token $FIREBASE_TOKEN
+        firebase use pole-emploi-trad-summer
+        firebase deploy --token $FIREBASE_TOKEN
     only:
       refs:
         - securing_api_keys
