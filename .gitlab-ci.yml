@@ -14,7 +14,7 @@ deploy:
     script:
         - npm install
         - npm run config "--environment=dev" && ng build "--configuration=dev"
-        - firebase deploy --project dev --token $FIREBASE_TOKEN
+        - firebase deploy --project summer --token $FIREBASE_TOKEN
     only:
       refs:
         - securing_api_keys
