@@ -16,13 +16,9 @@ build:
     environment:
         name: staging
         url: https://pole-emploi-trad-summer.firebaseapp.com
-    before_script:
-      - cat .env
     script:
         - npm install
         - npm run config "--environment=dev"
-        - cat src/environments/environment.ts
-        - cat src/environments/environment.dev.ts
         - ng build "--configuration=dev"
     only:
       refs:
