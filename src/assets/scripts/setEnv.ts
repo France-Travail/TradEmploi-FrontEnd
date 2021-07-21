@@ -30,6 +30,7 @@ if (!existsSync(envDirectory)) {
 //creates the `environment.prod.ts` and `environment.ts` file if it does not exist
 writeFileUsingFS('./src/environments/environment.prod.ts', '');
 writeFileUsingFS('./src/environments/environment.ts', '');
+writeFileUsingFS('./src/environments/environment.dev.ts', '');
 
 
 // Checks whether command line argument of `prod` was provided signifying production mode
@@ -84,5 +85,7 @@ export const environment = {
 `;
 
 writeFileUsingFS(targetPath, environmentFileContent); // appending data into the target file
+writeFileUsingFS('./src/environments/environment.dev.ts', environmentFileContent);
+
 
 /* tslint:enable */
