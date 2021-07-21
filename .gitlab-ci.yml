@@ -9,6 +9,10 @@ stages:
 
 build:
     stage: build
+    cache:
+      paths:
+        - node_modules/
+        - dist/
     environment:
         name: staging
         url: https://pole-emploi-trad-summer.firebaseapp.com
@@ -28,6 +32,7 @@ deploy:
         name: staging
         url: https://pole-emploi-trad-summer.firebaseapp.com
     script:
+        - pwd
         - ls
         - firebase deploy --project summer --token $FIREBASE_TOKEN
     only:
