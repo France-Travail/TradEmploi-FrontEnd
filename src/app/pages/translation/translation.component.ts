@@ -173,8 +173,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const hasDot = new RegExp('^[ .s]+$').test(message.text);
     if (message.text !== '' && !hasDot) {
       const messageSingleton = MessageSingleton.getInstance();
-      if(messageSingleton.getMessage() === null 
-          || messageSingleton.getMessage().date !== message.date 
+      if(messageSingleton.getMessage() === null
+          || messageSingleton.getMessage().date !== message.date
           || !messageSingleton.getAlreadyPlay()){
         this.translateMessage(message);
         messageSingleton.setMessage(message)
@@ -260,7 +260,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.openModal(AuthorizeComponent, '200px', true, lastAuthorization);
     this.authorizationHandled.push(lastAuthorization.id)
   }
-  
+
   private async addMultiMessageToChat(chat: Chat, roomId: string) {
     let monoToMultiTime: number;
     if (this.support === Support.MONOANDMULTIDEVICE) {
@@ -333,7 +333,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if(this.messagesWrapped != null){
       hasMessage = this.messagesWrapped.filter(mw => {
         if(!mw.notification){
-          return mw.message.text === message.text &&  mw.message.time === message.time 
+          return mw.message.text === message.text &&  mw.message.time === message.time
         }
       })
     }
@@ -376,17 +376,17 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     return message.role === Role.ADVISOR || message.role === Role.ADMIN ? this.user.language : this.settingsService.defaultLanguage;
   }
 
-  private openModal(component, height, disableClose, guest?) {
+  private openModal(component, height, disableClose, guest?, languages?) {
     return this.dialog.open(component, {
       width: '800px',
       height,
       panelClass: 'customDialog',
       disableClose,
       data: {
+        languages: languages,
         roomId: this.roomId,
         guest: guest
       },
     });
   }
 }
-

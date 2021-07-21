@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SettingsService } from 'src/app/services/settings.service';
 import { RateService } from 'src/app/services/rate.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { Rate } from 'src/app/models/rate';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
 import { ERROR_FUNC_SEND_STATS } from 'src/app/models/error/errorFunctionnal';
 
@@ -53,7 +53,8 @@ export class RateDialogComponent implements OnInit {
     private settingsService: SettingsService,
     private toastService: ToastService,
     private router: Router,
-    private chatService: ChatService
+    private chatService: ChatService,
+    @Inject(MAT_DIALOG_DATA) public data: { languages: Array<string> }
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
@@ -89,9 +90,13 @@ export class RateDialogComponent implements OnInit {
         languageNameFr = vocabularyForeign.languageNameFr
       }
     }
+    const languages = this.data.languages
+      .filter(l => l !=='fr-FR')
+      .map(l => VOCABULARY.find((v) => v.isoCode === l).languageNameFr)
+      .join(',')
     const date = new Date();
     this.rate = {
-      language: languageNameFr,
+      language: languages,
       date,
       hour: date.getHours() + ':' + date.getMinutes(),
       grades: [undefined, undefined],
