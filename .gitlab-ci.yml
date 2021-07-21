@@ -28,6 +28,9 @@ build:
 
 deploy:
     stage: deploy
+    cache:
+      paths:
+        - dist/
     environment:
         name: staging
         url: https://pole-emploi-trad-summer.firebaseapp.com
