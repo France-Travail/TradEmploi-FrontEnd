@@ -8,8 +8,6 @@ import {Role} from 'src/app/models/role';
 import {ChatService} from 'src/app/services/chat.service';
 import {ERROR_TECH_DB} from 'src/app/models/error/errorTechnical';
 import {ERROR_FUNC_PASSWORD} from 'src/app/models/error/errorFunctionnal';
-import {AngularFireModule} from "@angular/fire";
-import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-authentication',
@@ -77,7 +75,6 @@ export class AuthenticationComponent implements OnInit {
         roomId,
         isMultiDevices: false
       });
-      AngularFireModule.initializeApp(environment.firebaseConfig);
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.toastService.showToast(auth.message, 'toast-success');
       this.router.navigateByUrl('modality');
