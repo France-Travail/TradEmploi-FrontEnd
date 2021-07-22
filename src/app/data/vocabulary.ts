@@ -49,7 +49,8 @@ import {
   JAPANESE,
   ALBANIAN,
   TAMOUL_INDIA,
-  BENGALI_INDIA, BULGARE
+  BENGALI_INDIA,
+  BULGARE
 } from './sentence';
 
 export const VOCABULARY_DEFAULT: Vocabulary = {
