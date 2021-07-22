@@ -1,7 +1,7 @@
 image: node:12.18-stretch-slim
 
 before_script:
-  - npm i -g firebase-tools
+  - npm i -g firebase-tools @angular/cli@8.1.2
 
 stages:
   - build
