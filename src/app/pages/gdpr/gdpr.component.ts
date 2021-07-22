@@ -5,7 +5,7 @@ import { FRENCH } from '../../data/sentence';
 import { Gdpr } from 'src/app/models/gdpr';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-gdpr',
@@ -28,7 +28,7 @@ export class GdprComponent {
       this.isSmallScreen = result.matches;
     });
     this.selected = this.data.language;
-    this.language(this.selected);
+    this.chooseLanguage(this.selected);
     this.navbarService.handleTabGDPR();
     this.navbarService.show();
 
@@ -36,10 +36,10 @@ export class GdprComponent {
 
   public moreOptions() {
     this.isMoreOptions = true;
-    this.language({ value: this.selected });
+    this.chooseLanguage({ value: this.selected });
   }
 
-  public language(option) {
+  public chooseLanguage(option) {
     this.gdprWording = option.value === 'english' ? ENGLISH.gdpr : FRENCH.gdpr;
   }
 
