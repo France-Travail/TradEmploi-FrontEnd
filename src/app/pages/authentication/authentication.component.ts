@@ -1,14 +1,13 @@
-import { TokenBrokerService } from './../../services/token-broker.service';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { SettingsService } from 'src/app/services/settings.service';
-import { Role } from 'src/app/models/role';
-import { ChatService } from 'src/app/services/chat.service';
-import { ERROR_TECH_DB } from 'src/app/models/error/errorTechnical';
-import { ERROR_FUNC_PASSWORD } from 'src/app/models/error/errorFunctionnal';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from 'src/app/services/auth.service';
+import {ToastService} from 'src/app/services/toast.service';
+import {SettingsService} from 'src/app/services/settings.service';
+import {Role} from 'src/app/models/role';
+import {ChatService} from 'src/app/services/chat.service';
+import {ERROR_TECH_DB} from 'src/app/models/error/errorTechnical';
+import {ERROR_FUNC_PASSWORD} from 'src/app/models/error/errorFunctionnal';
 
 @Component({
   selector: 'app-authentication',
@@ -68,14 +67,21 @@ export class AuthenticationComponent implements OnInit {
       const role = this.form.get('email').value === 'admin@pe.fr' ? Role.ADMIN : Role.ADVISOR;
       const roomId = this.chatService.getRoomId();
       localStorage.setItem('isLogged', 'true');
-      this.settingsService.user.next({ ...this.settingsService.user.value, role, firstname: 'Pôle emploi', connectionTime: Date.now(), roomId, isMultiDevices: false });
+      this.settingsService.user.next({
+        ...this.settingsService.user.value,
+        role,
+        firstname: 'Pôle emploi',
+        connectionTime: Date.now(),
+        roomId,
+        isMultiDevices: false
+      });
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.toastService.showToast(auth.message, 'toast-success');
       this.router.navigateByUrl('modality');
     } catch (error) {
-      error.message.includes("password") ? 
-      this.toastService.showToast(ERROR_FUNC_PASSWORD.description, 'toast-error')
-      : this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
+      error.message.includes("password") ?
+        this.toastService.showToast(ERROR_FUNC_PASSWORD.description, 'toast-error')
+        : this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
     }
   }
 }

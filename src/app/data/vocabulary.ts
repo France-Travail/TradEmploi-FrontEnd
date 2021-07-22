@@ -49,7 +49,8 @@ import {
   JAPANESE,
   ALBANIAN,
   TAMOUL_INDIA,
-  BENGALI_INDIA
+  BENGALI_INDIA,
+  BULGARE
 } from './sentence';
 
 export const VOCABULARY_DEFAULT: Vocabulary = {
@@ -807,7 +808,7 @@ export const VOCABULARY: Vocabulary[] = [
   { isoCode: 'te-IN', countryNameRaw: 'భారతదేశం', countryNameFr: 'Inde', languageNameRaw: 'తెలుగు', languageNameFr: 'Télougou', sentences: TELUGU },
   { isoCode: 'en-PK', audioCode: 'en-GB', countryNameRaw: 'Pakistan', countryNameFr: 'Pakistan', languageNameRaw: 'English', languageNameFr: 'Anglais', sentences: ENGLISH },
   { isoCode: 'ur-IN', countryNameRaw: 'بھارت', countryNameFr: 'Inde', languageNameRaw: 'اردو', languageNameFr: 'Ourdou', sentences: OURDOU },
-  { isoCode: 'bg-BG', countryNameRaw: 'България', countryNameFr: 'Bulgarie', languageNameRaw: 'Български', languageNameFr: 'Bulgare', sentences: ENGLISH_DEFAULT },
+  { isoCode: 'bg-BG', countryNameRaw: 'България', countryNameFr: 'Bulgarie', languageNameRaw: 'Български', languageNameFr: 'Bulgare', sentences: BULGARE },
   { isoCode: 'sr-RS', countryNameRaw: 'Србија', countryNameFr: 'Serbie', languageNameRaw: 'Српски', languageNameFr: 'Serbe', sentences: ENGLISH_DEFAULT },
   { isoCode: 'uk-UA', countryNameRaw: 'Україна', countryNameFr: 'Ukraine', languageNameRaw: 'Українська', languageNameFr: 'ukrainien', sentences: UKRAINE },
   { isoCode: 'he-IL', countryNameRaw: 'ישראל', countryNameFr: 'Israël', languageNameRaw: 'עברית', languageNameFr: 'Hébreu', sentences: HEBREW },

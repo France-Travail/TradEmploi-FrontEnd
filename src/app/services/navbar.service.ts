@@ -40,7 +40,7 @@ export class NavbarService {
   }
 
   public handleTabsTranslation() {
-    this.choiceTab = !this.settingsService.user.value.isMultiDevices 
+    this.choiceTab = !this.settingsService.user.value.isMultiDevices
       || this.settingsService.user.value.role === Role.GUEST;
     this.modalityTab = this.settingsService.user.value.role !== Role.GUEST;
     this.settingsTab = this.settingsService.user.value.role === Role.ADMIN;

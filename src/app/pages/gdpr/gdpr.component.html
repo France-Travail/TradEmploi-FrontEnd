@@ -8,7 +8,7 @@
   </div>
   <div class="language">
     <mat-form-field appearance="none">
-      <mat-select [(value)]="selected" (selectionChange)="language($event)">
+      <mat-select [(value)]="selected" (selectionChange)="chooseLanguage($event)">
         <mat-option value="english">English</mat-option>
         <mat-option value="french">Français</mat-option>
       </mat-select>
@@ -27,12 +27,11 @@
   </div>
   <div class="action">
     <ng-template [ngIf]="!isMoreOptions">
-      <button class="options" (click)="agree()"  [ngClass]="{ 'mobileBtn': isMobile }">{{ gdprWording.disagreeBtn }} </button>
+      <button class="options" (click)="closeDialog()"  [ngClass]="{ 'mobileBtn': isMobile }">{{ gdprWording.agreeBtn }} </button>
       <button class="options" (click)="moreOptions()"  [ngClass]="{ 'mobileBtn': isMobile }">{{ gdprWording.learnBtn }}</button>
-      <button (click)="agree()" [ngClass]="{ 'mobileBtn': isMobile }">{{ gdprWording.agreeBtn }}</button>
     </ng-template>
     <ng-template [ngIf]="isMoreOptions">
-      <button class="options" [ngStyle]="{ width:'200px' }" (click)="agree()">{{ gdprWording.confirmBtn }}</button>
+      <button class="options" [ngStyle]="{ width:'200px' }" (click)="closeDialog()">{{ gdprWording.confirmBtn }}</button>
     </ng-template>
   </div>
 </div>

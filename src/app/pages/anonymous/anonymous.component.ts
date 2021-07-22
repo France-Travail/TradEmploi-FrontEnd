@@ -93,9 +93,9 @@ export class AnonymousComponent implements OnInit {
     await this.tbs.getToken(auth.token, Role.GUEST, this.roomId);
     this.chatService.support = Support.MONOANDMULTIDEVICE;
     this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: auth.id, role: Role.GUEST, connectionTime: Date.now(), isMultiDevices: true });
-    this.dialog.closeAll()
+    this.dialog.closeAll();
     this.toastService.showToast(auth.message, 'toast-success');
-    this.router.navigateByUrl('gdpr/' + this.roomId);
+    this.router.navigateByUrl('choice');
   }
 
   private async addMember(id: string){

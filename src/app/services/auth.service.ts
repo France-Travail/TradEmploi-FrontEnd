@@ -20,7 +20,7 @@ export class AuthService {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
         const token = await auth.user.getIdTokenResult();
-        JwtFbSingleton.getInstance().setToken({ token: token.token, expireTime: moment(token.expirationTime), email: email });
+        JwtFbSingleton.getInstance().setToken({ token: token.token, expireTime: moment(token.expirationTime), email });
         localStorage.setItem('fbtk', token.token);
         this.tbs.getToken(token.token, Role.ADVISOR);
         if (auth.user != null) {
