@@ -1,5 +1,8 @@
 image: node:12.18-stretch-slim
 
+before_script:
+  - npm i -g firebase-tools @angular/cli@8.1.2
+
 stages:
   - install
   - build
@@ -15,7 +18,6 @@ install:
     name: staging
     url: https://pole-emploi-trad-dev.firebaseapp.com
   script:
-    - npm i -g firebase-tools @angular/cli@8.1.2
     - npm install
   only:
     refs:
