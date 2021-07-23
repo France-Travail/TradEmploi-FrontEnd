@@ -8,6 +8,7 @@ import { Role } from 'src/app/models/role';
 import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { RateDialogComponent } from 'src/app/pages/translation/dialogs/rate-dialog/rate-dialog.component';
 import { OnboardingComponent } from 'src/app/pages/translation/dialogs/onboarding/onboarding.component';
+import {GdprComponent} from "../../../../pages/gdpr/gdpr.component";
 
 @Component({
   selector: 'app-sidenav',
@@ -20,6 +21,8 @@ export class SidenavComponent {
   public choiceLink: string;
   public logoutLink: string;
   public helpLink: string;
+  public gdprLink: string;
+  public language: string;
 
   constructor(public dialog: MatDialog, public settingsService: SettingsService, public navbarService: NavbarService) {
     this.settingsService.user.subscribe((user) => {
@@ -27,6 +30,8 @@ export class SidenavComponent {
       this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
       this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
       this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'Guide de démarrage';
+      this.gdprLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.gdpr : 'cgu';
+      this.language = isGuest ? 'english' : 'french';
     });
   }
 
@@ -48,6 +53,16 @@ export class SidenavComponent {
 
   public help() {
     this.openModal(OnboardingComponent);
+  }
+  public gdpr() {
+    this.dialog.open(GdprComponent, {
+      panelClass: 'customDialog',
+      width: '90%',
+      height: '90%',
+      data: {
+        language: this.language
+      }
+    });
   }
 
   private openModal(component) {

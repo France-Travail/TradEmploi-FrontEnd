@@ -70,14 +70,9 @@ export const FRENCH: Sentence = {
     preApplicationName: 'Accédez au service de ',
     applicationName: 'traduction instantanée',
     privacyText:
-      "Nous stockons et accédons aux informations sur un appareil, telles que les cookies et traitons les données personnelles pour la mesure du contenu et les informations d'audience, ainsi que pour développer et améliorer les produits.\n\nVous pouvez cliquer pour consentir à notre traitement comme décrit ci-dessus.\nVous pouvez également cliquer pour refuser de donner votre consentement ou accéder à des informations plus détaillées et modifier vos préférences avant de consentir.\nVeuillez noter que certains traitements de vos données personnelles peuvent ne pas nécessiter votre consentement, mais vous avez le droit de vous opposer à un tel traitement.",
+      'Protection des données à caractère personnel\n\nCet outil de traduction instantanée traite vos données dans le cadre de vos échanges avec votre conseiller et de votre accompagnement par Pôle emploi. La base légal de ce traitement est la mission de service public de Pôle emploi.\n\nVos données sont collectées et traitées par Pôle Emploi dans le cadre du suivi des demandeurs d’emploi.\n\nPôle emploi utilisera vos données de manière anonymisée, à des fins d’amélioration continue de ses services, sur la base de ses intérêts légitimes.\n\nVos données personnelles sont transférées vers des datacenters de Google pour la bon fonctionnement de l’outil.\n\nS’agissant de l’hébergement de vos données, Google a recours à différents datacenters présents au sein et en dehors de l’Union européenne. Compte tenu de la nature de cet hébergeur il convient de préciser que ce dernier est soumis au Cloud Act, loi américaine promulguée le 23 mars 2018, permettant aux forces de l\'ordre ou aux agences de renseignement américaines d’obtenir des opérateurs télécoms et des fournisseurs de services de Cloud Computing des informations stockées sur leurs serveurs, que ces données soient situées aux États-Unis ou à l’étranger.\n\nVos données sont conservées le temps de la conversation. Elles sont ensuite entièrement anonymisées.\n\nToute personne peut exercer ses droits notamment d’accès et de rectification en adressant sa demande à la délégué à la protection des données de Pôle emploi par courrier à l’adresse suivante ;  1 avenue du Docteur Gley - 75987 Paris cedex 20, ou par courriel à l’adresse email suivante. contact-dpd@pole-emploi.fr.\n\nSi vous estimez que vos droits n’ont pas été respectés, vous pouvez introduire une réclamation auprès de la Commission Nationale Informatique et Libertés (CNIL).',
     optionTitle: 'Usages spéciaux et fonctionnalités',
-    optionText:
-      "Nous utilisons la technologie de cryptage 256-AES pour crypter les données telles que les conversations envoyées à notre produit.\nCela signifie que tous les messages que vous envoyez sont cryptés et sécurisés.\nTout cela se produit automatiquement : pas besoin d'activer les paramètres ou de configurer une requête spéciale pour sécuriser vos messages. AES-256 est toujours activé. Il n'y a aucun moyen de désactiver le cryptage AES-256.\nPour une protection supplémentaire, tous les messages stockés pendant l'utilisation du produit seront supprimés à la fermeture de l'application.",
-    disagreeBtn: 'REFUSER',
-    learnBtn: 'EN SAVOIR PLUS',
-    agreeBtn: 'ACCEPTER',
-    confirmBtn: 'CONFIRMER',
+    closeBtn: 'FERMER',
   },
   logout: {
     title: 'Déconnexion',
@@ -138,14 +133,9 @@ export const ENGLISH: Sentence = {
     preApplicationName: 'Access to ',
     applicationName: 'instant translation service',
     privacyText:
-      'We store and access information on a device, such as cookies and process personal data for content measurement, and audience insights, as well as to develop and improve products.\n\nYou may click to consent to our processing as described above.\nAlternatively you may click to refuse to consent or access more detailed information and change your preferences before consenting.\nPlease note that some processing of your personal data may not require your consent, but you have a right to object to such processing.',
+      'Protection of personal data\n\nThis translation tool processes your data in the context of your exchanges with your advisor and your support by Pôle emploi. The legal basis for this\n processing is the public service mission of Pôle Emploi.\n\nYour data is collected and processed by Pôle Emploi as part of the follow-up of job seekers.\n\nPôle emploi will use your data in an anonymized way, for the purpose of continuous improvement of its services, on the basis of its legitimate interests.\n\nYour personal data is transferred to Google datacenters for the proper functioning of the tool.\n\nGoogle uses various data centers within and outside the European Union to host your data. Given the nature of this host, it should be noted that it is subject \nto the Cloud Act, an American law enacted on March 23, 2018, allowing law enforcement or American intelligence agencies to obtain information stored on their \nservers from telecom operators and cloud computing service providers, whether this data is located in the United States or abroad.\n\nYour data is kept for the duration of the conversation. It is then completely anonymized.\nAny person may exercise his or her rights of access and rectification by sending a request to Pôle emploi\'s Data Protection Officer by mail to the following \naddress: 1 avenue du Docteur Gley - 75987 Paris cedex 20, or by email to the following address: contact-dpd@pole-emploi.fr.)\n\nIf you feel that your rights have not been respected, you may file a complaint with the Commission Nationale Informatique et Libertés (CNIL).',
     optionTitle: 'Special purposes and features',
-    optionText:
-      "We use 256-AES Encryption Technology to encrypt data such as conversation sent to our Product.\nIt's mean that every messages you send are encryped and secured.\nAll of this happens automatically: No need to turn on settings or set up special quiery to secure your messages. AES-256 is always activated.\n There's no way to turn off AES-256 encryption.\nFor added protection, all messages stored during the Product use will be deleted when the app is closed.",
-    disagreeBtn: 'DISAGREE',
-    learnBtn: 'LEARN MORE',
-    agreeBtn: 'AGREE',
-    confirmBtn: 'CONFIRM',
+    closeBtn: 'CLOSE',
   },
   logout: {
     title: 'Logout',

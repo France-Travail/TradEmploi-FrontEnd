@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { SettingsService } from './settings.service';
-import { Role } from '../models/role';
-import { Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {SettingsService} from './settings.service';
+import {Role} from '../models/role';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class NavbarService {
@@ -11,9 +11,9 @@ export class NavbarService {
   public settingsTab: boolean = false;
   public helpTab: boolean = false;
   public endTab: boolean = false;
-  public shareTab: boolean = false;
 
-  constructor(private settingsService: SettingsService, private router: Router) {}
+  constructor(private settingsService: SettingsService, private router: Router) {
+  }
 
   public hide() {
     this.visible = false;

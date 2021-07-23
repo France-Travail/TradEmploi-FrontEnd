@@ -3,6 +3,10 @@
     <img src="assets/icons/icon-languages-black.svg" />
     <span class="name">{{ choiceLink | uppercase }}</span>
   </a>
+  <a mat-list-item routerLink="gdpr" (click)="gdpr()">
+    <img src="assets/icons/icon-policies-black.svg" />
+    <span class="name">{{ gdprLink | uppercase }}</span>
+  </a>
   <a mat-list-item routerLink="modality" (click)="onSidenavClose()" *ngIf="navbarService.modalityTab">
     <img src="assets/icons/icon-modality-black.svg" />
     <span class="name">MODALITÉ</span>

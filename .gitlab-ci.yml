@@ -1,29 +1,49 @@
 image: node:12.18-stretch-slim
 
-before_script:
-  - npm i -g firebase-tools @angular/cli@8.1.2
-
 stages:
+  - install
   - build
+  - test
   - deploy
 
+install:
+  stage: install
+  cache:
+    paths:
+      - node_modules/
+  environment:
+    name: staging
+    url: https://pole-emploi-trad-dev.firebaseapp.com
+  script:
+    - npm i -g firebase-tools @angular/cli@8.1.2
+    - npm install
+  only:
+    refs:
+      - develop
 build:
   stage: build
   cache:
     paths:
       - node_modules/
       - dist/
+
+  script:
+    - npm run config "--environment=dev"
+    - ng build "--configuration=dev"
+
+test:
+  stage: test
+  cache:
+    paths:
+      - node_modules/
   environment:
     name: staging
     url: https://pole-emploi-trad-dev.firebaseapp.com
   script:
-    - npm install
-    - npm run config "--environment=dev"
-    - ng build "--configuration=dev"
+    - npm run test -codeCoverage=true --watch=false --browsers=ChromeHeadless
   only:
     refs:
       - develop
-
 deploy:
   stage: deploy
   cache:

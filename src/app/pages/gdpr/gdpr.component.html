@@ -18,20 +18,10 @@
       <ng-template [ngIf]="!isMoreOptions">
         {{ gdprWording.privacyText }}
       </ng-template>
-      <ng-template [ngIf]="isMoreOptions">
-        <b>{{ gdprWording.optionTitle }}</b>
-        <div class="confirm">
-          {{ gdprWording.optionText }}
-        </div>
-      </ng-template>
   </div>
   <div class="action">
     <ng-template [ngIf]="!isMoreOptions">
-      <button class="options" (click)="closeDialog()"  [ngClass]="{ 'mobileBtn': isMobile }">{{ gdprWording.agreeBtn }} </button>
-      <button class="options" (click)="moreOptions()"  [ngClass]="{ 'mobileBtn': isMobile }">{{ gdprWording.learnBtn }}</button>
-    </ng-template>
-    <ng-template [ngIf]="isMoreOptions">
-      <button class="options" [ngStyle]="{ width:'200px' }" (click)="closeDialog()">{{ gdprWording.confirmBtn }}</button>
+      <button class="options" (click)="closeDialog()">{{ gdprWording.closeBtn }} </button>
     </ng-template>
   </div>
 </div>

@@ -75,7 +75,7 @@ describe('AuthService', () => {
   it('should successfully login', inject([SettingsService, AngularFireAuth], async () => {
     const mock = TestBed.get(AngularFireAuth);
     const authSpy = spyOn(authStub.auth, 'signInWithEmailAndPassword').and.callFake(() => {
-      return Promise.resolve({ user: { uid: '4Tl6gGYIVMeTVLPPtfMDRrkGmNd2' } });
+      return Promise.resolve({ user: { uid: '4Tl6gGYIVMeTVLPPtfMDRrkGmNd2', getIdTokenResult(){ return ''; } } });
     });
     mock.auth = authStub.auth;
     const result = await service.login('jane@gmail.com', 'abcderfs');
@@ -100,53 +100,53 @@ describe('AuthService', () => {
   it('should successfully login anonymously ', inject([SettingsService], async () => {
     const mock = TestBed.get(AngularFireAuth);
     const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
-      return Promise.resolve({ user: { uid: '12345677' } });
+      return Promise.resolve({ user: { uid: '12345677', getIdTokenResult(){ return ''; } } });
     });
     mock.auth = authStub.auth;
     const result = await service.loginAnonymous();
-    expect(result).toEqual({ id: '12345677', isAuth: true, message: 'Authentification réussie' });
+    expect(result).toEqual({ id: '12345677', isAuth: true, message: 'Authentification réussie', token: undefined, expirationTime: undefined });
     expect(authSpy).toHaveBeenCalled();
   }));
 
   it('should successfully login anonymously with admin config ', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
     const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
-      return Promise.resolve({ user: { uid: '12345677' } });
+      return Promise.resolve({ user: { uid: '12345677', getIdTokenResult(){ return ''; } } });
     });
-    settingsService.user.next({ connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi' });
+    settingsService.user.next({ connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi', isMultiDevices: false });
     mock.auth = authStub.auth;
     const result = await service.loginAnonymous();
-    expect(result).toEqual({ id: '12345677', isAuth: true, message: 'Authentification réussie' });
+    expect(result).toEqual({ id: '12345677', isAuth: true, message: 'Authentification réussie', token: undefined, expirationTime: undefined });
     expect(authSpy).toHaveBeenCalled();
   }));
 
   it('should successfully login anonymously with advisor config ', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
     const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
-      return Promise.resolve({ user: { uid: '12345677' } });
+      return Promise.resolve({ user: { uid: '12345677' , getIdTokenResult(){ return ''; } } });
     });
-    settingsService.user.next({ connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi' });
+    settingsService.user.next({ connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi', isMultiDevices: true });
     collectionStub.valueChanges.and.callFake(() => {
       return of([{ adminList: [], advisors: ['jane@gmail.com'] }]);
     });
     mock.auth = authStub.auth;
     const result = await service.loginAnonymous();
-    expect(result).toEqual({ id: '12345677', isAuth: true, message: 'Authentification réussie' });
+    expect(result).toEqual({ id: '12345677', isAuth: true, message: 'Authentification réussie', token: undefined, expirationTime: undefined });
     expect(authSpy).toHaveBeenCalled();
   }));
 
   it('should successfully login anonymously with guest config ', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
     const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
-      return Promise.resolve({ user: { uid: '12345677' } });
+      return Promise.resolve({ user: { uid: '12345677', getIdTokenResult(){ return ''; } } });
     });
-    settingsService.user.next({ connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi' });
+    settingsService.user.next({ connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi', isMultiDevices: true });
     collectionStub.valueChanges.and.callFake(() => {
       return of([{ adminList: [], advisors: [] }]);
     });
     mock.auth = authStub.auth;
     const result = await service.loginAnonymous();
-    expect(result).toEqual({ id: '12345677', isAuth: true, message: 'Authentification réussie' });
+    expect(result).toEqual({ id: '12345677', isAuth: true, message: 'Authentification réussie', token: undefined, expirationTime: undefined });
     expect(authSpy).toHaveBeenCalled();
   }));
 
@@ -159,13 +159,13 @@ describe('AuthService', () => {
     mock.auth = authStub.auth;
     await service.loginAnonymous().catch(error => {
       expect(authSpy).toHaveBeenCalled();
-      expect(error).toEqual({ isAuth: false, message: 'There is no user record corresponding to this identifier. The user may have been deleted.' });
+      expect(error).toEqual({ id: '', isAuth: false, message: 'There is no user record corresponding to this identifier. The user may have been deleted.' });
     });
   });
 
   it('should logout successfully', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
-    settingsService.user.next({ ...settingsService.user.value, role: Role.GUEST, firstname: 'Pôle emploi' });
+    settingsService.user.next({ ...settingsService.user.value, role: Role.GUEST, firstname: 'Pôle emploi', isMultiDevices: true });
     spyOn(authStub.auth.currentUser, 'delete').and.callFake(() => {
       return Promise.resolve();
     });
@@ -181,7 +181,7 @@ describe('AuthService', () => {
   it('should fail logout', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
     mock.auth = authStub.auth;
-    settingsService.user.next({ ...settingsService.user.value, role: Role.GUEST, firstname: 'Pôle emploi' });
+    settingsService.user.next({ ...settingsService.user.value, role: Role.GUEST, firstname: 'Pôle emploi', isMultiDevices: true });
     const authSpy = spyOn(authStub.auth, 'signOut').and.callFake(() => {
       return Promise.reject({ isAuth: false, message: 'Déconnexion échouée' });
     });
@@ -194,7 +194,7 @@ describe('AuthService', () => {
   it('should fail user delete ', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
     mock.auth = authStub.auth;
-    settingsService.user.next({ ...settingsService.user.value, role: Role.GUEST, firstname: 'Pôle emploi' });
+    settingsService.user.next({ ...settingsService.user.value, role: Role.GUEST, firstname: 'Pôle emploi', isMultiDevices: true });
     const authSpy = spyOn(authStub.auth.currentUser, 'delete').and.
       callFake(() => {
         return Promise.reject({ isAuth: false, message: 'Déconnexion échouée' });

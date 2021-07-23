@@ -4,9 +4,5 @@ export interface Gdpr {
   applicationName: string;
   privacyText: string;
   optionTitle: string;
-  optionText: string;
-  disagreeBtn: string;
-  learnBtn: string;
-  agreeBtn: string;
-  confirmBtn: string;
+  closeBtn: string;
 }
