@@ -42,6 +42,7 @@ test:
     name: staging
     url: https://pole-emploi-trad-dev.firebaseapp.com
   script:
+    - npm run config "--environment=dev"
     - npm run test -codeCoverage=true --watch=false --browsers=ChromeHeadless
   only:
     refs:
