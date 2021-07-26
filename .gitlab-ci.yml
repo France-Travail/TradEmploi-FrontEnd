@@ -1,16 +1,15 @@
-image: node:12.18-stretch-slim
-
-before_script:
-  - npm i -g firebase-tools @angular/cli@8.1.2
+image: node:alpine
 
 stages:
-  - install
-  - build
   - test
+  - build
   - deploy
 
-install:
-  stage: install
+test:
+  image: weboaks/node-karma-protractor-chrome:alpine
+  stage: test
+  before_script:
+    - npm i
   cache:
     paths:
       - node_modules/
@@ -18,10 +17,12 @@ install:
     name: staging
     url: https://pole-emploi-trad-dev.firebaseapp.com
   script:
-    - npm install
+    - npm run config "--environment=dev"
+    - npm run test
   only:
     refs:
       - develop
+
 build:
   stage: build
   cache:
@@ -31,25 +32,12 @@ build:
 
   script:
     - npm run config "--environment=dev"
-    - ng build "--configuration=dev"
+    - npm run build "--configuration=dev"
 
-test:
-  image: weboaks/node-karma-protractor-chrome:alpine
-  stage: test
-  cache:
-    paths:
-      - node_modules/
-  environment:
-    name: staging
-    url: https://pole-emploi-trad-dev.firebaseapp.com
-  script:
-    - npm run config "--environment=dev"
-    - npm run test -codeCoverage=true --watch=false --browsers=ChromeHeadless
-  only:
-    refs:
-      - develop
 deploy:
   stage: deploy
+  before_script:
+    - npm i -g firebase-tools
   cache:
     paths:
       - dist/
