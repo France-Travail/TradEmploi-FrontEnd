@@ -10,6 +10,8 @@ test:
   stage: test
   before_script:
     - npm i
+    - ls -la /usr/local/lib/node_modules
+    - id -un
   cache:
     paths:
       - node_modules/
