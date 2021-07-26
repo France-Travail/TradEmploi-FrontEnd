@@ -29,7 +29,7 @@ describe('ModalityComponent', () => {
     role: Role.GUEST,
     firstname: 'Pôle emploi',
     isMultiDevices: true,
-    language: null
+    language: {audio: 'fr-FR', written: 'fr-FR', languageName: 'Français'}
   };
 
   beforeEach(async(() => {
@@ -81,6 +81,9 @@ describe('ModalityComponent', () => {
 
     it('when we confirm the mono mode connection, we should go to the translation page', () => {
       component.target = 'multi';
+      spyOn(localStorage, 'getItem')
+        .and.returnValue(JSON.stringify(user));
+      mockBreakpointService.observe.and.returnValue(of(true));
       component.confirm();
       expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('translation');
     });
