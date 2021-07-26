@@ -34,6 +34,7 @@ build:
     - ng build "--configuration=dev"
 
 test:
+  image: weboaks/node-karma-protractor-chrome:alpine
   stage: test
   cache:
     paths:

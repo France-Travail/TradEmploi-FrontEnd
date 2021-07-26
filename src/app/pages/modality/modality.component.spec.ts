@@ -28,7 +28,8 @@ describe('ModalityComponent', () => {
     roomId: '1345',
     role: Role.GUEST,
     firstname: 'Pôle emploi',
-    isMultiDevices: true
+    isMultiDevices: true,
+    language: null
   };
 
   beforeEach(async(() => {
