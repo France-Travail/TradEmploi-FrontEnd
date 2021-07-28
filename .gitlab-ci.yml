@@ -1,4 +1,7 @@
-image: node:alpine
+image: node:12.18-stretch-slim
+
+before_script:
+  - npm i -g firebase-tools @angular/cli@8.1.2
 
 stages:
   - build
@@ -6,21 +9,23 @@ stages:
 
 build:
   stage: build
-  before_script:
-    - npm i
   cache:
     paths:
       - node_modules/
       - dist/
-
+  environment:
+    name: staging
+    url: https://pole-emploi-trad-dev.firebaseapp.com
   script:
+    - npm install
     - npm run config "--environment=dev"
-    - npm run build "--configuration=dev"
+    - ng build "--configuration=dev"
+  only:
+    refs:
+      - develop
 
 deploy:
   stage: deploy
-  before_script:
-    - npm i -g firebase-tools
   cache:
     paths:
       - dist/
