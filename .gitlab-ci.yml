@@ -4,9 +4,10 @@ stages:
   - build
   - deploy
 
-
 build:
   stage: build
+  before_script:
+    - npm i
   cache:
     paths:
       - node_modules/
