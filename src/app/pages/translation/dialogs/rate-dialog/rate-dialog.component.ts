@@ -1,13 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { SettingsService } from 'src/app/services/settings.service';
-import { RateService } from 'src/app/services/rate.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { VOCABULARY } from 'src/app/data/vocabulary';
-import { Rate } from 'src/app/models/rate';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ChatService } from 'src/app/services/chat.service';
-import { ERROR_FUNC_SEND_STATS } from 'src/app/models/error/errorFunctionnal';
+import {Component, Inject, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {SettingsService} from 'src/app/services/settings.service';
+import {RateService} from 'src/app/services/rate.service';
+import {ToastService} from 'src/app/services/toast.service';
+import {VOCABULARY} from 'src/app/data/vocabulary';
+import {Rate} from 'src/app/models/rate';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {ChatService} from 'src/app/services/chat.service';
+import {ERROR_FUNC_SEND_STATS} from 'src/app/models/error/errorFunctionnal';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -73,7 +73,7 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionThree.french = rateFr.comment;
       this.sentences.questionFour.french = rateFr.technical;
     }
-    let languageNameFr: string ='Français'
+    let languageNameFr: string = 'Français';
     if(this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA'){
       this.sentences.questionOne.foreign = '';
       this.sentences.questionTwo.foreign = '';
@@ -87,13 +87,19 @@ export class RateDialogComponent implements OnInit {
         this.sentences.questionTwo.foreign = rateForeign.rating;
         this.sentences.questionThree.foreign = rateForeign.comment;
         this.sentences.questionFour.foreign = rateForeign.technical;
-        languageNameFr = vocabularyForeign.languageNameFr
+        languageNameFr = vocabularyForeign.languageNameFr;
       }
     }
-    const languages = this.data.languages
-      .filter(l => l !=='fr-FR')
-      .map(l => VOCABULARY.find((v) => v.isoCode === l).languageNameFr)
-      .join(',')
+    let languages;
+    if (this.data.languages) {
+      languages = this.data.languages
+        .filter(l => l !== 'fr-FR')
+        .map(l => VOCABULARY.find((v) => v.isoCode === l).languageNameFr)
+        .join(',');
+    } else {
+      languages = [languageNameFr];
+    }
+
     const date = new Date();
     this.rate = {
       language: languages,

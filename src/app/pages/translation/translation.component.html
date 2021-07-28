@@ -4,13 +4,16 @@
       <li *ngIf="!isGuest">
         <ng-template [ngIf]="isMultiDevices">
           <span class="roomId">{{ roomId }}</span>
-          <button class="share-btn" (click)="share()">INVITER</button>
+          <button class="share-btn" (click)="share()"  atTag
+                  [clickData]="{'name':'invit-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">INVITER</button>
         </ng-template>
-        <button class="end-btn" (click)="closeConversation()">TERMINER LA CONVERSATION</button>
+        <button class="end-btn" (click)="closeConversation()"  atTag
+                [clickData]="{'name':'end-chat-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">TERMINER LA CONVERSATION</button>
       </li>
       <li>
         <span *ngIf="isGuest" class="roomId">{{ roomId }}</span>
-        <img class="listen-icon" src="{{ this.isGuest && !isAudioSupported ? 'assets/icons/icon-listen-blue-low-opacity.svg' : 'assets/icons/icon-listen-blue.svg' }}" />
+        <img class="listen-icon"
+             src="{{ this.isGuest && !isAudioSupported ? 'assets/icons/icon-listen-blue-low-opacity.svg' : 'assets/icons/icon-listen-blue.svg' }}"/>
         <mat-slide-toggle
           class="auto-listen-btn"
           checked="{{ !isMultiDevices || isAudioSupported }}"
@@ -18,7 +21,7 @@
           (click)="switchAudio()"
           labelPosition="before"
           color="primary"
-          >{{ autoListenValue }}</mat-slide-toggle
+        >{{ autoListenValue }}</mat-slide-toggle
         >
       </li>
     </ul>
@@ -29,12 +32,16 @@
   </div>
   <footer class="footer">
     <ng-template [ngIf]="!isMultiDevices">
-      <app-message-wrapper role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
-      <app-message-wrapper role="DE" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
+      <app-message-wrapper role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)"
+                           [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
+      <app-message-wrapper role="DE" class="no-margin" (messagesToEmit)="addToChat($event)"
+                           [originText]="guestTextToEdit"></app-message-wrapper>
     </ng-template>
     <ng-template [ngIf]="isMultiDevices">
-      <app-message-wrapper *ngIf="isGuest" role="DE" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="guestTextToEdit"></app-message-wrapper>
-      <app-message-wrapper *ngIf="!isGuest" role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)" [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
+      <app-message-wrapper *ngIf="isGuest" role="DE" class="no-margin" (messagesToEmit)="addToChat($event)"
+                           [originText]="guestTextToEdit"></app-message-wrapper>
+      <app-message-wrapper *ngIf="!isGuest" role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)"
+                           [originText]="advisorTextToEdit" id="advisor-wrapper"></app-message-wrapper>
     </ng-template>
   </footer>
 </div>

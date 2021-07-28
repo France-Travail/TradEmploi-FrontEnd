@@ -13,6 +13,7 @@ import {User} from '../../models/user';
 import {GdprComponent} from '../gdpr/gdpr.component';
 import {NavbarService} from '../../services/navbar.service';
 import {SettingsService} from '../../services/settings.service';
+import {TagService} from '../../lib/atinternet/_services/tag.service';
 
 describe('ModalityComponent', () => {
   let component: ModalityComponent;
@@ -21,7 +22,9 @@ describe('ModalityComponent', () => {
   let mockSettingsService;
   let mockChatService;
   let mockRouter;
+  let mockTagService;
 
+  const event = new Event('click');
   const user = {
     connectionTime: 1,
     id: '123',
@@ -35,6 +38,7 @@ describe('ModalityComponent', () => {
   beforeEach(async(() => {
     mockChatService = jasmine.createSpyObj(['messagesStored', 'initChatMulti']);
     mockBreakpointService = jasmine.createSpyObj(['observe']);
+    mockTagService = jasmine.createSpyObj(['click']);
     mockBreakpointService.observe.and.returnValue(of(true));
     mockSettingsService = {
       user: new BehaviorSubject<User>(user),
@@ -51,7 +55,8 @@ describe('ModalityComponent', () => {
         {provide: Router, useValue: mockRouter},
         {provide: ChatService, useValue: mockChatService},
         {provide: SettingsService, useValue: mockSettingsService},
-        {provide: BreakpointObserver, useValue: mockBreakpointService}
+        {provide: BreakpointObserver, useValue: mockBreakpointService},
+        {provide: TagService, useValue: mockTagService}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -71,7 +76,7 @@ describe('ModalityComponent', () => {
   describe('mono mode connection', () => {
 
     it('when we confirm the mono mode connection, we should go to the language choice page', () => {
-      component.confirm();
+      component.confirm(event);
       expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('choice');
     });
 
@@ -84,7 +89,7 @@ describe('ModalityComponent', () => {
       spyOn(localStorage, 'getItem')
         .and.returnValue(JSON.stringify(user));
       mockBreakpointService.observe.and.returnValue(of(true));
-      component.confirm();
+      component.confirm(event);
       expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('translation');
     });
 
