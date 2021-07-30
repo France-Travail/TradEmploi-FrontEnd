@@ -4,11 +4,38 @@ before_script:
   - npm i -g firebase-tools @angular/cli@8.1.2
 
 stages:
+  - - build
   - build
   - deploy
 
+test:
+  before_script:
+    - npm i
+  image: trion/ng-cli-karma
+  allow_failure: true
+  stage: test
+  cache:
+    paths:
+      - node_modules/
+  environment:
+    name: staging
+    url: https://pole-emploi-trad-dev.firebaseapp.com
+  script:
+    - npm run config "--environment=dev"
+    - ng test --progress false --watch false
+  only:
+    refs:
+      - securing_api_keys
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
+
+
 build:
   stage: build
+  before_script:
+    - npm i
   cache:
     paths:
       - node_modules/
@@ -17,7 +44,6 @@ build:
     name: staging
     url: https://pole-emploi-trad-dev.firebaseapp.com
   script:
-    - npm install
     - npm run config "--environment=dev"
     - ng build "--configuration=dev"
   only:
