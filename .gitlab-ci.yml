@@ -25,12 +25,11 @@ test:
     - ng test --progress false --watch false
   only:
     refs:
-      - securing_api_keys
+      - develop
   artifacts:
     when: always
     reports:
       junit: report.xml
-
 
 build:
   stage: build
