@@ -4,7 +4,7 @@ before_script:
   - npm i -g firebase-tools @angular/cli@8.1.2
 
 stages:
-  - - build
+  - test
   - build
   - deploy
 
