@@ -1,7 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import {NavigationEnd, Router} from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Message } from 'src/app/models/translate/message';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
 import { ToastService } from 'src/app/services/toast.service';
@@ -27,7 +27,7 @@ import { ShareComponent } from './dialogs/share/share.component';
 import { MessageSingleton } from 'src/app/models/MessageSingleton';
 import { Chat } from 'src/app/models/db/chat';
 import { AuthorizeComponent } from './dialogs/authorize/authorize.component';
-import {PageInfo, TagService} from '../../lib/atinternet/_services/tag.service';
+import { PageInfo, TagService } from '../../lib/atinternet/_services/tag.service';
 
 @Component({
   selector: 'app-translation',
@@ -96,7 +96,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
           chapter2: 'chap2',
           chapter3: 'chap3',
           level2: '1',
-          customObject: this.user
+          customObject: this.user,
         };
         this.tagService.pageSend(pageData);
       }
@@ -133,7 +133,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.isMultiDevices) {
       this.isGuest ? this.introMessageGuest(introMessage) : this.introMessageAdmin(introMessage);
     } else {
-      this.sendNotification({ notification:  introMessage.welcomeFR , time: Date.now() });
+      this.sendNotification({ notification: introMessage.welcomeFR, time: Date.now() });
       this.sendNotification({ notification: introMessage.welcomeRAW, time: Date.now() });
       if (!this.vocalSupported) {
         this.sendNotification({ notification: introMessage.voiceavailabilityFR, time: Date.now() });
@@ -190,13 +190,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const hasDot = new RegExp('^[ .s]+$').test(message.text);
     if (message.text !== '' && !hasDot) {
       const messageSingleton = MessageSingleton.getInstance();
-      if (messageSingleton.getMessage() === null
-          || messageSingleton.getMessage().date !== message.date
-          || !messageSingleton.getAlreadyPlay()){
+      if (messageSingleton.getMessage() === null || messageSingleton.getMessage().date !== message.date || !messageSingleton.getAlreadyPlay()) {
         this.translateMessage(message);
         messageSingleton.setMessage(message);
         messageSingleton.setAlreadyPlay(true);
-      }else{
+      } else {
         messageSingleton.setAlreadyPlay(false);
         this.sendMessage(messageSingleton.getMessage());
       }
@@ -208,7 +206,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   public closeConversation() {
-    const languages = this.messagesWrapped.filter(m => m.message !== undefined).map(m => m.message.languageOrigin);
+    const languages = this.messagesWrapped.filter((m) => m.message !== undefined).map((m) => m.message.languageOrigin);
     this.openModal(RateDialogComponent, '700px', false, languages);
   }
 
@@ -242,7 +240,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.settingsService.reset();
   }
 
-
   private async deactivateMulti() {
     if (this.isGuest) {
       const isEndClosed: boolean = this.endIdDialogRef === undefined;
@@ -260,8 +257,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private initMultiDevices = (roomId) => {
     this.chatService.getChat(roomId).subscribe((chat: Chat) => {
-      if (chat.active != null && chat.active) {
-        const isNewAuthorization = chat.guests.filter(g => this.authorizationHandled.indexOf(g.id) === -1).length > 0 && !this.isGuest;
+      if (chat.active && chat.active != null && chat.active) {
+        const isNewAuthorization = chat.guests.filter((g) => this.authorizationHandled.indexOf(g.id) === -1).length > 0 && !this.isGuest;
         isNewAuthorization ? this.authorizeGuest(chat.guests) : this.addMultiMessageToChat(chat, roomId);
       } else {
         this.isAudioPlay = false;
@@ -271,9 +268,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  }
+  };
 
-  private authorizeGuest(guests){
+  private authorizeGuest(guests) {
     const lastAuthorization = guests[guests.length - 1];
     this.openModal(AuthorizeComponent, '200px', true, lastAuthorization);
     this.authorizationHandled.push(lastAuthorization.id);
@@ -288,7 +285,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.support === Support.MONOANDMULTIDEVICE) {
       mw = mw.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
     }
-    if (mw.length > 0) {
+    if (mw && mw.length > 0) {
       const notifLength = this.vocalSupported ? 2 : 3;
       if (this.messagesWrapped.length === notifLength) {
         mw.forEach((m: MessageWrapped) => {
@@ -331,7 +328,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.textToSpeechService
         .getSpeech(translate, languageTarget)
         .then((_) => {
-          if (this.textToSpeechService.audioSpeech){
+          if (this.textToSpeechService.audioSpeech) {
             if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
               this.textToSpeechService.audioSpeech.play();
             }
@@ -348,20 +345,20 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private sendMessage(message: Message) {
     let hasMessage = [];
-    if (this.messagesWrapped != null){
-      hasMessage = this.messagesWrapped.filter(mw => {
-        if (!mw.notification){
-          return mw.message.text === message.text &&  mw.message.time === message.time;
+    if (this.messagesWrapped != null) {
+      hasMessage = this.messagesWrapped.filter((mw) => {
+        if (!mw.notification) {
+          return mw.message.text === message.text && mw.message.time === message.time;
         }
       });
     }
-    if (hasMessage.length  === 0){
+    if (hasMessage.length === 0) {
       const isSender: boolean = this.isSender(message.member);
       const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
       this.messagesWrapped.push(messageWrapped);
       this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
       this.chatService.messagesStored.push({ message, time: message.time });
-    }else{
+    } else {
       MessageSingleton.getInstance().setAlreadyPlay(true);
     }
   }
@@ -375,13 +372,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private sendNotification(messageWrapped: MessageWrapped) {
-    const isNotificationExist = this.messagesWrapped.find(mw => {
-      if (mw.notification){
+    const isNotificationExist = this.messagesWrapped.find((mw) => {
+      if (mw.notification) {
         return mw.notification === messageWrapped.notification;
       }
       return false;
     });
-    if (isNotificationExist === undefined){
+    if (isNotificationExist === undefined) {
       this.messagesWrapped.push(messageWrapped);
       this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
     }
@@ -403,7 +400,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       data: {
         languages,
         roomId: this.roomId,
-        guest
+        guest,
       },
     });
   }
