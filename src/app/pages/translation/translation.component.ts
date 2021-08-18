@@ -1,33 +1,33 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import {NavigationEnd, Router} from '@angular/router';
-import { Message } from 'src/app/models/translate/message';
-import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
-import { ToastService } from 'src/app/services/toast.service';
-import { SettingsService } from 'src/app/services/settings.service';
-import { ChatService } from 'src/app/services/chat.service';
-import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
-import { Role } from 'src/app/models/role';
-import { NavbarService } from 'src/app/services/navbar.service';
-import { TranslateService } from 'src/app/services/translate.service';
-import { User } from 'src/app/models/user';
-import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
-import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
-import { EndComponent } from './dialogs/end/end.component';
-import { CryptService } from 'src/app/services/crypt.service';
-import { Language } from 'src/app/models/language';
-import { AdvisorDefaultName } from './../../services/settings.service';
-import { Support } from 'src/app/models/kpis/support';
-import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
-import { VOCABULARY } from 'src/app/data/vocabulary';
-import { ENGLISH } from 'src/app/data/sentence';
-import { IntroMessage } from 'src/app/models/vocabulary';
-import { ShareComponent } from './dialogs/share/share.component';
-import { MessageSingleton } from 'src/app/models/MessageSingleton';
-import { Chat } from 'src/app/models/db/chat';
-import { AuthorizeComponent } from './dialogs/authorize/authorize.component';
-import {PageInfo, TagService} from '../../lib/atinternet/_services/tag.service';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {Router} from '@angular/router';
+import {Message} from 'src/app/models/translate/message';
+import {RateDialogComponent} from './dialogs/rate-dialog/rate-dialog.component';
+import {ToastService} from 'src/app/services/toast.service';
+import {SettingsService} from 'src/app/services/settings.service';
+import {ChatService} from 'src/app/services/chat.service';
+import {TextToSpeechService} from 'src/app/services/text-to-speech.service';
+import {Role} from 'src/app/models/role';
+import {NavbarService} from 'src/app/services/navbar.service';
+import {TranslateService} from 'src/app/services/translate.service';
+import {User} from 'src/app/models/user';
+import {ComponentCanDeactivate} from 'src/app/guards/pending-changes.guard';
+import {MessageWrapped} from 'src/app/models/translate/message-wrapped';
+import {EndComponent} from './dialogs/end/end.component';
+import {CryptService} from 'src/app/services/crypt.service';
+import {Language} from 'src/app/models/language';
+import {AdvisorDefaultName} from './../../services/settings.service';
+import {Support} from 'src/app/models/kpis/support';
+import {ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS} from 'src/app/models/error/errorFunctionnal';
+import {VOCABULARY} from 'src/app/data/vocabulary';
+import {ENGLISH} from 'src/app/data/sentence';
+import {IntroMessage} from 'src/app/models/vocabulary';
+import {ShareComponent} from './dialogs/share/share.component';
+import {MessageSingleton} from 'src/app/models/MessageSingleton';
+import {Chat} from 'src/app/models/db/chat';
+import {AuthorizeComponent} from './dialogs/authorize/authorize.component';
+import {TagService} from '../../lib/atinternet/_services/tag.service';
 
 @Component({
   selector: 'app-translation',
@@ -87,20 +87,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.isMobile = result.matches;
     });
 
-    let pageData: PageInfo;
-    router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        pageData = {
-          name: event.url.replace(/[^\w]/gi, ''),
-          chapter1: 'chap1',
-          chapter2: 'chap2',
-          chapter3: 'chap3',
-          level2: '1',
-          customObject: this.user
-        };
-        this.tagService.pageSend(pageData);
-      }
-    });
   }
 
   ngOnInit(): void {
@@ -114,6 +100,15 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.isGuest) {
       this.autoListenValue = this.isAudioSupported ? 'Listen automatically' : 'Audio unavailable';
     }
+    const pageData = {
+          name: 'translation',
+          chapter1: 'chap1',
+          chapter2: 'chap2',
+          chapter3: 'chap3',
+          level2: '1',
+          customObject: this.user
+        };
+    this.tagService.pageSend(pageData);
   }
 
   ngAfterViewChecked() {

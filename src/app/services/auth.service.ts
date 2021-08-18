@@ -8,12 +8,15 @@ import { ERROR_TECH_DB } from '../models/error/errorTechnical';
 import { TokenBrokerService } from './token-broker.service';
 import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
 import * as moment from 'moment';
+import {of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService, private tbs: TokenBrokerService) {}
+
+  public role = of(null);
 
   public login(email: string, password: string): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
@@ -84,7 +87,8 @@ export class AuthService {
           .valueChanges()
           .subscribe((config: any) => {
             if (config !== undefined && config.length >= 0) {
-              this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
+              this.role = of(this.getRole(config, state.email));
+              this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email)});
             } else {
               this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
             }
@@ -92,4 +96,5 @@ export class AuthService {
       }
     });
   }
+
 }

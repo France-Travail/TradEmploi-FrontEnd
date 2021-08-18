@@ -4,7 +4,6 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {AuthService} from 'src/app/services/auth.service';
 import {ToastService} from 'src/app/services/toast.service';
 import {SettingsService} from 'src/app/services/settings.service';
-import {Role} from 'src/app/models/role';
 import {ChatService} from 'src/app/services/chat.service';
 import {ERROR_TECH_DB} from 'src/app/models/error/errorTechnical';
 import {ERROR_FUNC_LOGIN_OR_PASSWORD} from 'src/app/models/error/errorFunctionnal';
@@ -64,20 +63,21 @@ export class AuthenticationComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     try {
       const auth = await this.authService.login(this.email.value, this.password.value);
-      const role = this.form.get('email').value === 'admin@pe.fr' ? Role.ADMIN : Role.ADVISOR;
       const roomId = this.chatService.getRoomId();
       localStorage.setItem('isLogged', 'true');
-      this.settingsService.user.next({
-        ...this.settingsService.user.value,
-        role,
-        firstname: 'Pôle emploi',
-        connectionTime: Date.now(),
-        roomId,
-        isMultiDevices: false
+      this.authService.role.subscribe(role => {
+        this.settingsService.user.next({
+          ...this.settingsService.user.value,
+          role,
+          firstname: 'Pôle emploi',
+          connectionTime: Date.now(),
+          roomId,
+          isMultiDevices: false
+        });
+        localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
+        this.toastService.showToast(auth.message, 'toast-success');
+        this.router.navigateByUrl('modality');
       });
-      localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
-      this.toastService.showToast(auth.message, 'toast-success');
-      this.router.navigateByUrl('modality');
     } catch (error) {
       if (error.message.includes('password') || error.message.includes('identifier')) {
         this.toastService.showToast(ERROR_FUNC_LOGIN_OR_PASSWORD.description, 'toast-error');
