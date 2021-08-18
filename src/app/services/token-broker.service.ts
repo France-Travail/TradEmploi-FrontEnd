@@ -9,16 +9,17 @@ import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
 import { TokenResponse } from '../models/token/tokensResponse';
 import { Role } from '../models/role';
 import { SettingsService } from './settings.service';
+import { TokenFbService } from './token-fb.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TokenBrokerService {
-  constructor(private settingService: SettingsService) {}
+  constructor(private settingService: SettingsService, private tbFbs: TokenFbService) {}
 
   public async getTokenGcp(): Promise<TokenResponse> {
     const user = this.settingService.user.value;
-    const fbToken = JwtFbSingleton.getInstance().getToken().token;
+    const fbToken = await this.tbFbs.getTokenFb();
     return user.role === Role.GUEST ? this.getTokenGuest(fbToken, user.roomId) : this.getTokenAdmin(fbToken);
   }
 

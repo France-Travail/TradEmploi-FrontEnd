@@ -29,8 +29,7 @@ export class AuthService {
         if (auth.user != null) {
           this.setRole();
           FbAuthSingleton.getInstance().setFbAuth(auth);
-          this.tbFbs.jwtFbOnSingleton();
-          this.tbs.getTokenGcp();
+          this.tbFbs.getTokenFb();
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
@@ -47,8 +46,7 @@ export class AuthService {
           this.setRole();
           const token = await auth.user.getIdTokenResult();
           FbAuthSingleton.getInstance().setFbAuth(auth);
-          this.tbFbs.jwtFbOnSingleton();
-          this.tbs.getTokenGcp();
+          this.tbFbs.getTokenFb();
           this.settingsService.user.next({ ...this.settingsService.user.value, role: Role.GUEST, connectionTime: Date.now() });
           resolve({ id: auth.user.uid, isAuth: true, message: 'Authentification réussie', token: token.token, expirationTime: token.expirationTime });
         }

@@ -7,14 +7,15 @@ import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
   providedIn: 'root',
 })
 export class TokenFbService {
-  
-  public async jwtFbOnSingleton() {
+  public async getTokenFb(): Promise<string> {
     const jwtFbSingleton = JwtFbSingleton.getInstance();
     const hasJwtFbOnTime = jwtFbSingleton.getToken() !== null && jwtFbSingleton.getToken().expireTime.isAfter(moment());
-    if (!hasJwtFbOnTime) {
-      const auth = FbAuthSingleton.getInstance().getFbAuth();
-      const token = await auth.user.getIdTokenResult();
-      jwtFbSingleton.setToken({ token: token.token, expireTime: moment(token.expirationTime) });
-    }
+    return hasJwtFbOnTime ? JwtFbSingleton.getInstance().getToken().token : this.refreshToken(jwtFbSingleton);
+  }
+  private async refreshToken(jwtFbSingleton: JwtFbSingleton) {
+    const auth = FbAuthSingleton.getInstance().getFbAuth();
+    const token = await auth.user.getIdTokenResult();
+    jwtFbSingleton.setToken({ token: token.token, expireTime: moment(token.expirationTime) });
+    return token.token;
   }
 }
