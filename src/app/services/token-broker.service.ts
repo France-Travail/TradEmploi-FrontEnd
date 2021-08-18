@@ -5,7 +5,6 @@ import * as moment from 'moment';
 import { Moment } from 'moment';
 import axios from 'axios';
 import { JwtGcpSingleton } from '../models/token/JwtGcpSingleton';
-import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
 import { TokenResponse } from '../models/token/tokensResponse';
 import { Role } from '../models/role';
 import { SettingsService } from './settings.service';

@@ -14,7 +14,6 @@ import { Support } from 'src/app/models/kpis/support';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { WelcomeDeComponent } from '../translation/dialogs/welcome-de/welcome-de.component';
 import { TokenBrokerService } from 'src/app/services/token-broker.service';
-import { JwtFbSingleton } from 'src/app/models/token/JwtFbSingleton';
 @Component({
   selector: 'app-anonymous',
   templateUrl: './anonymous.component.html',
@@ -56,7 +55,7 @@ export class AnonymousComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     try {
       this.setStorage();
-      const auth = await this.authService.loginAnonymous(this.roomId);
+      const auth = await this.authService.loginAnonymous();
       this.tbs.addGuest(auth.token, this.roomId, this.username.value);
       this.openModal(WelcomeDeComponent, '200px', true);
       let end: boolean = false;

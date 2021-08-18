@@ -7,7 +7,6 @@ import { ToastService } from 'src/app/services/toast.service';
 import { ERROR_TECH_DB } from '../models/error/errorTechnical';
 import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
 import { TokenFbService } from './token-fb.service';
-import { TokenBrokerService } from './token-broker.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +18,6 @@ export class AuthService {
     private toastService: ToastService,
     private settingsService: SettingsService,
     private tbFbs: TokenFbService,
-    private tbs: TokenBrokerService
   ) {}
 
   public login(email: string, password: string): Promise<{ isAuth: boolean; message: string }> {
@@ -38,7 +36,7 @@ export class AuthService {
     });
   }
 
-  public async loginAnonymous(roomId: string): Promise<{ id: string; isAuth: boolean; message: string; token: string; expirationTime: string }> {
+  public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string; token: string; expirationTime: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInAnonymously();
