@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastService } from 'src/app/services/toast.service';
 import { ERROR_TECH_DB } from '../models/error/errorTechnical';
 import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
-import { TokenFbService } from './token-fb.service';
+import { TokenBrokerService } from './token-broker.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class AuthService {
     private db: AngularFirestore,
     private toastService: ToastService,
     private settingsService: SettingsService,
-    private tbFbs: TokenFbService,
+    private tbs: TokenBrokerService
   ) {}
 
   public login(email: string, password: string): Promise<{ isAuth: boolean; message: string }> {
@@ -25,9 +25,8 @@ export class AuthService {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
         if (auth.user != null) {
-          this.setRole();
+          this.setRoleAndToken();
           FbAuthSingleton.getInstance().setFbAuth(auth);
-          this.tbFbs.getTokenFb();
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
@@ -41,10 +40,9 @@ export class AuthService {
       try {
         const auth = await this.afAuth.auth.signInAnonymously();
         if (auth.user != null) {
-          this.setRole();
+          this.setRoleAndToken();
           const token = await auth.user.getIdTokenResult();
           FbAuthSingleton.getInstance().setFbAuth(auth);
-          this.tbFbs.getTokenFb();
           this.settingsService.user.next({ ...this.settingsService.user.value, role: Role.GUEST, connectionTime: Date.now() });
           resolve({ id: auth.user.uid, isAuth: true, message: 'Authentification réussie', token: token.token, expirationTime: token.expirationTime });
         }
@@ -81,7 +79,7 @@ export class AuthService {
     return Role.GUEST;
   }
 
-  private setRole() {
+  private setRoleAndToken() {
     this.afAuth.authState.subscribe(async (state) => {
       if (state !== null) {
         this.db
@@ -90,6 +88,7 @@ export class AuthService {
           .subscribe((config: any) => {
             if (config !== undefined && config.length >= 0) {
               this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
+              this.tbs.getTokenGcp();
             } else {
               this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
             }

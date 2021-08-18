@@ -1,13 +1,13 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {SettingsService} from 'src/app/services/settings.service';
-import {RateService} from 'src/app/services/rate.service';
-import {ToastService} from 'src/app/services/toast.service';
-import {VOCABULARY} from 'src/app/data/vocabulary';
-import {Rate} from 'src/app/models/rate';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {ChatService} from 'src/app/services/chat.service';
-import {ERROR_FUNC_SEND_STATS} from 'src/app/models/error/errorFunctionnal';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SettingsService } from 'src/app/services/settings.service';
+import { RateService } from 'src/app/services/rate.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { VOCABULARY } from 'src/app/data/vocabulary';
+import { Rate } from 'src/app/models/rate';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { ChatService } from 'src/app/services/chat.service';
+import { ERROR_FUNC_SEND_STATS } from 'src/app/models/error/errorFunctionnal';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -54,7 +54,7 @@ export class RateDialogComponent implements OnInit {
     private toastService: ToastService,
     private router: Router,
     private chatService: ChatService,
-    @Inject(MAT_DIALOG_DATA) public data: { languages: Array<string> }
+    @Inject(MAT_DIALOG_DATA) public data: { guest: Array<string> }
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
@@ -74,12 +74,12 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionFour.french = rateFr.technical;
     }
     let languageNameFr: string = 'Français';
-    if(this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA'){
+    if (this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA') {
       this.sentences.questionOne.foreign = '';
       this.sentences.questionTwo.foreign = '';
       this.sentences.questionThree.foreign = '';
       this.sentences.questionFour.foreign = '';
-    }else{
+    } else {
       const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.user.value.language.written);
       const rateForeign = vocabularyForeign.sentences.rate;
       if (rateForeign) {
@@ -91,10 +91,10 @@ export class RateDialogComponent implements OnInit {
       }
     }
     let languages;
-    if (this.data.languages) {
-      languages = this.data.languages
-        .filter(l => l !== 'fr-FR')
-        .map(l => VOCABULARY.find((v) => v.isoCode === l).languageNameFr)
+    if (this.data.guest) {
+      languages = this.data.guest
+        .filter((l) => l !== 'fr-FR')
+        .map((l) => VOCABULARY.find((v) => v.isoCode === l).languageNameFr)
         .join(',');
     } else {
       languages = [languageNameFr];
