@@ -14,13 +14,9 @@
     </mat-form-field>
   </div>
   <div class="privacy">
-      <ng-template [ngIf]="!isMoreOptions">
         {{ gdprWording.privacyText }}
-      </ng-template>
   </div>
   <div class="action">
-    <ng-template [ngIf]="!isMoreOptions">
       <button class="options" (click)="closeDialog()">{{ gdprWording.closeBtn }} </button>
-    </ng-template>
   </div>
 </div>

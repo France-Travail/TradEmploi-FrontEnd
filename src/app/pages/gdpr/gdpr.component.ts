@@ -12,7 +12,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 })
 export class GdprComponent {
   public selected = 'english';
-  public isMoreOptions: boolean = false;
   public isSmallScreen: boolean = false;
   public gdprWording: Gdpr = ENGLISH.gdpr;
 
@@ -27,11 +26,6 @@ export class GdprComponent {
     this.selected = this.data.language;
     this.chooseLanguage(this.selected);
 
-  }
-
-  public moreOptions() {
-    this.isMoreOptions = true;
-    this.chooseLanguage({value: this.selected});
   }
 
   public chooseLanguage(option) {
