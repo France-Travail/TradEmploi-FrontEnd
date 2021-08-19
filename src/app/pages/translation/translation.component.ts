@@ -257,7 +257,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private initMultiDevices = (roomId) => {
     this.chatService.getChat(roomId).subscribe((chat: Chat) => {
-      if (chat.active && chat.active != null && chat.active) {
+      if (chat.active) {
         const isNewAuthorization = chat.guests.filter((g) => this.authorizationHandled.indexOf(g.id) === -1).length > 0 && !this.isGuest;
         isNewAuthorization ? this.authorizeGuest(chat.guests) : this.addMultiMessageToChat(chat, roomId);
       } else {
