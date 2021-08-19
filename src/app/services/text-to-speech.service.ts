@@ -37,7 +37,7 @@ export class TextToSpeechService {
   constructor(private voicesService: VoicesService, private errorService: ErrorService, private tbs: TokenBrokerService) {}
 
   getSpeech = async (text: string, language: string): Promise<void> => {
-    const tokenResponse: TokenResponse = await this.tbs.getToken();
+    const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const urlRecognize: string = 'https://texttospeech.googleapis.com/v1/text:synthesize';
     let voiceSelected: Voice[] = VOICES.filter((v) => v.languageCodes.includes(language));
     if (voiceSelected.length === 0) {

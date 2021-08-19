@@ -5,16 +5,21 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastService } from 'src/app/services/toast.service';
 import { ERROR_TECH_DB } from '../models/error/errorTechnical';
+import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
 import { TokenBrokerService } from './token-broker.service';
-import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
-import * as moment from 'moment';
 import {of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService, private tbs: TokenBrokerService) {}
+  constructor(
+    private afAuth: AngularFireAuth,
+    private db: AngularFirestore,
+    private toastService: ToastService,
+    private settingsService: SettingsService,
+    private tbs: TokenBrokerService
+  ) {}
 
   public role = of(null);
 
@@ -22,12 +27,9 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-        const token = await auth.user.getIdTokenResult();
-        JwtFbSingleton.getInstance().setToken({ token: token.token, expireTime: moment(token.expirationTime), email });
-        localStorage.setItem('fbtk', token.token);
-        this.tbs.getToken(token.token, Role.ADVISOR);
         if (auth.user != null) {
-          this.setRole();
+          this.setRoleAndToken();
+          FbAuthSingleton.getInstance().setFbAuth(auth);
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
@@ -36,13 +38,14 @@ export class AuthService {
     });
   }
 
-  public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string; token:string, expirationTime:string }> {
+  public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string; token: string; expirationTime: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInAnonymously();
         if (auth.user != null) {
-          this.setRole();
+          this.setRoleAndToken();
           const token = await auth.user.getIdTokenResult();
+          FbAuthSingleton.getInstance().setFbAuth(auth);
           this.settingsService.user.next({ ...this.settingsService.user.value, role: Role.GUEST, connectionTime: Date.now() });
           resolve({ id: auth.user.uid, isAuth: true, message: 'Authentification réussie', token: token.token, expirationTime: token.expirationTime });
         }
@@ -79,7 +82,7 @@ export class AuthService {
     return Role.GUEST;
   }
 
-  private setRole() {
+  private setRoleAndToken() {
     this.afAuth.authState.subscribe(async (state) => {
       if (state !== null) {
         this.db
@@ -89,6 +92,7 @@ export class AuthService {
             if (config !== undefined && config.length >= 0) {
               this.role = of(this.getRole(config, state.email));
               this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email)});
+              this.tbs.getTokenGcp();
             } else {
               this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
             }

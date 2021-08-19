@@ -1,33 +1,33 @@
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material';
-import {Router} from '@angular/router';
-import {Message} from 'src/app/models/translate/message';
-import {RateDialogComponent} from './dialogs/rate-dialog/rate-dialog.component';
-import {ToastService} from 'src/app/services/toast.service';
-import {SettingsService} from 'src/app/services/settings.service';
-import {ChatService} from 'src/app/services/chat.service';
-import {TextToSpeechService} from 'src/app/services/text-to-speech.service';
-import {Role} from 'src/app/models/role';
-import {NavbarService} from 'src/app/services/navbar.service';
-import {TranslateService} from 'src/app/services/translate.service';
-import {User} from 'src/app/models/user';
-import {ComponentCanDeactivate} from 'src/app/guards/pending-changes.guard';
-import {MessageWrapped} from 'src/app/models/translate/message-wrapped';
-import {EndComponent} from './dialogs/end/end.component';
-import {CryptService} from 'src/app/services/crypt.service';
-import {Language} from 'src/app/models/language';
-import {AdvisorDefaultName} from './../../services/settings.service';
-import {Support} from 'src/app/models/kpis/support';
-import {ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS} from 'src/app/models/error/errorFunctionnal';
-import {VOCABULARY} from 'src/app/data/vocabulary';
-import {ENGLISH} from 'src/app/data/sentence';
-import {IntroMessage} from 'src/app/models/vocabulary';
-import {ShareComponent} from './dialogs/share/share.component';
-import {MessageSingleton} from 'src/app/models/MessageSingleton';
-import {Chat} from 'src/app/models/db/chat';
-import {AuthorizeComponent} from './dialogs/authorize/authorize.component';
-import {TagService} from '../../lib/atinternet/_services/tag.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, HostListener, OnDestroy } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
+import { Message } from 'src/app/models/translate/message';
+import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
+import { ToastService } from 'src/app/services/toast.service';
+import { SettingsService } from 'src/app/services/settings.service';
+import { ChatService } from 'src/app/services/chat.service';
+import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { Role } from 'src/app/models/role';
+import { NavbarService } from 'src/app/services/navbar.service';
+import { TranslateService } from 'src/app/services/translate.service';
+import { User } from 'src/app/models/user';
+import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
+import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
+import { EndComponent } from './dialogs/end/end.component';
+import { CryptService } from 'src/app/services/crypt.service';
+import { Language } from 'src/app/models/language';
+import { AdvisorDefaultName } from './../../services/settings.service';
+import { Support } from 'src/app/models/kpis/support';
+import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
+import { VOCABULARY } from 'src/app/data/vocabulary';
+import { ENGLISH } from 'src/app/data/sentence';
+import { IntroMessage } from 'src/app/models/vocabulary';
+import { ShareComponent } from './dialogs/share/share.component';
+import { MessageSingleton } from 'src/app/models/MessageSingleton';
+import { Chat } from 'src/app/models/db/chat';
+import { AuthorizeComponent } from './dialogs/authorize/authorize.component';
+import { TagService } from '../../lib/atinternet/_services/tag.service';
 
 @Component({
   selector: 'app-translation',
@@ -86,7 +86,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
-
   }
 
   ngOnInit(): void {
@@ -128,7 +127,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.isMultiDevices) {
       this.isGuest ? this.introMessageGuest(introMessage) : this.introMessageAdmin(introMessage);
     } else {
-      this.sendNotification({ notification:  introMessage.welcomeFR , time: Date.now() });
+      this.sendNotification({ notification: introMessage.welcomeFR, time: Date.now() });
       this.sendNotification({ notification: introMessage.welcomeRAW, time: Date.now() });
       if (!this.vocalSupported) {
         this.sendNotification({ notification: introMessage.voiceavailabilityFR, time: Date.now() });
@@ -185,13 +184,11 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const hasDot = new RegExp('^[ .s]+$').test(message.text);
     if (message.text !== '' && !hasDot) {
       const messageSingleton = MessageSingleton.getInstance();
-      if (messageSingleton.getMessage() === null
-          || messageSingleton.getMessage().date !== message.date
-          || !messageSingleton.getAlreadyPlay()){
+      if (messageSingleton.getMessage() === null || messageSingleton.getMessage().date !== message.date || !messageSingleton.getAlreadyPlay()) {
         this.translateMessage(message);
         messageSingleton.setMessage(message);
         messageSingleton.setAlreadyPlay(true);
-      }else{
+      } else {
         messageSingleton.setAlreadyPlay(false);
         this.sendMessage(messageSingleton.getMessage());
       }
@@ -203,7 +200,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   public closeConversation() {
-    const languages = this.messagesWrapped.filter(m => m.message !== undefined).map(m => m.message.languageOrigin);
+    const languages = this.messagesWrapped.filter((m) => m.message !== undefined).map((m) => m.message.languageOrigin);
     this.openModal(RateDialogComponent, '700px', false, languages);
   }
 
@@ -237,7 +234,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.settingsService.reset();
   }
 
-
   private async deactivateMulti() {
     if (this.isGuest) {
       const isEndClosed: boolean = this.endIdDialogRef === undefined;
@@ -255,8 +251,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private initMultiDevices = (roomId) => {
     this.chatService.getChat(roomId).subscribe((chat: Chat) => {
-      if (chat.active != null && chat.active) {
-        const isNewAuthorization = chat.guests.filter(g => this.authorizationHandled.indexOf(g.id) === -1).length > 0 && !this.isGuest;
+      if (chat.active) {
+        const isNewAuthorization = chat.guests.filter((g) => this.authorizationHandled.indexOf(g.id) === -1).length > 0 && !this.isGuest;
         isNewAuthorization ? this.authorizeGuest(chat.guests) : this.addMultiMessageToChat(chat, roomId);
       } else {
         this.isAudioPlay = false;
@@ -266,9 +262,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  }
+  };
 
-  private authorizeGuest(guests){
+  private authorizeGuest(guests) {
     const lastAuthorization = guests[guests.length - 1];
     this.openModal(AuthorizeComponent, '200px', true, lastAuthorization);
     this.authorizationHandled.push(lastAuthorization.id);
@@ -283,7 +279,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.support === Support.MONOANDMULTIDEVICE) {
       mw = mw.filter((messagesWrapped) => messagesWrapped.time > monoToMultiTime);
     }
-    if (mw.length > 0) {
+    if (mw && mw.length > 0) {
       const notifLength = this.vocalSupported ? 2 : 3;
       if (this.messagesWrapped.length === notifLength) {
         mw.forEach((m: MessageWrapped) => {
@@ -326,7 +322,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.textToSpeechService
         .getSpeech(translate, languageTarget)
         .then((_) => {
-          if (this.textToSpeechService.audioSpeech){
+          if (this.textToSpeechService.audioSpeech) {
             if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
               this.textToSpeechService.audioSpeech.play();
             }
@@ -343,20 +339,20 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private sendMessage(message: Message) {
     let hasMessage = [];
-    if (this.messagesWrapped != null){
-      hasMessage = this.messagesWrapped.filter(mw => {
-        if (!mw.notification){
-          return mw.message.text === message.text &&  mw.message.time === message.time;
+    if (this.messagesWrapped != null) {
+      hasMessage = this.messagesWrapped.filter((mw) => {
+        if (!mw.notification) {
+          return mw.message.text === message.text && mw.message.time === message.time;
         }
       });
     }
-    if (hasMessage.length  === 0){
+    if (hasMessage.length === 0) {
       const isSender: boolean = this.isSender(message.member);
       const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
       this.messagesWrapped.push(messageWrapped);
       this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
       this.chatService.messagesStored.push({ message, time: message.time });
-    }else{
+    } else {
       MessageSingleton.getInstance().setAlreadyPlay(true);
     }
   }
@@ -370,13 +366,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private sendNotification(messageWrapped: MessageWrapped) {
-    const isNotificationExist = this.messagesWrapped.find(mw => {
-      if (mw.notification){
+    const isNotificationExist = this.messagesWrapped.find((mw) => {
+      if (mw.notification) {
         return mw.notification === messageWrapped.notification;
       }
       return false;
     });
-    if (isNotificationExist === undefined){
+    if (isNotificationExist === undefined) {
       this.messagesWrapped.push(messageWrapped);
       this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
     }
@@ -398,7 +394,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       data: {
         languages,
         roomId: this.roomId,
-        guest
+        guest,
       },
     });
   }

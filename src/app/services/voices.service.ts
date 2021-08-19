@@ -14,7 +14,7 @@ export class VoicesService {
   constructor(private errorService: ErrorService, private tbs: TokenBrokerService) {}
 
   async getVoices(): Promise<Array<Voice>> {
-    const tokenResponse: TokenResponse = await this.tbs.getToken(JwtFbSingleton.getInstance().getToken().token);
+    const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const urlVoice: string = `https://texttospeech.googleapis.com/v1/voices`;
     return axios({
       method: 'get',

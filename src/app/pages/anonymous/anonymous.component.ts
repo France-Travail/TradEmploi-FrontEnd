@@ -14,9 +14,6 @@ import { Support } from 'src/app/models/kpis/support';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { WelcomeDeComponent } from '../translation/dialogs/welcome-de/welcome-de.component';
 import { TokenBrokerService } from 'src/app/services/token-broker.service';
-import { JwtFbSingleton } from 'src/app/models/token/JwtFbSingleton';
-import * as moment from 'moment';
-
 @Component({
   selector: 'app-anonymous',
   templateUrl: './anonymous.component.html',
@@ -59,51 +56,57 @@ export class AnonymousComponent implements OnInit {
     try {
       this.setStorage();
       const auth = await this.authService.loginAnonymous();
-      this.tbs.addGuest(auth.token, this.roomId, this.username.value)
+      this.tbs.addGuest(auth.token, this.roomId, this.username.value);
       this.openModal(WelcomeDeComponent, '200px', true);
-      let end:boolean = false;
-      let timer:number = 0;
-      let maxOnSecond:number = 30;
+      let end: boolean = false;
+      let timer: number = 0;
+      let maxOnSecond: number = 30;
       const timeValue = setInterval(async () => {
         if (end || timer === maxOnSecond) {
           clearInterval(timeValue);
-          !end ? this.disconnect() : await this.connect(auth)
-        }else{
-          this.chatService.hasRoom(this.roomId).subscribe(async hasRoom => {
-            if(hasRoom){
-              await this.addMember(auth.id)
-              end = true
+          !end ? this.disconnect() : await this.connect(auth);
+        } else {
+          this.chatService.hasRoom(this.roomId).subscribe(async (hasRoom) => {
+            if (hasRoom) {
+              await this.addMember(auth.id);
+              end = true;
             }
-          })
+          });
         }
-        timer ++
+        timer++;
       }, 1000);
     } catch (error) {
       this.toastService.showToast(error.message, 'toast-error');
     }
   }
 
-  private disconnect(){
+  private disconnect() {
     this.afAuth.auth.currentUser.delete();
     this.openModal(WelcomeDeComponent, '200px', true, true);
   }
 
-  private async connect(auth){
-    JwtFbSingleton.getInstance().setToken({ token: auth.token, expireTime: moment(auth.expirationTime) });
-    await this.tbs.getToken(auth.token, Role.GUEST, this.roomId);
+  private async connect(auth) {
     this.chatService.support = Support.MONOANDMULTIDEVICE;
-    this.settingsService.user.next({ ...this.settingsService.user.value, firstname: this.username.value, roomId: this.roomId, id: auth.id, role: Role.GUEST, connectionTime: Date.now(), isMultiDevices: true });
+    this.settingsService.user.next({
+      ...this.settingsService.user.value,
+      firstname: this.username.value,
+      roomId: this.roomId,
+      id: auth.id,
+      role: Role.GUEST,
+      connectionTime: Date.now(),
+      isMultiDevices: true,
+    });
     this.dialog.closeAll();
     this.toastService.showToast(auth.message, 'toast-success');
     this.router.navigateByUrl('choice');
   }
 
-  private async addMember(id: string){
+  private async addMember(id: string) {
     const member: Member = { id: id, firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
     await this.chatService.addMember(this.roomId, member);
   }
 
-  private setStorage(){
+  private setStorage() {
     const user = {
       roomId: this.roomId,
       connectionTime: Date.now(),
@@ -120,10 +123,8 @@ export class AnonymousComponent implements OnInit {
       panelClass: 'customDialog',
       disableClose,
       data: {
-        error: error
+        error: error,
       },
     });
   }
-
 }
-
