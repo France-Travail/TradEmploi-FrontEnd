@@ -24,7 +24,7 @@ export class GdprComponent {
       this.isSmallScreen = result.matches;
     });
     this.selected = this.data.language;
-    this.chooseLanguage(this.selected);
+    this.gdprWording = this.selected === 'english' ? ENGLISH.gdpr : FRENCH.gdpr;
 
   }
 
