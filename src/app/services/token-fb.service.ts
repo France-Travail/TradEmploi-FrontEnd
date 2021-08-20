@@ -14,7 +14,7 @@ export class TokenFbService {
   }
   private async refreshToken(jwtFbSingleton: JwtFbSingleton) {
     const auth = FbAuthSingleton.getInstance().getFbAuth();
-    const token = await auth.user.getIdTokenResult();
+    const token = await auth.user.getIdTokenResult(true);
     jwtFbSingleton.setToken({ token: token.token, expireTime: moment(token.expirationTime) });
     return token.token;
   }
