@@ -1,12 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from 'src/app/services/auth.service';
-import {ToastService} from 'src/app/services/toast.service';
-import {SettingsService} from 'src/app/services/settings.service';
-import {ChatService} from 'src/app/services/chat.service';
-import {ERROR_TECH_DB} from 'src/app/models/error/errorTechnical';
-import {ERROR_FUNC_LOGIN_OR_PASSWORD} from 'src/app/models/error/errorFunctionnal';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { SettingsService } from 'src/app/services/settings.service';
+import { ChatService } from 'src/app/services/chat.service';
+import { ERROR_TECH_DB } from 'src/app/models/error/errorTechnical';
+import { ERROR_FUNC_LOGIN_OR_PASSWORD } from 'src/app/models/error/errorFunctionnal';
+import { JwksValidationHandler, OAuthService } from 'angular-oauth2-oidc';
+import { authCodeFlowConfig } from 'src/environments/authflow';
 
 @Component({
   selector: 'app-authentication',
@@ -22,8 +24,10 @@ export class AuthenticationComponent implements OnInit {
     private chatService: ChatService,
     private router: Router,
     private fb: FormBuilder,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private oauthService: OAuthService
   ) {
+    this.configureSSO();
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         const isFromAuth: boolean = window.location.pathname === '/auth';
@@ -44,14 +48,22 @@ export class AuthenticationComponent implements OnInit {
       }
     });
   }
+  configureSSO() {
+    this.oauthService.configure(authCodeFlowConfig);
+    this.oauthService.oidc = true;
+    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
 
+    // this.oauthService.loadDiscoveryDocumentAndTryLogin();
+  }
   ngOnInit(): void {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.minLength(6), Validators.required]],
     });
   }
-
+  login() {
+    this.oauthService.initCodeFlow();
+  }
   get email(): AbstractControl {
     return this.form.get('email');
   }
@@ -65,14 +77,14 @@ export class AuthenticationComponent implements OnInit {
       const auth = await this.authService.login(this.email.value, this.password.value);
       const roomId = this.chatService.getRoomId();
       localStorage.setItem('isLogged', 'true');
-      this.authService.role.subscribe(role => {
+      this.authService.role.subscribe((role) => {
         this.settingsService.user.next({
           ...this.settingsService.user.value,
           role,
           firstname: 'Pôle emploi',
           connectionTime: Date.now(),
           roomId,
-          isMultiDevices: false
+          isMultiDevices: false,
         });
         localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
         this.toastService.showToast(auth.message, 'toast-success');
