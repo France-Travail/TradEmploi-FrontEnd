@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { Parser } from 'json2csv';
-import { NavbarService } from 'src/app/services/navbar.service';
-import { SettingsService } from 'src/app/services/settings.service';
-import { RateService } from 'src/app/services/rate.service';
-import { KpiService } from 'src/app/services/kpi.service';
-import { ERROR_FUNC_EXPORT_KPI, ERROR_FUNC_EXPORT_STATS } from 'src/app/models/error/errorFunctionnal';
-import { ToastService } from 'src/app/services/toast.service';
-import { MatDialog } from '@angular/material';
-import { LoaderComponent } from './loader/loader.component';
+import {Component} from '@angular/core';
+import {Parser} from 'json2csv';
+import {NavbarService} from 'src/app/services/navbar.service';
+import {SettingsService} from 'src/app/services/settings.service';
+import {RateService} from 'src/app/services/rate.service';
+import {KpiService} from 'src/app/services/kpi.service';
+import {ERROR_FUNC_EXPORT_KPI, ERROR_FUNC_EXPORT_STATS} from 'src/app/models/error/errorFunctionnal';
+import {ToastService} from 'src/app/services/toast.service';
+import {MatDialog} from '@angular/material';
+import {LoaderComponent} from './loader/loader.component';
 
 @Component({
   selector: 'app-settings',
@@ -26,35 +26,46 @@ export class SettingsComponent {
     this.navService.handleTabsSettings();
   }
 
-  public exportKpi() {
-    this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+  public exportKpi(firstCall: boolean) {
+    this.dialog.open(LoaderComponent, {panelClass: 'loader'});
     this.kpiService
       .getkpi()
       .then((kpi) => {
         this.exportCsv(kpi, 'kpi');
         this.dialog.closeAll();
       })
-      .catch((_) => {
-        this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'), this.dialog.closeAll();
+      .catch(async (_) => {
+        if (firstCall) {
+          await new Promise(f => setTimeout(f, 10000));
+          this.exportKpi(false);
+        } else {
+          this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'), this.dialog.closeAll();
+        }
       });
   }
-  public exportEval() {
-    this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+
+  public exportEval(firstCall: boolean) {
+    this.dialog.open(LoaderComponent, {panelClass: 'loader'});
     this.rateService
       .getRates()
       .then((rates) => {
         this.exportCsv(rates, 'eval');
         this.dialog.closeAll();
       })
-      .catch((_) => {
-        this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'), this.dialog.closeAll();
+      .catch(async (_) => {
+        if (firstCall) {
+          await new Promise(f => setTimeout(f, 10000));
+          this.exportEval(false);
+        } else {
+          this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'), this.dialog.closeAll();
+        }
       });
   }
 
   private exportCsv(data, name: string) {
-    const json2csvParser = new Parser({ delimiter: ';', encoding: 'utf8' });
+    const json2csvParser = new Parser({delimiter: ';', encoding: 'utf8'});
     const csv = json2csvParser.parse(data);
-    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv' });
+    const blob = new Blob(['\uFEFF' + csv], {type: 'text/csv'});
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.setAttribute('hidden', '');
@@ -68,7 +79,7 @@ export class SettingsComponent {
   }
 
   public goBack() {
-    this.settingsService.user.next({ ...this.settingsService.user.value, connectionTime: Date.now() });
+    this.settingsService.user.next({...this.settingsService.user.value, connectionTime: Date.now()});
     window.history.back();
   }
 }
