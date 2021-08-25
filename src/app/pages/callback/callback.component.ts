@@ -17,10 +17,10 @@ export class CallbackComponent implements OnInit {
   ngOnInit(): void {
     const token = this.getToken(window.location.href);
     try {
-      const payload: any = this.getPayload(token);
+      const payload: any = jwtDecode(token);
       console.log(payload);
       if (payload.email.match('.*@pole-emploi[.]fr$')) {
-        this.loginAuthentifacted(payload.email);
+        this.loginAuthentificated(payload.email);
       }
     } catch (error) {
       this.router.navigateByUrl('/start');
@@ -29,10 +29,8 @@ export class CallbackComponent implements OnInit {
   private getToken(url: string) {
     return url.split('&')[1].split('=')[1];
   }
-  private getPayload(token: string) {
-    return jwtDecode(token);
-  }
-  private async loginAuthentifacted(emailPe: string) {
+
+  private async loginAuthentificated(emailPe: string) {
     try {
       const auth = await this.authService.login('anistest@pe.fr', 'rached', emailPe);
       const roomId = this.chatService.getRoomId();

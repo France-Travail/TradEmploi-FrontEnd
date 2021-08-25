@@ -22,7 +22,6 @@ export class AuthService {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
         if (auth.user != null) {
-          console.log('setting role');
           this.setRoleAndToken(emailPe);
           FbAuthSingleton.getInstance().setFbAuth(auth);
           resolve({ isAuth: true, message: 'Authentification réussie' });
@@ -80,16 +79,15 @@ export class AuthService {
   private setRoleAndToken(emailPe?: string) {
     this.afAuth.authState.subscribe(async (state) => {
       if (state !== null) {
-        console.log('state non null');
         this.db
           .collection('config')
           .valueChanges()
           .subscribe((config: any) => {
-            console.log('emailPE', emailPe);
-            console.log(config);
+            console.log('config', config);
             if (config !== undefined && config.length >= 0) {
-              this.role = of(this.getRole(config, state.email));
-              this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
+              const role = emailPe ? this.getRole(config, emailPe) : this.getRole(config, state.email);
+              this.role = of(role);
+              this.settingsService.user.next({ ...this.settingsService.user.value, role: role });
               this.tbs.getTokenGcp();
             } else {
               this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
