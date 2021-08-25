@@ -28,74 +28,72 @@ export class AuthenticationComponent implements OnInit {
     private oauthService: OAuthService
   ) {
     this.configureSSO();
-    this.settingsService.user.subscribe((user) => {
-      if (user !== null) {
-        const isFromAuth: boolean = window.location.pathname === '/auth';
-        if (isFromAuth) {
-          this.router.navigateByUrl('modality');
-        }
-      } else if (localStorage.getItem('user') != null) {
-        const USER = JSON.parse(localStorage.getItem('user'));
-        this.settingsService.user.next({
-          ...this.settingsService.user.value,
-          firstname: USER.firstname,
-          role: USER.role,
-          language: USER.language,
-          connectionTime: USER.connectionTime,
-          isMultiDevices: USER.isMultiDevices,
-        });
-        this.router.navigateByUrl('modality');
-      }
-    });
+    // this.settingsService.user.subscribe((user) => {
+    //   if (user !== null) {
+    //     const isFromAuth: boolean = window.location.pathname === '/auth';
+    //     if (isFromAuth) {
+    //       this.router.navigateByUrl('modality');
+    //     }
+    //   } else if (localStorage.getItem('user') != null) {
+    //     const USER = JSON.parse(localStorage.getItem('user'));
+    //     this.settingsService.user.next({
+    //       ...this.settingsService.user.value,
+    //       firstname: USER.firstname,
+    //       role: USER.role,
+    //       language: USER.language,
+    //       connectionTime: USER.connectionTime,
+    //       isMultiDevices: USER.isMultiDevices,
+    //     });
+    //     this.router.navigateByUrl('modality');
+    //   }
+    // });
   }
   configureSSO() {
     this.oauthService.configure(authCodeFlowConfig);
     this.oauthService.oidc = true;
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-
-    // this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
   ngOnInit(): void {
-    this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.minLength(6), Validators.required]],
-    });
+    // this.form = this.fb.group({
+    //   email: ['', [Validators.required, Validators.email]],
+    //   password: ['', [Validators.minLength(6), Validators.required]],
+    // });
   }
   login() {
     this.oauthService.initCodeFlow();
   }
-  get email(): AbstractControl {
-    return this.form.get('email');
-  }
+  // get email(): AbstractControl {
+  //   return this.form.get('email');
+  // }
 
-  get password(): AbstractControl {
-    return this.form.get('password');
-  }
+  // get password(): AbstractControl {
+  //   return this.form.get('password');
+  // }
 
-  public async onSubmit(): Promise<void> {
-    try {
-      const auth = await this.authService.login(this.email.value, this.password.value);
-      const roomId = this.chatService.getRoomId();
-      localStorage.setItem('isLogged', 'true');
-      this.authService.role.subscribe((role) => {
-        this.settingsService.user.next({
-          ...this.settingsService.user.value,
-          role,
-          firstname: 'Pôle emploi',
-          connectionTime: Date.now(),
-          roomId,
-          isMultiDevices: false,
-        });
-        localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
-        this.toastService.showToast(auth.message, 'toast-success');
-        this.router.navigateByUrl('modality');
-      });
-    } catch (error) {
-      if (error.message.includes('password') || error.message.includes('identifier')) {
-        this.toastService.showToast(ERROR_FUNC_LOGIN_OR_PASSWORD.description, 'toast-error');
-      } else {
-        this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
-      }
-    }
-  }
+  // public async onSubmit(): Promise<void> {
+  //   try {
+  //     const auth = await this.authService.login(this.email.value, this.password.value);
+  //     const roomId = this.chatService.getRoomId();
+  //     localStorage.setItem('isLogged', 'true');
+  //     this.authService.role.subscribe((role) => {
+  //       this.settingsService.user.next({
+  //         ...this.settingsService.user.value,
+  //         role,
+  //         firstname: 'Pôle emploi',
+  //         connectionTime: Date.now(),
+  //         roomId,
+  //         isMultiDevices: false,
+  //       });
+  //       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
+  //       this.toastService.showToast(auth.message, 'toast-success');
+  //       this.router.navigateByUrl('modality');
+  //     });
+  //   } catch (error) {
+  //     if (error.message.includes('password') || error.message.includes('identifier')) {
+  //       this.toastService.showToast(ERROR_FUNC_LOGIN_OR_PASSWORD.description, 'toast-error');
+  //     } else {
+  //       this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
+  //     }
+  //   }
+  // }
 }

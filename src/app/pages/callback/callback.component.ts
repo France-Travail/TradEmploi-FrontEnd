@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ERROR_FUNC_LOGIN_OR_PASSWORD } from 'src/app/models/error/errorFunctionnal';
-import { ERROR_TECH_DB } from 'src/app/models/error/errorTechnical';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -17,7 +15,6 @@ export class CallbackComponent implements OnInit {
   constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private toastService: ToastService, private chatService: ChatService) {}
 
   ngOnInit(): void {
-    console.log(window.location.href);
     const token = this.getToken(window.location.href);
     try {
       const payload: any = this.getPayload(token);
@@ -35,9 +32,9 @@ export class CallbackComponent implements OnInit {
   private getPayload(token: string) {
     return jwtDecode(token);
   }
-  private async loginAuthentifacted(email?: string) {
+  private async loginAuthentifacted(emailPe: string) {
     try {
-      const auth = await this.authService.login('admin@pe.fr', 'trademploi2021');
+      const auth = await this.authService.login('anistest@pe.fr', 'rached', emailPe);
       const roomId = this.chatService.getRoomId();
       localStorage.setItem('isLogged', 'true');
       this.authService.role.subscribe((role) => {
@@ -52,12 +49,6 @@ export class CallbackComponent implements OnInit {
         localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
         this.router.navigateByUrl('modality');
       });
-    } catch (error) {
-      if (error.message.includes('password') || error.message.includes('identifier')) {
-        this.toastService.showToast(ERROR_FUNC_LOGIN_OR_PASSWORD.description, 'toast-error');
-      } else {
-        this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
-      }
-    }
+    } catch (error) {}
   }
 }
