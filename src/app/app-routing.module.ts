@@ -17,12 +17,17 @@ import { PendingChangesGuard } from './guards/pending-changes.guard';
 import { ChoiceComponent } from './pages/choice/choice.component';
 import { ModalityComponent } from './pages/modality/modality.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { CallbackComponent } from './pages/callback/callback.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
   {
     path: 'start',
     component: StartComponent,
+  },
+  {
+    path: 'callback',
+    component: CallbackComponent,
   },
   {
     path: 'invite/:id',
