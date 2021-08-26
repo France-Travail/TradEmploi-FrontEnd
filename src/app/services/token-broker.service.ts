@@ -9,6 +9,7 @@ import { TokenResponse } from '../models/token/tokensResponse';
 import { Role } from '../models/role';
 import { SettingsService } from './settings.service';
 import { TokenFbService } from './token-fb.service';
+import {JwtFbSingleton} from '../models/token/JwtFbSingleton';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +26,8 @@ export class TokenBrokerService {
   public addGuest(fbToken: string, roomId: string, firstname: string) {
     const url = `${environment.gcp.gateWayUrl}/token`;
     const data = {
-      roomId: roomId,
-      firstname: firstname,
+      roomId,
+      firstname,
     };
     return axios({
       method: 'POST',
@@ -58,11 +59,10 @@ export class TokenBrokerService {
     })
       .then((response) => {
         const data = response.data;
-        const expiryDateGW: Moment = moment().add(data.apiGateway.expireTime, 'seconds');
-        const tokenGW = { token: data.apiGateway.token, expireTime: expiryDateGW };
+        const expireTime = JwtFbSingleton.getInstance().getToken().expireTime;
+        const tokenGW = { token: data.apiGateway.token, expireTime };
         jwtGwSingleton.setToken(tokenGW);
-        const expiryDateGCP: Moment = moment().add(data.gcp.expireTime.seconds, 'seconds');
-        const tokenGCP = { token: data.gcp.token, expireTime: expiryDateGCP };
+        const tokenGCP = { token: data.gcp.token, expireTime };
         jwtGcpSingleton.setToken(tokenGCP);
         return {
           tokenGCP: JwtGcpSingleton.getInstance().getToken().token,
@@ -84,7 +84,7 @@ export class TokenBrokerService {
     }
     const url = `${environment.gcp.gateWayUrl}/token`;
     const data = {
-      roomId: roomId,
+      roomId,
     };
     return axios({
       method: 'POST',

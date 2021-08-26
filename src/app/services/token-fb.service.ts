@@ -10,7 +10,7 @@ export class TokenFbService {
   public async getTokenFb(): Promise<string> {
     const jwtFbSingleton = JwtFbSingleton.getInstance();
     const hasJwtFbOnTime = jwtFbSingleton.getToken() !== null && jwtFbSingleton.getToken().expireTime.isAfter(moment());
-    return hasJwtFbOnTime ? JwtFbSingleton.getInstance().getToken().token : this.refreshToken(jwtFbSingleton);
+    return hasJwtFbOnTime ? jwtFbSingleton.getToken().token : this.refreshToken(jwtFbSingleton);
   }
   private async refreshToken(jwtFbSingleton: JwtFbSingleton) {
     const auth = FbAuthSingleton.getInstance().getFbAuth();
