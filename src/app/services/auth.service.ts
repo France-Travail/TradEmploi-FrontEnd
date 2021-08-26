@@ -65,11 +65,12 @@ export class AuthService {
   }
 
   private getRole(config: any, email: string): Role {
+    console.log('email tested:', email);
     if (email !== null) {
       if (config[0].adminList.includes(email)) {
         return Role.ADMIN;
       }
-      if (config[0].advisors.includes(email)) {
+      if (email.match('.*@pole-emploi[.]fr$')) {
         return Role.ADVISOR;
       }
     }
@@ -86,8 +87,10 @@ export class AuthService {
             console.log('config', config);
             if (config !== undefined && config.length >= 0) {
               const role = emailPe ? this.getRole(config, emailPe) : this.getRole(config, state.email);
+              console.log('role >>', role);
               this.role = of(role);
               this.settingsService.user.next({ ...this.settingsService.user.value, role: role });
+
               this.tbs.getTokenGcp();
             } else {
               this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');

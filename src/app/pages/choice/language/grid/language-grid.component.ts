@@ -1,14 +1,14 @@
-import {Component, Input, OnChanges} from '@angular/core';
-import {Router} from '@angular/router';
-import {VOCABULARY} from 'src/app/data/vocabulary';
-import {ERROR_FUNC_TTS} from 'src/app/models/error/errorFunctionnal';
-import {Vocabulary} from 'src/app/models/vocabulary';
-import {SettingsService} from 'src/app/services/settings.service';
-import {TextToSpeechService} from 'src/app/services/text-to-speech.service';
-import {ToastService} from 'src/app/services/toast.service';
-import {ENGLISH, FRENCH} from 'src/app/data/sentence';
-import {Tooltip} from './../../../../models/vocabulary';
-import {ClickInfo, TagService} from '../../../../lib/atinternet/_services/tag.service';
+import { Component, Input, OnChanges } from '@angular/core';
+import { Router } from '@angular/router';
+import { VOCABULARY } from 'src/app/data/vocabulary';
+import { ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
+import { Vocabulary } from 'src/app/models/vocabulary';
+import { SettingsService } from 'src/app/services/settings.service';
+import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { ENGLISH, FRENCH } from 'src/app/data/sentence';
+import { Tooltip } from './../../../../models/vocabulary';
+import { ClickInfo, TagService } from '../../../../lib/atinternet/_services/tag.service';
 
 @Component({
   selector: 'app-language-grid',
@@ -16,7 +16,6 @@ import {ClickInfo, TagService} from '../../../../lib/atinternet/_services/tag.se
   styleUrls: ['./language-grid.component.scss'],
 })
 export class LanguageGridComponent implements OnChanges {
-
   @Input() search: String;
   @Input() optionAll: boolean;
   @Input() optionList: boolean;
@@ -30,14 +29,7 @@ export class LanguageGridComponent implements OnChanges {
   private audioClick: boolean = false;
   private audioEnabled = true;
 
-  constructor(
-    private textToSpeechService: TextToSpeechService,
-    private toastService: ToastService,
-    private settingsService: SettingsService,
-    private router: Router,
-    private tagService: TagService
-  ) {
-  }
+  constructor(private textToSpeechService: TextToSpeechService, private toastService: ToastService, private settingsService: SettingsService, private router: Router, private tagService: TagService) {}
 
   ngOnChanges() {
     this.tooltip = this.isGuest ? ENGLISH.tooltip : FRENCH.tooltip;
@@ -45,11 +37,13 @@ export class LanguageGridComponent implements OnChanges {
     this.optionAll ? this.getCountriesAll() : this.getCountriesSelected();
     if (this.search && this.search != '') {
       const searchName = this.search.trim().toLowerCase();
-      this.countries = this.countries.filter(c =>
-        c.languageNameFr.toLowerCase().indexOf(searchName) === 0
-        || c.countryNameFr.toLowerCase().indexOf(searchName) === 0
-        || c.languageNameRaw.toLowerCase().indexOf(searchName) === 0
-        || c.countryNameRaw.toLowerCase().indexOf(searchName) === 0);
+      this.countries = this.countries.filter(
+        (c) =>
+          c.languageNameFr.toLowerCase().indexOf(searchName) === 0 ||
+          c.countryNameFr.toLowerCase().indexOf(searchName) === 0 ||
+          c.languageNameRaw.toLowerCase().indexOf(searchName) === 0 ||
+          c.countryNameRaw.toLowerCase().indexOf(searchName) === 0
+      );
     }
   }
 
@@ -70,17 +64,20 @@ export class LanguageGridComponent implements OnChanges {
     if (this.audioEnabled) {
       this.audioEnabled = false;
       const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-      this.textToSpeechService.getSpeech(item.sentences.readedWelcome, audioLanguage).then(_ => {
-        this.textToSpeechService.audioSpeech.play();
-        this.textToSpeechService.audioSpeech = undefined;
-        setTimeout(() => {
+      this.textToSpeechService
+        .getSpeech(item.sentences.readedWelcome, audioLanguage)
+        .then((_) => {
+          this.textToSpeechService.audioSpeech.play();
+          this.textToSpeechService.audioSpeech = undefined;
+          setTimeout(() => {
+            this.audioEnabled = true;
+          }, 2000);
+        })
+        .catch((_) => {
+          this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
           this.audioEnabled = true;
-        }, 2000);
-      }).catch(_ => {
-        this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
-        this.audioEnabled = true;
-        this.textToSpeechService.audioSpeech = undefined;
-      });
+          this.textToSpeechService.audioSpeech = undefined;
+        });
     }
   }
 
@@ -93,36 +90,36 @@ export class LanguageGridComponent implements OnChanges {
       chapter3: 'chap3',
       level2: '1',
       type: 'exit',
-      event
+      event,
     };
     this.tagService.click(clickData);
-    this.audioClick ? this.audioClick = false : this.goToTransation(item);
-
+    this.audioClick ? (this.audioClick = false) : this.goToTransation(item);
   }
 
   private goToTransation(item: Vocabulary) {
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
+    console.log('110, is guest ? ', this.isGuest);
     this.settingsService.user.next({
       ...this.settingsService.user.value,
-      language: {audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr},
-      connectionTime: Date.now()
+      language: { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr },
+      connectionTime: Date.now(),
     });
-    this.isGuest ?
-      this.onSessionStorage(audioLanguage, item.isoCode, item.languageNameFr)
-      : this.onLocalStorage(audioLanguage, item.isoCode, item.languageNameFr);
+    console.log('line 107');
+
+    this.isGuest ? this.onSessionStorage(audioLanguage, item.isoCode, item.languageNameFr) : this.onLocalStorage(audioLanguage, item.isoCode, item.languageNameFr);
     this.router.navigate(['translation']);
   }
 
   private onSessionStorage(audioLanguage: string, isoCode: string, languageNameFr: string) {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    user.language = {audio: audioLanguage, written: isoCode, languageName: languageNameFr};
+    user.language = { audio: audioLanguage, written: isoCode, languageName: languageNameFr };
     user.connectionTime = Date.now();
     sessionStorage.setItem('user', JSON.stringify(user));
   }
 
   private onLocalStorage(audioLanguage: string, isoCode: string, languageNameFr: string) {
     const user = JSON.parse(localStorage.getItem('user'));
-    user.language = {audio: audioLanguage, written: isoCode, languageName: languageNameFr};
+    user.language = { audio: audioLanguage, written: isoCode, languageName: languageNameFr };
     user.connectionTime = Date.now();
     localStorage.setItem('user', JSON.stringify(user));
   }
@@ -136,5 +133,4 @@ export class LanguageGridComponent implements OnChanges {
     }
     return 0;
   }
-
 }

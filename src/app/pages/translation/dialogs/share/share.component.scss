@@ -19,30 +19,30 @@
   padding: 0 30px;
 }
 
-.share{
-  margin-left:10px;
-  margin-bottom:10px;
+.share {
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
-.title{
-  font-size:15px;
-}
-
-.content{
-  margin:10px;
+.title {
+  font-size: 15px;
 }
 
-.advise{
-  font-size:13px;
-  margin-left:50px;
+.content {
+  margin: 10px;
 }
 
-.link{
-  font-size:13px;
+.advise {
+  font-size: 13px;
+  margin-left: 50px;
+}
+
+.link {
+  font-size: 13px;
   margin-left: 50px;
   font-weight: lighter;
 }
 
-.copy-btn{
+.copy-btn {
   background: white;
   border: 1px solid #dddddd;
   margin: 10px;
@@ -51,15 +51,15 @@
   font-size: 10px;
 }
 
-@media screen and (max-width: 576px) { 
-  .advise{
-    margin-left:0px;
+@media screen and (max-width: 576px) {
+  .advise {
+    margin-left: 0px;
   }
-  .link{
-    font-size:10px;
-    margin-left:0px;
+  .link {
+    font-size: 10px;
+    margin-left: 0px;
   }
-  .copy-btn{
+  .copy-btn {
     margin-left: 5px;
   }
 }
