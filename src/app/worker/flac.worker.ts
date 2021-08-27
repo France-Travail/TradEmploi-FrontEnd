@@ -1,5 +1,5 @@
 /// <reference lib="webworker" />
-import Flac from 'libflacjs/dist/libflac.js';
+import * as Flac from 'libflacjs/dist/libflac';
 
 const flacBuffers = [];
 let flacLength = 0;
@@ -21,11 +21,11 @@ addEventListener('message', ({ data }) => {
 
 function initFlac() {
   if (!Flac.isReady()) {
-    Flac.onready = () => {
+    Flac.on('ready', () => {
       setTimeout(() => {
         createFlac();
       }, 0);
-    };
+    });
   } else {
     createFlac();
   }

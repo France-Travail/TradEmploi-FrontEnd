@@ -68,7 +68,8 @@ import { ChoiceComponent } from './pages/choice/choice.component';
 import { ModalityComponent } from './pages/modality/modality.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { OnboardingComponent } from './pages/translation/dialogs/onboarding/onboarding.component';
-
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { CallbackComponent } from './pages/callback/callback.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,6 +101,7 @@ import { OnboardingComponent } from './pages/translation/dialogs/onboarding/onbo
     ModalityComponent,
     WelcomeComponent,
     OnboardingComponent,
+    CallbackComponent,
   ],
   imports: [
     BrowserModule,
@@ -122,6 +124,8 @@ import { OnboardingComponent } from './pages/translation/dialogs/onboarding/onbo
     QRCodeModule,
     DeviceDetectorModule.forRoot(),
     OverlayModule,
+    HttpClientModule,
+    OAuthModule.forRoot(),
   ],
   providers: [
     NavbarService,
