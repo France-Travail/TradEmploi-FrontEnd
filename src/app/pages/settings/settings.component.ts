@@ -1,33 +1,44 @@
-import {Component} from '@angular/core';
-import {Parser} from 'json2csv';
-import {NavbarService} from 'src/app/services/navbar.service';
-import {SettingsService} from 'src/app/services/settings.service';
-import {RateService} from 'src/app/services/rate.service';
-import {KpiService} from 'src/app/services/kpi.service';
-import {ERROR_FUNC_EXPORT_KPI, ERROR_FUNC_EXPORT_STATS} from 'src/app/models/error/errorFunctionnal';
-import {ToastService} from 'src/app/services/toast.service';
-import {MatDialog} from '@angular/material';
-import {LoaderComponent} from './loader/loader.component';
+import { Component, OnInit } from '@angular/core';
+import { Parser } from 'json2csv';
+import { NavbarService } from 'src/app/services/navbar.service';
+import { SettingsService } from 'src/app/services/settings.service';
+import { RateService } from 'src/app/services/rate.service';
+import { KpiService } from 'src/app/services/kpi.service';
+import { ERROR_FUNC_EXPORT_KPI, ERROR_FUNC_EXPORT_STATS } from 'src/app/models/error/errorFunctionnal';
+import { ToastService } from 'src/app/services/toast.service';
+import { MatDialog } from '@angular/material';
+import { LoaderComponent } from './loader/loader.component';
+import { Role } from 'src/app/models/role';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
   constructor(
     private navService: NavbarService,
     private settingsService: SettingsService,
     private rateService: RateService,
     private kpiService: KpiService,
     private toastService: ToastService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private Router: Router
   ) {
     this.navService.handleTabsSettings();
   }
-
+  public isAdmin: boolean;
+  ngOnInit(): void {
+    this.settingsService.user.subscribe((user) => {
+      this.isAdmin = user.role === Role.ADMIN;
+      if (!this.isAdmin) {
+        this.Router.navigateByUrl('/start');
+      }
+    });
+  }
   public exportKpi(firstCall: boolean) {
-    this.dialog.open(LoaderComponent, {panelClass: 'loader'});
+    this.dialog.open(LoaderComponent, { panelClass: 'loader' });
     this.kpiService
       .getkpi()
       .then((kpi) => {
@@ -36,7 +47,7 @@ export class SettingsComponent {
       })
       .catch(async (_) => {
         if (firstCall) {
-          await new Promise(f => setTimeout(f, 10000));
+          await new Promise((f) => setTimeout(f, 10000));
           this.exportKpi(false);
         } else {
           this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'), this.dialog.closeAll();
@@ -45,7 +56,7 @@ export class SettingsComponent {
   }
 
   public exportEval(firstCall: boolean) {
-    this.dialog.open(LoaderComponent, {panelClass: 'loader'});
+    this.dialog.open(LoaderComponent, { panelClass: 'loader' });
     this.rateService
       .getRates()
       .then((rates) => {
@@ -54,7 +65,7 @@ export class SettingsComponent {
       })
       .catch(async (_) => {
         if (firstCall) {
-          await new Promise(f => setTimeout(f, 10000));
+          await new Promise((f) => setTimeout(f, 10000));
           this.exportEval(false);
         } else {
           this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'), this.dialog.closeAll();
@@ -63,9 +74,9 @@ export class SettingsComponent {
   }
 
   private exportCsv(data, name: string) {
-    const json2csvParser = new Parser({delimiter: ';', encoding: 'utf8'});
+    const json2csvParser = new Parser({ delimiter: ';', encoding: 'utf8' });
     const csv = json2csvParser.parse(data);
-    const blob = new Blob(['\uFEFF' + csv], {type: 'text/csv'});
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.setAttribute('hidden', '');
@@ -79,7 +90,7 @@ export class SettingsComponent {
   }
 
   public goBack() {
-    this.settingsService.user.next({...this.settingsService.user.value, connectionTime: Date.now()});
+    this.settingsService.user.next({ ...this.settingsService.user.value, connectionTime: Date.now() });
     window.history.back();
   }
 }

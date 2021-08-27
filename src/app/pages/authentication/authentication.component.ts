@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { JwksValidationHandler, OAuthService } from 'angular-oauth2-oidc';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { authCodeFlowConfig } from 'src/environments/authflow';
-
+import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
