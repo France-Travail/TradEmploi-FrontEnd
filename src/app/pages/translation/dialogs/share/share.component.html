@@ -1,12 +1,15 @@
-<h1 mat-dialog-title>Inviter des interlocuteurs</h1>
+<div class="share-header">
+  <h1 mat-dialog-title>Inviter des interlocuteurs</h1>
+  <img class="close-button" (click)="close()" src="assets/icons/icon-delete-white.svg" alt="Close" />
+</div>
 <div mat-dialog-content>
   <div class="share">
     <span class="title">1 - Partager cette conversation</span>
     <div class="content">
       <span class="advise">soit par ce QR code à scanner ou ce lien à donner</span>
       <qrcode [qrdata]="qrCode" [width]="4" [errorCorrectionLevel]="'M'"></qrcode>
-      <span class="link">{{link}}</span>
-      <button class="copy-btn" (click)="copyLink()" value="cliquer pour copier" >COPIER</button>
+      <span class="link">{{ link }}</span>
+      <button class="copy-btn" (click)="copyLink()" value="cliquer pour copier">COPIER</button>
     </div>
   </div>
   <div class="share">
