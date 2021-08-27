@@ -98,14 +98,11 @@ export class LanguageGridComponent implements OnChanges {
 
   private goToTransation(item: Vocabulary) {
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-    console.log('110, is guest ? ', this.isGuest);
     this.settingsService.user.next({
       ...this.settingsService.user.value,
       language: { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr },
       connectionTime: Date.now(),
     });
-    console.log('line 107');
-
     this.isGuest ? this.onSessionStorage(audioLanguage, item.isoCode, item.languageNameFr) : this.onLocalStorage(audioLanguage, item.isoCode, item.languageNameFr);
     this.router.navigate(['translation']);
   }

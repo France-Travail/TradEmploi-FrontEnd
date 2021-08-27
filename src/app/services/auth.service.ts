@@ -65,7 +65,6 @@ export class AuthService {
   }
 
   private getRole(config: any, email: string): Role {
-    console.log('email tested:', email);
     if (email !== null) {
       if (config[0].adminList.includes(email)) {
         return Role.ADMIN;
@@ -84,10 +83,8 @@ export class AuthService {
           .collection('config')
           .valueChanges()
           .subscribe((config: any) => {
-            console.log('config', config);
             if (config !== undefined && config.length >= 0) {
               const role = emailPe ? this.getRole(config, emailPe) : this.getRole(config, state.email);
-              console.log('role >>', role);
               this.role = of(role);
               this.settingsService.user.next({ ...this.settingsService.user.value, role: role });
 

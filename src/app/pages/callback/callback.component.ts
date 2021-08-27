@@ -17,7 +17,6 @@ export class CallbackComponent implements OnInit {
     const token = this.getToken(window.location.href);
     try {
       const payload: any = jwtDecode(token);
-      console.log(payload);
       if (payload.email.match('.*@pole-emploi[.]fr$')) {
         this.loginAuthentificated(payload.email);
       }
