@@ -39,13 +39,13 @@ const targetPath = isProduction
 
 const environmentFileContent = `
 
-export const environment = '${process.env.ENVIRONMENT_FILE_CONTENT}';
+export const environment = ${process.env.ENVIRONMENT_FILE_CONTENT};
 `;
 
 const authflowFileContent = `
 import { AuthConfig } from 'angular-oauth2-oidc';
 const url = 'https://authentification-agent-tis.pe.intra/connexion/oauth2/agent/authorize';
-export const authCodeFlowConfig: AuthConfig = '${process.env.AUTHFLOW_FILE_CONTENT}';
+export const authCodeFlowConfig: AuthConfig = ${process.env.AUTHFLOW_FILE_CONTENT};
 `;
 
 
