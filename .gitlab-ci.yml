@@ -8,7 +8,6 @@ variables:
   AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE
 
 stages:
-  - test
   - build
   - deploy
 
