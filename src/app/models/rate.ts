@@ -5,4 +5,5 @@ export interface Rate {
   offerLinked: string;
   date: Date;
   hour: string;
+  conversationDuration: string;
 }
