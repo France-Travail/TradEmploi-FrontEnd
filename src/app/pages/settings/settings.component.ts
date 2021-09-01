@@ -38,7 +38,9 @@ export class SettingsComponent implements OnInit {
     });
   }
   public exportKpi(firstCall: boolean) {
-    this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+    if (firstCall){
+      this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+    }
     this.kpiService
       .getkpi()
       .then((kpi) => {
@@ -56,7 +58,9 @@ export class SettingsComponent implements OnInit {
   }
 
   public exportEval(firstCall: boolean) {
-    this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+    if (firstCall){
+      this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+    }
     this.rateService
       .getRates()
       .then((rates) => {
