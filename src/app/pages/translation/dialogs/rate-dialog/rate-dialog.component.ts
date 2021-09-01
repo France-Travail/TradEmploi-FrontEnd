@@ -1,13 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SettingsService } from 'src/app/services/settings.service';
-import { RateService } from 'src/app/services/rate.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { VOCABULARY } from 'src/app/data/vocabulary';
-import { Rate } from 'src/app/models/rate';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { ChatService } from 'src/app/services/chat.service';
-import { ERROR_FUNC_SEND_STATS } from 'src/app/models/error/errorFunctionnal';
+import {Component, Inject, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {SettingsService} from 'src/app/services/settings.service';
+import {RateService} from 'src/app/services/rate.service';
+import {ToastService} from 'src/app/services/toast.service';
+import {VOCABULARY} from 'src/app/data/vocabulary';
+import {Rate} from 'src/app/models/rate';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {ChatService} from 'src/app/services/chat.service';
+import {ERROR_FUNC_SEND_STATS} from 'src/app/models/error/errorFunctionnal';
+import {getDuration} from '../../../../utils/utils';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -108,6 +109,7 @@ export class RateDialogComponent implements OnInit {
       grades: [undefined, undefined],
       comment: '',
       offerLinked: 'non',
+      conversationDuration: ''
     };
   }
 
@@ -116,6 +118,10 @@ export class RateDialogComponent implements OnInit {
     this.rate.grades[question] = value + 1;
     this.rate.date = date;
     this.rate.hour = date.getHours() + ':' + date.getMinutes();
+    const messages = this.chatService.messagesStored.map(mw => {
+      return mw.message;
+    });
+    this.rate.conversationDuration = getDuration(messages[messages.length - 1].hour, messages[0].hour);
     this.rateService.rateConversation(this.rate);
 
     this.rates[question].forEach((r, i) => {

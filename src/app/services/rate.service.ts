@@ -1,13 +1,12 @@
 import axios from 'axios';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Rate } from '../models/rate';
-import { environment } from '../../environments/environment';
-import { ErrorService } from './error.service';
-import { ERROR_TECH_EXPORT_STATS } from '../models/error/errorTechnical';
-import { TokenBrokerService } from './token-broker.service';
-import { JwtGwSingleton } from '../models/token/JwtGwSingleton';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {Rate} from '../models/rate';
+import {environment} from '../../environments/environment';
+import {ErrorService} from './error.service';
+import {ERROR_TECH_EXPORT_STATS} from '../models/error/errorTechnical';
+import {JwtGwSingleton} from '../models/token/JwtGwSingleton';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +15,8 @@ export class RateService {
   private rate: Rate;
   private db: string = 'rates';
 
-  constructor(private afs: AngularFirestore, private errorService: ErrorService, private tbs: TokenBrokerService) {}
+  constructor(private afs: AngularFirestore, private errorService: ErrorService) {
+  }
 
   public rateConversation(rate: Rate): void {
     this.rate = rate;
@@ -25,6 +25,7 @@ export class RateService {
   public saveRate(): Promise<void> {
     return this.afs.collection(this.db).doc<Rate>(this.afs.createId()).set(this.rate);
   }
+
   public async getRates() {
     const gwToken = JwtGwSingleton.getInstance().getToken().token;
     const url = `${environment.gcp.gateWayUrl}/reporting`;
@@ -39,12 +40,13 @@ export class RateService {
                 efficientGrade
                 offerLinked
                 comment
+                conversationDuration
               }
             }`,
     };
     return axios({
       method: 'POST',
-      headers: { Authorization: `Bearer ${gwToken}` },
+      headers: {Authorization: `Bearer ${gwToken}`},
       data,
       url,
     })
@@ -56,8 +58,9 @@ export class RateService {
             Date: element.day,
             Heure: element.hour,
             Langage: element.language,
-            "Qualité des traductions": element.facilityGrade,
-            "Note de l'outil": element.efficientGrade,
+            conversationDuration: element.conversationDuration,
+            'Qualité des traductions': element.facilityGrade,
+            'Note de l\'outil': element.efficientGrade,
             'Problème technique': element.offerLinked,
             'Commentaire libre': element.comment,
           });
