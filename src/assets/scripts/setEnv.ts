@@ -51,4 +51,5 @@ export const authCodeFlowConfig: AuthConfig = ${process.env.AUTHFLOW_FILE_CONTEN
 
 writeFileUsingFS(targetPath, environmentFileContent);
 writeFileUsingFS('./src/environments/environment.dev.ts', environmentFileContent);
+writeFileUsingFS('./src/environments/environment.prod.ts', environmentFileContent);
 writeFileUsingFS('./src/environments/authflow.ts', authflowFileContent);
