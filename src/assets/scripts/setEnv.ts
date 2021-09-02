@@ -30,7 +30,7 @@ writeFileUsingFS('./src/environments/environment.dev.ts', '');
 writeFileUsingFS('./src/environments/authflow.ts', '');
 
 
-const isProduction = environment === 'prod';
+const isProduction = environment === 'production';
 
 const targetPath = isProduction
   ? './src/environments/environment.prod.ts'
