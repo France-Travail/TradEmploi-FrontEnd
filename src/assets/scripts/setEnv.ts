@@ -1,10 +1,8 @@
 /* tslint:disable */
 // @ts-nocheck
 const { writeFile, existsSync, mkdirSync } = require('fs');
-const { argv } = require('yargs');
 
 require('dotenv').config();
-const environment = argv.environment;
 
 
 function writeFileUsingFS(targetPath, environmentFileContent) {
@@ -28,15 +26,17 @@ writeFileUsingFS('./src/environments/environment.ts', '');
 writeFileUsingFS('./src/environments/authflow.ts', '');
 
 
+const environmentFileContent = `
 
-let environmentFileContent = `export const environment = ${process.env.ENVIRONMENT_FILE_CONTENT};`;
+export const environment = ${process.env.ENVIRONMENT_FILE_CONTENT};
+`;
 
-
-let authflowFileContent = `
+const authflowFileContent = `
 import { AuthConfig } from 'angular-oauth2-oidc';
 const url = 'https://authentification-agent-tis.pe.intra/connexion/oauth2/agent/authorize';
 export const authCodeFlowConfig: AuthConfig = ${process.env.AUTHFLOW_FILE_CONTENT};
 `;
+
 
 
 writeFileUsingFS('./src/environments/environment.ts', environmentFileContent);
