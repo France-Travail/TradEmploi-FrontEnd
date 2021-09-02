@@ -24,32 +24,29 @@ if (!existsSync(envDirectory)) {
   mkdirSync(envDirectory);
 }
 
-writeFileUsingFS('./src/environments/environment.prod.ts', '');
 writeFileUsingFS('./src/environments/environment.ts', '');
-writeFileUsingFS('./src/environments/environment.dev.ts', '');
 writeFileUsingFS('./src/environments/authflow.ts', '');
 
 
 const isProduction = environment === 'production';
 
-const targetPath = isProduction
-  ? './src/environments/environment.prod.ts'
-  : './src/environments/environment.ts';
 
+let environmentFileContent = `export const environment = ${process.env.ENVIRONMENT_FILE_CONTENT};`;
 
-const environmentFileContent = `
+if (isProduction){
+   environmentFileContent =  `export const environment = ${process.env.ENVIRONMENT_FILE_CONTENT_PROD};`;
+}
 
-export const environment = ${process.env.ENVIRONMENT_FILE_CONTENT};
-`;
-
-const authflowFileContent = `
+let authflowFileContent = `
 import { AuthConfig } from 'angular-oauth2-oidc';
 const url = 'https://authentification-agent-tis.pe.intra/connexion/oauth2/agent/authorize';
 export const authCodeFlowConfig: AuthConfig = ${process.env.AUTHFLOW_FILE_CONTENT};
 `;
 
+if (isProduction){
+   authflowFileContent =  `export const environment = ${process.env.AUTHFLOW_FILE_CONTENT_PROD};`;
+}
 
-writeFileUsingFS(targetPath, environmentFileContent);
-writeFileUsingFS('./src/environments/environment.dev.ts', environmentFileContent);
-writeFileUsingFS('./src/environments/environment.prod.ts', environmentFileContent);
+
+writeFileUsingFS('./src/environments/environment.ts', environmentFileContent);
 writeFileUsingFS('./src/environments/authflow.ts', authflowFileContent);

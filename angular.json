@@ -45,10 +45,6 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                },
-                {
                   "replace": "src/index.html",
                   "with": "src/index.prod.html"
                 }
@@ -82,12 +78,7 @@
               ]
             },
             "dev": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.dev.ts"
-                }
-              ]
+              "fileReplacements": []
             },
             "summer": {
               "fileReplacements": [
@@ -107,10 +98,6 @@
             },
             "prod": {
               "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                },
                 {
                   "replace": "src/index.html",
                   "with": "src/index.prod.html"
