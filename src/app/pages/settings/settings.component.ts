@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Parser } from 'json2csv';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -8,46 +8,72 @@ import { ERROR_FUNC_EXPORT_KPI, ERROR_FUNC_EXPORT_STATS } from 'src/app/models/e
 import { ToastService } from 'src/app/services/toast.service';
 import { MatDialog } from '@angular/material';
 import { LoaderComponent } from './loader/loader.component';
+import { Role } from 'src/app/models/role';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
   constructor(
     private navService: NavbarService,
     private settingsService: SettingsService,
     private rateService: RateService,
     private kpiService: KpiService,
     private toastService: ToastService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private Router: Router
   ) {
     this.navService.handleTabsSettings();
   }
-
-  public exportKpi() {
-    this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+  public isAdmin: boolean;
+  ngOnInit(): void {
+    this.settingsService.user.subscribe((user) => {
+      this.isAdmin = user.role === Role.ADMIN;
+      if (!this.isAdmin) {
+        this.Router.navigateByUrl('/start');
+      }
+    });
+  }
+  public exportKpi(firstCall: boolean) {
+    if (firstCall){
+      this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+    }
     this.kpiService
       .getkpi()
       .then((kpi) => {
         this.exportCsv(kpi, 'kpi');
         this.dialog.closeAll();
       })
-      .catch((_) => {
-        this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'), this.dialog.closeAll();
+      .catch(async (_) => {
+        if (firstCall) {
+          await new Promise((f) => setTimeout(f, 10000));
+          this.exportKpi(false);
+        } else {
+          this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'), this.dialog.closeAll();
+        }
       });
   }
-  public exportEval() {
-    this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+
+  public exportEval(firstCall: boolean) {
+    if (firstCall){
+      this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+    }
     this.rateService
       .getRates()
       .then((rates) => {
         this.exportCsv(rates, 'eval');
         this.dialog.closeAll();
       })
-      .catch((_) => {
-        this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'), this.dialog.closeAll();
+      .catch(async (_) => {
+        if (firstCall) {
+          await new Promise((f) => setTimeout(f, 10000));
+          this.exportEval(false);
+        } else {
+          this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'), this.dialog.closeAll();
+        }
       });
   }
 

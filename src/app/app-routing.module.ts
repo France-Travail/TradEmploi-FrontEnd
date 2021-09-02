@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Components
-import { ChoiceComponent } from './pages/choice/choice.component';
 import { HistoricComponent } from './pages/historic/historic.component';
 import { TranslationComponent } from './pages/translation/translation.component';
 import { StartComponent } from './pages/start/start.component';
@@ -15,6 +14,10 @@ import { AnonymousComponent } from './pages/anonymous/anonymous.component';
 import { GdprComponent } from './pages/gdpr/gdpr.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PendingChangesGuard } from './guards/pending-changes.guard';
+import { ChoiceComponent } from './pages/choice/choice.component';
+import { ModalityComponent } from './pages/modality/modality.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { CallbackComponent } from './pages/callback/callback.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
@@ -23,16 +26,35 @@ export const routes: Routes = [
     component: StartComponent,
   },
   {
+    path: 'callback',
+    component: CallbackComponent,
+  },
+  {
+    path: 'invite/:id',
+    component: WelcomeComponent,
+  },
+  {
     path: 'auth',
     component: AuthenticationComponent,
+  },
+  {
+    path: 'modality',
+    component: ModalityComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'gdpr/mono',
+    component: GdprComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth/:id',
     component: AnonymousComponent,
   },
   {
-    path: 'invite/:id',
+    path: 'gdpr/:id',
     component: GdprComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'choice',

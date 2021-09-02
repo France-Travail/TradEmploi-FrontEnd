@@ -1,25 +1,31 @@
 <div class="container">
-  <h2 [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }">{{ title }} :</h2>
-  <div class="input-wrapper">
     <div class="field" *ngIf="!micro || !recordMode">
       <div class="flag">
-        <span *ngIf="flag !== 'xa'" class="flag-icon flag-icon-{{ flag }}"></span>
-        <img *ngIf="flag === 'xa'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" />
+        <ng-template [ngIf]="role !== 'DE'">
+          <img class="flag-icon" src="../../../../../assets/icons/logo-pe.svg" alt="pole emploi" />
+        </ng-template>
+        <ng-template [ngIf]="role === 'DE'">
+          <span *ngIf="flag !== 'xa'" class="flag-icon flag-icon-{{ flag }}"></span>
+          <img *ngIf="flag === 'xa'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" />
+        </ng-template>
       </div>
-      <textarea id="msg-wrapper-advisor" [placeholder]="interim" *ngIf="role == 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
-      <textarea id="msg-wrapper-guest" [placeholder]="interim" *ngIf="role != 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
+      <textarea id="msg-wrapper-advisor" [placeholder]="interim" *ngIf="role == 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
+      <textarea id="msg-wrapper-guest" [placeholder]="interim" *ngIf="role != 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
       <div class="buttons">
-        <img class="micro" *ngIf="!speak" src="./assets/icons/icon-micro-blue.svg" alt="activate micro" (click)="talk()" />
-        <img class="micro-stream" *ngIf="speak && !recordMode" src="./assets/icons/icon-micro-red.svg" alt="activate micro" (click)="exitStream()" />
-        <img class="delete" src="./assets/icons/icon-remove-blue.svg" alt="delete text" (click)="delete()" />
+        <img class="delete" *ngIf="rawText" src="./assets/icons/icon-remove-blue.svg" alt="delete text" (click)="delete()" />
       </div>
     </div>
     <div class="actions" *ngIf="!micro || !recordMode">
-      <button class="btn-send" [ngClass]="{ 'btn-send-disabled': speak && !recordMode }" (click)="send(true)" [disabled]="speak && !recordMode">
-        <img src="./assets/icons/icon-send-white.svg" alt="send text" />
-        {{ sendBtnValue | uppercase }}
-      </button>
+        <ng-template [ngIf]="isIOS || voiceNotSupported">
+          <img src="./assets/icons/icon-send-white.svg" alt="send text"  (click)="send(false)"/>
+        </ng-template>
+        <ng-template [ngIf]="!isIOS && !voiceNotSupported">
+          <img *ngIf="canSend"  src="./assets/icons/icon-send-white.svg" alt="send text"  (click)="send(false)"/>
+          <ng-template [ngIf]="!canSend">
+            <img *ngIf="!speaking" src="./assets/icons/icon-micro-white.svg" alt="activate micro" (click)="talk()" />
+            <img *ngIf="speaking && !recordMode" class="micro-stream"  [ngClass]="{ 'btn-send-disabled': speaking && !recordMode }" src="./assets/icons/icon-micro-red.svg" alt="activate micro" (click)="exitStream()"/>
+          </ng-template>
+        </ng-template>
     </div>
-    <app-record class="margin" *ngIf="recordMode" duration="50" [role]="role" [language]="languageOrigin" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
-  </div>
+    <app-record class="record" *ngIf="recordMode" duration="50" [role]="role" [language]="languageOrigin" [flag]="flag" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
 </div>

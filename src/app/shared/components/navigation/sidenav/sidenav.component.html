@@ -1,21 +1,36 @@
 <mat-nav-list>
-  <div class="logo">
-    <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
-    <span class="title">TRADUCTION INSTANTANÉE</span>
-  </div>
-  <a mat-list-item routerLink="choice" (click)="onSidenavClose()" *ngIf="navbarService.choiceTab">
+  <a mat-list-item routerLink="choice" (click)="onSidenavClose()" *ngIf="navbarService.choiceTab"  atTag
+     [clickData]="{'name':'choice-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
     <img src="assets/icons/icon-languages-black.svg" />
     <span class="name">{{ choiceLink | uppercase }}</span>
   </a>
-  <a mat-list-item (click)="share()" (click)="onSidenavClose()" *ngIf="!isGuest && navbarService.shareTab">
-    <img src="assets/icons/icon-share-alt-solid.svg" />
-    <span class="name">PARTAGER</span>
+  <a mat-list-item (click)="gdpr()"  atTag
+     [clickData]="{'name':'gdpr-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
+    <img src="assets/icons/icon-policies-black.svg" />
+    <span class="name">{{ gdprLink | uppercase }}</span>
   </a>
-  <a mat-list-item routerLink="settings" (click)="onSidenavClose()" *ngIf="isAdmin && navbarService.settingsTab">
+  <a mat-list-item routerLink="modality" (click)="onSidenavClose()" *ngIf="navbarService.modalityTab"  atTag
+     [clickData]="{'name':'modality-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
+    <img src="assets/icons/icon-modality-black.svg" />
+    <span class="name">MODALITÉ</span>
+  </a>
+  <a mat-list-item routerLink="settings" (click)="onSidenavClose()" *ngIf="navbarService.settingsTab"  atTag
+     [clickData]="{'name':'settings-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
     <img src="assets/icons/icon-settings-black.svg" />
     <span class="name">PARAMÈTRES</span>
   </a>
-  <a mat-list-item (click)="logout()" (click)="onSidenavClose()">
+  <a mat-list-item (click)="onSidenavClose()" (click)="help()" *ngIf="navbarService.helpTab"  atTag
+     [clickData]="{'name':'help-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
+    <img src="assets/icons/icon-help-black.svg" />
+    <span class="name">{{ helpLink | uppercase }}</span>
+  </a>
+  <a mat-list-item (click)="end()" (click)="onSidenavClose()" *ngIf="navbarService.endTab"  atTag
+     [clickData]="{'name':'end-chat-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
+    <img src="assets/icons/icon-end-black.svg" />
+    <span class="name">TERMINER LE CHAT</span>
+  </a>
+  <a mat-list-item (click)="logout()" (click)="onSidenavClose()"  atTag
+     [clickData]="{'name':'logout-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
     <img src="assets/icons/icon-logout.svg" />
     <span class="name">{{ logoutLink | uppercase }}</span>
   </a>

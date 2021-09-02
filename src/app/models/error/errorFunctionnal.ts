@@ -44,3 +44,8 @@ export const ERROR_FUNC_UNKNOWCHAT: ErrorDetail  = {
     code: '408',
     description: 'L\'espace de conversation est inexistant, veuillez vérifier l\'adresse web avec votre conseiller'
 };
+
+export const ERROR_FUNC_LOGIN_OR_PASSWORD: ErrorDetail  = {
+  code: '409',
+  description: 'Le login ou le mot de passe sont invalides'
+};

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from 'src/app/services/chat.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-share',
@@ -17,12 +18,7 @@ export class ShareComponent implements OnInit {
 
   private roomId: string;
 
-  constructor(
-    private dialogRef: MatDialogRef<ShareComponent>,
-    public router: Router,
-    private chatService: ChatService,
-    private settingsService: SettingsService
-  ) {}
+  constructor(private dialogRef: MatDialogRef<ShareComponent>, public router: Router, private chatService: ChatService, private settingsService: SettingsService, private toastService: ToastService) {}
 
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {
@@ -49,6 +45,8 @@ export class ShareComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+    this.toastService.showToast('Lien copié avec succès', 'toast-success', 2000);
+    this.dialogRef.close();
   }
 
   public share() {
@@ -57,27 +55,25 @@ export class ShareComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  public cancel() {
+  public close() {
     this.dialogRef.close();
   }
 
-  private initChat(){
+  private initChat() {
     const advisorRole: Role = this.settingsService.user.value.role;
-    (this.chatService.messagesStored.length > 0) ?
-      this.initChatMonoMulti(advisorRole) :
-      this.chatService.initChatMulti(this.roomId, advisorRole);
+    this.chatService.messagesStored.length > 0 ? this.initChatMonoMulti(advisorRole) : this.chatService.initChatMulti(this.roomId, advisorRole);
   }
 
-  private initChatMonoMulti(advisorRole: Role){
+  private initChatMonoMulti(advisorRole: Role) {
     this.chatService.initChatMonoMulti(this.roomId, advisorRole);
   }
 
-  private userOnLocalStorage(){
+  private userOnLocalStorage() {
     this.settingsService.user.next({
       ...this.settingsService.user.value,
       language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written, languageName: this.settingsService.defaultLanguage.languageName },
       roomId: this.roomId,
-      isMultiDevices: true
+      isMultiDevices: true,
     });
     const user = JSON.parse(localStorage.getItem('user'));
     user.language = { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written };

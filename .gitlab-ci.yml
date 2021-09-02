@@ -1,0 +1,43 @@
+image: node:12.18-stretch-slim
+
+before_script:
+  - npm i -g firebase-tools @angular/cli@8.1.2
+
+variables:
+  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE
+  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  cache:
+    paths:
+      - node_modules/
+      - dist/
+  environment:
+    name: staging
+    url: https://pole-emploi-trad-dev.firebaseapp.com
+  script:
+    - npm i
+    - npm run config "--environment=dev"
+    - ng build "--configuration=dev"
+  only:
+    refs:
+      - develop
+
+deploy:
+  stage: deploy
+  cache:
+    paths:
+      - dist/
+  environment:
+    name: staging
+    url: https://pole-emploi-trad-dev.firebaseapp.com
+  script:
+    - firebase deploy --project dev --token $FIREBASE_TOKEN
+  only:
+    refs:
+      - develop

@@ -1,8 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { DeviceDetectorService } from 'ngx-device-detector';
-import { User } from '../models/user';
-import { Language } from '../models/language';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {DeviceDetectorService} from 'ngx-device-detector';
+import {User} from '../models/user';
+import {Language} from '../models/language';
+import {JwtFbSingleton} from '../models/token/JwtFbSingleton';
+import {JwtGcpSingleton} from '../models/token/JwtGcpSingleton';
+import {JwtGwSingleton} from '../models/token/JwtGwSingleton';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +13,7 @@ import { Language } from '../models/language';
 export class SettingsService {
   public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   public recordMode: boolean = false;
-  public defaultLanguage: Language = { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' };
-  public token: string;
+  public defaultLanguage: Language = {audio: 'fr-FR', written: 'fr-FR', languageName: 'Français'};
 
   constructor(private deviceService: DeviceDetectorService) {
     const isMobile = this.deviceService.isMobile();
@@ -23,9 +25,11 @@ export class SettingsService {
 
   reset = () => {
     this.user.next(null);
-    this.token = null;
-    sessionStorage.removeItem('user');
-    localStorage.removeItem('user');
+    localStorage.clear();
+    sessionStorage.clear();
+    JwtFbSingleton.getInstance().setToken(null);
+    JwtGcpSingleton.getInstance().setToken(null);
+    JwtGwSingleton.getInstance().setToken(null);
   }
 }
 

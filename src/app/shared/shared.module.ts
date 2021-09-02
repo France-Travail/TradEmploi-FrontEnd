@@ -27,19 +27,13 @@ import {
 
 // Custom Components
 import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
-import { RecordComponent } from './components/record/record.component';
 import { TranslationTitleComponent } from './components/translation-title/translation-title.component';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/navigation/header/header.component';
 import { SidenavComponent } from './components/navigation/sidenav/sidenav.component';
+import {TagDirective} from '../lib/atinternet/_directives/tag.directive';
 
-const COMPONENTS = [
-  AudioAnimationComponent,
-  RecordComponent,
-  TranslationTitleComponent,
-  HeaderComponent,
-  SidenavComponent
-];
+const COMPONENTS = [AudioAnimationComponent, TranslationTitleComponent, HeaderComponent, SidenavComponent, TagDirective];
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -59,7 +53,7 @@ const MATERIAL_MODULES = [
   MatSidenavModule,
   MatToolbarModule,
   MatListModule,
-  MatMenuModule
+  MatMenuModule,
 ];
 
 const MODULES = [RouterModule, CommonModule, ReactiveFormsModule, FormsModule, ...MATERIAL_MODULES];

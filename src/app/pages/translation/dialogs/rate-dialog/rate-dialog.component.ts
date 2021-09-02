@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SettingsService } from 'src/app/services/settings.service';
-import { RateService } from 'src/app/services/rate.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { VOCABULARY } from 'src/app/data/vocabulary';
-import { Rate } from 'src/app/models/rate';
-import { MatDialogRef } from '@angular/material';
-import { ChatService } from 'src/app/services/chat.service';
-import { ERROR_FUNC_SEND_STATS } from 'src/app/models/error/errorFunctionnal';
+import {Component, Inject, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {SettingsService} from 'src/app/services/settings.service';
+import {RateService} from 'src/app/services/rate.service';
+import {ToastService} from 'src/app/services/toast.service';
+import {VOCABULARY} from 'src/app/data/vocabulary';
+import {Rate} from 'src/app/models/rate';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {ChatService} from 'src/app/services/chat.service';
+import {ERROR_FUNC_SEND_STATS} from 'src/app/models/error/errorFunctionnal';
+import {getDuration} from '../../../../utils/utils';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -53,7 +54,8 @@ export class RateDialogComponent implements OnInit {
     private settingsService: SettingsService,
     private toastService: ToastService,
     private router: Router,
-    private chatService: ChatService
+    private chatService: ChatService,
+    @Inject(MAT_DIALOG_DATA) public data: { guest: Array<string> }
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
@@ -67,27 +69,47 @@ export class RateDialogComponent implements OnInit {
   ngOnInit(): void {
     const rateFr = VOCABULARY.find((v) => v.isoCode === 'fr-FR').sentences.rate;
     if (rateFr) {
-      this.sentences.questionOne.french = rateFr.easyToUse;
-      this.sentences.questionTwo.french = rateFr.understand;
+      this.sentences.questionOne.french = rateFr.qualityTranslate;
+      this.sentences.questionTwo.french = rateFr.rating;
       this.sentences.questionThree.french = rateFr.comment;
-      this.sentences.questionFour.french = rateFr.offerLinked;
+      this.sentences.questionFour.french = rateFr.technical;
     }
-    const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.user.value.language.written);
-    const rateForeign = vocabularyForeign.sentences.rate;
-    if (rateForeign) {
-      this.sentences.questionOne.foreign = rateForeign.easyToUse;
-      this.sentences.questionTwo.foreign = rateForeign.understand;
-      this.sentences.questionThree.foreign = rateForeign.comment;
-      this.sentences.questionFour.foreign = rateForeign.offerLinked;
+    let languageNameFr: string = 'Français';
+    if (this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA') {
+      this.sentences.questionOne.foreign = '';
+      this.sentences.questionTwo.foreign = '';
+      this.sentences.questionThree.foreign = '';
+      this.sentences.questionFour.foreign = '';
+    } else {
+      const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.user.value.language.written);
+      const rateForeign = vocabularyForeign.sentences.rate;
+      if (rateForeign) {
+        this.sentences.questionOne.foreign = rateForeign.qualityTranslate;
+        this.sentences.questionTwo.foreign = rateForeign.rating;
+        this.sentences.questionThree.foreign = rateForeign.comment;
+        this.sentences.questionFour.foreign = rateForeign.technical;
+        languageNameFr = vocabularyForeign.languageNameFr;
+      }
     }
+    let languages;
+    if (this.data.guest) {
+      languages = this.data.guest
+        .filter((l) => l !== 'fr-FR')
+        .map((l) => VOCABULARY.find((v) => v.isoCode === l).languageNameFr)
+        .join(',');
+    } else {
+      languages = [languageNameFr];
+    }
+
     const date = new Date();
     this.rate = {
-      language: vocabularyForeign.languageNameFr,
+      language: languages,
       date,
       hour: date.getHours() + ':' + date.getMinutes(),
       grades: [undefined, undefined],
       comment: '',
       offerLinked: 'non',
+      conversationDuration: ''
     };
   }
 
@@ -96,6 +118,10 @@ export class RateDialogComponent implements OnInit {
     this.rate.grades[question] = value + 1;
     this.rate.date = date;
     this.rate.hour = date.getHours() + ':' + date.getMinutes();
+    const messages = this.chatService.messagesStored.map(mw => {
+      return mw.message;
+    });
+    this.rate.conversationDuration = getDuration(messages[messages.length - 1].hour, messages[0].hour);
     this.rateService.rateConversation(this.rate);
 
     this.rates[question].forEach((r, i) => {

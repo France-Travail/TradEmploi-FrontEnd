@@ -1,0 +1,14 @@
+@import 'panel';
+
+.label {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 576px) {
+    .title{
+        img{
+            width: 30%;
+        }
+    }
+}

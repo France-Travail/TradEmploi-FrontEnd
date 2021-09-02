@@ -17,6 +17,7 @@ import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 import { TranslationMode } from 'src/app/models/kpis/translationMode';
 import { ErrorService } from 'src/app/services/error.service';
 import { ERROR_TECH_UNAUTHORIZEDMICRO } from 'src/app/models/error/errorTechnical';
+import { isIOS } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -24,13 +25,12 @@ import { ERROR_TECH_UNAUTHORIZEDMICRO } from 'src/app/models/error/errorTechnica
   styleUrls: ['./message-wrapper.component.scss'],
 })
 export class MessageWrapperComponent implements OnInit, OnChanges {
-  @Input() title: string;
   @Input() role: string;
   @Input() originText: string;
 
   @Output() messagesToEmit = new EventEmitter<MessageWrapped>();
 
-  public rawText: string;
+  public rawText: string = '';
   public sendBtnValue: string;
   public flag: string;
   public languageOrigin: string;
@@ -42,9 +42,12 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
   public interim: string = '';
   public recordMode: boolean = false;
-  public speak: boolean = false;
+  public speaking: boolean = false;
+  public canSend: boolean = false;
   public translationMode: string = TranslationMode.TEXT;
   public languageName: string;
+  public isIOS: boolean = false;
+  public voiceNotSupported: boolean = false;
 
   private isMobile: boolean = false;
 
@@ -61,12 +64,15 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
+    this.isIOS = isIOS();
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
     this.languageName = this.settingsService.user.value.language.languageName;
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
     const data = isLanguageExist || this.role === Role.ADVISOR ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
-    this.title = data.sentences.translationH2;
+    const translationPlaceHolderIos = this.role === Role.ADVISOR ? data.sentences.translationH2Ios : VOCABULARY_DEFAULT.sentences.translationH2Ios;
+    this.interim = this.isIOS ? translationPlaceHolderIos : data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
+    this.voiceNotSupported = data.sentences.voiceNotSupported ? data.sentences.voiceNotSupported : false;
     this.flag = data.isoCode.split('-')[1].toLowerCase();
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
@@ -88,7 +94,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         this.stream();
       }
       this.translationMode = TranslationMode.VOCAL;
-      this.speak = true;
+      this.speaking = true;
     } else {
       this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
       this.errorService.save(ERROR_TECH_UNAUTHORIZEDMICRO);
@@ -106,6 +112,9 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         } else {
           this.rawText = saveText + value.final;
           saveText = this.rawText;
+          this.speechRecognitionService.DestroySpeechObject();
+          this.speaking = false;
+          this.canSend = true;
         }
       }
     });
@@ -113,13 +122,15 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   public exitStream() {
     this.speechRecognitionService.DestroySpeechObject();
-    this.speak = false;
+    this.speaking = false;
     setTimeout(() => {
       this.send(false);
-    }, 2000);
+    }, 1000);
   }
   public delete(): void {
     this.rawText = '';
+    this.canSend = false;
+    this.speaking = false;
   }
 
   public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
@@ -133,7 +144,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       }
       this.rawText = '';
       this.translationMode = TranslationMode.TEXT;
-      this.speak = false;
+      this.canSend = false;
+      this.speaking = false;
     }
   }
 
@@ -147,7 +159,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   public audioSending(message: string): void {
     this.micro = false;
-    this.speak = false;
+    this.speaking = false;
     this.recordMode = false;
     this.isReady.listenSpeech = true;
     this.rawText = undefined;
@@ -158,8 +170,18 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
 
   public exitRecord() {
     this.micro = false;
-    this.speak = false;
+    this.speaking = false;
     this.recordMode = false;
+  }
+
+  public displaySendOnClick() {
+    this.canSend = true;
+  }
+
+  public displaySendOnBlur() {
+    if (this.rawText === undefined || this.rawText === '') {
+      this.canSend = false;
+    }
   }
 
   private async sendToOneDevice(text: string) {
@@ -180,7 +202,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       message,
       time: Date.now(),
     };
-    this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
+    await this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
   }
 
   private buildMessage(text: string) {

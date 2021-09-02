@@ -1,80 +1,24 @@
 @import 'styles';
-
-.message {
-  margin: 10px;
-  width: fit-content;
-  min-width: 15%;
-  max-width: 70%;
-}
+@import '../chat/chat.component.scss';
 
 .sender {
-  background-color: $secondary-color;
-  color: white;
-  @extend .message;
+  @extend .user;
 }
-
 .receiver {
-  background-color:$white-smoke;
-  @extend .message;
+  @extend .advisor;
 }
 
-.sentence {
-  font-size: 15px !important;
+.messageTranslated {
+  font-weight: inherit;
 }
 
-.listen{
-  width: 22px;
-  display: flex;
-  a {
-    padding-top: 5px;
-  }
-  img{
-    height: 22px;
-    cursor: pointer;
-  }
+.bubble-sender-area {
+  @extend .bubble-area-user;
 }
 
-.avatar {
-  margin: 0;
-  width: 30px;
+.bubble-receiver-area {
+  @extend .bubble-area-advisor;
 }
-
-.flag-icon {
-  width: 17px;
-  height: 15px;
-  border: 1px solid $gray74;
-  box-sizing: border-box;
-  border-radius: 5px;
-  background-size: cover;
-}
-
-.notification {
-  font-size: 15px;
-  text-align: center;
-}
-
-.chat-sender{
-  display:flex;
-  flex-direction: row-reverse;
-}
-
-.chat-receiver{
-  display:flex;
-}
-
-::ng-deep .mat-card-header-text {
-    padding-top: 5px !important;
-}
-
-::ng-deep .mat-card-header {
-    justify-content: flex-end;
-}
-
-.mat-card-avatar {
-  height: 100%;
-}
-
-.mat-card-footer {
-  margin: auto;
-  font-size: 13px;
+.bubbleTitle {
+  justify-content: flex-start;
 }

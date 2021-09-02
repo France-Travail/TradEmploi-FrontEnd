@@ -1,6 +1,5 @@
 @import 'panel';
 
-
 .title {
     margin-bottom: 0 !important;
 }
@@ -60,6 +59,13 @@
     .action{
         button {
             width: 120px;
+        }
+    }
+}
+@media screen and (max-width: 375px) { 
+    .action{
+        button {
+            width: 80px;
         }
     }
 }

@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Message } from 'src/app/models/translate/message';
 import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
-import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -10,33 +9,23 @@ import { ChatService } from 'src/app/services/chat.service';
 })
 export class ChatComponent {
   @Input() messagesWrapped: MessageWrapped[];
-  @Input() shared: boolean;
   @Output() editMessageEmit = new EventEmitter();
-
-  constructor(private chatService: ChatService){}
-
-  public visible: boolean = false;
-
-  public extand() {
-    this.visible = !this.visible;
-  }
-
-  public deleteMessage(index: number) {
-    this.messagesWrapped.splice(index, 1);
-    this.chatService.messagesStored.splice(index, 1);
-  }
-
-  public editMessage(index: number) {
-    const sentMessage: Message = this.messagesWrapped[index].message;
-    this.editMessageEmit.emit(sentMessage);
-    this.messagesWrapped.splice(index, 1);
-    this.chatService.messagesStored.splice(index, 1);
-  }
+  public messageNumberToFold: number;
 
   public listen(index: number) {
     const sentMessage: Message = this.messagesWrapped[index].message;
     if (sentMessage && sentMessage.audioHtml) {
       sentMessage.audioHtml.play();
     }
+  }
+  public unFold(messageIndex: number) {
+    messageIndex === this.messageNumberToFold ? (this.messageNumberToFold = -1) : (this.messageNumberToFold = messageIndex);
+  }
+
+  public foldMessage(message: Message, fold: boolean) {
+    return message.role === 'DE' ? '[See less]' : '[Voir moins]';
+  }
+  public unFoldMessage(message: Message) {
+    return message.role === 'DE' ? '[See more]' : '[Voir plus]';
   }
 }

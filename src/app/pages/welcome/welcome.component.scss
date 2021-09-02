@@ -1,0 +1,75 @@
+@import 'panel';
+
+:host {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.title {
+  margin-bottom: 0 !important;
+}
+
+.description {
+  text-align: center;
+  margin: auto;
+  .img {
+    width: 35%;
+  }
+  .t3 {
+    padding: 0px 100px;
+  }
+}
+
+.action {
+  display: flex;
+  button {
+    padding: 10px 0;
+    width: 150px;
+  }
+  .options {
+    background-color: $white-smoke;
+    color: black;
+  }
+}
+
+@media (max-width: 768px) {
+  .action {
+    button {
+      padding: 10px 0;
+      width: 150px;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .title{
+    img{
+      width: 30%;
+    }
+  }
+  .description {
+    .img {
+      width: 50%;
+      padding: 0;
+    }
+    .t3 {
+      text-align: center;
+      padding: 0px 20px 0px 20px;
+    }
+  }
+  .action {
+    button {
+      padding: 10px 0;
+      width: 120px;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .action {
+    button {
+      padding: 10px 0;
+      width: 105px;
+    }
+  }
+}

@@ -6,20 +6,48 @@
   flex-direction: column;
   height: 100%;
 }
-
-.mat-dialog-title {
+.share-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background-color: $secondary-color;
-  color: #ffffff;
   padding: 35px 30px;
   font-size: 20px;
-  margin: 0;
+}
+.close-button:hover {
+  cursor: pointer;
 }
 .mat-dialog-content {
   margin: 0;
   padding: 0 30px;
 }
+.mat-dialog-title {
+  color: #ffffff;
+}
+.share {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.title {
+  font-size: 15px;
+}
 
-.copy-btn{
+.content {
+  margin: 10px;
+}
+
+.advise {
+  font-size: 13px;
+  margin-left: 50px;
+}
+
+.link {
+  font-size: 13px;
+  margin-left: 50px;
+  font-weight: lighter;
+}
+
+.copy-btn {
   background: white;
   border: 1px solid #dddddd;
   margin: 10px;
@@ -28,41 +56,15 @@
   font-size: 10px;
 }
 
-.mat-dialog-actions {
-  margin-bottom: 0;
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 30px;
-
-  .share-btn {
-    padding: 7px 10px;
-    background: $primary-color;
-    color: #ffffff;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    outline: none;
-    cursor: pointer;
-    font-size: 12px;
-    width: 145px;
-    height: 40px;
-    margin: 5px;
+@media screen and (max-width: 576px) {
+  .advise {
+    margin-left: 0px;
   }
-  .cancel-btn {
-    padding: 7px 10px;
-    background: white;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    outline: none;
-    cursor: pointer;
-    font-size: 12px;
-    width: 130px;
-    height: 40px;
-    margin: 5px;
+  .link {
+    font-size: 10px;
+    margin-left: 0px;
+  }
+  .copy-btn {
+    margin-left: 5px;
   }
 }

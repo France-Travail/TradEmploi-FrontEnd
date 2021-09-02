@@ -39,8 +39,8 @@ export class SpeechRecognitionService {
         });
       };
 
-      this.speechRecognition.onerror = (error) => {
-        observer.error(error);
+      this.speechRecognition.onerror = (_) => {
+        observer.error();
       };
 
       this.speechRecognition.onend = () => {

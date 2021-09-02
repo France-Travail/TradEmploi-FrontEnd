@@ -96,7 +96,7 @@ describe('AuthenticationComponent', () => {
         await component.onSubmit();
         expect(authSpy).toHaveBeenCalled();
         expect(toastSpy).toHaveBeenCalled();
-        expect(routerSpy).toHaveBeenCalledWith('choice');
+        expect(routerSpy).toHaveBeenCalledWith('modality');
     });
 
     it('should reject submit', async () => {

@@ -1,0 +1,21 @@
+@import 'styles';
+
+:host {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mat-dialog-content {
+  margin: 0;
+  padding: 0 30px;
+}
+
+.question{
+  font-size: 20px;
+}
+
+.error{
+  color: red;
+}

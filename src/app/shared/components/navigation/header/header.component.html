@@ -15,19 +15,33 @@
   </div>
   <ng-container *ngIf="isWideScreen | async">
     <div class="tabs">
-      <button id="choice-header" routerLink="choice" *ngIf="navbarService.choiceTab">
+      <button id="choice-header" routerLink="choice" *ngIf="navbarService.choiceTab" atTag
+              [clickData]="{'name':'choice-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
         <img src="assets/icons/icon-languages-black.svg" />
         <span class="name">{{ choiceLink | uppercase }}</span>
       </button>
-      <button id="share-header" (click)="share()" *ngIf="!isGuest && navbarService.shareTab">
-        <img src="assets/icons/icon-share-alt-solid.svg" />
-        <span class="name">PARTAGER</span>
+      <button id="gdpr-header"  (click)="gdpr()"  atTag
+              [clickData]="{'name':'gdpr-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
+        <img src="assets/icons/icon-policies-black.svg" />
+        <span class="name">{{ gdprLink | uppercase }}</span>
       </button>
-      <button id="settings-header" routerLink="settings" *ngIf="isAdmin && navbarService.settingsTab">
+      <button id="modality-header" routerLink="modality" *ngIf="navbarService.modalityTab"  atTag
+              [clickData]="{'name':'modality-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
+        <img src="assets/icons/icon-modality-black.svg" />
+        <span class="name">MODALITÉ</span>
+      </button>
+      <button id="settings-header" routerLink="settings" *ngIf="navbarService.settingsTab"  atTag
+              [clickData]="{'name':'settings-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
         <img src="assets/icons/icon-settings-black.svg" />
         <span class="name">PARAMÈTRES</span>
       </button>
-      <button id="logout-header" (click)="logout()">
+      <button id="help-header" *ngIf="navbarService.helpTab" (click)="help()"  atTag
+              [clickData]="{'name':'help-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
+        <img src="assets/icons/icon-help-black.svg" />
+        <span class="name">{{ helpLink | uppercase }}</span>
+      </button>
+      <button id="logout-header" (click)="logout()"  atTag
+              [clickData]="{'name':'logout-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
         <img src="assets/icons/icon-logout.svg" />
         <span class="name">{{ logoutLink | uppercase }}</span>
       </button>

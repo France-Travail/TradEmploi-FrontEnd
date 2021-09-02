@@ -3,17 +3,16 @@ import { ERROR_TECH_EXPORT_KPI } from './../models/error/errorTechnical';
 import { ErrorService } from 'src/app/services/error.service';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { TokenService } from './token.service';
-
+import { JwtGwSingleton } from '../models/token/JwtGwSingleton';
 @Injectable({
   providedIn: 'root',
 })
 export class KpiService {
-  constructor(private tokenService: TokenService, private errorService: ErrorService) {}
+  constructor(private errorService: ErrorService) {}
 
   public async getkpi() {
-    const key = await this.tokenService.getKey();
-    const url = environment.firefunction.url;
+    const gwToken = JwtGwSingleton.getInstance().getToken().token;
+    const url = `${environment.gcp.gateWayUrl}/reporting`;
     const data = {
       query: `
             query Kpi {
@@ -61,8 +60,8 @@ export class KpiService {
             }`,
     };
     return axios({
-      method: 'post',
-      headers: { Authorization: key },
+      method: 'POST',
+      headers: { Authorization: `Bearer ${gwToken}` },
       data,
       url,
     })

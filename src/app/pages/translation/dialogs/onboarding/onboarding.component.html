@@ -1,0 +1,39 @@
+<div class="slide">
+  <div class="slide-top">
+    <div class="titles">{{ title.helpFR }}{{ title.helpEN }}</div>
+    <mat-icon aria-hidden="false" (click)="closeDialog()" class="close">close</mat-icon>
+  </div>
+  <div class="sub-title">{{ title.descriptionFR }} {{ title.descriptionEN }}</div>
+  <div class="slide-inner">
+    <div class="indications">{{ sentences[tabNumber].indicationFR }} {{ sentences[tabNumber].indicationEN }}</div>
+    <div class="helpFigures">
+      <mat-icon aria-hidden="false" class="chevron" (click)="previousItem()" aria-label="Précédent">chevron_left</mat-icon>
+      <span class="vertical-line" *ngIf="!isMobile"></span>
+      <img class="helpImage" src="../../../../../assets/images/{{ sentences[tabNumber].image }}" />
+      <span class="vertical-line" *ngIf="!isMobile"></span>
+      <mat-icon aria-hidden="false" class="chevron" (click)="nextItem()" aria-label="Suivant">chevron_right</mat-icon>
+    </div>
+    <div class="helpSentences">
+      <div class="helpFR">
+        <div class="helpText">{{ sentences[tabNumber].textFR }}</div>
+        <div class="browser" *ngIf="sentences[tabNumber].browserFR">
+          <img src="../../../../../assets/images/chrome-icon.png" />
+          <span>{{ sentences[tabNumber].browserFR }}</span>
+        </div>
+      </div>
+      <span class="vertical-line" *ngIf="!isGuest"></span>
+      <div class="helpEN">
+        <div class="helpText">{{ sentences[tabNumber].textEN }}</div>
+        <div class="browser" *ngIf="sentences[tabNumber].browserEN">
+          <img src="../../../../../assets/images/chrome-icon.png" />
+          <span>{{ sentences[tabNumber].browserEN }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="slide-indicator" *ngIf="isMobile">
+  <ul>
+    <li *ngFor="let elem of sentences; index as index" [ngClass]="tabNumber == index ? 'coloredCircle' : 'circle'"></li>
+  </ul>
+</div>

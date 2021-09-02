@@ -1,0 +1,23 @@
+@import 'styles';
+@import '../message-wrapper/message-wrapper.component.scss';
+
+.container{
+  margin-top:0;
+}
+.field{
+  background-color: $light-blue;
+  color:$primary-color;
+  border-color: $primary-color;
+}
+
+.countdown{
+  margin: auto;
+}
+
+.action-click{
+    pointer-events:auto;
+}
+
+.action-no-click{
+    pointer-events:none;
+}

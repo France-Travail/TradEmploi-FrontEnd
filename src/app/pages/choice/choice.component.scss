@@ -1,4 +1,6 @@
 @import 'styles';
+@import 'option';
+
 
 :host {
   width: 100%;
@@ -7,167 +9,53 @@
   background-color: $light-blue;
   padding-top: 20px;
 }
+
+.choice {
+  width: 90%;
+  margin:auto;
+}
+
 h2 {
-  width: 90%!important;
-  margin: auto!important;
-  padding-bottom: 20px;
   color: $secondary-color;
   font-size: 22px;
   font-weight: 400;
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-inline-start: 0;
-  margin-inline-end: 0;
   strong {
     font-weight: 500;
   }
 }
-.countries {
-  margin: auto;
-  padding: 20px;
-  width: 90%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  justify-content: space-evenly;
-  background-color: $white;
 
-  .country {
-    margin: auto;
-    width: 300px;
-    padding: 10px;
-    flex-direction: column;
-    color: #666666;
-    border-radius: 5px;
-    background-color: $white-smoke;
-    .title {
-      width: 300px;
-    }
-    .middle {
-      margin-top: 15px;
-      height: 40px;
-      display: flex;
-      justify-content: space-between;
-      .speaker {
-        background-image: url('../../../assets/icons/icon-listen-blue.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        border-radius: 40px;
-        background-color: white;
-        background-size: 20px;
-        width: 40px;
-        height: 40px;
-      }
-    }
-    .selectLanguageButton {
-      background-color: $white;
-      align-items: baseline;
-      display: flex;
-      color: $button-black;
-      width: 170px;
-      flex-direction: row;
-      flex-wrap: wrap;
-      margin: auto;
-      align-items: baseline;
-      height: 35px;
-      border: 1px solid $gray74;
-      border-radius: 10px;
-      cursor: pointer;
-      .flag-icon {
-        width: 29px;
-        height: 20px;
-        border: 1px solid $gray74;
-        box-sizing: border-box;
-        border-radius: 5px;
-        background-size: cover;
-        margin: auto 10px;
-      }
-
-      .sentences {
-        margin: auto 0;
-        flex-direction: column;
-        .buttonSentenceFR {
-          font-size: 11px;
-        }
-        .buttonSentenceRAW {
-          font-size: 9px;
-        }
-      }
-    }
-    &:hover {
-      color: white;
-      background: $primary-color;
-      .selectLanguageButton {
-        color: white;
-        background-color: $primary-color;
-      }
-    }
+.search{
+  width: 50%;
+  font-size:10px;
+  input {
+    margin-left: 10px;
+    font-size: 16px;
   }
 }
 
-.more {
-  position: fixed;
-  right: 40px;
-  bottom: 20px;
-  background-color: #135dfe;
-  padding: 10px 20px;
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: white;
   border-radius: 5px;
-  box-shadow: 0 0 3px #3a3a3a;
-  color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 50px;
-  cursor: pointer;
+}
 
-  i {
-    font-size: 30px;
-    margin-right: 15px;
+::ng-deep .mat-form-field-prefix .mat-icon, .mat-form-field-suffix .mat-icon {
+  font-size: 200%;
+}
+
+@media screen and (max-width: 1050px) { 
+  .choice {
+    width: 99%;
   }
-
-  .text {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    .fr {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 1);
-    }
-    .en {
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.8);
-    }
+  h2{
+    padding-left:5px;
+  }
+  .search{
+    width:99%;
   }
 }
 
-@media screen and (max-width: 700px) {
-  .text {
-    display: none !important;
-  }
-  i {
-    margin-right: 0 !important;
-  }
-}
-
-// Animation
-@keyframes zoomIn {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale3d(0.3, 0.3, 0.3);
-    transform: scale3d(0.3, 0.3, 0.3);
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes zoomIn {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale3d(0.3, 0.3, 0.3);
-    transform: scale3d(0.3, 0.3, 0.3);
-  }
-  50% {
-    opacity: 1;
+@media screen and (max-width: 576px) {
+  .listgrid{
+    display:none;
   }
 }

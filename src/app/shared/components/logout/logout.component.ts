@@ -33,25 +33,25 @@ export class LogoutComponent {
     this.dialogRef.close();
     localStorage.setItem('isLogged', 'false');
     if (this.user.isMultiDevices) {
-      this.handleMulti();
+      await this.handleMulti();
     } else {
-      this.handleMono();
+      await this.handleMono();
     }
     this.authService.logout();
     this.settingsService.reset();
     this.router.navigateByUrl('/');
   }
 
-  private handleMono() {
+  private async handleMono() {
     const advisorRole: Role = this.user.role;
-    this.chatService.initChatMono(this.user.roomId, advisorRole);
+    await this.chatService.initChatMono(this.user.roomId, advisorRole);
   }
 
-  private handleMulti() {
+  private async handleMulti() {
     if (this.isGuest) {
-      this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
+      await this.chatService.notifyAdvisor(this.user.roomId, this.user.firstname);
     } else {
-      this.chatService.updateChatStatus(this.user.roomId, false);
+      await this.chatService.updateChatStatus(this.user.roomId, false);
     }
   }
   public cancel() {

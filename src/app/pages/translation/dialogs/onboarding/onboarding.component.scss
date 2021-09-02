@@ -1,0 +1,140 @@
+@import '../../../../../sass/colors';
+
+.slide {
+  margin: 20px;
+  .slide-top {
+    display: flex;
+    justify-content: space-between;
+    .titles {
+      font-size: x-large;
+    }
+    .close:hover {
+      cursor: pointer;
+    }
+  }
+  .sub-title {
+    font-size: large;
+    margin: 20px 0;
+  }
+  .slide-inner {
+    display: flex;
+    flex-direction: column;
+    .indications {
+      margin: auto;
+    }
+    .vertical-line {
+      border-left: 2px solid $gray74;
+      margin: 0 15px;
+    }
+    .helpFigures {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+      .chevron {
+        border: solid 1px $gray74;
+        border-radius: 50%;
+        margin: auto 0;
+      }
+      .chevron:hover {
+        cursor: pointer;
+      }
+      .helpImage {
+        width: 50%;
+        height: auto;
+      }
+    }
+    .helpSentences {
+      white-space: pre-line;
+      display: flex;
+      .helpFR,
+      .helpEN {
+        flex-grow: 1;
+        white-space: pre-line;
+        text-align: justify;
+        .helpText {
+          height: fit-content;
+        }
+        .browser {
+          margin-top: 15px;
+          img {
+            margin-right: 10px;
+            vertical-align: middle;
+            width: 32px;
+            height: 32px;
+          }
+        }
+      }
+      .helpFR {
+        max-width: 50%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .slide {
+    font-size: small;
+    text-align: center;
+    .slide-top {
+      .titles {
+        font-size: large;
+      }
+    }
+    .sub-title {
+      font-size: 12pt;
+      margin: 10px 0;
+    }
+    .slide-inner {
+      .helpSentences {
+        margin-top: 15px 0;
+        flex-direction: column;
+        .helpFR,
+        .helpEN {
+          max-width: 100%;
+          margin: 5px;
+          .helpText {
+            height: max-content;
+            margin: 0;
+          }
+          .browser {
+            margin: 10px 0;
+            img {
+              vertical-align: middle;
+              width: 24px;
+              height: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .slide-indicator {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    flex-direction: column;
+    left: 0;
+    right: 0;
+    bottom: 4%;
+    ul {
+      display: flex;
+      list-style-type: none;
+      padding-inline-start: 0;
+      margin-top: 5px;
+      li {
+        border-radius: 50%;
+        border: 1px solid $gray74;
+        width: 15px;
+        height: 15px;
+        margin: 0 2px;
+      }
+      .circle {
+        background-color: white;
+      }
+      .coloredCircle {
+        background-color: $primary-color;
+      }
+    }
+  }
+}

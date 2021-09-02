@@ -1,31 +1,32 @@
 import { ERROR_TECH_GET_VOICE } from './../models/error/errorTechnical';
 import axios from 'axios';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { ErrorService } from './error.service';
 import { Voice } from '../models/voice';
+import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
+import { TokenResponse } from '../models/token/tokensResponse';
+import { TokenBrokerService } from './token-broker.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class VoicesService {
+  constructor(private errorService: ErrorService, private tbs: TokenBrokerService) {}
 
-  constructor(private errorService: ErrorService) {}
-
-  getVoices(): Promise<Array<Voice>> {
-    const urlVoice: string = `https://texttospeech.googleapis.com/v1beta1/voices?key=${environment.gcp.apiKey}`;
+  async getVoices(): Promise<Array<Voice>> {
+    const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
+    const urlVoice: string = `https://texttospeech.googleapis.com/v1/voices`;
     return axios({
-        method: 'get',
-        url: urlVoice
+      method: 'get',
+      headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
+      url: urlVoice,
+    })
+      .then((response: any) => {
+        return response.data.voices;
       })
-        .then((response: any) => {
-          return  response.data.voices;
-        })
-        .catch(error => {
-          this.errorService.save(ERROR_TECH_GET_VOICE);
-          throw new Error(error);
-        });
+      .catch((error) => {
+        this.errorService.save(ERROR_TECH_GET_VOICE);
+        throw new Error(error);
+      });
   }
 }
-
-

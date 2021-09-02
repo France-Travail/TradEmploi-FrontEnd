@@ -5,19 +5,25 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastService } from 'src/app/services/toast.service';
 import { ERROR_TECH_DB } from '../models/error/errorTechnical';
+import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
+import { TokenBrokerService } from './token-broker.service';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService) {}
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService, private tbs: TokenBrokerService) {}
 
-  public login(email: string, password: string): Promise<{ isAuth: boolean; message: string }> {
+  public role = of(null);
+
+  public login(email: string, password: string, emailPe: string): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
         if (auth.user != null) {
-          this.setRole();
+          this.setRoleAndToken(emailPe);
+          FbAuthSingleton.getInstance().setFbAuth(auth);
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
@@ -26,17 +32,19 @@ export class AuthService {
     });
   }
 
-  public async loginAnonymous(): Promise<{ isAuth: boolean; message: string }> {
+  public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string; token: string; expirationTime: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.auth.signInAnonymously();
         if (auth.user != null) {
-          this.setRole();
+          this.setRoleAndToken();
+          const token = await auth.user.getIdTokenResult();
+          FbAuthSingleton.getInstance().setFbAuth(auth);
           this.settingsService.user.next({ ...this.settingsService.user.value, role: Role.GUEST, connectionTime: Date.now() });
-          resolve({ isAuth: true, message: 'Authentification réussie' });
+          resolve({ id: auth.user.uid, isAuth: true, message: 'Authentification réussie', token: token.token, expirationTime: token.expirationTime });
         }
       } catch (error) {
-        reject({ isAuth: false, message: error.message });
+        reject({ id: '', isAuth: false, message: error.message });
       }
     });
   }
@@ -61,14 +69,14 @@ export class AuthService {
       if (config[0].adminList.includes(email)) {
         return Role.ADMIN;
       }
-      if (config[0].advisors.includes(email)) {
+      if (email.match('.*@pole-emploi[.]fr$')) {
         return Role.ADVISOR;
       }
     }
     return Role.GUEST;
   }
 
-  private setRole() {
+  private setRoleAndToken(emailPe?: string) {
     this.afAuth.authState.subscribe(async (state) => {
       if (state !== null) {
         this.db
@@ -76,7 +84,11 @@ export class AuthService {
           .valueChanges()
           .subscribe((config: any) => {
             if (config !== undefined && config.length >= 0) {
-              this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(config, state.email) });
+              const role = emailPe ? this.getRole(config, emailPe) : this.getRole(config, state.email);
+              this.role = of(role);
+              this.settingsService.user.next({ ...this.settingsService.user.value, role: role });
+
+              this.tbs.getTokenGcp();
             } else {
               this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
             }

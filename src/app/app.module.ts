@@ -32,17 +32,18 @@ import { MAT_DATE_LOCALE, MatSortModule, MatTableModule } from '@angular/materia
 import { SharedModule } from './shared/shared.module';
 import { LogoutComponent } from './shared/components/logout/logout.component';
 import { ShareComponent } from './pages/translation/dialogs/share/share.component';
+import { AuthorizeComponent } from './pages/translation/dialogs/authorize/authorize.component';
+import { WelcomeDeComponent } from './pages/translation/dialogs/welcome-de/welcome-de.component';
 import { EndComponent } from './pages/translation/dialogs/end/end.component';
 
 // Main Components
 import { AppComponent } from './app.component';
 import { StartComponent } from './pages/start/start.component';
-import { ChoiceComponent } from './pages/choice/choice.component';
 import { TranslationComponent } from './pages/translation/translation.component';
 import { HistoricComponent } from './pages/historic/historic.component';
 
 // Dialogs
-import { LanguagesComponent } from './pages/choice/dialog/languages/languages.component';
+import { LanguageGridComponent } from './pages/choice/language/grid/language-grid.component';
 import { MeetingComponent } from './pages/translation/dialogs/meeting/meeting.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { RemoveComponent } from './pages/historic/dialogs/remove/remove.component';
@@ -50,6 +51,7 @@ import { ShowComponent } from './pages/historic/dialogs/show/show.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { MessageWrapperComponent } from './pages/translation/components/message-wrapper/message-wrapper.component';
+import { RecordComponent } from './pages/translation/components/record/record.component';
 import { ChatComponent } from './pages/translation/components/chat/chat.component';
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
 import { SentryErrorHandler } from './utils/sentry-error-handler';
@@ -62,14 +64,19 @@ import { ChatMultiDevicesComponent } from './pages/translation/components/chat-m
 import { QRCodeModule } from 'angularx-qrcode';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { LoaderComponent } from './pages/settings/loader/loader.component';
-
+import { ChoiceComponent } from './pages/choice/choice.component';
+import { ModalityComponent } from './pages/modality/modality.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { OnboardingComponent } from './pages/translation/dialogs/onboarding/onboarding.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { CallbackComponent } from './pages/callback/callback.component';
 @NgModule({
   declarations: [
     AppComponent,
     ChoiceComponent,
+    LanguageGridComponent,
     HistoricComponent,
     TranslationComponent,
-    LanguagesComponent,
     StartComponent,
     MeetingComponent,
     SettingsComponent,
@@ -78,6 +85,7 @@ import { LoaderComponent } from './pages/settings/loader/loader.component';
     ThanksComponent,
     ConversationComponent,
     MessageWrapperComponent,
+    RecordComponent,
     RateDialogComponent,
     LogoutComponent,
     AuthenticationComponent,
@@ -86,8 +94,14 @@ import { LoaderComponent } from './pages/settings/loader/loader.component';
     ChatComponent,
     ChatMultiDevicesComponent,
     ShareComponent,
+    AuthorizeComponent,
+    WelcomeDeComponent,
     EndComponent,
     LoaderComponent,
+    ModalityComponent,
+    WelcomeComponent,
+    OnboardingComponent,
+    CallbackComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,8 +123,9 @@ import { LoaderComponent } from './pages/settings/loader/loader.component';
     LayoutModule,
     QRCodeModule,
     DeviceDetectorModule.forRoot(),
-    OverlayModule
-
+    OverlayModule,
+    HttpClientModule,
+    OAuthModule.forRoot(),
   ],
   providers: [
     NavbarService,
@@ -121,6 +136,6 @@ import { LoaderComponent } from './pages/settings/loader/loader.component';
     { provide: ErrorHandler, useClass: SentryErrorHandler },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LanguagesComponent, MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent],
+  entryComponents: [MeetingComponent, RemoveComponent, ShowComponent, RateDialogComponent],
 })
 export class AppModule {}

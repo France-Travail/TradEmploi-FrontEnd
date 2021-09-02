@@ -1,0 +1,19 @@
+<div class="panel">
+  <div class="title">
+    <img src="assets/images/logo-v.svg" alt="Logo Pôle Emploi" />
+    <h1 class="t2">Welcome</h1>
+    <p class="t3">Access to pole emploi <span class="text-app">translation service</span></p>
+  </div>
+  <div class="description">
+    <img class="img" src="assets/images/illu-accueil.png" alt="image presentation" />
+    <p class="t3">Use your phone, a tablet or a computer to discuss with your advisor in your own language</p>
+  </div>
+  <div class="action">
+    <button (click)="agree()" [ngClass]="{ mobileBtn: isMobile }">
+      <div>GO&nbsp;&nbsp;<i class="fa fa-angle-right"></i></div>
+    </button>
+    <button class="options" (click)="help()" [ngClass]="{ mobileBtn: isMobile }">
+      <div>START GUIDE&nbsp;&nbsp;<i class="fa fa-question-circle"></i></div>
+    </button>
+  </div>
+</div>

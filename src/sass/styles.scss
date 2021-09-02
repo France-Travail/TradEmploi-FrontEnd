@@ -68,3 +68,32 @@
   background: none;
   box-shadow: none;
 }
+
+.tooltip-info {
+  background-color: black;
+  font-size: 12px;
+}
+
+%option-btn {
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.qrcode{
+  margin-left: 107px;
+  margin-top: 15px;
+  canvas{
+    border: 1px solid;
+    border-radius: 5%;
+  }
+}
+
+@media screen and (max-width: 576px) { 
+  .qrcode{
+    margin-left: 60px;
+  }
+  
+}

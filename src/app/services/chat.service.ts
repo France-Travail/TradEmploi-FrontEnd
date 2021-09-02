@@ -1,6 +1,5 @@
 import { Chat } from '../models/db/chat';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { Member } from '../models/db/member';
 import { MessageWrapped } from '../models/translate/message-wrapped';
@@ -12,6 +11,10 @@ import { Device } from '../models/kpis/device';
 import { AdvisorDefaultName, GuestDefaultName } from './settings.service';
 import { ErrorService } from './error.service';
 import { ERROR_FUNC_UNKNOWCHAT } from '../models/error/errorFunctionnal';
+import { AngularFirestore } from '@angular/fire/firestore';
+import * as firebase from 'firebase';
+import * as moment from 'moment';
+import { Guest } from '../models/db/guest';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +25,7 @@ export class ChatService {
   public support: Support = Support.MONODEVICE;
   private device: Device;
 
-  constructor(private db: AngularFireDatabase, private cryptService: CryptService, private deviceService: DeviceService, private errorService: ErrorService) {
+  constructor(private db: AngularFirestore, private cryptService: CryptService, private deviceService: DeviceService, private errorService: ErrorService) {
     this.device = this.deviceService.getUserDevice();
   }
 
@@ -30,14 +33,21 @@ export class ChatService {
     return (10000000 + Math.floor(Math.random() * 10000000)).toString();
   }
 
-  initChatMono(roomId: string, advisorRole: Role) {
+  initChatMono(roomId: string, advisorRole: Role): Promise<boolean> {
     this.support = Support.MONODEVICE;
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
     if (this.messagesStored.length > 0) {
       const advisor: Member = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
       const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
-      const chatCreateDto: InitChatDto = { members: [advisor, guest], messages: this.messagesStored };
-      this.create(roomId, chatCreateDto);
+      const mwsWithoutAudio = this.messagesStored.map(mw => {
+        const {audioHtml, ...msg} = mw.message;
+        return{
+          ...mw,
+          message: msg
+        }
+      })
+      const chatCreateDto: InitChatDto = { members: [advisor, guest], messages: mwsWithoutAudio };
+      return this.create(roomId, chatCreateDto);
     }
   }
 
@@ -51,8 +61,15 @@ export class ChatService {
   initChatMonoMulti(roomId: string, advisorRole: Role): Promise<boolean> {
     this.support = Support.MONOANDMULTIDEVICE;
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
+    const mwsWithoutAudio = this.messagesStored.map(mw => {
+      const {audioHtml, ...msg} = mw.message;
+      return{
+        ...mw,
+        message: msg
+      }
+    })
     const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
-    const chatCreateDto: InitChatDto = { members: [advisor], messages: this.messagesStored, monoToMultiTime: Date.now() };
+    const chatCreateDto: InitChatDto = { members: [advisor], messages: mwsWithoutAudio, monoToMultiTime: Date.now() };
     return this.create(roomId, chatCreateDto);
   }
 
@@ -64,87 +81,70 @@ export class ChatService {
     this.errorService.save(ERROR_FUNC_UNKNOWCHAT);
   }
 
-  hasRoom(roomId: string): Observable<boolean> {
+
+  hasRoom(roomId: string):Observable<boolean>  {
     return new Observable((observer) => {
       this.db
-        .list<Chat>(`chats/${roomId}`)
-        .valueChanges()
-        .subscribe((chats) => {
-          observer.next(chats.length > 0);
+        .doc(`chats/${roomId}`)
+        .get()
+        .subscribe((docSnapshot) => {
+          observer.next(docSnapshot.exists);
           observer.complete();
-        });
-    });
-  }
-
-  getMessagesWrapped(roomId: string): Observable<Array<MessageWrapped>> {
-    return this.db.list(`chats/${roomId}/messages`).valueChanges() as Observable<Array<MessageWrapped>>;
-  }
-
-  getMonoToMultiTime(roomId: string): Observable<number> {
-    return this.db.object(`chats/${roomId}/monoToMultiTime`).valueChanges() as Observable<number>;
-  }
-
-  sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped): string {
-    messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
-    const itemsRef = this.db.list(`chats/${roomId}/messages`);
-    itemsRef.set(messageWrapped.time.toString(), messageWrapped);
-    return messageWrapped.time.toString();
-  }
-
-  addMember(roomId: string, newMember: Member): string {
-    const itemsRef = this.db.list(`chats/${roomId}/members`);
-    itemsRef.set(Date.now().toString(), newMember);
-    if (newMember.role === Role.GUEST) {
-      const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
-      return this.sendMessageWrapped(roomId, messageWrapped);
-    }
-  }
-
-  getMembers(roomId: string): Observable<Array<Member>> {
-    return this.db.list(`chats/${roomId}/members`).valueChanges() as Observable<Array<Member>>;
-  }
-
-  deleteMember(roomId: string, firstname: string) {
-    const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
-    this.sendMessageWrapped(roomId, messageWrapped);
-  }
-
-  notifyAdvisor(roomId: string, firstname: string) {
-    const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
-    this.sendMessageWrapped(roomId, messageWrapped);
-  }
-
-  delete(roomId: string): Promise<boolean> {
-    const promise = this.db.object(`chats/${roomId}`).remove();
-    return promise
-      .then(_ => true)
-      .catch(_ => {
-        return false;
       });
+    })
   }
 
-  getChatStatus(roomId: string): Observable<boolean> {
-    return this.db.object(`chats/${roomId}/active`).valueChanges() as Observable<boolean>;
+  async sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped) {
+    messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
+    const itemsRef = this.db.doc(`chats/${roomId}`);
+    await itemsRef.update({messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
+  }
+
+  async addMember(roomId: string, newMember: Member) {
+    const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
+    const itemsRef = this.db.doc(`chats/${roomId}`);
+    await itemsRef.update({members: firebase.firestore.FieldValue.arrayUnion(newMember)
+    , messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
+  }
+
+
+  async updateGuestStatus(roomId: string, guest:Guest) {
+    const itemsRef = this.db.doc(`chats/${roomId}`);
+    await itemsRef.update({guests: firebase.firestore.FieldValue.arrayUnion({id: guest.id , status: true})});
+  }
+
+  async notifyAdvisor(roomId: string, firstname: string) {
+    const messageWrapped: MessageWrapped = { notification: firstname + ' est déconnecté', time: Date.now() };
+    await this.sendMessageWrapped(roomId, messageWrapped);
+  }
+
+  getChat(roomId: string): Observable<Chat> {
+    return this.db.doc(`chats/${roomId}`).valueChanges() as Observable<Chat>;
   }
 
   updateChatStatus(roomId: string, active: boolean): Promise<boolean> {
-    return this.db
-      .object(`chats/${roomId}/active`)
-      .set(active)
+    return this.db.doc(`chats/${roomId}`)
+      .update({'active' : active})
       .then(_ => true)
       .catch(_ => {
         return false;
-      });
+    });;
   }
 
+
   private create(roomId: string, initChatDto: InitChatDto): Promise<boolean> {
+    const expiryDate = moment().add(2, 'hours');
     const chat: Chat = {
       lasttime: new Date().getTime().toString(),
+      expiryDate: parseInt(expiryDate.format('x')) ,
+      guests:[],
       active: true,
       support: this.support,
       ...initChatDto
     };
-    return this.db.object(`chats/${roomId}`).set(chat)
+    return this.db
+      .doc(`chats/${roomId}`)
+      .set(chat)
       .then(_ => true)
       .catch(_ => {
         return false;
