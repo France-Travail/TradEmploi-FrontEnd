@@ -28,24 +28,15 @@ writeFileUsingFS('./src/environments/environment.ts', '');
 writeFileUsingFS('./src/environments/authflow.ts', '');
 
 
-const isProduction = environment === 'production';
-
 
 let environmentFileContent = `export const environment = ${process.env.ENVIRONMENT_FILE_CONTENT};`;
 
-if (isProduction){
-   environmentFileContent =  `export const environment = ${process.env.ENVIRONMENT_FILE_CONTENT_PROD};`;
-}
 
 let authflowFileContent = `
 import { AuthConfig } from 'angular-oauth2-oidc';
 const url = 'https://authentification-agent-tis.pe.intra/connexion/oauth2/agent/authorize';
 export const authCodeFlowConfig: AuthConfig = ${process.env.AUTHFLOW_FILE_CONTENT};
 `;
-
-if (isProduction){
-   authflowFileContent =  `export const environment = ${process.env.AUTHFLOW_FILE_CONTENT_PROD};`;
-}
 
 
 writeFileUsingFS('./src/environments/environment.ts', environmentFileContent);
