@@ -1,6 +1,6 @@
 {
   "projects": {
-    "prod": "pole-emploi-trad",
+    "prod": "pole-emploi-trad-prod",
     "dev": "pole-emploi-trad-dev",
     "qa": "pole-emploi-trad-recette",
     "summer": "pole-emploi-trad-summer",

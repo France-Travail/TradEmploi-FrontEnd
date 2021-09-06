@@ -40,6 +40,7 @@ export class RateService {
                 efficientGrade
                 offerLinked
                 comment
+                conversationDuration
               }
             }`,
     };

@@ -19,7 +19,7 @@ build:
       - dist/
   environment:
     name: production
-    url: https://pole-emploi-trad.firebaseapp.com
+    url: https://pole-emploi-trad-prod.firebaseapp.com
   script:
     - npm i
     - npm run config "--environment=production"
@@ -35,7 +35,7 @@ deploy:
       - dist/
   environment:
     name: production
-    url: https://pole-emploi-trad.firebaseapp.com
+    url: https://pole-emploi-trad-prod.firebaseapp.com
   script:
     - firebase deploy --project prod --token $FIREBASE_TOKEN
   only:
