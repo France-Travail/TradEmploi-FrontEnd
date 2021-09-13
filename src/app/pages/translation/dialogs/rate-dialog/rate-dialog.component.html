@@ -67,5 +67,5 @@
 </div>
 
 <div mat-dialog-actions>
-  <button id="send-btn" (click)="confirm()">ENVOYER</button>
+  <button *ngIf="this.showSendBtn" id="send-btn" (click)="confirm()">ENVOYER</button>
 </div>
