@@ -1,4 +1,4 @@
-<div *ngIf="isAdmin">
+<div *ngIf="! isGuest">
   <div class="parameter-panel">
     <h2><strong>Paramètres</strong></h2>
     <a (click)="goBack()"> < retour</a>

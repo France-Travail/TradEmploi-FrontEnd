@@ -14,11 +14,6 @@
     <img src="assets/icons/icon-modality-black.svg" />
     <span class="name">MODALITÉ</span>
   </a>
-  <a mat-list-item routerLink="settings" (click)="onSidenavClose()" *ngIf="navbarService.settingsTab"  atTag
-     [clickData]="{'name':'settings-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
-    <img src="assets/icons/icon-settings-black.svg" />
-    <span class="name">PARAMÈTRES</span>
-  </a>
   <a mat-list-item (click)="onSidenavClose()" (click)="help()" *ngIf="navbarService.helpTab"  atTag
      [clickData]="{'name':'help-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
     <img src="assets/icons/icon-help-black.svg" />

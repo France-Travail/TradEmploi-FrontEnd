@@ -8,7 +8,6 @@ export class NavbarService {
   public visible: boolean = false;
   public choiceTab: boolean = false;
   public modalityTab: boolean = false;
-  public settingsTab: boolean = false;
   public helpTab: boolean = false;
   public endTab: boolean = false;
 
@@ -26,7 +25,6 @@ export class NavbarService {
   public handleTabModality() {
     this.choiceTab = false;
     this.modalityTab = false;
-    this.settingsService.user.subscribe(value => {this.settingsTab = (value.role === Role.ADMIN); });
     this.helpTab = true;
     this.endTab = false;
   }
@@ -34,7 +32,6 @@ export class NavbarService {
   public handleTabGDPR() {
     this.choiceTab = false;
     this.modalityTab = this.settingsService.user.value && this.settingsService.user.value.role !== Role.GUEST;
-    this.settingsTab = this.settingsService.user.value && this.settingsService.user.value.role === Role.ADMIN;
     this.helpTab = true;
     this.endTab = false;
   }
@@ -43,7 +40,6 @@ export class NavbarService {
     this.choiceTab = !this.settingsService.user.value.isMultiDevices
       || this.settingsService.user.value.role === Role.GUEST;
     this.modalityTab = this.settingsService.user.value.role !== Role.GUEST;
-    this.settingsTab = this.settingsService.user.value.role === Role.ADMIN;
     this.helpTab = true;
     const isOnTranslation = this.router.url.indexOf('translation') > 0;
     const isNotGuest = this.settingsService.user.value.role !== Role.GUEST;
@@ -53,7 +49,6 @@ export class NavbarService {
   public handleTabsChoice() {
     this.choiceTab = false;
     this.modalityTab = this.settingsService.user.value.role !== Role.GUEST;
-    this.settingsTab = this.settingsService.user.value.role === Role.ADMIN;
     this.helpTab = true;
     this.endTab = false;
   }
@@ -61,7 +56,6 @@ export class NavbarService {
   public handleTabsSettings() {
     this.choiceTab = true;
     this.modalityTab = true;
-    this.settingsTab = false;
     this.helpTab = true;
     this.endTab = false;
   }
