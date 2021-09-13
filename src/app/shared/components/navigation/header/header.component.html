@@ -30,11 +30,6 @@
         <img src="assets/icons/icon-modality-black.svg" />
         <span class="name">MODALITÉ</span>
       </button>
-      <button id="settings-header" routerLink="settings" *ngIf="navbarService.settingsTab"  atTag
-              [clickData]="{'name':'settings-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
-        <img src="assets/icons/icon-settings-black.svg" />
-        <span class="name">PARAMÈTRES</span>
-      </button>
       <button id="help-header" *ngIf="navbarService.helpTab" (click)="help()"  atTag
               [clickData]="{'name':'help-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
         <img src="assets/icons/icon-help-black.svg" />
