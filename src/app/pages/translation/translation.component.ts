@@ -209,7 +209,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   public exportConversation() {
-    exportCsv(this.messagesWrapped.filter((m) => m.message !== undefined).map(mw => mw.message), 'conversation_');
+    const data = this.messagesWrapped.filter((m) => m.message !== undefined).map(mw => {
+      const m = mw.message;
+      delete m.audioHtml;
+      return m;
+    });
+    exportCsv(data, 'conversation_');
   }
 
   public switchAudio() {

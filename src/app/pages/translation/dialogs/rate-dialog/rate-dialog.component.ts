@@ -46,7 +46,7 @@ export class RateDialogComponent implements OnInit {
       foreign: '',
     },
   };
-  public showSendBtn: boolean;
+  public canSendRate: boolean;
   private isMultiDevices: boolean;
 
 
@@ -136,7 +136,7 @@ export class RateDialogComponent implements OnInit {
       this.rates[question][i] = value >= i ? true : false;
     });
 
-    this.showSendBtn = this.rate.grades[0] !== undefined && this.rate.grades[1] !== undefined;
+    this.canSendRate = this.rate.grades[0] !== undefined && this.rate.grades[1] !== undefined;
 
   }
 

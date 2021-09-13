@@ -67,5 +67,5 @@
 </div>
 
 <div mat-dialog-actions>
-  <button *ngIf="this.showSendBtn" id="send-btn" (click)="confirm()">ENVOYER</button>
+  <button [disabled]="!this.canSendRate" [className]="!this.canSendRate?'button-disabled':''" id="send-btn" (click)="confirm()">ENVOYER</button>
 </div>
