@@ -1,3 +1,5 @@
+import {Parser} from 'json2csv';
+
 export const isIOS = () => {
     return [
         'iPad Simulator',
@@ -27,5 +29,22 @@ export const getDuration = (lastMessageTime: string, firstMessageTime: string) =
     'h' +
     formatNumber(((nbSeconds % 3600) / 60) | 0)
   );
+
 };
 
+export const exportCsv = (data: any[], name: string) => {
+
+  const json2csvParser = new Parser({ delimiter: ';', encoding: 'utf8' });
+  const csv = (data && data.length > 0) ? json2csvParser.parse(data) : '';
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.setAttribute('hidden', '');
+  a.setAttribute('href', url);
+  const date = new Date().toLocaleDateString('ko-KR').replace(/. /g, '');
+  const filename = name + date + '.csv';
+  a.setAttribute('download', filename);
+  document.body.append(a);
+  a.click();
+  document.body.removeChild(a);
+};
