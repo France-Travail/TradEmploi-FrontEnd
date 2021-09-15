@@ -7,15 +7,12 @@
           <button class="share-btn" (click)="share()"  atTag
                   [clickData]="{'name':'invit-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">INVITER</button>
         </ng-template>
+        <button class="end-btn " (click)="exportConversation()" atTag
+                [clickData]="{'name':'export-button','type':'exit'}">
+          EXPORTER
+        </button>
         <button class="end-btn" (click)="closeConversation()"  atTag
                 [clickData]="{'name':'end-chat-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">TERMINER LA CONVERSATION</button>
-
-      </li>
-      <li *ngIf="!isGuest">
-        <button class="end-btn " (click)="exportConversation()" atTag
-                [clickData]="{'name':'end-chat-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
-          EXPORTER LA CONVERSATION
-        </button>
 
       </li>
       <li>

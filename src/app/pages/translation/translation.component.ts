@@ -212,6 +212,12 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const data = this.messagesWrapped.filter((m) => m.message !== undefined).map(mw => {
       const m = mw.message;
       delete m.audioHtml;
+      delete m.hour;
+      delete m.time;
+      delete m.flag;
+      this.renameKey(m, 'languageOrigin', 'langueOrigine');
+      this.renameKey(m, 'languageName', 'langueDE');
+      this.renameKey(m, 'text', 'texte');
       return m;
     });
     exportCsv(data, 'conversation_');
@@ -411,5 +417,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       },
     });
   }
-
+  private renameKey ( obj, oldKey, newKey ) {
+    obj[newKey] = obj[oldKey];
+    delete obj[oldKey];
+  }
 }
