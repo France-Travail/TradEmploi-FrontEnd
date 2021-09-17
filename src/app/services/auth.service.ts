@@ -1,21 +1,18 @@
-import { SettingsService } from 'src/app/services/settings.service';
-import { Role } from './../models/role';
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { ToastService } from 'src/app/services/toast.service';
-import { ERROR_TECH_DB } from '../models/error/errorTechnical';
-import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
-import { TokenBrokerService } from './token-broker.service';
-import { of } from 'rxjs';
+import {SettingsService} from 'src/app/services/settings.service';
+import {Role} from './../models/role';
+import {Injectable} from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {ToastService} from 'src/app/services/toast.service';
+import {FbAuthSingleton} from '../models/token/FbAuthSingleton';
+import {TokenBrokerService} from './token-broker.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService, private tbs: TokenBrokerService) {}
-
-  public role = of(null);
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService, private tbs: TokenBrokerService) {
+  }
 
   public login(email: string, password: string, emailPe: string): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
@@ -24,10 +21,10 @@ export class AuthService {
         if (auth.user != null) {
           this.setRoleAndToken(emailPe);
           FbAuthSingleton.getInstance().setFbAuth(auth);
-          resolve({ isAuth: true, message: 'Authentification réussie' });
+          resolve({isAuth: true, message: 'Authentification réussie'});
         }
       } catch (error) {
-        reject({ isAuth: false, message: error.message });
+        reject({isAuth: false, message: error.message});
       }
     });
   }
@@ -40,11 +37,11 @@ export class AuthService {
           this.setRoleAndToken();
           const token = await auth.user.getIdTokenResult();
           FbAuthSingleton.getInstance().setFbAuth(auth);
-          this.settingsService.user.next({ ...this.settingsService.user.value, role: Role.GUEST, connectionTime: Date.now() });
-          resolve({ id: auth.user.uid, isAuth: true, message: 'Authentification réussie', token: token.token, expirationTime: token.expirationTime });
+          this.settingsService.user.next({...this.settingsService.user.value, role: Role.GUEST, connectionTime: Date.now()});
+          resolve({id: auth.user.uid, isAuth: true, message: 'Authentification réussie', token: token.token, expirationTime: token.expirationTime});
         }
       } catch (error) {
-        reject({ id: '', isAuth: false, message: error.message });
+        reject({id: '', isAuth: false, message: error.message});
       }
     });
   }
@@ -57,18 +54,15 @@ export class AuthService {
         }
         await this.afAuth.auth.signOut();
         this.settingsService.reset();
-        resolve({ isAuth: false, message: 'Déconnexion réussie' });
+        resolve({isAuth: false, message: 'Déconnexion réussie'});
       } catch (error) {
-        reject({ isAuth: true, message: error.message });
+        reject({isAuth: true, message: error.message});
       }
     });
   }
 
-  private getRole(config: any, email: string): Role {
+  public getRole(email: string): Role {
     if (email !== null) {
-      if (config[0].adminList.includes(email)) {
-        return Role.ADMIN;
-      }
       if (email.match('.*@pole-emploi[.]fr$')) {
         return Role.ADVISOR;
       }
@@ -79,20 +73,8 @@ export class AuthService {
   private setRoleAndToken(emailPe?: string) {
     this.afAuth.authState.subscribe(async (state) => {
       if (state !== null) {
-        this.db
-          .collection('config')
-          .valueChanges()
-          .subscribe((config: any) => {
-            if (config !== undefined && config.length >= 0) {
-              const role = emailPe ? this.getRole(config, emailPe) : this.getRole(config, state.email);
-              this.role = of(role);
-              this.settingsService.user.next({ ...this.settingsService.user.value, role: role });
-
-              this.tbs.getTokenGcp();
-            } else {
-              this.toastService.showToast(ERROR_TECH_DB.description, 'toast-error');
-            }
-          });
+        this.settingsService.user.next({...this.settingsService.user.value, role: this.getRole(emailPe)});
+        this.tbs.getTokenGcp();
       }
     });
   }
