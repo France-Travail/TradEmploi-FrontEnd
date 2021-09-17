@@ -9,7 +9,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { ENGLISH, FRENCH } from 'src/app/data/sentence';
 import { Tooltip } from './../../../../models/vocabulary';
 import { ClickInfo, TagService } from '../../../../lib/atinternet/_services/tag.service';
-import { FormControl, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-language-grid',
@@ -31,11 +31,12 @@ export class LanguageGridComponent implements OnChanges {
   private audioEnabled = true;
 
   public countriesSort = [
-    { value: ['langue', true], viewValue: 'Ordre alphabétique ascendant - Langue' },
-    { value: ['langue', false], viewValue: 'Ordre alphabétique descendant - Langue' },
-    { value: ['pays', true], viewValue: 'Ordre alphabétique ascendant - Pays' },
-    { value: ['pays', false], viewValue: 'Ordre alphabétique descendant - Pays' },
+    { value: ['langue', true], viewValue: 'Langue (asc)' },
+    { value: ['langue', false], viewValue: 'Langue (desc)' },
+    { value: ['pays', true], viewValue: 'Pays (asc)' },
+    { value: ['pays', false], viewValue: 'Pays (desc)' },
   ];
+
 
   constructor(private textToSpeechService: TextToSpeechService, private toastService: ToastService, private settingsService: SettingsService, private router: Router, private tagService: TagService) {}
 

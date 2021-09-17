@@ -1,13 +1,13 @@
+<div class="order">
+  <mat-form-field >
+    <mat-select placeholder="Trier la grille" (selectionChange)="gridSortingHandler($event.value)">
+      <mat-option *ngFor="let type of countriesSort" [value]="type.value">
+        {{ type.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div> 
 <div [ngClass]="{ countriesList: optionList, countries: !optionList }">
-  <div class="order"  *ngIf="optionList">
-    <mat-form-field >
-      <mat-select placeholder="Trier la grille" (selectionChange)="gridSortingHandler($event.value)">
-        <mat-option *ngFor="let type of countriesSort" [value]="type.value">
-          {{ type.viewValue }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
   <div class="header country" *ngIf="optionList">
     <div class="title">
       <span class="fr">Langue</span>
