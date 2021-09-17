@@ -40,4 +40,4 @@ deploy:
     - firebase deploy --project prod --token $FIREBASE_TOKEN
   only:
     refs:
-      - masetr
+      - master
