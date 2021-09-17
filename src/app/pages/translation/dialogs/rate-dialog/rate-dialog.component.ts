@@ -113,6 +113,7 @@ export class RateDialogComponent implements OnInit {
       offerLinked: 'non',
       conversationDuration: ''
     };
+    this.canSendRate = false;
   }
 
   public eval(value: number, question: number) {
