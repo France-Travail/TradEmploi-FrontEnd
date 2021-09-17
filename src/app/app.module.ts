@@ -70,6 +70,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { OnboardingComponent } from './pages/translation/dialogs/onboarding/onboarding.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { CallbackComponent } from './pages/callback/callback.component';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,6 +127,7 @@ import { CallbackComponent } from './pages/callback/callback.component';
     OverlayModule,
     HttpClientModule,
     OAuthModule.forRoot(),
+    CommonModule
   ],
   providers: [
     NavbarService,
