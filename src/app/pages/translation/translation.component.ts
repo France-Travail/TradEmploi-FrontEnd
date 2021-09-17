@@ -209,7 +209,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   public exportConversation() {
-    const data = this.messagesWrapped.filter((m) => m.message !== undefined).map(mw => {
+    const data = JSON.parse(JSON.stringify(this.messagesWrapped)).filter((m) => m.message !== undefined).map(mw => {
       const m = mw.message;
       delete m.audioHtml;
       delete m.hour;
