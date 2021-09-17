@@ -37,7 +37,7 @@ deploy:
     name: production
     url: https://pole-emploi-trad-prod.firebaseapp.com
   script:
-    - firebase deploy --project prod --token $FIREBASE_TOKEN
+    - firebase deploy --project dev --token $FIREBASE_TOKEN
   only:
     refs:
-      - master
+      - develop

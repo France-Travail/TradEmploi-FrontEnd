@@ -1,14 +1,23 @@
-<div [ngClass]="{'countriesList': optionList, 'countries': !optionList}" >
+<div class="order">
+  <mat-form-field >
+    <mat-select placeholder="Trier la grille" (selectionChange)="gridSortingHandler($event.value)">
+      <mat-option *ngFor="let type of countriesSort" [value]="type.value">
+        {{ type.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div> 
+<div [ngClass]="{ countriesList: optionList, countries: !optionList }">
   <div class="header country" *ngIf="optionList">
     <div class="title">
       <span class="fr">Langue</span>
       <span class="raw">Language</span>
     </div>
     <div class="flag">
-      <span class="flag-icon" [ngStyle]="{'border': 0}"></span>
+      <span class="flag-icon" [ngStyle]="{ border: 0 }"></span>
     </div>
     <div class="option">
-      <div class="option-col">{{voiceTitle}}</div>
+      <div class="option-col">{{ voiceTitle }}</div>
       <div class="option-col">Audio</div>
       <div class="option-col">Test</div>
     </div>
@@ -16,7 +25,9 @@
   <div class="country" *ngFor="let item of countries" (click)="selectLanguage($event, item)">
     <div class="title">
       <span class="fr">{{ item.languageNameFr }} ({{ item.countryNameFr }})</span>
-      <span class="raw">{{ item.languageNameRaw }} <bdi>({{ item.countryNameRaw }})</bdi></span>
+      <span class="raw"
+        >{{ item.languageNameRaw }} <bdi>({{ item.countryNameRaw }})</bdi></span
+      >
     </div>
     <div class="flag">
       <span *ngIf="item.isoCode !== 'ar-XA'" class="flag-icon flag-icon-{{ isoCodeToFlag(item.isoCode) }}"></span>
@@ -24,15 +35,21 @@
     </div>
     <div class="option">
       <div class="option-col">
-        <img *ngIf="item.sentences.voiceNotSupported === undefined" src="assets/icons/pronounce.svg" alt="Pronounce" matTooltip="{{tooltip.pronounce}}" matTooltipClass="tooltip-info"/>
-        <img *ngIf="item.sentences.voiceNotSupported !== undefined && item.sentences.voiceNotSupported" src="assets/icons/no-pronounce.svg" alt="Pronounce" matTooltip="{{tooltip.noPronounce}}" matTooltipClass="tooltip-info"/>
+        <img *ngIf="item.sentences.voiceNotSupported === undefined" src="assets/icons/pronounce.svg" alt="Pronounce" matTooltip="{{ tooltip.pronounce }}" matTooltipClass="tooltip-info" />
+        <img
+          *ngIf="item.sentences.voiceNotSupported !== undefined && item.sentences.voiceNotSupported"
+          src="assets/icons/no-pronounce.svg"
+          alt="Pronounce"
+          matTooltip="{{ tooltip.noPronounce }}"
+          matTooltipClass="tooltip-info"
+        />
       </div>
       <div class="option-col">
-        <img *ngIf="item.sentences.audioSupported" src="assets/icons/listen.svg" alt="Listen"  matTooltip="{{tooltip.listen}}" matTooltipClass="tooltip-info"/>
-        <img *ngIf="!item.sentences.audioSupported" src="assets/icons/no-listen.svg" alt="Listen"  matTooltip="{{tooltip.noListen}}" matTooltipClass="tooltip-info"/>
+        <img *ngIf="item.sentences.audioSupported" src="assets/icons/listen.svg" alt="Listen" matTooltip="{{ tooltip.listen }}" matTooltipClass="tooltip-info" />
+        <img *ngIf="!item.sentences.audioSupported" src="assets/icons/no-listen.svg" alt="Listen" matTooltip="{{ tooltip.noListen }}" matTooltipClass="tooltip-info" />
       </div>
       <div class="option-col">
-        <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="audioDescription(item)"  matTooltip="{{tooltip.audio}}" matTooltipClass="tooltip-info"></div>
+        <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="audioDescription(item)" matTooltip="{{ tooltip.audio }}" matTooltipClass="tooltip-info"></div>
       </div>
     </div>
   </div>

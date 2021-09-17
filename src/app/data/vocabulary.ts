@@ -810,7 +810,7 @@ export const VOCABULARY: Vocabulary[] = [
   { isoCode: 'ur-IN', countryNameRaw: 'بھارت', countryNameFr: 'Inde', languageNameRaw: 'اردو', languageNameFr: 'Ourdou', sentences: OURDOU },
   { isoCode: 'bg-BG', countryNameRaw: 'България', countryNameFr: 'Bulgarie', languageNameRaw: 'Български', languageNameFr: 'Bulgare', sentences: BULGARE },
   { isoCode: 'sr-RS', countryNameRaw: 'Србија', countryNameFr: 'Serbie', languageNameRaw: 'Српски', languageNameFr: 'Serbe', sentences: ENGLISH_DEFAULT },
-  { isoCode: 'uk-UA', countryNameRaw: 'Україна', countryNameFr: 'Ukraine', languageNameRaw: 'Українська', languageNameFr: 'ukrainien', sentences: UKRAINE },
+  { isoCode: 'uk-UA', countryNameRaw: 'Україна', countryNameFr: 'Ukraine', languageNameRaw: 'Українська', languageNameFr: 'Ukrainien', sentences: UKRAINE },
   { isoCode: 'he-IL', countryNameRaw: 'ישראל', countryNameFr: 'Israël', languageNameRaw: 'עברית', languageNameFr: 'Hébreu', sentences: HEBREW },
   {
     isoCode: 'eu-ES',

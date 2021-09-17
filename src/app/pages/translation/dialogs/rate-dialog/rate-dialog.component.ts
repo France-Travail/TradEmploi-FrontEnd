@@ -46,7 +46,9 @@ export class RateDialogComponent implements OnInit {
       foreign: '',
     },
   };
+  public canSendRate: boolean;
   private isMultiDevices: boolean;
+
 
   constructor(
     private dialogRef: MatDialogRef<RateDialogComponent>,
@@ -111,6 +113,7 @@ export class RateDialogComponent implements OnInit {
       offerLinked: 'non',
       conversationDuration: ''
     };
+    this.canSendRate = false;
   }
 
   public eval(value: number, question: number) {
@@ -118,15 +121,24 @@ export class RateDialogComponent implements OnInit {
     this.rate.grades[question] = value + 1;
     this.rate.date = date;
     this.rate.hour = date.getHours() + ':' + date.getMinutes();
-    const messages = this.chatService.messagesStored.map(mw => {
-      return mw.message;
-    });
-    this.rate.conversationDuration = getDuration(messages[messages.length - 1].hour, messages[0].hour);
+
+    let firstMessageTime = '00:00:00';
+    let lastMessageTime = '00:00:00';
+
+    const length = this.chatService.messagesStored.length;
+    if (length > 1) {
+      firstMessageTime = this.chatService.messagesStored[0].message.hour;
+      lastMessageTime = this.chatService.messagesStored[length - 1].message.hour;
+    }
+    this.rate.conversationDuration = getDuration(firstMessageTime, lastMessageTime);
     this.rateService.rateConversation(this.rate);
 
     this.rates[question].forEach((r, i) => {
       this.rates[question][i] = value >= i ? true : false;
     });
+
+    this.canSendRate = this.rate.grades[0] !== undefined && this.rate.grades[1] !== undefined;
+
   }
 
   public confirm() {

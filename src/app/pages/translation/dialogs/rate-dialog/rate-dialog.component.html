@@ -67,5 +67,8 @@
 </div>
 
 <div mat-dialog-actions>
-  <button id="send-btn" (click)="confirm()">ENVOYER</button>
+  <div matTooltip="Veillez évaluer l’outil avant de soumettre" [matTooltipDisabled]="this.canSendRate" matTooltipPosition="above">
+    <button [disabled]="!this.canSendRate" [className]="!this.canSendRate?'button-disabled':''" id="send-btn" (click)="confirm()">ENVOYER
+    </button>
+  </div>
 </div>

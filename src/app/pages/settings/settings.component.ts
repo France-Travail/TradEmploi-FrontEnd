@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material';
 import { LoaderComponent } from './loader/loader.component';
 import { Role } from 'src/app/models/role';
 import { Router } from '@angular/router';
+import {exportCsv} from '../../utils/utils';
 
 @Component({
   selector: 'app-settings',
@@ -28,11 +29,12 @@ export class SettingsComponent implements OnInit {
   ) {
     this.navService.handleTabsSettings();
   }
-  public isAdmin: boolean;
+
+  public isGuest: boolean;
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {
-      this.isAdmin = user.role === Role.ADMIN;
-      if (!this.isAdmin) {
+      this.isGuest = (user.role === Role.GUEST);
+      if (this.isGuest) {
         this.Router.navigateByUrl('/start');
       }
     });
@@ -44,7 +46,7 @@ export class SettingsComponent implements OnInit {
     this.kpiService
       .getkpi()
       .then((kpi) => {
-        this.exportCsv(kpi, 'kpi');
+        exportCsv(kpi, 'PE_Outil_Traduction_KPIs_');
         this.dialog.closeAll();
       })
       .catch(async (_) => {
@@ -64,7 +66,7 @@ export class SettingsComponent implements OnInit {
     this.rateService
       .getRates()
       .then((rates) => {
-        this.exportCsv(rates, 'eval');
+        exportCsv(rates, 'PE_Outil_Traduction_Evaluation_');
         this.dialog.closeAll();
       })
       .catch(async (_) => {
@@ -75,22 +77,6 @@ export class SettingsComponent implements OnInit {
           this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'), this.dialog.closeAll();
         }
       });
-  }
-
-  private exportCsv(data, name: string) {
-    const json2csvParser = new Parser({ delimiter: ';', encoding: 'utf8' });
-    const csv = json2csvParser.parse(data);
-    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.setAttribute('hidden', '');
-    a.setAttribute('href', url);
-    const date = new Date().toLocaleDateString('ko-KR').replace(/. /g, '');
-    const filename = name === 'eval' ? 'PE_Outil_Traduction_Evaluation_' + date + '.csv' : 'PE_Outil_Traduction_KPIs_' + date + '.csv';
-    a.setAttribute('download', filename);
-    document.body.append(a);
-    a.click();
-    document.body.removeChild(a);
   }
 
   public goBack() {

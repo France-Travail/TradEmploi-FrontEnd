@@ -10,6 +10,7 @@ import { ENGLISH, FRENCH } from 'src/app/data/sentence';
 import { Tooltip } from './../../../../models/vocabulary';
 import { ClickInfo, TagService } from '../../../../lib/atinternet/_services/tag.service';
 
+
 @Component({
   selector: 'app-language-grid',
   templateUrl: './language-grid.component.html',
@@ -28,6 +29,14 @@ export class LanguageGridComponent implements OnChanges {
   private countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-AF', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
   private audioClick: boolean = false;
   private audioEnabled = true;
+
+  public countriesSort = [
+    { value: ['langue', true], viewValue: 'Langue (asc)' },
+    { value: ['langue', false], viewValue: 'Langue (desc)' },
+    { value: ['pays', true], viewValue: 'Pays (asc)' },
+    { value: ['pays', false], viewValue: 'Pays (desc)' },
+  ];
+
 
   constructor(private textToSpeechService: TextToSpeechService, private toastService: ToastService, private settingsService: SettingsService, private router: Router, private tagService: TagService) {}
 
@@ -57,6 +66,22 @@ export class LanguageGridComponent implements OnChanges {
 
   public isoCodeToFlag(isoCode: string) {
     return isoCode.split('-')[1].toLowerCase();
+  }
+
+  public gridSortingHandler(sortType) {
+    sortType[0] === 'pays' ? this.orderByCountryNameFr(sortType[1]) : this.orderByLanguage(sortType[1]);
+  }
+
+  private orderByCountryNameFr(asc: boolean) {
+    this.countries.sort(function (a, b) {
+      return asc ? a.countryNameFr.localeCompare(b.countryNameFr) : b.countryNameFr.localeCompare(a.countryNameFr);
+    });
+  }
+
+  private orderByLanguage(asc: boolean) {
+    this.countries.sort(function (a, b) {
+      return asc ? a.languageNameFr.localeCompare(b.languageNameFr) : b.languageNameFr.localeCompare(a.languageNameFr);
+    });
   }
 
   public audioDescription(item: Vocabulary) {
