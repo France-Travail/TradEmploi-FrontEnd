@@ -215,9 +215,14 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       delete m.hour;
       delete m.time;
       delete m.flag;
+      if (m.hasOwnProperty('member')){
+        this.renameKey(m, 'member', 'membre');
+      }
       this.renameKey(m, 'languageOrigin', 'langueOrigine');
       this.renameKey(m, 'languageName', 'langueDE');
       this.renameKey(m, 'text', 'texte');
+      this.renameKey(m, 'translation', 'traduction');
+      this.renameKey(m, 'translationMode', 'modeTraduction');
       return m;
     });
     exportCsv(data, 'conversation_');
@@ -417,7 +422,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       },
     });
   }
-  private renameKey ( obj, oldKey, newKey ) {
+  private renameKey( obj, oldKey, newKey ) {
     obj[newKey] = obj[oldKey];
     delete obj[oldKey];
   }
