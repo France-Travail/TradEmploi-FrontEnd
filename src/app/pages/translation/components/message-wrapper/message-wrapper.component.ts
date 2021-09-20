@@ -96,7 +96,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public async talk(): Promise<void> {
     if ('webkitSpeechRecognition' in window) {
       this.micro = true;
-      this.recordMode = false;
+      this.recordMode = this.settingsService.recordMode;
       if (!this.recordMode) {
         this.rawText = '';
         this.stream();
@@ -112,11 +112,15 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   private stream() {
     let saveText = '';
     this.speechRecognitionService.record(this.languageOrigin).subscribe((value: Stream) => {
-      if (value.interim !== '') {
-        this.rawText += '  .';
+      if (this.isMobile) {
+        this.rawText = value.final;
       } else {
-        this.rawText = saveText + value.final;
-        saveText = this.rawText;
+        if (value.interim !== '') {
+          this.rawText += '  .';
+        } else {
+          this.rawText = saveText + value.final;
+          saveText = this.rawText;
+        }
       }
     });
   }
