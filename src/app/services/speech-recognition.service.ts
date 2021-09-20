@@ -17,6 +17,7 @@ export class SpeechRecognitionService {
   }
 
   record(lang: string): Observable<Stream> {
+    let lastDebounceTranscript = '';
     return new Observable((observer) => {
       const {webkitSpeechRecognition}: IWindow = (window as unknown) as IWindow;
       this.speechRecognition = new webkitSpeechRecognition();
@@ -29,8 +30,12 @@ export class SpeechRecognitionService {
         let finalTranscript = '';
         for (let i = event.resultIndex; i < event.results.length; ++i) {
           const isFinal = event.results[i].isFinal;
-          if (isFinal && (event.results[i][0].confidence > 0)) {
+          if (isFinal) {
             finalTranscript += event.results[i][0].transcript;
+            lastDebounceTranscript = finalTranscript;
+            if (finalTranscript === lastDebounceTranscript) {
+              break;
+            }
           } else {
             interimTranscript += event.results[i][0].transcript;
           }
