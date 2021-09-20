@@ -1,6 +1,6 @@
-import { Injectable, NgZone } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Stream } from '../models/stream';
+import {Injectable, NgZone} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Stream} from '../models/stream';
 
 interface IWindow extends Window {
   webkitSpeechRecognition: any;
@@ -13,17 +13,17 @@ interface IWindow extends Window {
 export class SpeechRecognitionService {
   speechRecognition: any;
 
-  constructor(private zone: NgZone) {}
+  constructor(private zone: NgZone) {
+  }
 
   record(lang: string): Observable<Stream> {
     return new Observable((observer) => {
-      const { webkitSpeechRecognition }: IWindow = (window as unknown) as IWindow;
+      const {webkitSpeechRecognition}: IWindow = (window as unknown) as IWindow;
       this.speechRecognition = new webkitSpeechRecognition();
       this.speechRecognition.continuous = true;
       this.speechRecognition.interimResults = true;
       this.speechRecognition.lang = lang;
       this.speechRecognition.maxAlternatives = 1;
-
       this.speechRecognition.onresult = (event) => {
         let interimTranscript = '';
         let finalTranscript = '';
@@ -35,7 +35,7 @@ export class SpeechRecognitionService {
           }
         }
         this.zone.run(() => {
-          observer.next({ final: finalTranscript, interim: interimTranscript });
+          observer.next({final: finalTranscript, interim: interimTranscript});
         });
       };
 
@@ -46,8 +46,9 @@ export class SpeechRecognitionService {
       this.speechRecognition.onend = () => {
         observer.complete();
       };
-
       this.speechRecognition.start();
+
+
     });
   }
 
@@ -62,5 +63,5 @@ export class SpeechRecognitionService {
     return s.replace(firstChar, (m) => {
       return m.toUpperCase();
     });
-  }
+  };
 }
