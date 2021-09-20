@@ -28,7 +28,8 @@ export class SpeechRecognitionService {
         let interimTranscript = '';
         let finalTranscript = '';
         for (let i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
+          const isFinal = event.results[i].isFinal;
+          if (isFinal && (event.results[i][0].confidence > 0)) {
             finalTranscript += event.results[i][0].transcript;
           } else {
             interimTranscript += event.results[i][0].transcript;
