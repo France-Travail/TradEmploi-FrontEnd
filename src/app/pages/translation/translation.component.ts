@@ -28,6 +28,7 @@ import { MessageSingleton } from 'src/app/models/MessageSingleton';
 import { Chat } from 'src/app/models/db/chat';
 import { AuthorizeComponent } from './dialogs/authorize/authorize.component';
 import { TagService } from '../../lib/atinternet/_services/tag.service';
+import {exportCsv} from '../../utils/utils';
 
 @Component({
   selector: 'app-translation',
@@ -400,9 +401,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private getLanguageTarget(message: Message): Language {
     if (this.isMultiDevices) {
-      return this.user.role === Role.ADVISOR || this.user.role === Role.ADMIN ? this.settingsService.defaultLanguage : this.user.language;
+      return this.user.role === Role.ADVISOR ? this.settingsService.defaultLanguage : this.user.language;
     }
-    return message.role === Role.ADVISOR || message.role === Role.ADMIN ? this.user.language : this.settingsService.defaultLanguage;
+    return message.role === Role.ADVISOR ? this.user.language : this.settingsService.defaultLanguage;
   }
 
   private openModal(component, height, disableClose, guest?, languages?) {
