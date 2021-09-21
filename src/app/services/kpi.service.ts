@@ -1,16 +1,20 @@
 import axios from 'axios';
-import { ERROR_TECH_EXPORT_KPI } from './../models/error/errorTechnical';
-import { ErrorService } from 'src/app/services/error.service';
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { JwtGwSingleton } from '../models/token/JwtGwSingleton';
+import {ERROR_TECH_EXPORT_KPI} from './../models/error/errorTechnical';
+import {ErrorService} from 'src/app/services/error.service';
+import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment';
+import {JwtGwSingleton} from '../models/token/JwtGwSingleton';
+import {AuthService} from './auth.service';
+
 @Injectable({
   providedIn: 'root',
 })
 export class KpiService {
-  constructor(private errorService: ErrorService) {}
+  constructor(private errorService: ErrorService, private authService: AuthService) {}
 
   public async getkpi() {
+    const emailPe = localStorage.getItem('emailPe');
+    await this.authService.login(environment.peama.login, environment.peama.password, emailPe);
     const gwToken = JwtGwSingleton.getInstance().getToken().token;
     const url = `${environment.gcp.gateWayUrl}/reporting`;
     const data = {

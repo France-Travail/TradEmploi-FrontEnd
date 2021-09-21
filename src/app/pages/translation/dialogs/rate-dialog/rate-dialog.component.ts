@@ -106,7 +106,7 @@ export class RateDialogComponent implements OnInit {
     this.rate = {
       language: languages,
       date,
-      hour: date.getHours() + ':' + date.getMinutes(),
+      hour: date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0'),
       grades: [undefined, undefined],
       comment: '',
       offerLinked: 'non',
@@ -119,7 +119,7 @@ export class RateDialogComponent implements OnInit {
     const date = new Date();
     this.rate.grades[question] = value + 1;
     this.rate.date = date;
-    this.rate.hour = date.getHours() + ':' + date.getMinutes();
+    this.rate.hour = date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
 
     let firstMessageTime = '00:00:00';
     let lastMessageTime = '00:00:00';

@@ -7,6 +7,7 @@ import {environment} from '../../environments/environment';
 import {ErrorService} from './error.service';
 import {ERROR_TECH_EXPORT_STATS} from '../models/error/errorTechnical';
 import {JwtGwSingleton} from '../models/token/JwtGwSingleton';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class RateService {
   private rate: Rate;
   private db: string = 'rates';
 
-  constructor(private afs: AngularFirestore, private errorService: ErrorService) {
+  constructor(private afs: AngularFirestore, private errorService: ErrorService, private authService: AuthService) {
   }
 
   public rateConversation(rate: Rate): void {
@@ -27,6 +28,8 @@ export class RateService {
   }
 
   public async getRates() {
+    const emailPe = localStorage.getItem('emailPe');
+    await this.authService.login(environment.peama.login, environment.peama.password, emailPe);
     const gwToken = JwtGwSingleton.getInstance().getToken().token;
     const url = `${environment.gcp.gateWayUrl}/reporting`;
     const data = {
