@@ -27,7 +27,6 @@ import {ShareComponent} from './dialogs/share/share.component';
 import {MessageSingleton} from 'src/app/models/MessageSingleton';
 import {Chat} from 'src/app/models/db/chat';
 import {AuthorizeComponent} from './dialogs/authorize/authorize.component';
-import {TagService} from '../../lib/atinternet/_services/tag.service';
 import {exportCsv} from '../../utils/utils';
 
 @Component({
@@ -64,8 +63,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     private textToSpeechService: TextToSpeechService,
     private navbarService: NavbarService,
     private translateService: TranslateService,
-    private cryptService: CryptService,
-    private tagService: TagService
+    private cryptService: CryptService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
@@ -100,15 +98,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.isGuest) {
       this.autoListenValue = this.isAudioSupported ? 'Listen automatically' : 'Audio unavailable';
     }
-    const pageData = {
-      name: 'translation',
-      chapter1: 'chap1',
-      chapter2: 'chap2',
-      chapter3: 'chap3',
-      level2: '1',
-      customObject: this.user
-    };
-    this.tagService.pageSend(pageData);
   }
 
   ngAfterViewChecked() {
@@ -215,7 +204,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       delete m.hour;
       delete m.time;
       delete m.flag;
-      if (m.hasOwnProperty('member')){
+      if (m.hasOwnProperty('member')) {
         this.renameKey(m, 'member', 'membre');
       }
       this.renameKey(m, 'languageOrigin', 'langueOrigine');
@@ -286,7 +275,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  }
+  };
 
   private authorizeGuest(guests) {
     const lastAuthorization = guests[guests.length - 1];
@@ -422,7 +411,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       },
     });
   }
-  private renameKey( obj, oldKey, newKey ) {
+
+  private renameKey(obj, oldKey, newKey) {
     obj[newKey] = obj[oldKey];
     delete obj[oldKey];
   }

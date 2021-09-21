@@ -6,7 +6,6 @@ import {ChatService} from 'src/app/services/chat.service';
 import {NavbarService} from 'src/app/services/navbar.service';
 import {SettingsService} from 'src/app/services/settings.service';
 import {FRENCH} from '../../data/sentence';
-import {ClickInfo, TagService} from '../../lib/atinternet/_services/tag.service';
 
 @Component({
   selector: 'app-modality',
@@ -25,8 +24,7 @@ export class ModalityComponent implements OnInit {
               private navbarService: NavbarService,
               private chatService: ChatService,
               private settingsService: SettingsService,
-              private breakpointObserver: BreakpointObserver,
-              private tagService: TagService) {
+              private breakpointObserver: BreakpointObserver) {
     this.navbarService.handleTabModality();
     this.navbarService.show();
     this.breakpointObserver.observe(['(max-width: 1050px)']).subscribe((result) => {
@@ -54,17 +52,6 @@ export class ModalityComponent implements OnInit {
       this.share();
       this.router.navigateByUrl('translation');
     }
-    const clickData: ClickInfo = {
-      elem: event.target,
-      name: this.target,
-      chapter1: 'chap1',
-      chapter2: 'chap2',
-      chapter3: 'chap3',
-      level2: '1',
-      type: 'exit',
-      event
-    };
-    this.tagService.click(clickData);
   }
 
   private share() {

@@ -21,6 +21,7 @@ export class CallbackComponent implements OnInit {
       const payload: any = jwtDecode(token);
       if (payload.email.match('.*@pole-emploi[.]fr$')) {
         this.loginAuthentificated(payload.email);
+        localStorage.setItem('emailPe', payload.email);
       }
     } catch (error) {
       this.router.navigateByUrl('/start');
