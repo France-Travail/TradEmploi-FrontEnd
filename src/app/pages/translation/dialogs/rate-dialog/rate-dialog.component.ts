@@ -95,7 +95,7 @@ export class RateDialogComponent implements OnInit {
     let languages;
     if (this.data.guest) {
       languages = this.data.guest
-        .filter((l) => l !== 'fr-FR')
+        .filter((l, index) => l !== 'fr-FR' && this.data.guest.indexOf(l) === index)
         .map((l) => VOCABULARY.find((v) => v.isoCode === l).languageNameFr)
         .join(',');
     } else {
@@ -129,7 +129,7 @@ export class RateDialogComponent implements OnInit {
       firstMessageTime = this.chatService.messagesStored[0].message.hour;
       lastMessageTime = this.chatService.messagesStored[length - 1].message.hour;
     }
-    this.rate.conversationDuration = getDuration(firstMessageTime, lastMessageTime);
+    this.rate.conversationDuration = getDuration(lastMessageTime, firstMessageTime);
     this.rateService.rateConversation(this.rate);
 
     this.rates[question].forEach((r, i) => {
