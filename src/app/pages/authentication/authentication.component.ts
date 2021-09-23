@@ -14,10 +14,13 @@ export class AuthenticationComponent {
   configureSSO() {
     this.oauthService.configure(authCodeFlowConfig);
     this.oauthService.oidc = true;
+    this.oauthService.loadDiscoveryDocumentAndTryLogin();
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();
+    
   }
 
   login() {
     this.oauthService.initCodeFlow();
+    
   }
 }

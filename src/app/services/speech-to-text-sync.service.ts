@@ -4,7 +4,6 @@ import { ErrorService } from './error.service';
 import { ERROR_TECH_STT } from '../models/error/errorTechnical';
 import { ERROR_FUNC_NOSOUND } from '../models/error/errorFunctionnal';
 import { TokenBrokerService } from './token-broker.service';
-import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
 import { TokenResponse } from '../models/token/tokensResponse';
 @Injectable({
   providedIn: 'root',
