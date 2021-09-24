@@ -49,6 +49,7 @@ export class RateDialogComponent implements OnInit {
   public canSendRate: boolean;
   private isMultiDevices: boolean;
 
+
   constructor(
     private dialogRef: MatDialogRef<RateDialogComponent>,
     private rateService: RateService,

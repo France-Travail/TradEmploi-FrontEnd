@@ -55,7 +55,7 @@
     box-sizing: border-box;
     border-radius: 5px;
     background-size: cover;
-
+    
   }
 }
 
@@ -98,70 +98,17 @@
 }
 
 @keyframes rightToLeftEffect {
-  0%   {transform: translateX(10px);}
-  25%  {transform: translateX(7.5px);}
-  50%  {transform: translateX(5px);}
-  75%  {transform: translateX(2.5px);}
-  100% {transform: translateX(0px);}
+  0%   {transform: translateX(10px);} 
+  25%  {transform: translateX(7.5px);} 
+  50%  {transform: translateX(5px);} 
+  75%  {transform: translateX(2.5px);} 
+  100% {transform: translateX(0px);} 
 }
 
-@-webkit-keyframes rightToLeftEffect {
-  0%   {-webkit-transform: translateX(10px);}
-  25%  {-webkit-transform: translateX(7.5px);}
-  50%  {-webkit-transform: translateX(5px);}
-  75%  {-webkit-transform: translateX(2.5px);}
-  100% {-webkit-transform: translateX(0px);}
-}
-
-.counter{
-  margin: auto;
-  color:$primary-color;
-  size: auto;
-}
-.record-container {
-  position: relative;
-  width: 8%;
-  text-align: center;
-  display: block;
-}
-[holdable] {
-  outline:0;
-  cursor: pointer;
-  border: none;
-  color: white;
-  background-color: $primary-color;
-  background-position: center;
-  background-size: cover;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  position: absolute;
-  display: block;
-  justify-content: center;
-  align-items: center;
-  left: 0;
-  right: 0;
-  top: 0;
-  margin: 0 auto;
-}
-.notRec{
-}
-
-.Rec{
-  animation-name: pulse;
-  animation-duration: 1.5s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-@keyframes pulse{
-  0%{
-    box-shadow: 0px 0px 5px 0px rgba(173,0,0,.3);
-  }
-  65%{
-    box-shadow: 0px 0px 5px 13px rgba(173,0,0,.3);
-  }
-  90%{
-    box-shadow: 0px 0px 5px 13px rgba(173,0,0,0);
-  }
+@-webkit-keyframes rightToLeftEffect { 
+  0%   {-webkit-transform: translateX(10px);} 
+  25%  {-webkit-transform: translateX(7.5px);} 
+  50%  {-webkit-transform: translateX(5px);} 
+  75%  {-webkit-transform: translateX(2.5px);} 
+  100% {-webkit-transform: translateX(0px);} 
 }
