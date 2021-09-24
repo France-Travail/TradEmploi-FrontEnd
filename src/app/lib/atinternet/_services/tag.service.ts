@@ -31,7 +31,7 @@ export class TagService {
   private tag: Tag;
 
   constructor() {
-   this.setTag();
+    this.setTag();
   }
 
   private setTag() {
@@ -45,17 +45,30 @@ export class TagService {
 
   click(info: ClickInfo): boolean {
     this.setTag();
-    return this.tag.click.send(info);
+    try {
+      return this.tag.click.send(info);
+    } catch (ex) {
+      console.error(ex);
+      return false;
+    }
   }
 
   clickListener(info: ClickInfo): void {
     this.setTag();
-    this.tag.clickListener.send(info);
+    try {
+      this.tag.clickListener.send(info);
+    } catch (ex) {
+      console.error(ex);
+    }
   }
 
   pageSend(info: PageInfo): void {
     this.setTag();
-    this.tag.page.send(info);
+    try {
+      this.tag.page.send(info);
+    } catch (ex) {
+      console.error(ex);
+    }
   }
 
 }
