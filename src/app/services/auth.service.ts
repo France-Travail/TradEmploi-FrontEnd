@@ -2,16 +2,16 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { Role } from './../models/role';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { ToastService } from 'src/app/services/toast.service';
 import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
 import { TokenBrokerService } from './token-broker.service';
 import axios from 'axios';
+import { authCodeFlowConfig } from '../../environments/authflow';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService, private tbs: TokenBrokerService) {}
+  constructor(private afAuth: AngularFireAuth, private settingsService: SettingsService, private tbs: TokenBrokerService) {}
 
   public login(email: string, password: string, emailPe: string): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
@@ -79,14 +79,14 @@ export class AuthService {
   }
 
   public getUserInfos(token: string) {
-    return  axios
-      .post('https://authentification-agent-tis.pe.intra/connexion/oauth2/agent/userinfo',null, {
+    return axios
+      .post(authCodeFlowConfig.userinfoEndpoint, null, {
         headers: {
-          Authorization: 'Bearer ' + token
-        }
+          Authorization: 'Bearer ' + token,
+        },
       })
       .then(function (response) {
-        return response.status === 200 ?  response.data : null
+        return response.status === 200 ? response.data : null;
       })
       .catch(function (error) {
         console.log(error);
