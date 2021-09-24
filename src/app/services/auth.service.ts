@@ -1,18 +1,17 @@
-import {SettingsService} from 'src/app/services/settings.service';
-import {Role} from './../models/role';
-import {Injectable} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {ToastService} from 'src/app/services/toast.service';
-import {FbAuthSingleton} from '../models/token/FbAuthSingleton';
-import {TokenBrokerService} from './token-broker.service';
+import { SettingsService } from 'src/app/services/settings.service';
+import { Role } from './../models/role';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
+import { TokenBrokerService } from './token-broker.service';
+import axios from 'axios';
+import { authCodeFlowConfig } from '../../environments/authflow';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private toastService: ToastService, private settingsService: SettingsService, private tbs: TokenBrokerService) {
-  }
+  constructor(private afAuth: AngularFireAuth, private settingsService: SettingsService, private tbs: TokenBrokerService) {}
 
   public login(email: string, password: string, emailPe: string): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
@@ -21,10 +20,10 @@ export class AuthService {
         if (auth.user != null) {
           this.setRoleAndToken(emailPe);
           FbAuthSingleton.getInstance().setFbAuth(auth);
-          resolve({isAuth: true, message: 'Authentification réussie'});
+          resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
-        reject({isAuth: false, message: error.message});
+        reject({ isAuth: false, message: error.message });
       }
     });
   }
@@ -37,11 +36,11 @@ export class AuthService {
           this.setRoleAndToken();
           const token = await auth.user.getIdTokenResult();
           FbAuthSingleton.getInstance().setFbAuth(auth);
-          this.settingsService.user.next({...this.settingsService.user.value, role: Role.GUEST, connectionTime: Date.now()});
-          resolve({id: auth.user.uid, isAuth: true, message: 'Authentification réussie', token: token.token, expirationTime: token.expirationTime});
+          this.settingsService.user.next({ ...this.settingsService.user.value, role: Role.GUEST, connectionTime: Date.now() });
+          resolve({ id: auth.user.uid, isAuth: true, message: 'Authentification réussie', token: token.token, expirationTime: token.expirationTime });
         }
       } catch (error) {
-        reject({id: '', isAuth: false, message: error.message});
+        reject({ id: '', isAuth: false, message: error.message });
       }
     });
   }
@@ -54,9 +53,9 @@ export class AuthService {
         }
         await this.afAuth.auth.signOut();
         this.settingsService.reset();
-        resolve({isAuth: false, message: 'Déconnexion réussie'});
+        resolve({ isAuth: false, message: 'Déconnexion réussie' });
       } catch (error) {
-        reject({isAuth: true, message: error.message});
+        reject({ isAuth: true, message: error.message });
       }
     });
   }
@@ -73,9 +72,24 @@ export class AuthService {
   private setRoleAndToken(emailPe?: string) {
     this.afAuth.authState.subscribe(async (state) => {
       if (state !== null) {
-        this.settingsService.user.next({...this.settingsService.user.value, role: this.getRole(emailPe)});
+        this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(emailPe) });
         this.tbs.getTokenGcp();
       }
     });
+  }
+
+  public getUserInfos(token: string) {
+    return axios
+      .post(authCodeFlowConfig.userinfoEndpoint, null, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then(function (response) {
+        return response.status === 200 ? response.data : null;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 }
