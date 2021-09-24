@@ -197,7 +197,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.openModal(RateDialogComponent, '700px', false, languages);
   }
 
-  public exportConversation() {
+  public async exportConversation() {
     const data = JSON.parse(JSON.stringify(this.messagesWrapped)).filter((m) => m.message !== undefined).map(mw => {
       const m = mw.message;
       delete m.audioHtml;
@@ -214,7 +214,33 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.renameKey(m, 'translationMode', 'modeTraduction');
       return m;
     });
+    await this.translateDEMessages(data);
     exportCsv(data, 'conversation_');
+  }
+
+  private getDELanguages(): string[] {
+    const languages = this.messagesWrapped.filter((m) => m.message !== undefined)
+      .map((m) => m.message.languageOrigin)
+      .filter((l) => l !== 'fr-FR');
+    return [...new Set(languages)];
+  }
+
+  private async translateDEMessages(data) {
+    if (!this.isMultiDevices) {
+      return;
+    }
+    const languages = this.getDELanguages();
+    for (const row of data) {
+      if (row.role === Role.ADVISOR) {
+        const traduction = [];
+        for (const language of languages) {
+          const translate = await this.translateService.translate(row.texte, language);
+          traduction.push(translate);
+        }
+        row.traduction = traduction.join(',');
+        row.langueDE = languages.join(',');
+      }
+    }
   }
 
   public switchAudio() {
@@ -275,7 +301,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     });
-  };
+  }
 
   private authorizeGuest(guests) {
     const lastAuthorization = guests[guests.length - 1];
