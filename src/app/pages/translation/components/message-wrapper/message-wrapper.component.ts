@@ -1,30 +1,30 @@
-import { ERROR_FUNC_UNAUTHORIZEDMICRO } from './../../../../models/error/errorFunctionnal';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
-import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
-import { Stream } from 'src/app/models/stream';
-import { Message } from 'src/app/models/translate/message';
-import { AudioRecordingService } from 'src/app/services/audio-recording.service';
-import { AdvisorDefaultName, SettingsService } from 'src/app/services/settings.service';
-import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
-import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { ChatService } from 'src/app/services/chat.service';
-import { Role } from 'src/app/models/role';
-import { User } from 'src/app/models/user';
-import { MessageWrapped } from '../../../../models/translate/message-wrapped';
-import { TranslationMode } from 'src/app/models/kpis/translationMode';
-import { ErrorService } from 'src/app/services/error.service';
-import { ERROR_TECH_UNAUTHORIZEDMICRO } from 'src/app/models/error/errorTechnical';
-import { isIOS } from 'src/app/utils/utils';
+import {ERROR_FUNC_UNAUTHORIZEDMICRO} from './../../../../models/error/errorFunctionnal';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Router} from '@angular/router';
+import {VOCABULARY, VOCABULARY_DEFAULT} from 'src/app/data/vocabulary';
+import {Stream} from 'src/app/models/stream';
+import {Message} from 'src/app/models/translate/message';
+import {AudioRecordingService} from 'src/app/services/audio-recording.service';
+import {AdvisorDefaultName, SettingsService} from 'src/app/services/settings.service';
+import {SpeechRecognitionService} from 'src/app/services/speech-recognition.service';
+import {ToastService} from 'src/app/services/toast.service';
+import {ChatService} from 'src/app/services/chat.service';
+import {Role} from 'src/app/models/role';
+import {User} from 'src/app/models/user';
+import {MessageWrapped} from '../../../../models/translate/message-wrapped';
+import {TranslationMode} from 'src/app/models/kpis/translationMode';
+import {ErrorService} from 'src/app/services/error.service';
+import {ERROR_TECH_UNAUTHORIZEDMICRO} from 'src/app/models/error/errorTechnical';
+import {isIOS} from 'src/app/utils/utils';
+import {RecordingState} from '../../../../models/RecordingState';
 
 @Component({
   selector: 'app-message-wrapper',
   templateUrl: './message-wrapper.component.html',
   styleUrls: ['./message-wrapper.component.scss'],
 })
-export class MessageWrapperComponent implements OnInit, OnChanges {
+export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() role: string;
   @Input() originText: string;
 
@@ -39,7 +39,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public translatedText: string = '';
   public micro: boolean = false;
   public error: boolean = false;
-  public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
+  public isReady: { listenTranslation: boolean; listenSpeech: boolean } = {listenTranslation: false, listenSpeech: false};
   public interim: string = '';
   public recordMode: boolean = false;
   public speaking: boolean = false;
@@ -48,20 +48,21 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   public languageName: string;
   public isIOS: boolean = false;
   public voiceNotSupported: boolean = false;
-
+  public seconds: number;
   private isMobile: boolean = false;
+  private recordingState: RecordingState = RecordingState.STOPPED;
 
   constructor(
     private toastService: ToastService,
     private settingsService: SettingsService,
     private audioRecordingService: AudioRecordingService,
-    public textToSpeechService: TextToSpeechService,
     public router: Router,
     private breakpointObserver: BreakpointObserver,
     private speechRecognitionService: SpeechRecognitionService,
     private chatService: ChatService,
     private errorService: ErrorService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.isIOS = isIOS();
@@ -82,6 +83,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.originText) {
       this.rawText = this.originText;
+    }
+  }
+
+  ngAfterViewInit() {
+    const textArea = document.getElementById('msg-wrapper-advisor');
+    if (textArea) {
+      textArea.focus();
     }
   }
 
@@ -112,9 +120,6 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
         } else {
           this.rawText = saveText + value.final;
           saveText = this.rawText;
-          this.speechRecognitionService.DestroySpeechObject();
-          this.speaking = false;
-          this.canSend = true;
         }
       }
     });
@@ -127,6 +132,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
       this.send(false);
     }, 1000);
   }
+
   public delete(): void {
     this.rawText = '';
     this.canSend = false;
@@ -178,10 +184,37 @@ export class MessageWrapperComponent implements OnInit, OnChanges {
     this.canSend = true;
   }
 
+  public displaySendOnKeyPress() {
+    this.canSend = true;
+  }
+
   public displaySendOnBlur() {
     if (this.rawText === undefined || this.rawText === '') {
       this.canSend = false;
     }
+  }
+
+  onHold(time) {
+    this.recordingState = RecordingState.RECORDING;
+    this.seconds = Math.round(time / 1000);
+  }
+
+  onStart() {
+    if (this.recordingState === RecordingState.RECORDING) {
+      return;
+    }
+    this.recordingState = RecordingState.RECORDING;
+    this.talk();
+  }
+
+  onStop() {
+    this.recordingState = RecordingState.STOPPED;
+    if (this.rawText) {
+      this.canSend = true;
+    }
+    this.exitRecord();
+    this.speechRecognitionService.DestroySpeechObject();
+    this.speaking = false;
   }
 
   private async sendToOneDevice(text: string) {
