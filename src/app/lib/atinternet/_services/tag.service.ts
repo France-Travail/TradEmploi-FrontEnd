@@ -36,9 +36,13 @@ export class TagService {
 
   private setTag() {
     if (!this.tag) {
-      const trakcer = ATInternet.Tracker;
-      if (trakcer) {
-        this.tag = new trakcer.Tag();
+      try {
+        const trakcer = ATInternet.Tracker;
+        if (trakcer) {
+          this.tag = new trakcer.Tag();
+        }
+      } catch (ex) {
+        console.error(ex);
       }
     }
   }
