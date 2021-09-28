@@ -75,7 +75,7 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionThree.french = rateFr.comment;
       this.sentences.questionFour.french = rateFr.technical;
     }
-    let languageNameFr: string = 'Français';
+    let languageNameFr: string = 'fr-FR';
     if (this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA') {
       this.sentences.questionOne.foreign = '';
       this.sentences.questionTwo.foreign = '';
@@ -92,19 +92,18 @@ export class RateDialogComponent implements OnInit {
         languageNameFr = vocabularyForeign.languageNameFr;
       }
     }
-    let languages;
+    let isoCodes;
     if (this.data.guest) {
-      languages = this.data.guest
+      isoCodes = this.data.guest
         .filter((l, index) => l !== 'fr-FR' && this.data.guest.indexOf(l) === index)
-        .map((l) => VOCABULARY.find((v) => v.isoCode === l).languageNameFr)
         .join(',');
     } else {
-      languages = [languageNameFr];
+      isoCodes = [languageNameFr];
     }
 
     const date = new Date();
     this.rate = {
-      language: languages,
+      language: isoCodes,
       date,
       hour: date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0'),
       grades: [undefined, undefined],
