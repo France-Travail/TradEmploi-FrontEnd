@@ -34,9 +34,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public sendBtnValue: string;
   public flag: string;
   public languageOrigin: string;
-  public rawSpeech: HTMLAudioElement;
   public translatedSpeech: HTMLAudioElement;
-  public translatedText: string = '';
   public micro: boolean = false;
   public error: boolean = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = {listenTranslation: false, listenSpeech: false};
@@ -71,7 +69,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
     const data = isLanguageExist || this.role === Role.ADVISOR ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     const translationPlaceHolderIos = this.role === Role.ADVISOR ? data.sentences.translationH2Ios : VOCABULARY_DEFAULT.sentences.translationH2Ios;
-    this.interim = this.isIOS ? translationPlaceHolderIos : data.sentences.translationH2;
+    this.interim = this.settingsService.recordMode ? data.sentences.translationH2Mobile : this.isIOS ? translationPlaceHolderIos : data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
     this.voiceNotSupported = data.sentences.voiceNotSupported ? data.sentences.voiceNotSupported : false;
     this.flag = data.isoCode.split('-')[1].toLowerCase();
@@ -215,6 +213,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     this.exitRecord();
     this.speechRecognitionService.DestroySpeechObject();
     this.speaking = false;
+    this.seconds = 0;
   }
 
   private async sendToOneDevice(text: string) {

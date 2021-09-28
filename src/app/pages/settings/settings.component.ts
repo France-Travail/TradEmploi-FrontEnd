@@ -64,7 +64,7 @@ export class SettingsComponent implements OnInit {
       this.dialog.open(LoaderComponent, { panelClass: 'loader' });
     }
     this.rateService
-      .getRates()
+      .getRates(true)
       .then((rates) => {
         exportCsv(rates, 'PE_Outil_Traduction_Evaluation_');
         this.dialog.closeAll();

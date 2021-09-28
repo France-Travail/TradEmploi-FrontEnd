@@ -34,6 +34,8 @@ export interface Sentence {
   tooltip?: Tooltip;
   introMessage?: IntroMessage;
   translationH2Ios?: string;
+  translationH2Mobile?: string;
+
 }
 export interface Tooltip {
   pronounce: string;
@@ -65,9 +67,7 @@ export interface Modality {
   monoSupport: string;
   multiSupport: string;
   monoSentenceFR: string;
-  monoSentenceENG: string;
   multiSentenceFR: string;
-  multiSentenceENG: string;
   confirm: string;
 }
 export interface Rate {
