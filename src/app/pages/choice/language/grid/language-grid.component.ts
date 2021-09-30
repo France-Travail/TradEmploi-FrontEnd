@@ -8,7 +8,9 @@ import {TextToSpeechService} from 'src/app/services/text-to-speech.service';
 import {ToastService} from 'src/app/services/toast.service';
 import {ENGLISH, FRENCH} from 'src/app/data/sentence';
 import {Tooltip} from './../../../../models/vocabulary';
-import {RateService} from '../../../../services/rate.service';
+import {Observable} from 'rxjs';
+import {Language} from '../../../../models/db/language';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 
 @Component({
@@ -28,6 +30,7 @@ export class LanguageGridComponent implements OnChanges {
 
   private audioClick: boolean = false;
   private audioEnabled = true;
+  private selectedCountries: Vocabulary[] = [];
 
   public countriesSort = [
     {value: ['langue', true], viewValue: 'Langue (asc)'},
@@ -38,13 +41,15 @@ export class LanguageGridComponent implements OnChanges {
 
 
   constructor(private textToSpeechService: TextToSpeechService, private toastService: ToastService, private settingsService: SettingsService,
-              private rateService: RateService, private router: Router) {
+              private db: AngularFirestore, private router: Router) {
+    const result = this.db.collection(`languages`).valueChanges() as Observable<Language[]>;
+    result.subscribe(languages => languages.forEach(language => this.selectedCountries.push(...VOCABULARY.filter((i) => i.isoCode === language.isoCode))));
   }
 
   ngOnChanges() {
     this.tooltip = this.isGuest ? ENGLISH.tooltip : FRENCH.tooltip;
     this.voiceTitle = this.isGuest ? ENGLISH.choice.voice : FRENCH.choice.voice;
-    this.optionAll ? this.getCountriesAll() : this.getCountriesSelected();
+    this.optionAll ? this.getCountriesAll() : this.setCountriesSelected();
     if (this.search && this.search != '') {
       const searchName = this.search.trim().toLowerCase();
       this.countries = this.countries.filter(
@@ -57,18 +62,8 @@ export class LanguageGridComponent implements OnChanges {
     }
   }
 
-  public getCountriesSelected() {
-    this.rateService.getRates(false).then((rates) => {
-      let languagesSelected = [];
-      rates.forEach(rate => languagesSelected = languagesSelected.concat(rate.Langage.split(',')));
-      const mapLanguages = languagesSelected.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
-      const languagesSorted = new Map([...mapLanguages.entries()].sort((a, b) => b[1] - a[1]));
-      this.countries = [];
-      Array.from(languagesSorted.keys()).forEach(country => this.countries.push(...VOCABULARY.filter((i) => i.isoCode === country)));
-    })
-      .catch(async (_) => {
-          this.toastService.showToast('error while getting selected countries', 'toast-error');
-      });
+  public setCountriesSelected() {
+    this.countries = this.selectedCountries;
   }
 
   public getCountriesAll() {
