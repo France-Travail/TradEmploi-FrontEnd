@@ -12,9 +12,11 @@ import {AuthService} from './auth.service';
 export class KpiService {
   constructor(private errorService: ErrorService, private authService: AuthService) {}
 
-  public async getkpi() {
-    const emailPe = localStorage.getItem('emailPe');
-    await this.authService.login(environment.peama.login, environment.peama.password, emailPe);
+  public async getkpi(login: boolean) {
+    if (login) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      await this.authService.login(environment.peama.login, environment.peama.password, user.email);
+    }
     const gwToken = JwtGwSingleton.getInstance().getToken().token;
     const url = `${environment.gcp.gateWayUrl}/reporting`;
     const data = {

@@ -28,9 +28,9 @@ export class RateService {
   }
 
   public async getRates(login: boolean) {
-    const emailPe = localStorage.getItem('emailPe');
     if (login) {
-      await this.authService.login(environment.peama.login, environment.peama.password, emailPe);
+      const user = JSON.parse(localStorage.getItem('user'));
+      await this.authService.login(environment.peama.login, environment.peama.password, user.email);
     }
     const gwToken = JwtGwSingleton.getInstance().getToken().token;
     const url = `${environment.gcp.gateWayUrl}/reporting`;

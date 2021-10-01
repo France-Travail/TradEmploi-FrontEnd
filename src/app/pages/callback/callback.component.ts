@@ -16,11 +16,10 @@ export class CallbackComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const accessToken = this.getAccessToken(window.location.href);
-    const user = await this.authService.getUserInfos(accessToken)
+    const user = await this.authService.getUserInfos(accessToken);
     try {
       if (user.email.match('.*@pole-emploi[.]fr$')) {
-        this.loginAuthentificated(user.email);
-        localStorage.setItem('emailPe', user.email);
+        this.loginAuthentificated(user.email, user.given_name, user.family_name);
       }
     } catch (error) {
       this.router.navigateByUrl('/start');
@@ -28,18 +27,20 @@ export class CallbackComponent implements OnInit {
   }
 
   private getAccessToken(url: string) {
-    return url.split('access_token')[1].split('=')[1].split('&')[0]
+    return url.split('access_token')[1].split('=')[1].split('&')[0];
   }
 
-  private async loginAuthentificated(emailPe: string) {
+  private async loginAuthentificated(email: string, firstname: string, lastname: string) {
     try {
-      const auth = await this.authService.login(environment.peama.login, environment.peama.password, emailPe);
+      const auth = await this.authService.login(environment.peama.login, environment.peama.password, email);
       const roomId = this.chatService.getRoomId();
       localStorage.setItem('isLogged', 'true');
       this.settingsService.user.next({
         ...this.settingsService.user.value,
-        role: this.authService.getRole(emailPe),
-        firstname: 'Pôle emploi',
+        role: this.authService.getRole(email),
+        firstname,
+        lastname,
+        email,
         connectionTime: Date.now(),
         roomId,
         isMultiDevices: false,

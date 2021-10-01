@@ -25,7 +25,7 @@ export class SettingsComponent implements OnInit {
     private kpiService: KpiService,
     private toastService: ToastService,
     public dialog: MatDialog,
-    private Router: Router
+    private router: Router
   ) {
     this.navService.handleTabsSettings();
   }
@@ -35,7 +35,7 @@ export class SettingsComponent implements OnInit {
     this.settingsService.user.subscribe((user) => {
       this.isGuest = (user.role === Role.GUEST);
       if (this.isGuest) {
-        this.Router.navigateByUrl('/start');
+        this.router.navigateByUrl('/start');
       }
     });
   }
@@ -44,7 +44,7 @@ export class SettingsComponent implements OnInit {
       this.dialog.open(LoaderComponent, { panelClass: 'loader' });
     }
     this.kpiService
-      .getkpi()
+      .getkpi(true)
       .then((kpi) => {
         exportCsv(kpi, 'PE_Outil_Traduction_KPIs_');
         this.dialog.closeAll();

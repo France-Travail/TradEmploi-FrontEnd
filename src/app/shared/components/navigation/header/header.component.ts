@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {LogoutComponent} from '../../logout/logout.component';
 import {MatDialog} from '@angular/material';
 import {ShareComponent} from '../../../../pages/translation/dialogs/share/share.component';
@@ -17,7 +17,7 @@ import {GdprComponent} from '../../../../pages/gdpr/gdpr.component';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements  OnInit{
   @Output() public sidenavToggle = new EventEmitter();
 
   public choiceLink: string;
@@ -27,10 +27,14 @@ export class HeaderComponent {
   public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
   public language: string;
+  public userName: string;
 
   constructor(public dialog: MatDialog, public navbarService: NavbarService, public settingsService: SettingsService, private breakpointObserver: BreakpointObserver) {
-    this.isWideScreen = this.breakpointObserver.observe(['(min-width: 1051px)']).pipe(map(({ matches }) => matches));
-    this.isSmallScreen = this.breakpointObserver.observe(['(max-width: 1050px)']).pipe(map(({ matches }) => matches));
+  }
+
+  ngOnInit(): void {
+    this.isWideScreen = this.breakpointObserver.observe(['(min-width: 1051px)']).pipe(map(({matches}) => matches));
+    this.isSmallScreen = this.breakpointObserver.observe(['(max-width: 1050px)']).pipe(map(({matches}) => matches));
     this.settingsService.user.subscribe((user) => {
       const isGuest = user !== null ? user.role === Role.GUEST : true;
       this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
@@ -38,8 +42,9 @@ export class HeaderComponent {
       this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'Guide de démarrage';
       this.gdprLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.gdpr : 'cgu';
       this.language = isGuest ? 'english' : 'french';
+      this.userName = user !== null ? [user.firstname, user.lastname].join(' ') : '';
     });
-  }
+    }
 
   public onToggleSidenav() {
     this.sidenavToggle.emit();
