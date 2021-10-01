@@ -42,10 +42,9 @@ export class LanguageGridComponent implements OnChanges {
 
   constructor(private textToSpeechService: TextToSpeechService, private toastService: ToastService, private settingsService: SettingsService,
               private db: AngularFirestore, private router: Router) {
-    const result = this.db.collection(`languages`).valueChanges() as Observable<Language[]>;
+    const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as Observable<Language[]>;
     result.subscribe(languages => languages.forEach(language => this.selectedCountries.push(...VOCABULARY.filter((i) => i.isoCode === language.isoCode))));
   }
-
   ngOnChanges() {
     this.tooltip = this.isGuest ? ENGLISH.tooltip : FRENCH.tooltip;
     this.voiceTitle = this.isGuest ? ENGLISH.choice.voice : FRENCH.choice.voice;
