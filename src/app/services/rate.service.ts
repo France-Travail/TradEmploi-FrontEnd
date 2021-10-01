@@ -27,10 +27,10 @@ export class RateService {
     return this.afs.collection(this.db).doc<Rate>(this.afs.createId()).set(this.rate);
   }
 
-  public async getRates(login: boolean) {
-    const emailPe = localStorage.getItem('emailPe');
-    if (login) {
-      await this.authService.login(environment.peama.login, environment.peama.password, emailPe);
+  public async getRates(isNotLogged: boolean) {
+    if (isNotLogged) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      await this.authService.login(environment.peama.login, environment.peama.password, user.email);
     }
     const gwToken = JwtGwSingleton.getInstance().getToken().token;
     const url = `${environment.gcp.gateWayUrl}/reporting`;
