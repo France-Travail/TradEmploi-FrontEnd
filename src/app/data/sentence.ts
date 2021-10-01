@@ -4,7 +4,7 @@ export const NAVBAR_ENGLISH_TABS: NavbarTab = {
   language: 'language',
   logout: 'logout',
   help: 'Start guide',
-  gdpr: 'CGU'
+  gdpr: 'CGU',
 };
 
 export const HEBREW: Sentence = {
@@ -71,7 +71,7 @@ export const FRENCH: Sentence = {
   gdpr: {
     title: 'Protection des données à caractère personnel',
     privacyText:
-      'Cet outil de traduction instantanée traite vos données dans le cadre de vos échanges avec votre conseiller et de votre accompagnement par Pôle emploi. La base légal de ce traitement est la mission de service public de Pôle emploi.\n\nVos données sont collectées et traitées par Pôle Emploi dans le cadre du suivi des demandeurs d’emploi.\n\nPôle emploi utilisera vos données de manière anonymisée, à des fins d’amélioration continue de ses services, sur la base de ses intérêts légitimes.\n\nVos données personnelles sont transférées vers des datacenters de Google pour la bon fonctionnement de l’outil.\n\nS’agissant de l’hébergement de vos données, Google a recours à différents datacenters présents au sein et en dehors de l’Union européenne. Compte tenu de la nature de cet hébergeur il convient de préciser que ce dernier est soumis au Cloud Act, loi américaine promulguée le 23 mars 2018, permettant aux forces de l\'ordre ou aux agences de renseignement américaines d’obtenir des opérateurs télécoms et des fournisseurs de services de Cloud Computing des informations stockées sur leurs serveurs, que ces données soient situées aux États-Unis ou à l’étranger.\n\nVos données sont conservées le temps de la conversation. Elles sont ensuite entièrement anonymisées.\n\nToute personne peut exercer ses droits notamment d’accès et de rectification en adressant sa demande à la délégué à la protection des données de Pôle emploi par courrier à l’adresse suivante ;  1 avenue du Docteur Gley - 75987 Paris cedex 20, ou par courriel à l’adresse email suivante. contact-dpd@pole-emploi.fr.\n\nSi vous estimez que vos droits n’ont pas été respectés, vous pouvez introduire une réclamation auprès de la Commission Nationale Informatique et Libertés (CNIL).',
+      "Cet outil de traduction instantanée traite vos données dans le cadre de vos échanges avec votre conseiller et de votre accompagnement par Pôle emploi. La base légal de ce traitement est la mission de service public de Pôle emploi.\n\nVos données sont collectées et traitées par Pôle Emploi dans le cadre du suivi des demandeurs d’emploi.\n\nPôle emploi utilisera vos données de manière anonymisée, à des fins d’amélioration continue de ses services, sur la base de ses intérêts légitimes.\n\nVos données personnelles sont transférées vers des datacenters de Google pour la bon fonctionnement de l’outil.\n\nS’agissant de l’hébergement de vos données, Google a recours à différents datacenters présents au sein et en dehors de l’Union européenne. Compte tenu de la nature de cet hébergeur il convient de préciser que ce dernier est soumis au Cloud Act, loi américaine promulguée le 23 mars 2018, permettant aux forces de l'ordre ou aux agences de renseignement américaines d’obtenir des opérateurs télécoms et des fournisseurs de services de Cloud Computing des informations stockées sur leurs serveurs, que ces données soient situées aux États-Unis ou à l’étranger.\n\nVos données sont conservées le temps de la conversation. Elles sont ensuite entièrement anonymisées.\n\nToute personne peut exercer ses droits notamment d’accès et de rectification en adressant sa demande à la délégué à la protection des données de Pôle emploi par courrier à l’adresse suivante ;  1 avenue du Docteur Gley - 75987 Paris cedex 20, ou par courriel à l’adresse email suivante. contact-dpd@pole-emploi.fr.\n\nSi vous estimez que vos droits n’ont pas été respectés, vous pouvez introduire une réclamation auprès de la Commission Nationale Informatique et Libertés (CNIL).",
     closeBtn: 'FERMER',
   },
   logout: {
@@ -130,7 +130,7 @@ export const ENGLISH: Sentence = {
   gdpr: {
     title: 'Protection of personal data',
     privacyText:
-      'This translation tool processes your data in the context of your exchanges with your advisor and your support by Pôle emploi. The legal basis for this\n processing is the public service mission of Pôle Emploi.\n\nYour data is collected and processed by Pôle Emploi as part of the follow-up of job seekers.\n\nPôle emploi will use your data in an anonymized way, for the purpose of continuous improvement of its services, on the basis of its legitimate interests.\n\nYour personal data is transferred to Google datacenters for the proper functioning of the tool.\n\nGoogle uses various data centers within and outside the European Union to host your data. Given the nature of this host, it should be noted that it is subject \nto the Cloud Act, an American law enacted on March 23, 2018, allowing law enforcement or American intelligence agencies to obtain information stored on their \nservers from telecom operators and cloud computing service providers, whether this data is located in the United States or abroad.\n\nYour data is kept for the duration of the conversation. It is then completely anonymized.\nAny person may exercise his or her rights of access and rectification by sending a request to Pôle emploi\'s Data Protection Officer by mail to the following \naddress: 1 avenue du Docteur Gley - 75987 Paris cedex 20, or by email to the following address: contact-dpd@pole-emploi.fr.)\n\nIf you feel that your rights have not been respected, you may file a complaint with the Commission Nationale Informatique et Libertés (CNIL).',
+      "This translation tool processes your data in the context of your exchanges with your advisor and your support by Pôle emploi. The legal basis for this\n processing is the public service mission of Pôle Emploi.\n\nYour data is collected and processed by Pôle Emploi as part of the follow-up of job seekers.\n\nPôle emploi will use your data in an anonymized way, for the purpose of continuous improvement of its services, on the basis of its legitimate interests.\n\nYour personal data is transferred to Google datacenters for the proper functioning of the tool.\n\nGoogle uses various data centers within and outside the European Union to host your data. Given the nature of this host, it should be noted that it is subject \nto the Cloud Act, an American law enacted on March 23, 2018, allowing law enforcement or American intelligence agencies to obtain information stored on their \nservers from telecom operators and cloud computing service providers, whether this data is located in the United States or abroad.\n\nYour data is kept for the duration of the conversation. It is then completely anonymized.\nAny person may exercise his or her rights of access and rectification by sending a request to Pôle emploi's Data Protection Officer by mail to the following \naddress: 1 avenue du Docteur Gley - 75987 Paris cedex 20, or by email to the following address: contact-dpd@pole-emploi.fr.)\n\nIf you feel that your rights have not been respected, you may file a complaint with the Commission Nationale Informatique et Libertés (CNIL).",
     closeBtn: 'CLOSE',
   },
   logout: {
@@ -159,7 +159,7 @@ export const ENGLISH: Sentence = {
     welcomeFR: 'Pour améliorer l’expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',
     welcomeRAW: 'To improve the translation experience, make short and simple sentences and speak loudly.',
     notifMultiFR: 'L’espace de conversation a été créé en modalité multi-support.',
-    notifMultiRAW: 'You\'ve joined the conversation.',
+    notifMultiRAW: "You've joined the conversation.",
     voiceavailabilityFR: 'Saisie vocale indisponible pour la langue sélectionnée',
     voiceavailabilityRAW: 'Voice input is unavailable for this language',
   },
@@ -169,7 +169,19 @@ export const ENGLISH_DEFAULT: Sentence = {
   ...ENGLISH,
   audioSupported: false,
 };
-
+export const ENGLISH_DEFAULT_NO_VOICE: Sentence = {
+  ...ENGLISH_DEFAULT,
+  voiceNotSupported: true,
+};
+export const PENDJABI = {
+  ...ENGLISH,
+  audioSupported:true,
+  readedWelcome:'ਕੀ ਤੁਸੀਂ ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?'
+}
+export const ESTONIAN = {
+  ...ENGLISH_DEFAULT,
+  readedWelcome:'Kas soovite selles keeles vahetada ?'
+}
 export const DANISH: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Vil du udveksle på dette sprog?',
@@ -668,13 +680,13 @@ export const RUSSIA: Sentence = {
 };
 
 export const OUZBEK: Sentence = {
-  displayedWelcome: 'Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo\'lardim.',
+  displayedWelcome: "Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo'lardim.",
   readedWelcome: 'Ushbu tilda almashishni xohlaysizmi?',
   applicationName: 'Instant Translation',
   send: 'Send',
   translate: 'Translate',
-  translationH2: 'Matn kiriting yoki gapirish uchun ko\'k mikrofonni bosib turing',
-  translationH2Mobile: 'Matn kiriting yoki gapirish uchun ko\'k mikrofonga teging',
+  translationH2: "Matn kiriting yoki gapirish uchun ko'k mikrofonni bosib turing",
+  translationH2Mobile: "Matn kiriting yoki gapirish uchun ko'k mikrofonga teging",
   thanks: 'Pôle Emploi thanks you.',
   listen: 'Listen',
   recordText: 'Hozir gapiring',

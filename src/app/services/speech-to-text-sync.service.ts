@@ -20,6 +20,7 @@ export class SpeechToTextSyncService {
           encoding: 'FLAC',
           sampleRateHertz: 44100,
           languageCode: language,
+          enableAutomaticPunctuation: true,
         },
         audio: {
           content: audioBytes,
