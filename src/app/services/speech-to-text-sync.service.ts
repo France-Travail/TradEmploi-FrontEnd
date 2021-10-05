@@ -14,7 +14,7 @@ export class SpeechToTextSyncService {
   recognizeSync = async (audioBytes: any, language: string): Promise<string> => {
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     if (audioBytes !== null || audioBytes !== undefined) {
-      const urlRecognize: string = `https://speech.googleapis.com/v1/speech:recognize`;
+      const urlRecognize: string = `https://eu-speech.googleapis.com/v1/speech:recognize`;
       const data = {
         config: {
           encoding: 'FLAC',
