@@ -47,7 +47,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public isIOS: boolean = false;
   public voiceNotSupported: boolean = false;
   public seconds: number;
-  private isMobile: boolean = true;
+  private isMobile: boolean = false;
   private recordingState: RecordingState = RecordingState.STOPPED;
 
   constructor(
@@ -73,7 +73,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     this.voiceNotSupported = data.sentences.voiceNotSupported ? data.sentences.voiceNotSupported : false;
     this.flag = data.isoCode.split('-')[1].toLowerCase();
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
-     // this.isMobile = result.matches;
+      this.isMobile = result.matches;
     });
   }
 
