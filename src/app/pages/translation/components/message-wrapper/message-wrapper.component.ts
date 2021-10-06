@@ -138,12 +138,21 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
 
   private streamWithMicrosoft() {
     let saveText = '';
-    this.speechToTextMicrosoftService.recognize(this.languageOrigin).subscribe((value: string) => {
+    this.speechToTextMicrosoftService.recognize(this.transcodificationMicrosoft(this.languageOrigin)).subscribe((value: string) => {
         if (value !== '') {
           this.rawText = saveText + value;
           saveText = this.rawText;
         }
     });
+  }
+
+  private transcodificationMicrosoft(language: string): string {
+    if (environment.microsoftSpeechConfig.enabled) {
+      if (language === 'ar-XA') {
+        return 'ar-EG';
+      }
+    }
+    return language;
   }
 
   public exitStream() {
