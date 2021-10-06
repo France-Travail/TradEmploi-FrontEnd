@@ -110,6 +110,15 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       this.errorService.save(ERROR_TECH_UNAUTHORIZEDMICRO);
     }
   }
+  public async talkWithMicrosoft(): Promise<void> {
+    this.micro = true;
+    this.rawText = '';
+    this.isMobile = false;
+    this.streamWithMicrosoft();
+
+    this.translationMode = TranslationMode.VOCAL;
+    this.speaking = true;
+  }
 
   private stream() {
     let saveText = '';
@@ -125,15 +134,6 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
         }
       }
     });
-  }
-  public async talkWithMicrosoft(): Promise<void> {
-    this.micro = true;
-    this.rawText = '';
-    this.isMobile = false;
-    this.streamWithMicrosoft();
-
-    this.translationMode = TranslationMode.VOCAL;
-    this.speaking = true;
   }
 
   private streamWithMicrosoft() {
@@ -231,7 +231,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     }
     this.recordingState = RecordingState.RECORDING;
     if (this.useSpeechToTextMicrosoftApi) {
-      this.streamWithMicrosoft();
+      this.talkWithMicrosoft();
     } else {
       this.talk();
     }
