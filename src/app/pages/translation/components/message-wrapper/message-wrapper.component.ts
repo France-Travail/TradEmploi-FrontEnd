@@ -85,7 +85,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
 
   ngAfterViewInit() {
     const textArea = document.getElementById('msg-wrapper-advisor');
-    if (textArea) {
+    if (!this.isMobile && textArea) {
       textArea.focus();
     }
   }
