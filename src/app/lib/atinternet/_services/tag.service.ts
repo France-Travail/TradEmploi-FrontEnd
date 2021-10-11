@@ -50,7 +50,7 @@ export class TagService {
   click(info: ClickInfo): boolean {
     this.setTag();
     try {
-    return this.tag.click.send(info);
+      return this.tag.click.send(info);
     } catch (ex) {
       console.error(ex);
       return false;
@@ -60,7 +60,7 @@ export class TagService {
   clickListener(info: ClickInfo): void {
     this.setTag();
     try {
-    this.tag.clickListener.send(info);
+      this.tag.clickListener.send(info);
     } catch (ex) {
       console.error(ex);
     }
@@ -69,7 +69,7 @@ export class TagService {
   pageSend(info: PageInfo): void {
     this.setTag();
     try {
-    this.tag.page.send(info);
+      this.tag.page.send(info);
     } catch (ex) {
       console.error(ex);
     }
