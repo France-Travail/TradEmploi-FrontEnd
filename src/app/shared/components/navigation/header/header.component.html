@@ -38,7 +38,10 @@
       <button id="logout-header" (click)="logout()"  atTag
               [clickData]="{'name':'logout-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">
         <img src="assets/icons/icon-logout.svg" />
-        <span class="name">{{ logoutLink | uppercase }}</span>
+        <div>
+          <div class="name">{{ logoutLink | uppercase }}</div>
+          <div class="name">{{userName}}</div>
+        </div>
       </button>
     </div>
   </ng-container>

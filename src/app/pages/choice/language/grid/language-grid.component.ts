@@ -8,6 +8,9 @@ import {TextToSpeechService} from 'src/app/services/text-to-speech.service';
 import {ToastService} from 'src/app/services/toast.service';
 import {ENGLISH, FRENCH} from 'src/app/data/sentence';
 import {Tooltip} from './../../../../models/vocabulary';
+import {Observable} from 'rxjs';
+import {Language} from '../../../../models/db/language';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 
 @Component({
@@ -16,7 +19,7 @@ import {Tooltip} from './../../../../models/vocabulary';
   styleUrls: ['./language-grid.component.scss'],
 })
 export class LanguageGridComponent implements OnChanges {
-  @Input() search: String;
+  @Input() search: string;
   @Input() optionAll: boolean;
   @Input() optionList: boolean;
   @Input() isGuest: boolean;
@@ -25,9 +28,9 @@ export class LanguageGridComponent implements OnChanges {
   public tooltip: Tooltip;
   public voiceTitle: string;
 
-  private countriesSelected: string[] = ['en-GB', 'ar-XA', 'ps-AF', 'fa-AF', 'bn-BD', 'es-ES', 'de-DE', 'pt-PT', 'it-IT', 'zh-CN', 'ru-RU'];
   private audioClick: boolean = false;
   private audioEnabled = true;
+  private selectedCountries: Vocabulary[] = [];
 
   public countriesSort = [
     {value: ['langue', true], viewValue: 'Langue (asc)'},
@@ -37,13 +40,15 @@ export class LanguageGridComponent implements OnChanges {
   ];
 
 
-  constructor(private textToSpeechService: TextToSpeechService, private toastService: ToastService, private settingsService: SettingsService, private router: Router) {
+  constructor(private textToSpeechService: TextToSpeechService, private toastService: ToastService, private settingsService: SettingsService,
+              private db: AngularFirestore, private router: Router) {
+    const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as Observable<Language[]>;
+    result.subscribe(languages => languages.forEach(language => this.selectedCountries.push(...VOCABULARY.filter((i) => i.isoCode === language.isoCode))));
   }
-
   ngOnChanges() {
     this.tooltip = this.isGuest ? ENGLISH.tooltip : FRENCH.tooltip;
     this.voiceTitle = this.isGuest ? ENGLISH.choice.voice : FRENCH.choice.voice;
-    this.optionAll ? this.getCountriesAll() : this.getCountriesSelected();
+    this.optionAll ? this.getCountriesAll() : this.setCountriesSelected();
     if (this.search && this.search != '') {
       const searchName = this.search.trim().toLowerCase();
       this.countries = this.countries.filter(
@@ -56,8 +61,8 @@ export class LanguageGridComponent implements OnChanges {
     }
   }
 
-  public getCountriesSelected() {
-    this.countries = this.countriesSelected.map((country) => VOCABULARY.find((i) => i.isoCode === country));
+  public setCountriesSelected() {
+    this.countries = this.selectedCountries;
   }
 
   public getCountriesAll() {

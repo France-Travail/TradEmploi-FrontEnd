@@ -1,14 +1,14 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { LogoutComponent } from '../../logout/logout.component';
-import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
-import { SettingsService } from 'src/app/services/settings.service';
-import { NavbarService } from 'src/app/services/navbar.service';
-import { Role } from 'src/app/models/role';
-import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
-import { RateDialogComponent } from 'src/app/pages/translation/dialogs/rate-dialog/rate-dialog.component';
-import { OnboardingComponent } from 'src/app/pages/translation/dialogs/onboarding/onboarding.component';
-import {GdprComponent} from "../../../../pages/gdpr/gdpr.component";
+import {Component, EventEmitter, Output} from '@angular/core';
+import {MatDialog} from '@angular/material';
+import {LogoutComponent} from '../../logout/logout.component';
+import {ShareComponent} from '../../../../pages/translation/dialogs/share/share.component';
+import {SettingsService} from 'src/app/services/settings.service';
+import {NavbarService} from 'src/app/services/navbar.service';
+import {Role} from 'src/app/models/role';
+import {VOCABULARY_DEFAULT} from 'src/app/data/vocabulary';
+import {RateDialogComponent} from 'src/app/pages/translation/dialogs/rate-dialog/rate-dialog.component';
+import {OnboardingComponent} from 'src/app/pages/translation/dialogs/onboarding/onboarding.component';
+import {GdprComponent} from '../../../../pages/gdpr/gdpr.component';
 
 @Component({
   selector: 'app-sidenav',
@@ -23,6 +23,7 @@ export class SidenavComponent {
   public helpLink: string;
   public gdprLink: string;
   public language: string;
+  public userName: string;
 
   constructor(public dialog: MatDialog, public settingsService: SettingsService, public navbarService: NavbarService) {
     this.settingsService.user.subscribe((user) => {
@@ -32,6 +33,7 @@ export class SidenavComponent {
       this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'Guide de démarrage';
       this.gdprLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.gdpr : 'cgu';
       this.language = isGuest ? 'english' : 'french';
+      this.userName = user !== null ? [user.firstname, user.lastname].join('') : '';
     });
   }
 

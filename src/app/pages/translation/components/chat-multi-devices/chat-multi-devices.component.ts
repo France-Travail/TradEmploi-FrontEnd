@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MessageWrapped } from '../../../../models/translate/message-wrapped';
-import { Message } from 'src/app/models/translate/message';
+import {Component, Input} from '@angular/core';
+import {MessageWrapped} from '../../../../models/translate/message-wrapped';
+import {Message} from 'src/app/models/translate/message';
 
 @Component({
   selector: 'app-chat-multi-devices',
@@ -9,7 +9,6 @@ import { Message } from 'src/app/models/translate/message';
 })
 export class ChatMultiDevicesComponent {
   @Input() messagesWrapped: MessageWrapped[];
-  public peTitle: string = sessionStorage.getItem('user') ? 'Job consellor Pôle Emploi' : 'Conseiller Pôle Emploi';
 
   public listen(index) {
     const sentMessage: Message = this.messagesWrapped[index].message;
@@ -17,4 +16,6 @@ export class ChatMultiDevicesComponent {
       sentMessage.audioHtml.play();
     }
   }
+
+
 }

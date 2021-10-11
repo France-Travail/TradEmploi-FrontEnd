@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import axios from 'axios';
-import { ErrorService } from './error.service';
-import { ERROR_TECH_TRANSLATION } from '../models/error/errorTechnical';
-import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
-import { TokenResponse } from '../models/token/tokensResponse';
-import { TokenBrokerService } from './token-broker.service';
+import {ErrorService} from './error.service';
+import {ERROR_TECH_TRANSLATION} from '../models/error/errorTechnical';
+import {TokenResponse} from '../models/token/tokensResponse';
+import {TokenBrokerService} from './token-broker.service';
+
 @Injectable({
   providedIn: 'root',
 })

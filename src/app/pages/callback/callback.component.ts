@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import {AuthService} from 'src/app/services/auth.service';
 import {ChatService} from 'src/app/services/chat.service';
 import {SettingsService} from 'src/app/services/settings.service';
-import jwtDecode from 'jwt-decode';
 import {environment} from 'src/environments/environment';
 
 @Component({
@@ -12,35 +11,36 @@ import {environment} from 'src/environments/environment';
   styleUrls: ['./callback.component.scss'],
 })
 export class CallbackComponent implements OnInit {
-  constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private chatService: ChatService) {
+  constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private chatService: ChatService, ) {
   }
 
-  ngOnInit(): void {
-    const token = this.getToken(window.location.href);
+  async ngOnInit(): Promise<void> {
+    const accessToken = this.getAccessToken(window.location.href);
+    const user = await this.authService.getUserInfos(accessToken);
     try {
-      const payload: any = jwtDecode(token);
-      if (payload.email.match('.*@pole-emploi[.]fr$')) {
-        this.loginAuthentificated(payload.email);
-        localStorage.setItem('emailPe', payload.email);
+      if (user.email.match('.*@pole-emploi[.]fr$')) {
+        this.loginAuthentificated(user.email, user.given_name, user.family_name);
       }
     } catch (error) {
       this.router.navigateByUrl('/start');
     }
   }
 
-  private getToken(url: string) {
-    return url.split('&')[1].split('=')[1];
+  private getAccessToken(url: string) {
+    return url.split('access_token')[1].split('=')[1].split('&')[0];
   }
 
-  private async loginAuthentificated(emailPe: string) {
+  private async loginAuthentificated(email: string, firstname: string, lastname: string) {
     try {
-      const auth = await this.authService.login(environment.peama.login, environment.peama.password, emailPe);
+      const auth = await this.authService.login(environment.peama.login, environment.peama.password, email);
       const roomId = this.chatService.getRoomId();
       localStorage.setItem('isLogged', 'true');
       this.settingsService.user.next({
         ...this.settingsService.user.value,
-        role: this.authService.getRole(emailPe),
-        firstname: 'Pôle emploi',
+        role: this.authService.getRole(email),
+        firstname,
+        lastname,
+        email,
         connectionTime: Date.now(),
         roomId,
         isMultiDevices: false,
