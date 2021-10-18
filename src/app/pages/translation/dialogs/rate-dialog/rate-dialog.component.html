@@ -44,31 +44,51 @@
       </div>
     </div>
   </div>
-
   <div class="question">
     <div class="french">{{ sentences.questionFour.french }}</div>
     <div class="foreign">{{ sentences.questionFour.foreign }}</div>
     <div class="yes-no">
-      <input id="question-four-yes" type="radio" name="four" value="oui" (change)="onItemChange($event.target.value)" [checked]="rate.offerLinked === 'oui'" />
+      <input id="question-four-yes" type="radio" name="four" value="oui" (change)="onItemChange($event.target.value)"
+             [checked]="rate.offerLinked === 'oui'"/>
       <label for="question-four-yes">Oui</label>
-      <input id="question-four-no" type="radio" name="four" value="non" (change)="onItemChange($event.target.value)" [checked]="rate.offerLinked === 'non'" />
+      <input id="question-four-no" type="radio" name="four" value="non" (change)="onItemChange($event.target.value)"
+             [checked]="rate.offerLinked === 'non'"/>
       <label for="question-four-no">Non</label>
     </div>
   </div>
 
   <div class="question">
+    <div class="french">{{ sentences.questionFive.french }}</div>
+    <div class="foreign">{{ sentences.questionFive.foreign }}</div>
+    <select [(ngModel)]="typeEntretien" required #type="ngModel" (change)="setCanSendRate()">
+      <option></option>
+      <option [value]="option" *ngFor="let option of types">{{ option}}</option>
+    </select>
+    <div *ngIf="type.errors?.required" class="mandatory">
+      {{ sentences.questionFive.foreign }} is required.
+    </div>
+    <div *ngIf="typeEntretien ==='Autres'">
+      <input class="autreType" type="text" [(ngModel)]="autreType" required #autre="ngModel" (input)="setCanSendRate()">
+      <div *ngIf="autre.errors?.required" class="mandatory">
+        Autres is required.
+      </div>
+    </div>
+  </div>
+  <div class="question comment">
     <div class="french">{{ sentences.questionThree.french }}</div>
     <div class="foreign">{{ sentences.questionThree.foreign }}</div>
     <textarea [(ngModel)]="rate.comment" maxlength="218"></textarea>
   </div>
   <div class="question detail">
-    <a href="https://forms.office.com/r/VuWX8vcUXk)" target="_blank">remplir le questionnaire détaillé</a>
+    <a href="https://forms.office.com/r/VuWX8vcUXk)" target="_blank">Lien vers le questionnaire détaillé</a>
   </div>
 </div>
 
 <div mat-dialog-actions>
-  <div matTooltip="Veillez évaluer l’outil avant de soumettre" [matTooltipDisabled]="this.canSendRate" matTooltipPosition="above">
-    <button [disabled]="!this.canSendRate" [className]="!this.canSendRate?'button-disabled':''" id="send-btn" (click)="confirm()">ENVOYER
+  <div matTooltip="Veillez évaluer l’outil avant de soumettre" [matTooltipDisabled]="this.canSendRate"
+       matTooltipPosition="above">
+    <button [disabled]="!this.canSendRate" [className]="!this.canSendRate?'button-disabled':''" id="send-btn"
+            (click)="confirm()">ENVOYER
     </button>
   </div>
 </div>

@@ -194,7 +194,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   public closeConversation() {
     const languages = this.messagesWrapped.filter((m) => m.message !== undefined).map((m) => m.message.languageOrigin);
-    this.openModal(RateDialogComponent, '700px', false, languages);
+    this.openModal(RateDialogComponent, '750px', false, languages);
   }
 
   public async exportConversation() {
