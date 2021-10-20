@@ -4,15 +4,13 @@
       <li *ngIf="!isGuest">
         <ng-template [ngIf]="isMultiDevices">
           <span class="roomId">{{ roomId }}</span>
-          <button class="share-btn" (click)="share()"  atTag
-                  [clickData]="{'name':'invit-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">INVITER</button>
+          <button class="share-btn" (click)="share()">INVITER</button>
         </ng-template>
-        <button class="end-btn " (click)="exportConversation()" atTag
+        <button class="end-btn " (click)="exportConversation()"
                 [clickData]="{'name':'export-button','type':'exit'}">
           EXPORTER
         </button>
-        <button class="end-btn" (click)="closeConversation()"  atTag
-                [clickData]="{'name':'end-chat-button','chapter1':'chap1','chapter2':'chap2','chapter3':'chap3','level2':'1','type':'exit'}">TERMINER LA CONVERSATION</button>
+        <button class="end-btn" (click)="closeConversation()">TERMINER LA CONVERSATION</button>
 
       </li>
       <li>
