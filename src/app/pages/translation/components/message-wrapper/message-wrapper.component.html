@@ -9,8 +9,8 @@
           <img *ngIf="flag === 'xa'" class="flag-icon" src="./assets/images/arab-flag.png" alt="flag" />
         </ng-template>
       </div>
-      <textarea id="msg-wrapper-advisor" [placeholder]="interim" *ngIf="role == 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()" (keypress)="displaySendOnKeyPress()" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
-      <textarea id="msg-wrapper-guest" [placeholder]="interim" *ngIf="role != 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
+      <textarea id="msg-wrapper-advisor" [class]="this.settingsService.isMobile?'textForMobile':''" [placeholder]="interim" *ngIf="role == 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()" (keypress)="displaySendOnKeyPress()" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
+      <textarea id="msg-wrapper-guest" [class]="this.settingsService.isMobile?'textForMobile':''" [placeholder]="interim" *ngIf="role != 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
       <div class="buttons">
         <img class="delete" *ngIf="rawText" src="./assets/icons/icon-remove-blue.svg" alt="delete text" (click)="delete()" />
       </div>

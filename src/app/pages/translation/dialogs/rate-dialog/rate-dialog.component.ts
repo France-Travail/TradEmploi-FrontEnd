@@ -119,7 +119,7 @@ export class RateDialogComponent implements OnInit {
       hour: date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0'),
       grades: [undefined, undefined],
       comment: '',
-      offerLinked: 'non',
+      offerLinked: '',
       conversationDuration: '',
       typeEntretien: this.typeEntretien
     };
@@ -152,7 +152,8 @@ export class RateDialogComponent implements OnInit {
   }
 
   public setCanSendRate() {
-    this.canSendRate = this.rate.grades[0] !== undefined && this.rate.grades[1] !== undefined && this.getInterviewType() !== '';
+    this.rate.typeEntretien = this.getInterviewType();
+    this.canSendRate = this.rate.grades[0] !== undefined && this.rate.grades[1] !== undefined && !!this.getInterviewType() && !!this.rate.offerLinked;
   }
 
   public confirm() {
@@ -186,6 +187,7 @@ export class RateDialogComponent implements OnInit {
 
   onItemChange(value) {
     this.rate.offerLinked = value;
+    this.setCanSendRate();
   }
 
   private getInterviewType(): string {

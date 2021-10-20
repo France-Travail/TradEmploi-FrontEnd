@@ -20,6 +20,7 @@ import {SpeechToTextMicrosoftService} from '../../../../services/speech-to-text-
 import {ERROR_FUNC_UNAUTHORIZEDMICRO} from '../../../../models/error/errorFunctionnal';
 import {environment} from '../../../../../environments/environment';
 import {ERROR_TECH_UNAUTHORIZEDMICRO} from '../../../../models/error/errorTechnical';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -49,9 +50,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public isIOS: boolean = false;
   public voiceNotSupported: boolean = false;
   public seconds: number;
+  public isSmallScreen: Observable<boolean>;
   private isMobile: boolean = false;
   private recordingState: RecordingState = RecordingState.STOPPED;
-  private useSpeechToTextMicrosoftApi : boolean;
+  private useSpeechToTextMicrosoftApi: boolean;
+
 
   constructor(
     private toastService: ToastService,

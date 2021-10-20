@@ -103,22 +103,19 @@
 
   }
   .autreType {
-    display: block;
-    margin-top: 10px;
-    width: 50%;
     height: 30px;
-  }
-  .mandatory {
-    color: red;
+    width: 100%;
   }
 
 }
 .comment {
   padding-top: 15px;
 }
-.input-error {
-  border: red 1px solid;
-}
+
 .detail{
   margin-top: 10px;
 }
+.asterisk{
+  vertical-align: top;
+}
+
