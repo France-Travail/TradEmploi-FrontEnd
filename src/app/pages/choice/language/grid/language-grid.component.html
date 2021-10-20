@@ -11,7 +11,7 @@
   <div class="header country" *ngIf="optionList">
     <div class="title">
       <span class="fr">Langue</span>
-      <span class="raw">Language</span>
+      <span class="fr">Language</span>
     </div>
     <div class="flag">
       <span class="flag-icon" [ngStyle]="{ border: 0 }"></span>
@@ -20,6 +20,10 @@
       <div class="option-col">{{ voiceTitle }}</div>
       <div class="option-col">Audio</div>
       <div class="option-col">Test</div>
+    </div>
+    <div class="title">
+      <span class="fr">Note</span>
+      <span class="raw">Nombre d'évaluation</span>
     </div>
   </div>
   <div class="country" *ngFor="let item of countries" (click)="selectLanguage($event, item)" tag-navigation="language/{{item}}">
