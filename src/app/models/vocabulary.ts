@@ -75,6 +75,7 @@ export interface Rate {
   rating: string;
   comment: string;
   technical: string;
+  typeInterview?: string;
 }
 
 export interface NavbarTab {

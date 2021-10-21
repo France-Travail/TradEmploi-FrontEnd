@@ -67,6 +67,7 @@ export const FRENCH: Sentence = {
     rating: 'Quelle note donnez vous à l’outil ?',
     comment: 'Commentaire libre',
     technical: 'Avez vous rencontré des problèmes techniques dans l’utilisation de l’outil ?',
+    typeInterview: 'Type entretien'
   },
   gdpr: {
     title: 'Protection des données à caractère personnel',
@@ -126,6 +127,7 @@ export const ENGLISH: Sentence = {
     rating: 'How do you rate this tool?',
     comment: 'Free Comment',
     technical: 'Have you encountered any technical problems using the tool?',
+    typeInterview: 'Interview type'
   },
   gdpr: {
     title: 'Protection of personal data',

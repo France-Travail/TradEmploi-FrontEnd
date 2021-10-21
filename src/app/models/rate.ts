@@ -6,4 +6,5 @@ export interface Rate {
   date: Date;
   hour: string;
   conversationDuration: string;
+  typeEntretien: string;
 }

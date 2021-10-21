@@ -49,6 +49,7 @@
     "jwt-decode": "^3.1.2",
     "libflacjs": "^5.0.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.18.1",
+    "ng-rating-bar": "^1.0.2",
     "ngx-device-detector": "^1.4.5",
     "recordrtc": "^5.5.8",
     "rxjs": "~6.5.4",
