@@ -108,6 +108,9 @@ export class RateDialogComponent implements OnInit {
       isoCodes = this.data.guest
         .filter((l, index) => l !== 'fr-FR' && this.data.guest.indexOf(l) === index)
         .join(',');
+      if (!isoCodes) {
+        isoCodes = [languageNameFr];
+      }
     } else {
       isoCodes = [languageNameFr];
     }
