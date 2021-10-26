@@ -112,13 +112,14 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     this.toastService.closeToast();
   }
 
-  private selectStartNotifications(): void {
+  private async selectStartNotifications(): Promise<void> {
     const introMessage = ENGLISH.introMessage;
     if (this.isMultiDevices) {
       this.isGuest ? this.introMessageGuest(introMessage) : this.introMessageAdmin(introMessage);
     } else {
       this.sendNotification({notification: introMessage.welcomeFR, time: Date.now()});
-      this.sendNotification({notification: introMessage.welcomeRAW, time: Date.now()});
+      const welcomeRAW = await this.translateService.translate(introMessage.welcomeFR, this.getLanguageTargetDe());
+      this.sendNotification({notification: welcomeRAW, time: Date.now()});
       if (!this.vocalSupported) {
         this.sendNotification({notification: introMessage.voiceavailabilityFR, time: Date.now()});
         this.sendNotification({notification: introMessage.voiceavailabilityRAW, time: Date.now()});
@@ -422,6 +423,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       return this.user.role === Role.ADVISOR ? this.settingsService.defaultLanguage : this.user.language;
     }
     return message.role === Role.ADVISOR ? this.user.language : this.settingsService.defaultLanguage;
+  }
+
+  private getLanguageTargetDe(): string {
+    return this.isMultiDevices ? this.settingsService.defaultLanguage.written : this.user.language.written;
   }
 
   private openModal(component, height, disableClose, guest?, languages?) {

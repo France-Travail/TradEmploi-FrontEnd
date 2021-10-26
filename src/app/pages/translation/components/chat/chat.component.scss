@@ -5,6 +5,11 @@
   color: grey;
   text-align: center;
   margin: 10px;
+
+  .notificationText {
+    vertical-align: super;
+    text-align: end;
+  }
 }
 .bubble-area-advisor {
   margin: 20px 10px;
@@ -55,10 +60,16 @@
   margin-top: 5px;
   font-weight: bolder;
   font-size: 12pt;
-  word-wrap: break-word; 
+  word-wrap: break-word;
 }
 .messageRaw {
   overflow: hidden;
+}
+.btnListen{
+  background-size: 15px;
+  width: 15px;
+  height: 15px;
+  margin: 0 20px;
 }
 .listen {
   background-image: url('../../../../../assets/icons/icon-listen-black.svg');
@@ -76,6 +87,7 @@
     background-image: url('../../../../../assets/icons/icon-listen-blue.svg');
   }
 }
+
 .flag-icon {
   width: 20px;
   height: 15px;

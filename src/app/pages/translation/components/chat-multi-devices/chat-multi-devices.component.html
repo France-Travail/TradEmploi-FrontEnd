@@ -24,6 +24,9 @@
     </div>
   </ng-template>
   <ng-template [ngIf]="input.notification">
-    <div class="notification">{{ input.notification }}</div>
+    <div class="notification">
+      <span class="notificationText">{{ input.notification }}</span>
+      <button *ngIf="i!=0 && isAudioSupported" class="listen" (click)="listenToNotification(i)"></button>
+    </div>
   </ng-template>
 </ng-container>
