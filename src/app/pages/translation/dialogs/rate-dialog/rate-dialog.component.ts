@@ -54,7 +54,7 @@ export class RateDialogComponent implements OnInit {
   public canSendRate: boolean;
   private isMultiDevices: boolean;
   public typeEntretien: string;
-  public types = ['Accueil', 'AZLA', 'Entretiens', 'Inscription', 'Indemnisation', 'Accompagnement', 'Autres'];
+  public types = ['Accueil', 'AZLA', 'PRV', 'Inscription', 'Indemnisation', 'Accompagnement', 'Autres'];
   public autreType = '';
 
   constructor(
