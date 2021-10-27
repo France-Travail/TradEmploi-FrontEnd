@@ -54,7 +54,7 @@ export class RateDialogComponent implements OnInit {
   public canSendRate: boolean;
   private isMultiDevices: boolean;
   public typeEntretien: string;
-  public types = ['Accueil', 'AZLA', 'Entretiens', 'Autres'];
+  public types = ['Accueil', 'AZLA', 'Entretiens', 'Inscription', 'Indemnisation', 'Accompagnement', 'Autres'];
   public autreType = '';
 
   constructor(
@@ -122,7 +122,7 @@ export class RateDialogComponent implements OnInit {
       hour: date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0'),
       grades: [undefined, undefined],
       comment: '',
-      offerLinked: '',
+      offerLinked: 'non',
       conversationDuration: '',
       typeEntretien: this.typeEntretien
     };
