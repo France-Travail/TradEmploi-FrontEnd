@@ -56,17 +56,16 @@
 
   <div class="question">
     <div class="french questionFive">{{ sentences.questionFive.french }}<span class="asterisk"> *</span></div>
-
-    <span class="typesEntretien" *ngFor="let type of types">
-        <input type="radio" id="typeEntretien_{{type}}"
-               name="typeEntretien" (change)="setCanSendRate()"
+    <div class="typesEntretien" *ngFor="let type of types;">
+        <input type="radio" id="typeEntretien_{{type}}" (change)="setCanSendRate()"
                [value]="type" [(ngModel)]="typeEntretien">
         <label for="typeEntretien_{{type}}">{{type}}</label>
-    </span>
-    <span *ngIf="typeEntretien === 'Autres'">
+    </div>
+
+    <div *ngIf="typeEntretien === 'Autres'">
       <input id="autreType" class="autreType" type="text" [(ngModel)]="autreType" (input)="setCanSendRate()">
       <span class="asterisk" style="padding-left: 5px;">*</span>
-    </span>
+    </div>
   </div>
 
   <div class="question comment">
