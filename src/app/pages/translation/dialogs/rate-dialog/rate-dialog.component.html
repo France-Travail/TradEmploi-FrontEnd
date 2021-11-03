@@ -62,7 +62,7 @@
         <label for="typeEntretien_{{type}}">{{type}}</label>
     </div>
 
-    <div *ngIf="typeEntretien === 'Autres'">
+    <div class="typesEntretien" *ngIf="typeEntretien === 'Autres'">
       <input id="autreType" class="autreType" type="text" [(ngModel)]="autreType" (input)="setCanSendRate()">
       <span class="asterisk" style="padding-left: 5px;">*</span>
     </div>
