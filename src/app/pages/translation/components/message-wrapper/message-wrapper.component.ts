@@ -1,23 +1,26 @@
-import { ERROR_FUNC_UNAUTHORIZEDMICRO } from './../../../../models/error/errorFunctionnal';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
-import { Stream } from 'src/app/models/stream';
-import { Message } from 'src/app/models/translate/message';
-import { AudioRecordingService } from 'src/app/services/audio-recording.service';
-import { AdvisorDefaultName, SettingsService } from 'src/app/services/settings.service';
-import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { ChatService } from 'src/app/services/chat.service';
-import { Role } from 'src/app/models/role';
-import { User } from 'src/app/models/user';
-import { MessageWrapped } from '../../../../models/translate/message-wrapped';
-import { TranslationMode } from 'src/app/models/kpis/translationMode';
-import { ErrorService } from 'src/app/services/error.service';
-import { ERROR_TECH_UNAUTHORIZEDMICRO } from 'src/app/models/error/errorTechnical';
-import { isIOS } from 'src/app/utils/utils';
-import { RecordingState } from '../../../../models/RecordingState';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Router} from '@angular/router';
+import {VOCABULARY, VOCABULARY_DEFAULT} from 'src/app/data/vocabulary';
+import {Stream} from 'src/app/models/stream';
+import {Message} from 'src/app/models/translate/message';
+import {AudioRecordingService} from 'src/app/services/audio-recording.service';
+import {AdvisorDefaultName, SettingsService} from 'src/app/services/settings.service';
+import {SpeechRecognitionService} from 'src/app/services/speech-recognition.service';
+import {ToastService} from 'src/app/services/toast.service';
+import {ChatService} from 'src/app/services/chat.service';
+import {Role} from 'src/app/models/role';
+import {User} from 'src/app/models/user';
+import {MessageWrapped} from '../../../../models/translate/message-wrapped';
+import {TranslationMode} from 'src/app/models/kpis/translationMode';
+import {ErrorService} from 'src/app/services/error.service';
+import {isIOS} from 'src/app/utils/utils';
+import {RecordingState} from '../../../../models/RecordingState';
+import {SpeechToTextMicrosoftService} from '../../../../services/speech-to-text-microsoft';
+import {ERROR_FUNC_UNAUTHORIZEDMICRO} from '../../../../models/error/errorFunctionnal';
+import {environment} from '../../../../../environments/environment';
+import {ERROR_TECH_UNAUTHORIZEDMICRO} from '../../../../models/error/errorTechnical';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -47,8 +50,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public isIOS: boolean = false;
   public voiceNotSupported: boolean = false;
   public seconds: number;
+  public isSmallScreen: Observable<boolean>;
   private isMobile: boolean = false;
   private recordingState: RecordingState = RecordingState.STOPPED;
+  private useSpeechToTextMicrosoftApi: boolean;
+
 
   constructor(
     private toastService: ToastService,
@@ -58,7 +64,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     private breakpointObserver: BreakpointObserver,
     private speechRecognitionService: SpeechRecognitionService,
     private chatService: ChatService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private speechToTextMicrosoftService: SpeechToTextMicrosoftService
   ) {}
 
   ngOnInit(): void {
@@ -75,6 +82,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
+    this.useSpeechToTextMicrosoftApi = environment.microsoftSpeechConfig.enabled;
   }
 
   ngOnChanges() {
@@ -85,7 +93,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
 
   ngAfterViewInit() {
     const textArea = document.getElementById('msg-wrapper-advisor');
-    if (textArea) {
+    if (!this.isMobile && textArea) {
       textArea.focus();
     }
   }
@@ -105,6 +113,15 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       this.errorService.save(ERROR_TECH_UNAUTHORIZEDMICRO);
     }
   }
+  public async talkWithMicrosoft(): Promise<void> {
+    this.micro = true;
+    this.rawText = '';
+    this.isMobile = false;
+    this.streamWithMicrosoft();
+
+    this.translationMode = TranslationMode.VOCAL;
+    this.speaking = true;
+  }
 
   private stream() {
     let saveText = '';
@@ -122,8 +139,32 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     });
   }
 
+  private streamWithMicrosoft() {
+    let saveText = '';
+    this.speechToTextMicrosoftService.recognize(this.transcodificationMicrosoft(this.languageOrigin)).subscribe((value: string) => {
+        if (value !== '') {
+          this.rawText = saveText + value;
+          saveText = this.rawText;
+        }
+    });
+  }
+
+  private transcodificationMicrosoft(language: string): string {
+    if (environment.microsoftSpeechConfig.enabled) {
+      if (language === 'ar-XA') {
+        return 'ar-EG';
+      }
+    }
+    return language;
+  }
+
   public exitStream() {
-    this.speechRecognitionService.DestroySpeechObject();
+    if (this.useSpeechToTextMicrosoftApi) {
+      this.speechToTextMicrosoftService.stopContinuousRecognitionAsync();
+    } else {
+      this.speechRecognitionService.DestroySpeechObject();
+    }
+
     this.speaking = false;
     setTimeout(() => {
       this.send(false);
@@ -201,7 +242,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       return;
     }
     this.recordingState = RecordingState.RECORDING;
-    this.talk();
+    if (this.useSpeechToTextMicrosoftApi) {
+      this.talkWithMicrosoft();
+    } else {
+      this.talk();
+    }
   }
 
   onStop() {
@@ -210,7 +255,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       this.canSend = true;
     }
     this.exitRecord();
-    this.speechRecognitionService.DestroySpeechObject();
+    if (this.useSpeechToTextMicrosoftApi) {
+      this.speechToTextMicrosoftService.stopContinuousRecognitionAsync();
+    } else {
+      this.speechRecognitionService.DestroySpeechObject();
+    }
     this.speaking = false;
     this.seconds = 0;
   }

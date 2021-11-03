@@ -94,8 +94,37 @@
     font-size: 16px;
     font-family: Roboto;
   }
+
+  select {
+    display: inline-block;
+    width: 50%;
+    height: 30px;
+    margin-top: 15px;
+
+  }
+  .questionFive{
+    margin-bottom: 10px;
+  }
+  .typesEntretien{
+    margin: 5px;
+    padding:5px;
+    padding-top: 15px;
+    display: inline-block;
+  }
+  .autreType {
+    height: 30px;
+    width: 150px;
+  }
+
+}
+.comment {
+  padding-top: 15px;
 }
 
 .detail{
   margin-top: 10px;
 }
+.asterisk{
+  vertical-align: top;
+}
+

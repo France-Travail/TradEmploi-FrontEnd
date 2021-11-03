@@ -15,6 +15,7 @@ interface Sentences {
   questionTwo: { french: string; foreign: string };
   questionThree: { french: string; foreign: string };
   questionFour: { french: string; foreign: string };
+  questionFive: { french: string; foreign: string };
 }
 
 @Component({
@@ -45,9 +46,16 @@ export class RateDialogComponent implements OnInit {
       french: '',
       foreign: '',
     },
+    questionFive: {
+      french: '',
+      foreign: '',
+    },
   };
   public canSendRate: boolean;
   private isMultiDevices: boolean;
+  public typeEntretien: string;
+  public types = ['Accueil', 'AZLA', 'PRV', 'Inscription', 'Indemnisation', 'Accompagnement', 'Autres'];
+  public autreType = '';
 
   constructor(
     private dialogRef: MatDialogRef<RateDialogComponent>,
@@ -74,6 +82,7 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionTwo.french = rateFr.rating;
       this.sentences.questionThree.french = rateFr.comment;
       this.sentences.questionFour.french = rateFr.technical;
+      this.sentences.questionFive.french = rateFr.typeInterview;
     }
     let languageNameFr: string = 'fr-FR';
     if (this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA') {
@@ -81,6 +90,7 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionTwo.foreign = '';
       this.sentences.questionThree.foreign = '';
       this.sentences.questionFour.foreign = '';
+      this.sentences.questionFive.foreign = '';
     } else {
       const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.user.value.language.written);
       const rateForeign = vocabularyForeign.sentences.rate;
@@ -89,14 +99,18 @@ export class RateDialogComponent implements OnInit {
         this.sentences.questionTwo.foreign = rateForeign.rating;
         this.sentences.questionThree.foreign = rateForeign.comment;
         this.sentences.questionFour.foreign = rateForeign.technical;
-        languageNameFr = vocabularyForeign.languageNameFr;
+        this.sentences.questionFive.foreign = rateForeign.typeInterview;
+        languageNameFr = vocabularyForeign.isoCode;
       }
     }
     let isoCodes;
-    if (this.data.guest) {
+    if (this.data.guest && this.data.guest.length > 0) {
       isoCodes = this.data.guest
         .filter((l, index) => l !== 'fr-FR' && this.data.guest.indexOf(l) === index)
         .join(',');
+      if (!isoCodes) {
+        isoCodes = [languageNameFr];
+      }
     } else {
       isoCodes = [languageNameFr];
     }
@@ -109,7 +123,8 @@ export class RateDialogComponent implements OnInit {
       grades: [undefined, undefined],
       comment: '',
       offerLinked: 'non',
-      conversationDuration: ''
+      conversationDuration: '',
+      typeEntretien: this.typeEntretien
     };
     this.canSendRate = false;
   }
@@ -129,18 +144,24 @@ export class RateDialogComponent implements OnInit {
       lastMessageTime = this.chatService.messagesStored[length - 1].message.hour;
     }
     this.rate.conversationDuration = getDuration(lastMessageTime, firstMessageTime);
+    this.rate.typeEntretien = this.getInterviewType();
     this.rateService.rateConversation(this.rate);
 
     this.rates[question].forEach((r, i) => {
       this.rates[question][i] = value >= i ? true : false;
     });
+    this.setCanSendRate();
 
-    this.canSendRate = this.rate.grades[0] !== undefined && this.rate.grades[1] !== undefined;
+  }
 
+  public setCanSendRate() {
+    this.rate.typeEntretien = this.getInterviewType();
+    this.canSendRate = this.rate.grades[0] !== undefined && this.rate.grades[1] !== undefined && !!this.getInterviewType() && !!this.rate.offerLinked;
   }
 
   public confirm() {
     if (this.rate !== undefined) {
+      this.canSendRate = false;
       this.rateService
         .saveRate()
         .then(async () => {
@@ -169,5 +190,13 @@ export class RateDialogComponent implements OnInit {
 
   onItemChange(value) {
     this.rate.offerLinked = value;
+    this.setCanSendRate();
+  }
+
+  private getInterviewType(): string {
+    if (this.typeEntretien === 'Autres') {
+      return this.autreType;
+    }
+    return this.typeEntretien;
   }
 }

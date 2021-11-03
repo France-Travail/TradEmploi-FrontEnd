@@ -26,7 +26,7 @@ import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Allow to use French date format
-import { MAT_DATE_LOCALE, MatSortModule, MatTableModule } from '@angular/material';
+import {MAT_DATE_LOCALE, MatGridListModule, MatSortModule, MatTableModule} from '@angular/material';
 
 // Import shared module and components
 import { SharedModule } from './shared/shared.module';
@@ -71,6 +71,7 @@ import { OnboardingComponent } from './pages/translation/dialogs/onboarding/onbo
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { CallbackComponent } from './pages/callback/callback.component';
 import { CommonModule } from '@angular/common';
+import {NgRatingBarModule} from 'ng-rating-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,31 +105,33 @@ import { CommonModule } from '@angular/common';
     OnboardingComponent,
     CallbackComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    SharedModule,
-    AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
-    AngularFireFunctionsModule,
-    AngularFireAuthModule,
-    AngularFireDatabaseModule,
-    HttpClientModule,
-    MatSortModule,
-    MatTableModule,
-    MatCardModule,
-    FormsModule,
-    MatButtonModule,
-    MatKeyboardModule,
-    LayoutModule,
-    QRCodeModule,
-    DeviceDetectorModule.forRoot(),
-    OverlayModule,
-    HttpClientModule,
-    OAuthModule.forRoot(),
-    CommonModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        SharedModule,
+        AppRoutingModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFirestoreModule,
+        AngularFireFunctionsModule,
+        AngularFireAuthModule,
+        AngularFireDatabaseModule,
+        HttpClientModule,
+        MatSortModule,
+        MatTableModule,
+        MatCardModule,
+        FormsModule,
+        MatButtonModule,
+        MatKeyboardModule,
+        LayoutModule,
+        QRCodeModule,
+        DeviceDetectorModule.forRoot(),
+        OverlayModule,
+        HttpClientModule,
+        OAuthModule.forRoot(),
+        CommonModule,
+        NgRatingBarModule,
+        MatGridListModule
+    ],
   providers: [
     NavbarService,
     {

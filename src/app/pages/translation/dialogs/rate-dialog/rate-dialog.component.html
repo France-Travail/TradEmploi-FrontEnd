@@ -2,8 +2,7 @@
 
 <div mat-dialog-content>
   <div class="question">
-    <div class="french">{{ sentences.questionOne.french }}</div>
-    <div class="foreign">{{ sentences.questionOne.foreign }}</div>
+    <div class="french">{{ sentences.questionOne.french }}<span class="asterisk"> *</span></div>
     <div class="stars">
       <div class="star" (click)="eval(0, 0)" [ngClass]="{ chosen: rates[0][0] }">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_border</mat-icon>
@@ -24,8 +23,7 @@
   </div>
 
   <div class="question">
-    <div class="french">{{ sentences.questionTwo.french }}</div>
-    <div class="foreign">{{ sentences.questionTwo.foreign }}</div>
+    <div class="french">{{ sentences.questionTwo.french }}<span class="asterisk"> *</span></div>
     <div class="stars">
       <div class="star" (click)="eval(0, 1)" [ngClass]="{ chosen: rates[1][0] }">
         <mat-icon aria-hidden="false" aria-label="Etoile">star_border</mat-icon>
@@ -44,31 +42,50 @@
       </div>
     </div>
   </div>
-
   <div class="question">
-    <div class="french">{{ sentences.questionFour.french }}</div>
-    <div class="foreign">{{ sentences.questionFour.foreign }}</div>
+    <div class="french">{{ sentences.questionFour.french }}<span class="asterisk"> *</span></div>
     <div class="yes-no">
-      <input id="question-four-yes" type="radio" name="four" value="oui" (change)="onItemChange($event.target.value)" [checked]="rate.offerLinked === 'oui'" />
+      <input id="question-four-yes" type="radio" name="four" value="oui" (change)="onItemChange($event.target.value)"
+             [checked]="rate.offerLinked === 'oui'"/>
       <label for="question-four-yes">Oui</label>
-      <input id="question-four-no" type="radio" name="four" value="non" (change)="onItemChange($event.target.value)" [checked]="rate.offerLinked === 'non'" />
+      <input id="question-four-no" type="radio" name="four" value="non" (change)="onItemChange($event.target.value)"
+             [checked]="rate.offerLinked === 'non'"/>
       <label for="question-four-no">Non</label>
     </div>
   </div>
 
   <div class="question">
-    <div class="french">{{ sentences.questionThree.french }}</div>
-    <div class="foreign">{{ sentences.questionThree.foreign }}</div>
+    <div class="french questionFive">{{ sentences.questionFive.french }}<span class="asterisk"> *</span></div>
+    <div class="typesEntretien" *ngFor="let type of types;">
+        <input type="radio" id="typeEntretien_{{type}}" (change)="setCanSendRate()"
+               [value]="type" [(ngModel)]="typeEntretien">
+        <label for="typeEntretien_{{type}}">{{type}}</label>
+    </div>
+
+    <div class="typesEntretien" *ngIf="typeEntretien === 'Autres'">
+      <input id="autreType" class="autreType" type="text" [(ngModel)]="autreType" (input)="setCanSendRate()">
+      <span class="asterisk" style="padding-left: 5px;">*</span>
+    </div>
+  </div>
+
+  <div class="question comment">
+    <div class="french">{{ sentences.questionThree.french }} (difficultés rencontrées, idées d'améliorations...)</div>
     <textarea [(ngModel)]="rate.comment" maxlength="218"></textarea>
   </div>
   <div class="question detail">
-    <a href="https://forms.office.com/r/VuWX8vcUXk)" target="_blank">remplir le questionnaire détaillé</a>
+    <a href="https://forms.office.com/r/VuWX8vcUXk)" target="_blank">Lien vers le questionnaire détaillé</a>
+  </div>
+  <div class="question comment">
+    <span>Champs obligatoires </span>
+    <span class="asterisk" style="padding-left: 5px;">*</span>
   </div>
 </div>
 
 <div mat-dialog-actions>
-  <div matTooltip="Veillez évaluer l’outil avant de soumettre" [matTooltipDisabled]="this.canSendRate" matTooltipPosition="above">
-    <button [disabled]="!this.canSendRate" [className]="!this.canSendRate?'button-disabled':''" id="send-btn" (click)="confirm()">ENVOYER
+  <div matTooltip="Veillez évaluer l’outil avant de soumettre" [matTooltipDisabled]="this.canSendRate"
+       matTooltipPosition="above">
+    <button [disabled]="!this.canSendRate" [className]="!this.canSendRate?'button-disabled':''" id="send-btn"
+            (click)="confirm()">ENVOYER
     </button>
   </div>
 </div>
