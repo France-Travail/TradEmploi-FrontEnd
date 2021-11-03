@@ -22,8 +22,8 @@ build:
     url: https://pole-emploi-trad-prod.firebaseapp.com
   script:
     - npm i
-    - npm run config "--environment=dev"
-    - ng build "--configuration=dev"
+    - npm run config "--environment=production"
+    - ng build "--configuration=production"
   only:
     refs:
       - master
