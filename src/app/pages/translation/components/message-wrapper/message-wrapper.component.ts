@@ -1,5 +1,5 @@
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {VOCABULARY, VOCABULARY_DEFAULT} from 'src/app/data/vocabulary';
 import {Stream} from 'src/app/models/stream';
@@ -246,6 +246,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       this.talkWithMicrosoft();
     } else {
       this.talk();
+    }
+  }
+
+  @HostListener('window:mouseup', ['$event'])
+  mouseUp(event) {
+    if (this.recordingState === RecordingState.RECORDING) {
+      this.onStop();
     }
   }
 

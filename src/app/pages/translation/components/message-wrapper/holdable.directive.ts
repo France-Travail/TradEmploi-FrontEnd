@@ -18,7 +18,6 @@ export class HoldableDirective {
       this.stop.emit();
     });
   }
-
   @HostListener('mouseup', ['$event'])
   @HostListener('touchend', ['$event'])
   onExit() {
