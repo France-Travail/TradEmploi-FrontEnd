@@ -1017,14 +1017,6 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
-    isoCode: 'yo-NG',
-    countryNameRaw: 'Nigeria',
-    countryNameFr: 'Nigeria',
-    languageNameRaw: 'Yoruba',
-    languageNameFr: 'Yoruba',
-    sentences: ENGLISH_DEFAULT_NO_VOICE,
-  },
-  {
     isoCode: 'ny-MW',
     countryNameRaw: 'Malawi',
     countryNameFr: 'Malawi',
