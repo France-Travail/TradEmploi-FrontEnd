@@ -4,6 +4,7 @@ import {AuthService} from 'src/app/services/auth.service';
 import {ChatService} from 'src/app/services/chat.service';
 import {SettingsService} from 'src/app/services/settings.service';
 import {environment} from 'src/environments/environment';
+import {TelemetryService} from '../../services/telemetry.service';
 
 @Component({
   selector: 'app-callback',
@@ -11,7 +12,7 @@ import {environment} from 'src/environments/environment';
   styleUrls: ['./callback.component.scss'],
 })
 export class CallbackComponent implements OnInit {
-  constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private chatService: ChatService, ) {
+  constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private chatService: ChatService,private telemetryService: TelemetryService ) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -19,7 +20,7 @@ export class CallbackComponent implements OnInit {
     const user = await this.authService.getUserInfos(accessToken);
     try {
       if (user.email.match('.*@pole-emploi[.]fr$')) {
-        this.loginAuthentificated(user.email, user.given_name, user.family_name);
+        this.loginAuthentificated(user.email, user.given_name, user.family_name, user.sub);
       }
     } catch (error) {
       this.router.navigateByUrl('/start');
@@ -30,9 +31,10 @@ export class CallbackComponent implements OnInit {
     return url.split('access_token')[1].split('=')[1].split('&')[0];
   }
 
-  private async loginAuthentificated(email: string, firstname: string, lastname: string) {
+  private async loginAuthentificated(email: string, firstname: string, lastname: string, idDGASI: string) {
     try {
       const auth = await this.authService.login(environment.peama.login, environment.peama.password, email);
+      this.telemetryService.logPeama(idDGASI);
       const roomId = this.chatService.getRoomId();
       localStorage.setItem('isLogged', 'true');
       this.settingsService.user.next({
