@@ -46,6 +46,12 @@ export class RateService {
                 offerLinked
                 comment
                 conversationDuration
+                typeEntretien
+                nbMessagesAdvisor
+                nbMessagesGuest
+                user
+                agency
+                cloudSTT
               }
             }`,
     };
@@ -68,6 +74,12 @@ export class RateService {
             'Note de l\'outil': element.efficientGrade,
             'Problème technique': element.offerLinked,
             'Commentaire libre': element.comment,
+            'Type entretien': element.typeEntretien,
+            'Nombre message conseiller': element.nbMessagesAdvisor,
+            'Nombre message DE': element.nbMessagesGuest,
+            'identifiant utilisateur': element.user,
+            'Identifiant agence': element.agency,
+            'type STT': element.cloudSTT,
           });
         });
         return rates;
