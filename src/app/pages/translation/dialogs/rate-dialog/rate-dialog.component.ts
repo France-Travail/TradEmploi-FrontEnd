@@ -9,6 +9,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {ChatService} from 'src/app/services/chat.service';
 import {ERROR_FUNC_SEND_STATS} from 'src/app/models/error/errorFunctionnal';
 import {getDuration} from '../../../../utils/utils';
+import {Role} from '../../../../models/role';
+import {environment} from '../../../../../environments/environment';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -112,7 +114,7 @@ export class RateDialogComponent implements OnInit {
         isoCodes = [languageNameFr];
       }
     } else {
-      isoCodes = [languageNameFr];
+      isoCodes = languageNameFr;
     }
 
     const date = new Date();
@@ -124,7 +126,12 @@ export class RateDialogComponent implements OnInit {
       comment: '',
       offerLinked: '',
       conversationDuration: '',
-      typeEntretien: this.typeEntretien
+      typeEntretien: this.typeEntretien,
+      user: '',
+      agency: '',
+      nbMessagesGuest: 0,
+      nbMessagesAdvisor: 0,
+      cloudSTT: ''
     };
     this.canSendRate = false;
   }
@@ -137,12 +144,27 @@ export class RateDialogComponent implements OnInit {
 
     let firstMessageTime = '00:00:00';
     let lastMessageTime = '00:00:00';
+    this.rate.nbMessagesGuest = 0;
+    this.rate.nbMessagesAdvisor = 0;
 
     const length = this.chatService.messagesStored.length;
     if (length > 1) {
       firstMessageTime = this.chatService.messagesStored[0].message.hour;
       lastMessageTime = this.chatService.messagesStored[length - 1].message.hour;
+      for (const messageWrapped of this.chatService.messagesStored) {
+        if (messageWrapped.message) {
+          if (messageWrapped.message.role === Role.GUEST) {
+            this.rate.nbMessagesGuest++;
+          }
+          if (messageWrapped.message.role === Role.ADVISOR) {
+            this.rate.nbMessagesAdvisor++;
+          }
+        }
+      }
     }
+    this.rate.user = this.settingsService.user.value.idDGASI;
+    this.rate.agency = this.settingsService.user.value.agency;
+    this.rate.cloudSTT = environment.microsoftSpeechConfig.enabled ? 'Azure' : 'GCP';
     this.rate.conversationDuration = getDuration(lastMessageTime, firstMessageTime);
     this.rate.typeEntretien = this.getInterviewType();
     this.rateService.rateConversation(this.rate);

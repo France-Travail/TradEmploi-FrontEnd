@@ -6,6 +6,8 @@ export interface User {
   firstname: string;
   lastname?: string;
   email: string;
+  idDGASI: string;
+  agency?: string;
   language?: Language;
   roomId: string;
   role: Role;

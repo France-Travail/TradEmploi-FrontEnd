@@ -7,4 +7,9 @@ export interface Rate {
   hour: string;
   conversationDuration: string;
   typeEntretien: string;
+  nbMessagesAdvisor: number;
+  nbMessagesGuest: number;
+  user: string;
+  agency: string;
+  cloudSTT: string;
 }

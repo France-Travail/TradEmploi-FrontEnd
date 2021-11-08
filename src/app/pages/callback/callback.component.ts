@@ -33,7 +33,7 @@ export class CallbackComponent implements OnInit {
 
   private async loginAuthentificated(email: string, firstname: string, lastname: string, idDGASI: string) {
     try {
-      const auth = await this.authService.login(environment.peama.login, environment.peama.password, email);
+      await this.authService.login(environment.peama.login, environment.peama.password, email);
       this.telemetryService.logPeama(idDGASI);
       const roomId = this.chatService.getRoomId();
       localStorage.setItem('isLogged', 'true');
@@ -43,6 +43,8 @@ export class CallbackComponent implements OnInit {
         firstname,
         lastname,
         email,
+        idDGASI,
+        agency: '',
         connectionTime: Date.now(),
         roomId,
         isMultiDevices: false,

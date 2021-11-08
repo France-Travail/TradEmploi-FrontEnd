@@ -41,7 +41,7 @@ export class TokenBrokerService {
       });
   }
 
-  private getTokenAdmin(firebaseToken: string): Promise<TokenResponse> {
+  getTokenAdmin(firebaseToken: string): Promise<TokenResponse> {
     const jwtGwSingleton = JwtGwSingleton.getInstance();
     const jwtGcpSingleton = JwtGcpSingleton.getInstance();
     const hasJwtGwOnTime = jwtGwSingleton.getToken() !== null && jwtGwSingleton.getToken().expireTime.isAfter(moment());
