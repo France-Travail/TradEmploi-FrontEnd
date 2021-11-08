@@ -55,20 +55,19 @@
   </div>
 
   <div class="question">
-    <span class="french">{{ sentences.questionFive.french }}<span class="asterisk"> *</span></span>
-    <mat-grid-list cols="5" rowHeight="5rem">
-      <mat-grid-tile *ngFor="let type of types" rowspan="1">
-        <input type="radio" id="typeEntretien_{{type}}"
-               name="typeEntretien" (change)="setCanSendRate()"
+    <div class="french questionFive">{{ sentences.questionFive.french }}<span class="asterisk"> *</span></div>
+    <div class="typesEntretien" *ngFor="let type of types;">
+        <input type="radio" id="typeEntretien_{{type}}" (change)="setCanSendRate()"
                [value]="type" [(ngModel)]="typeEntretien">
         <label for="typeEntretien_{{type}}">{{type}}</label>
-      </mat-grid-tile>
-      <mat-grid-tile *ngIf="typeEntretien === 'Autres'">
-        <input id="autreType" class="autreType" type="text" [(ngModel)]="autreType" (input)="setCanSendRate()">
-        <span class="asterisk" style="padding-left: 5px;">*</span>
-      </mat-grid-tile>
-    </mat-grid-list>
+    </div>
+
+    <div class="typesEntretien" *ngIf="typeEntretien === 'Autres'">
+      <input id="autreType" class="autreType" type="text" [(ngModel)]="autreType" (input)="setCanSendRate()">
+      <span class="asterisk" style="padding-left: 5px;">*</span>
+    </div>
   </div>
+
   <div class="question comment">
     <div class="french">{{ sentences.questionThree.french }} (difficultés rencontrées, idées d'améliorations...)</div>
     <textarea [(ngModel)]="rate.comment" maxlength="218"></textarea>

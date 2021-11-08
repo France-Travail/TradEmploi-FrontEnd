@@ -431,7 +431,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private openModal(component, height, disableClose, guest?, languages?) {
     return this.dialog.open(component, {
-      width: '800px',
+      width: '750px',
       height,
       panelClass: 'customDialog',
       disableClose,
