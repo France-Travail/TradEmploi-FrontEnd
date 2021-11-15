@@ -1,6 +1,6 @@
 <ng-container *ngFor="let messageWrapped of messagesWrapped; let i = index">
 
-  <div *ngIf="messageWrapped.notification " class="notification ">
+  <div *ngIf="messageWrapped.notification && (i == 0 || i == 1) " class="notification ">
     <span class="notificationText">{{ messageWrapped.notification }}</span>
     <button *ngIf="i!=0 && isAudioSupported" class="listen" (click)="listenToMessage(i)"></button>
   </div>
