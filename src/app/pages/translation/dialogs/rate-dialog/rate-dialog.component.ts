@@ -111,7 +111,7 @@ export class RateDialogComponent implements OnInit {
         .filter((l, index) => l !== 'fr-FR' && this.data.guest.indexOf(l) === index)
         .join(',');
       if (!isoCodes) {
-        isoCodes = [languageNameFr];
+        isoCodes = languageNameFr;
       }
     } else {
       isoCodes = languageNameFr;
@@ -131,7 +131,7 @@ export class RateDialogComponent implements OnInit {
       agency: '',
       nbMessagesGuest: 0,
       nbMessagesAdvisor: 0,
-      cloudSTT: ''
+      typeSTT: ''
     };
     this.canSendRate = false;
   }
@@ -164,7 +164,7 @@ export class RateDialogComponent implements OnInit {
     }
     this.rate.user = this.settingsService.user.value.idDGASI;
     this.rate.agency = this.settingsService.user.value.agency;
-    this.rate.cloudSTT = environment.microsoftSpeechConfig.enabled ? 'Azure' : 'GCP';
+    this.rate.typeSTT = environment.microsoftSpeechConfig.enabled ? 'Azure' : 'GCP';
     this.rate.conversationDuration = getDuration(lastMessageTime, firstMessageTime);
     this.rate.typeEntretien = this.getInterviewType();
     this.rateService.rateConversation(this.rate);

@@ -51,7 +51,7 @@ export class RateService {
                 nbMessagesGuest
                 user
                 agency
-                cloudSTT
+                typeSTT
               }
             }`,
     };
@@ -79,7 +79,7 @@ export class RateService {
             'Nombre message DE': element.nbMessagesGuest,
             'identifiant utilisateur': element.user,
             'Identifiant agence': element.agency,
-            'type STT': element.cloudSTT,
+            'type STT': element.typeSTT,
           });
         });
         return rates;

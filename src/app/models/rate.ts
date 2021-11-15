@@ -11,5 +11,5 @@ export interface Rate {
   nbMessagesGuest: number;
   user: string;
   agency: string;
-  cloudSTT: string;
+  typeSTT: string;
 }
