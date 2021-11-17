@@ -4,6 +4,7 @@
   margin: 20px;
   .slide-top {
     display: flex;
+    padding: 20px;
     justify-content: space-between;
     .titles {
       font-size: x-large;
@@ -41,6 +42,31 @@
       .helpImage {
         width: 50%;
         height: auto;
+      }
+      .column{
+        display: inline-block;
+      }
+
+    }
+    .discoursPointsCtr {
+      padding-top: 20%;
+
+      .discoursPoints {
+        list-style: none;
+
+        .sentences {
+          margin: 20px;
+        }
+        .point{
+          vertical-align: middle;
+          margin-top: 15px;
+          img {
+            margin-right: 10px;
+            vertical-align: middle;
+            width: 32px;
+            height: 32px;
+          }
+        }
       }
     }
     .helpSentences {

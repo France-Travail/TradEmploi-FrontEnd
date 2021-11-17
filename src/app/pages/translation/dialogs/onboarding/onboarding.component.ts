@@ -2,10 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Role } from 'src/app/models/role';
-import { Onboarding, OnboardingTitle } from 'src/app/models/vocabulary';
+import { Onboarding } from 'src/app/models/vocabulary';
 import { SettingsService } from 'src/app/services/settings.service';
-import { onboardingTabs, onboardingTitle, onboardingTabsAdvisor, onboardbingTitleAdvisor } from '../../../../data/onboarding';
+import { onboardingTabs, onboardingTabsAdvisor } from '../../../../data/onboarding';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-onboarding',
   templateUrl: './onboarding.component.html',
@@ -13,7 +14,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class OnboardingComponent implements OnInit {
   public sentences: Onboarding[];
-  public title: OnboardingTitle;
+  public title: string;
   public tabNumber: number = 0;
   public isMobile: boolean;
   public isGuest: boolean;
@@ -30,14 +31,41 @@ export class OnboardingComponent implements OnInit {
     this.settingsService.user.subscribe((user) => {
       this.isGuest = (user !== null ? user.role === Role.GUEST : this.isGuest === undefined) || this.data.guest;
     });
-    this.title = this.isGuest ? onboardingTitle : onboardbingTitleAdvisor;
     this.sentences = this.isGuest ? onboardingTabs : onboardingTabsAdvisor;
+    this.tabNumber = 0;
+    this.setTitle();
   }
   public nextItem() {
-    this.tabNumber < this.sentences.length - 1 ? (this.tabNumber += 1) : (this.tabNumber = 0);
+    if (this.tabNumber === 2) {
+      this.tabNumber = 0;
+    } else if (this.tabNumber >= 0) {
+      this.tabNumber++;
+    }
+    this.setTitle();
   }
+
+  private setTitle() {
+    switch (this.tabNumber) {
+      case 0:
+        this.title = 'Video d\'explication';
+        break;
+      case 1:
+        this.title = 'Maitriser son environnement';
+        break;
+      case 2:
+        this.title = 'Adapter son discours';
+        break;
+    }
+  }
+
   public previousItem() {
-    this.tabNumber > 0 ? (this.tabNumber -= 1) : (this.tabNumber = this.sentences.length - 1);
+    if (this.tabNumber === 0) {
+      this.tabNumber = 2;
+    } else if (this.tabNumber > 0) {
+      this.tabNumber--;
+    }
+    this.setTitle();
+
   }
 
   public closeDialog() {
