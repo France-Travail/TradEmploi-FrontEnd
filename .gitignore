@@ -50,3 +50,6 @@ environment.*ts
 
 report.xml
 .vscode
+
+#gitlab
+.gitlab-ci.yml
