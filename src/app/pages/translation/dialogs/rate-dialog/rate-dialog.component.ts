@@ -148,7 +148,7 @@ export class RateDialogComponent implements OnInit {
     this.rate.nbMessagesAdvisor = 0;
 
     const length = this.chatService.messagesStored.length;
-    if (length > 1) {
+    if (length > 0) {
       firstMessageTime = this.chatService.messagesStored[0].message.hour;
       lastMessageTime = this.chatService.messagesStored[length - 1].message.hour;
       for (const messageWrapped of this.chatService.messagesStored) {
