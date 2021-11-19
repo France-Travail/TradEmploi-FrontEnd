@@ -158,10 +158,10 @@ export const ENGLISH: Sentence = {
     audio: 'I can hear a voice sample in this language',
   },
   introMessage: {
-    welcomeFR: 'Voici un outil de traduction qui va traduire votre langue. Pour cela, utilisez la flèche indiqué par la personne vous présentant l\'outil. Pour améliorer l’expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',
-    welcomeRAW: 'Here is a translation tool that will translate your language. To do this, use the arrow indicated by the person presenting the tool to you. To improve the translation experience, keep sentences short and simple and speak loudly enough.',
+    welcomeFR: 'Voici un traducteur automatique qui va traduire votre langue. Pour améliorer l’expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',
+    welcomeRAW: 'Here is an automatic translator that will translate your language. To improve the translation experience, keep sentences short and simple and speak loudly enough.',
     notifMultiFR: 'L’espace de conversation a été créé en modalité multi-support.',
-    notifMultiRAW: "You've joined the conversation.",
+    notifMultiRAW: 'You\'ve joined the conversation.',
     voiceavailabilityFR: 'Saisie vocale indisponible pour la langue sélectionnée',
     voiceavailabilityRAW: 'Voice input is unavailable for this language',
   },
