@@ -5,7 +5,8 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {FbAuthSingleton} from '../models/token/FbAuthSingleton';
 import {TokenBrokerService} from './token-broker.service';
 import axios from 'axios';
-import {authCodeFlowConfig} from '../../environments/authflow';
+import { authCodeFlowConfig } from '../../environments/authflow';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -92,5 +93,62 @@ export class AuthService {
       .catch(function(error) {
         console.log(error);
       });
+  }
+
+  public getTokenInfos(token: string) {
+    return axios
+      .get(environment.peama.tokenInfoUri, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then(function (response) {
+        return response.status === 200 ? response.data : null;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  private async revokePeam(accessToken) {
+    axios
+      .post(authCodeFlowConfig.revocationEndpoint, null, {
+        params: {
+          token: accessToken,
+          client_id: authCodeFlowConfig.clientId,
+          client_secret: authCodeFlowConfig.dummyClientSecret,
+        },
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  private async getIdHint(accessToken) {
+    return axios.post(environment.peama.accessTokenUri, null, {
+      params: {
+        token:accessToken,
+        client_id: authCodeFlowConfig.clientId,
+        client_secret: authCodeFlowConfig.dummyClientSecret,
+        redirect_uri: authCodeFlowConfig.redirectUri,
+        grant_type: 'client_credentials',
+        code: accessToken,
+        scope:authCodeFlowConfig.scope
+      },
+    }).then((response) => {
+      return response.data.id_token
+    })
+  }
+  private async closeSession(idHint){
+    return axios.get(environment.peama.closeSessionUri, {
+      params:{
+        id_token_hint: idHint
+      },
+    })
+  }
+
+
+  public async closePeam(accessToken){
+    const idHint = await this.getIdHint(accessToken);
+    this.revokePeam(accessToken);
+    this.closeSession(idHint)
   }
 }
