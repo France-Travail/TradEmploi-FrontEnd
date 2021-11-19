@@ -9,7 +9,7 @@ import { TokenResponse } from '../models/token/tokensResponse';
 import { Role } from '../models/role';
 import { SettingsService } from './settings.service';
 import { TokenFbService } from './token-fb.service';
-import {JwtFbSingleton} from '../models/token/JwtFbSingleton';
+import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
 
 @Injectable({
   providedIn: 'root',
