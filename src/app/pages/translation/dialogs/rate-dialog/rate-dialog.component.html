@@ -55,7 +55,7 @@
   </div>
 
   <div class="question">
-    <div class="french questionFive">{{ sentences.questionFive.french }}<span class="asterisk"> *</span></div>
+    <div class="french questionFive">Type entretien<span class="asterisk"> *</span></div>
     <div class="typesEntretien" *ngFor="let type of types;">
         <input type="radio" id="typeEntretien_{{type}}" (change)="setCanSendRate()"
                [value]="type" [(ngModel)]="typeEntretien">

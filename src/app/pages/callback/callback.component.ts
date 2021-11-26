@@ -50,8 +50,7 @@ export class CallbackComponent implements OnInit {
         isMultiDevices: false,
       });
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
-      this.router.navigateByUrl('modality');
-
+      this.router.navigateByUrl('choice');
     } catch (error) {
     }
   }

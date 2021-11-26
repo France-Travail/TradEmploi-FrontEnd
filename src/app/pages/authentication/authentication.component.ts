@@ -18,6 +18,6 @@ export class AuthenticationComponent {
   }
 
   login() {
-    this.oauthService.initCodeFlow(); 
+    this.oauthService.initCodeFlow();
   }
 }

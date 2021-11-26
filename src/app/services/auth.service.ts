@@ -103,20 +103,6 @@ export class AuthService {
       });
   }
 
-  public getTokenInfos(token: string) {
-    return axios
-      .get(environment.peama.tokenInfoUri, {
-        headers: {
-          Authorization: 'Bearer ' + token
-        }
-      })
-      .then(function(response) {
-        return response.status === 200 ? response.data : null;
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  }
 
   private async revokePeam(accessToken) {
     axios
