@@ -4,6 +4,7 @@ import {ErrorService} from './error.service';
 import {ERROR_TECH_TRANSLATION} from '../models/error/errorTechnical';
 import {TokenResponse} from '../models/token/tokensResponse';
 import {TokenBrokerService} from './token-broker.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,28 +12,33 @@ import {TokenBrokerService} from './token-broker.service';
 export class TranslateService {
   constructor(private errorService: ErrorService, private tbs: TokenBrokerService) {}
 
-  public async translate(text: string, lang: string): Promise<string> {
+  public async translate(text: string, targetLanguageCode: string): Promise<string> {
+    targetLanguageCode = this.mapLanguage(targetLanguageCode);
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
-    const url = `https://translation.googleapis.com/language/translate/v2`;
+    const gwToken = tokenResponse.tokenGW;
+    const url = `${environment.gcp.gateWayUrl}/translation`;
     const data = {
-      q: text,
-      target: lang.split('-')[0],
-      format: 'text',
+      text,
+      sourceLanguageCode: 'fr-FR',
+      targetLanguageCode,
+      projectId: environment.firebaseConfig.projectId
     };
     return axios({
-      method: 'post',
-      headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
+      method: 'POST',
+      headers: {Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*'},
       data,
       url,
-    })
-      .then((response) => {
-        if (response.data.data.translatation !== undefined || response.data.data.translatation !== null) {
-          return response.data.data.translations[0].translatedText;
-        }
-      })
-      .catch((error) => {
-        this.errorService.save(ERROR_TECH_TRANSLATION);
-        throw new Error(error);
-      });
+    }).then((response) => {
+          return response.data.translatedText;
+    }).catch((error) => {
+      throw new Error(error);
+    });
+  }
+
+  private mapLanguage(targetLanguageCode: string) {
+    if (targetLanguageCode === 'ar-XA') {
+      targetLanguageCode = 'ar-EG';
+    }
+    return targetLanguageCode;
   }
 }
