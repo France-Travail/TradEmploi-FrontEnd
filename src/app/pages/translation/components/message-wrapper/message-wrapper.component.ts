@@ -145,6 +145,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
         if (value !== '') {
           this.rawText = saveText + value;
           saveText = this.rawText;
+          this.displaySendOnClick();
         }
     });
   }

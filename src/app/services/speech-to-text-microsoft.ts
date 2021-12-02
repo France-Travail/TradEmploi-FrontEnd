@@ -1,7 +1,14 @@
-import {Injectable} from '@angular/core';
-import {AudioConfig, CancellationReason, ResultReason, SpeechConfig, SpeechRecognizer} from 'microsoft-cognitiveservices-speech-sdk';
-import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import {
+  AudioConfig,
+  CancellationReason,
+  ProfanityOption,
+  ResultReason,
+  SpeechConfig,
+  SpeechRecognizer
+} from 'microsoft-cognitiveservices-speech-sdk';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +23,7 @@ export class SpeechToTextMicrosoftService {
       const speechConfig = SpeechConfig.fromSubscription(environment.microsoftSpeechConfig.key, environment.microsoftSpeechConfig.region);
       speechConfig.speechRecognitionLanguage = language;
       speechConfig.enableDictation();
+      speechConfig.setProfanity(ProfanityOption.Masked);
       this.recognizer = new SpeechRecognizer(speechConfig, audioConfig);
 
       this.recognizer.recognized = (s, e) => {
