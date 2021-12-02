@@ -251,7 +251,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
 
   @HostListener('window:mouseup', ['$event'])
   mouseUp(event) {
-    if (this.recordingState === RecordingState.RECORDING) {
+    if (!this.isMobile && this.recordingState === RecordingState.RECORDING) {
       this.onStop();
     }
   }

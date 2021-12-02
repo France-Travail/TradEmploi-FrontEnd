@@ -1,0 +1,167 @@
+// =========================
+// Carousel
+// =========================
+@import 'src/sass/colors';
+
+:host {
+  flex: 1;
+}
+
+.titles {
+  font-size: x-large;
+  padding-bottom: 15px;
+}
+.carousel {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.5em;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5em;
+}
+
+// =========================
+// Next and Prev buttons
+// =========================
+.control {
+  border: none;
+  background-color: transparent;
+  outline: 0;
+  position: absolute;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.5em;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  user-select: none;
+  height: 100%;
+  opacity: 80%;
+  // opacity effect on hover
+  transition: opacity 150ms cubic-bezier(0.25, 0.46, 0.45, 0.84);
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+
+  /* Position the buttons */
+  &.next {
+    right: 0;
+  }
+
+  &.prev {
+    left: 0;
+  }
+}
+
+/* style the arrows */
+.arrow {
+  display: block;
+  border-left: 0.1em solid $gray74;
+  border-bottom: 0.1em solid $gray74;
+  width: 0.5em;
+  height: 0.5em;
+
+  &.left {
+    transform: rotate(45deg);
+  }
+
+  &.right {
+    transform: rotate(225deg);
+  }
+
+  .vertical-line {
+    border-left: 2px solid $gray74;
+    margin: 0 15px;
+  }
+
+}
+
+
+.helpSentences {
+  white-space: pre-line;
+  display: flex;
+  padding: 20px;
+
+  .helpFR,
+  .helpEN {
+    flex-grow: 1;
+    white-space: pre-line;
+    text-align: justify;
+
+    .helpText {
+      height: fit-content;
+    }
+
+    .browser {
+      margin-top: 15px;
+
+      img {
+        margin-right: 10px;
+        vertical-align: middle;
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+
+  .helpFR {
+    max-width: 50%;
+  }
+}
+
+.slide1 {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  padding: 20px;
+}
+
+.helpFigures {
+  display: flex;
+  justify-content: center;
+  margin: 25% 0;
+
+  .helpImage {
+    width: 50%;
+    height: auto;
+  }
+
+  .column {
+    display: inline-block;
+  }
+
+}
+
+.discoursPoints {
+  list-style: none;
+
+  .sentences {
+    margin: 20px;
+  }
+
+  .point {
+    vertical-align: middle;
+    margin-top: 15px;
+
+    img {
+      margin-right: 10px;
+      vertical-align: middle;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+}

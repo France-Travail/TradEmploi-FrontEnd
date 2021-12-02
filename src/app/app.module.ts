@@ -72,6 +72,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { CallbackComponent } from './pages/callback/callback.component';
 import { CommonModule } from '@angular/common';
 import {NgRatingBarModule} from 'ng-rating-bar';
+import { CarouselComponent } from './pages/translation/dialogs/onboarding/carousel/carousel.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,6 +105,7 @@ import {NgRatingBarModule} from 'ng-rating-bar';
     WelcomeComponent,
     OnboardingComponent,
     CallbackComponent,
+    CarouselComponent
   ],
     imports: [
         BrowserModule,
