@@ -75,11 +75,13 @@ export class TokenBrokerService {
   }
 
   private getTokenGuest(firebaseToken: string, roomId: string): Promise<TokenResponse> {
+    const jwtGwSingleton = JwtGwSingleton.getInstance();
     const jwtGcpSingleton = JwtGcpSingleton.getInstance();
+    const hasJwtGwOnTime = jwtGwSingleton.getToken() !== null && jwtGwSingleton.getToken().expireTime.isAfter(moment());
     const hasJwtGcpOnTime = jwtGcpSingleton.getToken() !== null && jwtGcpSingleton.getToken().expireTime.isAfter(moment());
-    if (hasJwtGcpOnTime) {
+    if (hasJwtGwOnTime || hasJwtGcpOnTime) {
       return new Promise<TokenResponse>((resolve) => {
-        resolve({ tokenGCP: jwtGcpSingleton.getToken().token, tokenGW: null });
+        resolve({ tokenGCP: jwtGcpSingleton.getToken().token, tokenGW: jwtGwSingleton.getToken().token });
       });
     }
     const url = `${environment.gcp.gateWayUrl}/token`;
@@ -94,12 +96,14 @@ export class TokenBrokerService {
     })
       .then((response) => {
         const data = response.data;
-        const expiryDateGCP: Moment = moment().add(data.gcp.expireTime.seconds, 'seconds');
-        const tokenGCP = { token: data.gcp.token, expireTime: expiryDateGCP };
+        const expireTime = JwtFbSingleton.getInstance().getToken().expireTime;
+        const tokenGW = { token: data.apiGateway.token, expireTime };
+        jwtGwSingleton.setToken(tokenGW);
+        const tokenGCP = { token: data.gcp.token, expireTime };
         jwtGcpSingleton.setToken(tokenGCP);
         return {
           tokenGCP: JwtGcpSingleton.getInstance().getToken().token,
-          tokenGW: null,
+          tokenGW: JwtGwSingleton.getInstance().getToken().token,
         };
       })
       .catch((error) => {

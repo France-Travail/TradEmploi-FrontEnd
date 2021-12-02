@@ -1,19 +1,19 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {MatDialog} from '@angular/material';
-import {LogoutComponent} from '../../logout/logout.component';
-import {ShareComponent} from '../../../../pages/translation/dialogs/share/share.component';
-import {SettingsService} from 'src/app/services/settings.service';
-import {NavbarService} from 'src/app/services/navbar.service';
-import {Role} from 'src/app/models/role';
-import {VOCABULARY_DEFAULT} from 'src/app/data/vocabulary';
-import {RateDialogComponent} from 'src/app/pages/translation/dialogs/rate-dialog/rate-dialog.component';
-import {OnboardingComponent} from 'src/app/pages/translation/dialogs/onboarding/onboarding.component';
-import {GdprComponent} from '../../../../pages/gdpr/gdpr.component';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { LogoutComponent } from '../../logout/logout.component';
+import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
+import { SettingsService } from 'src/app/services/settings.service';
+import { NavbarService } from 'src/app/services/navbar.service';
+import { Role } from 'src/app/models/role';
+import { VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
+import { RateDialogComponent } from 'src/app/pages/translation/dialogs/rate-dialog/rate-dialog.component';
+import { OnboardingComponent } from 'src/app/pages/translation/dialogs/onboarding/onboarding.component';
+import { GdprComponent } from '../../../../pages/gdpr/gdpr.component';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss'],
+  styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent {
   @Output() sidenavClose = new EventEmitter();
@@ -50,12 +50,18 @@ export class SidenavComponent {
   }
 
   public end() {
-    this.openModal(RateDialogComponent);
+    this.settingsService.user.subscribe((user) => {
+      if (user != null) {
+        this.language = user.isMultiDevices ? this.settingsService.defaultLanguage.written : user.language.written;
+        this.openModal(RateDialogComponent, [this.language]);
+      }
+    });
   }
 
   public help() {
     this.openModal(OnboardingComponent);
   }
+
   public gdpr() {
     this.dialog.open(GdprComponent, {
       panelClass: 'customDialog',
@@ -67,11 +73,14 @@ export class SidenavComponent {
     });
   }
 
-  private openModal(component) {
+  private openModal(component, guest?) {
     this.dialog.open(component, {
       width: '90%',
       height: '90%',
       panelClass: 'customDialog',
+      data: {
+        guest
+      }
     });
   }
 }
