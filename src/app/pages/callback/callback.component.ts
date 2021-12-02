@@ -21,6 +21,7 @@ export class CallbackComponent implements OnInit {
     try {
       if (user.email.match('.*@pole-emploi[.]fr$')) {
         this.loginAuthentificated(user.email, user.given_name, user.family_name, user.sub);
+        sessionStorage.setItem("access", accessToken)
       }
     } catch (error) {
       this.router.navigateByUrl('/start');
