@@ -9,15 +9,16 @@ import {
 } from 'microsoft-cognitiveservices-speech-sdk';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { Stream } from '../models/stream';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SpeechToTextMicrosoftService {
 
   private recognizer: SpeechRecognizer;
 
-  recognize(language: string): Observable<string> {
+  recognize(language: string): Observable<Stream> {
     return new Observable((observer) => {
       const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
       const speechConfig = SpeechConfig.fromSubscription(environment.microsoftSpeechConfig.key, environment.microsoftSpeechConfig.region);
@@ -25,10 +26,20 @@ export class SpeechToTextMicrosoftService {
       speechConfig.enableDictation();
       speechConfig.setProfanity(ProfanityOption.Masked);
       this.recognizer = new SpeechRecognizer(speechConfig, audioConfig);
-
+      let interimTranscript = '';
+      let finalTranscript = '';
       this.recognizer.recognized = (s, e) => {
         if (e.result.reason === ResultReason.RecognizedSpeech) {
-          observer.next(e.result.text);
+          finalTranscript = e.result.text;
+          interimTranscript = '';
+          observer.next({ final: finalTranscript, interim: interimTranscript });
+        }
+      };
+      this.recognizer.recognizing = (s, e) => {
+        if (e.result.reason === ResultReason.RecognizingSpeech) {
+          finalTranscript = '';
+          interimTranscript = e.result.text;
+          observer.next({ final: finalTranscript, interim: interimTranscript });
         }
       };
 

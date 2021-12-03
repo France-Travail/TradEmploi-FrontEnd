@@ -1,31 +1,31 @@
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {VOCABULARY, VOCABULARY_DEFAULT} from 'src/app/data/vocabulary';
-import {Stream} from 'src/app/models/stream';
-import {Message} from 'src/app/models/translate/message';
-import {AudioRecordingService} from 'src/app/services/audio-recording.service';
-import {AdvisorDefaultName, SettingsService} from 'src/app/services/settings.service';
-import {SpeechRecognitionService} from 'src/app/services/speech-recognition.service';
-import {ToastService} from 'src/app/services/toast.service';
-import {ChatService} from 'src/app/services/chat.service';
-import {Role} from 'src/app/models/role';
-import {User} from 'src/app/models/user';
-import {MessageWrapped} from '../../../../models/translate/message-wrapped';
-import {TranslationMode} from 'src/app/models/kpis/translationMode';
-import {ErrorService} from 'src/app/services/error.service';
-import {isIOS} from 'src/app/utils/utils';
-import {RecordingState} from '../../../../models/RecordingState';
-import {SpeechToTextMicrosoftService} from '../../../../services/speech-to-text-microsoft';
-import {ERROR_FUNC_UNAUTHORIZEDMICRO} from '../../../../models/error/errorFunctionnal';
-import {environment} from '../../../../../environments/environment';
-import {ERROR_TECH_UNAUTHORIZEDMICRO} from '../../../../models/error/errorTechnical';
-import {Observable} from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
+import { Stream } from 'src/app/models/stream';
+import { Message } from 'src/app/models/translate/message';
+import { AudioRecordingService } from 'src/app/services/audio-recording.service';
+import { AdvisorDefaultName, SettingsService } from 'src/app/services/settings.service';
+import { SpeechRecognitionService } from 'src/app/services/speech-recognition.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { ChatService } from 'src/app/services/chat.service';
+import { Role } from 'src/app/models/role';
+import { User } from 'src/app/models/user';
+import { MessageWrapped } from '../../../../models/translate/message-wrapped';
+import { TranslationMode } from 'src/app/models/kpis/translationMode';
+import { ErrorService } from 'src/app/services/error.service';
+import { isIOS } from 'src/app/utils/utils';
+import { RecordingState } from '../../../../models/RecordingState';
+import { SpeechToTextMicrosoftService } from '../../../../services/speech-to-text-microsoft';
+import { ERROR_FUNC_UNAUTHORIZEDMICRO } from '../../../../models/error/errorFunctionnal';
+import { environment } from '../../../../../environments/environment';
+import { ERROR_TECH_UNAUTHORIZEDMICRO } from '../../../../models/error/errorTechnical';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-message-wrapper',
   templateUrl: './message-wrapper.component.html',
-  styleUrls: ['./message-wrapper.component.scss'],
+  styleUrls: ['./message-wrapper.component.scss']
 })
 export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() role: string;
@@ -40,7 +40,10 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public translatedSpeech: HTMLAudioElement;
   public micro: boolean = false;
   public error: boolean = false;
-  public isReady: { listenTranslation: boolean; listenSpeech: boolean } = { listenTranslation: false, listenSpeech: false };
+  public isReady: { listenTranslation: boolean; listenSpeech: boolean } = {
+    listenTranslation: false,
+    listenSpeech: false
+  };
   public interim: string = '';
   public recordMode: boolean = false;
   public speaking: boolean = false;
@@ -66,7 +69,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     private chatService: ChatService,
     private errorService: ErrorService,
     private speechToTextMicrosoftService: SpeechToTextMicrosoftService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.isIOS = isIOS();
@@ -113,6 +117,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       this.errorService.save(ERROR_TECH_UNAUTHORIZEDMICRO);
     }
   }
+
   public async talkWithMicrosoft(): Promise<void> {
     this.micro = true;
     this.rawText = '';
@@ -141,12 +146,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
 
   private streamWithMicrosoft() {
     let saveText = '';
-    this.speechToTextMicrosoftService.recognize(this.transcodificationMicrosoft(this.languageOrigin)).subscribe((value: string) => {
-        if (value !== '') {
-          this.rawText = saveText + value;
-          saveText = this.rawText;
-          this.displaySendOnClick();
-        }
+    this.speechToTextMicrosoftService.recognize(this.transcodificationMicrosoft(this.languageOrigin)).subscribe((value: Stream) => {
+      if (value.interim !== '') {
+        this.rawText = value.interim;
+      } else if (value.final !== '') {
+        this.rawText = saveText + value.final;
+        saveText = this.rawText;
+      }
     });
   }
 
@@ -162,6 +168,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public exitStream() {
     if (this.useSpeechToTextMicrosoftApi) {
       this.speechToTextMicrosoftService.stopContinuousRecognitionAsync();
+      this.displaySendOnClick();
     } else {
       this.speechRecognitionService.DestroySpeechObject();
     }
@@ -276,7 +283,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     const message = this.buildMessage(text);
     const messageWrapped: MessageWrapped = {
       message,
-      time: Date.now(),
+      time: Date.now()
     };
     this.messagesToEmit.emit(messageWrapped);
   }
@@ -284,11 +291,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   private async sendToMultiDevices(user: User, text: string) {
     const message: Message = {
       ...this.buildMessage(text),
-      member: user.firstname ? user.firstname : AdvisorDefaultName,
+      member: user.firstname ? user.firstname : AdvisorDefaultName
     };
     const messageWrapped: MessageWrapped = {
       message,
-      time: Date.now(),
+      time: Date.now()
     };
     await this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
   }
@@ -304,7 +311,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       flag: this.flag,
       role: this.role,
       text,
-      translationMode: this.translationMode,
+      translationMode: this.translationMode
     };
   }
 }
