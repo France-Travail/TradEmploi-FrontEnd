@@ -15,11 +15,12 @@ export class SettingsService {
   public recordMode: boolean = false;
   public defaultLanguage: Language = {audio: 'fr-FR', written: 'fr-FR', languageName: 'Français'};
   public isMobile: boolean;
+  public isTablet: boolean;
 
   constructor(private deviceService: DeviceDetectorService) {
     this.isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-    if (this.isMobile || isTablet) {
+    this.isTablet = this.deviceService.isTablet();
+    if (this.isMobile || this.isTablet) {
       this.recordMode = true;
     }
   }

@@ -62,7 +62,7 @@ export const VOCABULARY_DEFAULT: Vocabulary = {
   navbarTabs: NAVBAR_ENGLISH_TABS
 };
 
-export const VOCABULARY: Vocabulary[] = [
+export const VOCABULARY_AZURE: Vocabulary[] = [
   {
     isoCode: 'ar-IL',
     audioCode: 'ar-XA',
@@ -249,33 +249,6 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: SPANISH
   },
   {
-    isoCode: 'zh-CN',
-    audioCode: 'cmn-CN',
-    countryNameRaw: '中国大陆',
-    countryNameFr: 'Chine',
-    languageNameRaw: '普通话',
-    languageNameFr: 'Mandarin',
-    sentences: MANDARIN
-  },
-  {
-    isoCode: 'zh-HK',
-    audioCode: 'yue-HK',
-    countryNameRaw: '香港',
-    countryNameFr: 'Hong Kong',
-    languageNameRaw: '普通话',
-    languageNameFr: 'Mandarin',
-    sentences: MANDARIN
-  },
-  {
-    isoCode: 'zh-TW',
-    audioCode: 'cmn-TW',
-    countryNameRaw: '台湾',
-    countryNameFr: 'Taïwan',
-    languageNameRaw: '普通话',
-    languageNameFr: 'Mandarin',
-    sentences: MANDARIN
-  },
-  {
     isoCode: 'en-AU',
     audioCode: 'en-AU',
     countryNameRaw: 'Australia',
@@ -327,14 +300,6 @@ export const VOCABULARY: Vocabulary[] = [
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
     sentences: ENGLISH
-  },
-  {
-    isoCode: 'sq-AL',
-    countryNameRaw: 'Shqiperia',
-    countryNameFr: 'Albanie',
-    languageNameRaw: 'Shqiptare',
-    languageNameFr: 'Albanais',
-    sentences: ALBANIAN
   },
   {
     isoCode: 'en-IE',
@@ -408,22 +373,6 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: ENGLISH
   },
   {
-    isoCode: 'bn-BD',
-    countryNameRaw: 'বাংলাদেশ',
-    countryNameFr: 'Bangladesh',
-    languageNameRaw: 'বাংলা',
-    languageNameFr: 'Bengali',
-    sentences: BENGALI
-  },
-  {
-    isoCode: 'bn-IN',
-    countryNameRaw: 'ভারত',
-    countryNameFr: 'Inde',
-    languageNameRaw: 'বাংলা',
-    languageNameFr: 'Bengali',
-    sentences: BENGALI_INDIA
-  },
-  {
     isoCode: 'fa-AF',
     countryNameRaw: 'افغانستان',
     countryNameFr: 'Afghanistan',
@@ -472,22 +421,6 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: GERMAN
   },
   {
-    isoCode: 'am-ET',
-    countryNameRaw: 'ኢትዮጵያ',
-    countryNameFr: 'Éthiopie',
-    languageNameFr: 'Amharique',
-    languageNameRaw: 'አማርኛ',
-    sentences: AMHARIC
-  },
-  {
-    isoCode: 'km-KH',
-    countryNameRaw: 'កម្ពុជា',
-    countryNameFr: 'Cambodge',
-    languageNameFr: 'Khmer',
-    languageNameRaw: 'ភាសាខ្មែរ',
-    sentences: KHMER
-  },
-  {
     isoCode: 'hi-IN',
     countryNameRaw: 'भारत',
     countryNameFr: 'Inde',
@@ -512,36 +445,12 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: ITALIAN
   },
   {
-    isoCode: 'mn-MN',
-    countryNameRaw: 'Монгол Улс',
-    countryNameFr: 'Mongolie',
-    languageNameFr: 'Mongol',
-    languageNameRaw: 'Монгол',
-    sentences: MONGOL
-  },
-  {
-    isoCode: 'ne-NP',
-    countryNameRaw: 'नेपाल',
-    countryNameFr: 'Népal',
-    languageNameFr: 'Népalais',
-    languageNameRaw: 'नेपाली',
-    sentences: NEPALESE
-  },
-  {
     isoCode: 'ru-RU',
     countryNameRaw: 'Россия',
     countryNameFr: 'Russie',
     languageNameFr: 'Russe',
     languageNameRaw: 'Русский',
     sentences: RUSSIA
-  },
-  {
-    isoCode: 'uz-UZ',
-    countryNameRaw: 'Ўзбекистон',
-    countryNameFr: 'Ouzbékistan',
-    languageNameFr: 'Ouzbek',
-    languageNameRaw: 'ўзбек',
-    sentences: OUZBEK
   },
   {
     isoCode: 'ro-RO',
@@ -780,22 +689,6 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: ARAB
   },
   {
-    isoCode: 'gl-ES',
-    countryNameRaw: 'España',
-    countryNameFr: 'Espagne',
-    languageNameRaw: 'Galego',
-    languageNameFr: 'Galicien',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
-    isoCode: 'ka-GE',
-    countryNameRaw: 'საქართველო',
-    countryNameFr: 'Géorgie',
-    languageNameRaw: 'ქართული',
-    languageNameFr: 'Géorgien',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
     isoCode: 'gu-IN',
     countryNameRaw: 'ભારત',
     countryNameFr: 'Inde',
@@ -812,44 +705,12 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: ENGLISH_DEFAULT
   },
   {
-    isoCode: 'zu-ZA',
-    countryNameRaw: 'Ningizimu Afrika',
-    countryNameFr: 'Afrique du Sud',
-    languageNameRaw: 'IsiZulu',
-    languageNameFr: 'Zoulou',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
-    isoCode: 'is-IS',
-    countryNameRaw: 'Ísland',
-    countryNameFr: 'Islande',
-    languageNameRaw: 'Íslenska',
-    languageNameFr: 'Islandais',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
-    isoCode: 'jv-ID',
-    countryNameRaw: 'Indonesia',
-    countryNameFr: 'Indonésie',
-    languageNameRaw: 'Jawa',
-    languageNameFr: 'Javanais',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
     isoCode: 'kn-IN',
     countryNameRaw: 'ಭಾರತ',
     countryNameFr: 'Inde',
     languageNameRaw: 'ಕನ್ನಡ',
     languageNameFr: 'Kannada',
     sentences: KANNADA
-  },
-  {
-    isoCode: 'lo-LA',
-    countryNameRaw: 'ລາວ',
-    countryNameFr: 'Laos',
-    languageNameRaw: 'ລາວ',
-    languageNameFr: 'Lao',
-    sentences: ENGLISH_DEFAULT
   },
   {
     isoCode: 'lv-LV',
@@ -874,14 +735,6 @@ export const VOCABULARY: Vocabulary[] = [
     languageNameRaw: 'Magyar',
     languageNameFr: 'Hongrois',
     sentences: HUNGARIAN
-  },
-  {
-    isoCode: 'ml-IN',
-    countryNameRaw: 'ഇന്ത്യ',
-    countryNameFr: 'Inde',
-    languageNameRaw: 'മലയാളം',
-    languageNameFr: 'Malayalam',
-    sentences: MALAYALAM
   },
   {
     isoCode: 'mr-IN',
@@ -924,14 +777,6 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: PORTUGUESE
   },
   {
-    isoCode: 'si-LK',
-    countryNameRaw: 'ශ්රී ලංකාව',
-    countryNameFr: 'Sri Lanka',
-    languageNameRaw: 'සිංහල',
-    languageNameFr: 'Cingalais',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
     isoCode: 'sk-SK',
     countryNameRaw: 'Slovensko',
     countryNameFr: 'Slovaquie',
@@ -945,22 +790,6 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Slovénie',
     languageNameRaw: 'Slovenščina',
     languageNameFr: 'Slovène',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
-    isoCode: 'su-ID',
-    countryNameRaw: 'Indonesia',
-    countryNameFr: 'Indonésie',
-    languageNameRaw: 'Sundanese',
-    languageNameFr: 'Soundanais',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
-    isoCode: 'sw-TZ',
-    countryNameRaw: 'Tanzania',
-    countryNameFr: 'Tanzanie',
-    languageNameRaw: 'Swahili',
-    languageNameFr: 'Swahili',
     sentences: ENGLISH_DEFAULT
   },
   {
@@ -988,53 +817,12 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: SWEDEN
   },
   {
-    isoCode: 'ta-SG',
-    countryNameRaw: 'சிங்கப்பூர்',
-    countryNameFr: 'Singapour',
-    languageNameRaw: 'தமிழ்',
-    languageNameFr: 'Tamoul',
-    sentences: TAMOUL
-  },
-  {
-    isoCode: 'ta-LK',
-    countryNameRaw: 'இலங்கை',
-    countryNameFr: 'Sri Lanka',
-    languageNameRaw: 'தமிழ்',
-    languageNameFr: 'Tamoul',
-    sentences: TAMOUL
-  },
-  {
-    isoCode: 'ta-MY',
-    countryNameRaw: 'மலேசியா',
-    countryNameFr: 'Malaisie',
-    languageNameRaw: 'தமிழ்',
-    languageNameFr: 'Tamoul',
-    sentences: TAMOUL
-  },
-  {
     isoCode: 'te-IN',
     countryNameRaw: 'భారతదేశం',
     countryNameFr: 'Inde',
     languageNameRaw: 'తెలుగు',
     languageNameFr: 'Télougou',
     sentences: TELUGU
-  },
-  {
-    isoCode: 'en-PK',
-    audioCode: 'en-GB',
-    countryNameRaw: 'Pakistan',
-    countryNameFr: 'Pakistan',
-    languageNameRaw: 'English',
-    languageNameFr: 'Anglais',
-    sentences: ENGLISH
-  },
-  {
-    isoCode: 'ur-IN',
-    countryNameRaw: 'بھارت',
-    countryNameFr: 'Inde',
-    languageNameRaw: 'اردو',
-    languageNameFr: 'Ourdou',
-    sentences: OURDOU
   },
   {
     isoCode: 'bg-BG',
@@ -1045,60 +833,12 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: BULGARE
   },
   {
-    isoCode: 'sr-RS',
-    countryNameRaw: 'Србија',
-    countryNameFr: 'Serbie',
-    languageNameRaw: 'Српски',
-    languageNameFr: 'Serbe',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
-    isoCode: 'uk-UA',
-    countryNameRaw: 'Україна',
-    countryNameFr: 'Ukraine',
-    languageNameRaw: 'Українська',
-    languageNameFr: 'Ukrainien',
-    sentences: UKRAINE
-  },
-  {
     isoCode: 'he-IL',
     countryNameRaw: 'ישראל',
     countryNameFr: 'Israël',
     languageNameRaw: 'עברית',
     languageNameFr: 'Hébreu',
     sentences: HEBREW
-  },
-  {
-    isoCode: 'eu-ES',
-    countryNameRaw: 'Espainia',
-    countryNameFr: 'Espagne',
-    languageNameFr: 'Basque',
-    languageNameRaw: 'Euskara',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
-    isoCode: 'af-ZA',
-    countryNameRaw: 'Suid-Afrika',
-    countryNameFr: 'Afrique du Sud',
-    languageNameRaw: 'Afrikaans',
-    languageNameFr: 'Afrikaans',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
-    isoCode: 'hy-AM',
-    countryNameRaw: 'Հայաստան',
-    countryNameFr: 'Arménie',
-    languageNameRaw: 'Հայ',
-    languageNameFr: 'Arménien',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
-    isoCode: 'az-AZ',
-    countryNameRaw: 'Azərbaycan',
-    countryNameFr: 'Azerbaïjan',
-    languageNameRaw: 'Azərbaycan',
-    languageNameFr: 'Azerbaïdjan',
-    sentences: ENGLISH_DEFAULT
   },
   {
     isoCode: 'da-DK',
@@ -1141,45 +881,12 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: CZECH
   },
   {
-    isoCode: 'bs-BA',
-    countryNameRaw: 'Bosna i Hercegovina',
-    countryNameFr: 'Bosnie-Herzégovine',
-    languageNameRaw: 'Bosanski jezik',
-    languageNameFr: 'Bosniaque',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'my-MM',
-    countryNameRaw: `
-    မြန်မာပြည်`,
-    countryNameFr: 'Birmanie',
-    languageNameRaw: `ဗမာ`,
-    languageNameFr: 'Birman',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
     isoCode: 'fil-PH',
     countryNameRaw: 'Pilipinas',
     countryNameFr: 'Philippines',
     languageNameRaw: 'Tagalog',
     languageNameFr: 'Tagalog',
     sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'kk-KZ',
-    countryNameRaw: `Қазақстан`,
-    countryNameFr: 'Kazakhstan',
-    languageNameRaw: `Қазақша`,
-    languageNameFr: 'Kazakh',
-    sentences: ENGLISH_DEFAULT
-  },
-  {
-    isoCode: 'mk-MK',
-    countryNameRaw: `Македонија`,
-    countryNameFr: 'Macédoine',
-    languageNameRaw: `Македонски`,
-    languageNameFr: 'Macédonien',
-    sentences: ENGLISH_DEFAULT
   },
   {
     isoCode: 'lb-LU',
