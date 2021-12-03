@@ -8,7 +8,7 @@
 .container {
   display: flex;
   margin-top:20px;
-  height:40px;
+  height:60px;
 }
 
 .field {
@@ -20,16 +20,19 @@
   border: 1px solid #bdbdbd;
   background-color: #ffffff;
   flex-grow:2;
+  max-width: 85%;
 
   textarea {
     width: 100%;
     color: $black;
     font-size: 15px;
     padding: 5px 10px;
-    height: 30px;
+    height: 50px;
     border: none;
     outline: none;
     resize: none;
+    line-height: 35px;
+
     font-family: Roboto;
     &::-webkit-scrollbar {
       width: 5px;
@@ -54,7 +57,7 @@
   display: flex;
   align-items: center;
   .flag-icon {
-    width: 25px;
+    width: 40px;
     height: 70%;
     box-sizing: border-box;
     border-radius: 5px;
@@ -66,10 +69,9 @@
 .actions {
   margin-left:5px;
   img {
-    width: 35px;
-    height: 85%;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    margin-top: 3px;
     cursor: pointer;
     background-color: $primary-color;
     animation: rightToLeftEffect 0.1s;
@@ -136,8 +138,8 @@
   background-color: $primary-color;
   background-position-y: 40%;
   background-size: cover;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   position: absolute;
   display: block;
