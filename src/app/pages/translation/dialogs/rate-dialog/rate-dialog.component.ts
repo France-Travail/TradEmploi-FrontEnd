@@ -196,15 +196,14 @@ export class RateDialogComponent implements OnInit {
           } else {
             this.chatService.updateChatStatus(user.roomId, false);
           }
-          localStorage.setItem('isLogged', 'false');
-          this.settingsService.reset();
-          this.router.navigate(['thanks']);
+          // this.settingsService.reset();
+          this.router.navigate(['choice']);
         })
         .catch(() => {
           this.toastService.showToast(ERROR_FUNC_SEND_STATS.description, 'toast-error');
           this.dialogRef.close();
           setTimeout(() => {
-            this.router.navigate(['thanks']);
+            this.router.navigate(['choice']);
           }, 3500);
         });
     }
