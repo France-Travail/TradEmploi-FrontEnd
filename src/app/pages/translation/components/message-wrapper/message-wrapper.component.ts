@@ -53,8 +53,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public isIOS: boolean = false;
   public voiceNotSupported: boolean = false;
   public seconds: number;
-  public isSmallScreen: Observable<boolean>;
   private isMobile: boolean = false;
+  private isTablet: boolean = false;
   private recordingState: RecordingState = RecordingState.STOPPED;
   private useSpeechToTextMicrosoftApi: boolean;
 
@@ -87,6 +87,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       this.isMobile = result.matches;
     });
     this.useSpeechToTextMicrosoftApi = environment.microsoftSpeechConfig.enabled;
+    this.isTablet = this.settingsService.isTablet;
   }
 
   ngOnChanges() {
@@ -97,7 +98,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
 
   ngAfterViewInit() {
     const textArea = document.getElementById('msg-wrapper-advisor');
-    if (!this.isMobile && textArea) {
+    if (!this.isTablet && !this.isMobile && textArea) {
       textArea.focus();
     }
   }
@@ -259,7 +260,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
 
   @HostListener('window:mouseup', ['$event'])
   mouseUp(event) {
-    if (!this.isMobile && this.recordingState === RecordingState.RECORDING) {
+    if (!this.isMobile && !this.isTablet && this.recordingState === RecordingState.RECORDING) {
       this.onStop();
     }
   }
