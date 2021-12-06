@@ -54,9 +54,9 @@
         <div class="speaker" *ngIf="item.sentences.audioSupported" (click)="audioDescription(item)" matTooltip="{{ tooltip.audio }}" matTooltipClass="tooltip-info"></div>
       </div>
     </div>
-    <div class="title rate" *ngIf="mapLanguages.get(item.isoCode) && mapLanguages.get(item.isoCode).average">
-      <ng-rating-bar class="fr" s [styles]="styles"  [value]="mapLanguages.get(item.isoCode).average" [ratingCount]="5" [disabled]="true"></ng-rating-bar>
-      <span class="raw">({{mapLanguages.get(item.isoCode).occurrences}})</span>
+    <div class="title rate" >
+      <ng-rating-bar class="fr" *ngIf="mapLanguages.get(item.isoCode) && mapLanguages.get(item.isoCode).average" [styles]="styles"  [value]="mapLanguages.get(item.isoCode).average" [ratingCount]="5" [disabled]="true"></ng-rating-bar>
+      <span class="raw" *ngIf="mapLanguages.get(item.isoCode) && mapLanguages.get(item.isoCode).average">({{mapLanguages.get(item.isoCode).occurrences}})</span>
     </div>
   </div>
 </div>

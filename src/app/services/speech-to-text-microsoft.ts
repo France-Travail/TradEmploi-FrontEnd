@@ -34,6 +34,9 @@ export class SpeechToTextMicrosoftService {
           interimTranscript = '';
           observer.next({ final: finalTranscript, interim: interimTranscript });
         }
+        else if (e.result.reason === ResultReason.NoMatch) {
+          observer.next({ final: '', interim: '' });
+        }
       };
       this.recognizer.recognizing = (s, e) => {
         if (e.result.reason === ResultReason.RecognizingSpeech) {
