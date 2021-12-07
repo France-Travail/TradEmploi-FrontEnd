@@ -153,6 +153,8 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       } else if (value.final !== '') {
         this.rawText = saveText + value.final;
         saveText = this.rawText;
+      }else if (value.interim === '' && value.final === ''){
+        this.onStop();
       }
     });
   }
@@ -164,20 +166,6 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       }
     }
     return language;
-  }
-
-  public exitStream() {
-    if (this.useSpeechToTextMicrosoftApi) {
-      this.speechToTextMicrosoftService.stopContinuousRecognitionAsync();
-      this.displaySendOnClick();
-    } else {
-      this.speechRecognitionService.DestroySpeechObject();
-    }
-
-    this.speaking = false;
-    setTimeout(() => {
-      this.send(false);
-    }, 1000);
   }
 
   public delete(): void {
