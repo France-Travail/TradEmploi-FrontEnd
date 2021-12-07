@@ -60,7 +60,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
 
   ngOnInit() {
     if (this.settingsService.isMobile) {
-      this.styles = { margin: '0px', padding: '0px', fontSize: '15px' };
+      this.styles = { margin: '0px', padding: '0px', fontSize: '10px' };
     }
   }
 
