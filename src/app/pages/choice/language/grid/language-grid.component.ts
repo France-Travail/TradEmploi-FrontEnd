@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
@@ -20,7 +20,7 @@ import { environment } from '../../../../../environments/environment';
   templateUrl: './language-grid.component.html',
   styleUrls: ['./language-grid.component.scss']
 })
-export class LanguageGridComponent implements OnChanges {
+export class LanguageGridComponent implements OnChanges, OnInit {
   @Input() search: string;
   @Input() optionAll: boolean;
   @Input() optionList: boolean;
@@ -43,6 +43,7 @@ export class LanguageGridComponent implements OnChanges {
   ];
   public styles = { margin: '0px', padding: '0px', fontSize: '20px' };
 
+
   constructor(private textToSpeechService: TextToSpeechService, private toastService: ToastService, private settingsService: SettingsService,
               private db: AngularFirestore, private router: Router) {
     const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as Observable<Language[]>;
@@ -55,6 +56,12 @@ export class LanguageGridComponent implements OnChanges {
       this.mapLanguages.set(language.isoCode, language);
     }));
 
+  }
+
+  ngOnInit() {
+    if (this.settingsService.isMobile) {
+      this.styles = { margin: '0px', padding: '0px', fontSize: '15px' };
+    }
   }
 
   ngOnChanges() {
