@@ -1,10 +1,10 @@
 import { Vocabulary } from '../models/vocabulary';
 import {
-  ALBANIAN,
-  AMHARIC,
+  ALBANIAN_NO_VOICE,
+  AMHARIC_NO_VOICE,
   ARAB,
-  BENGALI,
-  BENGALI_INDIA,
+  BENGALI_INDIA_NO_VOICE,
+  BENGALI_NO_VOICE,
   BULGARE,
   CZECH,
   DANISH,
@@ -26,16 +26,17 @@ import {
   ITALIAN,
   JAPANESE,
   KANNADA,
-  KHMER,
+  KHMER_NO_VOICE,
   KOREA,
-  MALAYALAM,
-  MANDARIN,
-  MONGOL,
+  MALAYALAM_NO_VOICE,
+  MANDARIN_NO_VOICE,
+  MONGOL_NO_VOICE,
   NAVBAR_ENGLISH_TABS,
-  NEPALESE,
+  NEPALESE_NO_VOICE,
   NORWAY,
   OURDOU,
-  OUZBEK,
+  OURDOU_NO_VOICE,
+  OUZBEK_NO_VOICE,
   PACHTO,
   PENDJABI,
   PERSAN,
@@ -47,12 +48,12 @@ import {
   SOMALI,
   SPANISH,
   SWEDEN,
-  TAMOUL,
   TAMOUL_INDIA,
+  TAMOUL_NO_VOICE,
   TELUGU,
   THAILAND,
   TURC,
-  UKRAINE,
+  UKRAINE_NO_VOICE,
   VIETNAMESE
 } from './sentence';
 
@@ -63,6 +64,308 @@ export const VOCABULARY_DEFAULT: Vocabulary = {
 };
 
 export const VOCABULARY_AZURE: Vocabulary[] = [
+  // no voice for azure
+  {
+    isoCode: 'af-ZA',
+    countryNameRaw: 'Suid-Afrika',
+    countryNameFr: 'Afrique du Sud',
+    languageNameRaw: 'Afrikaans',
+    languageNameFr: 'Afrikaans',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'sq-AL',
+    countryNameRaw: 'Shqiperia',
+    countryNameFr: 'Albanie',
+    languageNameRaw: 'Shqiptare',
+    languageNameFr: 'Albanais',
+    sentences: ALBANIAN_NO_VOICE
+  },
+  {
+    isoCode: 'am-ET',
+    countryNameRaw: 'ኢትዮጵያ',
+    countryNameFr: 'Éthiopie',
+    languageNameFr: 'Amharique',
+    languageNameRaw: 'አማርኛ',
+    sentences: AMHARIC_NO_VOICE
+  },
+  {
+    isoCode: 'hy-AM',
+    countryNameRaw: 'Հայաստան',
+    countryNameFr: 'Arménie',
+    languageNameRaw: 'Հայ',
+    languageNameFr: 'Arménien',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'az-AZ',
+    countryNameRaw: 'Azərbaycan',
+    countryNameFr: 'Azerbaïjan',
+    languageNameRaw: 'Azərbaycan',
+    languageNameFr: 'Azerbaïdjan',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'eu-ES',
+    countryNameRaw: 'Espainia',
+    countryNameFr: 'Espagne',
+    languageNameFr: 'Basque',
+    languageNameRaw: 'Euskara',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'bn-BD',
+    countryNameRaw: 'বাংলাদেশ',
+    countryNameFr: 'Bangladesh',
+    languageNameRaw: 'বাংলা',
+    languageNameFr: 'Bengali',
+    sentences: BENGALI_NO_VOICE
+  },
+  {
+    isoCode: 'bn-IN',
+    countryNameRaw: 'ভারত',
+    countryNameFr: 'Inde',
+    languageNameRaw: 'বাংলা',
+    languageNameFr: 'Bengali',
+    sentences: BENGALI_INDIA_NO_VOICE
+  },
+  {
+    isoCode: 'bs-BA',
+    countryNameRaw: 'Bosna i Hercegovina',
+    countryNameFr: 'Bosnie-Herzégovine',
+    languageNameRaw: 'Bosanski jezik',
+    languageNameFr: 'Bosniaque',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'my-MM',
+    countryNameRaw: `
+    မြန်မာပြည်`,
+    countryNameFr: 'Birmanie',
+    languageNameRaw: `ဗမာ`,
+    languageNameFr: 'Birman',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'zh-HK',
+    audioCode: 'yue-HK',
+    countryNameRaw: '香港',
+    countryNameFr: 'Hong Kong',
+    languageNameRaw: '普通话',
+    languageNameFr: 'Mandarin',
+    sentences: MANDARIN_NO_VOICE
+  },
+  {
+    isoCode: 'zh-TW',
+    audioCode: 'cmn-TW',
+    countryNameRaw: '台湾',
+    countryNameFr: 'Taïwan',
+    languageNameRaw: '普通话',
+    languageNameFr: 'Mandarin',
+    sentences: MANDARIN_NO_VOICE
+  },
+  {
+    isoCode: 'en-PK',
+    audioCode: 'en-GB',
+    countryNameRaw: 'Pakistan',
+    countryNameFr: 'Pakistan',
+    languageNameRaw: 'English',
+    languageNameFr: 'Anglais',
+    sentences: ENGLISH
+  },
+  {
+    isoCode: 'gl-ES',
+    countryNameRaw: 'España',
+    countryNameFr: 'Espagne',
+    languageNameRaw: 'Galego',
+    languageNameFr: 'Galicien',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'ka-GE',
+    countryNameRaw: 'საქართველო',
+    countryNameFr: 'Géorgie',
+    languageNameRaw: 'ქართული',
+    languageNameFr: 'Géorgien',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'is-IS',
+    countryNameRaw: 'Ísland',
+    countryNameFr: 'Islande',
+    languageNameRaw: 'Íslenska',
+    languageNameFr: 'Islandais',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'jv-ID',
+    countryNameRaw: 'Indonesia',
+    countryNameFr: 'Indonésie',
+    languageNameRaw: 'Jawa',
+    languageNameFr: 'Javanais',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'kk-KZ',
+    countryNameRaw: `Қазақстан`,
+    countryNameFr: 'Kazakhstan',
+    languageNameRaw: `Қазақша`,
+    languageNameFr: 'Kazakh',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'km-KH',
+    countryNameRaw: 'កម្ពុជា',
+    countryNameFr: 'Cambodge',
+    languageNameFr: 'Khmer',
+    languageNameRaw: 'ភាសាខ្មែរ',
+    sentences: KHMER_NO_VOICE
+  },
+  {
+    isoCode: 'lo-LA',
+    countryNameRaw: 'ລາວ',
+    countryNameFr: 'Laos',
+    languageNameRaw: 'ລາວ',
+    languageNameFr: 'Lao',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'mk-MK',
+    countryNameRaw: `Македонија`,
+    countryNameFr: 'Macédoine',
+    languageNameRaw: `Македонски`,
+    languageNameFr: 'Macédonien',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'ml-IN',
+    countryNameRaw: 'ഇന്ത്യ',
+    countryNameFr: 'Inde',
+    languageNameRaw: 'മലയാളം',
+    languageNameFr: 'Malayalam',
+    sentences: MALAYALAM_NO_VOICE
+  },
+  {
+    isoCode: 'mr-IN',
+    countryNameRaw: 'भारत',
+    countryNameFr: 'Inde',
+    languageNameRaw: 'मराठी',
+    languageNameFr: 'Marathi',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'mn-MN',
+    countryNameRaw: 'Монгол Улс',
+    countryNameFr: 'Mongolie',
+    languageNameFr: 'Mongol',
+    languageNameRaw: 'Монгол',
+    sentences: MONGOL_NO_VOICE
+  },
+  {
+    isoCode: 'ne-NP',
+    countryNameRaw: 'नेपाल',
+    countryNameFr: 'Népal',
+    languageNameFr: 'Népalais',
+    languageNameRaw: 'नेपाली',
+    sentences: NEPALESE_NO_VOICE
+  },
+  {
+    isoCode: 'sr-RS',
+    countryNameRaw: 'Србија',
+    countryNameFr: 'Serbie',
+    languageNameRaw: 'Српски',
+    languageNameFr: 'Serbe',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'si-LK',
+    countryNameRaw: 'ශ්රී ලංකාව',
+    countryNameFr: 'Sri Lanka',
+    languageNameRaw: 'සිංහල',
+    languageNameFr: 'Cingalais',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'su-ID',
+    countryNameRaw: 'Indonesia',
+    countryNameFr: 'Indonésie',
+    languageNameRaw: 'Sundanese',
+    languageNameFr: 'Soundanais',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'sw-TZ',
+    countryNameRaw: 'Tanzania',
+    countryNameFr: 'Tanzanie',
+    languageNameRaw: 'Swahili',
+    languageNameFr: 'Swahili',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  {
+    isoCode: 'ta-MY',
+    countryNameRaw: 'மலேசியா',
+    countryNameFr: 'Malaisie',
+    languageNameRaw: 'தமிழ்',
+    languageNameFr: 'Tamoul',
+    sentences: TAMOUL_NO_VOICE
+  },
+  {
+    isoCode: 'ta-SG',
+    countryNameRaw: 'சிங்கப்பூர்',
+    countryNameFr: 'Singapour',
+    languageNameRaw: 'தமிழ்',
+    languageNameFr: 'Tamoul',
+    sentences: TAMOUL_NO_VOICE
+  },
+  {
+    isoCode: 'ta-LK',
+    countryNameRaw: 'இலங்கை',
+    countryNameFr: 'Sri Lanka',
+    languageNameRaw: 'தமிழ்',
+    languageNameFr: 'Tamoul',
+    sentences: TAMOUL_NO_VOICE
+  },
+  {
+    isoCode: 'uk-UA',
+    countryNameRaw: 'Україна',
+    countryNameFr: 'Ukraine',
+    languageNameRaw: 'Українська',
+    languageNameFr: 'Ukrainien',
+    sentences: UKRAINE_NO_VOICE
+  },
+  {
+    isoCode: 'ur-IN',
+    countryNameRaw: 'بھارت',
+    countryNameFr: 'Inde',
+    languageNameRaw: 'اردو',
+    languageNameFr: 'Ourdou',
+    sentences: OURDOU_NO_VOICE
+  },
+  {
+    isoCode: 'ur-PK',
+    countryNameRaw: 'پاکستان',
+    countryNameFr: 'Pakistan',
+    languageNameFr: 'Ourdou',
+    languageNameRaw: 'اردو',
+    sentences: OURDOU_NO_VOICE
+  },
+  {
+    isoCode: 'uz-UZ',
+    countryNameRaw: 'Ўзбекистон',
+    countryNameFr: 'Ouzbékistan',
+    languageNameFr: 'Ouzbek',
+    languageNameRaw: 'ўзбек',
+    sentences: OUZBEK_NO_VOICE
+  },
+  {
+    isoCode: 'zu-ZA',
+    countryNameRaw: 'Ningizimu Afrika',
+    countryNameFr: 'Afrique du Sud',
+    languageNameRaw: 'IsiZulu',
+    languageNameFr: 'Zoulou',
+    sentences: ENGLISH_DEFAULT_NO_VOICE
+  },
+  //end azure
   {
     isoCode: 'ar-IL',
     audioCode: 'ar-XA',
