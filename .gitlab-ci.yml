@@ -4,8 +4,8 @@ before_script:
   - npm i -g firebase-tools @angular/cli@8.1.2
 
 variables:
-  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE_RECETTE
-  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE_RECETTE
+  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE_PROD
+  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE_PROD
 
 stages:
   - build
@@ -18,16 +18,15 @@ build:
       - node_modules/
       - dist/
   environment:
-    name: uat
-    url: https://pole-emploi-trad-recette.firebaseapp.com
+    name: production
+    url: https://pole-emploi-trad-prod.firebaseapp.com
   script:
-    - echo $AUTHFLOW_FILE_CONTENT
     - npm i
-    - npm run config "--environment=qa"
-    - ng build "--configuration=qa"
+    - npm run config "--environment=production"
+    - ng build "--configuration=production"
   only:
     refs:
-      - release
+      - master
 
 deploy:
   stage: deploy
@@ -35,10 +34,10 @@ deploy:
     paths:
       - dist/
   environment:
-    name: uat
-    url: https://pole-emploi-trad-recette.firebaseapp.com
+    name: production
+    url: https://pole-emploi-trad-prod.firebaseapp.com
   script:
-    - firebase deploy --project qa --token $FIREBASE_TOKEN
+    - firebase deploy --project prod --token $FIREBASE_TOKEN
   only:
     refs:
-      - release
+      - master
