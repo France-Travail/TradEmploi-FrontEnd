@@ -42,17 +42,19 @@ export class LanguageGridComponent implements OnChanges, OnInit {
     { value: ['pays', false], viewValue: 'Pays (desc)' }
   ];
   public styles = { margin: '0px', padding: '0px', fontSize: '20px' };
+  private vocabulary: Vocabulary[];
 
 
   constructor(private textToSpeechService: TextToSpeechService, private toastService: ToastService, private settingsService: SettingsService,
               private db: AngularFirestore, private router: Router) {
     const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as Observable<Language[]>;
     result.subscribe(languages => languages.forEach(language => {
-      if (environment.microsoftSpeechConfig.enabled) {
-        this.selectedCountries.push(...VOCABULARY_AZURE.filter((i) => i.isoCode === language.isoCode && i.isoCode !== 'fr-FR'));
-      } else {
-        this.selectedCountries.push(...VOCABULARY.filter((i) => i.isoCode === language.isoCode && i.isoCode !== 'fr-FR'));
+      if (environment.microsoftSpeechConfig.enabled){
+        this.vocabulary = VOCABULARY_AZURE;
+      }else{
+        this.vocabulary = VOCABULARY;
       }
+      this.selectedCountries.push(...this.vocabulary.filter((i) => i.isoCode === language.isoCode && i.isoCode !== 'fr-FR'));
       this.mapLanguages.set(language.isoCode, language);
     }));
 
@@ -85,11 +87,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   }
 
   public getCountriesAll() {
-    if (environment.microsoftSpeechConfig.enabled) {
-      this.countries = VOCABULARY_AZURE.sort((a, b) => this.sortCountryNameFr(a.languageNameFr, b.languageNameFr));
-    } else {
-      this.countries = VOCABULARY.sort((a, b) => this.sortCountryNameFr(a.languageNameFr, b.languageNameFr));
-    }
+      this.countries = this.vocabulary.sort((a, b) => this.sortCountryNameFr(a.languageNameFr, b.languageNameFr));
   }
 
   public isoCodeToFlag(isoCode: string) {

@@ -20,7 +20,8 @@ import { SpeechToTextMicrosoftService } from '../../../../services/speech-to-tex
 import { ERROR_FUNC_UNAUTHORIZEDMICRO } from '../../../../models/error/errorFunctionnal';
 import { environment } from '../../../../../environments/environment';
 import { ERROR_TECH_UNAUTHORIZEDMICRO } from '../../../../models/error/errorTechnical';
-import { Observable } from 'rxjs';
+import { Vocabulary } from '../../../../models/vocabulary';
+import { VOCABULARY_AZURE } from '../../../../data/vocabulary-microsoft-azure';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -57,6 +58,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   private isTablet: boolean = false;
   private recordingState: RecordingState = RecordingState.STOPPED;
   private useSpeechToTextMicrosoftApi: boolean;
+  private vocabulary: Vocabulary[];
 
 
   constructor(
@@ -76,8 +78,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     this.isIOS = isIOS();
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
     this.languageName = this.settingsService.user.value.language.languageName;
-    const isLanguageExist = VOCABULARY.some((item) => item.isoCode === this.settingsService.user.value.language.written);
-    const data = isLanguageExist || this.role === Role.ADVISOR ? VOCABULARY.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
+    if (environment.microsoftSpeechConfig.enabled){
+      this.vocabulary = VOCABULARY_AZURE;
+    }else{
+      this.vocabulary = VOCABULARY;
+    }
+    const isLanguageExist = this.vocabulary.some((item) => item.isoCode === this.settingsService.user.value.language.written);
+    const data = isLanguageExist || this.role === Role.ADVISOR ? this.vocabulary.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     const translationPlaceHolderIos = this.role === Role.ADVISOR ? data.sentences.translationH2Ios : VOCABULARY_DEFAULT.sentences.translationH2Ios;
     this.interim = this.settingsService.recordMode ? data.sentences.translationH2Mobile : this.isIOS ? translationPlaceHolderIos : data.sentences.translationH2;
     this.sendBtnValue = data.sentences.send;
@@ -153,7 +160,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       } else if (value.final !== '') {
         this.rawText = saveText + value.final;
         saveText = this.rawText;
-      }else if (value.interim === '' && value.final === ''){
+      } else if (value.interim === '' && value.final === '') {
         this.onStop();
       }
     });

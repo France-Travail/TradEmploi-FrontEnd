@@ -223,7 +223,10 @@ export const MALAYALAM: Sentence = {
   ...ENGLISH,
   readedWelcome: 'ഈ ഭാഷയിൽ കൈമാറ്റം ചെയ്യാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?',
 };
-
+export const MALAYALAM_NO_VOICE: Sentence = {
+  ...ENGLISH_DEFAULT_NO_VOICE,
+  readedWelcome: 'ഈ ഭാഷയിൽ കൈമാറ്റം ചെയ്യാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?',
+};
 export const NORWAY: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Vil du utveksle på dette språket?',
@@ -268,7 +271,10 @@ export const UKRAINE: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Ви хочете обмінюватися цією мовою?',
 };
-
+export const UKRAINE_NO_VOICE: Sentence = {
+  ...ENGLISH_DEFAULT_NO_VOICE,
+  readedWelcome: 'Ви хочете обмінюватися цією мовою?',
+};
 export const JAPANESE: Sentence = {
   ...ENGLISH,
   readedWelcome: 'この言語で交換しますか？',
@@ -296,6 +302,7 @@ export const SPANISH: Sentence = {
     technical: '¿Ha encontrado algún problema técnico al utilizar la herramienta?',
   },
 };
+
 export const ALBANIAN: Sentence = {
   applicationName: 'Përkthim i menjëhershëm',
   send: 'Dërgoni te',
@@ -316,6 +323,10 @@ export const ALBANIAN: Sentence = {
     comment: 'Koment falas',
     technical: 'A keni hasur ndonjë problem teknik duke përdorur mjetin?',
   },
+};
+export const ALBANIAN_NO_VOICE: Sentence = {
+  ...ALBANIAN,
+  voiceNotSupported: true,
 };
 export const MANDARIN: Sentence = {
   audioSupported: true,
@@ -338,7 +349,10 @@ export const MANDARIN: Sentence = {
     technical: '您在使用该工具时遇到任何技术问题吗？',
   },
 };
-
+export const MANDARIN_NO_VOICE: Sentence = {
+  ...MANDARIN,
+  voiceNotSupported: true,
+};
 export const BENGALI: Sentence = {
   audioSupported: false,
   applicationName: 'তাত্ক্ষণিক অনুবাদ',
@@ -361,12 +375,18 @@ export const BENGALI: Sentence = {
     technical: 'আপনি কি সরঞ্জামটি ব্যবহার করে কোনও প্রযুক্তিগত সমস্যার সম্মুখীন হয়েছেন?',
   },
 };
-
+export const BENGALI_NO_VOICE: Sentence = {
+  ...BENGALI,
+  voiceNotSupported: true,
+};
 export const BENGALI_INDIA: Sentence = {
   ...BENGALI,
   audioSupported: true,
 };
-
+export const BENGALI_INDIA_NO_VOICE: Sentence = {
+  ...BENGALI_NO_VOICE,
+  audioSupported: true,
+};
 export const DARI: Sentence = {
   applicationName: 'ترجمه فوری',
   send: 'ارسال',
@@ -430,7 +450,10 @@ export const OURDOU: Sentence = {
     technical: 'Have you encountered any technical problems using the tool?',
   },
 };
-
+export const OURDOU_NO_VOICE: Sentence = {
+  ...OURDOU,
+  voiceNotSupported: true,
+};
 export const PORTUGUESE: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Olá eu sou sua interpretação.',
@@ -521,7 +544,10 @@ export const AMHARIC: Sentence = {
     technical: 'መሣሪያውን በመጠቀም ማንኛውንም ቴክኒካዊ ችግሮች አጋጥመውዎታል?',
   },
 };
-
+export const AMHARIC_NO_VOICE: Sentence = {
+  ...AMHARIC,
+  voiceNotSupported: true
+};
 export const KHMER: Sentence = {
   displayedWelcome: 'ជំរាបសួរ, ខ្ញុំនឹងក្លាយជាអ្នកបកប្រែរបស់អ្នកដើម្បីផ្លាស់ប្តូរយ៉ាងងាយស្រួលជាមួយទីប្រឹក្សារបស់អ្នក។',
   readedWelcome: 'តើអ្នកចង់ផ្លាស់ប្តូរភាសានេះទេ?',
@@ -542,7 +568,10 @@ export const KHMER: Sentence = {
     technical: 'តើអ្នកបានជួបប្រទះបញ្ហាបច្ចេកទេសណាមួយដោយប្រើឧបករណ៍នេះទេ?',
   },
 };
-
+export const KHMER_NO_VOICE: Sentence = {
+  ...KHMER,
+  voiceNotSupported: true,
+};
 export const HINDI: Sentence = {
   audioSupported: true,
   displayedWelcome: 'नमस्कार, मैं आपके सलाहकार के साथ आसानी से आदान-प्रदान करने वाला आपका दुभाषिया बनूंगा।',
@@ -585,7 +614,10 @@ export const TAMOUL: Sentence = {
     technical: 'Have you encountered any technical problems using the tool?',
   },
 };
-
+export const TAMOUL_NO_VOICE: Sentence = {
+  ...TAMOUL,
+  voiceNotSupported: true,
+};
 export const TAMOUL_INDIA: Sentence = {
   ...TAMOUL,
   audioSupported: true,
@@ -635,7 +667,10 @@ export const MONGOL: Sentence = {
     technical: 'Хэрэгслийг ашиглахад ямар нэгэн техникийн асуудал тулгарсан уу?',
   },
 };
-
+export const MONGOL_NO_VOICE: Sentence = {
+  ...MONGOL,
+  voiceNotSupported: true,
+};
 export const NEPALESE: Sentence = {
   displayedWelcome: 'नमस्कार, म तपाईको दोभाषे बन्ने छ तपाईंको सल्लाहकार संग सजिलै साटासाट गर्न।',
   readedWelcome: 'के तपाईं यस भाषामा आदान प्रदान गर्न चाहनुहुन्छ?',
@@ -656,7 +691,10 @@ export const NEPALESE: Sentence = {
     technical: 'के तपाईंले उपकरण प्रयोग गर्दा कुनै प्राविधिक समस्याहरू सामना गर्नु भएको छ?',
   },
 };
-
+export const NEPALESE_NO_VOICE: Sentence = {
+  ...NEPALESE,
+  voiceNotSupported: true,
+};
 export const RUSSIA: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Привет я твой переводчик',
@@ -701,7 +739,10 @@ export const OUZBEK: Sentence = {
     technical: 'Asbobni ishlatishda biron bir texnik muammoga duch keldingizmi?',
   },
 };
-
+export const OUZBEK_NO_VOICE: Sentence = {
+  ...OUZBEK,
+  voiceNotSupported: true,
+};
 export const ROMANIAN: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Buna ziua, eu as fi interpretul tau pentru a schimba usor cu consilierul tau.',
