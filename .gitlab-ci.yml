@@ -21,6 +21,7 @@ build:
     name: uat
     url: https://pole-emploi-trad-recette.firebaseapp.com
   script:
+    - echo $AUTHFLOW_FILE_CONTENT
     - npm i
     - npm run config "--environment=qa"
     - ng build "--configuration=qa"
