@@ -28,6 +28,7 @@ export class HeaderComponent implements  OnInit{
   public isWideScreen: Observable<boolean>;
   public language: string;
   public userName: string;
+  public indicatorsTab = false;
 
   constructor(public dialog: MatDialog, public navbarService: NavbarService, public settingsService: SettingsService, private breakpointObserver: BreakpointObserver) {
   }
@@ -43,6 +44,7 @@ export class HeaderComponent implements  OnInit{
       this.gdprLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.gdpr : 'cgu';
       this.language = isGuest ? 'english' : 'french';
       this.userName = user !== null ? [user.firstname, user.lastname].join(' ') : '';
+      this.indicatorsTab = user.role !== Role.GUEST;
     });
     }
 
