@@ -16,7 +16,7 @@ export class ModalityComponent implements OnInit {
   public sentences = FRENCH.modality;
   public target = 'mono';
   public checkIconStyle = 'url(\'../../../assets/icons/check-circle.svg\') no-repeat center center';
-  public isSmallScreen: Boolean = false;
+  public isSmallScreen: boolean = false;
 
   private roomId: string;
 

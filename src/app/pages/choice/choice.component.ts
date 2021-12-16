@@ -17,7 +17,7 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./choice.component.scss'],
 })
 export class ChoiceComponent implements AfterContentInit, OnDestroy {
-  public search: String;
+  public search: string;
 
   public optionAll: boolean = false;
   public optionList: boolean = false;
@@ -26,7 +26,7 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
 
   private endIdDialogRef: MatDialogRef<any, any>;
   private user: User;
-  public isSmallScreen: Boolean = false;
+  public isSmallScreen: boolean = false;
 
   constructor(
     private navService: NavbarService,

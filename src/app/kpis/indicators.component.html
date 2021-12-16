@@ -1,0 +1,50 @@
+<h1 class="title"><strong>Indicateurs de suivi</strong></h1>
+
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Moyenne des évaluations de la qualité des traductions">
+    <div class="chart-container">
+      <ngx-charts-bar-vertical
+        [view]="view"
+        [results]="languagesByAverage"
+        [xAxisLabel]="'Langues'"
+        [legendTitle]="'Langues évaluées'"
+        [yAxisLabel]="'Qualité des traductions (AVG)'"
+        [legend]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [gradient]="true">
+      </ngx-charts-bar-vertical>
+    </div>
+  </mat-tab>
+  <mat-tab label="Langues évaluées">
+    <div class="chart-container">
+      <ngx-charts-pie-chart
+        [results]="languagesByOccurences"
+        [legend]="true"
+        [legendTitle]="'Langues évaluées'"
+        [view]="view"
+        [labels]="true">
+      </ngx-charts-pie-chart>
+    </div>
+  </mat-tab>
+  <mat-tab label="Langues utilisées en fonction du temps">
+    <div class="chart-container">
+      <ngx-charts-bar-vertical-normalized
+        [view]="[1000, 500]"
+        [results]="languagesByTime"
+        [legendTitle]="'Langues évaluées'"
+        [gradient]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [legend]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [trimXAxisTicks]="true"
+        [yAxisLabel]="'Nombre d\'évaluation'">
+      </ngx-charts-bar-vertical-normalized>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
