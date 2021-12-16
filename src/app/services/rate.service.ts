@@ -1,22 +1,22 @@
 import axios from 'axios';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {Rate} from '../models/rate';
-import {environment} from '../../environments/environment';
-import {ErrorService} from './error.service';
-import {ERROR_TECH_EXPORT_STATS} from '../models/error/errorTechnical';
-import {JwtGwSingleton} from '../models/token/JwtGwSingleton';
-import {AuthService} from './auth.service';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Rate } from '../models/rate';
+import { environment } from '../../environments/environment';
+import { ErrorService } from './error.service';
+import { ERROR_TECH_EXPORT_STATS } from '../models/error/errorTechnical';
+import { AuthService } from './auth.service';
+import { TokenBrokerService } from './token-broker.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class RateService {
   private rate: Rate;
   private db: string = 'rates';
 
-  constructor(private afs: AngularFirestore, private errorService: ErrorService, private authService: AuthService) {
+  constructor(private afs: AngularFirestore, private errorService: ErrorService, private authService: AuthService, private tokenBrokerService: TokenBrokerService) {
   }
 
   public rateConversation(rate: Rate): void {
@@ -32,7 +32,7 @@ export class RateService {
       const user = JSON.parse(localStorage.getItem('user'));
       await this.authService.login(environment.peama.login, environment.peama.password, user.email);
     }
-    const gwToken = JwtGwSingleton.getInstance().getToken().token;
+    const gwToken = (await this.tokenBrokerService.getTokenGcp()).tokenGW;
     const url = `${environment.gcp.gateWayUrl}/reporting`;
     const data = {
       query: `
@@ -53,13 +53,13 @@ export class RateService {
                 agency
                 typeSTT
               }
-            }`,
+            }`
     };
     return axios({
       method: 'POST',
-      headers: {Authorization: `Bearer ${gwToken}`},
+      headers: { Authorization: `Bearer ${gwToken}` },
       data,
-      url,
+      url
     })
       .then((response) => {
         const dataRates = response.data.data.rates;
@@ -79,7 +79,7 @@ export class RateService {
             'Nombre message DE': element.nbMessagesGuest,
             'identifiant utilisateur': element.user,
             'Identifiant agence': element.agency,
-            'type STT': element.typeSTT,
+            'type STT': element.typeSTT
           });
         });
         return rates;
@@ -95,4 +95,5 @@ export class RateService {
       .collection<Rate>(this.db, (rf) => rf.where('historyId', '==', id))
       .valueChanges();
   }
+
 }
