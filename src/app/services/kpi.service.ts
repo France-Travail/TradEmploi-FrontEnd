@@ -1,23 +1,24 @@
 import axios from 'axios';
-import {ERROR_TECH_EXPORT_KPI} from './../models/error/errorTechnical';
-import {ErrorService} from 'src/app/services/error.service';
-import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment';
-import {JwtGwSingleton} from '../models/token/JwtGwSingleton';
-import {AuthService} from './auth.service';
+import { ERROR_TECH_EXPORT_KPI } from './../models/error/errorTechnical';
+import { ErrorService } from 'src/app/services/error.service';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { AuthService } from './auth.service';
+import { TokenBrokerService } from './token-broker.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class KpiService {
-  constructor(private errorService: ErrorService, private authService: AuthService) {}
+  constructor(private errorService: ErrorService, private authService: AuthService, private tokenBrokerService: TokenBrokerService) {
+  }
 
   public async getkpi(isNotLogged: boolean) {
     if (isNotLogged) {
       const user = JSON.parse(localStorage.getItem('user'));
       await this.authService.login(environment.peama.login, environment.peama.password, user.email);
     }
-    const gwToken = JwtGwSingleton.getInstance().getToken().token;
+    const gwToken = (await this.tokenBrokerService.getTokenGcp()).tokenGW;
     const url = `${environment.gcp.gateWayUrl}/reporting`;
     const data = {
       query: `
@@ -63,13 +64,13 @@ export class KpiService {
                         descriptions
                     }
                 }
-            }`,
+            }`
     };
     return axios({
       method: 'POST',
       headers: { Authorization: `Bearer ${gwToken}` },
       data,
-      url,
+      url
     })
       .then((response) => {
         const dataKpi = response.data.data.kpi;
@@ -96,7 +97,7 @@ export class KpiService {
             'DE : Version Navigateur': element.device.guest.browser.version ? element.device.guest.browser.version : 'N.A',
             'Date erreur': element.error && element.error != null ? element.error.day : '',
             'Heure erreur': element.error && element.error != null ? element.error.hours : '',
-            'Erreur technique': element.error && element.error != null ? element.error.descriptions : '',
+            'Erreur technique': element.error && element.error != null ? element.error.descriptions : ''
           });
         });
         return kpi;

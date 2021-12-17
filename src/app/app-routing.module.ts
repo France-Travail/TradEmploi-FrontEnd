@@ -18,7 +18,7 @@ import { ChoiceComponent } from './pages/choice/choice.component';
 import { ModalityComponent } from './pages/modality/modality.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { CallbackComponent } from './pages/callback/callback.component';
-import { IndicatorsComponent } from './kpis/indicators.component';
+import { IndicatorsComponent } from './indicators/indicators.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
