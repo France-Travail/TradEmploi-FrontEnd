@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Language } from '../models/db/language';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { SettingsService } from '../services/settings.service';
 import { VOCABULARY } from '../data/vocabulary';
 import { CSS_COLOR_NAMES } from './colors';
 
@@ -12,7 +11,7 @@ import { CSS_COLOR_NAMES } from './colors';
 })
 export class IndicatorsComponent implements OnInit {
 
-  constructor(private afs: AngularFirestore, private settingsService: SettingsService) {
+  constructor(private afs: AngularFirestore) {
   }
 
   public languagesByAverage = [];
@@ -22,7 +21,7 @@ export class IndicatorsComponent implements OnInit {
   public languagesOccurencesByTime = [];
   public colorScheme;
   public blueScheme;
-  public view = [1200, 600];
+  public view = [1200, 500];
 
 
   ngOnInit(): void {
@@ -51,7 +50,6 @@ export class IndicatorsComponent implements OnInit {
 
   /**
    * fill languagesByAverage and languagesByOccurences objects with elements from langauges
-   * @param langauges
    */
 
   private fillLanguages(langauges: Language[]) {
@@ -85,7 +83,6 @@ export class IndicatorsComponent implements OnInit {
 
   /**
    * fill languagesAverageByTime, languagesOccurencesByTime, languagesByTime objects with elements from rateMap
-   * @param rateMap
    */
   private fillLanguagesByTime(rateMap: Map<string, Language[]>) {
     rateMap.forEach((value, key) => {
