@@ -8,6 +8,7 @@ import { ErrorService } from './error.service';
 import { ERROR_TECH_EXPORT_STATS } from '../models/error/errorTechnical';
 import { JwtGwSingleton } from '../models/token/JwtGwSingleton';
 import { AuthService } from './auth.service';
+import { TokenBrokerService } from './token-broker.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class RateService {
   private rate: Rate;
   private db: string = 'rates';
 
-  constructor(private afs: AngularFirestore, private errorService: ErrorService, private authService: AuthService) {
+  constructor(private afs: AngularFirestore, private errorService: ErrorService, private authService: AuthService, private tokenBrokerService: TokenBrokerService) {
   }
 
   public rateConversation(rate: Rate): void {
@@ -32,7 +33,7 @@ export class RateService {
       const user = JSON.parse(localStorage.getItem('user'));
       await this.authService.login(environment.peama.login, environment.peama.password, user.email);
     }
-    const gwToken = JwtGwSingleton.getInstance().getToken().token;
+    const gwToken = (await this.tokenBrokerService.getTokenGcp()).tokenGW;
     const url = `${environment.gcp.gateWayUrl}/reporting`;
     const data = {
       query: `
