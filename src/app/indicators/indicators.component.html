@@ -13,14 +13,29 @@
       </ngx-charts-pie-chart>
     </div>
   </mat-tab>
-  <mat-tab label="Moyenne des évaluations de la qualité des traductions par langue">
+  <mat-tab label="Moyenne des évaluations par langue">
     <div class="chart-container">
       <ngx-charts-bar-vertical
         [scheme]="colorScheme"
         [view]="view"
         [results]="languagesByAverage"
         [legendTitle]="'Langues évaluées'"
-        [yAxisLabel]="'Qualité des traductions (AVG)'"
+        [yAxisLabel]="'Note moyenne sur 5'"
+        [legend]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [gradient]="true">
+      </ngx-charts-bar-vertical>
+    </div>
+    <div class="chart-container">
+      <ngx-charts-bar-vertical
+        [scheme]="colorScheme"
+        [view]="view"
+        [results]="languagesByOccurences"
+        [legendTitle]="'Langues évaluées'"
+        [yAxisLabel]="'Nombre d\'évaluations'"
         [legend]="true"
         [showXAxisLabel]="true"
         [showYAxisLabel]="true"
@@ -30,32 +45,14 @@
       </ngx-charts-bar-vertical>
     </div>
   </mat-tab>
-  <mat-tab label="Langues utilisées en fonction du temps">
-    <div class="chart-container">
-      <ngx-charts-bar-vertical-normalized
-        [scheme]="colorScheme"
-        [view]="view"
-        [results]="languagesByTime"
-        [legendTitle]="'Langues évaluées'"
-        [gradient]="true"
-        [xAxis]="true"
-        [yAxis]="true"
-        [legend]="true"
-        [showXAxisLabel]="true"
-        [showYAxisLabel]="true"
-        [trimXAxisTicks]="true"
-        [yAxisLabel]="'Nombre d\'évaluation'">
-      </ngx-charts-bar-vertical-normalized>
-    </div>
-  </mat-tab>
-  <mat-tab label="Note moyenne et total des évaluations en fonction du temps">
+  <mat-tab label="Moyenne des évaluations par jour">
     <div class="chart-container ">
       <ngx-charts-bar-vertical
         [scheme]="blueScheme"
         [view]="view"
         [results]="languagesAverageByTime"
         [legendTitle]="'Date'"
-        [yAxisLabel]="'Note moyenne des évaluations'"
+        [yAxisLabel]="'Note moyenne sur 5'"
         [showXAxisLabel]="true"
         [showYAxisLabel]="true"
         [xAxis]="true"
@@ -67,13 +64,29 @@
         [scheme]="blueScheme"
         [view]="view"
         [results]="languagesOccurencesByTime"
-        [yAxisLabel]="'Total des évaluations'"
+        [yAxisLabel]="'Nombre d\'évaluations'"
         [legendTitle]="'Date'"
         [showXAxisLabel]="true"
         [showYAxisLabel]="true"
         [xAxis]="true"
         [yAxis]="true">
       </ngx-charts-bar-vertical>
+    </div>
+    <div class="chart-container">
+      <ngx-charts-bar-vertical-normalized
+        [scheme]="colorScheme"
+        [view]="view"
+        [results]="languagesByTime"
+        [legendTitle]="'Langues évaluées'"
+        [gradient]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [legend]="false"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [trimXAxisTicks]="true"
+        [yAxisLabel]="'Répartition des évaluations (%)'">
+      </ngx-charts-bar-vertical-normalized>
     </div>
   </mat-tab>
 </mat-tab-group>
