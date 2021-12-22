@@ -12,7 +12,7 @@ import {TelemetryService} from '../../services/telemetry.service';
   styleUrls: ['./callback.component.scss'],
 })
 export class CallbackComponent implements OnInit {
-  constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private chatService: ChatService,private telemetryService: TelemetryService ) {
+  constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private chatService: ChatService, private telemetryService: TelemetryService ) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -28,7 +28,7 @@ export class CallbackComponent implements OnInit {
     }
   }
 
-  private getAccessToken(url: string) {
+  public getAccessToken(url: string) {
     return url.split('access_token')[1].split('=')[1].split('&')[0];
   }
 

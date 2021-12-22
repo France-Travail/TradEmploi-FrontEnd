@@ -107,9 +107,14 @@ export const FRENCH: Sentence = {
   },
 };
 
+const APPLICATION_NAME = 'Instant Translation';
+const QUALITY_TRANSLATE = 'What was the quality of the translations?';
+const COMMENT = 'Free Comment';
+const RATING = 'How do you rate this tool?';
+const TECHNICAL = 'Have you encountered any technical problems using the tool?';
 export const ENGLISH: Sentence = {
   audioSupported: true,
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'Enter text, or press and hold blue microphone to speak',
@@ -123,10 +128,10 @@ export const ENGLISH: Sentence = {
   displayedWelcome: 'Hello I am your interpret.',
   readedWelcome: 'Would you like to exchange in this language?',
   rate: {
-    qualityTranslate: 'What was the quality of the translations?',
-    rating: 'How do you rate this tool?',
-    comment: 'Free Comment',
-    technical: 'Have you encountered any technical problems using the tool?',
+    qualityTranslate: QUALITY_TRANSLATE,
+    rating: RATING,
+    comment: COMMENT,
+    technical: TECHNICAL,
     typeInterview: 'Interview type'
   },
   gdpr: {
@@ -387,6 +392,8 @@ export const BENGALI_INDIA_NO_VOICE: Sentence = {
   ...BENGALI_NO_VOICE,
   audioSupported: true,
 };
+const RECORD_TEXT_DARI = 'الان صحبت کن';
+const AUTO_LISTEN_DARI = 'پخپله غوږ شه';
 export const DARI: Sentence = {
   applicationName: 'ترجمه فوری',
   send: 'ارسال',
@@ -394,10 +401,10 @@ export const DARI: Sentence = {
   translationH2: 'جمله را برای ترجمه بنویسید یا تلفظ کنید',
   thanks: 'Pôle Emploi از شما متشکرم',
   listen: 'گوش دادن',
-  recordText: 'الان صحبت کن',
+  recordText: RECORD_TEXT_DARI,
   displayedWelcome: '.سلام ، من مترجم شما خواهم بود تا با مشاور شما به راحتی تبادل شوید',
   readedWelcome: 'آیا می خواهید به این زبان ادامه دهید؟',
-  autoListen: 'پخپله غوږ شه',
+  autoListen: AUTO_LISTEN_DARI,
   rate: {
     qualityTranslate: 'کیفیت ترجمه ها چگونه بود؟',
     rating: 'ابزار را چگونه ارزیابی می کنید؟',
@@ -419,7 +426,7 @@ export const PACHTO: Sentence = {
   listen: 'واورئ',
   recordText: 'اوس خبره وکړه',
   gaugeText: 'Speak now',
-  autoListen: 'پخپله غوږ شه',
+  autoListen: AUTO_LISTEN_DARI,
   languageButtonRAW: 'پښتو ژبه',
   languageButtonFR: 'langue pachto',
   rate: {
@@ -433,7 +440,7 @@ export const PACHTO: Sentence = {
 export const OURDOU: Sentence = {
   displayedWelcome: 'ہیلو ، میں آپ کے مشیر سے آسانی سے تبادلہ کرنے کے لئے آپ کا ترجمان ہوں گا۔',
   readedWelcome: 'کیا آپ اس زبان میں تبادلہ کرنا چاہیں گے؟',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'متن درج کریں ، یا بولنے کے لیے نیلے مائیکروفون کو دبائیں اور تھامیں۔',
@@ -442,12 +449,12 @@ export const OURDOU: Sentence = {
   listen: 'Listen',
   recordText: 'اب بولو',
   gaugeText: 'Speak now',
-  autoListen: 'پخپله غوږ شه',
+  autoListen: AUTO_LISTEN_DARI,
   rate: {
-    qualityTranslate: 'What was the quality of the translations?',
-    rating: 'How do you rate this tool?',
-    comment: 'Free Comment',
-    technical: 'Have you encountered any technical problems using the tool?',
+    qualityTranslate: QUALITY_TRANSLATE,
+    rating: RATING,
+    comment: COMMENT,
+    technical: TECHNICAL,
   },
 };
 export const OURDOU_NO_VOICE: Sentence = {
@@ -458,7 +465,7 @@ export const PORTUGUESE: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Olá eu sou sua interpretação.',
   readedWelcome: 'Deseja trocar neste idioma?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'Digite o texto ou pressione e segure o microfone azul para falar',
@@ -482,7 +489,7 @@ export const GERMAN: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Hallo ich bin dein interpret',
   readedWelcome: 'Möchten Sie in dieser Sprache austauschen?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'Geben Sie Text ein oder halten Sie das blaue Mikrofon gedrückt, um zu sprechen',
@@ -506,7 +513,7 @@ export const TURC: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Merhaba, danışmanınızla kolayca alışveriş yapmak için tercümanınız olurum.',
   readedWelcome: 'Bu dilde takas yapmak ister misiniz?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'Metin girin veya konuşmak için mavi mikrofonu basılı tutun',
@@ -527,7 +534,7 @@ export const TURC: Sentence = {
 export const AMHARIC: Sentence = {
   displayedWelcome: 'ጤና ይስጥልኝ ፣ ከአማካሪህ ጋር በቀላሉ ለመቀየር አስተርጓሚ እሆን ነበር',
   readedWelcome: 'በዚህ ቋንቋ መለወጥ ይፈልጋሉ?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'ጽሑፍ ያስገቡ ፣ ወይም ለመናገር ሰማያዊ ማይክሮፎን ተጭነው ይያዙ',
@@ -551,7 +558,7 @@ export const AMHARIC_NO_VOICE: Sentence = {
 export const KHMER: Sentence = {
   displayedWelcome: 'ជំរាបសួរ, ខ្ញុំនឹងក្លាយជាអ្នកបកប្រែរបស់អ្នកដើម្បីផ្លាស់ប្តូរយ៉ាងងាយស្រួលជាមួយទីប្រឹក្សារបស់អ្នក។',
   readedWelcome: 'តើអ្នកចង់ផ្លាស់ប្តូរភាសានេះទេ?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'បញ្ចូលអត្ថបទឬចុចនិងសង្កត់មីក្រូហ្វូនពណ៌ខៀវដើម្បីនិយាយ',
@@ -576,7 +583,7 @@ export const HINDI: Sentence = {
   audioSupported: true,
   displayedWelcome: 'नमस्कार, मैं आपके सलाहकार के साथ आसानी से आदान-प्रदान करने वाला आपका दुभाषिया बनूंगा।',
   readedWelcome: 'क्या आप इस भाषा में विनिमय करना चाहेंगे?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'टेक्स्ट दर्ज करें, या बोलने के लिए नीले माइक्रोफ़ोन को दबाकर रखें',
@@ -597,7 +604,7 @@ export const HINDI: Sentence = {
 export const TAMOUL: Sentence = {
   displayedWelcome: 'வணக்கம், உங்கள் ஆலோசகருடன் எளிதாக பரிமாறிக்கொள்ள உங்கள் மொழிபெயர்ப்பாளராக இருப்பேன்.',
   readedWelcome: 'இந்த மொழியில் பரிமாற விரும்புகிறீர்களா?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'உரையை உள்ளிடவும் அல்லது பேசுவதற்கு நீல ஒலிவாங்கியை அழுத்திப் பிடிக்கவும்',
@@ -608,10 +615,10 @@ export const TAMOUL: Sentence = {
   gaugeText: 'Speak now',
   autoListen: 'தானாகவே கேளுங்கள்',
   rate: {
-    qualityTranslate: 'What was the quality of the translations?',
-    rating: 'How do you rate this tool?',
-    comment: 'Free Comment',
-    technical: 'Have you encountered any technical problems using the tool?',
+    qualityTranslate: QUALITY_TRANSLATE,
+    rating: RATING,
+    comment: COMMENT,
+    technical: TECHNICAL,
   },
 };
 export const TAMOUL_NO_VOICE: Sentence = {
@@ -627,7 +634,7 @@ export const ITALIAN: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Ciao sono il tuo interprete.',
   readedWelcome: 'Ti piacerebbe scambiare in questa lingua?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'Inserisci il testo o tieni premuto il microfono blu per parlare',
@@ -650,7 +657,7 @@ export const ITALIAN: Sentence = {
 export const MONGOL: Sentence = {
   displayedWelcome: 'Сайн байна уу, би зөвлөхтэйгээ хялбархан солилцох орчуулагч болно.',
   readedWelcome: 'Та энэ хэлээр солилцохыг хүсч байна уу?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'Текст оруулах, эсвэл ярихын тулд цэнхэр микрофоныг удаан дарна уу',
@@ -674,7 +681,7 @@ export const MONGOL_NO_VOICE: Sentence = {
 export const NEPALESE: Sentence = {
   displayedWelcome: 'नमस्कार, म तपाईको दोभाषे बन्ने छ तपाईंको सल्लाहकार संग सजिलै साटासाट गर्न।',
   readedWelcome: 'के तपाईं यस भाषामा आदान प्रदान गर्न चाहनुहुन्छ?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'पाठ प्रविष्ट गर्नुहोस्, वा नीलो माइक्रोफोन थिच्नुहोस् र बोल्नुहोस्',
@@ -722,7 +729,7 @@ export const RUSSIA: Sentence = {
 export const OUZBEK: Sentence = {
   displayedWelcome: "Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo'lardim.",
   readedWelcome: 'Ushbu tilda almashishni xohlaysizmi?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: "Matn kiriting yoki gapirish uchun ko'k mikrofonni bosib turing",
@@ -747,7 +754,7 @@ export const ROMANIAN: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Buna ziua, eu as fi interpretul tau pentru a schimba usor cu consilierul tau.',
   readedWelcome: 'Buna ziua, eu as fi interpretul tau pentru a schimba usor cu consilierul tau.',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'Introduceți text sau țineți apăsat microfonul albastru pentru a vorbi',
@@ -769,7 +776,7 @@ export const SOMALI: Sentence = {
   voiceNotSupported: true,
   displayedWelcome: 'Salaan, waxaan noqon lahaa turjubaankaaga si aan si fudud ula beddelo la-taliyahaaga.',
   readedWelcome: 'Ma jeceshahay inaad ku badasho luqadan?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'Geli qoraalka, ama riix oo qabso makarafoon buluug ah si aad u hadasho',
@@ -791,7 +798,7 @@ export const VIETNAMESE: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Xin chào, tôi sẽ là thông dịch viên của bạn để trao đổi dễ dàng với cố vấn của bạn.',
   readedWelcome: 'Bạn có muốn trao đổi bằng ngôn ngữ này?',
-  applicationName: 'Instant Translation',
+  applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
   translationH2: 'Nhập văn bản hoặc nhấn và giữ micrô màu xanh lam để nói',
@@ -819,8 +826,8 @@ export const PERSAN: Sentence = {
   translationH2Mobile: 'متن را وارد کنید یا برای صحبت روی میکروفن آبی ضربه بزنید',
   thanks: 'Pôle Emploi از شما متشکرم',
   listen: 'گوش دادن',
-  recordText: 'الان صحبت کن',
-  gaugeText: 'الان صحبت کن',
+  recordText: RECORD_TEXT_DARI,
+  gaugeText: RECORD_TEXT_DARI,
   languageButtonRAW: 'زبان فارسی',
   languageButtonFR: 'langue persane',
   rate: {

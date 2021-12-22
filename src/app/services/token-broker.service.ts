@@ -35,7 +35,6 @@ export class TokenBrokerService {
       data,
       url,
     })
-      .then((_) => {})
       .catch((error) => {
         throw new Error(error);
       });

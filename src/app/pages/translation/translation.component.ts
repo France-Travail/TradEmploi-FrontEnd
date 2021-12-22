@@ -29,6 +29,8 @@ import { Chat } from 'src/app/models/db/chat';
 import { AuthorizeComponent } from './dialogs/authorize/authorize.component';
 import { exportCsv } from '../../utils/utils';
 
+const toastError = 'toast-error';
+
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
@@ -188,7 +190,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       }
     } else {
       if (!hasDot) {
-        this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', 'toast-error');
+        this.toastService.showToast('Traduction indisponible momentanément. Merci de réessayer plus tard.', toastError);
       }
     }
   }
@@ -349,7 +351,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.setTranslateMessage(message, translate, languageTarget.audio);
       })
       .catch((_) => {
-        this.toastService.showToast(ERROR_FUNC_TRANSLATION.description, 'toast-error');
+        this.toastService.showToast(ERROR_FUNC_TRANSLATION.description, toastError);
       });
   }
 
@@ -372,7 +374,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
           }
         })
         .catch((_) => {
-          this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
+          this.toastService.showToast(ERROR_FUNC_TTS.description, toastError);
         });
     }
     this.textToSpeechService.audioSpeech = undefined;

@@ -140,7 +140,10 @@ describe('AuthService', () => {
     const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
       return Promise.resolve({ user: { uid: '12345677', getIdTokenResult(){ return ''; } } });
     });
-    settingsService.user.next({ connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi', isMultiDevices: true });
+    settingsService.user.next({
+      email: 'test@gmail.com',
+      idDGASI: '1',
+      connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi', isMultiDevices: true });
     collectionStub.valueChanges.and.callFake(() => {
       return of([{ adminList: [], advisors: [] }]);
     });

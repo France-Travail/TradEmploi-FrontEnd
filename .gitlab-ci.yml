@@ -9,6 +9,7 @@ variables:
 
 stages:
   - build
+  - test
   - deploy
 
 build:
@@ -27,6 +28,29 @@ build:
   only:
     refs:
       - develop
+
+test:
+  stage: test
+  before_script:
+    - npm i
+  image: trion/ng-cli-karma
+  allow_failure: true
+  cache:
+    paths:
+      - node_modules/
+  environment:
+    name: staging
+    url: https://pole-emploi-trad-dev.firebaseapp.com
+  script:
+    - npm run config "--environment=dev"
+    - ng test --progress false --watch false
+  only:
+    refs:
+      - develop
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
 
 deploy:
   stage: deploy
