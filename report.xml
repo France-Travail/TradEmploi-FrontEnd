@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<testsuite name="Chrome 96.0.4664.110 (Windows 10)" package="" timestamp="2021-12-23T09:39:57" id="0" hostname="ITEM-S097040" tests="7" errors="0" failures="0" time="0.482">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36"/>
+  </properties>
+  <testcase name="ModalityComponent should create" time="0.133" classname="ModalityComponent"/>
+  <testcase name="ModalityComponent mono mode connection when we confirm the mono mode connection, we should go to the language choice page" time="0.031" classname="ModalityComponent mono mode connection"/>
+  <testcase name="ModalityComponent multi mode connection when we confirm the mono mode connection, we should go to the translation page" time="0.023" classname="ModalityComponent multi mode connection"/>
+  <testcase name="CallbackComponent should create" time="0.145" classname="CallbackComponent"/>
+  <testcase name="HeaderComponent test gdpr modal should open the gdpr component dialog" time="0.086" classname="HeaderComponent test gdpr modal"/>
+  <testcase name="HeaderComponent should create" time="0.011" classname="HeaderComponent"/>
+  <testcase name="AuthService should successfully login anonymously with guest config " time="0.053" classname="AuthService"/>
+  <system-out>
+    <![CDATA[Chrome 96.0.4664.110 (Windows 10) ERROR
+  DisconnectedClient disconnected from CONNECTED state (transport close)
+,Chrome 96.0.4664.110 (Windows 10) WARN: '
+It looks like you're using the development build of the Firebase JS SDK.
+When deploying Firebase apps to production, it is advisable to only import
+the individual SDK components you intend to use.
+
+For the module builds, these are available in the following manner
+(replace <PACKAGE> with the name of a component - i.e. auth, database, etc):
+
+CommonJS Modules:
+const firebase = require('firebase/app');
+require('firebase/<PACKAGE>');
+
+ES Modules:
+import firebase from 'firebase/app';
+import 'firebase/<PACKAGE>';
+
+Typescript:
+import * as firebase from 'firebase/app';
+import 'firebase/<PACKAGE>';
+'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Unhandled Promise rejection:', 'Cannot read properties of undefined (reading 'split')', '; Zone:', 'ProxyZone', '; Task:', 'setTimeout', '; Value:', TypeError: Cannot read properties of undefined (reading 'split')
+TypeError: Cannot read properties of undefined (reading 'split')
+    at CallbackComponent.getAccessToken (http://localhost:9877/_karma_webpack_/src/app/pages/callback/callback.component.ts:29:4)
+    at CallbackComponent.<anonymous> (http://localhost:9877/_karma_webpack_/src/app/pages/callback/callback.component.ts:18:17)
+    at Generator.next (<anonymous>)
+    at http://localhost:9877/_karma_webpack_/node_modules/tslib/tslib.es6.js:74:1
+    at new ZoneAwarePromise (http://localhost:9877/_karma_webpack_/node_modules/zone.js/dist/zone-evergreen.js:960:1)
+    at __awaiter (http://localhost:9877/_karma_webpack_/node_modules/tslib/tslib.es6.js:70:1)
+    at CallbackComponent.ngOnInit (http://localhost:9877/_karma_webpack_/main.js:9773:67)
+    at UserContext.<anonymous> (http://localhost:9877/_karma_webpack_/src/app/pages/callback/callback.component.spec.ts:44:15)
+    at ZoneDelegate.invoke (http://localhost:9877/_karma_webpack_/node_modules/zone.js/dist/zone-evergreen.js:364:1)
+    at ProxyZoneSpec.push.QpwO.ProxyZoneSpec.onInvoke (http://localhost:9877/_karma_webpack_/node_modules/zone.js/dist/zone-testing.js:292:1), 'TypeError: Cannot read properties of undefined (reading 'split')
+    at CallbackComponent.getAccessToken (http://localhost:9877/_karma_webpack_/src/app/pages/callback/callback.component.ts:29:4)
+    at CallbackComponent.<anonymous> (http://localhost:9877/_karma_webpack_/src/app/pages/callback/callback.component.ts:18:17)
+    at Generator.next (<anonymous>)
+    at http://localhost:9877/_karma_webpack_/node_modules/tslib/tslib.es6.js:74:1
+    at new ZoneAwarePromise (http://localhost:9877/_karma_webpack_/node_modules/zone.js/dist/zone-evergreen.js:960:1)
+    at __awaiter (http://localhost:9877/_karma_webpack_/node_modules/tslib/tslib.es6.js:70:1)
+    at CallbackComponent.ngOnInit (http://localhost:9877/_karma_webpack_/main.js:9773:67)
+    at UserContext.<anonymous> (http://localhost:9877/_karma_webpack_/src/app/pages/callback/callback.component.spec.ts:44:15)
+    at ZoneDelegate.invoke (http://localhost:9877/_karma_webpack_/node_modules/zone.js/dist/zone-evergreen.js:364:1)
+    at ProxyZoneSpec.push.QpwO.ProxyZoneSpec.onInvoke (http://localhost:9877/_karma_webpack_/node_modules/zone.js/dist/zone-testing.js:292:1)'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'mat-toolbar'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'mat-toolbar'.'
+
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

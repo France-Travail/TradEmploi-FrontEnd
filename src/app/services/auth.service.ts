@@ -72,10 +72,8 @@ export class AuthService {
   }
 
   public getRole(email: string): Role {
-    if (email !== null) {
-      if (email.match('.*@pole-emploi[.]fr$')) {
+    if (email && email.match('.*@pole-emploi[.]fr$')) {
         return Role.ADVISOR;
-      }
     }
     return Role.GUEST;
   }

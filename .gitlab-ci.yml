@@ -47,7 +47,10 @@ test:
   only:
     refs:
       - develop
-
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
 
 deploy:
   stage: deploy
