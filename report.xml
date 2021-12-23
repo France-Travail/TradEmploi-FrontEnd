@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
-<testsuite name="Chrome 96.0.4664.110 (Windows 10)" package="" timestamp="2021-12-23T10:19:43" id="0" hostname="ITEM-S097040" tests="7" errors="0" failures="0" time="0.512">
+<testsuite name="Chrome 96.0.4664.110 (Windows 10)" package="" timestamp="2021-12-23T14:28:00" id="0" hostname="ITEM-S097040" tests="7" errors="0" failures="0" time="0.732">
   <properties>
     <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36"/>
   </properties>
-  <testcase name="HeaderComponent test gdpr modal should open the gdpr component dialog" time="0.198" classname="HeaderComponent test gdpr modal"/>
-  <testcase name="HeaderComponent should create" time="0.021" classname="HeaderComponent"/>
-  <testcase name="AuthService should successfully login anonymously with guest config " time="0.136" classname="AuthService"/>
-  <testcase name="ModalityComponent should create" time="0.106" classname="ModalityComponent"/>
-  <testcase name="ModalityComponent mono mode connection when we confirm the mono mode connection, we should go to the language choice page" time="0.017" classname="ModalityComponent mono mode connection"/>
-  <testcase name="ModalityComponent multi mode connection when we confirm the mono mode connection, we should go to the translation page" time="0.019" classname="ModalityComponent multi mode connection"/>
-  <testcase name="CallbackComponent should create" time="0.015" classname="CallbackComponent"/>
+  <testcase name="ModalityComponent should create" time="0.329" classname="ModalityComponent"/>
+  <testcase name="ModalityComponent mono mode connection when we confirm the mono mode connection, we should go to the language choice page" time="0.048" classname="ModalityComponent mono mode connection"/>
+  <testcase name="ModalityComponent multi mode connection when we confirm the mono mode connection, we should go to the translation page" time="0.022" classname="ModalityComponent multi mode connection"/>
+  <testcase name="CallbackComponent should create" time="0.04" classname="CallbackComponent"/>
+  <testcase name="AuthService should successfully login anonymously with guest config " time="0.108" classname="AuthService"/>
+  <testcase name="HeaderComponent should create" time="0.111" classname="HeaderComponent"/>
+  <testcase name="HeaderComponent test gdpr modal should open the gdpr component dialog" time="0.074" classname="HeaderComponent test gdpr modal"/>
   <system-out>
     <![CDATA[Chrome 96.0.4664.110 (Windows 10) ERROR
   DisconnectedClient disconnected from CONNECTED state (transport close)
@@ -33,11 +33,11 @@ Typescript:
 import * as firebase from 'firebase/app';
 import 'firebase/<PACKAGE>';
 '
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
 ,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'mat-toolbar'.'
 ,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'mat-toolbar'.'
-,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
-,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
-,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
 
 ]]>
   </system-out>

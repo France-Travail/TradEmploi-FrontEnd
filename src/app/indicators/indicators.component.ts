@@ -110,19 +110,7 @@ export class IndicatorsComponent implements OnInit {
         const formattedDate = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
 
         if (rateMap.has(formattedDate)) {
-          const languagesByDate = rateMap.get(formattedDate);
-          let found = false;
-          for (const l of languagesByDate) {
-            if (l.isoCode === rate.language) {
-              l.occurrences++;
-              l.average = (l.average + rate.grades[0]) / 2;
-              found = true;
-            }
-          }
-          if (!found) {
-            const newLangauge: Language = { isoCode: rate.language, occurrences: 1, average: rate.grades[0] };
-            languagesByDate.push(newLangauge);
-          }
+          this.updateRateMap(rateMap, formattedDate, rate);
         } else {
           const newLangauge: Language = { isoCode: rate.language, occurrences: 1, average: rate.grades[0] };
           rateMap.set(formattedDate, [newLangauge]);
@@ -130,6 +118,22 @@ export class IndicatorsComponent implements OnInit {
       }
     }
     return rateMap;
+  }
+
+  private updateRateMap(rateMap: Map<string, Language[]>, formattedDate: string, rate) {
+    const languagesByDate = rateMap.get(formattedDate);
+    let found = false;
+    for (const l of languagesByDate) {
+      if (l.isoCode === rate.language) {
+        l.occurrences++;
+        l.average = (l.average + rate.grades[0]) / 2;
+        found = true;
+      }
+    }
+    if (!found) {
+      const newLangauge: Language = { isoCode: rate.language, occurrences: 1, average: rate.grades[0] };
+      languagesByDate.push(newLangauge);
+    }
   }
 
   private hasValidIsoCode(rate) {

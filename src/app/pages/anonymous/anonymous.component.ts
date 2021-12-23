@@ -60,7 +60,7 @@ export class AnonymousComponent implements OnInit {
       this.openModal(WelcomeDeComponent, '200px', true);
       let end: boolean = false;
       let timer: number = 0;
-      let maxOnSecond: number = 30;
+      const maxOnSecond: number = 30;
       const timeValue = setInterval(async () => {
         if (end || timer === maxOnSecond) {
           clearInterval(timeValue);

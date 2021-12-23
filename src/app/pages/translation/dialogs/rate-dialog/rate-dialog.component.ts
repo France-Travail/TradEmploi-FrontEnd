@@ -151,16 +151,7 @@ export class RateDialogComponent implements OnInit {
     if (length > 0) {
       firstMessageTime = this.chatService.messagesStored[0].message.hour;
       lastMessageTime = this.chatService.messagesStored[length - 1].message.hour;
-      for (const messageWrapped of this.chatService.messagesStored) {
-        if (messageWrapped.message) {
-          if (messageWrapped.message.role === Role.GUEST) {
-            this.rate.nbMessagesGuest++;
-          }
-          if (messageWrapped.message.role === Role.ADVISOR) {
-            this.rate.nbMessagesAdvisor++;
-          }
-        }
-      }
+      this.fillNbMessages();
     }
     this.rate.user = this.settingsService.user.value.idDGASI;
     this.rate.agency = this.settingsService.user.value.agency;
@@ -174,6 +165,19 @@ export class RateDialogComponent implements OnInit {
     });
     this.setCanSendRate();
 
+  }
+
+  private fillNbMessages() {
+    for (const messageWrapped of this.chatService.messagesStored) {
+      if (messageWrapped.message) {
+        if (messageWrapped.message.role === Role.GUEST) {
+          this.rate.nbMessagesGuest++;
+        }
+        if (messageWrapped.message.role === Role.ADVISOR) {
+          this.rate.nbMessagesAdvisor++;
+        }
+      }
+    }
   }
 
   public setCanSendRate() {
