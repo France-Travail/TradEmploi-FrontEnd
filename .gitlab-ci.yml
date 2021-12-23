@@ -33,7 +33,7 @@ test:
   stage: test
   before_script:
     - npm i
-  image: trion/ng-cli-karma
+  image: trion/ng-cli-karma:10.0.2
   allow_failure: true
   cache:
     paths:
