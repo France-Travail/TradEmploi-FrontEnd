@@ -25,7 +25,7 @@ export class TranslateService {
     };
     return axios({
       method: 'POST',
-      headers: {Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*'},
+      headers: {Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8'},
       data,
       url,
     }).then((response) => {

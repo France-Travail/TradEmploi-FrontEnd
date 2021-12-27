@@ -25,7 +25,7 @@ export class TelemetryService {
     return axios({
       method: 'GET',
       params,
-      headers: {Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*'},
+      headers: {Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8'},
       url,
     }).catch((error) => {
         throw new Error(error);

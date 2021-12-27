@@ -17,7 +17,7 @@ import * as moment from 'moment';
 import { Guest } from '../models/db/guest';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ChatService {
 
@@ -30,7 +30,8 @@ export class ChatService {
   }
 
   getRoomId() {
-    return (10000000 + Math.floor(Math.random() * 10000000)).toString();
+    const randomValues = window.crypto.getRandomValues(new Uint32Array(1)); // Compliant for security-sensitive use cases
+    return String(randomValues[0]);
   }
 
   initChatMono(roomId: string, advisorRole: Role): Promise<boolean> {
@@ -44,8 +45,8 @@ export class ChatService {
         return{
           ...mw,
           message: msg
-        }
-      })
+        };
+      });
       const chatCreateDto: InitChatDto = { members: [advisor, guest], messages: mwsWithoutAudio };
       return this.create(roomId, chatCreateDto);
     }
@@ -66,9 +67,14 @@ export class ChatService {
       return{
         ...mw,
         message: msg
-      }
-    })
-    const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
+      };
+    });
+    const advisor = {
+      id: Date.now().toString(),
+      firstname: AdvisorDefaultName,
+      role: advisorRole,
+      device: this.device
+    };
     const chatCreateDto: InitChatDto = { members: [advisor], messages: mwsWithoutAudio, monoToMultiTime: Date.now() };
     return this.create(roomId, chatCreateDto);
   }
@@ -91,7 +97,7 @@ export class ChatService {
           observer.next(docSnapshot.exists);
           observer.complete();
       });
-    })
+    });
   }
 
   async sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped) {
