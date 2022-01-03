@@ -8,7 +8,7 @@ import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
   styleUrls: ['../../../sass/panel.scss'],
 })
 export class AuthenticationComponent {
-  constructor(private oauthService: OAuthService) {
+  constructor(private readonly oauthService: OAuthService) {
     this.configureSSO();
   }
   configureSSO() {

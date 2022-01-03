@@ -11,13 +11,13 @@ import {JwtGwSingleton} from '../models/token/JwtGwSingleton';
   providedIn: 'root',
 })
 export class SettingsService {
-  public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-  public recordMode: boolean = false;
-  public defaultLanguage: Language = {audio: 'fr-FR', written: 'fr-FR', languageName: 'Français'};
+  public user = new BehaviorSubject<User>(null);
+  public recordMode = false;
+  public defaultLanguage = {audio: 'fr-FR', written: 'fr-FR', languageName: 'Français'};
   public isMobile: boolean;
   public isTablet: boolean;
 
-  constructor(private deviceService: DeviceDetectorService) {
+  constructor(private readonly deviceService: DeviceDetectorService) {
     this.isMobile = this.deviceService.isMobile();
     this.isTablet = this.deviceService.isTablet();
     if (this.isMobile || this.isTablet) {
@@ -35,5 +35,5 @@ export class SettingsService {
   }
 }
 
-export const AdvisorDefaultName: string = 'Pôle emploi';
-export const GuestDefaultName: string = 'DE';
+export const AdvisorDefaultName = 'Pôle emploi';
+export const GuestDefaultName = 'DE';

@@ -23,26 +23,39 @@ export class ChatService {
 
   public messagesStored: MessageWrapped[] = [];
   public support: Support = Support.MONODEVICE;
-  private device: Device;
+  private readonly device: Device;
 
-  constructor(private db: AngularFirestore, private cryptService: CryptService, private deviceService: DeviceService, private errorService: ErrorService) {
+  constructor(private readonly db: AngularFirestore, private readonly cryptService: CryptService, private readonly deviceService: DeviceService, private readonly errorService: ErrorService) {
     this.device = this.deviceService.getUserDevice();
   }
 
   getRoomId() {
     const randomValues = window.crypto.getRandomValues(new Uint32Array(1)); // Compliant for security-sensitive use cases
-    return String(randomValues[0]);
+    return String(Math.floor(randomValues[0] / 100));
   }
 
-  initChatMono(roomId: string, advisorRole: Role): Promise<boolean> {
+  public initChatMono(roomId: string, advisorRole: Role): Promise<boolean> {
+    if (!roomId) {
+      roomId = this.getRoomId();
+    }
     this.support = Support.MONODEVICE;
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
     if (this.messagesStored.length > 0) {
-      const advisor: Member = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
-      const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
+      const advisor: Member = {
+        id: Date.now().toString(),
+        firstname: AdvisorDefaultName,
+        role: advisorRole,
+        device: this.device
+      };
+      const guest: Member = {
+        id: Date.now().toString(),
+        firstname: GuestDefaultName,
+        role: Role.GUEST,
+        device: this.device
+      };
       const mwsWithoutAudio = this.messagesStored.map(mw => {
-        const {audioHtml, ...msg} = mw.message;
-        return{
+        const { audioHtml, ...msg } = mw.message;
+        return {
           ...mw,
           message: msg
         };
@@ -54,7 +67,12 @@ export class ChatService {
 
   initChatMulti(roomId: string, advisorRole: Role): Promise<boolean> {
     this.support = Support.MULTIDEVICE;
-    const advisor = { id: Date.now().toString(), firstname: AdvisorDefaultName, role: advisorRole, device: this.device };
+    const advisor = {
+      id: Date.now().toString(),
+      firstname: AdvisorDefaultName,
+      role: advisorRole,
+      device: this.device
+    };
     const chatCreateDto: InitChatDto = { members: [advisor] };
     return this.create(roomId, chatCreateDto);
   }
@@ -63,8 +81,8 @@ export class ChatService {
     this.support = Support.MONOANDMULTIDEVICE;
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
     const mwsWithoutAudio = this.messagesStored.map(mw => {
-      const {audioHtml, ...msg} = mw.message;
-      return{
+      const { audioHtml, ...msg } = mw.message;
+      return {
         ...mw,
         message: msg
       };
@@ -81,14 +99,19 @@ export class ChatService {
 
   initUnknownChat(roomId: string) {
     this.support = Support.MULTIDEVICE;
-    const guest: Member = { id: Date.now().toString(), firstname: GuestDefaultName, role: Role.GUEST, device: this.device };
+    const guest: Member = {
+      id: Date.now().toString(),
+      firstname: GuestDefaultName,
+      role: Role.GUEST,
+      device: this.device
+    };
     const chatCreateDto: InitChatDto = { members: [guest], messages: [] };
     this.create(roomId, chatCreateDto);
     this.errorService.save(ERROR_FUNC_UNKNOWCHAT);
   }
 
 
-  hasRoom(roomId: string):Observable<boolean>  {
+  hasRoom(roomId: string): Observable<boolean> {
     return new Observable((observer) => {
       this.db
         .doc(`chats/${roomId}`)
@@ -96,27 +119,29 @@ export class ChatService {
         .subscribe((docSnapshot) => {
           observer.next(docSnapshot.exists);
           observer.complete();
-      });
+        });
     });
   }
 
   async sendMessageWrapped(roomId: string, messageWrapped: MessageWrapped) {
     messageWrapped = this.cryptService.encryptWrapped(messageWrapped, roomId);
     const itemsRef = this.db.doc(`chats/${roomId}`);
-    await itemsRef.update({messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
+    await itemsRef.update({ messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped) });
   }
 
   async addMember(roomId: string, newMember: Member) {
     const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
     const itemsRef = this.db.doc(`chats/${roomId}`);
-    await itemsRef.update({members: firebase.firestore.FieldValue.arrayUnion(newMember)
-    , messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)});
+    await itemsRef.update({
+      members: firebase.firestore.FieldValue.arrayUnion(newMember)
+      , messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)
+    });
   }
 
 
-  async updateGuestStatus(roomId: string, guest:Guest) {
+  async updateGuestStatus(roomId: string, guest: Guest) {
     const itemsRef = this.db.doc(`chats/${roomId}`);
-    await itemsRef.update({guests: firebase.firestore.FieldValue.arrayUnion({id: guest.id , status: true})});
+    await itemsRef.update({ guests: firebase.firestore.FieldValue.arrayUnion({ id: guest.id, status: true }) });
   }
 
   async notifyAdvisor(roomId: string, firstname: string) {
@@ -130,11 +155,12 @@ export class ChatService {
 
   updateChatStatus(roomId: string, active: boolean): Promise<boolean> {
     return this.db.doc(`chats/${roomId}`)
-      .update({'active' : active})
+      .update({ active })
       .then(_ => true)
       .catch(_ => {
         return false;
-    });;
+      });
+    ;
   }
 
 
@@ -142,8 +168,8 @@ export class ChatService {
     const expiryDate = moment().add(2, 'hours');
     const chat: Chat = {
       lasttime: new Date().getTime().toString(),
-      expiryDate: parseInt(expiryDate.format('x')) ,
-      guests:[],
+      expiryDate: parseInt(expiryDate.format('x')),
+      guests: [],
       active: true,
       support: this.support,
       ...initChatDto

@@ -6,8 +6,7 @@
           <span class="roomId">{{ roomId }}</span>
           <button class="share-btn" (click)="share()">INVITER</button>
         </ng-template>
-        <button class="end-btn " (click)="exportConversation()"
-                [clickData]="{'name':'export-button','type':'exit'}">
+        <button class="end-btn " (click)="exportConversation()">
           EXPORTER
         </button>
         <button class="end-btn" (click)="closeConversation()">TERMINER LA CONVERSATION</button>

@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class TokenFbService {
-  constructor(private settingService: SettingsService, private authService: AuthService) {}
+  constructor(private readonly settingService: SettingsService, private readonly authService: AuthService) {}
   public async getTokenFb(): Promise<string> {
     const jwtFbSingleton = JwtFbSingleton.getInstance();
     const hasJwtFbOnTime = jwtFbSingleton.getToken() !== null && jwtFbSingleton.getToken().expireTime.isAfter(moment());

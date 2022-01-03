@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit{
   private targetLanguage: Language;
   public isAudioSupported: boolean;
 
-  constructor(private settingsService: SettingsService, private textToSpeechService: TextToSpeechService) {
+  constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService) {
   }
 
   ngOnInit(): void {

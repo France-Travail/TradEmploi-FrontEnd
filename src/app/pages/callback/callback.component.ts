@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { ChatService } from 'src/app/services/chat.service';
-import { SettingsService } from 'src/app/services/settings.service';
-import { environment } from 'src/environments/environment';
 import { TelemetryService } from '../../services/telemetry.service';
+import { AuthService } from '../../services/auth.service';
+import { SettingsService } from '../../services/settings.service';
+import { ChatService } from '../../services/chat.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-callback',
@@ -12,7 +12,11 @@ import { TelemetryService } from '../../services/telemetry.service';
   styleUrls: ['./callback.component.scss']
 })
 export class CallbackComponent implements OnInit {
-  constructor(private authService: AuthService, private settingsService: SettingsService, private router: Router, private chatService: ChatService, private telemetryService: TelemetryService) {
+  constructor(private readonly authService: AuthService,
+              private readonly settingsService: SettingsService,
+              private readonly router: Router,
+              private readonly chatService: ChatService,
+              private readonly telemetryService: TelemetryService) {
   }
 
   async ngOnInit(): Promise<void> {

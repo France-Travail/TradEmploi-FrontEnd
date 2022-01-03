@@ -16,10 +16,10 @@ import { Message } from '../models/history/message';
 })
 export class HistoryService {
   public conversation: Conversation; // Where the conversation is stored
-  private db: string = 'conversations'; // The collection's name
-  private messageId: number = 1;
+  private db = 'conversations'; // The collection's name
+  private messageId = 1;
 
-  constructor(private afs: AngularFirestore) {}
+  constructor(private readonly afs: AngularFirestore) {}
 
   /**
    * Add the message into the conversation for the speaker

@@ -1,15 +1,15 @@
-import { Role } from 'src/app/models/role';
-import { SettingsService } from 'src/app/services/settings.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
-import { ChatService } from 'src/app/services/chat.service';
-import { ToastService } from 'src/app/services/toast.service';
+import { ChatService } from '../../../../services/chat.service';
+import { SettingsService } from '../../../../services/settings.service';
+import { ToastService } from '../../../../services/toast.service';
+import { Role } from '../../../../models/role';
 
 @Component({
   selector: 'app-share',
   templateUrl: './share.component.html',
-  styleUrls: ['./share.component.scss'],
+  styleUrls: ['./share.component.scss']
 })
 export class ShareComponent implements OnInit {
   public link: string;
@@ -18,7 +18,12 @@ export class ShareComponent implements OnInit {
 
   private roomId: string;
 
-  constructor(private dialogRef: MatDialogRef<ShareComponent>, public router: Router, private chatService: ChatService, private settingsService: SettingsService, private toastService: ToastService) {}
+  constructor(private readonly dialogRef: MatDialogRef<ShareComponent>,
+              private readonly router: Router,
+              private readonly chatService: ChatService,
+              private readonly settingsService: SettingsService,
+              private toastService: ToastService) {
+  }
 
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {
@@ -71,12 +76,19 @@ export class ShareComponent implements OnInit {
   private userOnLocalStorage() {
     this.settingsService.user.next({
       ...this.settingsService.user.value,
-      language: { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written, languageName: this.settingsService.defaultLanguage.languageName },
+      language: {
+        audio: this.settingsService.defaultLanguage.audio,
+        written: this.settingsService.defaultLanguage.written,
+        languageName: this.settingsService.defaultLanguage.languageName
+      },
       roomId: this.roomId,
-      isMultiDevices: true,
+      isMultiDevices: true
     });
     const user = JSON.parse(localStorage.getItem('user'));
-    user.language = { audio: this.settingsService.defaultLanguage.audio, written: this.settingsService.defaultLanguage.written };
+    user.language = {
+      audio: this.settingsService.defaultLanguage.audio,
+      written: this.settingsService.defaultLanguage.written
+    };
     user.roomId = this.roomId;
     user.isMultiDevices = true;
     localStorage.setItem('user', JSON.stringify(user));

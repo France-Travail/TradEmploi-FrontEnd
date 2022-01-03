@@ -1,24 +1,17 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { HistoryService } from 'src/app/services/history.service';
-import { Conversation } from 'src/app/models/history/conversation';
-import { Role } from 'src/app/models/role';
-import { SettingsService } from 'src/app/services/settings.service';
+import { AfterViewInit, Component } from '@angular/core';
+import { HistoryService } from '../../services/history.service';
+import { Conversation } from '../../models/history/conversation';
 
 @Component({
   selector: 'app-conversation',
   templateUrl: './conversation.component.html',
-  styleUrls: ['./conversation.component.scss'],
+  styleUrls: ['./conversation.component.scss']
 })
 export class ConversationComponent implements AfterViewInit {
   public conversation: Conversation;
   public showTranslation: boolean = false;
 
-  constructor(private historyService: HistoryService, private settingsService: SettingsService) {
-    this.settingsService.user.subscribe((user) => {
-      if (user !== null) {
-        // this.setNavBar(user.role === Role.ADMIN);
-      }
-    });
+  constructor(private readonly historyService: HistoryService) {
   }
 
   ngAfterViewInit(): void {

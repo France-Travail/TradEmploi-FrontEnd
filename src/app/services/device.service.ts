@@ -8,7 +8,7 @@ import { DeviceType } from '../models/kpis/deviceType';
 })
 export class DeviceService {
 
-  constructor(private deviceDetectorService: DeviceDetectorService) {}
+  constructor(private readonly deviceDetectorService: DeviceDetectorService) {}
 
   public getUserDevice(): Device {
     return {

@@ -2,32 +2,31 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
-import { Message } from 'src/app/models/translate/message';
 import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
-import { ToastService } from 'src/app/services/toast.service';
-import { SettingsService } from 'src/app/services/settings.service';
-import { ChatService } from 'src/app/services/chat.service';
-import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
-import { Role } from 'src/app/models/role';
-import { NavbarService } from 'src/app/services/navbar.service';
-import { TranslateService } from 'src/app/services/translate.service';
-import { User } from 'src/app/models/user';
-import { ComponentCanDeactivate } from 'src/app/guards/pending-changes.guard';
-import { MessageWrapped } from 'src/app/models/translate/message-wrapped';
 import { EndComponent } from './dialogs/end/end.component';
-import { CryptService } from 'src/app/services/crypt.service';
-import { Language } from 'src/app/models/language';
-import { AdvisorDefaultName } from './../../services/settings.service';
-import { Support } from 'src/app/models/kpis/support';
-import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
-import { VOCABULARY } from 'src/app/data/vocabulary';
-import { ENGLISH } from 'src/app/data/sentence';
-import { IntroMessage } from 'src/app/models/vocabulary';
+import { AdvisorDefaultName, SettingsService } from './../../services/settings.service';
 import { ShareComponent } from './dialogs/share/share.component';
-import { MessageSingleton } from 'src/app/models/MessageSingleton';
-import { Chat } from 'src/app/models/db/chat';
 import { AuthorizeComponent } from './dialogs/authorize/authorize.component';
 import { exportCsv } from '../../utils/utils';
+import { ComponentCanDeactivate } from '../../guards/pending-changes.guard';
+import { MessageWrapped } from '../../models/translate/message-wrapped';
+import { ToastService } from '../../services/toast.service';
+import { ChatService } from '../../services/chat.service';
+import { TextToSpeechService } from '../../services/text-to-speech.service';
+import { NavbarService } from '../../services/navbar.service';
+import { TranslateService } from '../../services/translate.service';
+import { CryptService } from '../../services/crypt.service';
+import { Role } from '../../models/role';
+import { VOCABULARY } from '../../data/vocabulary';
+import { ENGLISH } from '../../data/sentence';
+import { IntroMessage } from '../../models/vocabulary';
+import { Message } from '../../models/translate/message';
+import { MessageSingleton } from '../../models/MessageSingleton';
+import { Chat } from '../../models/db/chat';
+import { Support } from '../../models/kpis/support';
+import { Language } from '../../models/language';
+import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from '../../models/error/errorFunctionnal';
+import { User } from '../../models/user';
 
 const toastError = 'toast-error';
 
@@ -38,34 +37,34 @@ const toastError = 'toast-error';
 })
 export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate, OnDestroy {
   @ViewChild('scrollMe') private chatScroll: ElementRef;
-  public messagesWrapped: MessageWrapped[] = [];
+  public messagesWrapped = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
   public isMobile: boolean;
-  public autoListenValue: string = 'Ecoute automatique';
-  public isGuest: boolean = false;
-  public isMultiDevices: boolean = false;
+  public autoListenValue = 'Ecoute automatique';
+  public isGuest = false;
+  public isMultiDevices = false;
   public roomId: string;
   public isAudioSupported = false;
 
   private isAudioPlay: boolean;
   private user: User;
-  private endIdDialogRef: MatDialogRef<any, any>;
+  private endIdDialogRef: MatDialogRef<any>;
   private support: Support;
   private vocalSupported = false;
-  private authorizationHandled: string[] = [];
+  private authorizationHandled = [];
 
   constructor(
-    public dialog: MatDialog,
-    private router: Router,
-    private breakpointObserver: BreakpointObserver,
-    private toastService: ToastService,
-    private settingsService: SettingsService,
-    private chatService: ChatService,
-    private textToSpeechService: TextToSpeechService,
-    private navbarService: NavbarService,
-    private translateService: TranslateService,
-    private cryptService: CryptService
+    private readonly dialog: MatDialog,
+    private readonly router: Router,
+    private readonly breakpointObserver: BreakpointObserver,
+    private readonly toastService: ToastService,
+    private readonly settingsService: SettingsService,
+    private readonly chatService: ChatService,
+    private readonly textToSpeechService: TextToSpeechService,
+    private readonly navbarService: NavbarService,
+    private readonly translateService: TranslateService,
+    private readonly cryptService: CryptService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {

@@ -11,7 +11,7 @@ import { CSS_COLOR_NAMES } from './colors';
 })
 export class IndicatorsComponent implements OnInit {
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private readonly afs: AngularFirestore) {
   }
 
   public languagesByAverage = [];
@@ -43,7 +43,7 @@ export class IndicatorsComponent implements OnInit {
 
   private setColorScheme() {
     this.blueScheme = { domain: ['blue'] };
-    const domain = CSS_COLOR_NAMES.sort((a, b) => b.length - a.length);
+    const domain = [...CSS_COLOR_NAMES].sort((a, b) => b.length - a.length);
     this.colorScheme = { domain };
   }
 

@@ -11,7 +11,7 @@ export class AudioRecordingService {
   public speechToText: Subject<string> = new Subject<string>();
   public language: string;
 
-  private constraints = { audio: true };
+  private readonly constraints = { audio: true };
   private stream = null;
   private input: MediaStreamAudioSourceNode;
   private node: ScriptProcessorNode;
@@ -19,7 +19,7 @@ export class AudioRecordingService {
   private worker: Worker;
 
 
-  constructor(private errorService: ErrorService, private speechToTextService: SpeechToTextSyncService) {
+  constructor(private readonly errorService: ErrorService, private readonly speechToTextService: SpeechToTextSyncService) {
     this.worker = new Worker('../worker/flac.worker', { type: 'module' });
   }
 
@@ -73,7 +73,7 @@ export class AudioRecordingService {
     this.node = null;
   }
 
-  private convertBlobToBase64 = (blob: Blob): Promise<any> => {
+  private readonly convertBlobToBase64 = (blob: Blob): Promise<any> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(blob);

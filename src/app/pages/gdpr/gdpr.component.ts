@@ -1,9 +1,8 @@
 import {Component, Inject} from '@angular/core';
-import {ENGLISH} from 'src/app/data/sentence';
-import {FRENCH} from '../../data/sentence';
-import {Gdpr} from 'src/app/models/gdpr';
+import { ENGLISH, FRENCH } from '../../data/sentence';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Gdpr } from '../../models/gdpr';
 
 @Component({
   selector: 'app-gdpr',
@@ -16,8 +15,8 @@ export class GdprComponent {
   public gdprWording: Gdpr = ENGLISH.gdpr;
 
   constructor(
-    private dialogRef: MatDialogRef<GdprComponent>,
-    private breakpointObserver: BreakpointObserver,
+    private readonly dialogRef: MatDialogRef<GdprComponent>,
+    private readonly breakpointObserver: BreakpointObserver,
     @Inject(MAT_DIALOG_DATA) public data: { language: string }
   ) {
     this.breakpointObserver.observe(['(max-width: 1050px)']).subscribe((result) => {

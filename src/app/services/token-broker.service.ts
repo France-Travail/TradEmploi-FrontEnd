@@ -15,7 +15,7 @@ import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
   providedIn: 'root',
 })
 export class TokenBrokerService {
-  constructor(private settingService: SettingsService, private tbFbs: TokenFbService) {}
+  constructor(private readonly settingService: SettingsService, private readonly tbFbs: TokenFbService) {}
 
   public async getTokenGcp(): Promise<TokenResponse> {
     const user = this.settingService.user.value;

@@ -3,15 +3,15 @@ import axios from 'axios';
 import { Injectable } from '@angular/core';
 import { ErrorService } from './error.service';
 import { Voice } from '../models/voice';
-import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
 import { TokenResponse } from '../models/token/tokensResponse';
 import { TokenBrokerService } from './token-broker.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class VoicesService {
-  constructor(private errorService: ErrorService, private tbs: TokenBrokerService) {}
+  constructor(private readonly errorService: ErrorService, private readonly tbs: TokenBrokerService) {
+  }
 
   async getVoices(): Promise<Array<Voice>> {
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
@@ -19,7 +19,7 @@ export class VoicesService {
     return axios({
       method: 'get',
       headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
-      url: urlVoice,
+      url: urlVoice
     })
       .then((response: any) => {
         return response.data.voices;

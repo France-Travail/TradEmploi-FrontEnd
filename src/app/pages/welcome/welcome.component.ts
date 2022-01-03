@@ -10,10 +10,10 @@ import { OnboardingComponent } from '../translation/dialogs/onboarding/onboardin
   styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent {
-  public isMobile: boolean = false;
+  public isMobile = false;
   public roomId: string;
 
-  constructor(private deviceService: DeviceDetectorService, private router: Router, public dialog: MatDialog) {
+  constructor(private readonly deviceService: DeviceDetectorService, private readonly router: Router, private readonly dialog: MatDialog) {
     this.isMobile = this.deviceService.isMobile();
   }
 

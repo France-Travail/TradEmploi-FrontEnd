@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Parser } from 'json2csv';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { RateService } from 'src/app/services/rate.service';
@@ -10,27 +9,28 @@ import { MatDialog } from '@angular/material';
 import { LoaderComponent } from './loader/loader.component';
 import { Role } from 'src/app/models/role';
 import { Router } from '@angular/router';
-import {exportCsv} from '../../utils/utils';
+import { exportCsv } from '../../utils/utils';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss'],
+  styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
   constructor(
-    private navService: NavbarService,
-    private settingsService: SettingsService,
-    private rateService: RateService,
-    private kpiService: KpiService,
-    private toastService: ToastService,
-    public dialog: MatDialog,
-    private router: Router
+    private readonly navService: NavbarService,
+    private readonly settingsService: SettingsService,
+    private readonly rateService: RateService,
+    private readonly kpiService: KpiService,
+    private readonly toastService: ToastService,
+    private readonly dialog: MatDialog,
+    private readonly router: Router
   ) {
     this.navService.handleTabsSettings();
   }
 
   public isGuest: boolean;
+
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {
       this.isGuest = (user.role === Role.GUEST);
@@ -39,8 +39,9 @@ export class SettingsComponent implements OnInit {
       }
     });
   }
+
   public exportKpi(firstCall: boolean) {
-    if (firstCall){
+    if (firstCall) {
       this.dialog.open(LoaderComponent, { panelClass: 'loader' });
     }
     this.kpiService
@@ -54,13 +55,14 @@ export class SettingsComponent implements OnInit {
           await new Promise((f) => setTimeout(f, 10000));
           this.exportKpi(false);
         } else {
-          this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error'), this.dialog.closeAll();
+          this.toastService.showToast(ERROR_FUNC_EXPORT_KPI.description, 'toast-error');
+          this.dialog.closeAll();
         }
       });
   }
 
   public exportEval(firstCall: boolean) {
-    if (firstCall){
+    if (firstCall) {
       this.dialog.open(LoaderComponent, { panelClass: 'loader' });
     }
     this.rateService
@@ -74,7 +76,8 @@ export class SettingsComponent implements OnInit {
           await new Promise((f) => setTimeout(f, 10000));
           this.exportEval(false);
         } else {
-          this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error'), this.dialog.closeAll();
+          this.toastService.showToast(ERROR_FUNC_EXPORT_STATS.description, 'toast-error');
+          this.dialog.closeAll();
         }
       });
   }

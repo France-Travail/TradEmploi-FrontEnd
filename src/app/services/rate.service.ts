@@ -6,7 +6,6 @@ import { Rate } from '../models/rate';
 import { environment } from '../../environments/environment';
 import { ErrorService } from './error.service';
 import { ERROR_TECH_EXPORT_STATS } from '../models/error/errorTechnical';
-import { JwtGwSingleton } from '../models/token/JwtGwSingleton';
 import { AuthService } from './auth.service';
 import { TokenBrokerService } from './token-broker.service';
 
@@ -15,9 +14,9 @@ import { TokenBrokerService } from './token-broker.service';
 })
 export class RateService {
   private rate: Rate;
-  private db: string = 'rates';
+  private db = 'rates';
 
-  constructor(private afs: AngularFirestore, private errorService: ErrorService, private authService: AuthService, private tokenBrokerService: TokenBrokerService) {
+  constructor(private readonly afs: AngularFirestore, private readonly errorService: ErrorService, private readonly authService: AuthService, private readonly tokenBrokerService: TokenBrokerService) {
   }
 
   public rateConversation(rate: Rate): void {

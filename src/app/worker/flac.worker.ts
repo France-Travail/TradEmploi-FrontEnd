@@ -35,7 +35,7 @@ function createFlac() {
   const sampleRate = 44100;
   // const channels = 1;
   const compression = 5;
-  const bps: number = 16;
+  const bps = 16;
   flacEncoder = Flac.create_libflac_encoder(sampleRate, 1, bps, compression, 0);
   if (flacEncoder !== 0) {
     Flac.init_encoder_stream(flacEncoder, fillBufferOnFlac);

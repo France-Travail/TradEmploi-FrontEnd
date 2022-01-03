@@ -14,7 +14,7 @@ import { NavbarService } from 'src/app/services/navbar.service';
 export class StartComponent implements AfterContentInit {
   public opacity: number = 0;
 
-  constructor(private settingsService: SettingsService, private router: Router, private navbarService: NavbarService) {}
+  constructor(private readonly settingsService: SettingsService, private readonly router: Router, private readonly navbarService: NavbarService) {}
 
   ngAfterContentInit() {
     this.navbarService.hide();

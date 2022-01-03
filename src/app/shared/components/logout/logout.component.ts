@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from '../../../services/chat.service';
 import { SettingsService } from '../../../services/settings.service';
-import { Role } from 'src/app/models/role';
-import { User } from 'src/app/models/user';
-import { Logout } from 'src/app/models/vocabulary';
-import { FRENCH, ENGLISH } from 'src/app/data/sentence';
-import { AuthService } from 'src/app/services/auth.service';
+import { Logout } from '../../../models/vocabulary';
+import { User } from '../../../models/user';
+import { AuthService } from '../../../services/auth.service';
+import { Role } from '../../../models/role';
+import { ENGLISH, FRENCH } from '../../../data/sentence';
 
 @Component({
   selector: 'app-logout',
@@ -20,11 +20,11 @@ export class LogoutComponent  {
   private user: User;
 
   constructor(
-    private dialogRef: MatDialogRef<LogoutComponent>,
-    public router: Router,
-    private chatService: ChatService,
-    private settingsService: SettingsService,
-    private authService: AuthService
+    private readonly dialogRef: MatDialogRef<LogoutComponent>,
+    private readonly router: Router,
+    private readonly chatService: ChatService,
+    private readonly settingsService: SettingsService,
+    private readonly authService: AuthService
   ) {
     this.settingsService.user.subscribe((user: User) => {
       if (user !== null) {
@@ -34,7 +34,7 @@ export class LogoutComponent  {
       }
     });
   }
- 
+
   public async confirm() {
     this.dialogRef.close();
     localStorage.setItem('isLogged', 'false');
@@ -44,11 +44,11 @@ export class LogoutComponent  {
       await this.handleMono();
     }
     const accessToken = sessionStorage.getItem('access');
-    this.authService.closePeam(accessToken)
-    this.authService.logout()
+    this.authService.closePeam(accessToken);
+    this.authService.logout();
     this.settingsService.reset();
-    sessionStorage.clear()
-    localStorage.clear()
+    sessionStorage.clear();
+    localStorage.clear();
     this.router.navigateByUrl('/');
   }
 
@@ -68,5 +68,5 @@ export class LogoutComponent  {
     this.dialogRef.close();
   }
 
- 
+
 }

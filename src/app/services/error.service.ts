@@ -9,7 +9,7 @@ import { SettingsService } from './settings.service';
 export class ErrorService {
     private db: string = 'errors';
 
-    constructor(private afs: AngularFirestore, private settingService: SettingsService) {}
+    constructor(private readonly afs: AngularFirestore, private readonly settingService: SettingsService) {}
 
     public save(detail: ErrorDetail): Promise<void> {
         const roomId: string = this.settingService.user.value.roomId;

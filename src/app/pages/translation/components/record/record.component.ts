@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SettingsService } from 'src/app/services/settings.service';
-import { AudioRecordingService } from 'src/app/services/audio-recording.service';
-import { VOCABULARY } from 'src/app/data/vocabulary';
-import { ToastService } from 'src/app/services/toast.service';
-import { Role } from 'src/app/models/role';
-import { Vocabulary } from 'src/app/models/vocabulary';
-import { ERROR_FUNC_NOSOUND, ERROR_FUNC_STT } from 'src/app/models/error/errorFunctionnal';
+import { SettingsService } from '../../../../services/settings.service';
+import { AudioRecordingService } from '../../../../services/audio-recording.service';
+import { ToastService } from '../../../../services/toast.service';
+import { VOCABULARY } from '../../../../data/vocabulary';
+import { Vocabulary } from '../../../../models/vocabulary';
+import { Role } from '../../../../models/role';
+import { ERROR_FUNC_NOSOUND, ERROR_FUNC_STT } from '../../../../models/error/errorFunctionnal';
 
 @Component({
   selector: 'app-record',
@@ -29,9 +29,9 @@ export class RecordComponent implements OnInit {
   public canSend: boolean = false;
   public inProgress: boolean = false;
 
-  constructor(private settingsService: SettingsService,
-              private audioRecordingService: AudioRecordingService,
-              private toastService: ToastService) { }
+  constructor(private readonly settingsService: SettingsService,
+              private readonly audioRecordingService: AudioRecordingService,
+              private readonly toastService: ToastService) { }
 
 
   ngOnInit(): void {

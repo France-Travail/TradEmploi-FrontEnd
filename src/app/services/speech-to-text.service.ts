@@ -9,7 +9,7 @@ import { TokenBrokerService } from './token-broker.service';
   providedIn: 'root',
 })
 export class SpeechToTextService {
-  constructor(private tbs: TokenBrokerService) {}
+  constructor(private readonly tbs: TokenBrokerService) {}
   recognizeAsync = async (audioBytes: any, language: string, time: number): Promise<Observable<string>> => {
     const tokenResponse: TokenResponse = await this.tbs.getTokenAdmin(JwtFbSingleton.getInstance().getToken().token);
     const urlRecognize: string = `https://speech.googleapis.com/v1/speech:longrunningrecognize`;

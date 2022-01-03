@@ -18,7 +18,7 @@ export class ChatMultiDevicesComponent implements OnInit{
   private targetLanguage: Language;
   public isAudioSupported: boolean;
 
-  constructor(private settingsService: SettingsService, private textToSpeechService: TextToSpeechService, private translateServce: TranslateService) {
+  constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService, private readonly translateServce: TranslateService) {
   }
 
   ngOnInit(): void {

@@ -10,7 +10,7 @@ import { TokenBrokerService } from './token-broker.service';
   providedIn: 'root'
 })
 export class KpiService {
-  constructor(private errorService: ErrorService, private authService: AuthService, private tokenBrokerService: TokenBrokerService) {
+  constructor(private readonly errorService: ErrorService, private readonly authService: AuthService, private readonly tokenBrokerService: TokenBrokerService) {
   }
 
   public async getkpi(isNotLogged: boolean) {

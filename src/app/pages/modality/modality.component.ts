@@ -20,11 +20,11 @@ export class ModalityComponent implements OnInit {
 
   private roomId: string;
 
-  constructor(private router: Router,
-              private navbarService: NavbarService,
-              private chatService: ChatService,
-              private settingsService: SettingsService,
-              private breakpointObserver: BreakpointObserver) {
+  constructor(private readonly router: Router,
+              private readonly navbarService: NavbarService,
+              private readonly chatService: ChatService,
+              private readonly settingsService: SettingsService,
+              private readonly breakpointObserver: BreakpointObserver) {
     this.navbarService.handleTabModality();
     this.navbarService.show();
     this.breakpointObserver.observe(['(max-width: 1050px)']).subscribe((result) => {

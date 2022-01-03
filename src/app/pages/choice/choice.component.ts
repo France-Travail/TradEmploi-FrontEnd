@@ -1,15 +1,15 @@
 import { ENGLISH, FRENCH } from 'src/app/data/sentence';
-import { Choice } from 'src/app/models/vocabulary';
 import { AfterContentInit, Component, HostListener, OnDestroy } from '@angular/core';
-import { Role } from 'src/app/models/role';
-import { NavbarService } from 'src/app/services/navbar.service';
-import { SettingsService } from 'src/app/services/settings.service';
-import { ChatService } from 'src/app/services/chat.service';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { User } from 'src/app/models/user';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { ToastService } from 'src/app/services/toast.service';
+import { Choice } from '../../models/vocabulary';
+import { User } from '../../models/user';
+import { NavbarService } from '../../services/navbar.service';
+import { SettingsService } from '../../services/settings.service';
+import { ChatService } from '../../services/chat.service';
+import { ToastService } from '../../services/toast.service';
+import { Role } from '../../models/role';
 
 @Component({
   selector: 'app-choice',
@@ -29,12 +29,12 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
   public isSmallScreen: boolean = false;
 
   constructor(
-    private navService: NavbarService,
-    private settingsService: SettingsService,
-    private chatService: ChatService,
-    private router: Router,
-    private breakpointObserver: BreakpointObserver,
-    private toastService: ToastService
+    private readonly navService: NavbarService,
+    private readonly settingsService: SettingsService,
+    private readonly chatService: ChatService,
+    private readonly router: Router,
+    private readonly breakpointObserver: BreakpointObserver,
+    private readonly toastService: ToastService
   ) {
     this.navService.handleTabsChoice();
     this.wordings = this.settingsService.user.value.role === Role.GUEST ? ENGLISH.choice : FRENCH.choice;
@@ -43,7 +43,7 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
     });
 
     this.settingsService.user.subscribe((user) => {
-      if (user != null) {
+      if (user !== null) {
         this.isGuest = user.role === Role.GUEST;
         this.user = user;
       } else {
