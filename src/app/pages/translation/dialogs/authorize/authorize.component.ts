@@ -10,7 +10,7 @@ import { Guest } from '../../../../models/db/guest';
 })
 export class AuthorizeComponent {
 
-  public name: string = '';
+  public name = '';
 
   constructor(
     private readonly dialogRef: MatDialogRef<AuthorizeComponent>,

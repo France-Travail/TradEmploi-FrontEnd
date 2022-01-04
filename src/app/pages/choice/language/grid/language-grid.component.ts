@@ -29,9 +29,9 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   public tooltip: Tooltip;
   public voiceTitle: string;
 
-  private audioClick: boolean = false;
+  private audioClick = false;
   private audioEnabled = true;
-  private selectedCountries: Vocabulary[] = [];
+  private readonly selectedCountries: Vocabulary[] = [];
   public mapLanguages: Map<string, Language> = new Map();
 
   public countriesSort = [
@@ -88,7 +88,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   }
 
   public getCountriesAll() {
-      this.countries = [...this.vocabulary].sort((a, b) => this.sortCountryNameFr(a.languageNameFr, b.languageNameFr));
+      this.countries = [...this.vocabulary].sort((a, b) => a.languageNameFr.localeCompare(b.languageNameFr));
   }
 
   public isoCodeToFlag(isoCode: string) {
@@ -130,7 +130,11 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   }
 
   public selectLanguage(event: any, item: Vocabulary): void {
-    this.audioClick ? (this.audioClick = false) : this.goToTransation(item);
+    if (this.audioClick) {
+      this.audioClick = false;
+    } else {
+      this.goToTransation(item);
+    }
   }
 
   private goToTransation(item: Vocabulary) {
@@ -158,13 +162,4 @@ export class LanguageGridComponent implements OnChanges, OnInit {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  private sortCountryNameFr(a: string, b: string) {
-    if (a > b) {
-      return 1;
-    }
-    if (a < b) {
-      return -1;
-    }
-    return 0;
-  }
 }

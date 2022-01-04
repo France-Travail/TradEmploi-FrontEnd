@@ -11,7 +11,7 @@ import { Gdpr } from '../../models/gdpr';
 })
 export class GdprComponent {
   public selected = 'english';
-  public isSmallScreen: boolean = false;
+  public isSmallScreen = false;
   public gdprWording: Gdpr = ENGLISH.gdpr;
 
   constructor(

@@ -9,7 +9,7 @@ import { Conversation } from '../../models/history/conversation';
 })
 export class ConversationComponent implements AfterViewInit {
   public conversation: Conversation;
-  public showTranslation: boolean = false;
+  public showTranslation = false;
 
   constructor(private readonly historyService: HistoryService) {
   }

@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MessageWrapped} from '../../../../models/translate/message-wrapped';
-import {Message} from 'src/app/models/translate/message';
 import {Language} from '../../../../models/language';
 import {VOCABULARY} from '../../../../data/vocabulary';
 import {SettingsService} from '../../../../services/settings.service';
 import {TextToSpeechService} from '../../../../services/text-to-speech.service';
 import {TranslateService} from '../../../../services/translate.service';
 import {Role} from '../../../../models/role';
+import { Message } from '../../../../models/translate/message';
 
 @Component({
   selector: 'app-chat-multi-devices',

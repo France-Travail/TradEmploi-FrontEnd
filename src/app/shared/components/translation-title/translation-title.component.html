@@ -6,7 +6,7 @@
     <div class="languages">
       <img src="/assets/icons/icon-languages-blue.svg" alt="Langues">
       <div class="text" *ngIf="languages">
-        <strong><a id="back-to-choice" routerLink="/choice"><b>{{ languages.french }}</b> / {{ languages.raw }}</a></strong>
+        <strong><a id="back-to-choice" routerLink="/choice"><strong>{{ languages.french }}</strong> / {{ languages.raw }}</a></strong>
       </div>
     </div>
     <button id="end-btn" (click)="over()" *ngIf="!isGuest">TERMINER</button>

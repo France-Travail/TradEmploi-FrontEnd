@@ -13,7 +13,7 @@ import { Role } from '../../../../models/role';
 })
 export class ShareComponent implements OnInit {
   public link: string;
-  public canCreate: boolean = false;
+  public canCreate = false;
   public qrCode: string;
 
   private roomId: string;
@@ -22,7 +22,7 @@ export class ShareComponent implements OnInit {
               private readonly router: Router,
               private readonly chatService: ChatService,
               private readonly settingsService: SettingsService,
-              private toastService: ToastService) {
+              private readonly toastService: ToastService) {
   }
 
   ngOnInit(): void {
@@ -30,9 +30,9 @@ export class ShareComponent implements OnInit {
       if (user != null && !user.isMultiDevices) {
         this.canCreate = true;
         this.roomId = user.roomId;
-        this.link = window.location.origin + '/invite/' + this.roomId;
+        this.link = `${window.location.origin}/invite/${this.roomId}`;
       } else {
-        this.link = window.location.origin + '/invite/' + user.roomId;
+        this.link = `${window.location.origin}/invite/${user.roomId}`;
       }
       this.qrCode = this.link;
     });

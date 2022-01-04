@@ -16,7 +16,7 @@ import { Message } from '../models/history/message';
 })
 export class HistoryService {
   public conversation: Conversation; // Where the conversation is stored
-  private db = 'conversations'; // The collection's name
+  private readonly db = 'conversations'; // The collection's name
   private messageId = 1;
 
   constructor(private readonly afs: AngularFirestore) {}

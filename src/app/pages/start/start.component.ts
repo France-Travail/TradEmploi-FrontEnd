@@ -1,10 +1,9 @@
 // Angular
 import { Component, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SettingsService } from '../../services/settings.service';
+import { NavbarService } from '../../services/navbar.service';
 
-// Services
-import { SettingsService } from 'src/app/services/settings.service';
-import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-start',
@@ -12,7 +11,7 @@ import { NavbarService } from 'src/app/services/navbar.service';
   styleUrls: ['./start.component.scss'],
 })
 export class StartComponent implements AfterContentInit {
-  public opacity: number = 0;
+  public opacity = 0;
 
   constructor(private readonly settingsService: SettingsService, private readonly router: Router, private readonly navbarService: NavbarService) {}
 

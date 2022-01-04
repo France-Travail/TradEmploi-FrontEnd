@@ -33,7 +33,6 @@ function initFlac() {
 
 function createFlac() {
   const sampleRate = 44100;
-  // const channels = 1;
   const compression = 5;
   const bps = 16;
   flacEncoder = Flac.create_libflac_encoder(sampleRate, 1, bps, compression, 0);
@@ -73,13 +72,12 @@ function doEncodeFlac(audioData) {
     index += 4;
   }
 
-  const flacReturn = Flac.FLAC__stream_encoder_process_interleaved(flacEncoder, bufferI32, bufferI32.length / channels);
+  Flac.FLAC__stream_encoder_process_interleaved(flacEncoder, bufferI32, bufferI32.length / channels);
 }
 
 function exportFlacFile(recBuffers, recLength) {
   const samples = mergeBuffersUint8(recBuffers, recLength);
-  const theBlob = new Blob([samples], { type: 'audio/flac' });
-  return theBlob;
+  return new Blob([samples], { type: 'audio/flac' });
 }
 
 function mergeBuffersUint8(channelBuffer, recordingLength) {

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { NavbarService } from 'src/app/services/navbar.service';
 import { WelcomeDeComponent } from '../translation/dialogs/welcome-de/welcome-de.component';
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
@@ -14,6 +13,7 @@ import { TokenBrokerService } from '../../services/token-broker.service';
 import { Support } from '../../models/kpis/support';
 import { Role } from '../../models/role';
 import { Member } from '../../models/db/member';
+import { NavbarService } from '../../services/navbar.service';
 
 @Component({
   selector: 'app-anonymous',
@@ -22,7 +22,7 @@ import { Member } from '../../models/db/member';
 })
 export class AnonymousComponent implements OnInit {
   public form: FormGroup;
-  public inProgress: boolean = false;
+  public inProgress = false;
   private readonly roomId: string;
 
   constructor(
@@ -59,9 +59,9 @@ export class AnonymousComponent implements OnInit {
       const auth = await this.authService.loginAnonymous();
       this.tbs.addGuest(auth.token, this.roomId, this.username.value);
       this.openModal(WelcomeDeComponent, '200px', true);
-      let end: boolean = false;
-      let timer: number = 0;
-      const maxOnSecond: number = 30;
+      let end = false;
+      let timer = 0;
+      const maxOnSecond = 30;
       const timeValue = setInterval(async () => {
         if (end || timer === maxOnSecond) {
           clearInterval(timeValue);

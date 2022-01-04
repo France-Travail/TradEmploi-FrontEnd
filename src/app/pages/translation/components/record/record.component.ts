@@ -21,13 +21,13 @@ export class RecordComponent implements OnInit {
   @Output() send: EventEmitter<string> = new EventEmitter<string>();
   @Output() exit: EventEmitter<void> = new EventEmitter<void>();
 
-  public text: string = '';
-  public width: number = 0;
-  public seconds: number = 50;
-  public isPaused: boolean = false;
+  public text = '';
+  public width = 0;
+  public seconds = 50;
+  public isPaused = false;
   public intervalId: any;
-  public canSend: boolean = false;
-  public inProgress: boolean = false;
+  public canSend = false;
+  public inProgress = false;
 
   constructor(private readonly settingsService: SettingsService,
               private readonly audioRecordingService: AudioRecordingService,
@@ -55,9 +55,9 @@ export class RecordComponent implements OnInit {
     this.text = audioCode ? audioCode.sentences.recordText : VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
   }
 
-  private recordBarLoad = () => {
-    const value: number = 100 / (this.duration * 10);
-    let time: number = 0;
+  private readonly recordBarLoad = () => {
+    const value = 100 / (this.duration * 10);
+    let time = 0;
     this.intervalId = setInterval(() => {
       if (!this.isPaused) {
         this.width = this.width + value;
@@ -120,7 +120,7 @@ export class RecordComponent implements OnInit {
     }
   }
 
-  private stopRecord = () => {
+  private readonly stopRecord = () => {
     clearInterval(this.intervalId);
     this.intervalId = undefined;
     this.audioRecordingService.stop(this.seconds);

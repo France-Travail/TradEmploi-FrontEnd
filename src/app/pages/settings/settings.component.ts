@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarService } from 'src/app/services/navbar.service';
-import { SettingsService } from 'src/app/services/settings.service';
-import { RateService } from 'src/app/services/rate.service';
-import { KpiService } from 'src/app/services/kpi.service';
-import { ERROR_FUNC_EXPORT_KPI, ERROR_FUNC_EXPORT_STATS } from 'src/app/models/error/errorFunctionnal';
-import { ToastService } from 'src/app/services/toast.service';
 import { MatDialog } from '@angular/material';
 import { LoaderComponent } from './loader/loader.component';
-import { Role } from 'src/app/models/role';
 import { Router } from '@angular/router';
 import { exportCsv } from '../../utils/utils';
+import { NavbarService } from '../../services/navbar.service';
+import { SettingsService } from '../../services/settings.service';
+import { RateService } from '../../services/rate.service';
+import { KpiService } from '../../services/kpi.service';
+import { ToastService } from '../../services/toast.service';
+import { Role } from '../../models/role';
+import { ERROR_FUNC_EXPORT_KPI, ERROR_FUNC_EXPORT_STATS } from '../../models/error/errorFunctionnal';
 
 @Component({
   selector: 'app-settings',

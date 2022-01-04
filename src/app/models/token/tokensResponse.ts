@@ -1,4 +1,4 @@
 export interface TokenResponse {
-    tokenGCP:string,
-    tokenGW:string
+  tokenGCP: string;
+  tokenGW: string;
 }

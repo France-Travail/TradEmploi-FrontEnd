@@ -57,7 +57,7 @@ export class IndicatorsComponent implements OnInit {
     for (const language of langauges) {
       if (language.isoCode.includes('-')) {
         const lang = VOCABULARY.find((v) => v.isoCode === language.isoCode);
-        const name = lang.languageNameFr + ' (' + lang.countryNameFr + ')';
+        const name = `${lang.languageNameFr} (${lang.countryNameFr}) `;
         this.languagesByAverage.push({
           name,
           value: language.average
@@ -91,7 +91,7 @@ export class IndicatorsComponent implements OnInit {
       let total = 0;
       for (const l of value) {
         const lang = VOCABULARY.find((v) => v.isoCode === l.isoCode);
-        series.push({ name: lang.languageNameFr + ' (' + lang.countryNameFr + ')', value: l.occurrences });
+        series.push({ name: `${lang.languageNameFr} (${lang.countryNameFr}) `, value: l.occurrences });
         average = average + l.average;
         total += l.occurrences;
       }
@@ -107,7 +107,7 @@ export class IndicatorsComponent implements OnInit {
     for (const rate of rates) {
       if (this.hasValidIsoCode(rate)) {
         const date: Date = rate.date.toDate();
-        const formattedDate = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+        const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
 
         if (rateMap.has(formattedDate)) {
           this.updateRateMap(rateMap, formattedDate, rate);

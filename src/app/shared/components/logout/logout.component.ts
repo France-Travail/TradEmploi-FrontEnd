@@ -16,7 +16,7 @@ import { ENGLISH, FRENCH } from '../../../data/sentence';
 })
 export class LogoutComponent  {
   public logoutWording: Logout;
-  private isGuest: boolean = false;
+  private isGuest = false;
   private user: User;
 
   constructor(

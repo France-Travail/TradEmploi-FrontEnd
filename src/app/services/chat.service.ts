@@ -63,6 +63,7 @@ export class ChatService {
       const chatCreateDto: InitChatDto = { members: [advisor, guest], messages: mwsWithoutAudio };
       return this.create(roomId, chatCreateDto);
     }
+    return Promise.resolve(false);
   }
 
   initChatMulti(roomId: string, advisorRole: Role): Promise<boolean> {
@@ -160,7 +161,6 @@ export class ChatService {
       .catch(_ => {
         return false;
       });
-    ;
   }
 
 

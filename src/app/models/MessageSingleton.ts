@@ -4,7 +4,7 @@ export class MessageSingleton {
     private static instance: MessageSingleton;
 
     private _message:Message = null;
-    private _alreadyPlay:boolean = false;
+    private _alreadyPlay = false;
 
     /**
      * The static method that controls the access to the singleton instance.

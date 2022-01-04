@@ -36,7 +36,7 @@ const toastError = 'toast-error';
   styleUrls: ['./translation.component.scss'],
 })
 export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate, OnDestroy {
-  @ViewChild('scrollMe') private chatScroll: ElementRef;
+  @ViewChild('scrollMe') private readonly chatScroll: ElementRef;
   public messagesWrapped = [];
   public guestTextToEdit: string;
   public advisorTextToEdit: string;
@@ -49,10 +49,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private isAudioPlay: boolean;
   private user: User;
-  private endIdDialogRef: MatDialogRef<any>;
+  private readonly endIdDialogRef: MatDialogRef<any>;
   private support: Support;
   private vocalSupported = false;
-  private authorizationHandled = [];
+  private readonly authorizationHandled = [];
 
   constructor(
     private readonly dialog: MatDialog,
@@ -256,7 +256,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   @HostListener('window:beforeunload', ['$event'])
   public async openPopUp(event) {
     const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
-    (event || window.event).returnValue = confirmationMessage;
+    (event).returnValue = confirmationMessage;
     return 'confirmationMessage';
   }
 
@@ -287,10 +287,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   private async deactivateMono() {
-    return await this.chatService.initChatMono(this.user.roomId, this.user.role);
+    return this.chatService.initChatMono(this.user.roomId, this.user.role);
   }
 
-  private initMultiDevices = (roomId) => {
+  private readonly initMultiDevices = (roomId) => {
     this.chatService.getChat(roomId).subscribe((chat: Chat) => {
       if (chat.active) {
         const isNewAuthorization = chat.guests.filter((g) => this.authorizationHandled.indexOf(g.id) === -1).length > 0 && !this.isGuest;
@@ -398,6 +398,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     } else {
       MessageSingleton.getInstance().setAlreadyPlay(true);
     }
+    return true;
   }
 
   private isSender(member: string): boolean {

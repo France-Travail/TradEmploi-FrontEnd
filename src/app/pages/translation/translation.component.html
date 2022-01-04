@@ -14,7 +14,7 @@
       </li>
       <li>
         <span *ngIf="isGuest" class="roomId">{{ roomId }}</span>
-        <img class="listen-icon"
+        <img class="listen-icon" alt="listen icon"
              src="{{ this.isGuest && !isAudioSupported ? 'assets/icons/icon-listen-blue-low-opacity.svg' : 'assets/icons/icon-listen-blue.svg' }}"/>
         <mat-slide-toggle
           class="auto-listen-btn"

@@ -8,8 +8,7 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-callback',
-  templateUrl: './callback.component.html',
-  styleUrls: ['./callback.component.scss']
+  templateUrl: './callback.component.html'
 })
 export class CallbackComponent implements OnInit {
   constructor(private readonly authService: AuthService,

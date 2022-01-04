@@ -8,7 +8,7 @@ import { NavbarService } from './services/navbar.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title: string = 'translation';
+  title = 'translation';
   constructor(private readonly router: Router, public readonly navbarService: NavbarService) {
     addEventListener('storage', this.storageChange.bind(this));
   }

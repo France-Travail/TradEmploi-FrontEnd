@@ -12,7 +12,7 @@ export class SpeechToTextService {
   constructor(private readonly tbs: TokenBrokerService) {}
   recognizeAsync = async (audioBytes: any, language: string, time: number): Promise<Observable<string>> => {
     const tokenResponse: TokenResponse = await this.tbs.getTokenAdmin(JwtFbSingleton.getInstance().getToken().token);
-    const urlRecognize: string = `https://speech.googleapis.com/v1/speech:longrunningrecognize`;
+    const urlRecognize = `https://speech.googleapis.com/v1/speech:longrunningrecognize`;
     const data = {
       config: {
         encoding: 'FLAC',
@@ -31,7 +31,7 @@ export class SpeechToTextService {
         data,
       })
         .then((operation) => {
-          const urlOperation: string = `https://speech.googleapis.com/v1/operations/${operation.data.name}`;
+          const urlOperation = `https://speech.googleapis.com/v1/operations/${operation.data.name}`;
           const wait = this.getWaitTime(time);
           setTimeout(() => {
             axios({
@@ -58,7 +58,7 @@ export class SpeechToTextService {
     });
   };
 
-  private getWaitTime = (time: number): number => {
+  private readonly getWaitTime = (time: number): number => {
     return (time / 2) * 1000;
   };
 }

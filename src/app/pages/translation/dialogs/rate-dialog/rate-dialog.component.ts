@@ -86,7 +86,7 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionFour.french = rateFr.technical;
       this.sentences.questionFive.french = rateFr.typeInterview;
     }
-    let languageNameFr: string = 'fr-FR';
+    let languageNameFr = 'fr-FR';
     if (this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA') {
       this.sentences.questionOne.foreign = '';
       this.sentences.questionTwo.foreign = '';
@@ -121,7 +121,7 @@ export class RateDialogComponent implements OnInit {
     this.rate = {
       language: isoCodes,
       date,
-      hour: date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0'),
+      hour: `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`,
       grades: [undefined, undefined],
       comment: '',
       offerLinked: 'non',
@@ -140,7 +140,7 @@ export class RateDialogComponent implements OnInit {
     const date = new Date();
     this.rate.grades[question] = value + 1;
     this.rate.date = date;
-    this.rate.hour = date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
+    this.rate.hour = `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
 
     let firstMessageTime = '00:00:00';
     let lastMessageTime = '00:00:00';
@@ -184,7 +184,7 @@ export class RateDialogComponent implements OnInit {
 
   public setCanSendRate() {
     this.rate.typeEntretien = this.getInterviewType();
-    this.canSendRate = this.rate && this.rate.grades && (this.rate.grades[0] !== undefined) && (this.rate.grades[1] !== undefined) && this.rate.typeEntretien && !!this.rate.offerLinked;
+    this.canSendRate = this.rate && this.rate.grades && this.rate.grades[0] && this.rate.grades[1] && this.rate.typeEntretien && !!this.rate.offerLinked;
   }
 
   public confirm() {

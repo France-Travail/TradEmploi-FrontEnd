@@ -1,12 +1,9 @@
 // Angular
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Conversation } from '../../../../models/history/conversation';
+import { HistoryService } from '../../../../services/history.service';
 
-// Services
-import { HistoryService } from 'src/app/services/history.service';
-
-// Models
-import { Conversation } from 'src/app/models/history/conversation';
 
 @Component({
   selector: 'app-remove',

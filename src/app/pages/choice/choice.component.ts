@@ -1,7 +1,6 @@
-import { ENGLISH, FRENCH } from 'src/app/data/sentence';
 import { AfterContentInit, Component, HostListener, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Choice } from '../../models/vocabulary';
 import { User } from '../../models/user';
@@ -10,23 +9,24 @@ import { SettingsService } from '../../services/settings.service';
 import { ChatService } from '../../services/chat.service';
 import { ToastService } from '../../services/toast.service';
 import { Role } from '../../models/role';
+import { ENGLISH, FRENCH } from '../../data/sentence';
 
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
-  styleUrls: ['./choice.component.scss'],
+  styleUrls: ['./choice.component.scss']
 })
 export class ChoiceComponent implements AfterContentInit, OnDestroy {
   public search: string;
 
-  public optionAll: boolean = false;
-  public optionList: boolean = false;
-  public isGuest: boolean = true;
+  public optionAll = false;
+  public optionList = false;
+  public isGuest = true;
   public wordings: Choice;
 
-  private endIdDialogRef: MatDialogRef<any, any>;
+  private readonly endIdDialogRef: MatDialogRef<any>;
   private user: User;
-  public isSmallScreen: boolean = false;
+  public isSmallScreen = false;
 
   constructor(
     private readonly navService: NavbarService,
@@ -76,7 +76,7 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
   @HostListener('window:beforeunload', ['$event'])
   public openPopUp(event): any {
     const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
-    (event || window.event).returnValue = confirmationMessage; // Gecko + IE
+    (event).returnValue = confirmationMessage; // Gecko + IE
     return confirmationMessage;
   }
 

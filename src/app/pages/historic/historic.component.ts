@@ -1,16 +1,15 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-// Services
-import { HistoryService } from 'src/app/services/history.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { RateService } from 'src/app/services/rate.service';
 // Dialogs
 import { ShowComponent } from './dialogs/show/show.component';
 import { RemoveComponent } from './dialogs/remove/remove.component';
-// Models
-import { Conversation } from 'src/app/models/history/conversation';
-import { Rate } from 'src/app/models/rate';
+import { Conversation } from '../../models/history/conversation';
+import { Rate } from '../../models/rate';
+import { ToastService } from '../../services/toast.service';
+import { HistoryService } from '../../services/history.service';
+import { RateService } from '../../services/rate.service';
+
 
 @Component({
   selector: 'app-historic',

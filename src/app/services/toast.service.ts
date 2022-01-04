@@ -10,7 +10,7 @@ export class ToastService {
   /**
    * Show a toast with a custom message
    */
-  public showToast(message: string, type: string, duration: number = 5000, button: string = 'OK'): void {
+  public showToast(message: string, type: string, duration = 5000, button = 'OK'): void {
     this.snackBar.open(message,  button, {
       duration,
       horizontalPosition: 'center',
@@ -19,6 +19,6 @@ export class ToastService {
     });
   }
   public closeToast(){
-    this.snackBar.dismiss()
+    this.snackBar.dismiss();
   }
 }

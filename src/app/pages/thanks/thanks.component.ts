@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavbarService } from 'src/app/services/navbar.service';
+import { NavbarService } from '../../services/navbar.service';
 
 @Component({
   selector: 'app-thanks',
@@ -8,7 +8,7 @@ import { NavbarService } from 'src/app/services/navbar.service';
   styleUrls: ['./thanks.component.scss']
 })
 export class ThanksComponent implements AfterViewInit {
-  public message: string = 'Pôle Emploi vous remercie.';
+  public message = 'Pôle Emploi vous remercie.';
 
   constructor(private readonly router: Router, private readonly navbarService: NavbarService) {
   }

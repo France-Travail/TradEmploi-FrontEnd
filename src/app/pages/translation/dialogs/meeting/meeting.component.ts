@@ -14,7 +14,7 @@ import { SettingsService } from '../../../../services/settings.service';
 export class MeetingComponent {
   public today: Date = new Date();
   public calendar: Array<Date[]> = [];
-  public monthName: string = '';
+  public monthName = '';
   private month: Date = new Date();
 
   constructor(private readonly dialogRef: MatDialogRef<MeetingComponent>,

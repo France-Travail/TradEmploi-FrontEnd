@@ -4,13 +4,15 @@ import { Observable } from 'rxjs';
 import { ChatService } from '../services/chat.service';
 import { SettingsService } from '../services/settings.service';
 
+type CanActivateType = Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree;
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
   constructor(private readonly settingsService: SettingsService, private readonly chatService: ChatService, private readonly router: Router) {}
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): CanActivateType {
     return new Promise((resolve) => {
       if ((!localStorage.getItem('user') || localStorage.getItem('user') == null) && (!sessionStorage.getItem('user') || sessionStorage.getItem('user') == null)) {
         this.settingsService.user.next(null);

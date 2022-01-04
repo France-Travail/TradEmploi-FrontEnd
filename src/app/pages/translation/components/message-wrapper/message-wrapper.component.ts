@@ -17,11 +17,11 @@ import { SpeechRecognitionService } from '../../../../services/speech-recognitio
 import { ChatService } from '../../../../services/chat.service';
 import { ErrorService } from '../../../../services/error.service';
 import { Role } from '../../../../models/role';
-import { isIOS } from 'src/app/utils/utils';
 import { Stream } from '../../../../models/stream';
 import { User } from '../../../../models/user';
 import { Message } from '../../../../models/translate/message';
 import { VOCABULARY, VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
+import { isIOS } from '../../../../utils/utils';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -86,7 +86,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     const isLanguageExist = this.vocabulary.some((item) => item.isoCode === this.settingsService.user.value.language.written);
     const data = isLanguageExist || this.role === Role.ADVISOR ? this.vocabulary.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     const translationPlaceHolderIos = this.role === Role.ADVISOR ? data.sentences.translationH2Ios : VOCABULARY_DEFAULT.sentences.translationH2Ios;
-    this.interim = this.settingsService.recordMode ? data.sentences.translationH2Mobile : this.isIOS ? translationPlaceHolderIos : data.sentences.translationH2;
+    this.interim = this.getInterim(data, translationPlaceHolderIos);
     this.sendBtnValue = data.sentences.send;
     this.voiceNotSupported = data.sentences.voiceNotSupported ? data.sentences.voiceNotSupported : false;
     this.flag = data.isoCode.split('-')[1].toLowerCase();
@@ -95,6 +95,18 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     });
     this.useSpeechToTextMicrosoftApi = environment.microsoftSpeechConfig.enabled;
     this.isTablet = this.settingsService.isTablet;
+  }
+
+  private getInterim(data: Vocabulary, translationPlaceHolderIos: string) {
+    if (this.settingsService.recordMode) {
+      return data.sentences.translationH2Mobile;
+    } else {
+      if (this.isIOS) {
+        return translationPlaceHolderIos;
+      } else {
+        return data.sentences.translationH2;
+      }
+    }
   }
 
   ngOnChanges() {
@@ -181,7 +193,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     this.speaking = false;
   }
 
-  public async send(fromKeyBoard?: boolean, messageAudio?: string): Promise<void> {
+  public async send(fromKeyBoard= false, messageAudio?: string): Promise<void> {
     if (this.rawText !== '') {
       const user = this.settingsService.user.value;
       const message = messageAudio === undefined ? this.rawText : messageAudio;
@@ -301,7 +313,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     return {
       time: Date.now(),
       date: date.toString(),
-      hour: date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
+      hour: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
       languageOrigin: this.languageOrigin,
       languageName: this.languageName,
       flag: this.flag,

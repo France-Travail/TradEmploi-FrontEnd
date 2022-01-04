@@ -14,7 +14,7 @@ import { TokenBrokerService } from './token-broker.service';
 })
 export class RateService {
   private rate: Rate;
-  private db = 'rates';
+  private readonly db = 'rates';
 
   constructor(private readonly afs: AngularFirestore, private readonly errorService: ErrorService, private readonly authService: AuthService, private readonly tokenBrokerService: TokenBrokerService) {
   }
