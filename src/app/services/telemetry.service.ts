@@ -14,7 +14,7 @@ export class TelemetryService {
   public async logPeama(idDGASI: string) {
 
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
-    const gwToken = tokenResponse.tokenGW;
+    const gwToken = tokenResponse ? tokenResponse.tokenGW : '';
     const url = `${environment.gcp.gateWayUrl}/telemetry`;
 
     const params = {
