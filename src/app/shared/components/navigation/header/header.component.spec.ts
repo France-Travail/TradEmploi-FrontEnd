@@ -24,7 +24,9 @@ describe('HeaderComponent', () => {
     roomId: '1345',
     role: Role.GUEST,
     firstname: 'Pôle emploi',
-    isMultiDevices: true
+    isMultiDevices: true,
+    email: 'test@gmail.com',
+    idDGASI: '1'
   };
 
   beforeEach(async(() => {

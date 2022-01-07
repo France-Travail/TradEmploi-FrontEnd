@@ -5,7 +5,6 @@ import { BehaviorSubject, of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ModalityComponent } from './modality.component';
 import { ChatService } from '../../services/chat.service';
 import { Router } from '@angular/router';
 import { Role } from '../../models/role';
@@ -13,17 +12,26 @@ import { User } from '../../models/user';
 import { GdprComponent } from '../gdpr/gdpr.component';
 import { NavbarService } from '../../services/navbar.service';
 import { SettingsService } from '../../services/settings.service';
+import { TranslationComponent } from './translation.component';
+import { ToastService } from '../../services/toast.service';
+import { TextToSpeechService } from '../../services/text-to-speech.service';
+import { TranslateService } from '../../services/translate.service';
+import { CryptService } from '../../services/crypt.service';
 
-describe('ModalityComponent', () => {
-  let component: ModalityComponent;
-  let fixture: ComponentFixture<ModalityComponent>;
+describe('TranslationComponent', () => {
+  let component: TranslationComponent;
+  let fixture: ComponentFixture<TranslationComponent>;
   let mockBreakpointService;
   let mockSettingsService;
   let mockChatService;
   let mockRouter;
-  let mockTagService;
 
-  const event = new Event('click');
+  let mockToastService;
+  let mockTextToSpeechService;
+  let mockNavbarService;
+  let mockTranslateService;
+  let mockCryptService;
+
   const user = {
     connectionTime: 1,
     id: '123',
@@ -37,15 +45,22 @@ describe('ModalityComponent', () => {
   };
 
   beforeEach(async(() => {
-    mockChatService = jasmine.createSpyObj(['messagesStored', 'initChatMulti']);
+    mockChatService = jasmine.createSpyObj(['getChat', 'messagesStored']);
+    mockChatService.getChat.and.returnValue(of({}));
+    mockChatService.messagesStored.and.returnValue([]);
     mockBreakpointService = jasmine.createSpyObj(['observe']);
-    mockTagService = jasmine.createSpyObj(['click']);
     mockBreakpointService.observe.and.returnValue(of(true));
     mockSettingsService = {
       user: new BehaviorSubject<User>(user),
-      defaultLanguage: { written: '', audio: '', languageName: '' }
+      reset(){return of({}); }
     };
     mockRouter = jasmine.createSpyObj(['navigateByUrl']);
+
+    mockToastService = jasmine.createSpyObj(['navigateByUrl']);
+    mockTextToSpeechService = jasmine.createSpyObj(['navigateByUrl']);
+    mockNavbarService = jasmine.createSpyObj(['show', 'handleTabsTranslation']);
+    mockTranslateService = jasmine.createSpyObj(['navigateByUrl']);
+    mockCryptService = jasmine.createSpyObj(['navigateByUrl']);
 
     TestBed.configureTestingModule({
       imports: [MatDialogModule, BrowserAnimationsModule, RouterTestingModule],
@@ -56,7 +71,13 @@ describe('ModalityComponent', () => {
         { provide: Router, useValue: mockRouter },
         { provide: ChatService, useValue: mockChatService },
         { provide: SettingsService, useValue: mockSettingsService },
-        { provide: BreakpointObserver, useValue: mockBreakpointService }
+        { provide: BreakpointObserver, useValue: mockBreakpointService },
+
+        { provide: ToastService, useValue: mockToastService },
+        { provide: TextToSpeechService, useValue: mockTextToSpeechService },
+        { provide: NavbarService, useValue: mockNavbarService },
+        { provide: TranslateService, useValue: mockTranslateService },
+        { provide: CryptService, useValue: mockCryptService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -64,35 +85,13 @@ describe('ModalityComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalityComponent);
+    fixture = TestBed.createComponent(TranslationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  describe('mono mode connection', () => {
-
-    it('when we confirm the mono mode connection, we should go to the language choice page', () => {
-      component.confirm(event);
-      expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('choice');
-    });
-
-  });
-
-  describe('multi mode connection', () => {
-
-    it('when we confirm the mono mode connection, we should go to the translation page', () => {
-      component.target = 'multi';
-      spyOn(localStorage, 'getItem')
-        .and.returnValue(JSON.stringify(user));
-      mockBreakpointService.observe.and.returnValue(of(true));
-      component.confirm(event);
-      expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('translation');
-    });
-
   });
 
 });

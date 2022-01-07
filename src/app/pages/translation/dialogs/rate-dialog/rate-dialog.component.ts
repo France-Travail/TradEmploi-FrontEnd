@@ -1,16 +1,16 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {SettingsService} from 'src/app/services/settings.service';
-import {RateService} from 'src/app/services/rate.service';
-import {ToastService} from 'src/app/services/toast.service';
-import {VOCABULARY} from 'src/app/data/vocabulary';
-import {Rate} from 'src/app/models/rate';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {ChatService} from 'src/app/services/chat.service';
-import {ERROR_FUNC_SEND_STATS} from 'src/app/models/error/errorFunctionnal';
-import {getDuration} from '../../../../utils/utils';
-import {Role} from '../../../../models/role';
-import {environment} from '../../../../../environments/environment';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { getDuration } from '../../../../utils/utils';
+import { Role } from '../../../../models/role';
+import { environment } from '../../../../../environments/environment';
+import { Rate } from '../../../../models/rate';
+import { RateService } from '../../../../services/rate.service';
+import { SettingsService } from '../../../../services/settings.service';
+import { ToastService } from '../../../../services/toast.service';
+import { ChatService } from '../../../../services/chat.service';
+import { VOCABULARY } from '../../../../data/vocabulary';
+import { ERROR_FUNC_SEND_STATS } from '../../../../models/error/errorFunctionnal';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -23,35 +23,35 @@ interface Sentences {
 @Component({
   selector: 'app-rate-dialog',
   templateUrl: './rate-dialog.component.html',
-  styleUrls: ['./rate-dialog.component.scss'],
+  styleUrls: ['./rate-dialog.component.scss']
 })
 export class RateDialogComponent implements OnInit {
   public rate: Rate;
   public rates: boolean[][] = [
     [false, false, false, false, false],
-    [false, false, false, false, false],
+    [false, false, false, false, false]
   ];
   public sentences: Sentences = {
     questionOne: {
       french: '',
-      foreign: '',
+      foreign: ''
     },
     questionTwo: {
       french: '',
-      foreign: '',
+      foreign: ''
     },
     questionThree: {
       french: '',
-      foreign: '',
+      foreign: ''
     },
     questionFour: {
       french: '',
-      foreign: '',
+      foreign: ''
     },
     questionFive: {
       french: '',
-      foreign: '',
-    },
+      foreign: ''
+    }
   };
   public canSendRate: boolean;
   private isMultiDevices: boolean;
@@ -60,12 +60,12 @@ export class RateDialogComponent implements OnInit {
   public autreType = '';
 
   constructor(
-    private dialogRef: MatDialogRef<RateDialogComponent>,
-    private rateService: RateService,
-    private settingsService: SettingsService,
-    private toastService: ToastService,
-    private router: Router,
-    private chatService: ChatService,
+    private readonly dialogRef: MatDialogRef<RateDialogComponent>,
+    private readonly rateService: RateService,
+    private readonly settingsService: SettingsService,
+    private readonly toastService: ToastService,
+    private readonly router: Router,
+    private readonly chatService: ChatService,
     @Inject(MAT_DIALOG_DATA) public data: { guest: Array<string> }
   ) {
     this.settingsService.user.subscribe((user) => {
@@ -86,7 +86,7 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionFour.french = rateFr.technical;
       this.sentences.questionFive.french = rateFr.typeInterview;
     }
-    let languageNameFr: string = 'fr-FR';
+    let languageNameFr = 'fr-FR';
     if (this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA') {
       this.sentences.questionOne.foreign = '';
       this.sentences.questionTwo.foreign = '';
@@ -121,7 +121,7 @@ export class RateDialogComponent implements OnInit {
     this.rate = {
       language: isoCodes,
       date,
-      hour: date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0'),
+      hour: `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`,
       grades: [undefined, undefined],
       comment: '',
       offerLinked: 'non',
@@ -140,26 +140,19 @@ export class RateDialogComponent implements OnInit {
     const date = new Date();
     this.rate.grades[question] = value + 1;
     this.rate.date = date;
-    this.rate.hour = date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
+    this.rate.hour = `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
 
     let firstMessageTime = '00:00:00';
     let lastMessageTime = '00:00:00';
     this.rate.nbMessagesGuest = 0;
     this.rate.nbMessagesAdvisor = 0;
-
-    const length = this.chatService.messagesStored.length;
-    if (length > 0) {
-      firstMessageTime = this.chatService.messagesStored[0].message.hour;
-      lastMessageTime = this.chatService.messagesStored[length - 1].message.hour;
-      for (const messageWrapped of this.chatService.messagesStored) {
-        if (messageWrapped.message) {
-          if (messageWrapped.message.role === Role.GUEST) {
-            this.rate.nbMessagesGuest++;
-          }
-          if (messageWrapped.message.role === Role.ADVISOR) {
-            this.rate.nbMessagesAdvisor++;
-          }
-        }
+    const messagesStored = this.chatService.messagesStored;
+    if (messagesStored) {
+      const length = messagesStored.length;
+      if (length > 0) {
+        firstMessageTime = messagesStored[0].message.hour;
+        lastMessageTime = messagesStored[length - 1].message.hour;
+        this.fillNbMessages();
       }
     }
     this.rate.user = this.settingsService.user.value.idDGASI;
@@ -176,9 +169,22 @@ export class RateDialogComponent implements OnInit {
 
   }
 
+  private fillNbMessages() {
+    for (const messageWrapped of this.chatService.messagesStored) {
+      if (messageWrapped.message) {
+        if (messageWrapped.message.role === Role.GUEST) {
+          this.rate.nbMessagesGuest++;
+        }
+        if (messageWrapped.message.role === Role.ADVISOR) {
+          this.rate.nbMessagesAdvisor++;
+        }
+      }
+    }
+  }
+
   public setCanSendRate() {
     this.rate.typeEntretien = this.getInterviewType();
-    this.canSendRate = this.rate.grades[0] !== undefined && this.rate.grades[1] !== undefined && !!this.getInterviewType() && !!this.rate.offerLinked;
+    this.canSendRate = this.rate && this.rate.grades && this.rate.grades[0] && this.rate.grades[1] && this.rate.typeEntretien && !!this.rate.offerLinked;
   }
 
   public confirm() {
@@ -192,11 +198,10 @@ export class RateDialogComponent implements OnInit {
           const user = this.settingsService.user.value;
           if (isMono) {
             const advisorRole = user.role;
-            this.chatService.initChatMono(user.roomId, advisorRole);
+            this.chatService.initChatMono(null, advisorRole);
           } else {
             this.chatService.updateChatStatus(user.roomId, false);
           }
-          // this.settingsService.reset();
           this.router.navigate(['choice']);
         })
         .catch(() => {

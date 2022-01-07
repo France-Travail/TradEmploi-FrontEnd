@@ -1,30 +1,30 @@
 <mat-nav-list>
   <a mat-list-item routerLink="indicators" (click)="onSidenavClose()" *ngIf="navbarService.modalityTab">
-    <img src="assets/icons/icon-chart.svg" />
+    <img src="assets/icons/icon-chart.svg" alt="Indicateurs"/>
     <span class="name">INDICATEURS</span>
   </a>
   <a mat-list-item routerLink="choice" (click)="onSidenavClose()" *ngIf="navbarService.choiceTab">
-    <img src="assets/icons/icon-languages-black.svg" />
+    <img src="assets/icons/icon-languages-black.svg" alt="Choix"/>
     <span class="name">{{ choiceLink | uppercase }}</span>
   </a>
   <a mat-list-item (click)="gdpr()"  >
-    <img src="assets/icons/icon-policies-black.svg" />
+    <img src="assets/icons/icon-policies-black.svg" alt="gdpr"/>
     <span class="name">{{ gdprLink | uppercase }}</span>
   </a>
   <a mat-list-item routerLink="modality" (click)="onSidenavClose()" *ngIf="navbarService.modalityTab">
-    <img src="assets/icons/icon-modality-black.svg" />
+    <img src="assets/icons/icon-modality-black.svg" alt="modality"/>
     <span class="name">MODALITÉ</span>
   </a>
   <a mat-list-item (click)="onSidenavClose()" (click)="help()" *ngIf="navbarService.helpTab">
-    <img src="assets/icons/icon-help-black.svg" />
+    <img src="assets/icons/icon-help-black.svg" alt="help"/>
     <span class="name">{{ helpLink | uppercase }}</span>
   </a>
   <a mat-list-item (click)="end()" (click)="onSidenavClose()" *ngIf="navbarService.endTab">
-    <img src="assets/icons/icon-end-black.svg" />
+    <img src="assets/icons/icon-end-black.svg" alt="end"/>
     <span class="name">TERMINER LE CHAT</span>
   </a>
   <a mat-list-item (click)="logout()" (click)="onSidenavClose()">
-    <img src="assets/icons/icon-logout.svg" />
+    <img src="assets/icons/icon-logout.svg" alt="logout"/>
     <div>
       <div class="name">{{ logoutLink | uppercase }}</div>
       <div class="name" >{{ userName}}</div>

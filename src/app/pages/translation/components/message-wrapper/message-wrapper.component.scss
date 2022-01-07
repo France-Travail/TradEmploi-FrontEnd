@@ -31,7 +31,7 @@
     outline: none;
     resize: none;
 
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
     &::-webkit-scrollbar {
       width: 5px;
       background-color: #e0e0e0;
@@ -152,9 +152,6 @@
   top: 0;
   margin: 0 auto;
 }
-.notRec{
-}
-
 .Rec{
   animation-name: pulse;
   animation-duration: 1.5s;

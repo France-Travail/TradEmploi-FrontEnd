@@ -4,13 +4,7 @@ export class MessageSingleton {
     private static instance: MessageSingleton;
 
     private _message:Message = null;
-    private _alreadyPlay:boolean = false;
-
-    /**
-     * The Singleton's constructor should always be private to prevent direct
-     * construction calls with the `new` operator.
-     */
-    private constructor() { }
+    private _alreadyPlay = false;
 
     /**
      * The static method that controls the access to the singleton instance.

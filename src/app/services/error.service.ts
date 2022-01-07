@@ -7,15 +7,15 @@ import { SettingsService } from './settings.service';
     providedIn: 'root'
 })
 export class ErrorService {
-    private db: string = 'errors';
+    private readonly db: string = 'errors';
 
-    constructor(private afs: AngularFirestore, private settingService: SettingsService) {}
+    constructor(private readonly afs: AngularFirestore, private readonly settingService: SettingsService) {}
 
     public save(detail: ErrorDetail): Promise<void> {
         const roomId: string = this.settingService.user.value.roomId;
         const date = new Date();
         const day = date.toLocaleDateString('fr-FR');
-        const hour = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        const hour = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
         const error: ErrorType = {
             roomId,
             day,

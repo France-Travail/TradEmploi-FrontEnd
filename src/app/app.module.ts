@@ -17,7 +17,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 // Environment loaded
-import { environment } from 'src/environments/environment';
+import { environment } from '../environments/environment';
 // Handle Animations for Angular Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Allow to use French date format

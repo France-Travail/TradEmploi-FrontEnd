@@ -63,12 +63,13 @@ export const VOCABULARY_DEFAULT: Vocabulary = {
   navbarTabs: NAVBAR_ENGLISH_TABS
 };
 
+const COUNTRY_NAME_SUD_AFRICA = 'Afrique du Sud';
 export const VOCABULARY_AZURE: Vocabulary[] = [
   // no voice for azure
   {
     isoCode: 'af-ZA',
     countryNameRaw: 'Suid-Afrika',
-    countryNameFr: 'Afrique du Sud',
+    countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'Afrikaans',
     languageNameFr: 'Afrikaans',
     sentences: ENGLISH_DEFAULT_NO_VOICE
@@ -360,7 +361,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
   {
     isoCode: 'zu-ZA',
     countryNameRaw: 'Ningizimu Afrika',
-    countryNameFr: 'Afrique du Sud',
+    countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'IsiZulu',
     languageNameFr: 'Zoulou',
     sentences: ENGLISH_DEFAULT_NO_VOICE
@@ -599,7 +600,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     isoCode: 'en-ZA',
     audioCode: 'en-GB',
     countryNameRaw: 'South Africa',
-    countryNameFr: 'Afrique du Sud',
+    countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
     sentences: ENGLISH
@@ -1314,7 +1315,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
   {
     isoCode: 'xh-ZA',
     countryNameRaw: 'Mzantsi Afrika',
-    countryNameFr: 'Afrique du Sud',
+    countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'isiXhosa',
     languageNameFr: 'Xhosa',
     sentences: ENGLISH_DEFAULT_NO_VOICE

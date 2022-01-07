@@ -6,8 +6,7 @@
           <span class="roomId">{{ roomId }}</span>
           <button class="share-btn" (click)="share()">INVITER</button>
         </ng-template>
-        <button class="end-btn " (click)="exportConversation()"
-                [clickData]="{'name':'export-button','type':'exit'}">
+        <button class="end-btn " (click)="exportConversation()">
           EXPORTER
         </button>
         <button class="end-btn" (click)="closeConversation()">TERMINER LA CONVERSATION</button>
@@ -15,7 +14,7 @@
       </li>
       <li>
         <span *ngIf="isGuest" class="roomId">{{ roomId }}</span>
-        <img class="listen-icon"
+        <img class="listen-icon" alt="listen icon"
              src="{{ this.isGuest && !isAudioSupported ? 'assets/icons/icon-listen-blue-low-opacity.svg' : 'assets/icons/icon-listen-blue.svg' }}"/>
         <mat-slide-toggle
           class="auto-listen-btn"

@@ -1,11 +1,10 @@
 // Angular
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-
+import { ToastService } from '../../../../services/toast.service';
+import { HistoryService } from '../../../../services/history.service';
+import { SettingsService } from '../../../../services/settings.service';
 // Services
-import { HistoryService } from 'src/app/services/history.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-meeting',
@@ -15,10 +14,13 @@ import { SettingsService } from 'src/app/services/settings.service';
 export class MeetingComponent {
   public today: Date = new Date();
   public calendar: Array<Date[]> = [];
-  public monthName: string = '';
+  public monthName = '';
   private month: Date = new Date();
 
-  constructor(public dialogRef: MatDialogRef<MeetingComponent>, private toastService: ToastService, private historyService: HistoryService, private settingsService: SettingsService) {
+  constructor(private readonly dialogRef: MatDialogRef<MeetingComponent>,
+              private readonly toastService: ToastService,
+              private readonly historyService: HistoryService,
+              private readonly settingsService: SettingsService) {
     this.getDaysInMonth(this.today.getMonth(), this.today.getFullYear());
     this.monthName = this.today.toLocaleString('fr', { month: 'long' });
     this.monthName = this.monthName.charAt(0).toUpperCase() + this.monthName.slice(1);

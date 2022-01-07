@@ -1,30 +1,30 @@
-import {BreakpointObserver} from '@angular/cdk/layout';
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Role} from 'src/app/models/role';
-import {ChatService} from 'src/app/services/chat.service';
-import {NavbarService} from 'src/app/services/navbar.service';
-import {SettingsService} from 'src/app/services/settings.service';
-import {FRENCH} from '../../data/sentence';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FRENCH } from '../../data/sentence';
+import { NavbarService } from '../../services/navbar.service';
+import { ChatService } from '../../services/chat.service';
+import { SettingsService } from '../../services/settings.service';
+import { Role } from '../../models/role';
 
 @Component({
   selector: 'app-modality',
   templateUrl: './modality.component.html',
-  styleUrls: ['./modality.component.scss'],
+  styleUrls: ['./modality.component.scss']
 })
 export class ModalityComponent implements OnInit {
   public sentences = FRENCH.modality;
   public target = 'mono';
   public checkIconStyle = 'url(\'../../../assets/icons/check-circle.svg\') no-repeat center center';
-  public isSmallScreen: boolean = false;
+  public isSmallScreen = false;
 
   private roomId: string;
 
-  constructor(private router: Router,
-              private navbarService: NavbarService,
-              private chatService: ChatService,
-              private settingsService: SettingsService,
-              private breakpointObserver: BreakpointObserver) {
+  constructor(private readonly router: Router,
+              private readonly navbarService: NavbarService,
+              private readonly chatService: ChatService,
+              private readonly settingsService: SettingsService,
+              private readonly breakpointObserver: BreakpointObserver) {
     this.navbarService.handleTabModality();
     this.navbarService.show();
     this.breakpointObserver.observe(['(max-width: 1050px)']).subscribe((result) => {
@@ -46,7 +46,7 @@ export class ModalityComponent implements OnInit {
 
   public confirm(event: any): void {
     if (this.target === 'mono') {
-      this.settingsService.user.next({...this.settingsService.user.value, isMultiDevices: false});
+      this.settingsService.user.next({ ...this.settingsService.user.value, isMultiDevices: false });
       this.router.navigateByUrl('choice');
     } else {
       this.share();
@@ -77,7 +77,7 @@ export class ModalityComponent implements OnInit {
         languageName: this.settingsService.defaultLanguage.languageName
       },
       roomId: this.roomId,
-      isMultiDevices: true,
+      isMultiDevices: true
     });
     const user = JSON.parse(localStorage.getItem('user'));
     user.language = {

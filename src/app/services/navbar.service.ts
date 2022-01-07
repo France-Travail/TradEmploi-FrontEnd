@@ -5,13 +5,13 @@ import {Router} from '@angular/router';
 
 @Injectable()
 export class NavbarService {
-  public visible: boolean = false;
-  public choiceTab: boolean = false;
-  public modalityTab: boolean = false;
-  public helpTab: boolean = false;
-  public endTab: boolean = false;
+  public visible = false;
+  public choiceTab = false;
+  public modalityTab = false;
+  public helpTab = false;
+  public endTab = false;
 
-  constructor(private settingsService: SettingsService, private router: Router) {
+  constructor(private readonly settingsService: SettingsService, private readonly router: Router) {
   }
 
   public hide() {
