@@ -1,35 +1,35 @@
 <?xml version="1.0"?>
-<testsuite name="Chrome 96.0.4664.110 (Windows 10)" package="" timestamp="2021-12-27T11:32:41" id="0" hostname="ITEM-S097040" tests="9" errors="0" failures="0" time="0.097">
+<testsuite name="Chrome 96.0.4664.110 (Windows 10)" package="" timestamp="2022-01-07T09:02:02" id="0" hostname="ITEM-S097040" tests="23" errors="0" failures="0" time="1.303">
   <properties>
     <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36"/>
   </properties>
-  <testcase name="MessageWrapperComponent should create" time="0" classname="MessageWrapperComponent">
-    <skipped/>
-  </testcase>
-  <testcase name="HeaderComponent test gdpr modal should open the gdpr component dialog" time="0" classname="HeaderComponent test gdpr modal">
-    <skipped/>
-  </testcase>
-  <testcase name="HeaderComponent should create" time="0" classname="HeaderComponent">
-    <skipped/>
-  </testcase>
-  <testcase name="AuthService should successfully login anonymously with guest config " time="0" classname="AuthService">
-    <skipped/>
-  </testcase>
-  <testcase name="ModalityComponent multi mode connection when we confirm the mono mode connection, we should go to the translation page" time="0" classname="ModalityComponent multi mode connection">
-    <skipped/>
-  </testcase>
-  <testcase name="ModalityComponent mono mode connection when we confirm the mono mode connection, we should go to the language choice page" time="0" classname="ModalityComponent mono mode connection">
-    <skipped/>
-  </testcase>
-  <testcase name="ModalityComponent should create" time="0" classname="ModalityComponent">
-    <skipped/>
-  </testcase>
-  <testcase name="CallbackComponent should create" time="0" classname="CallbackComponent">
-    <skipped/>
-  </testcase>
-  <testcase name="IndicatorsComponent should create" time="0.097" classname="IndicatorsComponent"/>
+  <testcase name="CallbackComponent should create" time="0.076" classname="CallbackComponent"/>
+  <testcase name="IndicatorsComponent should create" time="0.125" classname="IndicatorsComponent"/>
+  <testcase name="SpeechToTextService should be created" time="0.012" classname="SpeechToTextService"/>
+  <testcase name="TranslationComponent should create" time="0.347" classname="TranslationComponent"/>
+  <testcase name="RateDialogComponent should create" time="0.131" classname="RateDialogComponent"/>
+  <testcase name="MessageWrapperComponent should create" time="0.125" classname="MessageWrapperComponent"/>
+  <testcase name="HeaderComponent test gdpr modal should open the gdpr component dialog" time="0.104" classname="HeaderComponent test gdpr modal"/>
+  <testcase name="HeaderComponent should create" time="0.012" classname="HeaderComponent"/>
+  <testcase name="ModalityComponent multi mode connection when we confirm the mono mode connection, we should go to the translation page" time="0.063" classname="ModalityComponent multi mode connection"/>
+  <testcase name="ModalityComponent mono mode connection when we confirm the mono mode connection, we should go to the language choice page" time="0.019" classname="ModalityComponent mono mode connection"/>
+  <testcase name="ModalityComponent should create" time="0.015" classname="ModalityComponent"/>
+  <testcase name="TelemetryService should be created" time="0.007" classname="TelemetryService"/>
+  <testcase name="LanguageGridComponent should create" time="0.094" classname="LanguageGridComponent"/>
+  <testcase name="AuthService should fail login" time="0.09" classname="AuthService"/>
+  <testcase name="AuthService should successfully login" time="0.014" classname="AuthService"/>
+  <testcase name="AuthService should fail login anonymously" time="0.008" classname="AuthService"/>
+  <testcase name="AuthService should logout successfully" time="0.01" classname="AuthService"/>
+  <testcase name="AuthService should fail logout" time="0.007" classname="AuthService"/>
+  <testcase name="AuthService should fail user delete " time="0.008" classname="AuthService"/>
+  <testcase name="AuthService should successfully login anonymously " time="0.01" classname="AuthService"/>
+  <testcase name="AuthService should successfully login anonymously with admin config " time="0.008" classname="AuthService"/>
+  <testcase name="AuthService should successfully login anonymously with advisor config " time="0.009" classname="AuthService"/>
+  <testcase name="AuthService should successfully login anonymously with guest config " time="0.009" classname="AuthService"/>
   <system-out>
-    <![CDATA[Chrome 96.0.4664.110 (Windows 10) WARN: '
+    <![CDATA[Chrome 96.0.4664.110 (Windows 10) ERROR
+  DisconnectedClient disconnected from CONNECTED state (transport close)
+,Chrome 96.0.4664.110 (Windows 10) WARN: '
 It looks like you're using the development build of the Firebase JS SDK.
 When deploying Firebase apps to production, it is advisable to only import
 the individual SDK components you intend to use.
@@ -138,6 +138,35 @@ import 'firebase/<PACKAGE>';
 ,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'showYAxisLabel' since it isn't a known property of 'ngx-charts-bar-vertical-normalized'.'
 ,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'trimXAxisTicks' since it isn't a known property of 'ngx-charts-bar-vertical-normalized'.'
 ,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'yAxisLabel' since it isn't a known property of 'ngx-charts-bar-vertical-normalized'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'li'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'span'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'app-chat'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'app-chat-multi-devices'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Error during cleanup of component', Object{component: TranslationComponent{dialog: MatDialog{_overlay: ..., _injector: ..., _location: ..., _defaultOptions: ..., _parentDialog: ..., _overlayContainer: ..., _openDialogsAtThisLevel: ..., _afterAllClosedAtThisLevel: ..., _afterOpenedAtThisLevel: ..., _ariaHiddenElements: ..., afterAllClosed: ..., _scrollStrategy: ...}, router: Object{navigateByUrl: ...}, breakpointObserver: Object{observe: ...}, toastService: Object{navigateByUrl: ...}, settingsService: Object{user: ..., reset: ...}, chatService: Object{getChat: ..., messagesStored: ...}, textToSpeechService: Object{navigateByUrl: ...}, navbarService: Object{show: ..., handleTabsTranslation: ...}, translateService: Object{navigateByUrl: ...}, cryptService: Object{navigateByUrl: ...}, messagesWrapped: [..., ...], autoListenValue: 'Listen automatically', isGuest: true, isMultiDevices: true, isAudioSupported: true, vocalSupported: true, authorizationHandled: [], initMultiDevices: roomId => { ... }, support: undefined, roomId: '1345', isAudioPlay: false, user: Object{connectionTime: ..., id: ..., roomId: ..., role: ..., firstname: ..., isMultiDevices: ..., email: ..., idDGASI: ..., language: ...}, isMobile: undefined, __ngContext__: [..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ..., ...], chatScroll: ElementRef{nativeElement: ...}}, stacktrace: TypeError: this.toastService.closeToast is not a function
+TypeError: this.toastService.closeToast is not a function
+    at TranslationComponent.ngOnDestroy (http://localhost:9877/_karma_webpack_/src/app/pages/translation/translation.component.ts:123:12)
+    at executeOnDestroys (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:9070:1)
+    at cleanUpView (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:8992:1)
+    at destroyViewTree (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:8801:1)
+    at destroyLView (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:8945:1)
+    at RootViewRef.destroy (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:9679:1)
+    at ComponentRef$1.destroy (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:22234:1)
+    at ComponentFixture.destroy (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/testing.js:330:1)
+    at http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/testing.js:2052:1
+    at Array.forEach (<anonymous>)}
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngForOf' since it isn't a known property of 'div'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'div'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngModel' since it isn't a known property of 'textarea'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'mat-toolbar'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'mat-toolbar'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'ng-template'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngForOf' since it isn't a known property of 'mat-option'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngIf' since it isn't a known property of 'div'.'
+,Chrome 96.0.4664.110 (Windows 10) ERROR: 'Can't bind to 'ngForOf' since it isn't a known property of 'div'.'
 
 ]]>
   </system-out>

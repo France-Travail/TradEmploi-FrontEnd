@@ -29,7 +29,7 @@ export class HeaderComponent implements  OnInit{
   public language: string;
   public userName: string;
 
-  constructor(private readonly dialog: MatDialog, public readonly navbarService: NavbarService, private readonly settingsService: SettingsService, private readonly breakpointObserver: BreakpointObserver) {
+  constructor(public readonly dialog: MatDialog, public readonly navbarService: NavbarService, private readonly settingsService: SettingsService, private readonly breakpointObserver: BreakpointObserver) {
   }
 
   ngOnInit(): void {

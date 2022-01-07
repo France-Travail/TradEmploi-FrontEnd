@@ -73,7 +73,7 @@ export class AuthService {
 
   public getRole(email: string): Role {
     if (email && email.match('.*@pole-emploi[.]fr$')) {
-        return Role.ADVISOR;
+      return Role.ADVISOR;
     }
     return Role.GUEST;
   }
