@@ -8,9 +8,32 @@ variables:
   AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE_RECETTE
 
 stages:
+  - test
   - build
   - deploy
 
+test:
+  stage: test
+  before_script:
+    - npm i
+  image: trion/ng-cli-karma:10.0.2
+  allow_failure: true
+  cache:
+    paths:
+      - node_modules/
+  environment:
+    name: uat
+    url: https://pole-emploi-trad-recette.firebaseapp.com
+  script:
+  - npm run config "--environment=qa"
+  - ng test --progress false --watch false
+  only:
+    refs:
+      - release
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
 
 build:
   stage: build
