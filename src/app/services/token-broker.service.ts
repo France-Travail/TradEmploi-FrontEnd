@@ -20,7 +20,7 @@ export class TokenBrokerService {
   public async getTokenGcp(): Promise<TokenResponse> {
     const user = this.settingService.user.value;
     const fbToken = await this.tbFbs.getTokenFb();
-    return user.role === Role.GUEST ? this.getTokenGuest(fbToken, user.roomId) : this.getTokenAdmin(fbToken);
+    return (user && user.role === Role.GUEST) ? this.getTokenGuest(fbToken, user.roomId) : this.getTokenAdmin(fbToken);
   }
 
   public addGuest(fbToken: string, roomId: string, firstname: string) {
