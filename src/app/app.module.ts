@@ -1,6 +1,6 @@
 // Angular
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 // Keyboard
@@ -8,26 +8,20 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatKeyboardModule } from 'angular-onscreen-material-keyboard';
 import { MatCardModule } from '@angular/material/card';
-
 // Handle Navigation Tree
 import { AppRoutingModule } from './app-routing.module';
-
 // Handle firebase connection
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
-
 // Environment loaded
-import { environment } from 'src/environments/environment';
-
+import { environment } from '../environments/environment';
 // Handle Animations for Angular Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 // Allow to use French date format
-import {MAT_DATE_LOCALE, MatGridListModule, MatSortModule, MatTableModule} from '@angular/material';
-
+import { MAT_DATE_LOCALE, MatGridListModule, MatSortModule, MatTableModule } from '@angular/material';
 // Import shared module and components
 import { SharedModule } from './shared/shared.module';
 import { LogoutComponent } from './shared/components/logout/logout.component';
@@ -35,13 +29,11 @@ import { ShareComponent } from './pages/translation/dialogs/share/share.componen
 import { AuthorizeComponent } from './pages/translation/dialogs/authorize/authorize.component';
 import { WelcomeDeComponent } from './pages/translation/dialogs/welcome-de/welcome-de.component';
 import { EndComponent } from './pages/translation/dialogs/end/end.component';
-
 // Main Components
 import { AppComponent } from './app.component';
 import { StartComponent } from './pages/start/start.component';
 import { TranslationComponent } from './pages/translation/translation.component';
 import { HistoricComponent } from './pages/historic/historic.component';
-
 // Dialogs
 import { LanguageGridComponent } from './pages/choice/language/grid/language-grid.component';
 import { MeetingComponent } from './pages/translation/dialogs/meeting/meeting.component';
@@ -71,8 +63,11 @@ import { OnboardingComponent } from './pages/translation/dialogs/onboarding/onbo
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { CallbackComponent } from './pages/callback/callback.component';
 import { CommonModule } from '@angular/common';
-import {NgRatingBarModule} from 'ng-rating-bar';
+import { NgRatingBarModule } from 'ng-rating-bar';
 import { CarouselComponent } from './pages/translation/dialogs/onboarding/carousel/carousel.component';
+import { IndicatorsComponent } from './indicators/indicators.component';
+import { BarChartModule, PieChartModule } from '@swimlane/ngx-charts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,35 +100,38 @@ import { CarouselComponent } from './pages/translation/dialogs/onboarding/carous
     WelcomeComponent,
     OnboardingComponent,
     CallbackComponent,
-    CarouselComponent
+    CarouselComponent,
+    IndicatorsComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        SharedModule,
-        AppRoutingModule,
-        AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFirestoreModule,
-        AngularFireFunctionsModule,
-        AngularFireAuthModule,
-        AngularFireDatabaseModule,
-        HttpClientModule,
-        MatSortModule,
-        MatTableModule,
-        MatCardModule,
-        FormsModule,
-        MatButtonModule,
-        MatKeyboardModule,
-        LayoutModule,
-        QRCodeModule,
-        DeviceDetectorModule.forRoot(),
-        OverlayModule,
-        HttpClientModule,
-        OAuthModule.forRoot(),
-        CommonModule,
-        NgRatingBarModule,
-        MatGridListModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    SharedModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireFunctionsModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    HttpClientModule,
+    MatSortModule,
+    MatTableModule,
+    MatCardModule,
+    FormsModule,
+    MatButtonModule,
+    MatKeyboardModule,
+    LayoutModule,
+    QRCodeModule,
+    DeviceDetectorModule.forRoot(),
+    OverlayModule,
+    HttpClientModule,
+    OAuthModule.forRoot(),
+    CommonModule,
+    NgRatingBarModule,
+    MatGridListModule,
+    BarChartModule,
+    PieChartModule
+  ],
   providers: [
     NavbarService,
     {

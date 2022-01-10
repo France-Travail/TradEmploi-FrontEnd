@@ -1,31 +1,29 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-
-// Services
-import { HistoryService } from 'src/app/services/history.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { RateService } from 'src/app/services/rate.service';
-
 // Dialogs
 import { ShowComponent } from './dialogs/show/show.component';
 import { RemoveComponent } from './dialogs/remove/remove.component';
+import { Conversation } from '../../models/history/conversation';
+import { Rate } from '../../models/rate';
+import { ToastService } from '../../services/toast.service';
+import { HistoryService } from '../../services/history.service';
+import { RateService } from '../../services/rate.service';
 
-// Models
-import { Conversation } from 'src/app/models/history/conversation';
-import { Rate } from 'src/app/models/rate';
 
 @Component({
   selector: 'app-historic',
   templateUrl: './historic.component.html',
-  styleUrls: ['./historic.component.scss'],
+  styleUrls: ['./historic.component.scss']
 })
 export class HistoricComponent implements OnInit {
   public conversations: Conversation[] = []; // Contains all the conversations
   public rates: Rate[] = []; // Contains all the rates
 
-  constructor(private toastService: ToastService, private historyService: HistoryService, private rateService: RateService, public dialog: MatDialog, private router: Router) {}
+  constructor(private readonly toastService: ToastService,
+              private readonly historyService: HistoryService,
+              private readonly rateService: RateService, private readonly dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.historyService.getConversationForToday().subscribe(
@@ -49,7 +47,7 @@ export class HistoricComponent implements OnInit {
   public show(id: string): void {
     this.dialog.open(ShowComponent, {
       width: '900px',
-      data: this.conversations.find((c) => c.id === id),
+      data: this.conversations.find((c) => c.id === id)
     });
   }
 
@@ -62,8 +60,8 @@ export class HistoricComponent implements OnInit {
         width: '400px',
         data: {
           conversation: this.conversations.find((c) => c.id === id),
-          service: this.historyService,
-        },
+          service: this.historyService
+        }
       })
       .afterClosed()
       .subscribe((response) => {

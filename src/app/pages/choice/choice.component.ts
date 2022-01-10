@@ -1,40 +1,40 @@
-import { ENGLISH, FRENCH } from 'src/app/data/sentence';
-import { Choice } from 'src/app/models/vocabulary';
 import { AfterContentInit, Component, HostListener, OnDestroy } from '@angular/core';
-import { Role } from 'src/app/models/role';
-import { NavbarService } from 'src/app/services/navbar.service';
-import { SettingsService } from 'src/app/services/settings.service';
-import { ChatService } from 'src/app/services/chat.service';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { User } from 'src/app/models/user';
+import { MatDialogRef } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { ToastService } from 'src/app/services/toast.service';
+import { Choice } from '../../models/vocabulary';
+import { User } from '../../models/user';
+import { NavbarService } from '../../services/navbar.service';
+import { SettingsService } from '../../services/settings.service';
+import { ChatService } from '../../services/chat.service';
+import { ToastService } from '../../services/toast.service';
+import { Role } from '../../models/role';
+import { ENGLISH, FRENCH } from '../../data/sentence';
 
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
-  styleUrls: ['./choice.component.scss'],
+  styleUrls: ['./choice.component.scss']
 })
 export class ChoiceComponent implements AfterContentInit, OnDestroy {
-  public search: String;
+  public search: string;
 
-  public optionAll: boolean = false;
-  public optionList: boolean = false;
-  public isGuest: boolean = true;
+  public optionAll = false;
+  public optionList = false;
+  public isGuest = true;
   public wordings: Choice;
 
-  private endIdDialogRef: MatDialogRef<any, any>;
+  private readonly endIdDialogRef: MatDialogRef<any>;
   private user: User;
-  public isSmallScreen: Boolean = false;
+  public isSmallScreen = false;
 
   constructor(
-    private navService: NavbarService,
-    private settingsService: SettingsService,
-    private chatService: ChatService,
-    private router: Router,
-    private breakpointObserver: BreakpointObserver,
-    private toastService: ToastService
+    private readonly navService: NavbarService,
+    private readonly settingsService: SettingsService,
+    private readonly chatService: ChatService,
+    private readonly router: Router,
+    private readonly breakpointObserver: BreakpointObserver,
+    private readonly toastService: ToastService
   ) {
     this.navService.handleTabsChoice();
     this.wordings = this.settingsService.user.value.role === Role.GUEST ? ENGLISH.choice : FRENCH.choice;
@@ -43,7 +43,7 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
     });
 
     this.settingsService.user.subscribe((user) => {
-      if (user != null) {
+      if (user !== null) {
         this.isGuest = user.role === Role.GUEST;
         this.user = user;
       } else {
@@ -76,7 +76,7 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
   @HostListener('window:beforeunload', ['$event'])
   public openPopUp(event): any {
     const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
-    (event || window.event).returnValue = confirmationMessage; // Gecko + IE
+    (event).returnValue = confirmationMessage; // Gecko + IE
     return confirmationMessage;
   }
 

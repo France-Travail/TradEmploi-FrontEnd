@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Message} from 'src/app/models/translate/message';
-import {MessageWrapped} from 'src/app/models/translate/message-wrapped';
-import {SettingsService} from '../../../../services/settings.service';
-import {TextToSpeechService} from '../../../../services/text-to-speech.service';
-import {Language} from '../../../../models/language';
-import {VOCABULARY} from '../../../../data/vocabulary';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { SettingsService } from '../../../../services/settings.service';
+import { TextToSpeechService } from '../../../../services/text-to-speech.service';
+import { Language } from '../../../../models/language';
+import { VOCABULARY } from '../../../../data/vocabulary';
+import { MessageWrapped } from '../../../../models/translate/message-wrapped';
+import { Message } from '../../../../models/translate/message';
 
 @Component({
   selector: 'app-chat',
@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit{
   private targetLanguage: Language;
   public isAudioSupported: boolean;
 
-  constructor(private settingsService: SettingsService, private textToSpeechService: TextToSpeechService) {
+  constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService) {
   }
 
   ngOnInit(): void {
@@ -47,11 +47,16 @@ export class ChatComponent implements OnInit{
       this.textToSpeechService.audioSpeech = undefined;
     });
   }
+
   public unFold(messageIndex: number) {
-    messageIndex === this.messageNumberToFold ? (this.messageNumberToFold = -1) : (this.messageNumberToFold = messageIndex);
+    if (messageIndex === this.messageNumberToFold) {
+      this.messageNumberToFold = -1;
+    } else {
+      this.messageNumberToFold = messageIndex;
+    }
   }
 
-  public foldMessage(message: Message, fold: boolean) {
+  public foldMessage(message: Message) {
     return message.role === 'DE' ? '[See less]' : '[Voir moins]';
   }
   public unFoldMessage(message: Message) {

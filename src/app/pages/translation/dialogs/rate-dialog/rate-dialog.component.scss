@@ -32,7 +32,7 @@
     outline: none;
     cursor: pointer;
     font-size: 12px;
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
     width: 114px;
     height: 40px;
   }
@@ -46,7 +46,7 @@
   padding: 0 30px;
 }
 .question {
-  font-family: Roboto;
+  font-family: Roboto, sans-serif;
   .french {
     font-weight: 500;
   }
@@ -92,7 +92,7 @@
     outline: none;
     resize: none;
     font-size: 16px;
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
   }
 
   select {

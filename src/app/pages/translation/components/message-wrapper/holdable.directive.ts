@@ -14,7 +14,6 @@ export class HoldableDirective {
 
   constructor() {
     this.stop$.subscribe(() => {
-      // this.holdTime.emit(0);
       this.stop.emit();
     });
   }

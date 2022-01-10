@@ -5,12 +5,12 @@ const { writeFile, existsSync, mkdirSync } = require('fs');
 require('dotenv').config();
 
 
-function writeFileUsingFS(targetPath, environmentFileContent) {
-  writeFile(targetPath, environmentFileContent, function (err) {
+function writeFileUsingFS(targetPath, fileContent) {
+  writeFile(targetPath, fileContent, function (err) {
     if (err) {
       console.log(err);
     }
-    if (environmentFileContent !== '') {
+    if (fileContent !== '') {
       console.log(`wrote variables to ${targetPath}`);
     }
   });

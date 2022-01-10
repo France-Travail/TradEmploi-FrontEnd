@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { SettingsService } from 'src/app/services/settings.service';
-import { VOCABULARY, VOCABULARY_DEFAULT } from 'src/app/data/vocabulary';
 import { Router } from '@angular/router';
-import { Role } from 'src/app/models/role';
+import { SettingsService } from '../../../services/settings.service';
+import { Role } from '../../../models/role';
+import { VOCABULARY, VOCABULARY_DEFAULT } from '../../../data/vocabulary';
 
 @Component({
   selector: 'app-translation-title',
@@ -14,9 +14,9 @@ export class TranslationTitleComponent implements OnInit {
 
   public title: { raw: string; french: string };
   public languages: { raw: string; french: string };
-  public isGuest: boolean = false;
+  public isGuest = false;
 
-  constructor(private settingsService: SettingsService, public router: Router) {
+  constructor(private readonly settingsService: SettingsService, private readonly router: Router) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
         this.isGuest = user.role === Role.GUEST;

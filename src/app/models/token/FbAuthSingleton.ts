@@ -4,11 +4,6 @@ export class FbAuthSingleton {
 
   private _auth: firebase.auth.UserCredential = null;
 
-  /**
-   * The Singleton's constructor should always be private to prevent direct
-   * construction calls with the `new` operator.
-   */
-  private constructor() {}
 
   /**
    * The static method that controls the access to the singleton instance.

@@ -4,13 +4,13 @@ import {MatDialog} from '@angular/material';
 import {ShareComponent} from '../../../../pages/translation/dialogs/share/share.component';
 import {NavbarService} from '../../../../services/navbar.service';
 import {SettingsService} from '../../../../services/settings.service';
-import {Role} from 'src/app/models/role';
-import {VOCABULARY_DEFAULT} from 'src/app/data/vocabulary';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {OnboardingComponent} from 'src/app/pages/translation/dialogs/onboarding/onboarding.component';
 import {GdprComponent} from '../../../../pages/gdpr/gdpr.component';
+import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
+import { Role } from '../../../../models/role';
+import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 
 @Component({
   selector: 'app-header',
@@ -29,7 +29,7 @@ export class HeaderComponent implements  OnInit{
   public language: string;
   public userName: string;
 
-  constructor(public dialog: MatDialog, public navbarService: NavbarService, public settingsService: SettingsService, private breakpointObserver: BreakpointObserver) {
+  constructor(public readonly dialog: MatDialog, public readonly navbarService: NavbarService, private readonly settingsService: SettingsService, private readonly breakpointObserver: BreakpointObserver) {
   }
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class HeaderComponent implements  OnInit{
       this.language = isGuest ? 'english' : 'french';
       this.userName = user !== null ? [user.firstname, user.lastname].join(' ') : '';
     });
-    }
+  }
 
   public onToggleSidenav() {
     this.sidenavToggle.emit();

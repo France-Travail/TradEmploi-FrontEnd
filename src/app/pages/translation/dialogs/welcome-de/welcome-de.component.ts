@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 })
 export class WelcomeDeComponent {
 
-  public error: boolean = false;
+  public error = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { error: boolean }

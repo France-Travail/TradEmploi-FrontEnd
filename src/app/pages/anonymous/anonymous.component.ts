@@ -2,18 +2,19 @@ import { MatDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { SettingsService } from 'src/app/services/settings.service';
-import { ChatService } from 'src/app/services/chat.service';
-import { Member } from 'src/app/models/db/member';
-import { Role } from 'src/app/models/role';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { DeviceService } from 'src/app/services/device.service';
-import { Support } from 'src/app/models/kpis/support';
-import { NavbarService } from 'src/app/services/navbar.service';
 import { WelcomeDeComponent } from '../translation/dialogs/welcome-de/welcome-de.component';
-import { TokenBrokerService } from 'src/app/services/token-broker.service';
+import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
+import { ChatService } from '../../services/chat.service';
+import { SettingsService } from '../../services/settings.service';
+import { DeviceService } from '../../services/device.service';
+import { TokenBrokerService } from '../../services/token-broker.service';
+import { Support } from '../../models/kpis/support';
+import { Role } from '../../models/role';
+import { Member } from '../../models/db/member';
+import { NavbarService } from '../../services/navbar.service';
+
 @Component({
   selector: 'app-anonymous',
   templateUrl: './anonymous.component.html',
@@ -21,21 +22,21 @@ import { TokenBrokerService } from 'src/app/services/token-broker.service';
 })
 export class AnonymousComponent implements OnInit {
   public form: FormGroup;
-  public inProgress: boolean = false;
-  private roomId: string;
+  public inProgress = false;
+  private readonly roomId: string;
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private toastService: ToastService,
-    private chatService: ChatService,
-    private settingsService: SettingsService,
-    private afAuth: AngularFireAuth,
-    private deviceService: DeviceService,
-    private navbarService: NavbarService,
-    private tbs: TokenBrokerService,
-    public dialog: MatDialog
+    private readonly authService: AuthService,
+    private readonly router: Router,
+    private readonly formBuilder: FormBuilder,
+    private readonly toastService: ToastService,
+    private readonly chatService: ChatService,
+    private readonly settingsService: SettingsService,
+    private readonly afAuth: AngularFireAuth,
+    private readonly deviceService: DeviceService,
+    private readonly navbarService: NavbarService,
+    private readonly tbs: TokenBrokerService,
+    private readonly dialog: MatDialog
   ) {
     this.navbarService.hide();
     const url = this.router.url;
@@ -58,9 +59,9 @@ export class AnonymousComponent implements OnInit {
       const auth = await this.authService.loginAnonymous();
       this.tbs.addGuest(auth.token, this.roomId, this.username.value);
       this.openModal(WelcomeDeComponent, '200px', true);
-      let end: boolean = false;
-      let timer: number = 0;
-      let maxOnSecond: number = 30;
+      let end = false;
+      let timer = 0;
+      const maxOnSecond = 30;
       const timeValue = setInterval(async () => {
         if (end || timer === maxOnSecond) {
           clearInterval(timeValue);
@@ -102,7 +103,7 @@ export class AnonymousComponent implements OnInit {
   }
 
   private async addMember(id: string) {
-    const member: Member = { id: id, firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
+    const member: Member = { id, firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
     await this.chatService.addMember(this.roomId, member);
   }
 
@@ -123,7 +124,7 @@ export class AnonymousComponent implements OnInit {
       panelClass: 'customDialog',
       disableClose,
       data: {
-        error: error,
+        error,
       },
     });
   }

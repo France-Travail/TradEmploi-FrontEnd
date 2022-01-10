@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ChatService } from 'src/app/services/chat.service';
-import { Guest } from 'src/app/models/db/guest';
+import { ChatService } from '../../../../services/chat.service';
+import { Guest } from '../../../../models/db/guest';
 
 @Component({
   selector: 'app-authorize',
@@ -10,14 +10,14 @@ import { Guest } from 'src/app/models/db/guest';
 })
 export class AuthorizeComponent {
 
-  public name:string = "";
-  
+  public name = '';
+
   constructor(
-    private dialogRef: MatDialogRef<AuthorizeComponent>,
-    private chatService: ChatService,
+    private readonly dialogRef: MatDialogRef<AuthorizeComponent>,
+    private readonly chatService: ChatService,
     @Inject(MAT_DIALOG_DATA) public data: { guest: Guest, roomId: string }
   ) {
-    this.name = this.data.guest.firstname
+    this.name = this.data.guest.firstname;
     setTimeout(() => {
       this.dialogRef.close();
   }, 30000);

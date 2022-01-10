@@ -13,7 +13,7 @@ interface IWindow extends Window {
 export class SpeechRecognitionService {
   speechRecognition: any;
 
-  constructor(private zone: NgZone) {}
+  constructor(private readonly zone: NgZone) {}
 
   record(lang: string): Observable<Stream> {
     return new Observable((observer) => {

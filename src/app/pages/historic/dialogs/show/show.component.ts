@@ -1,9 +1,8 @@
 // Angular
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Conversation } from '../../../../models/history/conversation';
 
-// Models
-import { Conversation } from 'src/app/models/history/conversation';
 
 @Component({
   selector: 'app-show',
@@ -11,7 +10,7 @@ import { Conversation } from 'src/app/models/history/conversation';
   styleUrls: ['./show.component.scss']
 })
 export class ShowComponent {
-  public showTranslation: boolean = false;
+  public showTranslation = false;
 
   constructor(public dialogRef: MatDialogRef<ShowComponent>, @Inject(MAT_DIALOG_DATA) public data: Conversation) {}
 

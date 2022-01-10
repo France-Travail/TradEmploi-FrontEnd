@@ -41,13 +41,7 @@
         <div class="unfold-word" (click)="unFold(i)">
           {{ messageNumberToFold === i ? foldMessage(messageWrapped.message) : unFoldMessage(messageWrapped.message) }}
         </div>
-        <!-- <div *ngIf="messageWrapped.message && messageWrapped.message.role === 'DE'; then foldEN; else foldFR"></div>
-        <ng-template #foldEN>
-          <div class="unfold-word" (click)="unFold(i)">{{ messageNumberToFold === i ? '[See less]' : '[See more]' }}</div>
-        </ng-template>
-        <ng-template #foldFR>
-          <div class="unfold-word" (click)="unFold(i)">{{ messageNumberToFold === i ? '[Voir moins]' : '[Voir plus]' }}</div>
-        </ng-template> -->
+
         <div class="messageTranslated">
           <bdi>{{ messageWrapped.message.translation }}</bdi>
         </div>

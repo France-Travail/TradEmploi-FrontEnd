@@ -9,12 +9,12 @@ import { TokenResponse } from '../models/token/tokensResponse';
   providedIn: 'root',
 })
 export class SpeechToTextSyncService {
-  constructor(private errorService: ErrorService, private tbs: TokenBrokerService) {}
+  constructor(private readonly errorService: ErrorService, private readonly tbs: TokenBrokerService) {}
 
   recognizeSync = async (audioBytes: any, language: string): Promise<string> => {
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     if (audioBytes !== null || audioBytes !== undefined) {
-      const urlRecognize: string = `https://eu-speech.googleapis.com/v1/speech:recognize`;
+      const urlRecognize = `https://eu-speech.googleapis.com/v1/speech:recognize`;
       const data = {
         config: {
           encoding: 'FLAC',

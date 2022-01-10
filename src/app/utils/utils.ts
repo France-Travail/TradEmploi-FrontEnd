@@ -1,4 +1,4 @@
-import {Parser} from 'json2csv';
+import { Parser } from 'json2csv';
 
 export const isIOS = () => {
     return [
@@ -24,11 +24,7 @@ export const getDuration = (lastMessageTime: string, firstMessageTime: string) =
     Number(l[0]) * 3600 +
     Number(l[1]) * 60 -
     (Number(f[0]) * 3600 + Number(f[1]) * 60);
-  return (
-    formatNumber((nbSeconds / 3600) | 0) +
-    'h' +
-    formatNumber(((nbSeconds % 3600) / 60) | 0)
-  );
+  return `${formatNumber((nbSeconds / 3600) | 0)}h${formatNumber(((nbSeconds % 3600) / 60) | 0)}`;
 
 };
 
@@ -42,8 +38,7 @@ export const exportCsv = (data: any[], name: string) => {
   a.setAttribute('hidden', '');
   a.setAttribute('href', url);
   const date = new Date().toLocaleDateString('ko-KR').replace(/. /g, '');
-  const filename = name + date + '.csv';
-  a.setAttribute('download', filename);
+  a.setAttribute('download', `${name}${date}.csv`);
   document.body.append(a);
   a.click();
   document.body.removeChild(a);

@@ -1,0 +1,93 @@
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Langues évaluées">
+    <div class="chart-container">
+      <ngx-charts-pie-chart
+        [scheme]="colorScheme"
+        [results]="languagesByOccurences"
+        [legend]="true"
+        [legendTitle]="'Langues évaluées'"
+        [view]="view"
+        [labels]="true"
+        [gradient]="true"
+      >
+      </ngx-charts-pie-chart>
+    </div>
+  </mat-tab>
+  <mat-tab label="Moyenne des évaluations par langue">
+    <div class="chart-container">
+      <ngx-charts-bar-vertical
+        [scheme]="colorScheme"
+        [view]="view"
+        [results]="languagesByAverage"
+        [legendTitle]="'Langues évaluées'"
+        [yAxisLabel]="'Note moyenne sur 5'"
+        [legend]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [gradient]="true">
+      </ngx-charts-bar-vertical>
+    </div>
+    <div class="chart-container">
+      <ngx-charts-bar-vertical
+        [scheme]="colorScheme"
+        [view]="view"
+        [results]="languagesByOccurences"
+        [legendTitle]="'Langues évaluées'"
+        [yAxisLabel]="'Nombre d\'évaluations'"
+        [legend]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [gradient]="true">
+      </ngx-charts-bar-vertical>
+    </div>
+  </mat-tab>
+  <mat-tab label="Moyenne des évaluations par jour">
+    <div class="chart-container ">
+      <ngx-charts-bar-vertical
+        [scheme]="blueScheme"
+        [view]="view"
+        [results]="languagesAverageByTime"
+        [legendTitle]="'Date'"
+        [yAxisLabel]="'Note moyenne sur 5'"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxis]="true"
+        [yAxis]="true">
+      </ngx-charts-bar-vertical>
+    </div>
+    <div class="chart-container">
+      <ngx-charts-bar-vertical
+        [scheme]="blueScheme"
+        [view]="view"
+        [results]="languagesOccurencesByTime"
+        [yAxisLabel]="'Nombre d\'évaluations'"
+        [legendTitle]="'Date'"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxis]="true"
+        [yAxis]="true">
+      </ngx-charts-bar-vertical>
+    </div>
+    <div class="chart-container">
+      <ngx-charts-bar-vertical-normalized
+        [scheme]="colorScheme"
+        [view]="view"
+        [results]="languagesByTime"
+        [legendTitle]="'Langues évaluées'"
+        [gradient]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [legend]="false"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [trimXAxisTicks]="true"
+        [yAxisLabel]="'Répartition des évaluations (%)'">
+      </ngx-charts-bar-vertical-normalized>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+

@@ -1,18 +1,17 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { VOCABULARY } from 'src/app/data/vocabulary';
-import { ERROR_FUNC_TTS } from 'src/app/models/error/errorFunctionnal';
-import { Vocabulary } from 'src/app/models/vocabulary';
-import { SettingsService } from 'src/app/services/settings.service';
-import { TextToSpeechService } from 'src/app/services/text-to-speech.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { ENGLISH, FRENCH } from 'src/app/data/sentence';
-import { Tooltip } from './../../../../models/vocabulary';
+import { Tooltip, Vocabulary } from './../../../../models/vocabulary';
 import { Observable } from 'rxjs';
 import { Language } from '../../../../models/db/language';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { VOCABULARY_AZURE } from '../../../../data/vocabulary-microsoft-azure';
 import { environment } from '../../../../../environments/environment';
+import { TextToSpeechService } from '../../../../services/text-to-speech.service';
+import { ToastService } from '../../../../services/toast.service';
+import { SettingsService } from '../../../../services/settings.service';
+import { VOCABULARY } from '../../../../data/vocabulary';
+import { ENGLISH, FRENCH } from '../../../../data/sentence';
+import { ERROR_FUNC_TTS } from '../../../../models/error/errorFunctionnal';
 
 
 @Component({
@@ -30,9 +29,9 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   public tooltip: Tooltip;
   public voiceTitle: string;
 
-  private audioClick: boolean = false;
+  private audioClick = false;
   private audioEnabled = true;
-  private selectedCountries: Vocabulary[] = [];
+  private readonly selectedCountries: Vocabulary[] = [];
   public mapLanguages: Map<string, Language> = new Map();
 
   public countriesSort = [
@@ -45,8 +44,10 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   private vocabulary: Vocabulary[];
 
 
-  constructor(private textToSpeechService: TextToSpeechService, private toastService: ToastService, private settingsService: SettingsService,
-              private db: AngularFirestore, private router: Router) {
+  constructor(private readonly textToSpeechService: TextToSpeechService,
+              private readonly toastService: ToastService,
+              private readonly settingsService: SettingsService,
+              private readonly db: AngularFirestore, private readonly router: Router) {
     const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as Observable<Language[]>;
     result.subscribe(languages => languages.forEach(language => {
       if (environment.microsoftSpeechConfig.enabled){
@@ -70,7 +71,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
     this.tooltip = this.isGuest ? ENGLISH.tooltip : FRENCH.tooltip;
     this.voiceTitle = this.isGuest ? ENGLISH.choice.voice : FRENCH.choice.voice;
     this.optionAll ? this.getCountriesAll() : this.setCountriesSelected();
-    if (this.search && this.search != '') {
+    if (this.search && this.search !== '') {
       const searchName = this.search.trim().toLowerCase();
       this.countries = this.countries.filter(
         (c) =>
@@ -87,7 +88,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   }
 
   public getCountriesAll() {
-      this.countries = this.vocabulary.sort((a, b) => this.sortCountryNameFr(a.languageNameFr, b.languageNameFr));
+      this.countries = [...this.vocabulary].sort((a, b) => a.languageNameFr.localeCompare(b.languageNameFr));
   }
 
   public isoCodeToFlag(isoCode: string) {
@@ -99,15 +100,11 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   }
 
   private orderByCountryNameFr(asc: boolean) {
-    this.countries.sort(function(a, b) {
-      return asc ? a.countryNameFr.localeCompare(b.countryNameFr) : b.countryNameFr.localeCompare(a.countryNameFr);
-    });
+    this.countries.sort((a, b) => asc ? a.countryNameFr.localeCompare(b.countryNameFr) : b.countryNameFr.localeCompare(a.countryNameFr));
   }
 
   private orderByLanguage(asc: boolean) {
-    this.countries.sort(function(a, b) {
-      return asc ? a.languageNameFr.localeCompare(b.languageNameFr) : b.languageNameFr.localeCompare(a.languageNameFr);
-    });
+    this.countries.sort((a, b) => asc ? a.languageNameFr.localeCompare(b.languageNameFr) : b.languageNameFr.localeCompare(a.languageNameFr));
   }
 
   public audioDescription(item: Vocabulary) {
@@ -133,7 +130,11 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   }
 
   public selectLanguage(event: any, item: Vocabulary): void {
-    this.audioClick ? (this.audioClick = false) : this.goToTransation(item);
+    if (this.audioClick) {
+      this.audioClick = false;
+    } else {
+      this.goToTransation(item);
+    }
   }
 
   private goToTransation(item: Vocabulary) {
@@ -161,13 +162,4 @@ export class LanguageGridComponent implements OnChanges, OnInit {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  private sortCountryNameFr(a: String, b: String) {
-    if (a > b) {
-      return 1;
-    }
-    if (a < b) {
-      return -1;
-    }
-    return 0;
-  }
 }

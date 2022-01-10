@@ -1,17 +1,17 @@
-import { SettingsService } from 'src/app/services/settings.service';
 import { Role } from './../models/role';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
 import axios from 'axios';
 import { authCodeFlowConfig } from '../../environments/authflow';
-import { environment } from 'src/environments/environment';
+import { SettingsService } from './settings.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private settingsService: SettingsService) {
+  constructor(private readonly afAuth: AngularFireAuth, private readonly settingsService: SettingsService) {
   }
 
   public login(email: string, password: string, emailPe: string): Promise<{ isAuth: boolean; message: string }> {
@@ -72,10 +72,8 @@ export class AuthService {
   }
 
   public getRole(email: string): Role {
-    if (email !== null) {
-      if (email.match('.*@pole-emploi[.]fr$')) {
-        return Role.ADVISOR;
-      }
+    if (email && email.match('.*@pole-emploi[.]fr$')) {
+      return Role.ADVISOR;
     }
     return Role.GUEST;
   }
@@ -95,10 +93,8 @@ export class AuthService {
           Authorization: 'Bearer ' + token
         }
       })
-      .then(function(response) {
-        return response.status === 200 ? response.data : null;
-      })
-      .catch(function(error) {
+      .then(response => response.status === 200 ? response.data : null)
+      .catch(error => {
         console.log(error);
       });
   }
@@ -113,7 +109,7 @@ export class AuthService {
           client_secret: authCodeFlowConfig.dummyClientSecret
         }
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log(error);
       });
   }
