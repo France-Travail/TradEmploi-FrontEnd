@@ -31,7 +31,6 @@ import {
   MALAYALAM_NO_VOICE,
   MANDARIN_NO_VOICE,
   MONGOL_NO_VOICE,
-  NAVBAR_ENGLISH_TABS,
   NEPALESE_NO_VOICE,
   NORWAY,
   OURDOU,
@@ -56,12 +55,6 @@ import {
   UKRAINE_NO_VOICE,
   VIETNAMESE
 } from './sentence';
-
-export const VOCABULARY_DEFAULT: Vocabulary = {
-  isoCode: 'default',
-  sentences: ENGLISH,
-  navbarTabs: NAVBAR_ENGLISH_TABS
-};
 
 const COUNTRY_NAME_SUD_AFRICA = 'Afrique du Sud';
 export const VOCABULARY_AZURE: Vocabulary[] = [
