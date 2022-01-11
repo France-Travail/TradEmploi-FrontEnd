@@ -41,7 +41,6 @@ export class LanguageGridComponent implements OnChanges, OnInit {
     { value: ['pays', false], viewValue: 'Pays (desc)' }
   ];
   public styles = { margin: '0px', padding: '0px', fontSize: '20px' };
-  private vocabulary: Vocabulary[];
 
 
   constructor(private readonly textToSpeechService: TextToSpeechService,
@@ -50,15 +49,18 @@ export class LanguageGridComponent implements OnChanges, OnInit {
               private readonly db: AngularFirestore, private readonly router: Router) {
     const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as Observable<Language[]>;
     result.subscribe(languages => languages.forEach(language => {
-      if (environment.microsoftSpeechConfig.enabled){
-        this.vocabulary = VOCABULARY_AZURE;
-      }else{
-        this.vocabulary = VOCABULARY;
+      if (this.fromAzure(language)) {
+        this.selectedCountries.push(...VOCABULARY_AZURE.filter((i) => this.isValidIsoCode(i, language)));
+      } else {
+        this.selectedCountries.push(...VOCABULARY.filter((i) => this.isValidIsoCode(i, language)));
       }
-      this.selectedCountries.push(...this.vocabulary.filter((i) => i.isoCode === language.isoCode && i.isoCode !== 'fr-FR'));
       this.mapLanguages.set(language.isoCode, language);
     }));
 
+  }
+
+  private isValidIsoCode(i: Vocabulary, language: Language) {
+    return i.isoCode === language.isoCode && i.isoCode !== 'fr-FR';
   }
 
   ngOnInit() {
@@ -88,7 +90,19 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   }
 
   public getCountriesAll() {
-      this.countries = [...this.vocabulary].sort((a, b) => a.languageNameFr.localeCompare(b.languageNameFr));
+    this.countries = [];
+    for (const excludedLanguage of environment.microsoftSpeechConfig.excludedLanguages) {
+      const vocabulariesGcp = [...VOCABULARY].filter(language => language.isoCode === excludedLanguage);
+      this.countries.push(...vocabulariesGcp);
+    }
+    const vocabulariesAzure = [...VOCABULARY_AZURE].filter(language => this.fromAzure(language));
+    this.countries.push(...vocabulariesAzure);
+
+    this.countries.sort((a, b) => a.languageNameFr.localeCompare(b.languageNameFr));
+  }
+
+  private fromAzure(language: Vocabulary | Language) {
+    return environment.microsoftSpeechConfig.enabled && !environment.microsoftSpeechConfig.excludedLanguages.includes(language.isoCode);
   }
 
   public isoCodeToFlag(isoCode: string) {
