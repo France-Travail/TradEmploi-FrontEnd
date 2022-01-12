@@ -157,7 +157,10 @@ export class RateDialogComponent implements OnInit {
     }
     this.rate.user = this.settingsService.user.value.idDGASI;
     this.rate.agency = this.settingsService.user.value.agency;
-    this.rate.typeSTT = environment.microsoftSpeechConfig.enabled ? 'Azure' : 'GCP';
+    this.rate.typeSTT = 'GCP';
+    if (this.rate.language && this.fromAzure(this.rate.language)) {
+      this.rate.typeSTT = 'Azure';
+    }
     this.rate.conversationDuration = getDuration(lastMessageTime, firstMessageTime);
     this.rate.typeEntretien = this.getInterviewType();
     this.rateService.rateConversation(this.rate);
@@ -224,5 +227,9 @@ export class RateDialogComponent implements OnInit {
       return this.autreType;
     }
     return this.typeEntretien;
+  }
+
+  private fromAzure(language: string) {
+    return environment.microsoftSpeechConfig.enabled && !environment.microsoftSpeechConfig.excludedLanguages.includes(language);
   }
 }
