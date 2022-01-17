@@ -60,7 +60,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   }
 
   private isValidIsoCode(i: Vocabulary, language: Language) {
-    return i.isoCode === language.isoCode && i.isoCode !== 'fr-FR';
+    return i.isoCode === language.isoCode && i.isoCode !== 'fr-FR' && i.isoCode !== 'fr-CA';
   }
 
   ngOnInit() {
@@ -92,10 +92,10 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   public getCountriesAll() {
     this.countries = [];
     for (const excludedLanguage of environment.microsoftSpeechConfig.excludedLanguages) {
-      const vocabulariesGcp = [...VOCABULARY].filter(language => language.isoCode === excludedLanguage);
+      const vocabulariesGcp = [...VOCABULARY].filter(language => language.isoCode === excludedLanguage );
       this.countries.push(...vocabulariesGcp);
     }
-    const vocabulariesAzure = [...VOCABULARY_AZURE].filter(language => this.fromAzure(language));
+    const vocabulariesAzure = [...VOCABULARY_AZURE].filter(language => this.fromAzure(language) && language.isoCode !== 'fr-FR' && language.isoCode !== 'fr-CA');
     this.countries.push(...vocabulariesAzure);
 
     this.countries.sort((a, b) => a.languageNameFr.localeCompare(b.languageNameFr));
