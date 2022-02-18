@@ -92,7 +92,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   public getCountriesAll() {
     this.countries = [];
     for (const excludedLanguage of environment.microsoftSpeechConfig.excludedLanguages) {
-      const vocabulariesGcp = [...VOCABULARY].filter(language => language.isoCode === excludedLanguage );
+      const vocabulariesGcp = [...VOCABULARY].filter(language => language.isoCode === excludedLanguage);
       this.countries.push(...vocabulariesGcp);
     }
     const vocabulariesAzure = [...VOCABULARY_AZURE].filter(language => this.fromAzure(language) && language.isoCode !== 'fr-FR' && language.isoCode !== 'fr-CA');
