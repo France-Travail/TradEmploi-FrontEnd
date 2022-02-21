@@ -31,7 +31,6 @@ import {
   MALAYALAM_NO_VOICE,
   MANDARIN_NO_VOICE,
   MONGOL_NO_VOICE,
-  NAVBAR_ENGLISH_TABS,
   NEPALESE_NO_VOICE,
   NORWAY,
   OURDOU,
@@ -56,12 +55,6 @@ import {
   UKRAINE_NO_VOICE,
   VIETNAMESE
 } from './sentence';
-
-export const VOCABULARY_DEFAULT: Vocabulary = {
-  isoCode: 'default',
-  sentences: ENGLISH,
-  navbarTabs: NAVBAR_ENGLISH_TABS
-};
 
 const COUNTRY_NAME_SUD_AFRICA = 'Afrique du Sud';
 export const VOCABULARY_AZURE: Vocabulary[] = [
@@ -131,23 +124,6 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     sentences: BENGALI_INDIA_NO_VOICE
   },
   {
-    isoCode: 'bs-BA',
-    countryNameRaw: 'Bosna i Hercegovina',
-    countryNameFr: 'Bosnie-Herzégovine',
-    languageNameRaw: 'Bosanski jezik',
-    languageNameFr: 'Bosniaque',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'my-MM',
-    countryNameRaw: `
-    မြန်မာပြည်`,
-    countryNameFr: 'Birmanie',
-    languageNameRaw: `ဗမာ`,
-    languageNameFr: 'Birman',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
     isoCode: 'zh-HK',
     audioCode: 'yue-HK',
     countryNameRaw: '香港',
@@ -196,7 +172,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Islande',
     languageNameRaw: 'Íslenska',
     languageNameFr: 'Islandais',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH
   },
   {
     isoCode: 'jv-ID',
@@ -685,14 +661,6 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     sentences: DARI
   },
   {
-    isoCode: 'ps-AF',
-    countryNameRaw: 'افغانستان',
-    countryNameFr: 'Afghanistan',
-    languageNameFr: 'Pachto',
-    languageNameRaw: 'پښتو',
-    sentences: PACHTO
-  },
-  {
     isoCode: 'ur-PK',
     countryNameRaw: 'پاکستان',
     countryNameFr: 'Pakistan',
@@ -763,14 +731,6 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     languageNameFr: 'Roumain',
     languageNameRaw: 'Română',
     sentences: ROMANIAN
-  },
-  {
-    isoCode: 'so-SO',
-    countryNameRaw: 'Soomaaliya',
-    countryNameFr: 'Somalie',
-    languageNameFr: 'Somali',
-    languageNameRaw: 'Af-Soomaali',
-    sentences: SOMALI
   },
   {
     isoCode: 'vi-VN',
@@ -1185,78 +1145,6 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     sentences: CZECH
   },
   {
-    isoCode: 'fil-PH',
-    countryNameRaw: 'Pilipinas',
-    countryNameFr: 'Philippines',
-    languageNameRaw: 'Tagalog',
-    languageNameFr: 'Tagalog',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'lb-LU',
-    countryNameRaw: `Lëtzebuerg`,
-    countryNameFr: 'Luxembourg',
-    languageNameRaw: 'Lëtzebuergesch',
-    languageNameFr: 'Luxembourgeois',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'mg-MG',
-    countryNameRaw: 'Madagaskar',
-    countryNameFr: 'Madagascar',
-    languageNameRaw: 'Malagasy',
-    languageNameFr: 'Malgache',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'mi-NZ',
-    countryNameRaw: 'Niu Tireni',
-    countryNameFr: 'Nouvelle-Zélande',
-    languageNameRaw: 'Maori',
-    languageNameFr: 'Maori',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'or-IN',
-    countryNameRaw: `ଭାରତ`,
-    countryNameFr: 'Inde',
-    languageNameRaw: `ଓଡିଆ`,
-    languageNameFr: 'Odia',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'or-WS',
-    countryNameRaw: 'Samoa',
-    countryNameFr: 'Samoa',
-    languageNameRaw: 'Samoan',
-    languageNameFr: 'Samoan',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'be-BY',
-    countryNameRaw: 'Беларусь',
-    countryNameFr: 'Biélorussie',
-    languageNameRaw: 'Беларусь',
-    languageNameFr: 'Biélorusse',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'tk-TM',
-    countryNameRaw: 'Türkmenistan',
-    countryNameFr: 'Turkménistan',
-    languageNameRaw: 'Türkmenler',
-    languageNameFr: 'Turkmène',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'tg-TJ',
-    countryNameRaw: 'Тоҷикистон',
-    countryNameFr: 'Tajikistan',
-    languageNameRaw: 'Тоҷикӣ',
-    languageNameFr: 'Tajik',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
     isoCode: 'pa-IN',
     countryNameRaw: 'ਭਾਰਤ',
     countryNameFr: 'Inde',
@@ -1271,77 +1159,5 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     languageNameRaw: 'Eestlane',
     languageNameFr: 'Estonien',
     sentences: ESTONIAN
-  },
-  {
-    isoCode: 'ht-HT',
-    countryNameRaw: 'Ayiti',
-    countryNameFr: 'Haïti',
-    languageNameRaw: 'Kreyòl ayisyen',
-    languageNameFr: 'Créole haïtien',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'sn-ZW',
-    countryNameRaw: 'Zimbabwe',
-    countryNameFr: 'Zimbabwe',
-    languageNameRaw: 'Weshona',
-    languageNameFr: 'Shona',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'hmn-CN',
-    countryNameRaw: 'Tuam Tshoj',
-    countryNameFr: 'Chine',
-    languageNameRaw: 'Hmoob',
-    languageNameFr: 'Hmoong',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'haw-US',
-    countryNameRaw: 'amelike Hui Pū\' Ia',
-    countryNameFr: 'Etats-unis',
-    languageNameRaw: 'Ōlelo Hawaiʻi',
-    languageNameFr: 'Hawaïen',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'ug-CN',
-    countryNameRaw: 'جۇڭگو',
-    countryNameFr: 'Chine',
-    languageNameRaw: 'ئۇيغۇر',
-    languageNameFr: 'Ouïghour',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'xh-ZA',
-    countryNameRaw: 'Mzantsi Afrika',
-    countryNameFr: COUNTRY_NAME_SUD_AFRICA,
-    languageNameRaw: 'isiXhosa',
-    languageNameFr: 'Xhosa',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'yo-NG',
-    countryNameRaw: 'Nigeria',
-    countryNameFr: 'Nigeria',
-    languageNameRaw: 'Yoruba',
-    languageNameFr: 'Yoruba',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'ny-MW',
-    countryNameRaw: 'Malawi',
-    countryNameFr: 'Malawi',
-    languageNameRaw: 'Chewa',
-    languageNameFr: 'Chewa',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
-  },
-  {
-    isoCode: 'mt-MT',
-    countryNameRaw: 'Malti',
-    countryNameFr: 'Maltais',
-    languageNameRaw: 'Malta',
-    languageNameFr: 'Malte',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
   }
 ];

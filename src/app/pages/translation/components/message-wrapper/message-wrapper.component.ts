@@ -78,9 +78,10 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     this.isIOS = isIOS();
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
     this.languageName = this.settingsService.user.value.language.languageName;
-    if (environment.microsoftSpeechConfig.enabled){
+    this.useSpeechToTextMicrosoftApi = this.fromAzure(this.languageOrigin);
+    if (this.useSpeechToTextMicrosoftApi) {
       this.vocabulary = VOCABULARY_AZURE;
-    }else{
+    } else {
       this.vocabulary = VOCABULARY;
     }
     const isLanguageExist = this.vocabulary.some((item) => item.isoCode === this.settingsService.user.value.language.written);
@@ -93,7 +94,6 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
-    this.useSpeechToTextMicrosoftApi = environment.microsoftSpeechConfig.enabled;
     this.isTablet = this.settingsService.isTablet;
   }
 
@@ -193,7 +193,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     this.speaking = false;
   }
 
-  public async send(fromKeyBoard= false, messageAudio?: string): Promise<void> {
+  public async send(fromKeyBoard = false, messageAudio?: string): Promise<void> {
     if (this.rawText !== '') {
       const user = this.settingsService.user.value;
       const message = messageAudio === undefined ? this.rawText : messageAudio;
@@ -322,4 +322,9 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       translationMode: this.translationMode
     };
   }
+
+  private fromAzure(language: string) {
+    return environment.microsoftSpeechConfig.enabled && !environment.microsoftSpeechConfig.excludedLanguages.includes(language);
+  }
+
 }
