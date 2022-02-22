@@ -57,15 +57,17 @@ export class IndicatorsComponent implements OnInit {
     for (const language of langauges) {
       if (language.isoCode.includes('-')) {
         const lang = VOCABULARY.find((v) => v.isoCode === language.isoCode);
-        const name = `${lang.languageNameFr} (${lang.countryNameFr}) `;
-        this.languagesByAverage.push({
-          name,
-          value: language.average
-        });
-        this.languagesByOccurences.push({
-          name,
-          value: language.occurrences
-        });
+        if (lang) {
+          const name = `${lang.languageNameFr} (${lang.countryNameFr}) `;
+          this.languagesByAverage.push({
+            name,
+            value: language.average
+          });
+          this.languagesByOccurences.push({
+            name,
+            value: language.occurrences
+          });
+        }
       }
     }
   }
@@ -91,9 +93,11 @@ export class IndicatorsComponent implements OnInit {
       let total = 0;
       for (const l of value) {
         const lang = VOCABULARY.find((v) => v.isoCode === l.isoCode);
-        series.push({ name: `${lang.languageNameFr} (${lang.countryNameFr}) `, value: l.occurrences });
-        average = average + l.average;
-        total += l.occurrences;
+        if (lang) {
+          series.push({ name: `${lang.languageNameFr} (${lang.countryNameFr}) `, value: l.occurrences });
+          average = average + l.average;
+          total += l.occurrences;
+        }
       }
       average = average / value.length;
       this.languagesAverageByTime.push({ name: key, value: average });
