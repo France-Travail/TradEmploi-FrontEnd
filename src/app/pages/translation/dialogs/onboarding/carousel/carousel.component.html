@@ -1,70 +1,65 @@
-<!-- carousel -->
 <div class="titles">{{title}}</div>
 
 <div class="carousel">
-  <ng-container>
 
+  <div *ngIf="currentSlide ===0" class="slide">
+    <iframe title="video trade emploi" width="685" height="500" src='https://www.youtube.com/embed/aRF_eJWPfeY'
+            class="video"
+            allowfullscreen></iframe>
+  </div>
 
-    <div *ngIf="currentSlide ===0" class="slide">
-      <iframe title="video trade emploi" width="685" height="500" src='https://www.youtube.com/embed/aRF_eJWPfeY' class="video"
-              allowfullscreen></iframe>
+  <div *ngIf="currentSlide ===1" class="slide">
+
+    <div class="slide1">
+      <img width="270" height="200" class="column" src="../../../../../assets/images/pc.jpg" alt="pc">
+      <span class="vertical-line"></span>
+      <img width="270" height="200" class="column" src="../../../../../assets/images/tablette.jpg" alt="tablette">
     </div>
 
-    <div *ngIf="currentSlide ===1" class="slide">
+    <div class="helpSentences  ">
+      <ul class="helpFR">
+        <li class="circle browser">
+          <span>Navigateur chrome  </span>
+          <img src="../../../../../assets/images/chrome-icon.png" alt="chrome icon"/>
+        </li>
+        <li class="circle">Partage de l'ecran</li>
+        <li class="circle">Micro et haut parleurs à proximité des participants</li>
+      </ul>
 
-      <div class="slide1">
-        <img width="270" height="200" class="column" src="../../../../../assets/images/pc.jpg" alt="pc">
-        <span class="vertical-line"></span>
-        <img width="270" height="200" class="column" src="../../../../../assets/images/tablette.jpg" alt="tablette">
-      </div>
-
-      <div class="helpSentences  ">
-        <ul class="helpFR">
-          <li class="circle browser">
-            <span>Navigateur chrome  </span>
-            <img src="../../../../../assets/images/chrome-icon.png" alt="chrome icon"/>
-          </li>
-          <li class="circle">Partage de l'ecran</li>
-          <li class="circle">Micro et haut parleurs à proximité des participants</li>
-        </ul>
-
-        <ul class="helpEN">
-          <li class="circle browser">
-            <span>Navigateur chrome  </span>
-            <img src="../../../../../assets/images/chrome-icon.png" alt="chrome icon"/>
-          </li>
-          <li class="circle">Connexion wifi stable</li>
-          <li class="circle">Attention aux nuisances sonores</li>
-        </ul>
-      </div>
+      <ul class="helpEN">
+        <li class="circle browser">
+          <span>Navigateur chrome  </span>
+          <img src="../../../../../assets/images/chrome-icon.png" alt="chrome icon"/>
+        </li>
+        <li class="circle">Connexion wifi stable</li>
+        <li class="circle">Attention aux nuisances sonores</li>
+      </ul>
     </div>
+  </div>
 
-    <div *ngIf="currentSlide ===2" class="slide">
-      <div class="helpFigures">
-        <ul class="helpFR discoursPoints">
-          <li class="point">
-            <img src="../../../../../assets/icons/check-circle.svg" alt="check"/>
-            <span class="sentences">Parler fort</span>
-          </li>
-          <li class="point">
-            <img src="../../../../../assets/icons/check-circle.svg" alt="check"/>
-            <span class="sentences">Faire des phrases courtes</span>
-          </li>
-          <li class="point">
-            <img src="../../../../../assets/icons/check-circle.svg" alt="check"/>
-            <span class="sentences">Eviter les acronymes</span>
-          </li>
-        </ul>
-      </div>
+  <div *ngIf="currentSlide ===2" class="slide">
+    <div class="helpFigures">
+      <ul class="helpFR discoursPoints">
+        <li class="point">
+          <img src="../../../../../assets/icons/check-circle.svg" alt="check"/>
+          <span class="sentences">Parler fort</span>
+        </li>
+        <li class="point">
+          <img src="../../../../../assets/icons/check-circle.svg" alt="check"/>
+          <span class="sentences">Faire des phrases courtes</span>
+        </li>
+        <li class="point">
+          <img src="../../../../../assets/icons/check-circle.svg" alt="check"/>
+          <span class="sentences">Eviter les acronymes</span>
+        </li>
+      </ul>
     </div>
-
-
-  </ng-container>
+  </div>
 
   <button class="control prev" (click)="onPreviousClick()">
-    <span class="arrow left"></span>
+    <img class="arrow left" src="../../../../../assets/icons/previous.svg">
   </button>
   <button class="control next" (click)="onNextClick()">
-    <span class="arrow right"></span>
+    <img class="arrow right" src="../../../../../assets/icons/next.svg">
   </button>
 </div>
