@@ -24,7 +24,7 @@ export class AuthorizeComponent {
   }
 
   public async accept() {
-    await this.chatService.updateGuestStatus(this.data.roomId, this.data.guest);
+    this.chatService.updateGuestStatus(this.data.roomId, this.data.guest);
     this.dialogRef.close();
   }
 
