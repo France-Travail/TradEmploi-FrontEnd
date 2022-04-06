@@ -20,7 +20,7 @@ export class TokenFbService {
     let auth = FbAuthSingleton.getInstance().getFbAuth();
     if (!auth){
       const user = this.settingService.user.value;
-      await this.authService.login(environment.peama.login, environment.peama.password, user.email);
+      await this.authService.login(user.email, environment.peama.password);
       auth = FbAuthSingleton.getInstance().getFbAuth();
     }
     const token = await auth.user.getIdTokenResult(true);
