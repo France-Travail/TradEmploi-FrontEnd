@@ -30,7 +30,7 @@ export class RateService {
   public async getRates(isNotLogged: boolean) {
     if (isNotLogged) {
       const user = JSON.parse(localStorage.getItem('user'));
-      await this.authService.login(environment.peama.login, environment.peama.password, user.email);
+      await this.authService.login( user.email, environment.peama.password);
     }
     const gwToken = (await this.tokenBrokerService.getTokenGcp()).tokenGW;
     const url = `${environment.gcp.gateWayUrl}/reporting`;
