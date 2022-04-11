@@ -52,7 +52,6 @@ import {
   TELUGU,
   THAILAND,
   TURC,
-  UKRAINE_NO_VOICE,
   VIETNAMESE
 } from './sentence';
 
@@ -308,7 +307,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Ukraine',
     languageNameRaw: 'Українська',
     languageNameFr: 'Ukrainien',
-    sentences: UKRAINE_NO_VOICE
+    sentences: UKRAINE
   },
   {
     isoCode: 'ur-IN',
