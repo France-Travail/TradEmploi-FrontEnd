@@ -36,7 +36,6 @@ import {
   OURDOU,
   OURDOU_NO_VOICE,
   OUZBEK_NO_VOICE,
-  PACHTO,
   PENDJABI,
   PERSAN,
   POLAND,
@@ -44,7 +43,6 @@ import {
   ROMANIAN,
   RUSSIA,
   SLOVENIA,
-  SOMALI,
   SPANISH,
   SWEDEN,
   TAMOUL_INDIA,
@@ -52,6 +50,7 @@ import {
   TELUGU,
   THAILAND,
   TURC,
+  UKRAINE,
   VIETNAMESE
 } from './sentence';
 
