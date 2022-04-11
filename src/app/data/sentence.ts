@@ -277,10 +277,7 @@ export const UKRAINE: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Ви хочете обмінюватися цією мовою?'
 };
-export const UKRAINE_NO_VOICE: Sentence = {
-  ...ENGLISH_DEFAULT_NO_VOICE,
-  readedWelcome: 'Ви хочете обмінюватися цією мовою?'
-};
+
 export const JAPANESE: Sentence = {
   ...ENGLISH,
   readedWelcome: 'この言語で交換しますか？'
