@@ -14,17 +14,24 @@ export class AuthService {
   constructor(private readonly afAuth: AngularFireAuth, private readonly settingsService: SettingsService) {
   }
 
-  public login(email: string, password: string, emailPe: string): Promise<{ isAuth: boolean; message: string }> {
+  public login( emailPe: string, password: string, ): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        const auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+        const auth = await this.afAuth.auth.signInWithEmailAndPassword(emailPe, password);
         if (auth.user != null) {
           this.setRoleAndToken(emailPe);
           FbAuthSingleton.getInstance().setFbAuth(auth);
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
-        reject({ isAuth: false, message: error.message });
+        if (error.code === 'auth/user-not-found') {
+          const auth = await this.afAuth.auth.createUserWithEmailAndPassword(emailPe, password);
+          FbAuthSingleton.getInstance().setFbAuth(auth);
+          resolve({ isAuth: true, message: 'Authentification réussie' });
+        } else {
+          console.log('Error', error);
+          reject({ isAuth: false, message: error.message });
+        }
       }
     });
   }

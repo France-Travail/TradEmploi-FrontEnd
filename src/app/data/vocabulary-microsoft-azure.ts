@@ -36,7 +36,6 @@ import {
   OURDOU,
   OURDOU_NO_VOICE,
   OUZBEK_NO_VOICE,
-  PACHTO,
   PENDJABI,
   PERSAN,
   POLAND,
@@ -44,7 +43,6 @@ import {
   ROMANIAN,
   RUSSIA,
   SLOVENIA,
-  SOMALI,
   SPANISH,
   SWEDEN,
   TAMOUL_INDIA,
@@ -52,7 +50,7 @@ import {
   TELUGU,
   THAILAND,
   TURC,
-  UKRAINE_NO_VOICE,
+  UKRAINE,
   VIETNAMESE
 } from './sentence';
 
@@ -308,7 +306,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Ukraine',
     languageNameRaw: 'Українська',
     languageNameFr: 'Ukrainien',
-    sentences: UKRAINE_NO_VOICE
+    sentences: UKRAINE
   },
   {
     isoCode: 'ur-IN',
