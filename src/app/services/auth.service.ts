@@ -2,17 +2,14 @@ import { Role } from './../models/role';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
-import axios from 'axios';
-import { authCodeFlowConfig } from '../../environments/authflow';
 import { SettingsService } from './settings.service';
-import { environment } from '../../environments/environment';
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  constructor(private readonly afAuth: AngularFireAuth, private readonly settingsService: SettingsService) {
-  }
+  constructor(private readonly afAuth: AngularFireAuth, private readonly settingsService: SettingsService) {}
 
   public login(emailPe: string, password: string): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
@@ -47,14 +44,14 @@ export class AuthService {
           this.settingsService.user.next({
             ...this.settingsService.user.value,
             role: Role.GUEST,
-            connectionTime: Date.now()
+            connectionTime: Date.now(),
           });
           resolve({
             id: auth.user.uid,
             isAuth: true,
             message: 'Authentification réussie',
             token: token.token,
-            expirationTime: token.expirationTime
+            expirationTime: token.expirationTime,
           });
         }
       } catch (error) {
@@ -91,64 +88,5 @@ export class AuthService {
         this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(emailPe) });
       }
     });
-  }
-
-  public getUserInfos(token: string) {
-    return axios
-      .post(authCodeFlowConfig.userinfoEndpoint, null, {
-        headers: {
-          Authorization: 'Bearer ' + token
-        }
-      })
-      .then(response => response.status === 200 ? response.data : null)
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-
-  private async revokePeam(accessToken) {
-    axios
-      .post(authCodeFlowConfig.revocationEndpoint, null, {
-        params: {
-          token: accessToken,
-          client_id: authCodeFlowConfig.clientId,
-          client_secret: authCodeFlowConfig.dummyClientSecret
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  private async getIdHint(accessToken) {
-    return axios.post(environment.peama.accessTokenUri, null, {
-      params: {
-        token: accessToken,
-        client_id: authCodeFlowConfig.clientId,
-        client_secret: authCodeFlowConfig.dummyClientSecret,
-        redirect_uri: authCodeFlowConfig.redirectUri,
-        grant_type: 'client_credentials',
-        code: accessToken,
-        scope: authCodeFlowConfig.scope
-      }
-    }).then((response) => {
-      return response.data.id_token;
-    });
-  }
-
-  private async closeSession(idHint) {
-    return axios.get(environment.peama.closeSessionUri, {
-      params: {
-        id_token_hint: idHint
-      }
-    });
-  }
-
-
-  public async closePeam(accessToken) {
-    const idHint = await this.getIdHint(accessToken);
-    this.revokePeam(accessToken);
-    this.closeSession(idHint);
   }
 }

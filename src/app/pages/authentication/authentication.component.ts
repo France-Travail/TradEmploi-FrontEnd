@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { OAuthEvent, OAuthService } from 'angular-oauth2-oidc';
 import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 import { authCodeFlowConfig } from '../../../environments/authflow';
 @Component({
@@ -10,7 +10,11 @@ import { authCodeFlowConfig } from '../../../environments/authflow';
 export class AuthenticationComponent {
   constructor(private readonly oauthService: OAuthService) {
     this.configureSSO();
+    this.oauthService.events.subscribe(({ type }: OAuthEvent) => {
+      console.log(type)
+    });
   }
+  
   configureSSO() {
     this.oauthService.configure(authCodeFlowConfig);
     this.oauthService.oidc = true;
@@ -18,6 +22,6 @@ export class AuthenticationComponent {
   }
 
   login() {
-    this.oauthService.initCodeFlow();
+    this.oauthService.initLoginFlow();
   }
 }
