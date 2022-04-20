@@ -10,13 +10,16 @@ import {
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Stream } from '../models/stream';
+import * as Sentry from '@sentry/browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpeechToTextMicrosoftService {
 
+
   private recognizer: SpeechRecognizer;
+
 
   recognize(language: string): Observable<Stream> {
     return new Observable((observer) => {
@@ -33,8 +36,7 @@ export class SpeechToTextMicrosoftService {
           finalTranscript = e.result.text;
           interimTranscript = '';
           observer.next({ final: finalTranscript, interim: interimTranscript });
-        }
-        else if (e.result.reason === ResultReason.NoMatch) {
+        } else if (e.result.reason === ResultReason.NoMatch) {
           observer.next({ final: '', interim: '' });
         }
       };
@@ -49,6 +51,7 @@ export class SpeechToTextMicrosoftService {
       this.recognizer.canceled = (s, e) => {
         if (e.reason === CancellationReason.Error) {
           observer.error(e);
+          Sentry.captureException(e);
         }
 
         this.stopContinuousRecognitionAsync();

@@ -14,24 +14,24 @@ export class AuthService {
   constructor(private readonly afAuth: AngularFireAuth, private readonly settingsService: SettingsService) {
   }
 
-  public login( emailPe: string, password: string, ): Promise<{ isAuth: boolean; message: string }> {
+  public login(emailPe: string, password: string): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        const auth = await this.afAuth.auth.signInWithEmailAndPassword(emailPe, password);
-        if (auth.user != null) {
+        let auth;
+        const signInMethodsForEmail = await this.afAuth.auth.fetchSignInMethodsForEmail(emailPe);
+        if (signInMethodsForEmail.length > 0 && signInMethodsForEmail.includes('password')) {
+          auth = await this.afAuth.auth.signInWithEmailAndPassword(emailPe, password);
+        } else {
+          auth = await this.afAuth.auth.createUserWithEmailAndPassword(emailPe, password);
+        }
+        if (auth && auth.user != null) {
           this.setRoleAndToken(emailPe);
           FbAuthSingleton.getInstance().setFbAuth(auth);
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
-        if (error.code === 'auth/user-not-found') {
-          const auth = await this.afAuth.auth.createUserWithEmailAndPassword(emailPe, password);
-          FbAuthSingleton.getInstance().setFbAuth(auth);
-          resolve({ isAuth: true, message: 'Authentification réussie' });
-        } else {
-          console.log('Error', error);
-          reject({ isAuth: false, message: error.message });
-        }
+        console.log('Error', error);
+        reject({ isAuth: false, message: error.message });
       }
     });
   }
