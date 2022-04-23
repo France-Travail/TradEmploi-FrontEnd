@@ -5,6 +5,8 @@ import { AuthService } from '../../services/auth.service';
 import { SettingsService } from '../../services/settings.service';
 import { ChatService } from '../../services/chat.service';
 import { environment } from '../../../environments/environment';
+import axios from 'axios';
+import { authCodeFlowConfig } from 'src/environments/authflow';
 
 @Component({
   selector: 'app-callback',
@@ -22,28 +24,43 @@ export class CallbackComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    const nonce = sessionStorage.getItem("nonce")
-    this.activatedRoute.queryParams.subscribe((params) => {
-      this.user = {
-        given_name: params.name,
-        family_name: params.family_name,
-        email: params.email,
-        sub: params.sub,
-        state:params.state
-      };
-    });
-
-    try {
-      if (this.user.email.match('.*@pole-emploi[.]fr$') && this.user.state === nonce) {
-        this.loginAuthentificated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
+    const nonce = sessionStorage.getItem('nonce');
+    this.activatedRoute.queryParams.subscribe(async (params) => {
+      if (params.state === nonce) {
+        const userinfo = await this.getUserInfo(params.access_token);
+        this.user = {
+          given_name: userinfo.name,
+          family_name: userinfo.family_name,
+          email: userinfo.email,
+          sub: userinfo.sub,
+          state: userinfo.state,
+        }
+        try {
+          if (this.user.email.match('.*@pole-emploi[.]fr$')) {
+            this.loginAuthentificated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
+          } 
+        }
+         catch (error) {
+          this.router.navigateByUrl('/start');
+        }
       }else{
-        this.router.navigateByUrl('/start')
+        this.router.navigateByUrl('/start');
       }
-    } catch (error) {
-      this.router.navigateByUrl('/start');
-    }
+    });
   }
   
+  private getUserInfo = async (access_token:string) => {
+  return axios
+    .get(authCodeFlowConfig.userinfoEndpoint+access_token)
+    .then((response) => {
+      return response.data;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+  }
+
+
   private async loginAuthentificated(email: string, firstname: string, lastname: string, idDGASI: string) {
     try {
       await this.authService.login(email, environment.peama.password);
