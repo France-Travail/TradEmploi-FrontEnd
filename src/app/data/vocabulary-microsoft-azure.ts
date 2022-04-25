@@ -583,7 +583,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     isoCode: 'en-IE',
     audioCode: 'en-GB',
     countryNameRaw: 'Ireland',
-    countryNameFr: 'Irelande',
+    countryNameFr: 'Irlande',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
     sentences: ENGLISH

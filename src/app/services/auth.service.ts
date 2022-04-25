@@ -82,10 +82,10 @@ export class AuthService {
     return Role.GUEST;
   }
 
-  private setRoleAndToken(emailPe?: string) {
+  private setRoleAndToken(email?: string) {
     this.afAuth.authState.subscribe(async (state) => {
       if (state !== null) {
-        this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(emailPe) });
+        this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(email), email });
       }
     });
   }
