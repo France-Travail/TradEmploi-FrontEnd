@@ -53,6 +53,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private support: Support;
   private vocalSupported = false;
   private readonly authorizationHandled = [];
+  private isScrollingToUp = false;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -144,9 +145,15 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
+  scroll() {
+    this.isScrollingToUp = true;
+  }
+
   scrollToBottom(): void {
     try {
+      if (!this.isScrollingToUp) {
         this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
+      }
     } catch (err) {
     }
   }
@@ -173,6 +180,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.addMessageToChat(messageWrapped.message);
       }
     }
+    this.isScrollingToUp = false;
   }
 
   private addMessageToChat(message: Message) {
@@ -451,4 +459,6 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     obj[newKey] = obj[oldKey];
     delete obj[oldKey];
   }
+
+
 }
