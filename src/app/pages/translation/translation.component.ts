@@ -146,7 +146,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   scrollToBottom(): void {
     try {
-      this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
+        this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
     } catch (err) {
     }
   }

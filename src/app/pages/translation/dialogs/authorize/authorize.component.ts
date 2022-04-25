@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class AuthorizeComponent {
 
   public name = '';
-  public isLoading: boolean;
+  public isLoading = false;
 
   constructor(
     private readonly dialogRef: MatDialogRef<AuthorizeComponent>,
@@ -25,7 +25,6 @@ export class AuthorizeComponent {
     setTimeout(() => {
       this.dialogRef.close();
   }, 30000);
-    this.isLoading = false;
   }
 
   public async accept() {
