@@ -55,6 +55,10 @@
     height: 40px;
     margin: 5px;
   }
+  .disabled-btn{
+    pointer-events: none;
+    opacity: 0.4;
+  }
   .cancel-btn {
     padding: 7px 10px;
     background: white;

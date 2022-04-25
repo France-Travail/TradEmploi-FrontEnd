@@ -31,7 +31,7 @@ export class ShareComponent implements OnInit {
         this.canCreate = true;
         this.roomId = user.roomId;
         this.link = `${window.location.origin}/invite/${this.roomId}`;
-      } else {
+      } else if (user) {
         this.link = `${window.location.origin}/invite/${user.roomId}`;
       }
       this.qrCode = this.link;

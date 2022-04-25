@@ -146,7 +146,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   scrollToBottom(): void {
     try {
-      this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
+        this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
     } catch (err) {
     }
   }
@@ -292,7 +292,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private readonly initMultiDevices = (roomId) => {
     this.chatService.getChat(roomId).subscribe((chat: Chat) => {
-      if (chat.active) {
+      if (chat && chat.active) {
         const isNewAuthorization = chat.guests.filter((g) => this.authorizationHandled.indexOf(g.id) === -1).length > 0 && !this.isGuest;
         isNewAuthorization ? this.authorizeGuest(chat.guests) : this.addMultiMessageToChat(chat, roomId);
       } else {

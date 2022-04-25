@@ -1,5 +1,5 @@
 <mat-toolbar *ngIf="navbarService.visible" id="navbar">
-  <div id="logo">
+  <div id="logo" (click)="choice()">
     <ng-container *ngIf="isSmallScreen | async">
       <div id="hamburger">
         <button mat-icon-button (click)="onToggleSidenav()">

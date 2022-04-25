@@ -1,45 +1,65 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TelemetryService } from '../../services/telemetry.service';
 import { AuthService } from '../../services/auth.service';
 import { SettingsService } from '../../services/settings.service';
 import { ChatService } from '../../services/chat.service';
 import { environment } from '../../../environments/environment';
+import axios from 'axios';
+import { authCodeFlowConfig } from 'src/environments/authflow';
 
 @Component({
   selector: 'app-callback',
-  templateUrl: './callback.component.html'
+  templateUrl: './callback.component.html',
 })
 export class CallbackComponent implements OnInit {
-  constructor(private readonly authService: AuthService,
-              private readonly settingsService: SettingsService,
-              private readonly router: Router,
-              private readonly chatService: ChatService,
-              private readonly telemetryService: TelemetryService) {
-  }
+  private user;
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private readonly authService: AuthService,
+    private readonly settingsService: SettingsService,
+    private readonly router: Router,
+    private readonly chatService: ChatService,
+    private readonly telemetryService: TelemetryService
+  ) {}
 
   async ngOnInit(): Promise<void> {
-    const accessToken = this.getAccessToken(window.location.href);
-    const user = await this.authService.getUserInfos(accessToken);
-    try {
-      if (user.email.match('.*@pole-emploi[.]fr$')) {
-        this.loginAuthentificated(user.email, user.given_name, user.family_name, user.sub);
-        sessionStorage.setItem('access', accessToken);
+    const nonce = sessionStorage.getItem('nonce');
+    this.activatedRoute.queryParams.subscribe(async (params) => {
+      if (params.state === nonce) {
+        const userinfo = await this.getUserInfo(params.access_token);
+        this.user = {
+          given_name: userinfo.name,
+          family_name: userinfo.family_name,
+          email: userinfo.email,
+          sub: userinfo.sub,
+          state: userinfo.state,
+        }
+        try {
+          if (this.user.email.match('.*@pole-emploi[.]fr$')) {
+            this.loginAuthentificated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
+          } 
+        }
+         catch (error) {
+          this.router.navigateByUrl('/start');
+        }
+      }else{
+        this.router.navigateByUrl('/start');
       }
-    } catch (error) {
-      this.router.navigateByUrl('/start');
-    }
+    });
+  }
+  
+  private getUserInfo = async (access_token:string) => {
+  return axios
+    .get(authCodeFlowConfig.userinfoEndpoint+access_token)
+    .then((response) => {
+      return response.data;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
   }
 
-  public getAccessToken(url: string) {
-    const separator = 'access_token';
-    const separatorEqual = '=';
-    const separatorAnd = '&';
-    if (url && url.includes(separator) && url.includes(separatorEqual) && url.includes(separatorAnd)) {
-      return url.split(separator)[1].split(separatorEqual)[1].split(separatorAnd)[0];
-    }
-    return null;
-  }
 
   private async loginAuthentificated(email: string, firstname: string, lastname: string, idDGASI: string) {
     try {
@@ -57,11 +77,10 @@ export class CallbackComponent implements OnInit {
         agency: '',
         connectionTime: Date.now(),
         roomId,
-        isMultiDevices: false
+        isMultiDevices: false,
       });
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.router.navigateByUrl('choice');
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 }

@@ -15,7 +15,8 @@
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "e2e": "ng e2e",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "dev":"ng serve --port 4401 "
   },
   "private": true,
   "browser": {
