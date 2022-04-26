@@ -99,9 +99,9 @@ export const FRENCH: Sentence = {
     voice: 'Voix'
   },
   tooltip: {
-    pronounce: 'Je peux parler dans cette langue',
+    pronounce: 'Le DE peut parler dans cette langue',
     noPronounce: 'Je ne peux pas parler dans cette langue',
-    listen: 'Je peux entendre la traduction dans cette langue',
+    listen: 'Le DE peut entendre la traduction dans cette langue',
     noListen: 'Je ne peux pas entendre la traduction dans cette langue',
     audio: 'Je peux entendre un échantillon vocal dans cette langue'
   }

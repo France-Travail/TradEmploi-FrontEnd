@@ -26,7 +26,7 @@ import { isIOS } from '../../../../utils/utils';
 @Component({
   selector: 'app-message-wrapper',
   templateUrl: './message-wrapper.component.html',
-  styleUrls: ['./message-wrapper.component.scss']
+  styleUrls: ['./message-wrapper.component.scss'],
 })
 export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() role: string;
@@ -43,7 +43,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public error = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = {
     listenTranslation: false,
-    listenSpeech: false
+    listenSpeech: false,
   };
   public interim = '';
   public recordMode = false;
@@ -59,7 +59,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   private recordingState = RecordingState.STOPPED;
   private useSpeechToTextMicrosoftApi: boolean;
   private vocabulary: Vocabulary[];
-
+  private isMicrophoneGranted: boolean = false;
 
   constructor(
     private readonly toastService: ToastService,
@@ -71,10 +71,9 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     private readonly chatService: ChatService,
     private readonly errorService: ErrorService,
     private readonly speechToTextMicrosoftService: SpeechToTextMicrosoftService
-  ) {
-  }
+  ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.isIOS = isIOS();
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
     this.languageName = this.settingsService.user.value.language.languageName;
@@ -95,6 +94,10 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       this.isMobile = result.matches;
     });
     this.isTablet = this.settingsService.isTablet;
+    this.isMicrophoneGranted = await navigator.permissions.query({ name: 'microphone' }).then(function (result) {
+      return result.state == 'granted';
+    });
+
   }
 
   private getInterim(data: Vocabulary, translationPlaceHolderIos: string) {
@@ -123,18 +126,22 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   public async talk(): Promise<void> {
-    if ('webkitSpeechRecognition' in window) {
-      this.micro = true;
-      this.recordMode = this.settingsService.recordMode;
-      if (!this.recordMode) {
-        this.rawText = '';
-        this.stream();
+    if (this.isMicrophoneGranted) {
+      if ('webkitSpeechRecognition' in window) {
+        this.micro = true;
+        this.recordMode = this.settingsService.recordMode;
+        if (!this.recordMode) {
+          this.rawText = '';
+          this.stream();
+        }
+        this.translationMode = TranslationMode.VOCAL;
+        this.speaking = true;
+      } else {
+        this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
+        this.errorService.save(ERROR_TECH_UNAUTHORIZEDMICRO);
       }
-      this.translationMode = TranslationMode.VOCAL;
-      this.speaking = true;
     } else {
       this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
-      this.errorService.save(ERROR_TECH_UNAUTHORIZEDMICRO);
     }
   }
 
@@ -165,17 +172,21 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   private streamWithMicrosoft() {
-    let saveText = '';
-    this.speechToTextMicrosoftService.recognize(this.transcodificationMicrosoft(this.languageOrigin)).subscribe((value: Stream) => {
-      if (value.interim !== '') {
-        this.rawText = value.interim;
-      } else if (value.final !== '') {
-        this.rawText = saveText + value.final;
-        saveText = this.rawText;
-      } else if (value.interim === '' && value.final === '') {
-        this.onStop();
-      }
-    });
+    if (this.isMicrophoneGranted) {
+      let saveText = '';
+      this.speechToTextMicrosoftService.recognize(this.transcodificationMicrosoft(this.languageOrigin)).subscribe((value: Stream) => {
+        if (value.interim !== '') {
+          this.rawText = value.interim;
+        } else if (value.final !== '') {
+          this.rawText = saveText + value.final;
+          saveText = this.rawText;
+        } else if (value.interim === '' && value.final === '') {
+          this.onStop();
+        }
+      });
+    } else {
+      this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
+    }
   }
 
   private transcodificationMicrosoft(language: string): string {
@@ -291,7 +302,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     const message = this.buildMessage(text);
     const messageWrapped: MessageWrapped = {
       message,
-      time: Date.now()
+      time: Date.now(),
     };
     this.messagesToEmit.emit(messageWrapped);
   }
@@ -299,11 +310,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   private async sendToMultiDevices(user: User, text: string) {
     const message: Message = {
       ...this.buildMessage(text),
-      member: user.firstname ? user.firstname : AdvisorDefaultName
+      member: user.firstname ? user.firstname : AdvisorDefaultName,
     };
     const messageWrapped: MessageWrapped = {
       message,
-      time: Date.now()
+      time: Date.now(),
     };
     await this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
   }
@@ -319,12 +330,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       flag: this.flag,
       role: this.role,
       text,
-      translationMode: this.translationMode
+      translationMode: this.translationMode,
     };
   }
 
   private fromAzure(language: string) {
     return environment.microsoftSpeechConfig.enabled && !environment.microsoftSpeechConfig.excludedLanguages.includes(language);
   }
-
 }
