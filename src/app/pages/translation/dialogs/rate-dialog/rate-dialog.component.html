@@ -1,4 +1,7 @@
-<h1 mat-dialog-title>Evaluer l'outil de traduction instantanée</h1>
+<div class="modal-header">
+  <h1 mat-dialog-title>Evaluer l'outil de traduction instantanée</h1>
+  <span class="close" (click)="closeModal()" aria-hidden="true">&times;</span>
+</div>
 
 <div mat-dialog-content>
   <div class="question">
@@ -45,26 +48,23 @@
   <div class="question">
     <div class="french">{{ sentences.questionFour.french }}<span class="asterisk"> *</span></div>
     <div class="yes-no">
-      <input id="question-four-yes" type="radio" name="four" value="oui" (change)="onItemChange($event.target.value)"
-             [checked]="rate.offerLinked === 'oui'"/>
+      <input id="question-four-yes" type="radio" name="four" value="oui" (change)="onItemChange($event.target.value)" [checked]="rate.offerLinked === 'oui'" />
       <label for="question-four-yes">Oui</label>
-      <input id="question-four-no" type="radio" name="four" value="non" (change)="onItemChange($event.target.value)"
-             [checked]="rate.offerLinked === 'non'"/>
+      <input id="question-four-no" type="radio" name="four" value="non" (change)="onItemChange($event.target.value)" [checked]="rate.offerLinked === 'non'" />
       <label for="question-four-no">Non</label>
     </div>
   </div>
 
   <div class="question">
     <div class="french questionFive">Type entretien<span class="asterisk"> *</span></div>
-    <div class="typesEntretien" *ngFor="let type of types;">
-        <input type="radio" id="typeEntretien_{{type}}" (change)="setCanSendRate()"
-               [value]="type" [(ngModel)]="typeEntretien">
-        <label for="typeEntretien_{{type}}">{{type}}</label>
+    <div class="typesEntretien" *ngFor="let type of types">
+      <input type="radio" id="typeEntretien_{{ type }}" (change)="setCanSendRate()" [value]="type" [(ngModel)]="typeEntretien" />
+      <label for="typeEntretien_{{ type }}">{{ type }}</label>
     </div>
 
     <div class="typesEntretien" *ngIf="typeEntretien === 'Autres'">
-      <input id="autreType" class="autreType" type="text" [(ngModel)]="autreType" (input)="setCanSendRate()">
-      <span class="asterisk" style="padding-left: 5px;">*</span>
+      <input id="autreType" class="autreType" type="text" [(ngModel)]="autreType" (input)="setCanSendRate()" />
+      <span class="asterisk" style="padding-left: 5px">*</span>
     </div>
   </div>
 
@@ -74,15 +74,12 @@
   </div>
   <div class="question comment">
     <span>Champs obligatoires </span>
-    <span class="asterisk" style="padding-left: 5px;">*</span>
+    <span class="asterisk" style="padding-left: 5px">*</span>
   </div>
 </div>
 
 <div mat-dialog-actions>
-  <div matTooltip="Veillez évaluer l’outil avant de soumettre" [matTooltipDisabled]="this.canSendRate"
-       matTooltipPosition="above">
-    <button [disabled]="!this.canSendRate" [className]="!this.canSendRate?'button-disabled':''" id="send-btn"
-            (click)="confirm()">ENVOYER
-    </button>
+  <div matTooltip="Veillez évaluer l’outil avant de soumettre" [matTooltipDisabled]="this.canSendRate" matTooltipPosition="above">
+    <button [disabled]="!this.canSendRate" [className]="!this.canSendRate ? 'button-disabled' : ''" id="send-btn" (click)="confirm()">ENVOYER</button>
   </div>
 </div>

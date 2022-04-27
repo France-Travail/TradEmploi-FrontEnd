@@ -4,7 +4,7 @@ export const NAVBAR_ENGLISH_TABS: NavbarTab = {
   language: 'language',
   logout: 'logout',
   help: 'Start guide',
-  gdpr: 'CGU'
+  gdpr: 'CGU',
 };
 
 export const HEBREW: Sentence = {
@@ -23,8 +23,8 @@ export const HEBREW: Sentence = {
     qualityTranslate: 'מה הייתה איכות התרגומים?',
     rating: 'איך מדרגים את הכלי?',
     comment: 'תגובה חינם',
-    technical: 'האם נתקלת בבעיות טכניות כלשהן בשימוש בכלי?'
-  }
+    technical: 'האם נתקלת בבעיות טכניות כלשהן בשימוש בכלי?',
+  },
 };
 
 export const ARAB: Sentence = {
@@ -45,8 +45,8 @@ export const ARAB: Sentence = {
     qualityTranslate: 'ما هي جودة الترجمات؟',
     rating: 'كيف تقيم الأداة؟',
     comment: 'تعليق مجاني',
-    technical: 'هل واجهت أي مشاكل فنية أثناء استخدام الأداة؟'
-  }
+    technical: 'هل واجهت أي مشاكل فنية أثناء استخدام الأداة؟',
+  },
 };
 
 export const FRENCH: Sentence = {
@@ -67,19 +67,19 @@ export const FRENCH: Sentence = {
     rating: 'Quelle note donnez vous à l’outil ?',
     comment: 'Commentaire libre',
     technical: 'Avez vous rencontré des problèmes techniques dans l’utilisation de l’outil ?',
-    typeInterview: 'Type entretien'
+    typeInterview: 'Type entretien',
   },
   gdpr: {
     title: 'Protection des données à caractère personnel',
     privacyText:
-      'Cet outil de traduction instantanée traite vos données dans le cadre de vos échanges avec votre conseiller et de votre accompagnement par Pôle emploi. La base légal de ce traitement est la mission de service public de Pôle emploi.\n\nVos données sont collectées et traitées par Pôle Emploi dans le cadre du suivi des demandeurs d’emploi.\n\nPôle emploi utilisera vos données de manière anonymisée, à des fins d’amélioration continue de ses services, sur la base de ses intérêts légitimes.\n\nVos données personnelles sont transférées vers des datacenters de Google pour la bon fonctionnement de l’outil.\n\nS’agissant de l’hébergement de vos données, Google a recours à différents datacenters présents au sein et en dehors de l’Union européenne. Compte tenu de la nature de cet hébergeur il convient de préciser que ce dernier est soumis au Cloud Act, loi américaine promulguée le 23 mars 2018, permettant aux forces de l\'ordre ou aux agences de renseignement américaines d’obtenir des opérateurs télécoms et des fournisseurs de services de Cloud Computing des informations stockées sur leurs serveurs, que ces données soient situées aux États-Unis ou à l’étranger.\n\nVos données sont conservées le temps de la conversation. Elles sont ensuite entièrement anonymisées.\n\nToute personne peut exercer ses droits notamment d’accès et de rectification en adressant sa demande à la délégué à la protection des données de Pôle emploi par courrier à l’adresse suivante ;  1 avenue du Docteur Gley - 75987 Paris cedex 20, ou par courriel à l’adresse email suivante. contact-dpd@pole-emploi.fr.\n\nSi vous estimez que vos droits n’ont pas été respectés, vous pouvez introduire une réclamation auprès de la Commission Nationale Informatique et Libertés (CNIL).',
-    closeBtn: 'FERMER'
+      "Cet outil de traduction instantanée traite vos données dans le cadre de vos échanges avec votre conseiller et de votre accompagnement par Pôle emploi. La base légal de ce traitement est la mission de service public de Pôle emploi.\n\nVos données sont collectées et traitées par Pôle Emploi dans le cadre du suivi des demandeurs d’emploi.\n\nPôle emploi utilisera vos données de manière anonymisée, à des fins d’amélioration continue de ses services, sur la base de ses intérêts légitimes.\n\nVos données personnelles sont transférées vers des datacenters de Google pour la bon fonctionnement de l’outil.\n\nS’agissant de l’hébergement de vos données, Google a recours à différents datacenters présents au sein et en dehors de l’Union européenne. Compte tenu de la nature de cet hébergeur il convient de préciser que ce dernier est soumis au Cloud Act, loi américaine promulguée le 23 mars 2018, permettant aux forces de l'ordre ou aux agences de renseignement américaines d’obtenir des opérateurs télécoms et des fournisseurs de services de Cloud Computing des informations stockées sur leurs serveurs, que ces données soient situées aux États-Unis ou à l’étranger.\n\nVos données sont conservées le temps de la conversation. Elles sont ensuite entièrement anonymisées.\n\nToute personne peut exercer ses droits notamment d’accès et de rectification en adressant sa demande à la délégué à la protection des données de Pôle emploi par courrier à l’adresse suivante ;  1 avenue du Docteur Gley - 75987 Paris cedex 20, ou par courriel à l’adresse email suivante. contact-dpd@pole-emploi.fr.\n\nSi vous estimez que vos droits n’ont pas été respectés, vous pouvez introduire une réclamation auprès de la Commission Nationale Informatique et Libertés (CNIL).",
+    closeBtn: 'FERMER',
   },
   logout: {
     title: 'Déconnexion',
     question: 'Voulez-vous vous déconnecter?',
     cancel: 'Annuler',
-    confirm: 'Se déconnecter'
+    confirm: 'Se déconnecter',
   },
   modality: {
     title: 'Modalité de conversation',
@@ -87,7 +87,7 @@ export const FRENCH: Sentence = {
     multiSupport: 'Multi supports',
     monoSentenceFR: 'Échangez avec un seul support PC ou tablette',
     multiSentenceFR: 'Échangez avec plusieurs supports PC, téléphones ou tablettes.',
-    confirm: 'CONFIRMER'
+    confirm: 'CONFIRMER',
   },
   choice: {
     mostBtn: 'Langues les plus utilisées',
@@ -96,15 +96,15 @@ export const FRENCH: Sentence = {
     gridBtn: 'Grille',
     chooseBtn: 'Choisir',
     search: 'Saisissez la langue ou le pays recherché',
-    voice: 'Voix'
+    voice: 'Voix',
   },
   tooltip: {
-    pronounce: 'Je peux parler dans cette langue',
+    pronounce: 'Le DE peut parler dans cette langue',
     noPronounce: 'Je ne peux pas parler dans cette langue',
-    listen: 'Je peux entendre la traduction dans cette langue',
+    listen: 'Le DE peut entendre la traduction dans cette langue',
     noListen: 'Je ne peux pas entendre la traduction dans cette langue',
-    audio: 'Je peux entendre un échantillon vocal dans cette langue'
-  }
+    audio: 'Je peux entendre un échantillon vocal dans cette langue',
+  },
 };
 
 const APPLICATION_NAME = 'Instant Translation';
@@ -133,19 +133,19 @@ export const ENGLISH: Sentence = {
     rating: RATING,
     comment: COMMENT,
     technical: TECHNICAL,
-    typeInterview: 'Interview type'
+    typeInterview: 'Interview type',
   },
   gdpr: {
     title: 'Protection of personal data',
     privacyText:
-      'This translation tool processes your data in the context of your exchanges with your advisor and your support by Pôle emploi. The legal basis for this\n processing is the public service mission of Pôle Emploi.\n\nYour data is collected and processed by Pôle Emploi as part of the follow-up of job seekers.\n\nPôle emploi will use your data in an anonymized way, for the purpose of continuous improvement of its services, on the basis of its legitimate interests.\n\nYour personal data is transferred to Google datacenters for the proper functioning of the tool.\n\nGoogle uses various data centers within and outside the European Union to host your data. Given the nature of this host, it should be noted that it is subject \nto the Cloud Act, an American law enacted on March 23, 2018, allowing law enforcement or American intelligence agencies to obtain information stored on their \nservers from telecom operators and cloud computing service providers, whether this data is located in the United States or abroad.\n\nYour data is kept for the duration of the conversation. It is then completely anonymized.\nAny person may exercise his or her rights of access and rectification by sending a request to Pôle emploi\'s Data Protection Officer by mail to the following \naddress: 1 avenue du Docteur Gley - 75987 Paris cedex 20, or by email to the following address: contact-dpd@pole-emploi.fr.)\n\nIf you feel that your rights have not been respected, you may file a complaint with the Commission Nationale Informatique et Libertés (CNIL).',
-    closeBtn: 'CLOSE'
+      "This translation tool processes your data in the context of your exchanges with your advisor and your support by Pôle emploi. The legal basis for this\n processing is the public service mission of Pôle Emploi.\n\nYour data is collected and processed by Pôle Emploi as part of the follow-up of job seekers.\n\nPôle emploi will use your data in an anonymized way, for the purpose of continuous improvement of its services, on the basis of its legitimate interests.\n\nYour personal data is transferred to Google datacenters for the proper functioning of the tool.\n\nGoogle uses various data centers within and outside the European Union to host your data. Given the nature of this host, it should be noted that it is subject \nto the Cloud Act, an American law enacted on March 23, 2018, allowing law enforcement or American intelligence agencies to obtain information stored on their \nservers from telecom operators and cloud computing service providers, whether this data is located in the United States or abroad.\n\nYour data is kept for the duration of the conversation. It is then completely anonymized.\nAny person may exercise his or her rights of access and rectification by sending a request to Pôle emploi's Data Protection Officer by mail to the following \naddress: 1 avenue du Docteur Gley - 75987 Paris cedex 20, or by email to the following address: contact-dpd@pole-emploi.fr.)\n\nIf you feel that your rights have not been respected, you may file a complaint with the Commission Nationale Informatique et Libertés (CNIL).",
+    closeBtn: 'CLOSE',
   },
   logout: {
     title: 'Logout',
     question: 'Would you like to log out ?',
     cancel: 'Cancel',
-    confirm: 'Logout'
+    confirm: 'Logout',
   },
   choice: {
     mostBtn: 'Most used languages',
@@ -154,133 +154,135 @@ export const ENGLISH: Sentence = {
     gridBtn: 'Grid',
     chooseBtn: 'Choose',
     search: 'Enter the desired language or country',
-    voice: 'Voice'
+    voice: 'Voice',
   },
   tooltip: {
     pronounce: 'I can speak in this language',
     noPronounce: 'I cannot speak in this language',
     listen: 'I can hear the translation in this language ',
     noListen: 'I cannot hear the translation in this language ',
-    audio: 'I can hear a voice sample in this language'
+    audio: 'I can hear a voice sample in this language',
   },
   introMessage: {
     welcomeFR: 'Voici un traducteur automatique qui va traduire votre langue. Pour améliorer l’expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',
     welcomeRAW: 'Here is an automatic translator that will translate your language. To improve the translation experience, keep sentences short and simple and speak loudly enough.',
     notifMultiFR: 'L’espace de conversation a été créé en modalité multi-support.',
-    notifMultiRAW: 'You\'ve joined the conversation.',
+    notifMultiRAW: "You've joined the conversation.",
     voiceavailabilityFR: 'Saisie vocale indisponible pour la langue sélectionnée',
-    voiceavailabilityRAW: 'Voice input is unavailable for this language'
-  }
+    voiceavailabilityRAW: 'Voice input is unavailable for this language',
+  },
 };
 
 export const ENGLISH_DEFAULT: Sentence = {
   ...ENGLISH,
-  audioSupported: false
+  audioSupported: false,
 };
 export const ENGLISH_DEFAULT_NO_VOICE: Sentence = {
   ...ENGLISH_DEFAULT,
-  voiceNotSupported: true
+  voiceNotSupported: true,
 };
 export const PENDJABI = {
   ...ENGLISH,
   audioSupported: true,
-  readedWelcome: 'ਕੀ ਤੁਸੀਂ ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?'
+  readedWelcome: 'ਕੀ ਤੁਸੀਂ ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?',
 };
 export const ESTONIAN = {
   ...ENGLISH_DEFAULT,
-  readedWelcome: 'Kas soovite selles keeles vahetada ?'
+  readedWelcome: 'Kas soovite selles keeles vahetada ?',
 };
 export const DANISH: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Vil du udveksle på dette sprog?'
+  readedWelcome: 'Vil du udveksle på dette sprog?',
 };
 
 export const KOREA: Sentence = {
   ...ENGLISH,
-  readedWelcome: '이 언어로 교환 하시겠습니까?'
+  readedWelcome: '이 언어로 교환 하시겠습니까?',
 };
 
 export const FINLAND: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Haluatko vaihtaa tällä kielellä?'
+  readedWelcome: 'Haluatko vaihtaa tällä kielellä?',
 };
 
 export const GUJARATI: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'શું તમે આ ભાષામાં ચાલુ રાખવા માંગો છો?'
+  readedWelcome: 'શું તમે આ ભાષામાં ચાલુ રાખવા માંગો છો?',
 };
 
 export const HUNGARIAN: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Szeretne ezen a nyelven cserélni?'
+  readedWelcome: 'Szeretne ezen a nyelven cserélni?',
 };
 
 export const INDONESIA: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Apakah Anda ingin bertukar dalam bahasa ini?'
+  readedWelcome: 'Apakah Anda ingin bertukar dalam bahasa ini?',
 };
 
 export const KANNADA: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'ಈ ಭಾಷೆಯಲ್ಲಿ ವಿನಿಮಯ ಮಾಡಲು ನೀವು ಬಯಸುವಿರಾ?'
+  readedWelcome: 'ಈ ಭಾಷೆಯಲ್ಲಿ ವಿನಿಮಯ ಮಾಡಲು ನೀವು ಬಯಸುವಿರಾ?',
 };
 
 export const MALAYALAM: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'ഈ ഭാഷയിൽ കൈമാറ്റം ചെയ്യാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?'
+  readedWelcome: 'ഈ ഭാഷയിൽ കൈമാറ്റം ചെയ്യാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?',
 };
 export const MALAYALAM_NO_VOICE: Sentence = {
   ...ENGLISH_DEFAULT_NO_VOICE,
-  readedWelcome: 'ഈ ഭാഷയിൽ കൈമാറ്റം ചെയ്യാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?'
+  readedWelcome: 'ഈ ഭാഷയിൽ കൈമാറ്റം ചെയ്യാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?',
 };
 export const NORWAY: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Vil du utveksle på dette språket?'
+  readedWelcome: 'Vil du utveksle på dette språket?',
 };
 
 export const HOLLAND: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Wilt u uitwisselen in deze taal?'
+  readedWelcome: 'Wilt u uitwisselen in deze taal?',
 };
 
 export const POLAND: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Czy chciałbyś wymienić się w tym języku?'
+  readedWelcome: 'Czy chciałbyś wymienić się w tym języku?',
 };
 
 export const SLOVENIA: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Prajete si výmenu v tomto jazyku?'
+  readedWelcome: 'Prajete si výmenu v tomto jazyku?',
 };
 
 export const SWEDEN: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Vill du byta på det här språket?'
+  readedWelcome: 'Vill du byta på det här språket?',
 };
 
 export const CZECH: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Chcete si vyměnit v tomto jazyce?'
+  readedWelcome: 'Chcete si vyměnit v tomto jazyce?',
 };
 
 export const THAILAND: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'คุณต้องการแลกเปลี่ยนเป็นภาษานี้หรือไม่?'
+  readedWelcome: 'คุณต้องการแลกเปลี่ยนเป็นภาษานี้หรือไม่?',
 };
 
 export const TELUGU: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'మీరు ఈ భాషలో కొనసాగాలనుకుంటున్నారా?'
+  readedWelcome: 'మీరు ఈ భాషలో కొనసాగాలనుకుంటున్నారా?',
 };
 
 export const UKRAINE: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Ви хочете обмінюватися цією мовою?'
+  readedWelcome: 'Ви хочете обмінюватися цією мовою?',
+  translationH2: 'введіть текст або утримуйте синій мікрофон, щоб говорити',
+  translationH2Mobile: 'Введіть текст або торкніться синього мікрофона, щоб поговорити',
 };
 
 export const JAPANESE: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'この言語で交換しますか？'
+  readedWelcome: 'この言語で交換しますか？',
 };
 
 export const SPANISH: Sentence = {
@@ -302,8 +304,8 @@ export const SPANISH: Sentence = {
     qualityTranslate: '¿Cuál fue la calidad de las traducciones?',
     rating: '¿Cómo valora la herramienta?',
     comment: 'Comentario gratis',
-    technical: '¿Ha encontrado algún problema técnico al utilizar la herramienta?'
-  }
+    technical: '¿Ha encontrado algún problema técnico al utilizar la herramienta?',
+  },
 };
 
 export const ALBANIAN: Sentence = {
@@ -324,12 +326,12 @@ export const ALBANIAN: Sentence = {
     qualityTranslate: 'Cila ishte cilësia e përkthimeve?',
     rating: 'Si e vlerësoni mjetin?',
     comment: 'Koment falas',
-    technical: 'A keni hasur ndonjë problem teknik duke përdorur mjetin?'
-  }
+    technical: 'A keni hasur ndonjë problem teknik duke përdorur mjetin?',
+  },
 };
 export const ALBANIAN_NO_VOICE: Sentence = {
   ...ALBANIAN,
-  voiceNotSupported: true
+  voiceNotSupported: true,
 };
 export const MANDARIN: Sentence = {
   audioSupported: true,
@@ -349,12 +351,12 @@ export const MANDARIN: Sentence = {
     qualityTranslate: '翻译的质量如何？',
     rating: '您如何评价该工具？',
     comment: '自由评论',
-    technical: '您在使用该工具时遇到任何技术问题吗？'
-  }
+    technical: '您在使用该工具时遇到任何技术问题吗？',
+  },
 };
 export const MANDARIN_NO_VOICE: Sentence = {
   ...MANDARIN,
-  voiceNotSupported: true
+  voiceNotSupported: true,
 };
 export const BENGALI: Sentence = {
   audioSupported: false,
@@ -375,20 +377,20 @@ export const BENGALI: Sentence = {
     qualityTranslate: 'অনুবাদগুলির গুণমানটি কী ছিল?',
     rating: 'আপনি কীভাবে সরঞ্জামটি রেট করেন?',
     comment: 'ফ্রি মন্তব্য',
-    technical: 'আপনি কি সরঞ্জামটি ব্যবহার করে কোনও প্রযুক্তিগত সমস্যার সম্মুখীন হয়েছেন?'
-  }
+    technical: 'আপনি কি সরঞ্জামটি ব্যবহার করে কোনও প্রযুক্তিগত সমস্যার সম্মুখীন হয়েছেন?',
+  },
 };
 export const BENGALI_NO_VOICE: Sentence = {
   ...BENGALI,
-  voiceNotSupported: true
+  voiceNotSupported: true,
 };
 export const BENGALI_INDIA: Sentence = {
   ...BENGALI,
-  audioSupported: true
+  audioSupported: true,
 };
 export const BENGALI_INDIA_NO_VOICE: Sentence = {
   ...BENGALI_NO_VOICE,
-  audioSupported: true
+  audioSupported: true,
 };
 const RECORD_TEXT_DARI = 'الان صحبت کن';
 const AUTO_LISTEN_DARI = 'پخپله غوږ شه';
@@ -407,8 +409,8 @@ export const DARI: Sentence = {
     qualityTranslate: 'کیفیت ترجمه ها چگونه بود؟',
     rating: 'ابزار را چگونه ارزیابی می کنید؟',
     comment: 'نظر رایگان',
-    technical: 'آیا با استفاده از این ابزار به مشکلات فنی برخورد کرده اید؟'
-  }
+    technical: 'آیا با استفاده از این ابزار به مشکلات فنی برخورد کرده اید؟',
+  },
 };
 
 export const PACHTO: Sentence = {
@@ -431,8 +433,8 @@ export const PACHTO: Sentence = {
     qualityTranslate: 'د ژباړې کیفیت څه و؟',
     rating: 'تاسو د وسیلې درجه څنګه کوئ؟',
     comment: 'وړیا نظر',
-    technical: 'ایا تاسو د وسیلې په کارولو سره کوم تخنیکي ستونزې سره مخ شوي یاست؟'
-  }
+    technical: 'ایا تاسو د وسیلې په کارولو سره کوم تخنیکي ستونزې سره مخ شوي یاست؟',
+  },
 };
 
 export const OURDOU: Sentence = {
@@ -452,12 +454,12 @@ export const OURDOU: Sentence = {
     qualityTranslate: QUALITY_TRANSLATE,
     rating: RATING,
     comment: COMMENT,
-    technical: TECHNICAL
-  }
+    technical: TECHNICAL,
+  },
 };
 export const OURDOU_NO_VOICE: Sentence = {
   ...OURDOU,
-  voiceNotSupported: true
+  voiceNotSupported: true,
 };
 export const PORTUGUESE: Sentence = {
   audioSupported: true,
@@ -479,8 +481,8 @@ export const PORTUGUESE: Sentence = {
     qualityTranslate: 'Qual foi a qualidade das traduções?',
     rating: 'Como você avalia a ferramenta?',
     comment: 'Comentário grátis',
-    technical: 'Você encontrou algum problema técnico ao usar a ferramenta?'
-  }
+    technical: 'Você encontrou algum problema técnico ao usar a ferramenta?',
+  },
 };
 
 export const GERMAN: Sentence = {
@@ -503,8 +505,8 @@ export const GERMAN: Sentence = {
     qualityTranslate: 'Wie war die Qualität der Übersetzungen?',
     rating: 'Wie bewerten Sie das Tool?',
     comment: 'Kostenloser Kommentar',
-    technical: 'Haben Sie technische Probleme mit dem Tool festgestellt?'
-  }
+    technical: 'Haben Sie technische Probleme mit dem Tool festgestellt?',
+  },
 };
 
 export const TURC: Sentence = {
@@ -525,8 +527,8 @@ export const TURC: Sentence = {
     qualityTranslate: 'Çevirilerin kalitesi neydi?',
     rating: 'Aracı nasıl değerlendiriyorsunuz?',
     comment: 'Ücretsiz yorum',
-    technical: 'Aracı kullanırken herhangi bir teknik sorunla karşılaştınız mı?'
-  }
+    technical: 'Aracı kullanırken herhangi bir teknik sorunla karşılaştınız mı?',
+  },
 };
 
 export const AMHARIC: Sentence = {
@@ -546,12 +548,12 @@ export const AMHARIC: Sentence = {
     qualityTranslate: 'የትርጉሞቹ ጥራት ምን ነበር?',
     rating: 'መሣሪያውን እንዴት ደረጃ ይሰጣሉ?',
     comment: 'ነፃ አስተያየት',
-    technical: 'መሣሪያውን በመጠቀም ማንኛውንም ቴክኒካዊ ችግሮች አጋጥመውዎታል?'
-  }
+    technical: 'መሣሪያውን በመጠቀም ማንኛውንም ቴክኒካዊ ችግሮች አጋጥመውዎታል?',
+  },
 };
 export const AMHARIC_NO_VOICE: Sentence = {
   ...AMHARIC,
-  voiceNotSupported: true
+  voiceNotSupported: true,
 };
 export const KHMER: Sentence = {
   displayedWelcome: 'ជំរាបសួរ, ខ្ញុំនឹងក្លាយជាអ្នកបកប្រែរបស់អ្នកដើម្បីផ្លាស់ប្តូរយ៉ាងងាយស្រួលជាមួយទីប្រឹក្សារបស់អ្នក។',
@@ -570,12 +572,12 @@ export const KHMER: Sentence = {
     qualityTranslate: 'តើការបកប្រែមានគុណភាពយ៉ាងណា?',
     rating: 'តើអ្នកវាយតម្លៃឧបករណ៍យ៉ាងដូចម្តេច?',
     comment: 'មតិយោបល់ដោយឥតគិតថ្លៃ',
-    technical: 'តើអ្នកបានជួបប្រទះបញ្ហាបច្ចេកទេសណាមួយដោយប្រើឧបករណ៍នេះទេ?'
-  }
+    technical: 'តើអ្នកបានជួបប្រទះបញ្ហាបច្ចេកទេសណាមួយដោយប្រើឧបករណ៍នេះទេ?',
+  },
 };
 export const KHMER_NO_VOICE: Sentence = {
   ...KHMER,
-  voiceNotSupported: true
+  voiceNotSupported: true,
 };
 export const HINDI: Sentence = {
   audioSupported: true,
@@ -595,8 +597,8 @@ export const HINDI: Sentence = {
     qualityTranslate: 'अनुवादों की गुणवत्ता क्या थी?',
     rating: 'आप उपकरण को कैसे रेट करते हैं?',
     comment: 'नि: शुल्क टिप्पणी',
-    technical: 'क्या आपने उपकरण का उपयोग करके किसी तकनीकी समस्या का सामना किया है?'
-  }
+    technical: 'क्या आपने उपकरण का उपयोग करके किसी तकनीकी समस्या का सामना किया है?',
+  },
 };
 
 export const TAMOUL: Sentence = {
@@ -616,16 +618,16 @@ export const TAMOUL: Sentence = {
     qualityTranslate: QUALITY_TRANSLATE,
     rating: RATING,
     comment: COMMENT,
-    technical: TECHNICAL
-  }
+    technical: TECHNICAL,
+  },
 };
 export const TAMOUL_NO_VOICE: Sentence = {
   ...TAMOUL,
-  voiceNotSupported: true
+  voiceNotSupported: true,
 };
 export const TAMOUL_INDIA: Sentence = {
   ...TAMOUL,
-  audioSupported: true
+  audioSupported: true,
 };
 
 export const ITALIAN: Sentence = {
@@ -648,8 +650,8 @@ export const ITALIAN: Sentence = {
     qualityTranslate: 'Qual era la qualità delle traduzioni?',
     rating: 'Come valuti lo strumento?',
     comment: 'Commento gratuito',
-    technical: 'Hai riscontrato problemi tecnici utilizzando lo strumento?'
-  }
+    technical: 'Hai riscontrato problemi tecnici utilizzando lo strumento?',
+  },
 };
 
 export const MONGOL: Sentence = {
@@ -669,12 +671,12 @@ export const MONGOL: Sentence = {
     qualityTranslate: 'Орчуулгын чанар ямар байв?',
     rating: 'Та багажийг хэрхэн үнэлдэг вэ?',
     comment: 'Үнэгүй сэтгэгдэл',
-    technical: 'Хэрэгслийг ашиглахад ямар нэгэн техникийн асуудал тулгарсан уу?'
-  }
+    technical: 'Хэрэгслийг ашиглахад ямар нэгэн техникийн асуудал тулгарсан уу?',
+  },
 };
 export const MONGOL_NO_VOICE: Sentence = {
   ...MONGOL,
-  voiceNotSupported: true
+  voiceNotSupported: true,
 };
 export const NEPALESE: Sentence = {
   displayedWelcome: 'नमस्कार, म तपाईको दोभाषे बन्ने छ तपाईंको सल्लाहकार संग सजिलै साटासाट गर्न।',
@@ -693,12 +695,12 @@ export const NEPALESE: Sentence = {
     qualityTranslate: 'अनुवादको गुणस्तर के थियो?',
     rating: 'तपाईं कसरी उपकरण मूल्या rate्कन गर्नुहुन्छ?',
     comment: 'नि: शुल्क टिप्पणी',
-    technical: 'के तपाईंले उपकरण प्रयोग गर्दा कुनै प्राविधिक समस्याहरू सामना गर्नु भएको छ?'
-  }
+    technical: 'के तपाईंले उपकरण प्रयोग गर्दा कुनै प्राविधिक समस्याहरू सामना गर्नु भएको छ?',
+  },
 };
 export const NEPALESE_NO_VOICE: Sentence = {
   ...NEPALESE,
-  voiceNotSupported: true
+  voiceNotSupported: true,
 };
 export const RUSSIA: Sentence = {
   audioSupported: true,
@@ -720,18 +722,18 @@ export const RUSSIA: Sentence = {
     qualityTranslate: 'Какое было качество переводов?',
     rating: 'Как вы оцениваете инструмент?',
     comment: 'Бесплатный комментарий',
-    technical: 'Сталкивались ли вы с какими-либо техническими проблемами при использовании инструмента?'
-  }
+    technical: 'Сталкивались ли вы с какими-либо техническими проблемами при использовании инструмента?',
+  },
 };
 
 export const OUZBEK: Sentence = {
-  displayedWelcome: 'Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo\'lardim.',
+  displayedWelcome: "Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo'lardim.",
   readedWelcome: 'Ushbu tilda almashishni xohlaysizmi?',
   applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
-  translationH2: 'Matn kiriting yoki gapirish uchun ko\'k mikrofonni bosib turing',
-  translationH2Mobile: 'Matn kiriting yoki gapirish uchun ko\'k mikrofonga teging',
+  translationH2: "Matn kiriting yoki gapirish uchun ko'k mikrofonni bosib turing",
+  translationH2Mobile: "Matn kiriting yoki gapirish uchun ko'k mikrofonga teging",
   thanks: THANKS_EN,
   listen: 'Listen',
   recordText: 'Hozir gapiring',
@@ -741,12 +743,12 @@ export const OUZBEK: Sentence = {
     qualityTranslate: 'Tarjimalarning sifati qanday edi?',
     rating: 'Asbobni qanday baholaysiz?',
     comment: 'Bepul sharh',
-    technical: 'Asbobni ishlatishda biron bir texnik muammoga duch keldingizmi?'
-  }
+    technical: 'Asbobni ishlatishda biron bir texnik muammoga duch keldingizmi?',
+  },
 };
 export const OUZBEK_NO_VOICE: Sentence = {
   ...OUZBEK,
-  voiceNotSupported: true
+  voiceNotSupported: true,
 };
 export const ROMANIAN: Sentence = {
   audioSupported: true,
@@ -766,8 +768,8 @@ export const ROMANIAN: Sentence = {
     qualityTranslate: 'Care a fost calitatea traducerilor?',
     rating: 'Cum evaluați instrumentul?',
     comment: 'Comentariu gratuit',
-    technical: 'Ați întâmpinat probleme tehnice folosind instrumentul?'
-  }
+    technical: 'Ați întâmpinat probleme tehnice folosind instrumentul?',
+  },
 };
 
 export const SOMALI: Sentence = {
@@ -788,8 +790,8 @@ export const SOMALI: Sentence = {
     qualityTranslate: 'Muxuu ahaa tayada tarjumaadaha?',
     rating: 'Sideed u qiimeysaa qalabka?',
     comment: 'Faallo Bilaash ah',
-    technical: 'Miyaad la kulantay wax dhibaato farsamo ah adoo adeegsanaya qalabka?'
-  }
+    technical: 'Miyaad la kulantay wax dhibaato farsamo ah adoo adeegsanaya qalabka?',
+  },
 };
 
 export const VIETNAMESE: Sentence = {
@@ -810,8 +812,8 @@ export const VIETNAMESE: Sentence = {
     qualityTranslate: 'Chất lượng của các bản dịch là gì?',
     rating: 'Bạn đánh giá công cụ này như thế nào?',
     comment: 'Bình luận miễn phí',
-    technical: 'Bạn có gặp bất kỳ sự cố kỹ thuật nào khi sử dụng công cụ này không?'
-  }
+    technical: 'Bạn có gặp bất kỳ sự cố kỹ thuật nào khi sử dụng công cụ này không?',
+  },
 };
 
 export const PERSAN: Sentence = {
@@ -832,8 +834,8 @@ export const PERSAN: Sentence = {
     qualityTranslate: 'کیفیت ترجمه ها چگونه بود؟',
     rating: 'ابزار را چگونه ارزیابی می کنید؟',
     comment: 'نظر رایگان',
-    technical: 'آیا با استفاده از این ابزار به مشکلات فنی برخورد کرده اید؟'
-  }
+    technical: 'آیا با استفاده از این ابزار به مشکلات فنی برخورد کرده اید؟',
+  },
 };
 
 export const GREEK: Sentence = {
@@ -852,8 +854,8 @@ export const GREEK: Sentence = {
     qualityTranslate: 'Ποια ήταν η ποιότητα των μεταφράσεων;',
     rating: 'Πώς αξιολογείτε το εργαλείο;',
     comment: 'Δωρεάν σχόλιο',
-    technical: 'Έχετε αντιμετωπίσει τεχνικά προβλήματα κατά τη χρήση του εργαλείου;'
-  }
+    technical: 'Έχετε αντιμετωπίσει τεχνικά προβλήματα κατά τη χρήση του εργαλείου;',
+  },
 };
 
 export const BULGARE: Sentence = {
@@ -861,5 +863,5 @@ export const BULGARE: Sentence = {
   readedWelcome: 'Искате ли да превключите на този език?',
   translationH2: 'Въведете текст или натиснете и задръжте син микрофон, за да говорите',
   translationH2Ios: 'Напишете изречението за превод',
-  translationH2Mobile: 'Въведете текст или докоснете синия микрофон, за да говорите'
+  translationH2Mobile: 'Въведете текст или докоснете синия микрофон, за да говорите',
 };
