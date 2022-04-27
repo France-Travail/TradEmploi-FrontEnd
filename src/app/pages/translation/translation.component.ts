@@ -53,6 +53,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private vocalSupported = false;
   private readonly authorizationHandled = [];
   private isScrollingToUp = false;
+  private audioSpeechToPlay = [];
+  private audioSpeechIsPlaying = false;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -104,6 +106,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   ngAfterViewChecked() {
     this.scrollToBottom();
     this.navbarService.show();
+    this.playAudioSpeech();
   }
 
   ngOnDestroy() {
@@ -245,7 +248,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (row.role === Role.ADVISOR) {
         const traduction = [];
         for (const language of languages) {
-          const translate = await this.translateService.translate(row.texte, language);
+          const translate = await this.translateService.translate(row.texte, language, row.langueDE);
           traduction.push(translate);
         }
         row.traduction = traduction.join(',');
@@ -352,9 +355,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
-  private callTranslateApi(message: any, languageTarget: any) {
+  private callTranslateApi(message: Message, languageTarget: any) {
     this.translateService
-      .translate(message.text, languageTarget.written)
+      .translate(message.text, languageTarget.written, message.languageOrigin)
       .then((translate) => {
         this.setTranslateMessage(message, translate, languageTarget.audio);
       })
@@ -368,17 +371,19 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const listenMulti = !this.isSender(message.member, message.languageOrigin) && this.isAudioSupported;
     const listenMono = this.isAudioSupported || message.role === Role.GUEST;
     const listen = this.isMultiDevices ? listenMulti : listenMono;
+
     if (listen) {
       // remove words start with *
       translate = translate.replace(/\*/g, '');
       this.textToSpeechService
         .getSpeech(translate, languageTarget)
         .then((_) => {
-          if (this.textToSpeechService.audioSpeech) {
+          const audioSpeech = this.textToSpeechService.audioSpeech;
+          if (audioSpeech) {
             if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
-              this.textToSpeechService.audioSpeech.play();
+              this.audioSpeechToPlay.push(audioSpeech);
             }
-            message.audioHtml = this.textToSpeechService.audioSpeech;
+            message.audioHtml = audioSpeech;
           }
         })
         .catch((_) => {
@@ -459,5 +464,19 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private renameKey(obj, oldKey, newKey) {
     obj[newKey] = obj[oldKey];
     delete obj[oldKey];
+  }
+
+  private playAudioSpeech() {
+    if (this.audioSpeechIsPlaying || this.audioSpeechToPlay.length === 0) {
+      return;
+    }
+    const audioSpeech = this.audioSpeechToPlay.shift();
+    audioSpeech.play();
+    audioSpeech.onplay = () => {
+      this.audioSpeechIsPlaying = true;
+    };
+    audioSpeech.onended = () => {
+      this.audioSpeechIsPlaying = false;
+    };
   }
 }
