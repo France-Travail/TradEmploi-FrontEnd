@@ -232,4 +232,7 @@ export class RateDialogComponent implements OnInit {
   private fromAzure(language: string) {
     return environment.microsoftSpeechConfig.enabled && !environment.microsoftSpeechConfig.excludedLanguages.includes(language);
   }
+  public closeModal() {
+    this.dialogRef.close();
+  }
 }

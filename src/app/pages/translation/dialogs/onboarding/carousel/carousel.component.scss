@@ -4,10 +4,21 @@
   flex: 1;
 }
 
-.titles {
-  font-size: x-large;
-  padding-bottom: 15px;
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  .close {
+    cursor: pointer;
+    color: $secondary-color;
+    font-size: 30px;
+  }
+  .titles {
+    font-size: x-large;
+    padding-bottom: 15px;
+  }
 }
+
 .carousel {
   position: relative;
   height: 100%;
@@ -15,7 +26,7 @@
   overflow: hidden;
   border-radius: 0.5em;
 }
-.video{
+.video {
   border: 0px;
 }
 .slide {
@@ -56,9 +67,7 @@
 .arrow {
   width: 50px;
   height: 50px;
-
 }
-
 
 .helpSentences {
   white-space: pre-line;
@@ -70,14 +79,11 @@
     flex-grow: 1;
     white-space: pre-line;
     text-align: justify;
-
     .helpText {
       height: fit-content;
     }
-
     .browser {
       margin-top: 15px;
-
       img {
         margin-right: 10px;
         vertical-align: middle;
@@ -86,7 +92,6 @@
       }
     }
   }
-
   .helpFR {
     max-width: 50%;
   }
@@ -112,7 +117,6 @@
   .column {
     display: inline-block;
   }
-
 }
 
 .discoursPoints {
@@ -133,5 +137,4 @@
       height: 32px;
     }
   }
-
 }
