@@ -12,14 +12,14 @@ export class TranslateService {
   constructor(private readonly errorService: ErrorService, private readonly tbs: TokenBrokerService) {
   }
 
-  public async translate(text: string, targetLanguageCode: string): Promise<string> {
+  public async translate(text: string, targetLanguageCode: string,  sourceLanguageCode?: string): Promise<string> {
     targetLanguageCode = this.mapLanguage(targetLanguageCode);
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const gwToken = tokenResponse.tokenGW;
     const url = `${environment.gcp.gateWayUrl}/translation`;
     const data = {
       text,
-      sourceLanguageCode: 'fr-FR',
+      sourceLanguageCode: (sourceLanguageCode ? sourceLanguageCode : 'fr-FR'),
       targetLanguageCode,
       projectId: environment.firebaseConfig.projectId
     };
