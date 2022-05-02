@@ -97,7 +97,6 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     this.isMicrophoneGranted = await navigator.permissions.query({ name: 'microphone' }).then(function (result) {
       return result.state == 'granted';
     });
-
   }
 
   private getInterim(data: Vocabulary, translationPlaceHolderIos: string) {
@@ -142,6 +141,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       }
     } else {
       this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
+      this.requestPermission();
     }
   }
 
@@ -186,6 +186,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       });
     } else {
       this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
+      this.requestPermission();
     }
   }
 
@@ -336,5 +337,19 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
 
   private fromAzure(language: string) {
     return environment.microsoftSpeechConfig.enabled && !environment.microsoftSpeechConfig.excludedLanguages.includes(language);
+  }
+
+  private async requestPermission() {
+    let permission = await navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then(function () {
+        return true;
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+    if (permission === true) {
+      this.isMicrophoneGranted = true;
+    }
   }
 }
