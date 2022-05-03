@@ -95,7 +95,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     });
     this.isTablet = this.settingsService.isTablet;
     this.isMicrophoneGranted = await navigator.permissions.query({ name: 'microphone' }).then(function (result) {
-      return result.state == 'granted';
+      return result.state == 'granted' || result.state == 'prompt';
     });
   }
 
