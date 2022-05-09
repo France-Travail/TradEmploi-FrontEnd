@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
 import { ChatService } from '../../../../services/chat.service';
 import { SettingsService } from '../../../../services/settings.service';
@@ -9,7 +8,7 @@ import { Role } from '../../../../models/role';
 @Component({
   selector: 'app-share',
   templateUrl: './share.component.html',
-  styleUrls: ['./share.component.scss']
+  styleUrls: ['./share.component.scss'],
 })
 export class ShareComponent implements OnInit {
   public link: string;
@@ -18,12 +17,13 @@ export class ShareComponent implements OnInit {
 
   private roomId: string;
 
-  constructor(private readonly dialogRef: MatDialogRef<ShareComponent>,
-              private readonly router: Router,
-              private readonly chatService: ChatService,
-              private readonly settingsService: SettingsService,
-              private readonly toastService: ToastService) {
-  }
+  constructor(
+    private readonly dialogRef: MatDialogRef<ShareComponent>,
+
+    private readonly chatService: ChatService,
+    private readonly settingsService: SettingsService,
+    private readonly toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {
@@ -79,15 +79,15 @@ export class ShareComponent implements OnInit {
       language: {
         audio: this.settingsService.defaultLanguage.audio,
         written: this.settingsService.defaultLanguage.written,
-        languageName: this.settingsService.defaultLanguage.languageName
+        languageName: this.settingsService.defaultLanguage.languageName,
       },
       roomId: this.roomId,
-      isMultiDevices: true
+      isMultiDevices: true,
     });
     const user = JSON.parse(localStorage.getItem('user'));
     user.language = {
       audio: this.settingsService.defaultLanguage.audio,
-      written: this.settingsService.defaultLanguage.written
+      written: this.settingsService.defaultLanguage.written,
     };
     user.roomId = this.roomId;
     user.isMultiDevices = true;
