@@ -1,9 +1,23 @@
-<div class="panel">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="title">
     <img src="assets/images/logo-working.png" alt="Logo Pôle Emploi" style="width: 50%" />
     <h1 class="t2">Connexion</h1>
     <p class="t3">Accédez au service de <span class="text-app">traduction instantanée</span></p>
   </div>
 
+  <mat-form-field [color]="email.valid && 'accent'" class="input">
+    <input id="email" matInput class="text" type="email" formControlName="email" placeholder="Identifiant" autocomplete="off" />
+    <mat-error *ngIf="email.hasError('required')">L'adresse email est requise.</mat-error>
+    <mat-error *ngIf="email.invalid && email.dirty">Vous devez entrer une adresse email valide.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field [color]="password.valid && 'accent'" class="input">
+    <input id="password" matInput type="password" formControlName="password" placeholder="Mot de passe" autocomplete="off" />
+    <mat-error *ngIf="password.hasError('required')">Le mot de passe est requis.</mat-error>
+    <mat-error *ngIf="password.invalid && password.dirty">Le mot de passe doit faire au moins 6 caractères.</mat-error>
+  </mat-form-field>
+
+  <button type="submit" [disabled]="form.invalid">Se connecter</button>
+
   <button (click)="login()">Se connecter avec Pôle Emploi</button>
-</div>
+</form>

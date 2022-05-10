@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
 import { SettingsService } from './settings.service';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,18 +11,20 @@ import { SettingsService } from './settings.service';
 export class AuthService {
   constructor(private readonly afAuth: AngularFireAuth, private readonly settingsService: SettingsService) {}
 
-  public login(emailPe: string, password: string): Promise<{ isAuth: boolean; message: string }> {
+  public login(email: string, password: string, firebaseLogin?: boolean): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         let auth;
-        const signInMethodsForEmail = await this.afAuth.auth.fetchSignInMethodsForEmail(emailPe);
+        const signInMethodsForEmail = await this.afAuth.auth.fetchSignInMethodsForEmail(email);
         if (signInMethodsForEmail.length > 0 && signInMethodsForEmail.includes('password')) {
-          auth = await this.afAuth.auth.signInWithEmailAndPassword(emailPe, password);
+          auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
         } else {
-          auth = await this.afAuth.auth.createUserWithEmailAndPassword(emailPe, password);
+          if (firebaseLogin === false) {
+            auth = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+          }
         }
         if (auth && auth.user != null) {
-          this.setRoleAndToken(emailPe);
+          this.setRoleAndToken(email);
           FbAuthSingleton.getInstance().setFbAuth(auth);
           resolve({ isAuth: true, message: 'Authentification réussie' });
         }
@@ -76,7 +78,7 @@ export class AuthService {
   }
 
   public getRole(email: string): Role {
-    if (email && email.match('.*@pole-emploi[.]fr$')) {
+    if (email && email.match(environment.authorizedDomain)) {
       return Role.ADVISOR;
     }
     return Role.GUEST;

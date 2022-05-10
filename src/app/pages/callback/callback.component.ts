@@ -34,32 +34,30 @@ export class CallbackComponent implements OnInit {
           email: userinfo.email,
           sub: userinfo.sub,
           state: userinfo.state,
-        }
+        };
         try {
-          if (this.user.email.match('.*@pole-emploi[.]fr$')) {
+          if (this.user.email.match(environment.authorizedDomain)) {
             this.loginAuthentificated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
           }
-        }
-         catch (error) {
+        } catch (error) {
           this.router.navigateByUrl('/start');
         }
-      }else{
+      } else {
         this.router.navigateByUrl('/start');
       }
     });
   }
 
-  private getUserInfo = async (access_token:string) => {
-  return axios
-    .get(authCodeFlowConfig.userinfoEndpoint+access_token)
-    .then((response) => {
-      return response.data;
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
-  }
-
+  private getUserInfo = async (access_token: string) => {
+    return axios
+      .get(authCodeFlowConfig.userinfoEndpoint + access_token)
+      .then((response) => {
+        return response.data;
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
 
   private async loginAuthentificated(email: string, firstname: string, lastname: string, idDGASI: string) {
     try {
