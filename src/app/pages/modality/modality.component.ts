@@ -10,21 +10,23 @@ import { Role } from '../../models/role';
 @Component({
   selector: 'app-modality',
   templateUrl: './modality.component.html',
-  styleUrls: ['./modality.component.scss']
+  styleUrls: ['./modality.component.scss'],
 })
 export class ModalityComponent implements OnInit {
   public sentences = FRENCH.modality;
   public target = 'mono';
-  public checkIconStyle = 'url(\'../../../assets/icons/check-circle.svg\') no-repeat center center';
+  public checkIconStyle = "url('../../../assets/icons/check-circle.svg') no-repeat center center";
   public isSmallScreen = false;
 
   private roomId: string;
 
-  constructor(private readonly router: Router,
-              private readonly navbarService: NavbarService,
-              private readonly chatService: ChatService,
-              private readonly settingsService: SettingsService,
-              private readonly breakpointObserver: BreakpointObserver) {
+  constructor(
+    private readonly router: Router,
+    private readonly navbarService: NavbarService,
+    private readonly chatService: ChatService,
+    private readonly settingsService: SettingsService,
+    private readonly breakpointObserver: BreakpointObserver
+  ) {
     this.navbarService.handleTabModality();
     this.navbarService.show();
     this.breakpointObserver.observe(['(max-width: 1050px)']).subscribe((result) => {
@@ -34,7 +36,7 @@ export class ModalityComponent implements OnInit {
 
   ngOnInit(): void {
     this.settingsService.user.subscribe((user) => {
-      if (user != null && !user.isMultiDevices) {
+      if (user != null) {
         this.roomId = user.roomId;
       }
     });
@@ -74,15 +76,15 @@ export class ModalityComponent implements OnInit {
       language: {
         audio: this.settingsService.defaultLanguage.audio,
         written: this.settingsService.defaultLanguage.written,
-        languageName: this.settingsService.defaultLanguage.languageName
+        languageName: this.settingsService.defaultLanguage.languageName,
       },
       roomId: this.roomId,
-      isMultiDevices: true
+      isMultiDevices: true,
     });
     const user = JSON.parse(localStorage.getItem('user'));
     user.language = {
       audio: this.settingsService.defaultLanguage.audio,
-      written: this.settingsService.defaultLanguage.written
+      written: this.settingsService.defaultLanguage.written,
     };
     user.roomId = this.roomId;
     user.isMultiDevices = true;

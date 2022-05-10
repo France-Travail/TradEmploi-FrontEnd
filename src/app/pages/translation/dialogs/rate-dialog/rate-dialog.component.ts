@@ -23,35 +23,35 @@ interface Sentences {
 @Component({
   selector: 'app-rate-dialog',
   templateUrl: './rate-dialog.component.html',
-  styleUrls: ['./rate-dialog.component.scss']
+  styleUrls: ['./rate-dialog.component.scss'],
 })
 export class RateDialogComponent implements OnInit {
   public rate: Rate;
   public rates: boolean[][] = [
     [false, false, false, false, false],
-    [false, false, false, false, false]
+    [false, false, false, false, false],
   ];
   public sentences: Sentences = {
     questionOne: {
       french: '',
-      foreign: ''
+      foreign: '',
     },
     questionTwo: {
       french: '',
-      foreign: ''
+      foreign: '',
     },
     questionThree: {
       french: '',
-      foreign: ''
+      foreign: '',
     },
     questionFour: {
       french: '',
-      foreign: ''
+      foreign: '',
     },
     questionFive: {
       french: '',
-      foreign: ''
-    }
+      foreign: '',
+    },
   };
   public canSendRate: boolean;
   private isMultiDevices: boolean;
@@ -107,9 +107,7 @@ export class RateDialogComponent implements OnInit {
     }
     let isoCodes;
     if (this.data.guest && this.data.guest.length > 0) {
-      isoCodes = this.data.guest
-        .filter((l, index) => l !== 'fr-FR' && this.data.guest.indexOf(l) === index)
-        .join(',');
+      isoCodes = this.data.guest.filter((l, index) => l !== 'fr-FR' && this.data.guest.indexOf(l) === index).join(',');
       if (!isoCodes) {
         isoCodes = languageNameFr;
       }
@@ -131,7 +129,7 @@ export class RateDialogComponent implements OnInit {
       agency: '',
       nbMessagesGuest: 0,
       nbMessagesAdvisor: 0,
-      typeSTT: ''
+      typeSTT: '',
     };
     this.canSendRate = false;
   }
@@ -169,7 +167,6 @@ export class RateDialogComponent implements OnInit {
       this.rates[question][i] = value >= i ? true : false;
     });
     this.setCanSendRate();
-
   }
 
   private fillNbMessages() {
@@ -199,11 +196,17 @@ export class RateDialogComponent implements OnInit {
           this.dialogRef.close();
           const isMono = !this.isMultiDevices;
           const user = this.settingsService.user.value;
+          const advisorRole = user.role;
           if (isMono) {
-            const advisorRole = user.role;
             this.chatService.initChatMono(null, advisorRole);
           } else {
             this.chatService.updateChatStatus(user.roomId, false);
+            const newRoomId = this.chatService.createRoomId();
+            this.settingsService.user.next({
+              ...this.settingsService.user.value,
+              roomId: newRoomId,
+            });
+            this.chatService.initChatMulti(newRoomId, advisorRole);
           }
           this.router.navigate(['choice']);
         })

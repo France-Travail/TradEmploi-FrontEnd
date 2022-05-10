@@ -17,10 +17,9 @@ import * as moment from 'moment';
 import { Guest } from '../models/db/guest';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatService {
-
   public messagesStored: MessageWrapped[] = [];
   public support: Support = Support.MONODEVICE;
   private readonly device: Device;
@@ -29,14 +28,14 @@ export class ChatService {
     this.device = this.deviceService.getUserDevice();
   }
 
-  getRoomId() {
+  createRoomId() {
     const randomValues = window.crypto.getRandomValues(new Uint32Array(1)); // Compliant for security-sensitive use cases
     return String(Math.floor(randomValues[0] / 100));
   }
 
   public initChatMono(roomId: string, advisorRole: Role): Promise<boolean> {
     if (!roomId) {
-      roomId = this.getRoomId();
+      roomId = this.createRoomId();
     }
     this.support = Support.MONODEVICE;
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
@@ -45,19 +44,19 @@ export class ChatService {
         id: Date.now().toString(),
         firstname: AdvisorDefaultName,
         role: advisorRole,
-        device: this.device
+        device: this.device,
       };
       const guest: Member = {
         id: Date.now().toString(),
         firstname: GuestDefaultName,
         role: Role.GUEST,
-        device: this.device
+        device: this.device,
       };
-      const mwsWithoutAudio = this.messagesStored.map(mw => {
+      const mwsWithoutAudio = this.messagesStored.map((mw) => {
         const { audioHtml, ...msg } = mw.message;
         return {
           ...mw,
-          message: msg
+          message: msg,
         };
       });
       const chatCreateDto: InitChatDto = { members: [advisor, guest], messages: mwsWithoutAudio };
@@ -72,27 +71,28 @@ export class ChatService {
       id: Date.now().toString(),
       firstname: AdvisorDefaultName,
       role: advisorRole,
-      device: this.device
+      device: this.device,
     };
     const chatCreateDto: InitChatDto = { members: [advisor] };
+
     return this.create(roomId, chatCreateDto);
   }
 
   initChatMonoMulti(roomId: string, advisorRole: Role): Promise<boolean> {
     this.support = Support.MONOANDMULTIDEVICE;
     this.messagesStored = this.messagesStored.map((m) => this.cryptService.encryptWrapped(m, roomId));
-    const mwsWithoutAudio = this.messagesStored.map(mw => {
+    const mwsWithoutAudio = this.messagesStored.map((mw) => {
       const { audioHtml, ...msg } = mw.message;
       return {
         ...mw,
-        message: msg
+        message: msg,
       };
     });
     const advisor = {
       id: Date.now().toString(),
       firstname: AdvisorDefaultName,
       role: advisorRole,
-      device: this.device
+      device: this.device,
     };
     const chatCreateDto: InitChatDto = { members: [advisor], messages: mwsWithoutAudio, monoToMultiTime: Date.now() };
     return this.create(roomId, chatCreateDto);
@@ -104,13 +104,12 @@ export class ChatService {
       id: Date.now().toString(),
       firstname: GuestDefaultName,
       role: Role.GUEST,
-      device: this.device
+      device: this.device,
     };
     const chatCreateDto: InitChatDto = { members: [guest], messages: [] };
     this.create(roomId, chatCreateDto);
     this.errorService.save(ERROR_FUNC_UNKNOWCHAT);
   }
-
 
   hasRoom(roomId: string): Observable<boolean> {
     return new Observable((observer) => {
@@ -134,11 +133,10 @@ export class ChatService {
     const messageWrapped: MessageWrapped = { notification: newMember.firstname + ' est connecté', time: Date.now() };
     const itemsRef = this.db.doc(`chats/${roomId}`);
     await itemsRef.update({
-      members: firebase.firestore.FieldValue.arrayUnion(newMember)
-      , messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped)
+      members: firebase.firestore.FieldValue.arrayUnion(newMember),
+      messages: firebase.firestore.FieldValue.arrayUnion(messageWrapped),
     });
   }
-
 
   async updateGuestStatus(roomId: string, guest: Guest) {
     const itemsRef = this.db.doc(`chats/${roomId}`);
@@ -155,14 +153,14 @@ export class ChatService {
   }
 
   updateChatStatus(roomId: string, active: boolean): Promise<boolean> {
-    return this.db.doc(`chats/${roomId}`)
+    return this.db
+      .doc(`chats/${roomId}`)
       .update({ active })
-      .then(_ => true)
-      .catch(_ => {
+      .then((_) => true)
+      .catch((_) => {
         return false;
       });
   }
-
 
   private create(roomId: string, initChatDto: InitChatDto): Promise<boolean> {
     const expiryDate = moment().add(2, 'hours');
@@ -172,13 +170,13 @@ export class ChatService {
       guests: [],
       active: true,
       support: this.support,
-      ...initChatDto
+      ...initChatDto,
     };
     return this.db
       .doc(`chats/${roomId}`)
       .set(chat)
-      .then(_ => true)
-      .catch(_ => {
+      .then((_) => true)
+      .catch((_) => {
         return false;
       });
   }

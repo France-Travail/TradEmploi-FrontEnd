@@ -38,7 +38,7 @@ export class CallbackComponent implements OnInit {
         try {
           if (this.user.email.match('.*@pole-emploi[.]fr$')) {
             this.loginAuthentificated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
-          } 
+          }
         }
          catch (error) {
           this.router.navigateByUrl('/start');
@@ -48,7 +48,7 @@ export class CallbackComponent implements OnInit {
       }
     });
   }
-  
+
   private getUserInfo = async (access_token:string) => {
   return axios
     .get(authCodeFlowConfig.userinfoEndpoint+access_token)
@@ -65,7 +65,7 @@ export class CallbackComponent implements OnInit {
     try {
       await this.authService.login(email, environment.peama.password);
       await this.telemetryService.logPeama(idDGASI);
-      const roomId = this.chatService.getRoomId();
+      const roomId = this.chatService.createRoomId();
       localStorage.setItem('isLogged', 'true');
       this.settingsService.user.next({
         ...this.settingsService.user.value,
