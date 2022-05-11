@@ -50,7 +50,6 @@ export class AuthenticationComponent implements OnInit {
       const auth = await this.authService.login(this.email.value, this.password.value, true);
       if (auth.isAuth) {
         const roomId = this.chatService.createRoomId();
-        await this.telemetryService.logPeama('ABCD1234');
         localStorage.setItem('isLogged', 'true');
         this.settingsService.user.next({
           ...this.settingsService.user.value,
@@ -58,8 +57,6 @@ export class AuthenticationComponent implements OnInit {
           firstname: 'Conseiller',
           lastname: 'Pôle Emploi',
           email: this.email.value,
-          idDGASI: 'ABCD1234',
-          agency: '',
           connectionTime: Date.now(),
           roomId,
           isMultiDevices: false,
