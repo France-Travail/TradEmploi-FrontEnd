@@ -208,7 +208,6 @@ export class RateDialogComponent implements OnInit {
               roomId: newRoomId,
             });
             this.chatService.initChatMono(newRoomId, advisorRole);
-            // this.chatService.initChatMulti(newRoomId, advisorRole);
           }
           this.router.navigate(['choice']);
         })

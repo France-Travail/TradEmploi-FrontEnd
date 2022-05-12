@@ -12,11 +12,12 @@ import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
 import { Role } from '../../../../models/role';
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 import { Router } from '@angular/router';
+import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
@@ -30,12 +31,14 @@ export class HeaderComponent implements OnInit {
   public language: string;
   public userName: string;
 
-  constructor(public readonly dialog: MatDialog,
-              public readonly navbarService: NavbarService,
-              private readonly settingsService: SettingsService,
-              private readonly breakpointObserver: BreakpointObserver,
-              private readonly router: Router) {
-  }
+  constructor(
+    public readonly dialog: MatDialog,
+    public readonly navbarService: NavbarService,
+    private readonly settingsService: SettingsService,
+    private readonly breakpointObserver: BreakpointObserver,
+    private readonly chatService: ChatService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit(): void {
     this.isWideScreen = this.breakpointObserver.observe(['(min-width: 1051px)']).pipe(map(({ matches }) => matches));
@@ -72,6 +75,9 @@ export class HeaderComponent implements OnInit {
   }
 
   public choice() {
+    if (this.settingsService.user.value.role === Role.ADVISOR) {
+      this.partialReset();
+    }
     this.router.navigate(['/choice']);
   }
 
@@ -79,8 +85,8 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(component, {
       panelClass: 'customDialog',
       data: {
-        language: this.language
-      }
+        language: this.language,
+      },
     });
   }
 
@@ -88,7 +94,25 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(component, {
       width: '800px',
       height,
-      panelClass: 'customDialog'
+      panelClass: 'customDialog',
     });
   }
+
+  public partialReset = () => {
+    const user = this.settingsService.user.value;
+    const isMono = !user.isMultiDevices;
+    const advisorRole = user.role;
+    if (isMono) {
+      this.chatService.initChatMono(null, advisorRole);
+    } else {
+      this.chatService.updateChatStatus(user.roomId, false);
+      const newRoomId = this.chatService.createRoomId();
+      this.settingsService.user.next({
+        ...this.settingsService.user.value,
+        isMultiDevices: false,
+        roomId: newRoomId,
+      });
+      this.chatService.initChatMono(newRoomId, advisorRole);
+    }
+  };
 }
