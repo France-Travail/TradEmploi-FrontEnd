@@ -33,8 +33,8 @@ export class IndicatorsComponent implements OnInit {
     });
 
     const langObs = this.afs.collection<Language>('languages').valueChanges();
-    langObs.subscribe((langauges) => {
-      this.fillLanguages(langauges);
+    langObs.subscribe((languages) => {
+      this.fillLanguages(languages);
       this.refreshLanguages();
     });
   }
@@ -49,9 +49,9 @@ export class IndicatorsComponent implements OnInit {
    * fill languagesByAverage and languagesByOccurences objects with elements from langauges
    */
 
-  private fillLanguages(langauges: Language[]) {
-    langauges.sort((a, b) => b.occurrences - a.occurrences);
-    for (const language of langauges) {
+  private fillLanguages(languages: Language[]) {
+    languages.sort((a, b) => b.occurrences - a.occurrences);
+    for (const language of languages) {
       if (language.isoCode.includes('-')) {
         const lang = VOCABULARY.find((v) => v.isoCode === language.isoCode);
         if (lang) {
