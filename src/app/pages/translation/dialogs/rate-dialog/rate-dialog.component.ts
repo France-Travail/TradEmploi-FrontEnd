@@ -204,9 +204,10 @@ export class RateDialogComponent implements OnInit {
             const newRoomId = this.chatService.createRoomId();
             this.settingsService.user.next({
               ...this.settingsService.user.value,
+              isMultiDevices: false,
               roomId: newRoomId,
             });
-            this.chatService.initChatMulti(newRoomId, advisorRole);
+            this.chatService.initChatMono(newRoomId, advisorRole);
           }
           this.router.navigate(['choice']);
         })

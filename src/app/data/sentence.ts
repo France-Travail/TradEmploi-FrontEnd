@@ -26,7 +26,6 @@ export const HEBREW: Sentence = {
     technical: 'האם נתקלת בבעיות טכניות כלשהן בשימוש בכלי?',
   },
 };
-
 export const ARAB: Sentence = {
   applicationName: 'الترجمة الفورية',
   displayedWelcome: 'مرحبا انا تفسيرك',
@@ -246,11 +245,15 @@ export const HOLLAND: Sentence = {
 export const POLAND: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Czy chciałbyś wymienić się w tym języku?',
+  translationH2: 'Wpisz tekst lub przytrzymaj niebieski mikrofon, aby mówić',
+  translationH2Mobile: 'Wpisz tekst lub przytrzymaj niebieski mikrofon, aby mówić',
 };
 
 export const SLOVENIA: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Prajete si výmenu v tomto jazyku?',
+  translationH2: 'Ak chcete hovoriť, zadajte text alebo podržte modrý mikrofón',
+  translationH2Mobile: 'Ak chcete hovoriť, zadajte text alebo podržte modrý mikrofón',
 };
 
 export const SWEDEN: Sentence = {
@@ -266,6 +269,9 @@ export const CZECH: Sentence = {
 export const THAILAND: Sentence = {
   ...ENGLISH,
   readedWelcome: 'คุณต้องการแลกเปลี่ยนเป็นภาษานี้หรือไม่?',
+  translationH2: 'ป้อนข้อความหรือกดไมค์สีน้ำเงินค้างไว้เพื่อพูด',
+  translationH2Mobile: 'ป้อนข้อความหรือกดไมค์สีน้ำเงินค้างไว้เพื่อพูด',
+
 };
 
 export const TELUGU: Sentence = {
@@ -283,6 +289,8 @@ export const UKRAINE: Sentence = {
 export const JAPANESE: Sentence = {
   ...ENGLISH,
   readedWelcome: 'この言語で交換しますか？',
+  translationH2: 'テキストを入力するか、青いマイクを持って話します',
+  translationH2Mobile: 'テキストを入力するか、青いマイクをタップして話します',
 };
 
 export const SPANISH: Sentence = {
