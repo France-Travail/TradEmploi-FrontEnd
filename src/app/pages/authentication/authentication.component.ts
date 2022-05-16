@@ -7,7 +7,6 @@ import { ERROR_FUNC_LOGIN_OR_PASSWORD } from 'src/app/models/error/errorFunction
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { SettingsService } from 'src/app/services/settings.service';
-import { TelemetryService } from 'src/app/services/telemetry.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { authCodeFlowConfig } from '../../../environments/authflow';
 @Component({
@@ -17,6 +16,8 @@ import { authCodeFlowConfig } from '../../../environments/authflow';
 })
 export class AuthenticationComponent implements OnInit {
   public form: FormGroup;
+  public isOauthLogin: boolean = authCodeFlowConfig.loginUrl != undefined;
+  public oAuthProvider:string = authCodeFlowConfig.issuer;
   constructor(
     private readonly oauthService: OAuthService,
     private router: Router,
@@ -24,8 +25,7 @@ export class AuthenticationComponent implements OnInit {
     private authService: AuthService,
     private chatService: ChatService,
     private toastService: ToastService,
-    private settingsService: SettingsService,
-    private readonly telemetryService: TelemetryService
+    private settingsService: SettingsService
   ) {
     this.configureSSO();
   }
@@ -35,6 +35,7 @@ export class AuthenticationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.minLength(6), Validators.required]],
     });
+    console.log(this.isOauthLogin);
   }
 
   get email(): AbstractControl {
