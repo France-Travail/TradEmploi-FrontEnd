@@ -11,7 +11,7 @@ import { Message } from '../../../../models/translate/message';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit{
+export class ChatComponent implements OnInit {
   @Input() messagesWrapped: MessageWrapped[];
   @Output() editMessageEmit = new EventEmitter();
   public messageNumberToFold: number;
@@ -19,16 +19,14 @@ export class ChatComponent implements OnInit{
   private targetLanguage: Language;
   public isAudioSupported: boolean;
 
-  constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService) {
-  }
+  constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService) {}
 
   ngOnInit(): void {
-    this.settingsService.user.subscribe(async user => {
+    this.settingsService.user.subscribe(async (user) => {
       if (user && user.firstname) {
-        this.firstName = user.firstname;
+        this.firstName = user.firstname.split(' ')[1];
         this.targetLanguage = user.language;
-        this.isAudioSupported = VOCABULARY.some((item) =>
-          (item.isoCode === user.language.written && item.sentences.audioSupported));
+        this.isAudioSupported = VOCABULARY.some((item) => item.isoCode === user.language.written && item.sentences.audioSupported);
       }
     });
   }
@@ -40,12 +38,15 @@ export class ChatComponent implements OnInit{
   }
 
   public async listenToMessage(index: number) {
-    this.textToSpeechService.getSpeech(this.messagesWrapped[index].notification, this.targetLanguage.audio).then((_) => {
-      this.textToSpeechService.audioSpeech.play();
-      this.textToSpeechService.audioSpeech = undefined;
-    }).catch((_) => {
-      this.textToSpeechService.audioSpeech = undefined;
-    });
+    this.textToSpeechService
+      .getSpeech(this.messagesWrapped[index].notification, this.targetLanguage.audio)
+      .then((_) => {
+        this.textToSpeechService.audioSpeech.play();
+        this.textToSpeechService.audioSpeech = undefined;
+      })
+      .catch((_) => {
+        this.textToSpeechService.audioSpeech = undefined;
+      });
   }
 
   public unFold(messageIndex: number) {
@@ -62,5 +63,4 @@ export class ChatComponent implements OnInit{
   public unFoldMessage(message: Message) {
     return message.role === 'DE' ? '[See more]' : '[Voir plus]';
   }
-
 }
