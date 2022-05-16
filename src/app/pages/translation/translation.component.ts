@@ -33,7 +33,7 @@ const toastError = 'toast-error';
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
-  styleUrls: ['./translation.component.scss']
+  styleUrls: ['./translation.component.scss'],
 })
 export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate, OnDestroy {
   @ViewChild('scrollMe') private readonly chatScroll: ElementRef;
@@ -46,13 +46,15 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   public isMultiDevices = false;
   public roomId: string;
   public isAudioSupported = false;
-
   private isAudioPlay: boolean;
   private user: User;
   private readonly endIdDialogRef: MatDialogRef<any>;
   private support: Support;
   private vocalSupported = false;
   private readonly authorizationHandled = [];
+  private isScrollingToUp = false;
+  private audioSpeechToPlay = [];
+  private audioSpeechIsPlaying = false;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -104,6 +106,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   ngAfterViewChecked() {
     this.scrollToBottom();
     this.navbarService.show();
+    this.playAudioSpeech();
   }
 
   ngOnDestroy() {
@@ -144,11 +147,16 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
+  scroll() {
+    this.isScrollingToUp = true;
+  }
+
   scrollToBottom(): void {
     try {
-      this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
-    } catch (err) {
-    }
+      if (!this.isScrollingToUp) {
+        this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
+      }
+    } catch (err) {}
   }
 
   public goto(where: string): void {
@@ -173,6 +181,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         this.addMessageToChat(messageWrapped.message);
       }
     }
+    this.isScrollingToUp = false;
   }
 
   private addMessageToChat(message: Message) {
@@ -200,28 +209,31 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   public async exportConversation() {
-    const data = JSON.parse(JSON.stringify(this.messagesWrapped)).filter((m) => m.message !== undefined).map(mw => {
-      const m = mw.message;
-      delete m.audioHtml;
-      delete m.hour;
-      delete m.time;
-      delete m.flag;
-      if (m.hasOwnProperty('member')) {
-        this.renameKey(m, 'member', 'membre');
-      }
-      this.renameKey(m, 'languageOrigin', 'langueOrigine');
-      this.renameKey(m, 'languageName', 'langueDE');
-      this.renameKey(m, 'text', 'texte');
-      this.renameKey(m, 'translation', 'traduction');
-      this.renameKey(m, 'translationMode', 'modeTraduction');
-      return m;
-    });
+    const data = JSON.parse(JSON.stringify(this.messagesWrapped))
+      .filter((m) => m.message !== undefined)
+      .map((mw) => {
+        const m = mw.message;
+        delete m.audioHtml;
+        delete m.hour;
+        delete m.time;
+        delete m.flag;
+        if (m.hasOwnProperty('member')) {
+          this.renameKey(m, 'member', 'membre');
+        }
+        this.renameKey(m, 'languageOrigin', 'langueOrigine');
+        this.renameKey(m, 'languageName', 'langueDE');
+        this.renameKey(m, 'text', 'texte');
+        this.renameKey(m, 'translation', 'traduction');
+        this.renameKey(m, 'translationMode', 'modeTraduction');
+        return m;
+      });
     await this.translateDEMessages(data);
     exportCsv(data, 'conversation_');
   }
 
   private getDELanguages(): string[] {
-    const languages = this.messagesWrapped.filter((m) => m.message !== undefined)
+    const languages = this.messagesWrapped
+      .filter((m) => m.message !== undefined)
       .map((m) => m.message.languageOrigin)
       .filter((l) => l !== 'fr-FR');
     return [...new Set(languages)];
@@ -236,7 +248,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (row.role === Role.ADVISOR) {
         const traduction = [];
         for (const language of languages) {
-          const translate = await this.translateService.translate(row.texte, language);
+          const translate = await this.translateService.translate(row.texte, language, row.langueDE);
           traduction.push(translate);
         }
         row.traduction = traduction.join(',');
@@ -256,7 +268,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   @HostListener('window:beforeunload', ['$event'])
   public async openPopUp(event) {
     const confirmationMessage = 'Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?';
-    (event).returnValue = confirmationMessage;
+    event.returnValue = confirmationMessage;
     return 'confirmationMessage';
   }
 
@@ -292,7 +304,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private readonly initMultiDevices = (roomId) => {
     this.chatService.getChat(roomId).subscribe((chat: Chat) => {
-      if (chat.active) {
+      if (chat && chat.active) {
         const isNewAuthorization = chat.guests.filter((g) => this.authorizationHandled.indexOf(g.id) === -1).length > 0 && !this.isGuest;
         isNewAuthorization ? this.authorizeGuest(chat.guests) : this.addMultiMessageToChat(chat, roomId);
       } else {
@@ -343,9 +355,9 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
   }
 
-  private callTranslateApi(message: any, languageTarget: any) {
+  private callTranslateApi(message: Message, languageTarget: any) {
     this.translateService
-      .translate(message.text, languageTarget.written)
+      .translate(message.text, languageTarget.written, message.languageOrigin)
       .then((translate) => {
         this.setTranslateMessage(message, translate, languageTarget.audio);
       })
@@ -359,17 +371,19 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const listenMulti = !this.isSender(message.member, message.languageOrigin) && this.isAudioSupported;
     const listenMono = this.isAudioSupported || message.role === Role.GUEST;
     const listen = this.isMultiDevices ? listenMulti : listenMono;
+
     if (listen) {
       // remove words start with *
       translate = translate.replace(/\*/g, '');
       this.textToSpeechService
         .getSpeech(translate, languageTarget)
         .then((_) => {
-          if (this.textToSpeechService.audioSpeech) {
+          const audioSpeech = this.textToSpeechService.audioSpeech;
+          if (audioSpeech) {
             if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
-              this.textToSpeechService.audioSpeech.play();
+              this.audioSpeechToPlay.push(audioSpeech);
             }
-            message.audioHtml = this.textToSpeechService.audioSpeech;
+            message.audioHtml = audioSpeech;
           }
         })
         .catch((_) => {
@@ -403,7 +417,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private isSender(member: string, languageOrigin: string): boolean {
     if (this.isMultiDevices) {
-      const isSender = (languageOrigin === this.user.language.written && member === this.user.firstname);
+      const isSender = languageOrigin === this.user.language.written && member === this.user.firstname;
       return !isSender && this.user.firstname === undefined ? true : isSender;
     }
     return false;
@@ -442,13 +456,27 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       data: {
         languages,
         roomId: this.roomId,
-        guest
-      }
+        guest,
+      },
     });
   }
 
   private renameKey(obj, oldKey, newKey) {
     obj[newKey] = obj[oldKey];
     delete obj[oldKey];
+  }
+
+  private playAudioSpeech() {
+    if (this.audioSpeechIsPlaying || this.audioSpeechToPlay.length === 0) {
+      return;
+    }
+    const audioSpeech = this.audioSpeechToPlay.shift();
+    audioSpeech.play();
+    audioSpeech.onplay = () => {
+      this.audioSpeechIsPlaying = true;
+    };
+    audioSpeech.onended = () => {
+      this.audioSpeechIsPlaying = false;
+    };
   }
 }

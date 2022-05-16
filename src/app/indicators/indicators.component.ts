@@ -3,16 +3,15 @@ import { Language } from '../models/db/language';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { VOCABULARY } from '../data/vocabulary';
 import { CSS_COLOR_NAMES } from './colors';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-indicators',
   templateUrl: './indicators.component.html',
-  styleUrls: ['./indicators.component.scss']
+  styleUrls: ['./indicators.component.scss'],
 })
 export class IndicatorsComponent implements OnInit {
-
-  constructor(private readonly afs: AngularFirestore) {
-  }
+  constructor(private readonly afs: AngularFirestore) {}
 
   public languagesByAverage = [];
   public languagesByOccurences = [];
@@ -23,11 +22,10 @@ export class IndicatorsComponent implements OnInit {
   public blueScheme;
   public view = [1200, 500];
 
-
   ngOnInit(): void {
     this.setColorScheme();
-
-    const rateObs = this.afs.collection<any>('rates', (rf) => rf.orderBy('date', 'asc')).valueChanges();
+    const dataThreshold = moment().subtract(1, 'month').toDate();
+    const rateObs = this.afs.collection<any>('rates', (rf) => rf.where('date', '>=', dataThreshold).orderBy('date', 'asc')).valueChanges();
     rateObs.subscribe((rates) => {
       const rateMap = this.buildRateMap(rates);
       this.fillLanguagesByTime(rateMap);
@@ -35,8 +33,8 @@ export class IndicatorsComponent implements OnInit {
     });
 
     const langObs = this.afs.collection<Language>('languages').valueChanges();
-    langObs.subscribe((langauges) => {
-      this.fillLanguages(langauges);
+    langObs.subscribe((languages) => {
+      this.fillLanguages(languages);
       this.refreshLanguages();
     });
   }
@@ -47,25 +45,24 @@ export class IndicatorsComponent implements OnInit {
     this.colorScheme = { domain };
   }
 
-
   /**
    * fill languagesByAverage and languagesByOccurences objects with elements from langauges
    */
 
-  private fillLanguages(langauges: Language[]) {
-    langauges.sort((a, b) => b.occurrences - a.occurrences);
-    for (const language of langauges) {
+  private fillLanguages(languages: Language[]) {
+    languages.sort((a, b) => b.occurrences - a.occurrences);
+    for (const language of languages) {
       if (language.isoCode.includes('-')) {
         const lang = VOCABULARY.find((v) => v.isoCode === language.isoCode);
         if (lang) {
           const name = `${lang.languageNameFr} (${lang.countryNameFr}) `;
           this.languagesByAverage.push({
             name,
-            value: language.average
+            value: language.average,
           });
           this.languagesByOccurences.push({
             name,
-            value: language.occurrences
+            value: language.occurrences,
           });
         }
       }

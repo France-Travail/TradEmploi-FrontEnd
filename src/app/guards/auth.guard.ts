@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
   private whenUserItemInLocalStorageIsNull() {
     const user = JSON.parse(localStorage.getItem('user'));
     try {
-      const roomId = this.chatService.getRoomId();
+      const roomId = this.chatService.createRoomId();
       this.settingsService.user.next({
         ...this.settingsService.user.value,
         firstname: user.firstname,
@@ -69,7 +69,7 @@ export class AuthGuard implements CanActivate {
     if (this.settingsService.user.value && this.settingsService.user.value.roomId === undefined) {
       if (localStorage.getItem('user') !== null) {
         const user = JSON.parse(localStorage.getItem('user'));
-        const roomId = this.chatService.getRoomId();
+        const roomId = this.chatService.createRoomId();
         this.settingsService.user.next({
           ...this.settingsService.user.value,
           firstname: user.firstname,

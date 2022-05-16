@@ -43,8 +43,7 @@ export class LogoutComponent  {
     } else {
       await this.handleMono();
     }
-    const accessToken = sessionStorage.getItem('access');
-    this.authService.closePeam(accessToken);
+  
     this.authService.logout();
     this.settingsService.reset();
     sessionStorage.clear();

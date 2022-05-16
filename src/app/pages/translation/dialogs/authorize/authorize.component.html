@@ -1,6 +1,6 @@
 <div mat-dialog-content>
   <span class="question">{{name}} veut participer à cet appel</span>
 </div><div mat-dialog-actions>
-  <button class="cancel-btn" (click)="refuse()">REFUSER</button>
-  <button class="share-btn" (click)="accept()">ACCEPTER</button>
+  <button class="cancel-btn {{isLoading?'disabled-btn': ''}}" (click)="refuse()">REFUSER</button>
+  <button class="share-btn {{isLoading?'disabled-btn': ''}}" (click)="accept()">ACCEPTER</button>
 </div>

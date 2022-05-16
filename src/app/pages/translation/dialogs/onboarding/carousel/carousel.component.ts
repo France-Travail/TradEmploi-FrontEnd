@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-carousel',
@@ -10,7 +11,7 @@ export class CarouselComponent implements OnInit {
   slides = [0, 1, 2];
   currentSlide = 0;
   public title: string;
-
+  constructor(private readonly dialogRef: MatDialogRef<CarouselComponent>){}
   ngOnInit(): void {
     this.setTitle();
   }
@@ -39,5 +40,8 @@ export class CarouselComponent implements OnInit {
         this.title = 'Adapter son discours';
         break;
     }
+  }
+  public closeModal() {
+    this.dialogRef.close();
   }
 }
