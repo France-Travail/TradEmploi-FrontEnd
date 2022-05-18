@@ -240,6 +240,9 @@ export const NORWAY: Sentence = {
 export const HOLLAND: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Wilt u uitwisselen in deze taal?',
+  translationH2: 'Voer tekst in of houd de blauwe microfoon ingedrukt om te spreken',
+  translationH2Mobile: 'Voer tekst in of houd de blauwe microfoon ingedrukt om te spreken',
+
 };
 
 export const POLAND: Sentence = {
@@ -247,6 +250,12 @@ export const POLAND: Sentence = {
   readedWelcome: 'Czy chciałbyś wymienić się w tym języku?',
   translationH2: 'Wpisz tekst lub przytrzymaj niebieski mikrofon, aby mówić',
   translationH2Mobile: 'Wpisz tekst lub przytrzymaj niebieski mikrofon, aby mówić',
+};
+export const CZECH: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Chcete pokračovat v tomto jazyce?',
+  translationH2: 'Zadejte text nebo mluvte podržením modrého mikrofonu',
+  translationH2Mobile: 'Zadejte text nebo mluvte podržením modrého mikrofonu',
 };
 
 export const SLOVENIA: Sentence = {
@@ -259,11 +268,6 @@ export const SLOVENIA: Sentence = {
 export const SWEDEN: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Vill du byta på det här språket?',
-};
-
-export const CZECH: Sentence = {
-  ...ENGLISH,
-  readedWelcome: 'Chcete si vyměnit v tomto jazyce?',
 };
 
 export const THAILAND: Sentence = {

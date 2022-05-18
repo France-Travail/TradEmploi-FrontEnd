@@ -1,20 +1,24 @@
 // Angular
-import { Component, AfterContentInit } from '@angular/core';
+import { Component, AfterContentInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SettingsService } from '../../services/settings.service';
 import { NavbarService } from '../../services/navbar.service';
-
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-start',
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.scss'],
 })
-export class StartComponent implements AfterContentInit {
+export class StartComponent implements AfterContentInit, OnInit {
   public opacity = 0;
 
-  constructor(private readonly settingsService: SettingsService, private readonly router: Router, private readonly navbarService: NavbarService) {}
-
+  constructor(private readonly router: Router, private readonly navbarService: NavbarService) {}
+  ngOnInit(): void {
+    const location = window.location.host;
+    if (location === environment.organization.etabsDomain) {
+      window.location.href = environment.organization.officalDomain;
+    }
+  }
   ngAfterContentInit() {
     this.navbarService.hide();
     const id = setInterval(() => {
