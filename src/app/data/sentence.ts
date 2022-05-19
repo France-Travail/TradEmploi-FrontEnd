@@ -73,8 +73,7 @@ export const FRENCH: Sentence = {
   gdpr: {
     title: 'Protection des données à caractère personnel',
     privacyText:
-      environment.organization.cgus ||
-      "Nous utilisons des cookies pour nous assurer de votre sécurité. Nous n'utilisons pas de cookies pour vous conseiller et nous ne vendons pas vos données à des tiers.",
+      environment.organization.cgus,
     closeBtn: 'FERMER',
   },
   logout: {
@@ -140,7 +139,7 @@ export const ENGLISH: Sentence = {
   gdpr: {
     title: 'Protection of personal data',
     privacyText:
-      "This translation tool processes your data in the context of your exchanges with your advisor and your support byorganization+.'  The legal basis for this\n processing is the public service mission oforganization+.' \n\nYour data is collected and processed byorganization+ ' as part of the follow-up of job seekers.\norganization+ ' will use your data in an anonymized way, for the purpose of continuous improvement of its services, on the basis of its legitimate interests.\n\nYour personal data is transferred to Google datacenters for the proper functioning of the tool.\n\nGoogle uses various data centers within and outside the European Union to host your data. Given the nature of this host, it should be noted that it is subject \nto the Cloud Act, an American law enacted on March 23, 2018, allowing law enforcement or American intelligence agencies to obtain information stored on their \nservers from telecom operators and cloud computing service providers, whether this data is located in the United States or abroad.\n\nYour data is kept for the duration of the conversation. It is then completely anonymized.\nAny person may exercise his or her rights of access and rectification by sending a request toorganization+'' s Data Protection Officer by mail to the following \naddress: 1 avenue du Docteur Gley - 75987 Paris cedex 20, or by email to the following address: contact-dpd@pole-emploi.fr.)\n\nIf you feel that your rights have not been respected, you may file a complaint with the Commission Nationale Informatique et Libertés (CNIL).",
+      environment.organization.cgusEnglish,
     closeBtn: 'CLOSE',
   },
   logout: {
