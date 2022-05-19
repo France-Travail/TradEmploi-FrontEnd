@@ -49,22 +49,26 @@ export class AuthenticationComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     if (!this.isOauthLogin) {
       try {
-        const auth = await this.authService.login(this.email.value, this.password.value, true);
-        if (auth.isAuth) {
-          const roomId = this.chatService.createRoomId();
-          localStorage.setItem('isLogged', 'true');
-          this.settingsService.user.next({
-            ...this.settingsService.user.value,
-            role: this.authService.getRole(this.email.value),
-            firstname: environment.organization.organizationUser,
-            lastname: environment.organization.name,
-            email: this.email.value,
-            connectionTime: Date.now(),
-            roomId,
-            isMultiDevices: false,
-          });
-          localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
-          this.router.navigateByUrl('choice');
+        if (this.authService.isAuthorizedDomain(this.email.value)) {
+          const auth = await this.authService.login(this.email.value, this.password.value, true);
+          if (auth.isAuth) {
+            const roomId = this.chatService.createRoomId();
+            localStorage.setItem('isLogged', 'true');
+            this.settingsService.user.next({
+              ...this.settingsService.user.value,
+              role: this.authService.getRole(this.email.value),
+              firstname: environment.organization.organizationUser,
+              lastname: environment.organization.name,
+              email: this.email.value,
+              connectionTime: Date.now(),
+              roomId,
+              isMultiDevices: false,
+            });
+            localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
+            this.router.navigateByUrl('choice');
+          }
+        } else {
+          this.toastService.showToast(ERROR_FUNC_LOGIN_OR_PASSWORD.description, 'toast-error');
         }
       } catch (error) {
         this.toastService.showToast(ERROR_FUNC_LOGIN_OR_PASSWORD.description, 'toast-error');

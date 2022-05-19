@@ -15,6 +15,7 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         let auth;
+
         const signInMethodsForEmail = await this.afAuth.auth.fetchSignInMethodsForEmail(email);
         if (signInMethodsForEmail.length > 0 && signInMethodsForEmail.includes('password')) {
           auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
@@ -78,12 +79,22 @@ export class AuthService {
   }
 
   public getRole(email: string): Role {
-    if (email && email.match(environment.authorizedDomain)) {
+    const isAuthorized = this.isAuthorizedDomain(email);
+    if (email && isAuthorized) {
       return Role.ADVISOR;
     }
     return Role.GUEST;
   }
 
+  public isAuthorizedDomain(email: string): boolean {
+    let isAuthorized = false;
+    environment.authorizedDomains.forEach((domain) => {
+      if (email.match(domain)) {
+        isAuthorized = true;
+      }
+    });
+    return isAuthorized;
+  }
   private setRoleAndToken(email?: string) {
     this.afAuth.authState.subscribe(async (state) => {
       if (state !== null) {
