@@ -196,7 +196,9 @@ export const DANISH: Sentence = {
 
 export const KOREA: Sentence = {
   ...ENGLISH,
-  readedWelcome: '이 언어로 교환 하시겠습니까?',
+  readedWelcome: '이 언어로 계속하시겠습니까?',
+  translationH2: '텍스트를 입력하거나 파란색 마이크를 잡고 말하세요.',
+  translationH2Mobile: '텍스트를 입력하거나 파란색 마이크를 탭하여 말하세요.',
 };
 
 export const FINLAND: Sentence = {
@@ -207,6 +209,8 @@ export const FINLAND: Sentence = {
 export const GUJARATI: Sentence = {
   ...ENGLISH,
   readedWelcome: 'શું તમે આ ભાષામાં ચાલુ રાખવા માંગો છો?',
+  translationH2: 'ટેક્સ્ટ દાખલ કરો અથવા બોલવા માટે વાદળી માઈકને પકડી રાખો',
+  translationH2Mobile: 'ટેક્સ્ટ દાખલ કરો અથવા વાત કરવા માટે વાદળી માઈક પર ટેપ કરો',
 };
 
 export const HUNGARIAN: Sentence = {
@@ -876,4 +880,61 @@ export const BULGARE: Sentence = {
   translationH2: 'Въведете текст или натиснете и задръжте син микрофон, за да говорите',
   translationH2Ios: 'Напишете изречението за превод',
   translationH2Mobile: 'Въведете текст или докоснете синия микрофон, за да говорите',
+};
+
+export const AFRIKAANS: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Voer teks in, of hou die blou mikrofoon om te praat',
+  translationH2: 'Voer teks in, of hou die blou mikrofoon om te praat',
+  translationH2Mobile: 'Voer teks in, of hou die blou mikrofoon om te praat',
+
+};
+
+export const ARMENIAN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Ցանկանու՞մ եք շարունակել այս լեզվով:',
+  translationH2: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
+  translationH2Mobile: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
+
+};
+
+export const BASQUE: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Hizkuntza honetan jarraitu nahi duzu?',
+  translationH2: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
+  translationH2Mobile: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
+
+};
+
+export const ICELAND: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Viltu halda áfram á þessu tungumáli?',
+  translationH2: 'Sláðu inn texta eða haltu bláa hljóðnemanum til að tala',
+  translationH2Mobile: 'Sláðu inn texta eða pikkaðu á bláa hljóðnemann til að tala',
+
+};
+
+export const SERBIAN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Да ли желите да наставите на овом језику?',
+  translationH2: 'Унесите текст или држите плави микрофон да бисте говорили',
+  translationH2Mobile: 'Унесите текст или држите плави микрофон да бисте говорили',
+
+};
+
+export const GEORGIAN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'გსურთ ამ ენაზე გაგრძელება?',
+  translationH2: 'შეიყვანეთ ტექსტი, ან გეჭიროთ ლურჯი მიკროფონი სალაპარაკოდ',
+  translationH2Mobile: 'შეიყვანეთ ტექსტი, ან შეეხეთ ლურჯ მიკროფონს სასაუბროდ',
+
+};
+
+
+export const CROATIAN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Želite li nastaviti na ovom jeziku?',
+  translationH2: 'Unesite tekst ili držite plavi mikrofon da biste govorili\'',
+  translationH2Mobile: 'Unesite tekst ili držite plavi mikrofon da biste govorili\'',
+
 };
