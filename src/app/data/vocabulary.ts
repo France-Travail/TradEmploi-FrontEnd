@@ -1,12 +1,15 @@
 import { Vocabulary } from '../models/vocabulary';
 import {
   ALBANIAN,
+  AFRIKAANS,
+  ARMENIAN,
   AMHARIC,
   ARAB,
   BENGALI,
   BENGALI_INDIA,
   BULGARE,
   CZECH,
+  CROATIAN,
   DANISH,
   DARI,
   ENGLISH,
@@ -14,6 +17,7 @@ import {
   ESTONIAN,
   FINLAND,
   FRENCH,
+  GEORGIAN,
   GERMAN,
   GREEK,
   GUJARATI,
@@ -21,6 +25,7 @@ import {
   HINDI,
   HOLLAND,
   HUNGARIAN,
+  ICELAND,
   INDONESIA,
   ITALIAN,
   JAPANESE,
@@ -44,13 +49,14 @@ import {
   SLOVENIA,
   SPANISH,
   SWEDEN,
+  SERBIAN,
   TAMOUL,
   TAMOUL_INDIA,
   TELUGU,
   THAILAND,
   TURC,
   UKRAINE,
-  VIETNAMESE
+  VIETNAMESE, BASQUE,
 } from './sentence';
 
 export const VOCABULARY_DEFAULT: Vocabulary = {
@@ -775,7 +781,7 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Géorgie',
     languageNameRaw: 'ქართული',
     languageNameFr: 'Géorgien',
-    sentences: ENGLISH_DEFAULT
+    sentences: GEORGIAN
   },
   {
     isoCode: 'gu-IN',
@@ -791,7 +797,7 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Croatie',
     languageNameRaw: 'Hrvatski',
     languageNameFr: 'Croate',
-    sentences: ENGLISH_DEFAULT
+    sentences: CROATIAN
   },
   {
     isoCode: 'zu-ZA',
@@ -807,7 +813,7 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Islande',
     languageNameRaw: 'Íslenska',
     languageNameFr: 'Islandais',
-    sentences: ENGLISH
+    sentences: ICELAND
   },
   {
     isoCode: 'jv-ID',
@@ -1032,7 +1038,7 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Serbie',
     languageNameRaw: 'Српски',
     languageNameFr: 'Serbe',
-    sentences: ENGLISH_DEFAULT
+    sentences: SERBIAN
   },
   {
     isoCode: 'uk-UA',
@@ -1056,7 +1062,7 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Espagne',
     languageNameFr: 'Basque',
     languageNameRaw: 'Euskara',
-    sentences: ENGLISH_DEFAULT
+    sentences: BASQUE
   },
   {
     isoCode: 'af-ZA',
@@ -1064,7 +1070,7 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'Afrikaans',
     languageNameFr: 'Afrikaans',
-    sentences: ENGLISH_DEFAULT
+    sentences: AFRIKAANS
   },
   {
     isoCode: 'hy-AM',
@@ -1072,7 +1078,7 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Arménie',
     languageNameRaw: 'Հայ',
     languageNameFr: 'Arménien',
-    sentences: ENGLISH_DEFAULT
+    sentences: ARMENIAN
   },
   {
     isoCode: 'az-AZ',
