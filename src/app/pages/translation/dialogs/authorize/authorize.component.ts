@@ -28,10 +28,10 @@ export class AuthorizeComponent {
 
   public async accept() {
     this.isLoading = true;
-    const dialog = this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+    const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader' });
     await this.chatService.updateGuestStatus(this.data.roomId, this.data.guest);
     this.isLoading = false;
-    dialog.close();
+    loaderDialog.close();
     this.dialogRef.close();
   }
 
