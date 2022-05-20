@@ -11,7 +11,6 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./authorize.component.scss'],
 })
 export class AuthorizeComponent {
-
   public name = '';
   public isLoading = false;
 
@@ -19,25 +18,24 @@ export class AuthorizeComponent {
     private readonly dialogRef: MatDialogRef<AuthorizeComponent>,
     private readonly dialog: MatDialog,
     private readonly chatService: ChatService,
-    @Inject(MAT_DIALOG_DATA) public data: { guest: Guest, roomId: string }
+    @Inject(MAT_DIALOG_DATA) public data: { guest: Guest; roomId: string }
   ) {
     this.name = this.data.guest.firstname;
     setTimeout(() => {
       this.dialogRef.close();
-  }, 30000);
+    }, 30000);
   }
 
   public async accept() {
     this.isLoading = true;
-    this.dialog.open(LoaderComponent, { panelClass: 'loader' });
+    const dialog = this.dialog.open(LoaderComponent, { panelClass: 'loader' });
     await this.chatService.updateGuestStatus(this.data.roomId, this.data.guest);
     this.isLoading = false;
-    this.dialog.closeAll();
+    dialog.close();
     this.dialogRef.close();
   }
 
   public refuse() {
     this.dialogRef.close();
   }
-
 }
