@@ -15,8 +15,8 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         let auth;
-
         const signInMethodsForEmail = await this.afAuth.auth.fetchSignInMethodsForEmail(email);
+
         if (signInMethodsForEmail.length > 0 && signInMethodsForEmail.includes('password')) {
           auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
         } else {
