@@ -3,10 +3,13 @@ import {
   ALBANIAN_NO_VOICE,
   AMHARIC_NO_VOICE,
   ARAB,
+  ARMENIAN,
+  BASQUE,
   BENGALI_INDIA_NO_VOICE,
   BENGALI_NO_VOICE,
   BULGARE,
   CZECH,
+  CROATIAN,
   DANISH,
   DARI,
   ENGLISH,
@@ -15,6 +18,7 @@ import {
   ESTONIAN,
   FINLAND,
   FRENCH,
+  GEORGIAN,
   GERMAN,
   GREEK,
   GUJARATI,
@@ -23,6 +27,7 @@ import {
   HOLLAND,
   HUNGARIAN,
   INDONESIA,
+  ICELAND,
   ITALIAN,
   JAPANESE,
   KANNADA,
@@ -45,13 +50,14 @@ import {
   SLOVENIA,
   SPANISH,
   SWEDEN,
+  SERBIAN,
   TAMOUL_INDIA,
   TAMOUL_NO_VOICE,
   TELUGU,
   THAILAND,
   TURC,
   UKRAINE,
-  VIETNAMESE
+  VIETNAMESE, AFRIKAANS,
 } from './sentence';
 
 const COUNTRY_NAME_SUD_AFRICA = 'Afrique du Sud';
@@ -63,7 +69,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'Afrikaans',
     languageNameFr: 'Afrikaans',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: AFRIKAANS
   },
   {
     isoCode: 'sq-AL',
@@ -87,7 +93,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Arménie',
     languageNameRaw: 'Հայ',
     languageNameFr: 'Arménien',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ARMENIAN
   },
   {
     isoCode: 'az-AZ',
@@ -103,7 +109,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Espagne',
     languageNameFr: 'Basque',
     languageNameRaw: 'Euskara',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: BASQUE
   },
   {
     isoCode: 'bn-BD',
@@ -162,7 +168,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Géorgie',
     languageNameRaw: 'ქართული',
     languageNameFr: 'Géorgien',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: GEORGIAN
   },
   {
     isoCode: 'is-IS',
@@ -170,7 +176,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Islande',
     languageNameRaw: 'Íslenska',
     languageNameFr: 'Islandais',
-    sentences: ENGLISH
+    sentences: ICELAND
   },
   {
     isoCode: 'jv-ID',
@@ -964,7 +970,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Croatie',
     languageNameRaw: 'Hrvatski',
     languageNameFr: 'Croate',
-    sentences: ENGLISH_DEFAULT
+    sentences: CROATIAN
   },
   {
     isoCode: 'kn-IN',
