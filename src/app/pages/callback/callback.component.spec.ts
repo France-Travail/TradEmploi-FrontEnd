@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { CallbackComponent } from './callback.component';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -7,8 +6,6 @@ import { SettingsService } from '../../services/settings.service';
 import { ChatService } from '../../services/chat.service';
 import { TelemetryService } from '../../services/telemetry.service';
 import { Role } from '../../models/role';
-import { BehaviorSubject } from 'rxjs';
-import { User } from '../../models/user';
 
 describe('CallbackComponent', () => {
   let component: CallbackComponent;
@@ -28,7 +25,7 @@ describe('CallbackComponent', () => {
     isMultiDevices: true,
     email: 'test@gmail.com',
     idDGASI: '1',
-    language: { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' }
+    language: { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' },
   };
 
   beforeEach(waitForAsync(() => {
@@ -48,10 +45,9 @@ describe('CallbackComponent', () => {
         { provide: AuthService, useValue: mockAuthService },
         { provide: SettingsService, useValue: mockSettingsService },
         { provide: ChatService, useValue: mockChatService },
-        { provide: TelemetryService, useValue: mockTelemetryService }
-      ]
+        { provide: TelemetryService, useValue: mockTelemetryService },
+      ],
     }).compileComponents();
-
   }));
 
   beforeEach(() => {

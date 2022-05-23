@@ -25,6 +25,7 @@ export class CallbackComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const nonce = sessionStorage.getItem('nonce');
+
     this.activatedRoute.queryParams.subscribe(async (params) => {
       if (params.state === nonce) {
         const userinfo = await this.getUserInfo(params.access_token);
@@ -35,8 +36,9 @@ export class CallbackComponent implements OnInit {
           sub: userinfo.sub,
           state: userinfo.state,
         };
+        let isAuthorized = this.authService.isAuthorizedDomain(this.user.email);
         try {
-          if (this.user.email.match('.*@pole-emploi[.]fr$') || this.user.email.match('.*@pe-qvr[.]fr$')) {
+          if (isAuthorized) {
             this.loginAuthentificated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
           }
         } catch (error) {

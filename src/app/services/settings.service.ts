@@ -5,6 +5,7 @@ import { User } from '../models/user';
 import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
 import { JwtGcpSingleton } from '../models/token/JwtGcpSingleton';
 import { JwtGwSingleton } from '../models/token/JwtGwSingleton';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +35,5 @@ export class SettingsService {
   };
 }
 
-export const AdvisorDefaultName = 'Pôle emploi';
+export const AdvisorDefaultName = environment.organization.name;
 export const GuestDefaultName = 'DE';
