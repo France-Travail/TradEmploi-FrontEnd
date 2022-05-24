@@ -34,7 +34,6 @@ export class SidenavComponent {
       this.gdprLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.gdpr : 'cgu';
       this.language = isGuest ? 'english' : 'french';
       this.userName = user !== null ? user.firstname : '';
-      console.log(user);
     });
   }
 
