@@ -35,13 +35,7 @@ export class CallbackComponent implements OnInit {
           sub: userinfo.sub,
           state: userinfo.state,
         };
-        try {
-          if (this.user.email.match('.*@pole-emploi[.]fr$') || this.user.email.match('.*@pe-qvr[.]fr$')) {
-            this.loginAuthentificated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
-          }
-        } catch (error) {
-          this.router.navigateByUrl('/start');
-        }
+        this.loginAuthentificated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
       } else {
         this.router.navigateByUrl('/start');
       }
