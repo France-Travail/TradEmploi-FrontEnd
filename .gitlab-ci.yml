@@ -4,36 +4,13 @@ before_script:
   - npm i -g firebase-tools @angular/cli@10.1.3
 
 variables:
-  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE_RECETTE
-  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE_RECETTE
+  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE
+  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE
 
 stages:
-  - test
   - build
   - deploy
 
-test:
-  stage: test
-  before_script:
-    - npm i
-  image: trion/ng-cli-karma:10.0.2
-  allow_failure: true
-  cache:
-    paths:
-      - node_modules/
-  environment:
-    name: uat
-    url: https://pole-emploi-trad-recette.firebaseapp.com
-  script:
-    - npm run config "--environment=qa"
-    - ng test --progress false --watch false
-  only:
-    refs:
-      - release
-  artifacts:
-    when: always
-    reports:
-      junit: report.xml
 
 build:
   stage: build
@@ -42,15 +19,14 @@ build:
       - node_modules/
       - dist/
   environment:
-    name: uat
-    url: https://pole-emploi-trad-recette.firebaseapp.com
+    name: staging
   script:
     - npm i
-    - npm run config "--environment=qa"
-    - ng build "--configuration=qa"
+    - npm run config "--environment=dev"
+    - ng build "--configuration=dev"
   only:
     refs:
-      - release
+      - develop
 
 deploy:
   stage: deploy
@@ -58,10 +34,9 @@ deploy:
     paths:
       - dist/
   environment:
-    name: uat
-    url: https://pole-emploi-trad-recette.firebaseapp.com
+    name: staging
   script:
-    - firebase deploy --project qa --token $FIREBASE_TOKEN
+    - firebase deploy --project dev --token $FIREBASE_TOKEN
   only:
     refs:
-      - release
+      - develop
