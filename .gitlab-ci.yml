@@ -1,4 +1,4 @@
-image: node:16-alpine
+image: 14.18.0-alpine
 
 before_script:
   - npm i -g firebase-tools @angular/cli@10.1.3
