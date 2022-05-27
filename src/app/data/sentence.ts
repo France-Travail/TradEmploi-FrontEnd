@@ -1,6 +1,7 @@
-import { NavbarTab, Sentence } from '../models/vocabulary';
-import { environment } from 'src/environments/environment';
-const organization = environment.organization.name;
+import {NavbarTab, Sentence} from '../models/vocabulary';
+import {params} from '../../environments/params';
+
+const organization = params.organization.name;
 
 export const NAVBAR_ENGLISH_TABS: NavbarTab = {
   language: 'language',
@@ -73,7 +74,7 @@ export const FRENCH: Sentence = {
   gdpr: {
     title: 'Protection des données à caractère personnel',
     privacyText:
-      environment.organization.cgus,
+    params.organization.cgus,
     closeBtn: 'FERMER',
   },
   logout: {
@@ -139,7 +140,7 @@ export const ENGLISH: Sentence = {
   gdpr: {
     title: 'Protection of personal data',
     privacyText:
-      environment.organization.cgusEnglish,
+    params.organization.cgusEnglish,
     closeBtn: 'CLOSE',
   },
   logout: {
@@ -168,7 +169,7 @@ export const ENGLISH: Sentence = {
     welcomeFR: 'Voici un traducteur automatique qui va traduire votre langue. Pour améliorer l’expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',
     welcomeRAW: 'Here is an automatic translator that will translate your language. To improve the translation experience, keep sentences short and simple and speak loudly enough.',
     notifMultiFR: 'L’espace de conversation a été créé en modalité multi-support.',
-    notifMultiRAW: "You've joined the conversation.",
+    notifMultiRAW: 'You\'ve joined the conversation.',
     voiceavailabilityFR: 'Saisie vocale indisponible pour la langue sélectionnée',
     voiceavailabilityRAW: 'Voice input is unavailable for this language',
   },
@@ -744,13 +745,13 @@ export const RUSSIA: Sentence = {
 };
 
 export const OUZBEK: Sentence = {
-  displayedWelcome: "Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo'lardim.",
+  displayedWelcome: 'Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo\'lardim.',
   readedWelcome: 'Ushbu tilda almashishni xohlaysizmi?',
   applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
-  translationH2: "Matn kiriting yoki gapirish uchun ko'k mikrofonni bosib turing",
-  translationH2Mobile: "Matn kiriting yoki gapirish uchun ko'k mikrofonga teging",
+  translationH2: 'Matn kiriting yoki gapirish uchun ko\'k mikrofonni bosib turing',
+  translationH2Mobile: 'Matn kiriting yoki gapirish uchun ko\'k mikrofonga teging',
   thanks: THANKS_EN,
   listen: 'Listen',
   recordText: 'Hozir gapiring',

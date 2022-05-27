@@ -1,12 +1,145 @@
-# Translation
+# PE TRANSLATE
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.2.
+## Requirements
+
+Node, Angular | Version
+--- | --- 
+Node | 12.18
+angular/cli | 10.1.3
+firebase tools | 10.6.0
 
 
-## Install
+## Create setting files
+* under src, create the folder environments.
+* under the new folder src/environments, create files: environment.ts, authflow.ts and params.ts
+* fill the environment.ts and authflow.ts files with setting data, example:
+* replace the $GCP_PROJECT variable with your gcp project name
 
-`npm i firebase`
+**environement.ts**
 
+```
+export const environment = {
+  name: 'os',
+  production: false,
+  firebaseConfig: {
+    apiKey: 'XXXX',
+    authDomain: 'XXXX',
+    projectId: 'XXXX',
+    storageBucket: 'XXXX',
+    messagingSenderId: 'XXXX',
+    appId: 'XXXX',
+  },
+  gcp: {
+    gateWayUrl: 'XXXX',
+  },
+  defaultPassword:  'XXXX',
+  microsoftSpeechConfig: {
+    enabled: false,
+    key: 'XXXX',
+    region: 'XXXX',
+  }
+};
+
+```
+
+**authflow.ts**
+
+```
+import { AuthConfig } from 'angular-oauth2-oidc';
+export const authCodeFlowConfig: AuthConfig = {
+};
+```
+
+
+**params.ts**
+
+```
+export const params = {
+  defaultPassword: 'XXXX',
+  excludedLanguagesFromAzureSTT: [
+    'zh-CN',
+    'zh-HK',
+    'en-PK',
+    'af-ZA',
+    'sq-AL',
+    'am-ET',
+    'hy-AM',
+    'az-AZ',
+    'eu-ES',
+    'bn-BD',
+    'bn-IN',
+    'bs-BA',
+    'my-MM',
+    'zh-TW',
+    'gl-ES',
+    'ka-GE',
+    'is-IS',
+    'jv-ID',
+    'kk-KZ',
+    'km-KH',
+    'lo-LA',
+    'mk-MK',
+    'ml-IN',
+    'mr-IN',
+    'mn-MN',
+    'ne-NP',
+    'sr-RS',
+    'si-LK',
+    'su-ID',
+    'sw-TZ',
+    'ta-MY',
+    'ta-SG',
+    'ta-LK',
+    'uk-UA',
+    'ur-IN',
+    'ur-PK',
+    'uz-UZ',
+    'zu-ZA',
+  ],
+  organization: {
+    name: 'XXXX',
+    organizationUser: 'Conseiller',
+    cgus: "Nous utilisons des cookies pour nous assurer de votre sécurité. Nous n'utilisons pas de cookies pour vous conseiller et nous ne vendons pas vos données à des tiers.",
+    cgusEnglish: `We use cookies to ensure your security. We do not use cookies to advise you and we do not sell your data to third parties.`,
+    entretiens: ['Accueil', 'Inscription', 'Indemnisation', 'Accompagnement', 'Autres'],
+  },
+};
+
+```
+
+## List of mandatory parameters in the environment.ts file
+
+Name | Description
+--- | --- 
+firebaseConfig | your app's Firebase project configuration
+gcp.gateWayUrl | the gateway's url for your gcp backend project
+firebaseConfig | your app's Firebase project configuration
+microsoftSpeechConfig | settings for the microsoft azure speech to text api even when microsoftSpeechConfig.enabled is true
+microsoftSpeechConfig.enabled | converting voice to text will use the azure speech to text api if tru, false otherwise
+microsoftSpeechConfig.key | the microsoft azure speech to text api key
+microsoftSpeechConfig.region | the microsoft azure speech to text api region
+
+## List of optional parameters in the params.ts file
+
+Name | Description
+--- | --- 
+defaultPassword | the default password used to create a new firebase user account **Not needed if firebase login is activated**
+excludedLanguagesFromAzureSTT | the excludedLanguages will continue to use the google api for the speech to text api even if the microsoft azure api is enabled
+organization.name | your organization name
+organization.organizationUser | Main user of your app
+organization.cgus | your organisation's General Conditions of Use (GCU) in french
+organization.cgusEnglish | your organisation's General Conditions of Use (GCU) in english
+organization.entretiens | type of interviews
+
+## Authentication mode
+the default authentication mode is the firebase authentication with firestore.
+
+This mode is enabled when the authCodeFlowConfig.loginUrl param in the authflow.ts file is not defined.
+
+Otherwise,when authCodeFlowConfig.loginUrl is defined, it means that authentication is based on the open id connect, using the authorization code flow.
+
+So you need to have an authentication server,set the loginUrl
+and others settings in authCodeFlowConfig to setup your sso environment and initialise the authentication code flow.
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
@@ -15,140 +148,32 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-## Deploy on Dev
+## Deploy on your environment [dev|uat|prod]
 
-1 - Before do DOD
-
-2 - MERGE your story on develop branch
-
-3 - Build
+1 - Build
 
 ```
-$ npm run build:dev
+$ npm run build:[dev|uat|prod]
 ```
 
-4 - TEST on local
+2 - TEST on local
 
-5 - Deploy
-
-```
-$ firebase deploy --project dev
-```
-
-6 - TEST
+3 - Deploy
 
 ```
-$ https://pole-emploi-trad-dev.firebaseapp.com
+$ firebase deploy --project [dev|uat|prod]
 ```
 
-7 - TEST with Product owner
-
-
-## Deploy on Qualification
-
-1 - Before do DOD
-
-2 - MERGE your story on develop branch
-
-3 - Build
+4 - TEST
 
 ```
-$ npm run build:qa
+$ https://$GCP_PROJECT.firebaseapp.com
 ```
 
-4 - TEST on local
+5 - TEST with Product owner
 
-5 - Deploy
-
-```
-$ firebase deploy --project qa
-```
-
-6 - TEST
-
-```
-$ https://pole-emploi-trad-dev.firebaseapp.com
-```
-
-7 - TEST with Product owner
-
-
-## Deploy on Prod
-
-1 - MERGE your story on release branch and Update README
-
-2 - Build
-
-
-```
-$ npm run build:prod
-```
-
-3 - Test on local
-
-
-4 - Deploy
-
-```
-$ firebase deploy --project prod
-```
-
-5 - TEST
-
-```
-$ https://pole-emploi-trad.firebaseapp.com
-```
-
-6 - TAG version
-
-```
-git tag v1.0.6
-```
-
-to see all tag
-
-```
-git tag
-```
-
-to push your tag
-
-```
-git push origin --tags
-```
-
-## V1.0.0
-
-US_F_02
-US_F_05
-US_A_01
-
-## V1.0.1
-
-US_T_02
-US_F_07
-US_F_06
-US_F_04
-US_A_03
-US_F_03
-US_A_04
-US_A_02
-US_F_01
-US_F_08
-US_T_04
