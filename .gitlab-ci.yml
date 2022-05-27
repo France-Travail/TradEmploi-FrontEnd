@@ -1,11 +1,12 @@
-image: node:16-alpine
+image: node:12.18-stretch-slim
 
 before_script:
-  - npm i -g firebase-tools @angular/cli@10.1.3
+  - npm i -g firebase-tools@10.6.0 @angular/cli@10.1.3
 
 variables:
-  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE
-  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE
+  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE_DEV
+  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE_DEV
+  PARAMS_FILE_CONTENT: $PARAMS_FILE_DEV
 
 stages:
   - build

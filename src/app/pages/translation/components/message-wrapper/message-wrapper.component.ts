@@ -22,6 +22,7 @@ import { User } from '../../../../models/user';
 import { Message } from '../../../../models/translate/message';
 import { VOCABULARY, VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
 import { isIOS } from '../../../../utils/utils';
+import {params} from "../../../../../environments/params";
 
 @Component({
   selector: 'app-message-wrapper',
@@ -336,11 +337,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   private fromAzure(language: string) {
-    return environment.microsoftSpeechConfig.enabled && !environment.microsoftSpeechConfig.excludedLanguages.includes(language);
+    return environment.microsoftSpeechConfig.enabled && !params.excludedLanguagesFromAzureSTT.includes(language);
   }
 
   private async requestPermission() {
-    let permission = await navigator.mediaDevices
+    const permission = await navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then(function () {
         return true;

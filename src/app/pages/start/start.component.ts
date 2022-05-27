@@ -1,8 +1,7 @@
-// Angular
-import { Component, AfterContentInit, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NavbarService } from '../../services/navbar.service';
-import { environment } from 'src/environments/environment';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {NavbarService} from '../../services/navbar.service';
+import {params} from '../../../environments/params';
 
 @Component({
   selector: 'app-start',
@@ -12,13 +11,19 @@ import { environment } from 'src/environments/environment';
 export class StartComponent implements AfterContentInit, OnInit {
   public opacity = 0;
 
-  constructor(private readonly router: Router, private readonly navbarService: NavbarService) {}
+  constructor(private readonly router: Router, private readonly navbarService: NavbarService) {
+  }
+
+  /*
+  onInit used only for Pôle Emploi needs.
+  */
   ngOnInit(): void {
     const location = window.location.host;
-    if (location === environment.organization.etabsDomain) {
-      window.location.href = environment.organization.officalDomain;
+    if (location === params.organization.etabsDomain) {
+      window.location.href = params.organization.officalDomain;
     }
   }
+
   ngAfterContentInit() {
     this.navbarService.hide();
     const id = setInterval(() => {

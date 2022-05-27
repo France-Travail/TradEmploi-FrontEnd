@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 import { TokenBrokerService } from './token-broker.service';
 import { ErrorService } from './error.service';
+import {params} from '../../environments/params';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class KpiService {
   public async getkpi(isNotLogged: boolean) {
     if (isNotLogged) {
       const user = JSON.parse(localStorage.getItem('user'));
-      await this.authService.login( user.email, environment.peama.password);
+      await this.authService.login( user.email, params.defaultPassword);
     }
     const gwToken = (await this.tokenBrokerService.getTokenGcp()).tokenGW;
     const url = `${environment.gcp.gateWayUrl}/reporting`;

@@ -11,6 +11,7 @@ import { ToastService } from '../../../../services/toast.service';
 import { ChatService } from '../../../../services/chat.service';
 import { VOCABULARY } from '../../../../data/vocabulary';
 import { ERROR_FUNC_SEND_STATS } from '../../../../models/error/errorFunctionnal';
+import {params} from '../../../../../environments/params';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -56,7 +57,7 @@ export class RateDialogComponent implements OnInit {
   public canSendRate: boolean;
   private isMultiDevices: boolean;
   public typeEntretien: string;
-  public types = environment.organization.entretiens;
+  public types = params.organization.entretiens;
   public autreType = '';
 
   constructor(
@@ -234,7 +235,7 @@ export class RateDialogComponent implements OnInit {
   }
 
   private fromAzure(language: string) {
-    return environment.microsoftSpeechConfig.enabled && !environment.microsoftSpeechConfig.excludedLanguages.includes(language);
+    return environment.microsoftSpeechConfig.enabled && !params.excludedLanguagesFromAzureSTT.includes(language);
   }
   public closeModal() {
     this.dialogRef.close();
