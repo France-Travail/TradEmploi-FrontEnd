@@ -7,7 +7,7 @@ import { JwtGcpSingleton } from '../models/token/JwtGcpSingleton';
 import { JwtGwSingleton } from '../models/token/JwtGwSingleton';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SettingsService {
   public user = new BehaviorSubject<User>(null);
@@ -24,7 +24,7 @@ export class SettingsService {
     }
   }
 
-  reset = () => {
+  public reset = () => {
     this.user.next(null);
     localStorage.clear();
     sessionStorage.clear();

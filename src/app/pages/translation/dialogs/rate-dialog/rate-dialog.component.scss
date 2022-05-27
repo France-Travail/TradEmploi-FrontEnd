@@ -7,12 +7,18 @@
   height: 100%;
 }
 
-.mat-dialog-title {
+.modal-header {
+  display: flex;
+  justify-content: space-between;
   background-color: $secondary-color;
-  color: #ffffff;
-  padding: 35px 30px;
+  color: white;
+  padding: 10px 10px 0px 20px;
   font-size: 20px;
   margin: 0;
+  .close {
+    cursor: pointer;
+    font-size: larger;
+  }
 }
 
 .mat-dialog-actions {
@@ -36,7 +42,7 @@
     width: 114px;
     height: 40px;
   }
-  .button-disabled{
+  .button-disabled {
     background: lightgrey;
   }
 }
@@ -100,14 +106,13 @@
     width: 50%;
     height: 30px;
     margin-top: 15px;
-
   }
-  .questionFive{
+  .questionFive {
     margin-bottom: 10px;
   }
-  .typesEntretien{
+  .typesEntretien {
     margin: 5px;
-    padding:5px;
+    padding: 5px;
     padding-top: 15px;
     display: inline-block;
   }
@@ -115,16 +120,14 @@
     height: 30px;
     width: 150px;
   }
-
 }
 .comment {
   padding-top: 15px;
 }
 
-.detail{
+.detail {
   margin-top: 10px;
 }
-.asterisk{
+.asterisk {
   vertical-align: top;
 }
-
