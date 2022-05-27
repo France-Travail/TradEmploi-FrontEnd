@@ -11,7 +11,7 @@ export class TelemetryService {
   constructor(private readonly tbs: TokenBrokerService) {
   }
 
-  public async logPeama(idDGASI: string) {
+  public async logUser(idDGASI: string) {
 
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const gwToken = tokenResponse ? tokenResponse.tokenGW : '';

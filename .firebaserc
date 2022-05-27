@@ -1,9 +1,7 @@
 {
   "projects": {
-    "prod": "pole-emploi-trad-prod",
-    "dev": "pole-emploi-trad-dev",
-    "qa": "pole-emploi-trad-recette",
-    "summer": "pole-emploi-trad-summer",
-    "audit": "pole-trad-test-1234-audit"
+    "prod": "$GCP_PROJECT",
+    "dev": "$GCP_PROJECT",
+    "qa": "$GCP_PROJECT",
   }
 }

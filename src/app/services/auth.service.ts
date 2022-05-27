@@ -1,15 +1,15 @@
-import { Role } from './../models/role';
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
-import { SettingsService } from './settings.service';
-import { environment } from 'src/environments/environment';
+import {Role} from './../models/role';
+import {Injectable} from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {FbAuthSingleton} from '../models/token/FbAuthSingleton';
+import {SettingsService} from './settings.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private readonly afAuth: AngularFireAuth, private readonly settingsService: SettingsService) {}
+  constructor(private readonly afAuth: AngularFireAuth, private readonly settingsService: SettingsService) {
+  }
 
   public login(email: string, password: string, firebaseLogin?: boolean): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
@@ -27,11 +27,11 @@ export class AuthService {
         if (auth && auth.user != null) {
           this.setRoleAndToken(email);
           FbAuthSingleton.getInstance().setFbAuth(auth);
-          resolve({ isAuth: true, message: 'Authentification réussie' });
+          resolve({isAuth: true, message: 'Authentification réussie'});
         }
       } catch (error) {
         console.log('Error', error);
-        reject({ isAuth: false, message: error.message });
+        reject({isAuth: false, message: error.message});
       }
     });
   }
@@ -58,7 +58,7 @@ export class AuthService {
           });
         }
       } catch (error) {
-        reject({ id: '', isAuth: false, message: error.message });
+        reject({id: '', isAuth: false, message: error.message});
       }
     });
   }
@@ -71,34 +71,24 @@ export class AuthService {
         }
         await this.afAuth.auth.signOut();
         this.settingsService.reset();
-        resolve({ isAuth: false, message: 'Déconnexion réussie' });
+        resolve({isAuth: false, message: 'Déconnexion réussie'});
       } catch (error) {
-        reject({ isAuth: true, message: error.message });
+        reject({isAuth: true, message: error.message});
       }
     });
   }
 
   public getRole(email: string): Role {
-    const isAuthorized = this.isAuthorizedDomain(email);
-    if (email && isAuthorized) {
+    if (email) {
       return Role.ADVISOR;
     }
     return Role.GUEST;
   }
 
-  public isAuthorizedDomain(email: string): boolean {
-    let isAuthorized = false;
-    environment.authorizedDomains.forEach((domain) => {
-      if (email.match(domain)) {
-        isAuthorized = true;
-      }
-    });
-    return isAuthorized;
-  }
   private setRoleAndToken(email?: string) {
     this.afAuth.authState.subscribe(async (state) => {
       if (state !== null) {
-        this.settingsService.user.next({ ...this.settingsService.user.value, role: this.getRole(email), email });
+        this.settingsService.user.next({...this.settingsService.user.value, role: this.getRole(email), email});
       }
     });
   }
