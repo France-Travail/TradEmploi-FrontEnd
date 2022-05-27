@@ -13,7 +13,6 @@ firebase tools | 10.6.0
 * under src, create the folder environments.
 * under the new folder src/environments, create files: environment.ts, authflow.ts and params.ts
 * fill the environment.ts and authflow.ts files with setting data, example:
-* replace the $GCP_PROJECT variable with your gcp project name
 
 **environement.ts**
 

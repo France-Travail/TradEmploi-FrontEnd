@@ -1,7 +1,7 @@
 {
   "projects": {
-    "prod": "$GCP_PROJECT",
-    "dev": "$GCP_PROJECT",
-    "qa": "$GCP_PROJECT",
+    "prod": "pole-emploi-trad-prod",
+    "dev": "pole-emploi-trad-dev",
+    "qa": "pole-emploi-trad-recette"
   }
 }
