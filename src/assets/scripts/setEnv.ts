@@ -33,7 +33,8 @@ export const environment = ${process.env.ENVIRONMENT_FILE_CONTENT};
 `;
 
 const authflowFileContent = `
-import { AuthConfig } from 'angular-oauth2-oidc';
+import {AuthConfig} from 'angular-oauth2-oidc';
+import {environment} from './environment';
 const url = 'https://authentification-agent-tis.pe.intra/connexion/oauth2/agent/authorize';
 export const authCodeFlowConfig: AuthConfig = ${process.env.AUTHFLOW_FILE_CONTENT};
 `;
