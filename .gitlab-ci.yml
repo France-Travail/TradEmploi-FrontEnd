@@ -1,17 +1,39 @@
-image: node:16-alpine
+image: node:12.18-stretch-slim
 
 before_script:
   - npm i -g firebase-tools@10.6.0 @angular/cli@10.1.3
 
 variables:
-  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE_DEV
-  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE_DEV
-  PARAMS_FILE_CONTENT: $PARAMS_FILE_DEV
+  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE_RECETTE
+  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE_RECETTE
+  PARAMS_FILE_CONTENT: $PARAMS_FILE_RECETTE
 
 stages:
+  - test
   - build
   - deploy
 
+test:
+  stage: test
+  before_script:
+    - npm i
+  image: trion/ng-cli-karma:10.0.2
+  allow_failure: true
+  cache:
+    paths:
+      - node_modules/
+  environment:
+    name: uat
+  script:
+    - npm run config "--environment=qa"
+    - ng test --progress false --watch false
+  only:
+    refs:
+      - release
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
 
 build:
   stage: build
@@ -20,14 +42,14 @@ build:
       - node_modules/
       - dist/
   environment:
-    name: staging
+    name: uat
   script:
     - npm i
-    - npm run config "--environment=dev"
-    - ng build "--configuration=dev"
+    - npm run config "--environment=qa"
+    - ng build "--configuration=qa"
   only:
     refs:
-      - develop
+      - release
 
 deploy:
   stage: deploy
@@ -35,9 +57,9 @@ deploy:
     paths:
       - dist/
   environment:
-    name: staging
+    name: uat
   script:
-    - firebase deploy --project dev --token $FIREBASE_TOKEN
+    - firebase deploy --project qa --token $FIREBASE_TOKEN
   only:
     refs:
-      - develop
+      - release

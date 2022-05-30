@@ -31,7 +31,6 @@ export const environment = {
   gcp: {
     gateWayUrl: 'XXXX',
   },
-  defaultPassword:  'XXXX',
   microsoftSpeechConfig: {
     enabled: false,
     key: 'XXXX',
