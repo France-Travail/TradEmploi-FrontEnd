@@ -12,6 +12,7 @@ import { SettingsService } from '../../../../services/settings.service';
 import { VOCABULARY } from '../../../../data/vocabulary';
 import { ENGLISH, FRENCH } from '../../../../data/sentence';
 import { ERROR_FUNC_TTS } from '../../../../models/error/errorFunctionnal';
+import {params} from '../../../../../environments/params';
 
 
 @Component({
@@ -91,7 +92,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
 
   public getCountriesAll() {
     this.countries = [];
-    for (const excludedLanguage of environment.microsoftSpeechConfig.excludedLanguages) {
+    for (const excludedLanguage of params.excludedLanguagesFromAzureSTT) {
       const vocabulariesGcp = [...VOCABULARY].filter(language => language.isoCode === excludedLanguage);
       this.countries.push(...vocabulariesGcp);
     }
@@ -102,7 +103,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   }
 
   private fromAzure(language: Vocabulary | Language) {
-    return environment.microsoftSpeechConfig.enabled && !environment.microsoftSpeechConfig.excludedLanguages.includes(language.isoCode);
+    return environment.microsoftSpeechConfig.enabled && !params.excludedLanguagesFromAzureSTT.includes(language.isoCode);
   }
 
   public isoCodeToFlag(isoCode: string) {

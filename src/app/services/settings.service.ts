@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { DeviceDetectorService } from 'ngx-device-detector';
-import { User } from '../models/user';
-import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
-import { JwtGcpSingleton } from '../models/token/JwtGcpSingleton';
-import { JwtGwSingleton } from '../models/token/JwtGwSingleton';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {DeviceDetectorService} from 'ngx-device-detector';
+import {User} from '../models/user';
+import {JwtFbSingleton} from '../models/token/JwtFbSingleton';
+import {JwtGcpSingleton} from '../models/token/JwtGcpSingleton';
+import {JwtGwSingleton} from '../models/token/JwtGwSingleton';
+import {params} from '../../environments/params';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ import { JwtGwSingleton } from '../models/token/JwtGwSingleton';
 export class SettingsService {
   public user = new BehaviorSubject<User>(null);
   public recordMode = false;
-  public defaultLanguage = { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' };
+  public defaultLanguage = {audio: 'fr-FR', written: 'fr-FR', languageName: 'Français'};
   public isMobile: boolean;
   public isTablet: boolean;
 
@@ -34,5 +35,5 @@ export class SettingsService {
   };
 }
 
-export const AdvisorDefaultName = 'Pôle emploi';
+export const AdvisorDefaultName = params.organization.name;
 export const GuestDefaultName = 'DE';
