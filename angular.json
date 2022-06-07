@@ -34,7 +34,7 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["node_modules/flag-icon-css/sass/flag-icon.scss", "src/sass/styles.scss"],
+            "styles": ["node_modules/flag-icons/sass/flag-icons.scss", "src/sass/styles.scss"],
             "stylePreprocessorOptions": {
               "includePaths": ["src/sass"]
             },

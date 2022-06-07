@@ -6,7 +6,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 // Keyboard
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatKeyboardModule } from 'angular-onscreen-material-keyboard';
+
 import { MatCardModule } from '@angular/material/card';
 // Handle Navigation Tree
 import { AppRoutingModule } from './app-routing.module';
@@ -101,7 +101,7 @@ import { BarChartModule, PieChartModule } from '@swimlane/ngx-charts';
     OnboardingComponent,
     CallbackComponent,
     CarouselComponent,
-    IndicatorsComponent
+    IndicatorsComponent,
   ],
   imports: [
     BrowserModule,
@@ -119,7 +119,6 @@ import { BarChartModule, PieChartModule } from '@swimlane/ngx-charts';
     MatCardModule,
     FormsModule,
     MatButtonModule,
-    MatKeyboardModule,
     LayoutModule,
     QRCodeModule,
     DeviceDetectorModule.forRoot(),
@@ -130,7 +129,7 @@ import { BarChartModule, PieChartModule } from '@swimlane/ngx-charts';
     NgRatingBarModule,
     MatGridListModule,
     BarChartModule,
-    PieChartModule
+    PieChartModule,
   ],
   providers: [
     NavbarService,

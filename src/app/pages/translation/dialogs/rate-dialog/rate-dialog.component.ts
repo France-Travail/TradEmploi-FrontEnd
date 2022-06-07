@@ -154,8 +154,8 @@ export class RateDialogComponent implements OnInit {
         this.fillNbMessages();
       }
     }
-    this.rate.user = this.settingsService.user.value.idDGASI;
-    this.rate.agency = this.settingsService.user.value.agency;
+    this.rate.user = this.settingsService.user.value.idDGASI || 'Firebase User';
+    this.rate.agency = this.settingsService.user.value.agency || 'None';
     this.rate.typeSTT = 'GCP';
     if (this.rate.language && this.fromAzure(this.rate.language)) {
       this.rate.typeSTT = 'Azure';
@@ -189,6 +189,8 @@ export class RateDialogComponent implements OnInit {
   }
 
   public confirm() {
+    console.log("Confirm");
+    console.log(this.rate)
     if (this.rate !== undefined) {
       this.canSendRate = false;
       this.rateService

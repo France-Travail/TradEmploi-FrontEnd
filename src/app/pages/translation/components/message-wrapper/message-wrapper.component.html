@@ -2,11 +2,11 @@
     <div class="field" *ngIf="!micro || !recordMode">
       <div class="flag">
         <ng-template [ngIf]="role !== 'DE'">
-          <img class="flag-icon" src="../../../../../assets/icons/logo-pe.svg" alt="pole emploi" />
+          <img class="fi" src="../../../../../assets/icons/logo-pe.svg" alt="pole emploi" />
         </ng-template>
         <ng-template [ngIf]="role === 'DE'">
-          <span *ngIf="flag !== 'xa'" class="flag-icon flag-icon-{{ flag }}"></span>
-          <img *ngIf="flag === 'xa'" class="flag-icon" src="../../../../../assets/images/common/arab-flag.png" alt="flag" />
+          <span *ngIf="flag !== 'xa'" class="fi fi-{{ flag }}"></span>
+          <img *ngIf="flag === 'xa'" class="fi" src="../../../../../assets/images/common/arab-flag.png" alt="flag" />
         </ng-template>
       </div>
       <textarea id="msg-wrapper-advisor" [class]="this.settingsService.isMobile?'textForMobile':''" [placeholder]="interim" *ngIf="role == 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()" (keypress)="displaySendOnKeyPress()" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
