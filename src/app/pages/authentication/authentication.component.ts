@@ -19,7 +19,7 @@ import {params} from '../../../environments/params';
 export class AuthenticationComponent implements OnInit {
   public form: FormGroup;
   public isOauthLogin: boolean = authCodeFlowConfig.loginUrl !== undefined;
-  public oAuthProvider: string = authCodeFlowConfig.issuer;
+  public oAuthProvider: string = params.organization.name;
 
   constructor(
     private readonly oauthService: OAuthService,

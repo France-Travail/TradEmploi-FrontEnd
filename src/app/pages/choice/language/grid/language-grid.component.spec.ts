@@ -10,7 +10,7 @@ import { ToastService } from '../../../../services/toast.service';
 import { User } from '../../../../models/user';
 import { Role } from '../../../../models/role';
 import { LanguageGridComponent } from './language-grid.component';
-import { TextToSpeechService } from '../../../../services/text-to-speech.service';
+import { TextToSpeechGcpService } from '../../../../services/text-to-speech-gcp.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
@@ -58,7 +58,7 @@ describe('LanguageGridComponent', () => {
         { provide: AngularFirestore, useValue: angularFirestoreStub },
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: Router, useValue: mockRouter },
-        { provide: TextToSpeechService, useValue: mockTextToSpeechService },
+        { provide: TextToSpeechGcpService, useValue: mockTextToSpeechService },
         { provide: SettingsService, useValue: mockSettingsService },
         { provide: ToastService, useValue: mockToastService }
       ],

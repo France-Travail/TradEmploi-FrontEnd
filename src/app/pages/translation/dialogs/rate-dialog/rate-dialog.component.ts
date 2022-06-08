@@ -154,8 +154,8 @@ export class RateDialogComponent implements OnInit {
         this.fillNbMessages();
       }
     }
-    this.rate.user = this.settingsService.user.value.idDGASI;
-    this.rate.agency = this.settingsService.user.value.agency;
+    this.rate.user = this.settingsService.user.value.idDGASI || 'Firebase User';
+    this.rate.agency = this.settingsService.user.value.agency || 'None';
     this.rate.typeSTT = 'GCP';
     if (this.rate.language && this.fromAzure(this.rate.language)) {
       this.rate.typeSTT = 'Azure';
@@ -235,7 +235,7 @@ export class RateDialogComponent implements OnInit {
   }
 
   private fromAzure(language: string) {
-    return environment.microsoftSpeechConfig.enabled && !params.excludedLanguagesFromAzureSTT.includes(language);
+    return environment.microsoftSpeechConfig.speechToTextEnabled && !params.excludedLanguagesFromAzureSTT.includes(language);
   }
   public closeModal() {
     this.dialogRef.close();

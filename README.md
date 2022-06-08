@@ -32,7 +32,8 @@ export const environment = {
     gateWayUrl: 'XXXX',
   },
   microsoftSpeechConfig: {
-    enabled: false,
+    speechToTextEnabled: false,
+    textToSpeechEnabled: false,
     key: 'XXXX',
     region: 'XXXX',
   }
@@ -97,6 +98,8 @@ export const params = {
   organization: {
     name: 'XXXX',
     organizationUser: 'Conseiller',
+	etabsDomain: ' ',
+	officalDomain: ' ',
     cgus: "Nous utilisons des cookies pour nous assurer de votre sécurité. Nous n'utilisons pas de cookies pour vous conseiller et nous ne vendons pas vos données à des tiers.",
     cgusEnglish: `We use cookies to ensure your security. We do not use cookies to advise you and we do not sell your data to third parties.`,
     entretiens: ['Accueil', 'Inscription', 'Indemnisation', 'Accompagnement', 'Autres'],
@@ -112,8 +115,9 @@ Name | Description
 firebaseConfig | your app's Firebase project configuration
 gcp.gateWayUrl | the gateway's url for your gcp backend project
 firebaseConfig | your app's Firebase project configuration
-microsoftSpeechConfig | settings for the microsoft azure speech to text api even when microsoftSpeechConfig.enabled is true
-microsoftSpeechConfig.enabled | converting voice to text will use the azure speech to text api if tru, false otherwise
+microsoftSpeechConfig | settings for the microsoft azure speech to text api even when microsoftSpeechConfig.speechToTextEnabled is true
+microsoftSpeechConfig.speechToTextEnabled | converting voice to text will use the azure speech to text api if true, false otherwise
+microsoftSpeechConfig.textToSpeechEnabled | converting text to voice will use the azure text to speech api if true, false otherwise
 microsoftSpeechConfig.key | the microsoft azure speech to text api key
 microsoftSpeechConfig.region | the microsoft azure speech to text api region
 

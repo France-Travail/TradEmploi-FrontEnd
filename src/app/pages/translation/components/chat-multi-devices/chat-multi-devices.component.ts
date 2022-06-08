@@ -3,20 +3,22 @@ import {MessageWrapped} from '../../../../models/translate/message-wrapped';
 import {Language} from '../../../../models/language';
 import {VOCABULARY} from '../../../../data/vocabulary';
 import {SettingsService} from '../../../../services/settings.service';
-import {TextToSpeechService} from '../../../../services/text-to-speech.service';
 import {TranslateService} from '../../../../services/translate.service';
 import {Role} from '../../../../models/role';
-import { Message } from '../../../../models/translate/message';
+import {Message} from '../../../../models/translate/message';
+import {TextToSpeechService} from '../../../../services/text-to-speech.service';
+import {params} from "../../../../../environments/params";
 
 @Component({
   selector: 'app-chat-multi-devices',
   templateUrl: './chat-multi-devices.component.html',
   styleUrls: ['./chat-multi-devices.component.scss'],
 })
-export class ChatMultiDevicesComponent implements OnInit{
+export class ChatMultiDevicesComponent implements OnInit {
   @Input() messagesWrapped: MessageWrapped[];
   private targetLanguage: Language;
   public isAudioSupported: boolean;
+  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
 
   constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService, private readonly translateServce: TranslateService) {
   }

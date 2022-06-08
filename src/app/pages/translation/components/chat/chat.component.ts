@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SettingsService } from '../../../../services/settings.service';
-import { TextToSpeechService } from '../../../../services/text-to-speech.service';
-import { Language } from '../../../../models/language';
-import { VOCABULARY } from '../../../../data/vocabulary';
-import { MessageWrapped } from '../../../../models/translate/message-wrapped';
-import { Message } from '../../../../models/translate/message';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {SettingsService} from '../../../../services/settings.service';
+import {Language} from '../../../../models/language';
+import {MessageWrapped} from '../../../../models/translate/message-wrapped';
+import {Message} from '../../../../models/translate/message';
+import {VOCABULARY} from '../../../../data/vocabulary';
+import {TextToSpeechService} from '../../../../services/text-to-speech.service';
+import {params} from '../../../../../environments/params';
 
 @Component({
   selector: 'app-chat',
@@ -18,22 +19,25 @@ export class ChatComponent implements OnInit {
   private firstName: string;
   private targetLanguage: Language;
   public isAudioSupported: boolean;
+  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
 
-  constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService) {}
+  constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService) {
+  }
 
   ngOnInit(): void {
     this.settingsService.user.subscribe(async (user) => {
       if (user && user.firstname) {
-        this.firstName = user.firstname.split(' ')[1];
+        this.firstName = user.firstname.split(' ')[1] || params.organization.organizationUser;;
         this.targetLanguage = user.language;
         this.isAudioSupported = VOCABULARY.some((item) => item.isoCode === user.language.written && item.sentences.audioSupported);
       }
     });
   }
+
   public listen(index: number) {
     const sentMessage: Message = this.messagesWrapped[index].message;
     if (sentMessage && sentMessage.audioHtml) {
-      sentMessage.audioHtml.play();
+     sentMessage.audioHtml.play();
     }
   }
 
@@ -60,6 +64,7 @@ export class ChatComponent implements OnInit {
   public foldMessage(message: Message) {
     return message.role === 'DE' ? '[See less]' : '[Voir moins]';
   }
+
   public unFoldMessage(message: Message) {
     return message.role === 'DE' ? '[See more]' : '[Voir plus]';
   }

@@ -1,18 +1,18 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Tooltip, Vocabulary } from './../../../../models/vocabulary';
-import { Observable } from 'rxjs';
-import { Language } from '../../../../models/db/language';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { VOCABULARY_AZURE } from '../../../../data/vocabulary-microsoft-azure';
-import { environment } from '../../../../../environments/environment';
-import { TextToSpeechService } from '../../../../services/text-to-speech.service';
-import { ToastService } from '../../../../services/toast.service';
-import { SettingsService } from '../../../../services/settings.service';
-import { VOCABULARY } from '../../../../data/vocabulary';
-import { ENGLISH, FRENCH } from '../../../../data/sentence';
-import { ERROR_FUNC_TTS } from '../../../../models/error/errorFunctionnal';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Tooltip, Vocabulary} from './../../../../models/vocabulary';
+import {Observable} from 'rxjs';
+import {Language} from '../../../../models/db/language';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {VOCABULARY_AZURE} from '../../../../data/vocabulary-microsoft-azure';
+import {environment} from '../../../../../environments/environment';
+import {ToastService} from '../../../../services/toast.service';
+import {SettingsService} from '../../../../services/settings.service';
+import {VOCABULARY} from '../../../../data/vocabulary';
+import {ENGLISH, FRENCH} from '../../../../data/sentence';
+import {ERROR_FUNC_TTS} from '../../../../models/error/errorFunctionnal';
 import {params} from '../../../../../environments/params';
+import {TextToSpeechService} from '../../../../services/text-to-speech.service';
 
 
 @Component({
@@ -36,12 +36,12 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   public mapLanguages: Map<string, Language> = new Map();
 
   public countriesSort = [
-    { value: ['langue', true], viewValue: 'Langue (asc)' },
-    { value: ['langue', false], viewValue: 'Langue (desc)' },
-    { value: ['pays', true], viewValue: 'Pays (asc)' },
-    { value: ['pays', false], viewValue: 'Pays (desc)' }
+    {value: ['langue', true], viewValue: 'Langue (asc)'},
+    {value: ['langue', false], viewValue: 'Langue (desc)'},
+    {value: ['pays', true], viewValue: 'Pays (asc)'},
+    {value: ['pays', false], viewValue: 'Pays (desc)'}
   ];
-  public styles = { margin: '0px', padding: '0px', fontSize: '20px' };
+  public styles = {margin: '0px', padding: '0px', fontSize: '20px'};
 
 
   constructor(private readonly textToSpeechService: TextToSpeechService,
@@ -66,7 +66,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
 
   ngOnInit() {
     if (this.settingsService.isMobile) {
-      this.styles = { margin: '0px', padding: '0px', fontSize: '10px' };
+      this.styles = {margin: '0px', padding: '0px', fontSize: '10px'};
     }
   }
 
@@ -92,9 +92,13 @@ export class LanguageGridComponent implements OnChanges, OnInit {
 
   public getCountriesAll() {
     this.countries = [];
-    for (const excludedLanguage of params.excludedLanguagesFromAzureSTT) {
-      const vocabulariesGcp = [...VOCABULARY].filter(language => language.isoCode === excludedLanguage);
-      this.countries.push(...vocabulariesGcp);
+    if (environment.microsoftSpeechConfig.speechToTextEnabled) {
+      for (const excludedLanguage of params.excludedLanguagesFromAzureSTT) {
+        const vocabulariesGcp = [...VOCABULARY].filter(language => language.isoCode === excludedLanguage);
+        this.countries.push(...vocabulariesGcp);
+      }
+    } else {
+      this.countries.push(...VOCABULARY);
     }
     const vocabulariesAzure = [...VOCABULARY_AZURE].filter(language => this.fromAzure(language) && language.isoCode !== 'fr-FR' && language.isoCode !== 'fr-CA');
     this.countries.push(...vocabulariesAzure);
@@ -103,7 +107,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   }
 
   private fromAzure(language: Vocabulary | Language) {
-    return environment.microsoftSpeechConfig.enabled && !params.excludedLanguagesFromAzureSTT.includes(language.isoCode);
+    return environment.microsoftSpeechConfig.speechToTextEnabled && !params.excludedLanguagesFromAzureSTT.includes(language.isoCode);
   }
 
   public isoCodeToFlag(isoCode: string) {
@@ -156,7 +160,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
     this.settingsService.user.next({
       ...this.settingsService.user.value,
-      language: { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr },
+      language: {audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr},
       connectionTime: Date.now()
     });
     this.isGuest ? this.onSessionStorage(audioLanguage, item.isoCode, item.languageNameFr) : this.onLocalStorage(audioLanguage, item.isoCode, item.languageNameFr);
@@ -165,14 +169,14 @@ export class LanguageGridComponent implements OnChanges, OnInit {
 
   private onSessionStorage(audioLanguage: string, isoCode: string, languageNameFr: string) {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    user.language = { audio: audioLanguage, written: isoCode, languageName: languageNameFr };
+    user.language = {audio: audioLanguage, written: isoCode, languageName: languageNameFr};
     user.connectionTime = Date.now();
     sessionStorage.setItem('user', JSON.stringify(user));
   }
 
   private onLocalStorage(audioLanguage: string, isoCode: string, languageNameFr: string) {
     const user = JSON.parse(localStorage.getItem('user'));
-    user.language = { audio: audioLanguage, written: isoCode, languageName: languageNameFr };
+    user.language = {audio: audioLanguage, written: isoCode, languageName: languageNameFr};
     user.connectionTime = Date.now();
     localStorage.setItem('user', JSON.stringify(user));
   }

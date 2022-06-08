@@ -35,8 +35,8 @@
     }
   }
   .flag {
-    height: 70px;
-    .flag-icon {
+    // height: 70px;
+    .fi {
       width: 90px;
       height: 70px;
       border: 1px solid $gray74;
@@ -105,7 +105,7 @@
       }
     }
     .flag {
-      .flag-icon {
+      .fi {
         width: 50px;
         height: 40px;
         margin: 10px;

@@ -55,12 +55,14 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public isIOS = false;
   public voiceNotSupported = false;
   public seconds: number;
+  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
   private isMobile = false;
   private isTablet = false;
   private recordingState = RecordingState.STOPPED;
   private useSpeechToTextMicrosoftApi: boolean;
   private vocabulary: Vocabulary[];
   private isMicrophoneGranted: boolean = false;
+
 
   constructor(
     private readonly toastService: ToastService,
@@ -192,7 +194,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   private transcodificationMicrosoft(language: string): string {
-    if (environment.microsoftSpeechConfig.enabled) {
+    if (environment.microsoftSpeechConfig.speechToTextEnabled) {
       if (language === 'ar-XA') {
         return 'ar-EG';
       }
@@ -337,7 +339,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   private fromAzure(language: string) {
-    return environment.microsoftSpeechConfig.enabled && !params.excludedLanguagesFromAzureSTT.includes(language);
+    return environment.microsoftSpeechConfig.speechToTextEnabled && !params.excludedLanguagesFromAzureSTT.includes(language);
   }
 
   private async requestPermission() {
