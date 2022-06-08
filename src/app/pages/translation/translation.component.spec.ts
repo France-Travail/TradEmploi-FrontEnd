@@ -14,7 +14,7 @@ import { NavbarService } from '../../services/navbar.service';
 import { SettingsService } from '../../services/settings.service';
 import { TranslationComponent } from './translation.component';
 import { ToastService } from '../../services/toast.service';
-import { TextToSpeechService } from '../../services/text-to-speech.service';
+import { TextToSpeechGcpService } from '../../services/text-to-speech-gcp.service';
 import { TranslateService } from '../../services/translate.service';
 import { CryptService } from '../../services/crypt.service';
 
@@ -74,7 +74,7 @@ describe('TranslationComponent', () => {
         { provide: BreakpointObserver, useValue: mockBreakpointService },
 
         { provide: ToastService, useValue: mockToastService },
-        { provide: TextToSpeechService, useValue: mockTextToSpeechService },
+        { provide: TextToSpeechGcpService, useValue: mockTextToSpeechService },
         { provide: NavbarService, useValue: mockNavbarService },
         { provide: TranslateService, useValue: mockTranslateService },
         { provide: CryptService, useValue: mockCryptService }

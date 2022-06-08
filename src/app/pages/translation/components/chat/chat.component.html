@@ -20,7 +20,8 @@
       <ng-template #advisor>
         <div class="bubbleTitle">
           <div>
-            <img src="assets/icons/logo-pe.svg" alt="pole emploi" class="logo" />
+            <img *ngIf="showPoleEmploiLogo" src="../../../../../assets/images/pe/logo-pe.svg" alt="pole emploi" class="logo" />
+            <span *ngIf="!showPoleEmploiLogo" class="fi fi-fr"></span>
             <span>&nbsp;{{firstName}}</span>
           </div>
         </div>

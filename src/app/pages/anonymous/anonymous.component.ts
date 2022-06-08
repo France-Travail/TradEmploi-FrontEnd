@@ -14,6 +14,7 @@ import { Support } from '../../models/kpis/support';
 import { Role } from '../../models/role';
 import { Member } from '../../models/db/member';
 import { NavbarService } from '../../services/navbar.service';
+import {params} from '../../../environments/params';
 
 @Component({
   selector: 'app-anonymous',
@@ -24,6 +25,7 @@ export class AnonymousComponent implements OnInit {
   public form: FormGroup;
   public inProgress = false;
   private readonly roomId: string;
+  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
 
   constructor(
     private readonly authService: AuthService,

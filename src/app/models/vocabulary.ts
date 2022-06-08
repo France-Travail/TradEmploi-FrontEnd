@@ -9,6 +9,7 @@ export interface Vocabulary {
   sentences: Sentence;
   navbarTabs?: NavbarTab;
   audioCode?: string;
+  audioVoiceCode?: string;
 }
 export interface Sentence {
   applicationName: string;

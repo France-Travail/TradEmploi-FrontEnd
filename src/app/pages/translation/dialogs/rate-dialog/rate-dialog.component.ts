@@ -189,8 +189,6 @@ export class RateDialogComponent implements OnInit {
   }
 
   public confirm() {
-    console.log("Confirm");
-    console.log(this.rate)
     if (this.rate !== undefined) {
       this.canSendRate = false;
       this.rateService
@@ -237,7 +235,7 @@ export class RateDialogComponent implements OnInit {
   }
 
   private fromAzure(language: string) {
-    return environment.microsoftSpeechConfig.enabled && !params.excludedLanguagesFromAzureSTT.includes(language);
+    return environment.microsoftSpeechConfig.speechToTextEnabled && !params.excludedLanguagesFromAzureSTT.includes(language);
   }
   public closeModal() {
     this.dialogRef.close();

@@ -16,6 +16,7 @@ export class SettingsService {
   public defaultLanguage = {audio: 'fr-FR', written: 'fr-FR', languageName: 'Français'};
   public isMobile: boolean;
   public isTablet: boolean;
+  public showPoleEmploiLogo = params.organization.name === 'Pôle emploi';
 
   constructor(private readonly deviceService: DeviceDetectorService) {
     this.isMobile = this.deviceService.isMobile();
