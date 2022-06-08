@@ -98,8 +98,8 @@ export const params = {
   organization: {
     name: 'XXXX',
     organizationUser: 'Conseiller',
-	etabsDomain: ' ',
-	officalDomain: ' ',
+    etabsDomain: ' ',
+    officalDomain: ' ',
     cgus: "Nous utilisons des cookies pour nous assurer de votre sécurité. Nous n'utilisons pas de cookies pour vous conseiller et nous ne vendons pas vos données à des tiers.",
     cgusEnglish: `We use cookies to ensure your security. We do not use cookies to advise you and we do not sell your data to third parties.`,
     entretiens: ['Accueil', 'Inscription', 'Indemnisation', 'Accompagnement', 'Autres'],
