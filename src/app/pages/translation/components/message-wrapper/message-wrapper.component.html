@@ -2,7 +2,8 @@
     <div class="field" *ngIf="!micro || !recordMode">
       <div class="flag">
         <ng-template [ngIf]="role !== 'DE'">
-          <img class="fi" src="../../../../../assets/icons/logo-pe.svg" alt="pole emploi" />
+          <img *ngIf="showPoleEmploiLogo" class="fi" src="../../../../../assets/images/pe/logo-pe.svg" alt="pole emploi" />
+          <span *ngIf="!showPoleEmploiLogo" class="fi fi-fr"></span>
         </ng-template>
         <ng-template [ngIf]="role === 'DE'">
           <span *ngIf="flag !== 'xa'" class="fi fi-{{ flag }}"></span>

@@ -31,9 +31,9 @@ export const environment = {
   gcp: {
     gateWayUrl: 'XXXX',
   },
-  defaultPassword:  'XXXX',
   microsoftSpeechConfig: {
-    enabled: false,
+    speechToTextEnabled: false,
+    textToSpeechEnabled: false,
     key: 'XXXX',
     region: 'XXXX',
   }
@@ -115,8 +115,9 @@ Name | Description
 firebaseConfig | your app's Firebase project configuration
 gcp.gateWayUrl | the gateway's url for your gcp backend project
 firebaseConfig | your app's Firebase project configuration
-microsoftSpeechConfig | settings for the microsoft azure speech to text api even when microsoftSpeechConfig.enabled is true
-microsoftSpeechConfig.enabled | converting voice to text will use the azure speech to text api if tru, false otherwise
+microsoftSpeechConfig | settings for the microsoft azure speech to text api even when microsoftSpeechConfig.speechToTextEnabled is true
+microsoftSpeechConfig.speechToTextEnabled | converting voice to text will use the azure speech to text api if true, false otherwise
+microsoftSpeechConfig.textToSpeechEnabled | converting text to voice will use the azure text to speech api if true, false otherwise
 microsoftSpeechConfig.key | the microsoft azure speech to text api key
 microsoftSpeechConfig.region | the microsoft azure speech to text api region
 

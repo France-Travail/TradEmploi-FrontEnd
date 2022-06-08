@@ -160,6 +160,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'ar-TN',
     audioCode: 'ar-XA',
+    audioVoiceCode: 'ar-TN-ReemNeural',
     countryNameRaw: 'تونس',
     countryNameFr: 'Tunisie',
     languageNameRaw: 'العربية',
@@ -205,6 +206,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'ar-EG',
     audioCode: 'ar-XA',
+    audioVoiceCode: 'ar-EG-ShakirNeural',
     countryNameRaw: 'مصر',
     countryNameFr: 'Égypte',
     languageNameRaw: 'العربية',
