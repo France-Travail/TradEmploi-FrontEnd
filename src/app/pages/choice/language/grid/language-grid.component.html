@@ -35,7 +35,7 @@
       <span *ngIf="item.isoCode !== 'ar-XA'" class="fi fi-{{ isoCodeToFlag(item.isoCode) }}"></span>
       <img *ngIf="item.isoCode === 'ar-XA'" class="fi" src="../../../../../assets/images/common/arab-flag.png" alt="flag" />
     </div>
-    <div class="option tanslation">
+    <div class="option translation">
       <div class="option-col">
         <img *ngIf="item.sentences.voiceNotSupported === undefined" src="assets/icons/pronounce.svg" alt="Pronounce" matTooltip="{{ tooltip.pronounce }}" matTooltipClass="tooltip-info" />
         <img

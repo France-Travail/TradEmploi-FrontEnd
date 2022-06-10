@@ -940,3 +940,22 @@ export const CROATIAN: Sentence = {
   translationH2Mobile: 'Unesite tekst ili držite plavi mikrofon da biste govorili\'',
 
 };
+export const BOSNIAN: Sentence = {
+  ...ENGLISH,
+  audioSupported:false,
+  readedWelcome: 'Želite li razmjenjivati ​​na ovom jeziku?',
+  translationH2: 'Unesite tekst ili pritisnite i držite plavi mikrofon za govori\'',
+  translationH2Mobile: 'Unesite tekst ili dodirnite plavi mikrofon da govorite\'',
+};
+export const BIRMAN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'ဤဘာသာစကားဖြင့် လဲလှယ်လိုပါသလား။',
+  translationH2: 'စာသားရိုက်ထည့်ပါ သို့မဟုတ် စကားပြောရန် အပြာရောင်မိုက်ခရိုဖုန်းကို နှိပ်ပြီး ဖိထားပါ။\'',
+  translationH2Mobile: 'စာသားရိုက်ထည့်ပါ သို့မဟုတ် စကားပြောရန် အပြာရောင်မိုက်ကို တို့ပါ။\'',
+};
+export const TAGALOG:Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Gusto mo bang makipagpalitan sa wikang ito?',
+  translationH2: 'Maglagay ng text, o pindutin nang matagal ang asul na mikropono upang magsalita\'',
+  translationH2Mobile: 'Maglagay ng text, o i-tap ang asul na mikropono para magsalita\'',
+}
