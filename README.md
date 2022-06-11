@@ -98,8 +98,8 @@ export const params = {
   organization: {
     name: 'XXXX',
     organizationUser: 'Conseiller',
-	etabsDomain: ' ',
-	officalDomain: ' ',
+	  etabsDomain: ' ',
+	  officalDomain: ' ',
     cgus: "Nous utilisons des cookies pour nous assurer de votre sécurité. Nous n'utilisons pas de cookies pour vous conseiller et nous ne vendons pas vos données à des tiers.",
     cgusEnglish: `We use cookies to ensure your security. We do not use cookies to advise you and we do not sell your data to third parties.`,
     entretiens: ['Accueil', 'Inscription', 'Indemnisation', 'Accompagnement', 'Autres'],
@@ -120,6 +120,7 @@ microsoftSpeechConfig.speechToTextEnabled | converting voice to text will use th
 microsoftSpeechConfig.textToSpeechEnabled | converting text to voice will use the azure text to speech api if true, false otherwise
 microsoftSpeechConfig.key | the microsoft azure speech to text api key
 microsoftSpeechConfig.region | the microsoft azure speech to text api region
+
 
 ## List of optional parameters in the params.ts file
 
