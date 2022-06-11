@@ -24,11 +24,11 @@ export class TextToSpeechMicrosoftService extends TextToSpeechService {
     return new Promise((resolve) => {
       this.audioSpeech = undefined;
       const speechConfig = SpeechConfig.fromSubscription(environment.microsoftSpeechConfig.key, environment.microsoftSpeechConfig.region);
-      const vacabulary = VOCABULARY_AZURE.find(value => value.isoCode === language);
+      const vocabulary = VOCABULARY_AZURE.find(value => value.isoCode === language);
 
-      if (vacabulary.audioVoiceCode) {
+      if (vocabulary.audioVoiceCode) {
         const speed = '-10.00%';
-        const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${vacabulary.isoCode}"><voice name="${vacabulary.audioVoiceCode}"><prosody rate="${speed}">${text}</prosody></voice></speak>`;
+        const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${vocabulary.isoCode}"><voice name="${vocabulary.audioVoiceCode}"><prosody rate="${speed}">${text}</prosody></voice></speak>`;
         const audioFile = AudioOutputStream.createPullStream();
         const audioConfig = AudioConfig.fromStreamOutput(audioFile);
         let synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
