@@ -58,6 +58,9 @@ import {
   TURC,
   UKRAINE,
   VIETNAMESE,
+  BOSNIAN,
+  BIRMAN,
+  TAGALOG,
 } from './sentence';
 import {environment} from '../../environments/environment';
 
@@ -71,7 +74,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'Afrikaans',
     languageNameFr: 'Afrikaans',
-    sentences: AFRIKAANS
+    sentences: AFRIKAANS,
   },
   {
     isoCode: 'sq-AL',
@@ -79,7 +82,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Albanie',
     languageNameRaw: 'Shqiptare',
     languageNameFr: 'Albanais',
-    sentences: ALBANIAN_NO_VOICE
+    sentences: ALBANIAN_NO_VOICE,
   },
   {
     isoCode: 'am-ET',
@@ -88,7 +91,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Éthiopie',
     languageNameFr: 'Amharique',
     languageNameRaw: 'አማርኛ',
-    sentences: AMHARIC_NO_VOICE
+    sentences: AMHARIC_NO_VOICE,
   },
   {
     isoCode: 'hy-AM',
@@ -96,7 +99,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Arménie',
     languageNameRaw: 'Հայ',
     languageNameFr: 'Arménien',
-    sentences: ARMENIAN
+    sentences: ARMENIAN,
   },
   {
     isoCode: 'az-AZ',
@@ -104,7 +107,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Azerbaïjan',
     languageNameRaw: 'Azərbaycan',
     languageNameFr: 'Azerbaïdjan',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'eu-ES',
@@ -112,7 +115,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Espagne',
     languageNameFr: 'Basque',
     languageNameRaw: 'Euskara',
-    sentences: BASQUE
+    sentences: BASQUE,
   },
   {
     isoCode: 'bn-BD',
@@ -121,7 +124,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Bangladesh',
     languageNameRaw: 'বাংলা',
     languageNameFr: 'Bengali',
-    sentences: BENGALI_NO_VOICE
+    sentences: BENGALI_NO_VOICE,
   },
   {
     isoCode: 'bn-IN',
@@ -130,7 +133,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'বাংলা',
     languageNameFr: 'Bengali',
-    sentences: BENGALI_INDIA_NO_VOICE
+    sentences: BENGALI_INDIA_NO_VOICE,
   },
   {
     isoCode: 'zh-HK',
@@ -140,7 +143,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Hong Kong',
     languageNameRaw: '普通话',
     languageNameFr: 'Mandarin',
-    sentences: MANDARIN_NO_VOICE
+    sentences: MANDARIN_NO_VOICE,
   },
   {
     isoCode: 'zh-TW',
@@ -150,7 +153,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Taïwan',
     languageNameRaw: '普通话',
     languageNameFr: 'Mandarin',
-    sentences: MANDARIN_NO_VOICE
+    sentences: MANDARIN_NO_VOICE,
   },
   {
     isoCode: 'en-PK',
@@ -159,7 +162,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Pakistan',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'gl-ES',
@@ -169,7 +172,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Espagne',
     languageNameRaw: 'Galego',
     languageNameFr: 'Galicien',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'ka-GE',
@@ -177,7 +180,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Géorgie',
     languageNameRaw: 'ქართული',
     languageNameFr: 'Géorgien',
-    sentences: GEORGIAN
+    sentences: GEORGIAN,
   },
   {
     isoCode: 'is-IS',
@@ -186,7 +189,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Islande',
     languageNameRaw: 'Íslenska',
     languageNameFr: 'Islandais',
-    sentences: ICELAND
+    sentences: ICELAND,
   },
   {
     isoCode: 'jv-ID',
@@ -195,7 +198,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Indonésie',
     languageNameRaw: 'Jawa',
     languageNameFr: 'Javanais',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'kk-KZ',
@@ -204,7 +207,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Kazakhstan',
     languageNameRaw: `Қазақша`,
     languageNameFr: 'Kazakh',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'km-KH',
@@ -213,7 +216,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Cambodge',
     languageNameFr: 'Khmer',
     languageNameRaw: 'ភាសាខ្មែរ',
-    sentences: KHMER_NO_VOICE
+    sentences: KHMER_NO_VOICE,
   },
   {
     isoCode: 'lo-LA',
@@ -222,7 +225,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Laos',
     languageNameRaw: 'ລາວ',
     languageNameFr: 'Lao',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'mk-MK',
@@ -231,7 +234,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Macédoine',
     languageNameRaw: `Македонски`,
     languageNameFr: 'Macédonien',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'ml-IN',
@@ -240,7 +243,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'മലയാളം',
     languageNameFr: 'Malayalam',
-    sentences: MALAYALAM_NO_VOICE
+    sentences: MALAYALAM_NO_VOICE,
   },
   {
     isoCode: 'mr-IN',
@@ -248,7 +251,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'मराठी',
     languageNameFr: 'Marathi',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'mn-MN',
@@ -256,7 +259,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Mongolie',
     languageNameFr: 'Mongol',
     languageNameRaw: 'Монгол',
-    sentences: MONGOL_NO_VOICE
+    sentences: MONGOL_NO_VOICE,
   },
   {
     isoCode: 'ne-NP',
@@ -264,7 +267,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Népal',
     languageNameFr: 'Népalais',
     languageNameRaw: 'नेपाली',
-    sentences: NEPALESE_NO_VOICE
+    sentences: NEPALESE_NO_VOICE,
   },
   {
     isoCode: 'sr-RS',
@@ -273,7 +276,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Serbie',
     languageNameRaw: 'Српски',
     languageNameFr: 'Serbe',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'si-LK',
@@ -282,7 +285,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Sri Lanka',
     languageNameRaw: 'සිංහල',
     languageNameFr: 'Cingalais',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'su-ID',
@@ -291,7 +294,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Indonésie',
     languageNameRaw: 'Sundanese',
     languageNameFr: 'Soundanais',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'sw-TZ',
@@ -300,7 +303,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Tanzanie',
     languageNameRaw: 'Swahili',
     languageNameFr: 'Swahili',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'ta-MY',
@@ -308,7 +311,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Malaisie',
     languageNameRaw: 'தமிழ்',
     languageNameFr: 'Tamoul',
-    sentences: TAMOUL_NO_VOICE
+    sentences: TAMOUL_NO_VOICE,
   },
   {
     isoCode: 'ta-SG',
@@ -317,7 +320,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Singapour',
     languageNameRaw: 'தமிழ்',
     languageNameFr: 'Tamoul',
-    sentences: TAMOUL_NO_VOICE
+    sentences: TAMOUL_NO_VOICE,
   },
   {
     isoCode: 'ta-LK',
@@ -326,7 +329,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Sri Lanka',
     languageNameRaw: 'தமிழ்',
     languageNameFr: 'Tamoul',
-    sentences: TAMOUL_NO_VOICE
+    sentences: TAMOUL_NO_VOICE,
   },
   {
     isoCode: 'uk-UA',
@@ -335,7 +338,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Ukraine',
     languageNameRaw: 'Українська',
     languageNameFr: 'Ukrainien',
-    sentences: UKRAINE
+    sentences: UKRAINE,
   },
   {
     isoCode: 'ur-IN',
@@ -344,7 +347,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'اردو',
     languageNameFr: 'Ourdou',
-    sentences: OURDOU_NO_VOICE
+    sentences: OURDOU_NO_VOICE,
   },
   {
     isoCode: 'ur-PK',
@@ -353,7 +356,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Pakistan',
     languageNameFr: 'Ourdou',
     languageNameRaw: 'اردو',
-    sentences: OURDOU_NO_VOICE
+    sentences: OURDOU_NO_VOICE,
   },
   {
     isoCode: 'uz-UZ',
@@ -362,7 +365,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Ouzbékistan',
     languageNameFr: 'Ouzbek',
     languageNameRaw: 'ўзбек',
-    sentences: OUZBEK_NO_VOICE
+    sentences: OUZBEK_NO_VOICE,
   },
   {
     isoCode: 'zu-ZA',
@@ -371,7 +374,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'IsiZulu',
     languageNameFr: 'Zoulou',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'ar-IL',
@@ -380,7 +383,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Israël',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-DZ',
@@ -390,7 +393,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Algérie',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-JO',
@@ -400,7 +403,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Jordanie',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-AE',
@@ -410,7 +413,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Emirats Arabes Unis',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-BH',
@@ -420,7 +423,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Bahreïn',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-XA',
@@ -430,7 +433,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Pays arabes',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-SA',
@@ -440,7 +443,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Arabie Saoudite',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-IQ',
@@ -450,7 +453,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Irak',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-KW',
@@ -460,7 +463,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Koweït',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-MA',
@@ -470,7 +473,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Maroc',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-TN',
@@ -480,7 +483,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Tunisie',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-OM',
@@ -489,7 +492,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Oman',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-PS',
@@ -498,7 +501,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Palestine',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-QA',
@@ -508,7 +511,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Qatar',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-LB',
@@ -517,7 +520,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Liban',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-EG',
@@ -527,7 +530,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Égypte',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'fa-IR',
@@ -536,7 +539,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Iran',
     languageNameRaw: 'فارسی',
     languageNameFr: 'Persan',
-    sentences: PERSAN
+    sentences: PERSAN,
   },
   {
     isoCode: 'fr-FR',
@@ -545,7 +548,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'France',
     languageNameRaw: 'Français',
     languageNameFr: 'Français',
-    sentences: FRENCH
+    sentences: FRENCH,
   },
   {
     isoCode: 'en-GB',
@@ -554,7 +557,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Royaume-Uni',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'es-ES',
@@ -563,7 +566,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Espagne',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-AR',
@@ -573,7 +576,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Argentine',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'en-AU',
@@ -583,7 +586,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Australie',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-GH',
@@ -592,7 +595,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Ghana',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-CA',
@@ -602,7 +605,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Canada',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'fr-CA',
@@ -612,7 +615,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Canada',
     languageNameRaw: 'Français',
     languageNameFr: 'Français',
-    sentences: FRENCH
+    sentences: FRENCH,
   },
   {
     isoCode: 'en-IN',
@@ -621,7 +624,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-ZA',
@@ -631,7 +634,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-IE',
@@ -641,7 +644,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Irlande',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-KE',
@@ -651,7 +654,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Kenya',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-NZ',
@@ -661,7 +664,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Nouvelle-Zélande',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-SG',
@@ -671,7 +674,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Singapour',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-PH',
@@ -681,7 +684,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Philippines',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-NG',
@@ -691,7 +694,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Nigeria',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-TZ',
@@ -701,7 +704,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Tanzanie',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-US',
@@ -710,7 +713,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'États-Unis',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'fa-AF',
@@ -718,7 +721,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Afghanistan',
     languageNameFr: 'Dari',
     languageNameRaw: 'دري',
-    sentences: DARI
+    sentences: DARI,
   },
   {
     isoCode: 'ur-PK',
@@ -726,7 +729,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Pakistan',
     languageNameFr: 'Ourdou',
     languageNameRaw: 'اردو',
-    sentences: OURDOU
+    sentences: OURDOU,
   },
   {
     isoCode: 'pt-PT',
@@ -735,7 +738,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Portugal',
     languageNameFr: 'Portugais',
     languageNameRaw: 'Português',
-    sentences: PORTUGUESE
+    sentences: PORTUGUESE,
   },
   {
     isoCode: 'tr-TR',
@@ -744,7 +747,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Turquie',
     languageNameFr: 'Turc',
     languageNameRaw: 'Türkçe',
-    sentences: TURC
+    sentences: TURC,
   },
   {
     isoCode: 'de-DE',
@@ -753,7 +756,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Allemagne',
     languageNameFr: 'Allemand',
     languageNameRaw: 'Deutsch',
-    sentences: GERMAN
+    sentences: GERMAN,
   },
   {
     isoCode: 'hi-IN',
@@ -762,7 +765,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameFr: 'Hindi',
     languageNameRaw: 'हिन्दी',
-    sentences: HINDI
+    sentences: HINDI,
   },
   {
     isoCode: 'ta-IN',
@@ -771,7 +774,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameFr: 'Tamoul',
     languageNameRaw: 'தமிழ்',
-    sentences: TAMOUL_INDIA
+    sentences: TAMOUL_INDIA,
   },
   {
     isoCode: 'it-IT',
@@ -780,7 +783,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Italie',
     languageNameFr: 'Italien',
     languageNameRaw: 'Italiano',
-    sentences: ITALIAN
+    sentences: ITALIAN,
   },
   {
     isoCode: 'ru-RU',
@@ -789,7 +792,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Russie',
     languageNameFr: 'Russe',
     languageNameRaw: 'Русский',
-    sentences: RUSSIA
+    sentences: RUSSIA,
   },
   {
     isoCode: 'ro-RO',
@@ -798,7 +801,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Roumanie',
     languageNameFr: 'Roumain',
     languageNameRaw: 'Română',
-    sentences: ROMANIAN
+    sentences: ROMANIAN,
   },
   {
     isoCode: 'vi-VN',
@@ -807,7 +810,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Vietnam',
     languageNameFr: 'Vietnamien',
     languageNameRaw: 'Tiếng Việt',
-    sentences: VIETNAMESE
+    sentences: VIETNAMESE,
   },
   {
     isoCode: 'el-GR',
@@ -816,7 +819,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Grèce',
     languageNameFr: 'Grec',
     languageNameRaw: 'Ελληνικά',
-    sentences: GREEK
+    sentences: GREEK,
   },
   {
     isoCode: 'es-BO',
@@ -826,7 +829,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Bolivie',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-CL',
@@ -836,7 +839,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Chili',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-CO',
@@ -846,7 +849,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Colombie',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-CR',
@@ -856,7 +859,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Costa Rica',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-EC',
@@ -866,7 +869,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Equateur',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-SV',
@@ -876,7 +879,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Salvador',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-US',
@@ -886,7 +889,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'États-Unis',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-GT',
@@ -896,7 +899,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Guatemala',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-HN',
@@ -906,7 +909,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Honduras',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-MX',
@@ -916,7 +919,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Mexique',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-NI',
@@ -926,7 +929,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Nicaragua',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-PA',
@@ -936,7 +939,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Panama',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-PY',
@@ -946,7 +949,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Paraguay',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-PE',
@@ -956,7 +959,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Pérou',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-PR',
@@ -966,7 +969,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Porto Rico',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-DO',
@@ -976,7 +979,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'République Dominicaine',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-UY',
@@ -986,7 +989,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Uruguay',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-VE',
@@ -996,7 +999,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Vénézuéla',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'th-TH',
@@ -1005,7 +1008,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Thaïlande',
     languageNameRaw: 'ไทย',
     languageNameFr: 'Thaï',
-    sentences: THAILAND
+    sentences: THAILAND,
   },
   {
     isoCode: 'ko-KR',
@@ -1014,7 +1017,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Corée du Sud',
     languageNameRaw: '한국어',
     languageNameFr: 'Coréen',
-    sentences: KOREA
+    sentences: KOREA,
   },
   {
     isoCode: 'ja-JP',
@@ -1023,7 +1026,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Japon',
     languageNameRaw: '日本語',
     languageNameFr: 'Japonais',
-    sentences: JAPANESE
+    sentences: JAPANESE,
   },
   {
     isoCode: 'en-HK',
@@ -1033,7 +1036,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Hong Kong',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'ar-YE',
@@ -1043,7 +1046,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Yémen',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'gu-IN',
@@ -1052,7 +1055,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'ગુજરાતી',
     languageNameFr: 'Gujarati',
-    sentences: GUJARATI
+    sentences: GUJARATI,
   },
   {
     isoCode: 'hr-HR',
@@ -1061,7 +1064,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Croatie',
     languageNameRaw: 'Hrvatski',
     languageNameFr: 'Croate',
-    sentences: CROATIAN
+    sentences: CROATIAN,
   },
   {
     isoCode: 'kn-IN',
@@ -1070,7 +1073,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'ಕನ್ನಡ',
     languageNameFr: 'Kannada',
-    sentences: KANNADA
+    sentences: KANNADA,
   },
   {
     isoCode: 'lv-LV',
@@ -1079,7 +1082,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Lettonie',
     languageNameRaw: 'Latviešu',
     languageNameFr: 'Letton',
-    sentences: ENGLISH_DEFAULT
+    sentences: ENGLISH_DEFAULT,
   },
   {
     isoCode: 'lt-LT',
@@ -1088,7 +1091,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Lituanie',
     languageNameRaw: 'Lietuvių',
     languageNameFr: 'Lituanien',
-    sentences: ENGLISH_DEFAULT
+    sentences: ENGLISH_DEFAULT,
   },
   {
     isoCode: 'hu-HU',
@@ -1097,7 +1100,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Hongrie',
     languageNameRaw: 'Magyar',
     languageNameFr: 'Hongrois',
-    sentences: HUNGARIAN
+    sentences: HUNGARIAN,
   },
   {
     isoCode: 'mr-IN',
@@ -1106,7 +1109,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'मराठी',
     languageNameFr: 'Marathi',
-    sentences: ENGLISH_DEFAULT
+    sentences: ENGLISH_DEFAULT,
   },
   {
     isoCode: 'nl-NL',
@@ -1115,7 +1118,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Pays-Bas',
     languageNameRaw: 'Nederlands',
     languageNameFr: 'Néerlandais',
-    sentences: HOLLAND
+    sentences: HOLLAND,
   },
   {
     isoCode: 'nb-NO',
@@ -1124,7 +1127,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Norvège',
     languageNameRaw: 'Norsk bokmål',
     languageNameFr: 'Norvégien bokmål',
-    sentences: NORWAY
+    sentences: NORWAY,
   },
   {
     isoCode: 'pl-PL',
@@ -1133,7 +1136,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Pologne',
     languageNameRaw: 'Polski',
     languageNameFr: 'Polonais',
-    sentences: POLAND
+    sentences: POLAND,
   },
   {
     isoCode: 'pt-BR',
@@ -1142,7 +1145,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Brésil',
     languageNameRaw: 'Português',
     languageNameFr: 'Portugais',
-    sentences: PORTUGUESE
+    sentences: PORTUGUESE,
   },
   {
     isoCode: 'sk-SK',
@@ -1151,7 +1154,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Slovaquie',
     languageNameRaw: 'Slovenčina',
     languageNameFr: 'Slovaque',
-    sentences: SLOVENIA
+    sentences: SLOVENIA,
   },
   {
     isoCode: 'sl-SI',
@@ -1160,7 +1163,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Slovénie',
     languageNameRaw: 'Slovenščina',
     languageNameFr: 'Slovène',
-    sentences: ENGLISH_DEFAULT
+    sentences: ENGLISH_DEFAULT,
   },
   {
     isoCode: 'sw-KE',
@@ -1169,7 +1172,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Kenya',
     languageNameRaw: 'Swahili',
     languageNameFr: 'Swahili',
-    sentences: ENGLISH_DEFAULT
+    sentences: ENGLISH_DEFAULT,
   },
   {
     isoCode: 'fi-FI',
@@ -1178,7 +1181,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Finlande',
     languageNameRaw: 'Suomalainen',
     languageNameFr: 'Finnois',
-    sentences: FINLAND
+    sentences: FINLAND,
   },
   {
     isoCode: 'sv-SE',
@@ -1187,7 +1190,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Suède',
     languageNameRaw: 'Svenska',
     languageNameFr: 'Suédois',
-    sentences: SWEDEN
+    sentences: SWEDEN,
   },
   {
     isoCode: 'te-IN',
@@ -1196,7 +1199,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'తెలుగు',
     languageNameFr: 'Télougou',
-    sentences: TELUGU
+    sentences: TELUGU,
   },
   {
     isoCode: 'bg-BG',
@@ -1205,7 +1208,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Bulgarie',
     languageNameRaw: 'Български',
     languageNameFr: 'Bulgare',
-    sentences: BULGARE
+    sentences: BULGARE,
   },
   {
     isoCode: 'he-IL',
@@ -1214,7 +1217,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Israël',
     languageNameRaw: 'עברית',
     languageNameFr: 'Hébreu',
-    sentences: HEBREW
+    sentences: HEBREW,
   },
   {
     isoCode: 'da-DK',
@@ -1223,7 +1226,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Danemark',
     languageNameRaw: 'Dansk',
     languageNameFr: 'Danois',
-    sentences: DANISH
+    sentences: DANISH,
   },
   {
     isoCode: 'ca-ES',
@@ -1232,7 +1235,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Espagne',
     languageNameRaw: 'Català',
     languageNameFr: 'Catalan',
-    sentences: ENGLISH_DEFAULT
+    sentences: ENGLISH_DEFAULT,
   },
   {
     isoCode: 'id-ID',
@@ -1241,7 +1244,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Indonésie',
     languageNameRaw: 'Bahasa Indonesia',
     languageNameFr: 'Indonésien',
-    sentences: INDONESIA
+    sentences: INDONESIA,
   },
   {
     isoCode: 'ms-MY',
@@ -1250,7 +1253,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Malaisie',
     languageNameRaw: 'Bahasa Melayu',
     languageNameFr: 'Malais',
-    sentences: ENGLISH_DEFAULT
+    sentences: ENGLISH_DEFAULT,
   },
   {
     isoCode: 'cs-CZ',
@@ -1259,7 +1262,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'République Tchèque',
     languageNameRaw: 'Čeština',
     languageNameFr: 'Tchèque',
-    sentences: CZECH
+    sentences: CZECH,
   },
   {
     isoCode: 'pa-IN',
@@ -1267,7 +1270,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'ਪੰਜਾਬੀ',
     languageNameFr: 'Pendjabi',
-    sentences: PENDJABI
+    sentences: PENDJABI,
   },
   {
     isoCode: 'et-EE',
@@ -1276,6 +1279,32 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Estonie',
     languageNameRaw: 'Eestlane',
     languageNameFr: 'Estonien',
-    sentences: ESTONIAN
-  }
+    sentences: ESTONIAN,
+  },
+  {
+    isoCode: 'bs-BA',
+    countryNameRaw: 'Bosna i Hercegovina',
+    countryNameFr: 'Bosnie-Herzégovine',
+    languageNameRaw: 'Bosanski',
+    languageNameFr: 'Bosnien',
+    sentences: BOSNIAN,
+  },
+  {
+    isoCode: 'my-MM',
+    audioVoiceCode: 'my-MM-NilarNeural',
+    countryNameRaw: 'မြန်မာပြည်',
+    countryNameFr: 'Birmanie',
+    languageNameRaw: 'မြန်မာ',
+    languageNameFr: 'Birman',
+    sentences: BIRMAN,
+  },
+  {
+    isoCode: 'fil-PH',
+    audioVoiceCode: 'fil-PH-BlessicaNeural',
+    countryNameRaw: 'Pilipinas',
+    countryNameFr: 'Philippines',
+    languageNameRaw: 'Tagalog',
+    languageNameFr: 'Tagalog',
+    sentences: TAGALOG,
+  },
 ];
