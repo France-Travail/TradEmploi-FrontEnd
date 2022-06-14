@@ -373,7 +373,6 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     languageNameFr: 'Zoulou',
     sentences: ENGLISH_DEFAULT_NO_VOICE
   },
-  //end azure
   {
     isoCode: 'ar-IL',
     audioCode: 'ar-XA',
@@ -425,7 +424,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
   },
   {
     isoCode: 'ar-XA',
-    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-SA' : 'ar-XA',
+    audioCode: 'ar-XA',
     audioVoiceCode: 'ar-SA-ZariyahNeural',
     countryNameRaw: 'الدول العربية',
     countryNameFr: 'Pays arabes',
@@ -485,7 +484,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
   },
   {
     isoCode: 'ar-OM',
-    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-OM' : 'ar-XA',
+    audioCode: 'ar-XA',
     countryNameRaw: 'عُمان',
     countryNameFr: 'Oman',
     languageNameRaw: 'العربية',
@@ -494,7 +493,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
   },
   {
     isoCode: 'ar-PS',
-    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-PS' : 'ar-XA',
+    audioCode: 'ar-XA',
     countryNameRaw: 'فلسطين',
     countryNameFr: 'Palestine',
     languageNameRaw: 'العربية',
@@ -513,7 +512,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
   },
   {
     isoCode: 'ar-LB',
-    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-LB' : 'ar-XA',
+    audioCode: 'ar-XA',
     countryNameRaw: 'لبنان',
     countryNameFr: 'Liban',
     languageNameRaw: 'العربية',

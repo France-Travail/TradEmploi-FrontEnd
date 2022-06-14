@@ -13,6 +13,8 @@ import {ENGLISH, FRENCH} from '../../../../data/sentence';
 import {ERROR_FUNC_TTS} from '../../../../models/error/errorFunctionnal';
 import {params} from '../../../../../environments/params';
 import {TextToSpeechService} from '../../../../services/text-to-speech.service';
+import {LoaderComponent} from '../../../settings/loader/loader.component';
+import {MatDialog} from '@angular/material/dialog';
 
 
 @Component({
@@ -47,7 +49,9 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   constructor(private readonly textToSpeechService: TextToSpeechService,
               private readonly toastService: ToastService,
               private readonly settingsService: SettingsService,
-              private readonly db: AngularFirestore, private readonly router: Router) {
+              private readonly db: AngularFirestore,
+              private readonly router: Router,
+              private readonly dialog: MatDialog) {
     const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as Observable<Language[]>;
     result.subscribe(languages => languages.forEach(language => {
       if (this.fromAzure(language)) {
@@ -131,6 +135,8 @@ export class LanguageGridComponent implements OnChanges, OnInit {
     if (this.audioEnabled) {
       this.audioEnabled = false;
       const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
+      const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader' , disableClose: true});
+
       this.textToSpeechService
         .getSpeech(item.sentences.readedWelcome, audioLanguage)
         .then((_) => {
@@ -139,11 +145,13 @@ export class LanguageGridComponent implements OnChanges, OnInit {
           setTimeout(() => {
             this.audioEnabled = true;
           }, 2000);
+          loaderDialog.close();
         })
         .catch((_) => {
           this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
           this.audioEnabled = true;
           this.textToSpeechService.audioSpeech = undefined;
+          loaderDialog.close();
         });
     }
   }
