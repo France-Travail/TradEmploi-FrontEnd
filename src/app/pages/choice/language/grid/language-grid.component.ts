@@ -8,11 +8,13 @@ import {VOCABULARY_AZURE} from '../../../../data/vocabulary-microsoft-azure';
 import {environment} from '../../../../../environments/environment';
 import {ToastService} from '../../../../services/toast.service';
 import {SettingsService} from '../../../../services/settings.service';
-import {VOCABULARY} from '../../../../data/vocabulary';
+import {VOCABULARY_GCP} from '../../../../data/vocabulary-gcp';
 import {ENGLISH, FRENCH} from '../../../../data/sentence';
 import {ERROR_FUNC_TTS} from '../../../../models/error/errorFunctionnal';
 import {params} from '../../../../../environments/params';
 import {TextToSpeechService} from '../../../../services/text-to-speech.service';
+import {LoaderComponent} from '../../../settings/loader/loader.component';
+import {MatDialog} from '@angular/material/dialog';
 
 
 @Component({
@@ -47,13 +49,15 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   constructor(private readonly textToSpeechService: TextToSpeechService,
               private readonly toastService: ToastService,
               private readonly settingsService: SettingsService,
-              private readonly db: AngularFirestore, private readonly router: Router) {
+              private readonly db: AngularFirestore,
+              private readonly router: Router,
+              private readonly dialog: MatDialog) {
     const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as Observable<Language[]>;
     result.subscribe(languages => languages.forEach(language => {
       if (this.fromAzure(language)) {
         this.selectedCountries.push(...VOCABULARY_AZURE.filter((i) => this.isValidIsoCode(i, language)));
       } else {
-        this.selectedCountries.push(...VOCABULARY.filter((i) => this.isValidIsoCode(i, language)));
+        this.selectedCountries.push(...VOCABULARY_GCP.filter((i) => this.isValidIsoCode(i, language)));
       }
       this.mapLanguages.set(language.isoCode, language);
     }));
@@ -94,11 +98,11 @@ export class LanguageGridComponent implements OnChanges, OnInit {
     this.countries = [];
     if (environment.microsoftSpeechConfig.speechToTextEnabled) {
       for (const excludedLanguage of params.excludedLanguagesFromAzureSTT) {
-        const vocabulariesGcp = [...VOCABULARY].filter(language => language.isoCode === excludedLanguage);
+        const vocabulariesGcp = [...VOCABULARY_GCP].filter(language => language.isoCode === excludedLanguage);
         this.countries.push(...vocabulariesGcp);
       }
     } else {
-      this.countries.push(...VOCABULARY);
+      this.countries.push(...VOCABULARY_GCP);
     }
     const vocabulariesAzure = [...VOCABULARY_AZURE].filter(language => this.fromAzure(language) && language.isoCode !== 'fr-FR' && language.isoCode !== 'fr-CA');
     this.countries.push(...vocabulariesAzure);
@@ -131,6 +135,8 @@ export class LanguageGridComponent implements OnChanges, OnInit {
     if (this.audioEnabled) {
       this.audioEnabled = false;
       const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
+      const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader' , disableClose: true});
+
       this.textToSpeechService
         .getSpeech(item.sentences.readedWelcome, audioLanguage)
         .then((_) => {
@@ -139,11 +145,13 @@ export class LanguageGridComponent implements OnChanges, OnInit {
           setTimeout(() => {
             this.audioEnabled = true;
           }, 2000);
+          loaderDialog.close();
         })
         .catch((_) => {
           this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
           this.audioEnabled = true;
           this.textToSpeechService.audioSpeech = undefined;
+          loaderDialog.close();
         });
     }
   }

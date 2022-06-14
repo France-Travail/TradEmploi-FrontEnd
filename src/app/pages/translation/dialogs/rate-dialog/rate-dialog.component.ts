@@ -9,7 +9,7 @@ import { RateService } from '../../../../services/rate.service';
 import { SettingsService } from '../../../../services/settings.service';
 import { ToastService } from '../../../../services/toast.service';
 import { ChatService } from '../../../../services/chat.service';
-import { VOCABULARY } from '../../../../data/vocabulary';
+import { VOCABULARY_GCP } from '../../../../data/vocabulary-gcp';
 import { ERROR_FUNC_SEND_STATS } from '../../../../models/error/errorFunctionnal';
 import {params} from '../../../../../environments/params';
 
@@ -79,7 +79,7 @@ export class RateDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const rateFr = VOCABULARY.find((v) => v.isoCode === 'fr-FR').sentences.rate;
+    const rateFr = VOCABULARY_GCP.find((v) => v.isoCode === 'fr-FR').sentences.rate;
     if (rateFr) {
       this.sentences.questionOne.french = rateFr.qualityTranslate;
       this.sentences.questionTwo.french = rateFr.rating;
@@ -95,7 +95,7 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionFour.foreign = '';
       this.sentences.questionFive.foreign = '';
     } else {
-      const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.user.value.language.written);
+      const vocabularyForeign = VOCABULARY_GCP.find((v) => v.isoCode === this.settingsService.user.value.language.written);
       const rateForeign = vocabularyForeign.sentences.rate;
       if (rateForeign) {
         this.sentences.questionOne.foreign = rateForeign.qualityTranslate;

@@ -5,7 +5,7 @@ import { ShareComponent } from '../../../../pages/translation/dialogs/share/shar
 import { GdprComponent } from '../../../../pages/gdpr/gdpr.component';
 import { SettingsService } from '../../../../services/settings.service';
 import { NavbarService } from '../../../../services/navbar.service';
-import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
+import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary-gcp';
 import { Role } from '../../../../models/role';
 import { RateDialogComponent } from '../../../../pages/translation/dialogs/rate-dialog/rate-dialog.component';
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';

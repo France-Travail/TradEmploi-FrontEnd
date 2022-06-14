@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from '../../../../services/settings.service';
 import { AudioRecordingService } from '../../../../services/audio-recording.service';
 import { ToastService } from '../../../../services/toast.service';
-import { VOCABULARY } from '../../../../data/vocabulary';
+import { VOCABULARY_GCP } from '../../../../data/vocabulary-gcp';
 import { Vocabulary } from '../../../../models/vocabulary';
 import { Role } from '../../../../models/role';
 import { ERROR_FUNC_NOSOUND, ERROR_FUNC_STT } from '../../../../models/error/errorFunctionnal';
@@ -51,8 +51,8 @@ export class RecordComponent implements OnInit {
 
   putTitle = () => {
     const language: string = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.audio : this.settingsService.user.value.language.audio;
-    const audioCode: Vocabulary = VOCABULARY.find((item) => item.audioCode === language);
-    this.text = audioCode ? audioCode.sentences.recordText : VOCABULARY.find((item) => item.isoCode === language).sentences.recordText;
+    const audioCode: Vocabulary = VOCABULARY_GCP.find((item) => item.audioCode === language);
+    this.text = audioCode ? audioCode.sentences.recordText : VOCABULARY_GCP.find((item) => item.isoCode === language).sentences.recordText;
   }
 
   private readonly recordBarLoad = () => {
