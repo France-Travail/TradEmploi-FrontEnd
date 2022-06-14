@@ -8,7 +8,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GdprComponent } from '../../../../pages/gdpr/gdpr.component';
-import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
+import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary-gcp';
 import { Role } from '../../../../models/role';
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 import { Router } from '@angular/router';

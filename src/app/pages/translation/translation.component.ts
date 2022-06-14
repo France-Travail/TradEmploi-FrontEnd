@@ -16,7 +16,7 @@ import {NavbarService} from '../../services/navbar.service';
 import {TranslateService} from '../../services/translate.service';
 import {CryptService} from '../../services/crypt.service';
 import {Role} from '../../models/role';
-import {VOCABULARY} from '../../data/vocabulary';
+import {VOCABULARY_GCP} from '../../data/vocabulary-gcp';
 import {ENGLISH} from '../../data/sentence';
 import {IntroMessage} from '../../models/vocabulary';
 import {Message} from '../../models/translate/message';
@@ -92,7 +92,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   ngOnInit(): void {
     this.navbarService.handleTabsTranslation();
-    const language = VOCABULARY.find((i) => i.isoCode === this.user.language.audio || i.audioCode === this.user.language.audio);
+    const language = VOCABULARY_GCP.find((i) => i.isoCode === this.user.language.audio || i.audioCode === this.user.language.audio);
     this.isAudioSupported = language.sentences.audioSupported !== undefined;
     this.vocalSupported = language.sentences.voiceNotSupported === undefined;
     this.isAudioPlay = true;

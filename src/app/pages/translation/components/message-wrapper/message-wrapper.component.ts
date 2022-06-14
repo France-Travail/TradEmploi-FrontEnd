@@ -20,9 +20,9 @@ import { Role } from '../../../../models/role';
 import { Stream } from '../../../../models/stream';
 import { User } from '../../../../models/user';
 import { Message } from '../../../../models/translate/message';
-import { VOCABULARY, VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
+import { VOCABULARY_GCP, VOCABULARY_DEFAULT } from '../../../../data/vocabulary-gcp';
 import { isIOS } from '../../../../utils/utils';
-import {params} from "../../../../../environments/params";
+import {params} from '../../../../../environments/params';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -84,7 +84,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     if (this.useSpeechToTextMicrosoftApi) {
       this.vocabulary = VOCABULARY_AZURE;
     } else {
-      this.vocabulary = VOCABULARY;
+      this.vocabulary = VOCABULARY_GCP;
     }
     const isLanguageExist = this.vocabulary.some((item) => item.isoCode === this.settingsService.user.value.language.written);
     const data = isLanguageExist || this.role === Role.ADVISOR ? this.vocabulary.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;

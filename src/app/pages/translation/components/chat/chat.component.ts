@@ -3,7 +3,7 @@ import {SettingsService} from '../../../../services/settings.service';
 import {Language} from '../../../../models/language';
 import {MessageWrapped} from '../../../../models/translate/message-wrapped';
 import {Message} from '../../../../models/translate/message';
-import {VOCABULARY} from '../../../../data/vocabulary';
+import {VOCABULARY_GCP} from '../../../../data/vocabulary-gcp';
 import {TextToSpeechService} from '../../../../services/text-to-speech.service';
 import {params} from '../../../../../environments/params';
 
@@ -29,7 +29,7 @@ export class ChatComponent implements OnInit {
       if (user && user.firstname) {
         this.firstName = user.firstname.split(' ')[1] || params.organization.organizationUser;;
         this.targetLanguage = user.language;
-        this.isAudioSupported = VOCABULARY.some((item) => item.isoCode === user.language.written && item.sentences.audioSupported);
+        this.isAudioSupported = VOCABULARY_GCP.some((item) => item.isoCode === user.language.written && item.sentences.audioSupported);
       }
     });
   }
