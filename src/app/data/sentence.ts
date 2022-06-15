@@ -273,9 +273,9 @@ export const CZECH: Sentence = {
 
 export const SLOVENIA: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Prajete si výmenu v tomto jazyku?',
-  translationH2: 'Ak chcete hovoriť, zadajte text alebo podržte modrý mikrofón',
-  translationH2Mobile: 'Ak chcete hovoriť, zadajte text alebo podržte modrý mikrofón',
+  readedWelcome: 'Bi radi izmenjali v tem jeziku?',
+  translationH2: 'Napišite stavek za prevod.',
+  translationH2Mobile: 'Vnesite besedilo ali tapnite modri mikrofon za govor.',
 };
 
 export const SWEDEN: Sentence = {
@@ -946,7 +946,7 @@ export const SERBIAN: Sentence = {
 };
 
 export const GEORGIAN: Sentence = {
-  ...ENGLISH_DEFAULT_NO_VOICE,
+  ...ENGLISH_DEFAULT,
   readedWelcome: 'გსურთ ამ ენაზე გაგრძელება?',
   translationH2: 'შეიყვანეთ ტექსტი, ან გეჭიროთ ლურჯი მიკროფონი სალაპარაკოდ',
   translationH2Mobile: 'შეიყვანეთ ტექსტი, ან შეეხეთ ლურჯ მიკროფონს სასაუბროდ',
@@ -1075,4 +1075,10 @@ export const LETTON: Sentence = {
   readedWelcome: 'Vai vēlaties apmainīties šajā valodā?',
   translationH2: 'Uzrakstiet tulkojamo teikumu.',
   translationH2Mobile: 'Ievadiet tekstu vai pieskarieties zilajam mikrofonam, lai runātu.',
+};
+export const SLOVAKIA: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Chceli by ste si vymeniť v tomto jazyku?',
+  translationH2: 'Napíšte vetu, ktorú chcete preložiť.',
+  translationH2Mobile: 'Zadajte text alebo hovorte klepnutím na modrý mikrofón.',
 };
