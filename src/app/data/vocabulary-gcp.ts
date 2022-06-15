@@ -52,7 +52,7 @@ import {
   ROMANIAN,
   RUSSIA,
   SERBIAN,
-  SLOVENIA,
+  SLOVAKIA,
   SPANISH,
   SWEDEN,
   TAGALOG,
@@ -933,7 +933,7 @@ export const VOCABULARY_GCP: Vocabulary[] = [
     countryNameFr: 'Slovaquie',
     languageNameRaw: 'Slovenčina',
     languageNameFr: 'Slovaque',
-    sentences: SLOVENIA,
+    sentences: SLOVAKIA,
   },
   {
     isoCode: 'sl-SI',

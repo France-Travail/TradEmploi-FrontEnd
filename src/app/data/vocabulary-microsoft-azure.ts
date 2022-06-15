@@ -57,7 +57,7 @@ import {
   PORTUGUESE,
   ROMANIAN,
   RUSSIA,
-  SERBIAN,
+  SERBIAN, SLOVAKIA,
   SLOVENIA,
   SOUDNANAIS,
   SPANISH, SWAHILI,
@@ -1145,7 +1145,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Slovaquie',
     languageNameRaw: 'Slovenčina',
     languageNameFr: 'Slovaque',
-    sentences: SLOVENIA,
+    sentences: SLOVAKIA,
   },
   {
     isoCode: 'sl-SI',
@@ -1154,7 +1154,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Slovénie',
     languageNameRaw: 'Slovenščina',
     languageNameFr: 'Slovène',
-    sentences: ENGLISH,
+    sentences: SLOVENIA,
   },
   {
     isoCode: 'sw-KE',
