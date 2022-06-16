@@ -121,6 +121,7 @@ microsoftSpeechConfig.textToSpeechEnabled | converting text to voice will use th
 microsoftSpeechConfig.key | the microsoft azure speech to text api key
 microsoftSpeechConfig.region | the microsoft azure speech to text api region
 
+
 ## List of optional parameters in the params.ts file
 
 Name | Description

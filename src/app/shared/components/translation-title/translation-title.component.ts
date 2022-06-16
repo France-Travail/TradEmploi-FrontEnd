@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SettingsService } from '../../../services/settings.service';
 import { Role } from '../../../models/role';
-import { VOCABULARY, VOCABULARY_DEFAULT } from '../../../data/vocabulary';
+import { VOCABULARY_GCP, VOCABULARY_DEFAULT } from '../../../data/vocabulary-gcp';
 
 @Component({
   selector: 'app-translation-title',
@@ -25,11 +25,11 @@ export class TranslationTitleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let guest = VOCABULARY.find((item) => item.isoCode === this.settingsService.user.value.language.written);
+    let guest = VOCABULARY_GCP.find((item) => item.isoCode === this.settingsService.user.value.language.written);
     if (guest === undefined) {
       guest = VOCABULARY_DEFAULT;
     }
-    const advisorSentences = VOCABULARY.find((item) => item.isoCode === this.settingsService.defaultLanguage.written).sentences;
+    const advisorSentences = VOCABULARY_GCP.find((item) => item.isoCode === this.settingsService.defaultLanguage.written).sentences;
 
     this.title = {
       raw: guest.sentences.applicationName,

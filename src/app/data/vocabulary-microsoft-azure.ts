@@ -1,23 +1,28 @@
-import { Vocabulary } from '../models/vocabulary';
+import {Vocabulary} from '../models/vocabulary';
 import {
+  AFRIKAANS,
   ALBANIAN_NO_VOICE,
-  AMHARIC_NO_VOICE,
+  AMHARIC,
   ARAB,
   ARMENIAN,
   BASQUE,
-  BENGALI_INDIA_NO_VOICE,
-  BENGALI_NO_VOICE,
+  BENGALI,
+  BENGALI_INDIA,
+  BIRMAN,
+  BOSNIAN,
   BULGARE,
-  CZECH,
+  CATALAN,
+  CINGALAIS,
   CROATIAN,
+  CZECH,
   DANISH,
   DARI,
   ENGLISH,
-  ENGLISH_DEFAULT,
   ENGLISH_DEFAULT_NO_VOICE,
   ESTONIAN,
   FINLAND,
   FRENCH,
+  GALICEIN,
   GEORGIAN,
   GERMAN,
   GREEK,
@@ -26,43 +31,50 @@ import {
   HINDI,
   HOLLAND,
   HUNGARIAN,
-  INDONESIA,
   ICELAND,
+  INDONESIA,
   ITALIAN,
   JAPANESE,
+  JAVANAIS,
   KANNADA,
-  KHMER_NO_VOICE,
+  KAZAKH,
+  KHMER,
   KOREA,
-  MALAYALAM_NO_VOICE,
-  MANDARIN_NO_VOICE,
+  LAO, LETTON,
+  LITUANIEN,
+  MACEDONIEN,
+  MALAIS,
+  MALAYALAM,
+  MANDARIN, MARATHI,
   MONGOL_NO_VOICE,
   NEPALESE_NO_VOICE,
   NORWAY,
   OURDOU,
-  OURDOU_NO_VOICE,
-  OUZBEK_NO_VOICE,
+  OUZBEK,
   PENDJABI,
   PERSAN,
   POLAND,
   PORTUGUESE,
   ROMANIAN,
   RUSSIA,
+  SERBIAN, SLOVAKIA,
   SLOVENIA,
-  SPANISH,
+  SOUDNANAIS,
+  SPANISH, SWAHILI,
   SWEDEN,
-  SERBIAN,
+  TAGALOG,
+  TAMOUL, TAMOUL_GCP,
   TAMOUL_INDIA,
-  TAMOUL_NO_VOICE,
   TELUGU,
   THAILAND,
   TURC,
   UKRAINE,
-  VIETNAMESE, AFRIKAANS,
+  VIETNAMESE, ZOULOU,
 } from './sentence';
+import {environment} from '../../environments/environment';
 
 const COUNTRY_NAME_SUD_AFRICA = 'Afrique du Sud';
 export const VOCABULARY_AZURE: Vocabulary[] = [
-  // no voice for azure
   {
     isoCode: 'af-ZA',
     audioVoiceCode: 'af-ZA-AdriNeural',
@@ -70,7 +82,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'Afrikaans',
     languageNameFr: 'Afrikaans',
-    sentences: AFRIKAANS
+    sentences: AFRIKAANS,
   },
   {
     isoCode: 'sq-AL',
@@ -78,7 +90,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Albanie',
     languageNameRaw: 'Shqiptare',
     languageNameFr: 'Albanais',
-    sentences: ALBANIAN_NO_VOICE
+    sentences: ALBANIAN_NO_VOICE,
   },
   {
     isoCode: 'am-ET',
@@ -87,7 +99,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Éthiopie',
     languageNameFr: 'Amharique',
     languageNameRaw: 'አማርኛ',
-    sentences: AMHARIC_NO_VOICE
+    sentences: AMHARIC,
   },
   {
     isoCode: 'hy-AM',
@@ -95,7 +107,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Arménie',
     languageNameRaw: 'Հայ',
     languageNameFr: 'Arménien',
-    sentences: ARMENIAN
+    sentences: ARMENIAN,
   },
   {
     isoCode: 'az-AZ',
@@ -103,7 +115,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Azerbaïjan',
     languageNameRaw: 'Azərbaycan',
     languageNameFr: 'Azerbaïdjan',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ENGLISH_DEFAULT_NO_VOICE,
   },
   {
     isoCode: 'eu-ES',
@@ -111,7 +123,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Espagne',
     languageNameFr: 'Basque',
     languageNameRaw: 'Euskara',
-    sentences: BASQUE
+    sentences: BASQUE,
   },
   {
     isoCode: 'bn-BD',
@@ -120,7 +132,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Bangladesh',
     languageNameRaw: 'বাংলা',
     languageNameFr: 'Bengali',
-    sentences: BENGALI_NO_VOICE
+    sentences: BENGALI,
   },
   {
     isoCode: 'bn-IN',
@@ -129,7 +141,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'বাংলা',
     languageNameFr: 'Bengali',
-    sentences: BENGALI_INDIA_NO_VOICE
+    sentences: BENGALI_INDIA,
   },
   {
     isoCode: 'zh-HK',
@@ -139,7 +151,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Hong Kong',
     languageNameRaw: '普通话',
     languageNameFr: 'Mandarin',
-    sentences: MANDARIN_NO_VOICE
+    sentences: MANDARIN,
   },
   {
     isoCode: 'zh-TW',
@@ -149,7 +161,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Taïwan',
     languageNameRaw: '普通话',
     languageNameFr: 'Mandarin',
-    sentences: MANDARIN_NO_VOICE
+    sentences: MANDARIN,
   },
   {
     isoCode: 'en-PK',
@@ -158,15 +170,17 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Pakistan',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'gl-ES',
+    audioCode: 'gl-ES',
+    audioVoiceCode: 'gl-ES-SabelaNeural',
     countryNameRaw: 'España',
     countryNameFr: 'Espagne',
     languageNameRaw: 'Galego',
     languageNameFr: 'Galicien',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: GALICEIN,
   },
   {
     isoCode: 'ka-GE',
@@ -174,63 +188,70 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Géorgie',
     languageNameRaw: 'ქართული',
     languageNameFr: 'Géorgien',
-    sentences: GEORGIAN
+    sentences: GEORGIAN,
   },
   {
     isoCode: 'is-IS',
+    audioVoiceCode: 'is-IS-GudrunNeural',
     countryNameRaw: 'Ísland',
     countryNameFr: 'Islande',
     languageNameRaw: 'Íslenska',
     languageNameFr: 'Islandais',
-    sentences: ICELAND
+    sentences: ICELAND,
   },
   {
     isoCode: 'jv-ID',
+    audioVoiceCode: 'jv-ID-SitiNeural',
     countryNameRaw: 'Indonesia',
     countryNameFr: 'Indonésie',
     languageNameRaw: 'Jawa',
     languageNameFr: 'Javanais',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: JAVANAIS,
   },
   {
     isoCode: 'kk-KZ',
+    audioVoiceCode: 'kk-KZ-AigulNeural',
     countryNameRaw: `Қазақстан`,
     countryNameFr: 'Kazakhstan',
     languageNameRaw: `Қазақша`,
     languageNameFr: 'Kazakh',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: KAZAKH,
   },
   {
     isoCode: 'km-KH',
+    audioVoiceCode: 'km-KH-SreymomNeural',
     countryNameRaw: 'កម្ពុជា',
     countryNameFr: 'Cambodge',
     languageNameFr: 'Khmer',
     languageNameRaw: 'ភាសាខ្មែរ',
-    sentences: KHMER_NO_VOICE
+    sentences: KHMER,
   },
   {
     isoCode: 'lo-LA',
+    audioVoiceCode: 'lo-LA-KeomanyNeural',
     countryNameRaw: 'ລາວ',
     countryNameFr: 'Laos',
     languageNameRaw: 'ລາວ',
     languageNameFr: 'Lao',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: LAO,
   },
   {
     isoCode: 'mk-MK',
+    audioVoiceCode: 'mk-MK-MarijaNeural',
     countryNameRaw: `Македонија`,
     countryNameFr: 'Macédoine',
     languageNameRaw: `Македонски`,
     languageNameFr: 'Macédonien',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: MACEDONIEN,
   },
   {
     isoCode: 'ml-IN',
+    audioVoiceCode: 'ml-IN-SobhanaNeural',
     countryNameRaw: 'ഇന്ത്യ',
     countryNameFr: 'Inde',
     languageNameRaw: 'മലയാളം',
     languageNameFr: 'Malayalam',
-    sentences: MALAYALAM_NO_VOICE
+    sentences: MALAYALAM,
   },
   {
     isoCode: 'mr-IN',
@@ -238,7 +259,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'मराठी',
     languageNameFr: 'Marathi',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: MARATHI,
   },
   {
     isoCode: 'mn-MN',
@@ -246,7 +267,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Mongolie',
     languageNameFr: 'Mongol',
     languageNameRaw: 'Монгол',
-    sentences: MONGOL_NO_VOICE
+    sentences: MONGOL_NO_VOICE,
   },
   {
     isoCode: 'ne-NP',
@@ -254,39 +275,43 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Népal',
     languageNameFr: 'Népalais',
     languageNameRaw: 'नेपाली',
-    sentences: NEPALESE_NO_VOICE
+    sentences: NEPALESE_NO_VOICE,
   },
   {
     isoCode: 'sr-RS',
+    audioVoiceCode: 'sr-RS-SophieNeural',
     countryNameRaw: 'Србија',
     countryNameFr: 'Serbie',
     languageNameRaw: 'Српски',
     languageNameFr: 'Serbe',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: SERBIAN,
   },
   {
     isoCode: 'si-LK',
+    audioVoiceCode: 'si-LK-ThiliniNeural',
     countryNameRaw: 'ශ්රී ලංකාව',
     countryNameFr: 'Sri Lanka',
     languageNameRaw: 'සිංහල',
     languageNameFr: 'Cingalais',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: CINGALAIS,
   },
   {
     isoCode: 'su-ID',
+    audioVoiceCode: 'su-ID-TutiNeural',
     countryNameRaw: 'Indonesia',
     countryNameFr: 'Indonésie',
     languageNameRaw: 'Sundanese',
     languageNameFr: 'Soundanais',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: SOUDNANAIS,
   },
   {
     isoCode: 'sw-TZ',
+    audioVoiceCode: 'sw-TZ-RehemaNeural',
     countryNameRaw: 'Tanzania',
     countryNameFr: 'Tanzanie',
     languageNameRaw: 'Swahili',
     languageNameFr: 'Swahili',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: SWAHILI,
   },
   {
     isoCode: 'ta-MY',
@@ -294,23 +319,25 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Malaisie',
     languageNameRaw: 'தமிழ்',
     languageNameFr: 'Tamoul',
-    sentences: TAMOUL_NO_VOICE
+    sentences: TAMOUL_GCP,
   },
   {
     isoCode: 'ta-SG',
+    audioVoiceCode: 'ta-SG-VenbaNeural',
     countryNameRaw: 'சிங்கப்பூர்',
     countryNameFr: 'Singapour',
     languageNameRaw: 'தமிழ்',
     languageNameFr: 'Tamoul',
-    sentences: TAMOUL_NO_VOICE
+    sentences: TAMOUL,
   },
   {
     isoCode: 'ta-LK',
+    audioVoiceCode: 'ta-LK-SaranyaNeural',
     countryNameRaw: 'இலங்கை',
     countryNameFr: 'Sri Lanka',
     languageNameRaw: 'தமிழ்',
     languageNameFr: 'Tamoul',
-    sentences: TAMOUL_NO_VOICE
+    sentences: TAMOUL,
   },
   {
     isoCode: 'uk-UA',
@@ -319,41 +346,44 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Ukraine',
     languageNameRaw: 'Українська',
     languageNameFr: 'Ukrainien',
-    sentences: UKRAINE
+    sentences: UKRAINE,
   },
   {
     isoCode: 'ur-IN',
+    audioVoiceCode: 'ur-IN-GulNeural',
     countryNameRaw: 'بھارت',
     countryNameFr: 'Inde',
     languageNameRaw: 'اردو',
     languageNameFr: 'Ourdou',
-    sentences: OURDOU_NO_VOICE
+    sentences: OURDOU,
   },
   {
     isoCode: 'ur-PK',
+    audioVoiceCode: 'ur-PK-UzmaNeural',
     countryNameRaw: 'پاکستان',
     countryNameFr: 'Pakistan',
     languageNameFr: 'Ourdou',
     languageNameRaw: 'اردو',
-    sentences: OURDOU_NO_VOICE
+    sentences: OURDOU,
   },
   {
     isoCode: 'uz-UZ',
+    audioVoiceCode: 'uz-UZ-MadinaNeural',
     countryNameRaw: 'Ўзбекистон',
     countryNameFr: 'Ouzbékistan',
     languageNameFr: 'Ouzbek',
     languageNameRaw: 'ўзбек',
-    sentences: OUZBEK_NO_VOICE
+    sentences: OUZBEK,
   },
   {
     isoCode: 'zu-ZA',
+    audioVoiceCode: 'zu-ZA-ThandoNeural',
     countryNameRaw: 'Ningizimu Afrika',
     countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'IsiZulu',
     languageNameFr: 'Zoulou',
-    sentences: ENGLISH_DEFAULT_NO_VOICE
+    sentences: ZOULOU,
   },
-  //end azure
   {
     isoCode: 'ar-IL',
     audioCode: 'ar-XA',
@@ -361,47 +391,47 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Israël',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-DZ',
-    audioCode: 'ar-DZ',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-DZ' : 'ar-XA',
     audioVoiceCode: 'ar-DZ-IsmaelNeural',
     countryNameRaw: 'الجزائر',
     countryNameFr: 'Algérie',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-JO',
     audioVoiceCode: 'ar-JO-SanaNeural',
-    audioCode: 'ar-JO',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-JO' : 'ar-XA',
     countryNameRaw: 'الأردن',
     countryNameFr: 'Jordanie',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-AE',
     audioVoiceCode: 'ar-AE-FatimaNeural',
-    audioCode: 'ar-AE',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-AE' : 'ar-XA',
     countryNameRaw: 'الإمارات',
     countryNameFr: 'Emirats Arabes Unis',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-BH',
     audioVoiceCode: 'ar-BH-LailaNeural',
-    audioCode: 'ar-BH',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-BH' : 'ar-XA',
     countryNameRaw: 'البحرين',
     countryNameFr: 'Bahreïn',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-XA',
@@ -411,57 +441,57 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Pays arabes',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-SA',
     audioVoiceCode: 'ar-SA-ZariyahNeural',
-    audioCode: 'ar-SA',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-SA' : 'ar-XA',
     countryNameRaw: 'السعودية',
     countryNameFr: 'Arabie Saoudite',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-IQ',
     audioVoiceCode: 'ar-IQ-RanaNeural',
-    audioCode: 'ar-IQ',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-IQ' : 'ar-XA',
     countryNameRaw: 'العراق',
     countryNameFr: 'Irak',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-KW',
     audioVoiceCode: 'ar-KW-NouraNeural',
-    audioCode: 'ar-KW',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-KW' : 'ar-XA',
     countryNameRaw: 'الكويت',
     countryNameFr: 'Koweït',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-MA',
     audioVoiceCode: 'ar-MA-MounaNeural',
-    audioCode: 'ar-MA',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-MA' : 'ar-XA',
     countryNameRaw: 'المغرب',
     countryNameFr: 'Maroc',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-TN',
-    audioCode: 'ar-TN',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-TN' : 'ar-XA',
     audioVoiceCode: 'ar-TN-ReemNeural',
     countryNameRaw: 'تونس',
     countryNameFr: 'Tunisie',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-OM',
@@ -470,7 +500,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Oman',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-PS',
@@ -479,17 +509,17 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Palestine',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-QA',
     audioVoiceCode: 'ar-QA-AmalNeural',
-    audioCode: 'ar-QA',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-QA' : 'ar-XA',
     countryNameRaw: 'قطر',
     countryNameFr: 'Qatar',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-LB',
@@ -498,25 +528,26 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Liban',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'ar-EG',
-    audioCode: 'ar-EG',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-EG' : 'ar-XA',
     audioVoiceCode: 'ar-EG-ShakirNeural',
     countryNameRaw: 'مصر',
     countryNameFr: 'Égypte',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'fa-IR',
+    audioVoiceCode: 'fa-IR-DilaraNeural',
     countryNameRaw: 'ایران',
     countryNameFr: 'Iran',
     languageNameRaw: 'فارسی',
     languageNameFr: 'Persan',
-    sentences: PERSAN
+    sentences: PERSAN,
   },
   {
     isoCode: 'fr-FR',
@@ -525,7 +556,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'France',
     languageNameRaw: 'Français',
     languageNameFr: 'Français',
-    sentences: FRENCH
+    sentences: FRENCH,
   },
   {
     isoCode: 'en-GB',
@@ -534,24 +565,26 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Royaume-Uni',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'es-ES',
+    audioVoiceCode: 'es-ES-ElviraNeural',
     countryNameRaw: 'España',
     countryNameFr: 'Espagne',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-AR',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-AR' : 'es-ES',
+    audioVoiceCode: 'es-AR-ElenaNeural',
     countryNameRaw: 'Argentina',
     countryNameFr: 'Argentine',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'en-AU',
@@ -561,7 +594,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Australie',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-GH',
@@ -570,17 +603,17 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Ghana',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-CA',
-    audioCode: 'en-CA',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-CA' : 'en-US',
     audioVoiceCode: 'en-CA-ClaraNeural',
     countryNameRaw: 'Canada',
     countryNameFr: 'Canada',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'fr-CA',
@@ -590,7 +623,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Canada',
     languageNameRaw: 'Français',
     languageNameFr: 'Français',
-    sentences: FRENCH
+    sentences: FRENCH,
   },
   {
     isoCode: 'en-IN',
@@ -599,87 +632,87 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-ZA',
-    audioCode: 'en-ZA',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-ZA' : 'en-GB',
     audioVoiceCode: 'en-ZA-LeahNeural',
     countryNameRaw: 'South Africa',
     countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-IE',
-    audioCode: 'en-IE',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-IE' : 'en-GB',
     audioVoiceCode: 'en-IE-EmilyNeural',
     countryNameRaw: 'Ireland',
     countryNameFr: 'Irlande',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-KE',
-    audioCode: 'en-KE',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-KE' : 'en-GB',
     audioVoiceCode: 'en-KE-AsiliaNeural',
     countryNameRaw: 'Kenya',
     countryNameFr: 'Kenya',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-NZ',
-    audioCode: 'en-NZ',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-NZ' : 'en-GB',
     audioVoiceCode: 'en-NZ-MollyNeural',
     countryNameRaw: 'New Zealand',
     countryNameFr: 'Nouvelle-Zélande',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-SG',
-    audioCode: 'en-SG',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-SG' : 'en-GB',
     audioVoiceCode: 'en-SG-LunaNeural',
     countryNameRaw: 'Singapore',
     countryNameFr: 'Singapour',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-PH',
-    audioCode: 'en-GB',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-PH' : 'en-GB',
     audioVoiceCode: 'en-PH-RosaNeural',
     countryNameRaw: 'Philippines',
     countryNameFr: 'Philippines',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-NG',
-    audioCode: 'en-GB',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-NG' : 'en-GB',
     audioVoiceCode: 'en-NG-EzinneNeural',
     countryNameRaw: 'Nigeria',
     countryNameFr: 'Nigeria',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-TZ',
-    audioCode: 'en-TZ',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-TZ' : 'en-GB',
     audioVoiceCode: 'en-TZ-ImaniNeural',
     countryNameRaw: 'Tanzania',
     countryNameFr: 'Tanzanie',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'en-US',
@@ -688,7 +721,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'États-Unis',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'fa-AF',
@@ -696,309 +729,333 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Afghanistan',
     languageNameFr: 'Dari',
     languageNameRaw: 'دري',
-    sentences: DARI
-  },
-  {
-    isoCode: 'ur-PK',
-    countryNameRaw: 'پاکستان',
-    countryNameFr: 'Pakistan',
-    languageNameFr: 'Ourdou',
-    languageNameRaw: 'اردو',
-    sentences: OURDOU
+    sentences: DARI,
   },
   {
     isoCode: 'pt-PT',
+    audioVoiceCode: 'pt-PT-FernandaNeural',
     countryNameRaw: 'Portugal',
     countryNameFr: 'Portugal',
     languageNameFr: 'Portugais',
     languageNameRaw: 'Português',
-    sentences: PORTUGUESE
+    sentences: PORTUGUESE,
   },
   {
     isoCode: 'tr-TR',
+    audioVoiceCode: 'tr-TR-EmelNeural',
     countryNameRaw: 'Türkiye',
     countryNameFr: 'Turquie',
     languageNameFr: 'Turc',
     languageNameRaw: 'Türkçe',
-    sentences: TURC
+    sentences: TURC,
   },
   {
     isoCode: 'de-DE',
+    audioVoiceCode: 'de-DE-KatjaNeural',
     countryNameRaw: 'Deutschland',
     countryNameFr: 'Allemagne',
     languageNameFr: 'Allemand',
     languageNameRaw: 'Deutsch',
-    sentences: GERMAN
+    sentences: GERMAN,
   },
   {
     isoCode: 'hi-IN',
+    audioVoiceCode: 'hi-IN-SwaraNeural',
     countryNameRaw: 'भारत',
     countryNameFr: 'Inde',
     languageNameFr: 'Hindi',
     languageNameRaw: 'हिन्दी',
-    sentences: HINDI
+    sentences: HINDI,
   },
   {
     isoCode: 'ta-IN',
+    audioVoiceCode: 'ta-IN-PallaviNeural',
     countryNameRaw: 'இந்தியா',
     countryNameFr: 'Inde',
     languageNameFr: 'Tamoul',
     languageNameRaw: 'தமிழ்',
-    sentences: TAMOUL_INDIA
+    sentences: TAMOUL_INDIA,
   },
   {
     isoCode: 'it-IT',
+    audioVoiceCode: 'it-IT-ElsaNeural',
     countryNameRaw: 'Italia',
     countryNameFr: 'Italie',
     languageNameFr: 'Italien',
     languageNameRaw: 'Italiano',
-    sentences: ITALIAN
+    sentences: ITALIAN,
   },
   {
     isoCode: 'ru-RU',
+    audioVoiceCode: 'ru-RU-DariyaNeural',
     countryNameRaw: 'Россия',
     countryNameFr: 'Russie',
     languageNameFr: 'Russe',
     languageNameRaw: 'Русский',
-    sentences: RUSSIA
+    sentences: RUSSIA,
   },
   {
     isoCode: 'ro-RO',
+    audioVoiceCode: 'ro-RO-AlinaNeural',
     countryNameRaw: 'România',
     countryNameFr: 'Roumanie',
     languageNameFr: 'Roumain',
     languageNameRaw: 'Română',
-    sentences: ROMANIAN
+    sentences: ROMANIAN,
   },
   {
     isoCode: 'vi-VN',
+    audioVoiceCode: 'vi-VN-HoaiMyNeural',
     countryNameRaw: 'Việt Nam',
     countryNameFr: 'Vietnam',
     languageNameFr: 'Vietnamien',
     languageNameRaw: 'Tiếng Việt',
-    sentences: VIETNAMESE
+    sentences: VIETNAMESE,
   },
   {
     isoCode: 'el-GR',
+    audioVoiceCode: 'el-GR-AthinaNeural',
     countryNameRaw: 'Ελλάδα',
     countryNameFr: 'Grèce',
     languageNameFr: 'Grec',
     languageNameRaw: 'Ελληνικά',
-    sentences: GREEK
+    sentences: GREEK,
   },
   {
     isoCode: 'es-BO',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-BO' : 'es-ES',
+    audioVoiceCode: 'es-BO-SofiaNeural',
     countryNameRaw: 'Bolivia',
     countryNameFr: 'Bolivie',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-CL',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-CL' : 'es-ES',
+    audioVoiceCode: 'es-CL-CatalinaNeural',
     countryNameRaw: 'Chile',
     countryNameFr: 'Chili',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-CO',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-CO' : 'es-ES',
+    audioVoiceCode: 'es-CO-SalomeNeural',
     countryNameRaw: 'Colombia',
     countryNameFr: 'Colombie',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-CR',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-CR' : 'es-ES',
+    audioVoiceCode: 'es-CR-MariaNeural',
     countryNameRaw: 'Costa Rica',
     countryNameFr: 'Costa Rica',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-EC',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-EC' : 'es-ES',
+    audioVoiceCode: 'es-EC-AndreaNeural',
     countryNameRaw: 'Ecuador',
     countryNameFr: 'Equateur',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-SV',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-SV' : 'es-ES',
+    audioVoiceCode: 'es-SV-LorenaNeural',
     countryNameRaw: 'El Salvador',
     countryNameFr: 'Salvador',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-US',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-US' : 'es-ES',
+    audioVoiceCode: 'es-US-PalomaNeural',
     countryNameRaw: 'Estados Unidos',
-    audioCode: 'es-ES',
     countryNameFr: 'États-Unis',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-GT',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-GT' : 'es-ES',
+    audioVoiceCode: 'es-GT-MartaNeural',
     countryNameRaw: 'Guatemala',
     countryNameFr: 'Guatemala',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-HN',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-HN' : 'es-ES',
+    audioVoiceCode: 'es-HN-KarlaNeural',
     countryNameRaw: 'Honduras',
     countryNameFr: 'Honduras',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-MX',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-MX' : 'es-ES',
+    audioVoiceCode: 'es-MX-DaliaNeural',
     countryNameRaw: 'México',
     countryNameFr: 'Mexique',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-NI',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-NI' : 'es-ES',
+    audioVoiceCode: 'es-NI-YolandaNeural',
     countryNameRaw: 'Nicaragua',
     countryNameFr: 'Nicaragua',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-PA',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-PA' : 'es-ES',
+    audioVoiceCode: 'es-PA-MargaritaNeural',
     countryNameRaw: 'Panamà',
     countryNameFr: 'Panama',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-PY',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-PY' : 'es-ES',
+    audioVoiceCode: 'es-PY-TaniaNeural',
     countryNameRaw: 'Paraguay',
     countryNameFr: 'Paraguay',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-PE',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-PE' : 'es-ES',
+    audioVoiceCode: 'es-PE-CamilaNeural',
     countryNameRaw: 'Perù',
     countryNameFr: 'Pérou',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-PR',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-PR' : 'es-ES',
+    audioVoiceCode: 'es-PR-KarinaNeural',
     countryNameRaw: 'Puerto Rico',
     countryNameFr: 'Porto Rico',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-DO',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-DO' : 'es-ES',
+    audioVoiceCode: 'es-DO-RamonaNeural',
     countryNameRaw: 'República Dominicana',
     countryNameFr: 'République Dominicaine',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-UY',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-UY' : 'es-ES',
+    audioVoiceCode: 'es-UY-ValentinaNeural',
     countryNameRaw: 'Uruguay',
     countryNameFr: 'Uruguay',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'es-VE',
-    audioCode: 'es-ES',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-VE' : 'es-ES',
+    audioVoiceCode: 'es-VE-PaolaNeural',
     countryNameRaw: 'Venezuela',
     countryNameFr: 'Vénézuéla',
     languageNameRaw: 'Español',
     languageNameFr: 'Espagnol',
-    sentences: SPANISH
+    sentences: SPANISH,
   },
   {
     isoCode: 'th-TH',
+    audioVoiceCode: 'th-TH-AcharaNeural',
     countryNameRaw: 'ประเทศไทย',
     countryNameFr: 'Thaïlande',
     languageNameRaw: 'ไทย',
     languageNameFr: 'Thaï',
-    sentences: THAILAND
+    sentences: THAILAND,
   },
   {
     isoCode: 'ko-KR',
+    audioVoiceCode: 'ko-KR-SunHiNeural',
     countryNameRaw: '대한민국',
     countryNameFr: 'Corée du Sud',
     languageNameRaw: '한국어',
     languageNameFr: 'Coréen',
-    sentences: KOREA
+    sentences: KOREA,
   },
   {
     isoCode: 'ja-JP',
+    audioVoiceCode: 'ja-JP-NanamiNeural',
     countryNameRaw: '日本',
     countryNameFr: 'Japon',
     languageNameRaw: '日本語',
     languageNameFr: 'Japonais',
-    sentences: JAPANESE
+    sentences: JAPANESE,
   },
   {
     isoCode: 'en-HK',
-    audioCode: 'en-GB',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-HK' : 'en-GB',
     audioVoiceCode: 'en-HK-YanNeural',
     countryNameRaw: 'Hong Kong',
     countryNameFr: 'Hong Kong',
     languageNameRaw: 'English',
     languageNameFr: 'Anglais',
-    sentences: ENGLISH
+    sentences: ENGLISH,
   },
   {
     isoCode: 'ar-YE',
+    audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-YE' : 'ar-XA',
     audioVoiceCode: 'ar-YE-MaryamNeural',
-    audioCode: 'ar-XA',
     countryNameRaw: 'اليمن',
     countryNameFr: 'Yémen',
     languageNameRaw: 'العربية',
     languageNameFr: 'Arabe',
-    sentences: ARAB
+    sentences: ARAB,
   },
   {
     isoCode: 'gu-IN',
+    audioVoiceCode: 'gu-IN-DhwaniNeural',
     countryNameRaw: 'ભારત',
     countryNameFr: 'Inde',
     languageNameRaw: 'ગુજરાતી',
     languageNameFr: 'Gujarati',
-    sentences: GUJARATI
+    sentences: GUJARATI,
   },
   {
     isoCode: 'hr-HR',
@@ -1007,47 +1064,43 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Croatie',
     languageNameRaw: 'Hrvatski',
     languageNameFr: 'Croate',
-    sentences: CROATIAN
+    sentences: CROATIAN,
   },
   {
     isoCode: 'kn-IN',
+    audioVoiceCode: 'kn-IN-SapnaNeural',
     countryNameRaw: 'ಭಾರತ',
     countryNameFr: 'Inde',
     languageNameRaw: 'ಕನ್ನಡ',
     languageNameFr: 'Kannada',
-    sentences: KANNADA
+    sentences: KANNADA,
   },
   {
     isoCode: 'lv-LV',
+    audioVoiceCode: 'lv-LV-EveritaNeural',
     countryNameRaw: 'latviešu',
     countryNameFr: 'Lettonie',
     languageNameRaw: 'Latviešu',
     languageNameFr: 'Letton',
-    sentences: ENGLISH_DEFAULT
+    sentences: LETTON,
   },
   {
     isoCode: 'lt-LT',
+    audioVoiceCode: 'lt-LT-OnaNeural',
     countryNameRaw: 'Lietuva',
     countryNameFr: 'Lituanie',
     languageNameRaw: 'Lietuvių',
     languageNameFr: 'Lituanien',
-    sentences: ENGLISH_DEFAULT
+    sentences: LITUANIEN,
   },
   {
     isoCode: 'hu-HU',
+    audioVoiceCode: 'hu-HU-NoemiNeural',
     countryNameRaw: 'Magyarország',
     countryNameFr: 'Hongrie',
     languageNameRaw: 'Magyar',
     languageNameFr: 'Hongrois',
-    sentences: HUNGARIAN
-  },
-  {
-    isoCode: 'mr-IN',
-    countryNameRaw: 'भारत',
-    countryNameFr: 'Inde',
-    languageNameRaw: 'मराठी',
-    languageNameFr: 'Marathi',
-    sentences: ENGLISH_DEFAULT
+    sentences: HUNGARIAN,
   },
   {
     isoCode: 'nl-NL',
@@ -1056,55 +1109,61 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Pays-Bas',
     languageNameRaw: 'Nederlands',
     languageNameFr: 'Néerlandais',
-    sentences: HOLLAND
+    sentences: HOLLAND,
   },
   {
     isoCode: 'nb-NO',
+    audioVoiceCode: 'nb-NO-IselinNeural',
     countryNameRaw: 'Norge',
     countryNameFr: 'Norvège',
     languageNameRaw: 'Norsk bokmål',
     languageNameFr: 'Norvégien bokmål',
-    sentences: NORWAY
+    sentences: NORWAY,
   },
   {
     isoCode: 'pl-PL',
+    audioVoiceCode: 'pl-PL-AgnieszkaNeural',
     countryNameRaw: 'Polska',
     countryNameFr: 'Pologne',
     languageNameRaw: 'Polski',
     languageNameFr: 'Polonais',
-    sentences: POLAND
+    sentences: POLAND,
   },
   {
     isoCode: 'pt-BR',
+    audioVoiceCode: 'pt-BR-FranciscaNeural',
     countryNameRaw: 'Brasil',
     countryNameFr: 'Brésil',
     languageNameRaw: 'Português',
     languageNameFr: 'Portugais',
-    sentences: PORTUGUESE
+    sentences: PORTUGUESE,
   },
   {
     isoCode: 'sk-SK',
+    audioVoiceCode: 'sk-SK-ViktoriaNeural',
     countryNameRaw: 'Slovensko',
     countryNameFr: 'Slovaquie',
     languageNameRaw: 'Slovenčina',
     languageNameFr: 'Slovaque',
-    sentences: SLOVENIA
+    sentences: SLOVAKIA,
   },
   {
     isoCode: 'sl-SI',
+    audioVoiceCode: 'sl-SI-PetraNeural',
     countryNameRaw: 'Slovenija',
     countryNameFr: 'Slovénie',
     languageNameRaw: 'Slovenščina',
     languageNameFr: 'Slovène',
-    sentences: ENGLISH_DEFAULT
+    sentences: SLOVENIA,
   },
   {
     isoCode: 'sw-KE',
+    audioVoiceCode: 'sw-KE-ZuriNeural',
     countryNameRaw: 'Kenya',
     countryNameFr: 'Kenya',
     languageNameRaw: 'Swahili',
     languageNameFr: 'Swahili',
-    sentences: ENGLISH_DEFAULT
+    sentences: SWAHILI,
   },
   {
     isoCode: 'fi-FI',
@@ -1113,23 +1172,25 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Finlande',
     languageNameRaw: 'Suomalainen',
     languageNameFr: 'Finnois',
-    sentences: FINLAND
+    sentences: FINLAND,
   },
   {
     isoCode: 'sv-SE',
+    audioVoiceCode: 'sv-SE-HilleviNeural',
     countryNameRaw: 'Sverige',
     countryNameFr: 'Suède',
     languageNameRaw: 'Svenska',
     languageNameFr: 'Suédois',
-    sentences: SWEDEN
+    sentences: SWEDEN,
   },
   {
     isoCode: 'te-IN',
+    audioVoiceCode: 'te-IN-ShrutiNeural',
     countryNameRaw: 'భారతదేశం',
     countryNameFr: 'Inde',
     languageNameRaw: 'తెలుగు',
     languageNameFr: 'Télougou',
-    sentences: TELUGU
+    sentences: TELUGU,
   },
   {
     isoCode: 'bg-BG',
@@ -1138,15 +1199,17 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Bulgarie',
     languageNameRaw: 'Български',
     languageNameFr: 'Bulgare',
-    sentences: BULGARE
+    sentences: BULGARE,
   },
   {
     isoCode: 'he-IL',
+    audioVoiceCode: 'he-IL-HilaNeural',
     countryNameRaw: 'ישראל',
     countryNameFr: 'Israël',
     languageNameRaw: 'עברית',
     languageNameFr: 'Hébreu',
-    sentences: HEBREW
+    sentences: HEBREW,
+
   },
   {
     isoCode: 'da-DK',
@@ -1155,7 +1218,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Danemark',
     languageNameRaw: 'Dansk',
     languageNameFr: 'Danois',
-    sentences: DANISH
+    sentences: DANISH,
   },
   {
     isoCode: 'ca-ES',
@@ -1164,23 +1227,25 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Espagne',
     languageNameRaw: 'Català',
     languageNameFr: 'Catalan',
-    sentences: ENGLISH_DEFAULT
+    sentences: CATALAN,
   },
   {
     isoCode: 'id-ID',
+    audioVoiceCode: 'id-ID-GadisNeural',
     countryNameRaw: 'Indonesia',
     countryNameFr: 'Indonésie',
     languageNameRaw: 'Bahasa Indonesia',
     languageNameFr: 'Indonésien',
-    sentences: INDONESIA
+    sentences: INDONESIA,
   },
   {
     isoCode: 'ms-MY',
+    audioVoiceCode: 'ms-MY-YasminNeural',
     countryNameRaw: 'Malaysia',
     countryNameFr: 'Malaisie',
     languageNameRaw: 'Bahasa Melayu',
     languageNameFr: 'Malais',
-    sentences: ENGLISH_DEFAULT
+    sentences: MALAIS,
   },
   {
     isoCode: 'cs-CZ',
@@ -1189,7 +1254,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'République Tchèque',
     languageNameRaw: 'Čeština',
     languageNameFr: 'Tchèque',
-    sentences: CZECH
+    sentences: CZECH,
   },
   {
     isoCode: 'pa-IN',
@@ -1197,7 +1262,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'ਪੰਜਾਬੀ',
     languageNameFr: 'Pendjabi',
-    sentences: PENDJABI
+    sentences: PENDJABI,
   },
   {
     isoCode: 'et-EE',
@@ -1206,6 +1271,32 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Estonie',
     languageNameRaw: 'Eestlane',
     languageNameFr: 'Estonien',
-    sentences: ESTONIAN
+    sentences: ESTONIAN,
+  },
+  {
+    isoCode: 'bs-BA',
+    countryNameRaw: 'Bosna i Hercegovina',
+    countryNameFr: 'Bosnie-Herzégovine',
+    languageNameRaw: 'Bosanski',
+    languageNameFr: 'Bosnien',
+    sentences: BOSNIAN,
+  },
+  {
+    isoCode: 'my-MM',
+    audioVoiceCode: 'my-MM-NilarNeural',
+    countryNameRaw: 'မြန်မာပြည်',
+    countryNameFr: 'Birmanie',
+    languageNameRaw: 'မြန်မာ',
+    languageNameFr: 'Birman',
+    sentences: BIRMAN,
+  },
+  {
+    isoCode: 'fil-PH',
+    audioVoiceCode: 'fil-PH-BlessicaNeural',
+    countryNameRaw: 'Pilipinas',
+    countryNameFr: 'Philippines',
+    languageNameRaw: 'Tagalog',
+    languageNameFr: 'Tagalog',
+    sentences: TAGALOG,
   }
 ];

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Language } from '../models/db/language';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { VOCABULARY } from '../data/vocabulary';
+import { VOCABULARY_GCP } from '../data/vocabulary-gcp';
 import { CSS_COLOR_NAMES } from './colors';
 import * as moment from 'moment';
 
@@ -53,7 +53,7 @@ export class IndicatorsComponent implements OnInit {
     languages.sort((a, b) => b.occurrences - a.occurrences);
     for (const language of languages) {
       if (language.isoCode.includes('-')) {
-        const lang = VOCABULARY.find((v) => v.isoCode === language.isoCode);
+        const lang = VOCABULARY_GCP.find((v) => v.isoCode === language.isoCode);
         if (lang) {
           const name = `${lang.languageNameFr} (${lang.countryNameFr}) `;
           this.languagesByAverage.push({
@@ -89,7 +89,7 @@ export class IndicatorsComponent implements OnInit {
       let average = 0;
       let total = 0;
       for (const l of value) {
-        const lang = VOCABULARY.find((v) => v.isoCode === l.isoCode);
+        const lang = VOCABULARY_GCP.find((v) => v.isoCode === l.isoCode);
         if (lang) {
           series.push({ name: `${lang.languageNameFr} (${lang.countryNameFr}) `, value: l.occurrences });
           average = average + l.average;

@@ -28,6 +28,11 @@ export const HEBREW: Sentence = {
     comment: 'תגובה חינם',
     technical: 'האם נתקלת בבעיות טכניות כלשהן בשימוש בכלי?',
   },
+  audioSupported: true,
+};
+export const HEBREW_GCP: Sentence = {
+  ...HEBREW,
+  audioSupported: false,
 };
 export const ARAB: Sentence = {
   applicationName: 'الترجمة الفورية',
@@ -189,9 +194,10 @@ export const PENDJABI = {
   readedWelcome: 'ਕੀ ਤੁਸੀਂ ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?',
 };
 export const ESTONIAN = {
-  ...ENGLISH_DEFAULT,
+  ...ENGLISH,
   readedWelcome: 'Kas soovite selles keeles vahetada ?',
 };
+
 export const DANISH: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Vil du udveksle på dette sprog?',
@@ -267,9 +273,9 @@ export const CZECH: Sentence = {
 
 export const SLOVENIA: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Prajete si výmenu v tomto jazyku?',
-  translationH2: 'Ak chcete hovoriť, zadajte text alebo podržte modrý mikrofón',
-  translationH2Mobile: 'Ak chcete hovoriť, zadajte text alebo podržte modrý mikrofón',
+  readedWelcome: 'Bi radi izmenjali v tem jeziku?',
+  translationH2: 'Napišite stavek za prevod.',
+  translationH2Mobile: 'Vnesite besedilo ali tapnite modri mikrofon za govor.',
 };
 
 export const SWEDEN: Sentence = {
@@ -377,7 +383,7 @@ export const MANDARIN_NO_VOICE: Sentence = {
   voiceNotSupported: true,
 };
 export const BENGALI: Sentence = {
-  audioSupported: false,
+  audioSupported: true,
   applicationName: 'তাত্ক্ষণিক অনুবাদ',
   send: 'পাঠান',
   translate: 'অনুবাদ',
@@ -398,18 +404,15 @@ export const BENGALI: Sentence = {
     technical: 'আপনি কি সরঞ্জামটি ব্যবহার করে কোনও প্রযুক্তিগত সমস্যার সম্মুখীন হয়েছেন?',
   },
 };
-export const BENGALI_NO_VOICE: Sentence = {
+export const BENGALI_GCP: Sentence = {
   ...BENGALI,
-  voiceNotSupported: true,
+  audioSupported: false,
 };
 export const BENGALI_INDIA: Sentence = {
   ...BENGALI,
   audioSupported: true,
 };
-export const BENGALI_INDIA_NO_VOICE: Sentence = {
-  ...BENGALI_NO_VOICE,
-  audioSupported: true,
-};
+
 const RECORD_TEXT_DARI = 'الان صحبت کن';
 const AUTO_LISTEN_DARI = 'پخپله غوږ شه';
 export const DARI: Sentence = {
@@ -474,10 +477,11 @@ export const OURDOU: Sentence = {
     comment: COMMENT,
     technical: TECHNICAL,
   },
+  audioSupported: true
 };
-export const OURDOU_NO_VOICE: Sentence = {
+export const OURDOU_GCP: Sentence = {
   ...OURDOU,
-  voiceNotSupported: true,
+  audioSupported: false,
 };
 export const PORTUGUESE: Sentence = {
   audioSupported: true,
@@ -568,10 +572,11 @@ export const AMHARIC: Sentence = {
     comment: 'ነፃ አስተያየት',
     technical: 'መሣሪያውን በመጠቀም ማንኛውንም ቴክኒካዊ ችግሮች አጋጥመውዎታል?',
   },
+  audioSupported: true
 };
-export const AMHARIC_NO_VOICE: Sentence = {
+export const AMHARIC_GCP: Sentence = {
   ...AMHARIC,
-  voiceNotSupported: true,
+  audioSupported: false
 };
 export const KHMER: Sentence = {
   displayedWelcome: 'ជំរាបសួរ, ខ្ញុំនឹងក្លាយជាអ្នកបកប្រែរបស់អ្នកដើម្បីផ្លាស់ប្តូរយ៉ាងងាយស្រួលជាមួយទីប្រឹក្សារបស់អ្នក។',
@@ -592,6 +597,7 @@ export const KHMER: Sentence = {
     comment: 'មតិយោបល់ដោយឥតគិតថ្លៃ',
     technical: 'តើអ្នកបានជួបប្រទះបញ្ហាបច្ចេកទេសណាមួយដោយប្រើឧបករណ៍នេះទេ?',
   },
+  audioSupported: true
 };
 export const KHMER_NO_VOICE: Sentence = {
   ...KHMER,
@@ -638,10 +644,11 @@ export const TAMOUL: Sentence = {
     comment: COMMENT,
     technical: TECHNICAL,
   },
+  audioSupported: true
 };
-export const TAMOUL_NO_VOICE: Sentence = {
+export const TAMOUL_GCP: Sentence = {
   ...TAMOUL,
-  voiceNotSupported: true,
+  audioSupported: false,
 };
 export const TAMOUL_INDIA: Sentence = {
   ...TAMOUL,
@@ -763,10 +770,11 @@ export const OUZBEK: Sentence = {
     comment: 'Bepul sharh',
     technical: 'Asbobni ishlatishda biron bir texnik muammoga duch keldingizmi?',
   },
+  audioSupported: true
 };
-export const OUZBEK_NO_VOICE: Sentence = {
+export const OUZBEK_GCP: Sentence = {
   ...OUZBEK,
-  voiceNotSupported: true,
+  audioSupported: false,
 };
 export const ROMANIAN: Sentence = {
   audioSupported: true,
@@ -854,8 +862,12 @@ export const PERSAN: Sentence = {
     comment: 'نظر رایگان',
     technical: 'آیا با استفاده از این ابزار به مشکلات فنی برخورد کرده اید؟',
   },
+  audioSupported: true
 };
-
+export const PERSAN_GCP: Sentence = {
+  ...PERSAN,
+    audioSupported: false
+};
 export const GREEK: Sentence = {
   audioSupported: true,
   applicationName: 'Άμεση μετάφραση',
@@ -886,8 +898,8 @@ export const BULGARE: Sentence = {
 
 export const AFRIKAANS: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Voer teks in, of hou die blou mikrofoon om te praat',
-  translationH2: 'Voer teks in, of hou die blou mikrofoon om te praat',
+  readedWelcome: 'Wil jy in hierdie taal uitruil?',
+  translationH2: 'Skryf die sin om te vertaal.',
   translationH2Mobile: 'Voer teks in, of hou die blou mikrofoon om te praat',
 
 };
@@ -897,7 +909,12 @@ export const ARMENIAN: Sentence = {
   readedWelcome: 'Ցանկանու՞մ եք շարունակել այս լեզվով:',
   translationH2: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
   translationH2Mobile: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
+  audioSupported: true
 
+};
+export const ARMENIAN_GCP: Sentence = {
+  ...ARMENIAN,
+  audioSupported: false
 };
 
 export const BASQUE: Sentence = {
@@ -905,9 +922,13 @@ export const BASQUE: Sentence = {
   readedWelcome: 'Hizkuntza honetan jarraitu nahi duzu?',
   translationH2: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
   translationH2Mobile: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
-
+  audioSupported: true
 };
 
+export const BASQUE_GCP: Sentence = {
+  ...BASQUE,
+  audioSupported: false
+};
 export const ICELAND: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Viltu halda áfram á þessu tungumáli?',
@@ -919,13 +940,13 @@ export const ICELAND: Sentence = {
 export const SERBIAN: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Да ли желите да наставите на овом језику?',
-  translationH2: 'Унесите текст или држите плави микрофон да бисте говорили',
-  translationH2Mobile: 'Унесите текст или држите плави микрофон да бисте говорили',
+  translationH2: 'Напиши реченицу за превод.',
+  translationH2Mobile: 'Унесите текст или додирните плави микрофон да бисте говорили.',
 
 };
 
 export const GEORGIAN: Sentence = {
-  ...ENGLISH,
+  ...ENGLISH_DEFAULT,
   readedWelcome: 'გსურთ ამ ენაზე გაგრძელება?',
   translationH2: 'შეიყვანეთ ტექსტი, ან გეჭიროთ ლურჯი მიკროფონი სალაპარაკოდ',
   translationH2Mobile: 'შეიყვანეთ ტექსტი, ან შეეხეთ ლურჯ მიკროფონს სასაუბროდ',
@@ -939,4 +960,125 @@ export const CROATIAN: Sentence = {
   translationH2: 'Unesite tekst ili držite plavi mikrofon da biste govorili\'',
   translationH2Mobile: 'Unesite tekst ili držite plavi mikrofon da biste govorili\'',
 
+};
+export const CROATIAN_GCP: Sentence = {
+  ...CROATIAN,
+  audioSupported: false
+
+};
+export const BOSNIAN: Sentence = {
+  ...ENGLISH,
+  audioSupported: false,
+  readedWelcome: 'Želite li razmjenjivati ​​na ovom jeziku?',
+  translationH2: 'Unesite tekst ili pritisnite i držite plavi mikrofon za govori\'',
+  translationH2Mobile: 'Unesite tekst ili dodirnite plavi mikrofon da govorite\'',
+};
+export const BIRMAN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'ဤဘာသာစကားဖြင့် လဲလှယ်လိုပါသလား။',
+  translationH2: 'စာသားရိုက်ထည့်ပါ သို့မဟုတ် စကားပြောရန် အပြာရောင်မိုက်ခရိုဖုန်းကို နှိပ်ပြီး ဖိထားပါ။\'',
+  translationH2Mobile: 'စာသားရိုက်ထည့်ပါ သို့မဟုတ် စကားပြောရန် အပြာရောင်မိုက်ကို တို့ပါ။\'',
+};
+export const BIRMAN_GCP: Sentence = {
+  ...BIRMAN,
+  audioSupported: false
+};
+export const TAGALOG: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Gusto mo bang makipagpalitan sa wikang ito?',
+  translationH2: 'Maglagay ng text, o pindutin nang matagal ang asul na mikropono upang magsalita\'',
+  translationH2Mobile: 'Maglagay ng text, o i-tap ang asul na mikropono para magsalita\'',
+};
+
+export const MALAIS: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Adakah anda ingin bertukar dalam bahasa ini?',
+  translationH2: 'Tulis ayat untuk diterjemahkan.',
+  translationH2Mobile: 'Masukkan teks atau ketik mikrofon biru untuk bercakap.',
+};
+export const CATALAN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'T\'agradaria intercanviar en aquest idioma?',
+  translationH2: 'Escriu la frase per traduir.',
+  translationH2Mobile: 'Introdueix text o toca el micròfon blau per parlar.',
+};
+export const CINGALAIS: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'ඔබ මෙම භාෂාවෙන් හුවමාරු කර ගැනීමට කැමතිද?',
+  translationH2: 'පරිවර්තනය කිරීමට වාක්‍යය ලියන්න.',
+  translationH2Mobile: 'කතා කිරීමට පෙළ ඇතුළු කරන්න, නැතහොත් නිල් මයික් එක තට්ටු කරන්න.',
+};
+
+export const GALICEIN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Gustaríache intercambiar neste idioma?',
+  translationH2: 'Escribe a frase para traducir.',
+  translationH2Mobile: 'Introduce texto ou toca o micrófono azul para falar.',
+};
+
+export const JAVANAIS: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Apa sampeyan pengin ijol-ijolan ing basa iki?',
+  translationH2: 'Tulisen ukara kanggo nerjemahake.',
+  translationH2Mobile: 'Ketik teks, utawa tutul mikrofon biru kanggo ngomong.',
+};
+export const KAZAKH: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Осы тілде алмасуды қалайсыз ба?',
+  translationH2: 'Аударылатын сөйлемді жазыңыз.',
+  translationH2Mobile: 'Мәтінді енгізіңіз немесе сөйлеу үшін көк микрофонды түртіңіз.',
+};
+export const LAO: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'ເຈົ້າຢາກແລກປ່ຽນໃນພາສານີ້ບໍ?',
+  translationH2: 'ຂຽນປະໂຫຍກທີ່ຈະແປ.',
+  translationH2Mobile: 'ປ້ອນຂໍ້ຄວາມ, ຫຼືແຕະໄມສີຟ້າເພື່ອເວົ້າ.',
+};
+export const LITUANIEN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Vai vēlaties apmainīties šajā valodā?',
+  translationH2: 'Uzrakstiet tulkojamo teikumu.',
+  translationH2Mobile: 'Ievadiet tekstu vai pieskarieties zilajam mikrofonam, lai runātu.',
+};
+export const MACEDONIEN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Дали сакате да разменувате на овој јазик?',
+  translationH2: 'Напишете ја реченицата за преведување.',
+  translationH2Mobile: 'Внесете текст или допрете го синиот микрофон за да зборувате.',
+};
+export const MARATHI: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'तुम्ही या भाषेत देवाणघेवाण करू इच्छिता?',
+  translationH2: 'भाषांतर करण्यासाठी वाक्य लिहा.',
+  translationH2Mobile: 'मजकूर एंटर करा किंवा बोलण्यासाठी निळ्या माइकवर टॅप करा.',
+};
+export const SOUDNANAIS: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Naha anjeun badé tukeur dina basa ieu?',
+  translationH2: 'Tulis kalimah pikeun narjamahkeun.',
+  translationH2Mobile: 'Tulis teks, atawa ketok mikrofon biru pikeun nyarita.',
+};
+export const SWAHILI: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Je, ungependa kubadilishana katika lugha hii?',
+  translationH2: 'Andika sentensi ili kutafsiri.',
+  translationH2Mobile: 'Weka maandishi, au uguse maikrofoni ya bluu ili kuzungumza.',
+};
+export const ZOULOU: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Ungathanda ukushintshanisa ngalolu limi?',
+  translationH2: 'Bhala umusho ozowuhumusha.',
+  translationH2Mobile: 'Faka umbhalo, noma thepha imakrofoni eluhlaza ukuze ukhulume.',
+};
+export const LETTON: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Vai vēlaties apmainīties šajā valodā?',
+  translationH2: 'Uzrakstiet tulkojamo teikumu.',
+  translationH2Mobile: 'Ievadiet tekstu vai pieskarieties zilajam mikrofonam, lai runātu.',
+};
+export const SLOVAKIA: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Chceli by ste si vymeniť v tomto jazyku?',
+  translationH2: 'Napíšte vetu, ktorú chcete preložiť.',
+  translationH2Mobile: 'Zadajte text alebo hovorte klepnutím na modrý mikrofón.',
 };
