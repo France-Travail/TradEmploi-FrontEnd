@@ -17,9 +17,8 @@ export class TextToSpeechMicrosoftService extends TextToSpeechService {
   }
 
   getSpeech = async (text: string, language: string): Promise<void> => {
-
+    this.audioSpeech = undefined;
     return new Promise((resolve) => {
-      this.audioSpeech = undefined;
       const speechConfig = SpeechConfig.fromSubscription(environment.microsoftSpeechConfig.key, environment.microsoftSpeechConfig.region);
       speechConfig.speechSynthesisLanguage = language;
       const synthesizer = new SpeechSynthesizer(speechConfig, null);
@@ -33,9 +32,8 @@ export class TextToSpeechMicrosoftService extends TextToSpeechService {
           ssml,
           result => {
             synthesizer.close();
-            if (result) {
-              this.audioSpeech = new Audio('data:audio/mp3;base64,');
-              this.audioSpeech.src = URL.createObjectURL(new Blob([result.audioData]));
+            if (result && result.audioData) {
+              this.audioSpeech = new Audio(URL.createObjectURL(new Blob([result.audioData])));
               resolve();
             }
           },
@@ -46,25 +44,7 @@ export class TextToSpeechMicrosoftService extends TextToSpeechService {
             throw new Error(error);
             return false;
           });
-      } else {
-        synthesizer.speakTextAsync(
-          text,
-          result => {
-            synthesizer.close();
-            if (result) {
-              this.audioSpeech = new Audio('data:audio/mp3;base64,');
-              this.audioSpeech.src = URL.createObjectURL(new Blob([result.audioData]));
-              resolve();
-            }
-          },
-          error => {
-            console.log(error);
-            synthesizer.close();
-            this.errorService.save(ERROR_TECH_TTS);
-            throw new Error(error);
-          });
       }
-
     });
   }
 
