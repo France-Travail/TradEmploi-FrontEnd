@@ -193,6 +193,11 @@ export const PENDJABI = {
   audioSupported: true,
   readedWelcome: 'ਕੀ ਤੁਸੀਂ ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?',
 };
+export const PENDJABI_AZURE = {
+  ...PENDJABI,
+  audioSupported: false,
+  readedWelcome: 'ਕੀ ਤੁਸੀਂ ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?',
+};
 export const ESTONIAN = {
   ...ENGLISH,
   readedWelcome: 'Kas soovite selles keeles vahetada ?',
