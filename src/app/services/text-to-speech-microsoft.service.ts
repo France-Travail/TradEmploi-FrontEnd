@@ -44,7 +44,24 @@ export class TextToSpeechMicrosoftService extends TextToSpeechService {
             throw new Error(error);
             return false;
           });
+      } else {
+        synthesizer.speakTextAsync(
+          text,
+          result => {
+            synthesizer.close();
+            if (result && result.audioData) {
+              this.audioSpeech = new Audio(URL.createObjectURL(new Blob([result.audioData])));
+              resolve();
+            }
+          },
+          error => {
+            console.log(error);
+            synthesizer.close();
+            this.errorService.save(ERROR_TECH_TTS);
+            throw new Error(error);
+          });
       }
+
     });
   }
 
