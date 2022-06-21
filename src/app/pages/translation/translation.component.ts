@@ -53,7 +53,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private vocalSupported = false;
   private readonly authorizationHandled = [];
   private isScrollingToUp = false;
-  private audioSpeechToPlay = [];
+  private readonly audioSpeechToPlay = [];
   private audioSpeechIsPlaying = false;
 
   constructor(

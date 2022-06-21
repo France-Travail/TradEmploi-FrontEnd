@@ -43,7 +43,6 @@ export class LogoutComponent  {
     } else {
       await this.handleMono();
     }
-  
     this.authService.logout();
     this.settingsService.reset();
     sessionStorage.clear();

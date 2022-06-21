@@ -11,7 +11,7 @@ export class AuthService {
   constructor(private readonly afAuth: AngularFireAuth, private readonly settingsService: SettingsService) {
   }
 
-  public login(email: string, password: string, firebaseLogin?: boolean): Promise<{ isAuth: boolean; message: string }> {
+  public login(email: string, password: string, firebaseLogin = false): Promise<{ isAuth: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         let auth;

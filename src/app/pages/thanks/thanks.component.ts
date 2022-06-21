@@ -1,7 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FRENCH } from 'src/app/data/sentence';
 import { NavbarService } from '../../services/navbar.service';
+import {FRENCH} from '../../data/sentence';
 
 @Component({
   selector: 'app-thanks',

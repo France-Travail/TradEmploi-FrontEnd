@@ -3,13 +3,13 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {Router} from '@angular/router';
 import {OAuthService} from 'angular-oauth2-oidc';
 import {JwksValidationHandler} from 'angular-oauth2-oidc-jwks';
-import {ERROR_FUNC_LOGIN_OR_PASSWORD} from 'src/app/models/error/errorFunctionnal';
-import {AuthService} from 'src/app/services/auth.service';
-import {ChatService} from 'src/app/services/chat.service';
-import {SettingsService} from 'src/app/services/settings.service';
-import {ToastService} from 'src/app/services/toast.service';
 import {authCodeFlowConfig} from '../../../environments/authflow';
 import {params} from '../../../environments/params';
+import {ERROR_FUNC_LOGIN_OR_PASSWORD} from '../../models/error/errorFunctionnal';
+import {AuthService} from '../../services/auth.service';
+import {ChatService} from '../../services/chat.service';
+import {ToastService} from '../../services/toast.service';
+import {SettingsService} from '../../services/settings.service';
 
 @Component({
   selector: 'app-authentication',
@@ -23,12 +23,12 @@ export class AuthenticationComponent implements OnInit {
 
   constructor(
     private readonly oauthService: OAuthService,
-    private router: Router,
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private chatService: ChatService,
-    private toastService: ToastService,
-    private settingsService: SettingsService
+    private readonly router: Router,
+    private readonly fb: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly chatService: ChatService,
+    private readonly toastService: ToastService,
+    private readonly settingsService: SettingsService
   ) {
     this.configureSSO();
   }
