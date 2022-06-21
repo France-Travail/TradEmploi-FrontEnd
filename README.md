@@ -1,5 +1,19 @@
 # PE TRANSLATE
 
+# Licence
+This project is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE V3.0. Please check the LICENSE file.
+
+# Table of contents
+[[_TOC_]]
+
+# Philosophy and objective
+
+The purpose of this application is describe in the ![documentation](docs/documentation.md)
+
+This project is the frontend of the application. The backend is **petranslate-back** project. Checks readme to install it.
+
+# Installation
+
 ## Requirements
 
 Node, Angular | Version
