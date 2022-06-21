@@ -10,20 +10,24 @@ import {
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {Stream} from '../models/stream';
+import {TokenAzureService} from './token-azure.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpeechToTextMicrosoftService {
 
+  constructor(private readonly tokenAzureService: TokenAzureService) {
+  }
 
   private recognizer: SpeechRecognizer;
 
 
-  recognize(language: string): Observable<Stream> {
+  async recognize(language: string): Promise<Observable<Stream>> {
+    const authorizationToken = await this.tokenAzureService.getToken();
     return new Observable((observer) => {
       const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
-      const speechConfig = SpeechConfig.fromSubscription(environment.microsoftSpeechConfig.key, environment.microsoftSpeechConfig.region);
+      const speechConfig = SpeechConfig.fromAuthorizationToken(authorizationToken, environment.microsoftSpeechConfig.region);
       speechConfig.speechRecognitionLanguage = language;
       speechConfig.enableDictation();
       speechConfig.setProfanity(ProfanityOption.Masked);

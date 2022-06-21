@@ -176,10 +176,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     });
   }
 
-  private streamWithMicrosoft() {
+  private async streamWithMicrosoft() {
     if (this.isMicrophoneGranted) {
       let saveText = '';
-      this.speechToTextMicrosoftService.recognize(this.transcodificationMicrosoft(this.languageOrigin)).subscribe((value: Stream) => {
+      const response = await this.speechToTextMicrosoftService.recognize(this.transcodificationMicrosoft(this.languageOrigin));
+      response.subscribe((value: Stream) => {
         if (value.interim !== '') {
           this.rawText = value.interim;
         } else if (value.final !== '') {

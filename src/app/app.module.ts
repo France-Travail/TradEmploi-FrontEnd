@@ -1,39 +1,39 @@
 // Angular
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { LayoutModule } from '@angular/cdk/layout';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+import {LayoutModule} from '@angular/cdk/layout';
 // Keyboard
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import {FormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
 
-import { MatCardModule } from '@angular/material/card';
+import {MatCardModule} from '@angular/material/card';
 // Handle Navigation Tree
-import { AppRoutingModule } from './app-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 // Handle firebase connection
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireFunctionsModule } from '@angular/fire/functions';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireFunctionsModule} from '@angular/fire/functions';
 // Environment loaded
-import { environment } from '../environments/environment';
+import {environment} from '../environments/environment';
 // Handle Animations for Angular Material
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // Allow to use French date format
-import { MAT_DATE_LOCALE, MatGridListModule, MatSortModule, MatTableModule } from '@angular/material';
+import {MAT_DATE_LOCALE, MatGridListModule, MatSortModule, MatTableModule} from '@angular/material';
 // Import shared module and components
-import { SharedModule } from './shared/shared.module';
-import { LogoutComponent } from './shared/components/logout/logout.component';
-import { ShareComponent } from './pages/translation/dialogs/share/share.component';
-import { AuthorizeComponent } from './pages/translation/dialogs/authorize/authorize.component';
-import { WelcomeDeComponent } from './pages/translation/dialogs/welcome-de/welcome-de.component';
-import { EndComponent } from './pages/translation/dialogs/end/end.component';
+import {SharedModule} from './shared/shared.module';
+import {LogoutComponent} from './shared/components/logout/logout.component';
+import {ShareComponent} from './pages/translation/dialogs/share/share.component';
+import {AuthorizeComponent} from './pages/translation/dialogs/authorize/authorize.component';
+import {WelcomeDeComponent} from './pages/translation/dialogs/welcome-de/welcome-de.component';
+import {EndComponent} from './pages/translation/dialogs/end/end.component';
 // Main Components
-import { AppComponent } from './app.component';
-import { StartComponent } from './pages/start/start.component';
-import { TranslationComponent } from './pages/translation/translation.component';
-import { HistoricComponent } from './pages/historic/historic.component';
+import {AppComponent} from './app.component';
+import {StartComponent} from './pages/start/start.component';
+import {TranslationComponent} from './pages/translation/translation.component';
+import {HistoricComponent} from './pages/historic/historic.component';
 // Dialogs
 import {LanguageGridComponent} from './pages/choice/language/grid/language-grid.component';
 import {MeetingComponent} from './pages/translation/dialogs/meeting/meeting.component';
@@ -74,6 +74,7 @@ import {TokenBrokerService} from './services/token-broker.service';
 import {TextToSpeechMicrosoftService} from './services/text-to-speech-microsoft.service';
 import {TextToSpeechGcpService} from './services/text-to-speech-gcp.service';
 import {TextToSpeechService} from './services/text-to-speech.service';
+import {TokenAzureService} from './services/token-azure.service';
 
 
 @NgModule({
@@ -148,7 +149,7 @@ import {TextToSpeechService} from './services/text-to-speech.service';
     {
       provide: TextToSpeechService,
       useFactory: TextToSpeechFactory,
-      deps: [VoicesService, ErrorService, TokenBrokerService]
+      deps: [VoicesService, ErrorService, TokenBrokerService, TokenAzureService]
     }
   ],
   bootstrap: [AppComponent],
@@ -157,9 +158,9 @@ import {TextToSpeechService} from './services/text-to-speech.service';
 export class AppModule {
 }
 
-export function TextToSpeechFactory(voicesService: VoicesService, errorService: ErrorService, tbs: TokenBrokerService) {
+export function TextToSpeechFactory(voicesService: VoicesService, errorService: ErrorService, tbs: TokenBrokerService, tokenAzureService: TokenAzureService) {
   if (environment.microsoftSpeechConfig.textToSpeechEnabled) {
-    return new TextToSpeechMicrosoftService(errorService);
+    return new TextToSpeechMicrosoftService(errorService, tokenAzureService);
   }
   return new TextToSpeechGcpService(voicesService, errorService, tbs);
 }
