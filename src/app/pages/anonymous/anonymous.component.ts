@@ -1,20 +1,19 @@
-import { MatDialog } from '@angular/material';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { WelcomeDeComponent } from '../translation/dialogs/welcome-de/welcome-de.component';
-import { AuthService } from '../../services/auth.service';
-import { ToastService } from '../../services/toast.service';
-import { ChatService } from '../../services/chat.service';
-import { SettingsService } from '../../services/settings.service';
-import { DeviceService } from '../../services/device.service';
-import { TokenBrokerService } from '../../services/token-broker.service';
-import { Support } from '../../models/kpis/support';
-import { Role } from '../../models/role';
-import { Member } from '../../models/db/member';
-import { NavbarService } from '../../services/navbar.service';
-import {params} from '../../../environments/params';
+import {MatDialog} from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {WelcomeDeComponent} from '../translation/dialogs/welcome-de/welcome-de.component';
+import {AuthService} from '../../services/auth.service';
+import {ToastService} from '../../services/toast.service';
+import {ChatService} from '../../services/chat.service';
+import {SettingsService} from '../../services/settings.service';
+import {DeviceService} from '../../services/device.service';
+import {TokenBrokerService} from '../../services/token-broker.service';
+import {Support} from '../../models/kpis/support';
+import {Role} from '../../models/role';
+import {Member} from '../../models/db/member';
+import {NavbarService} from '../../services/navbar.service';
 
 @Component({
   selector: 'app-anonymous',
@@ -105,7 +104,12 @@ export class AnonymousComponent implements OnInit {
   }
 
   private async addMember(id: string) {
-    const member: Member = { id, firstname: this.username.value, role: Role.GUEST, device: this.deviceService.getUserDevice() };
+    const member: Member = {
+      id,
+      firstname: this.username.value,
+      role: Role.GUEST,
+      device: this.deviceService.getUserDevice()
+    };
     await this.chatService.addMember(this.roomId, member);
   }
 

@@ -27,7 +27,7 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.settingsService.user.subscribe(async (user) => {
       if (user && user.firstname) {
-        this.firstName = user.firstname.split(' ')[1] || params.organization.organizationUser;;
+        this.firstName = user.firstname.split(' ')[1] || params.organization.organizationUser;
         this.targetLanguage = user.language;
         this.isAudioSupported = VOCABULARY_GCP.some((item) => item.isoCode === user.language.written && item.sentences.audioSupported);
       }

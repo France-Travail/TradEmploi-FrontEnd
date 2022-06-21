@@ -30,6 +30,19 @@ import {params} from '../../../../../environments/params';
   styleUrls: ['./message-wrapper.component.scss'],
 })
 export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit {
+
+
+  constructor(
+    private readonly toastService: ToastService,
+    private readonly settingsService: SettingsService,
+    private readonly audioRecordingService: AudioRecordingService,
+    private readonly router: Router,
+    private readonly breakpointObserver: BreakpointObserver,
+    private readonly speechRecognitionService: SpeechRecognitionService,
+    private readonly chatService: ChatService,
+    private readonly errorService: ErrorService,
+    private readonly speechToTextMicrosoftService: SpeechToTextMicrosoftService
+  ) {}
   @Input() role: string;
   @Input() originText: string;
 
@@ -61,20 +74,9 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   private recordingState = RecordingState.STOPPED;
   private useSpeechToTextMicrosoftApi: boolean;
   private vocabulary: Vocabulary[];
-  private isMicrophoneGranted: boolean = false;
+  private isMicrophoneGranted = false;
 
-
-  constructor(
-    private readonly toastService: ToastService,
-    private readonly settingsService: SettingsService,
-    private readonly audioRecordingService: AudioRecordingService,
-    private readonly router: Router,
-    private readonly breakpointObserver: BreakpointObserver,
-    private readonly speechRecognitionService: SpeechRecognitionService,
-    private readonly chatService: ChatService,
-    private readonly errorService: ErrorService,
-    private readonly speechToTextMicrosoftService: SpeechToTextMicrosoftService
-  ) {}
+  private readonly warningType = 'toast-warning';
 
   async ngOnInit(): Promise<void> {
     this.isIOS = isIOS();
@@ -98,7 +100,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     });
     this.isTablet = this.settingsService.isTablet;
     this.isMicrophoneGranted = await navigator.permissions.query({ name: 'microphone' }).then(function (result) {
-      return result.state == 'granted' || result.state == 'prompt';
+      return result.state === 'granted' || result.state === 'prompt';
     });
   }
 
@@ -139,11 +141,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
         this.translationMode = TranslationMode.VOCAL;
         this.speaking = true;
       } else {
-        this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
+        this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, this.warningType);
         this.errorService.save(ERROR_TECH_UNAUTHORIZEDMICRO);
       }
     } else {
-      this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
+      this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, this.warningType);
       this.requestPermission();
     }
   }
@@ -188,7 +190,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
         }
       });
     } else {
-      this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
+      this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, this.warningType);
       this.requestPermission();
     }
   }

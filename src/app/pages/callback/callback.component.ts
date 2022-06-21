@@ -5,8 +5,8 @@ import {AuthService} from '../../services/auth.service';
 import {SettingsService} from '../../services/settings.service';
 import {ChatService} from '../../services/chat.service';
 import axios from 'axios';
-import {authCodeFlowConfig} from 'src/environments/authflow';
 import {params} from '../../../environments/params';
+import {authCodeFlowConfig} from '../../../environments/authflow';
 
 @Component({
   selector: 'app-callback',
@@ -16,7 +16,7 @@ export class CallbackComponent implements OnInit {
   private user;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private readonly activatedRoute: ActivatedRoute,
     private readonly authService: AuthService,
     private readonly settingsService: SettingsService,
     private readonly router: Router,
@@ -28,9 +28,9 @@ export class CallbackComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const nonce = sessionStorage.getItem('nonce');
 
-    this.activatedRoute.queryParams.subscribe(async (params) => {
-      if (params.state === nonce) {
-        const userinfo = await this.getUserInfo(params.access_token);
+    this.activatedRoute.queryParams.subscribe(async (parameters) => {
+      if (parameters.state === nonce) {
+        const userinfo = await this.getUserInfo(parameters.access_token);
         this.user = {
           given_name: userinfo.name,
           family_name: userinfo.family_name,
@@ -39,7 +39,7 @@ export class CallbackComponent implements OnInit {
           state: userinfo.state,
         };
         try {
-          this.loginAuthentificated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
+          await this.loginAuthentificated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
         } catch (error) {
           this.router.navigateByUrl('/start');
         }
@@ -49,7 +49,7 @@ export class CallbackComponent implements OnInit {
     });
   }
 
-  private getUserInfo = async (access_token: string) => {
+  private readonly getUserInfo = async (access_token: string) => {
     return axios
       .get(authCodeFlowConfig.userinfoEndpoint + access_token)
       .then((response) => {
@@ -58,7 +58,7 @@ export class CallbackComponent implements OnInit {
       .catch(function (error) {
         console.error(error);
       });
-  };
+  }
 
   private async loginAuthentificated(email: string, firstname: string, lastname: string, idDGASI: string) {
     try {

@@ -1,6 +1,6 @@
 // Angular
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 // Keyboard
@@ -46,7 +46,6 @@ import {MessageWrapperComponent} from './pages/translation/components/message-wr
 import {RecordComponent} from './pages/translation/components/record/record.component';
 import {ChatComponent} from './pages/translation/components/chat/chat.component';
 import {RateDialogComponent} from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
-import {SentryErrorHandler} from './utils/sentry-error-handler';
 import {AuthenticationComponent} from './pages/authentication/authentication.component';
 import {AnonymousComponent} from './pages/anonymous/anonymous.component';
 import {GdprComponent} from './pages/gdpr/gdpr.component';
@@ -74,7 +73,7 @@ import {ErrorService} from './services/error.service';
 import {TokenBrokerService} from './services/token-broker.service';
 import {TextToSpeechMicrosoftService} from './services/text-to-speech-microsoft.service';
 import {TextToSpeechGcpService} from './services/text-to-speech-gcp.service';
-import {TextToSpeechService} from "./services/text-to-speech.service";
+import {TextToSpeechService} from './services/text-to-speech.service';
 
 
 @NgModule({
@@ -146,7 +145,6 @@ import {TextToSpeechService} from "./services/text-to-speech.service";
       provide: MAT_DATE_LOCALE,
       useValue: 'fr-FR',
     },
-    {provide: ErrorHandler, useClass: SentryErrorHandler},
     {
       provide: TextToSpeechService,
       useFactory: TextToSpeechFactory,

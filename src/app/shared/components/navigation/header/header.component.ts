@@ -12,7 +12,7 @@ import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary-gcp';
 import { Role } from '../../../../models/role';
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 import { Router } from '@angular/router';
-import { ChatService } from 'src/app/services/chat.service';
+import {ChatService} from "../../../../services/chat.service";
 
 @Component({
   selector: 'app-header',

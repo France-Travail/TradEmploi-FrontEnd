@@ -135,7 +135,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
     if (this.audioEnabled) {
       this.audioEnabled = false;
       const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-      const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader' , disableClose: true});
+      const loaderDialog = this.dialog.open(LoaderComponent, {panelClass: 'loader', disableClose: true});
 
       this.textToSpeechService
         .getSpeech(item.sentences.readedWelcome, audioLanguage)
