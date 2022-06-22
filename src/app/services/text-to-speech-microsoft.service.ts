@@ -3,7 +3,7 @@ import {ErrorService} from './error.service';
 import {SpeechConfig, SpeechSynthesizer} from 'microsoft-cognitiveservices-speech-sdk';
 import {environment} from '../../environments/environment';
 import {ERROR_TECH_TTS} from '../models/error/errorTechnical';
-import {VOCABULARY_AZURE} from '../data/vocabulary-microsoft-azure';
+import {VOCABULARY} from '../data/vocabulary';
 import {TextToSpeechService} from './text-to-speech.service';
 import {TokenAzureService} from './token-azure.service';
 
@@ -26,7 +26,7 @@ export class TextToSpeechMicrosoftService extends TextToSpeechService {
       speechConfig.speechSynthesisLanguage = language;
       const synthesizer = new SpeechSynthesizer(speechConfig, null);
 
-      const vacabulary = VOCABULARY_AZURE.find(value => value.isoCode === language);
+      const vacabulary = VOCABULARY.find(value => value.isoCode === language);
       if (vacabulary && vacabulary.audioVoiceCode) {
         const speed = '-10.00%';
         const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${vacabulary.isoCode}"><voice name="${vacabulary.audioVoiceCode}"><prosody rate="${speed}">${text}</prosody></voice></speak>`;

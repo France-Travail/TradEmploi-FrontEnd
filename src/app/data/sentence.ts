@@ -1,5 +1,6 @@
 import {NavbarTab, Sentence} from '../models/vocabulary';
 import {params} from '../../environments/params';
+import {environment} from '../../environments/environment';
 
 const organization = params.organization.name;
 
@@ -28,12 +29,9 @@ export const HEBREW: Sentence = {
     comment: 'תגובה חינם',
     technical: 'האם נתקלת בבעיות טכניות כלשהן בשימוש בכלי?',
   },
-  audioSupported: true,
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
 };
-export const HEBREW_GCP: Sentence = {
-  ...HEBREW,
-  audioSupported: false,
-};
+
 export const ARAB: Sentence = {
   applicationName: 'الترجمة الفورية',
   displayedWelcome: 'مرحبا انا تفسيرك',
@@ -190,14 +188,10 @@ export const ENGLISH_DEFAULT_NO_VOICE: Sentence = {
 };
 export const PENDJABI = {
   ...ENGLISH,
-  audioSupported: true,
+  audioSupported: !environment.microsoftSpeechConfig.textToSpeechEnabled,
   readedWelcome: 'ਕੀ ਤੁਸੀਂ ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?',
 };
-export const PENDJABI_AZURE = {
-  ...PENDJABI,
-  audioSupported: false,
-  readedWelcome: 'ਕੀ ਤੁਸੀਂ ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?',
-};
+
 export const ESTONIAN = {
   ...ENGLISH,
   readedWelcome: 'Kas soovite selles keeles vahetada ?',
@@ -358,10 +352,7 @@ export const ALBANIAN: Sentence = {
     technical: 'A keni hasur ndonjë problem teknik duke përdorur mjetin?',
   },
 };
-export const ALBANIAN_NO_VOICE: Sentence = {
-  ...ALBANIAN,
-  voiceNotSupported: true,
-};
+
 export const MANDARIN: Sentence = {
   audioSupported: true,
   applicationName: '即時翻譯',
@@ -383,12 +374,8 @@ export const MANDARIN: Sentence = {
     technical: '您在使用该工具时遇到任何技术问题吗？',
   },
 };
-export const MANDARIN_NO_VOICE: Sentence = {
-  ...MANDARIN,
-  voiceNotSupported: true,
-};
+
 export const BENGALI: Sentence = {
-  audioSupported: true,
   applicationName: 'তাত্ক্ষণিক অনুবাদ',
   send: 'পাঠান',
   translate: 'অনুবাদ',
@@ -408,11 +395,9 @@ export const BENGALI: Sentence = {
     comment: 'ফ্রি মন্তব্য',
     technical: 'আপনি কি সরঞ্জামটি ব্যবহার করে কোনও প্রযুক্তিগত সমস্যার সম্মুখীন হয়েছেন?',
   },
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
-export const BENGALI_GCP: Sentence = {
-  ...BENGALI,
-  audioSupported: false,
-};
+
 export const BENGALI_INDIA: Sentence = {
   ...BENGALI,
   audioSupported: true,
@@ -482,12 +467,9 @@ export const OURDOU: Sentence = {
     comment: COMMENT,
     technical: TECHNICAL,
   },
-  audioSupported: true
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
-export const OURDOU_GCP: Sentence = {
-  ...OURDOU,
-  audioSupported: false,
-};
+
 export const PORTUGUESE: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Olá eu sou sua interpretação.',
@@ -577,12 +559,9 @@ export const AMHARIC: Sentence = {
     comment: 'ነፃ አስተያየት',
     technical: 'መሣሪያውን በመጠቀም ማንኛውንም ቴክኒካዊ ችግሮች አጋጥመውዎታል?',
   },
-  audioSupported: true
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
-export const AMHARIC_GCP: Sentence = {
-  ...AMHARIC,
-  audioSupported: false
-};
+
 export const KHMER: Sentence = {
   displayedWelcome: 'ជំរាបសួរ, ខ្ញុំនឹងក្លាយជាអ្នកបកប្រែរបស់អ្នកដើម្បីផ្លាស់ប្តូរយ៉ាងងាយស្រួលជាមួយទីប្រឹក្សារបស់អ្នក។',
   readedWelcome: 'តើអ្នកចង់ផ្លាស់ប្តូរភាសានេះទេ?',
@@ -652,7 +631,7 @@ export const TAMOUL: Sentence = {
   },
   audioSupported: true
 };
-export const TAMOUL_GCP: Sentence = {
+export const TAMOUL_NO_VOICE: Sentence = {
   ...TAMOUL,
   audioSupported: false,
 };
@@ -705,10 +684,7 @@ export const MONGOL: Sentence = {
     technical: 'Хэрэгслийг ашиглахад ямар нэгэн техникийн асуудал тулгарсан уу?',
   },
 };
-export const MONGOL_NO_VOICE: Sentence = {
-  ...MONGOL,
-  voiceNotSupported: true,
-};
+
 export const NEPALESE: Sentence = {
   displayedWelcome: 'नमस्कार, म तपाईको दोभाषे बन्ने छ तपाईंको सल्लाहकार संग सजिलै साटासाट गर्न।',
   readedWelcome: 'के तपाईं यस भाषामा आदान प्रदान गर्न चाहनुहुन्छ?',
@@ -729,10 +705,7 @@ export const NEPALESE: Sentence = {
     technical: 'के तपाईंले उपकरण प्रयोग गर्दा कुनै प्राविधिक समस्याहरू सामना गर्नु भएको छ?',
   },
 };
-export const NEPALESE_NO_VOICE: Sentence = {
-  ...NEPALESE,
-  voiceNotSupported: true,
-};
+
 export const RUSSIA: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Привет я твой переводчик',
@@ -776,12 +749,9 @@ export const OUZBEK: Sentence = {
     comment: 'Bepul sharh',
     technical: 'Asbobni ishlatishda biron bir texnik muammoga duch keldingizmi?',
   },
-  audioSupported: true
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
-export const OUZBEK_GCP: Sentence = {
-  ...OUZBEK,
-  audioSupported: false,
-};
+
 export const ROMANIAN: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Buna ziua, eu as fi interpretul tau pentru a schimba usor cu consilierul tau.',
@@ -868,12 +838,9 @@ export const PERSAN: Sentence = {
     comment: 'نظر رایگان',
     technical: 'آیا با استفاده از این ابزار به مشکلات فنی برخورد کرده اید؟',
   },
-  audioSupported: true
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
-export const PERSAN_GCP: Sentence = {
-  ...PERSAN,
-  audioSupported: false
-};
+
 export const GREEK: Sentence = {
   audioSupported: true,
   applicationName: 'Άμεση μετάφραση',
@@ -915,12 +882,8 @@ export const ARMENIAN: Sentence = {
   readedWelcome: 'Ցանկանու՞մ եք շարունակել այս լեզվով:',
   translationH2: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
   translationH2Mobile: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
-  audioSupported: true
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 
-};
-export const ARMENIAN_GCP: Sentence = {
-  ...ARMENIAN,
-  audioSupported: false
 };
 
 export const BASQUE: Sentence = {
@@ -928,13 +891,9 @@ export const BASQUE: Sentence = {
   readedWelcome: 'Hizkuntza honetan jarraitu nahi duzu?',
   translationH2: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
   translationH2Mobile: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
-  audioSupported: true
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
 
-export const BASQUE_GCP: Sentence = {
-  ...BASQUE,
-  audioSupported: false
-};
 export const ICELAND: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Viltu halda áfram á þessu tungumáli?',
@@ -965,13 +924,10 @@ export const CROATIAN: Sentence = {
   readedWelcome: 'Želite li nastaviti na ovom jeziku?',
   translationH2: 'Unesite tekst ili držite plavi mikrofon da biste govorili\'',
   translationH2Mobile: 'Unesite tekst ili držite plavi mikrofon da biste govorili\'',
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 
 };
-export const CROATIAN_GCP: Sentence = {
-  ...CROATIAN,
-  audioSupported: false
 
-};
 export const BOSNIAN: Sentence = {
   ...ENGLISH,
   audioSupported: false,
@@ -984,11 +940,9 @@ export const BIRMAN: Sentence = {
   readedWelcome: 'ဤဘာသာစကားဖြင့် လဲလှယ်လိုပါသလား။',
   translationH2: 'စာသားရိုက်ထည့်ပါ သို့မဟုတ် စကားပြောရန် အပြာရောင်မိုက်ခရိုဖုန်းကို နှိပ်ပြီး ဖိထားပါ။\'',
   translationH2Mobile: 'စာသားရိုက်ထည့်ပါ သို့မဟုတ် စကားပြောရန် အပြာရောင်မိုက်ကို တို့ပါ။\'',
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled ,
 };
-export const BIRMAN_GCP: Sentence = {
-  ...BIRMAN,
-  audioSupported: false
-};
+
 export const TAGALOG: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Gusto mo bang makipagpalitan sa wikang ito?',

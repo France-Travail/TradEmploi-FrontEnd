@@ -10,7 +10,7 @@ export class TokenAzureService {
   }
 
   private tokenKey = 'TOKEN_AZURE';
-  private delayToken = 540000;
+  private delayToken = 540000; // 9 minutes
 
   public async getToken(): Promise<string> {
 
@@ -37,7 +37,6 @@ export class TokenAzureService {
           },
           url: `https://${environment.microsoftSpeechConfig.region}.api.cognitive.microsoft.com/sts/v1.0/issueToken`,
         }).then((response) => {
-        console.log(response.data);
         resolve(response.data);
       }).catch(function (error) {
         console.error(error);
