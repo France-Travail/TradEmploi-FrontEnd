@@ -1,7 +1,7 @@
 import {Vocabulary} from '../models/vocabulary';
 import {
   AFRIKAANS,
-  ALBANIAN_NO_VOICE,
+  ALBANIAN,
   AMHARIC,
   ARAB,
   ARMENIAN,
@@ -18,7 +18,7 @@ import {
   DANISH,
   DARI,
   ENGLISH,
-  ENGLISH_DEFAULT_NO_VOICE,
+  ENGLISH_DEFAULT,
   ESTONIAN,
   FINLAND,
   FRENCH,
@@ -47,13 +47,13 @@ import {
   MALAIS,
   MALAYALAM,
   MANDARIN,
-  MARATHI,
-  MONGOL_NO_VOICE,
-  NEPALESE_NO_VOICE,
+  MARATHI, MONGOL,
+  NAVBAR_ENGLISH_TABS,
+  NEPALESE,
   NORWAY,
   OURDOU,
   OUZBEK,
-  PENDJABI_AZURE,
+  PENDJABI,
   PERSAN,
   POLAND,
   PORTUGUESE,
@@ -68,8 +68,8 @@ import {
   SWEDEN,
   TAGALOG,
   TAMOUL,
-  TAMOUL_GCP,
   TAMOUL_INDIA,
+  TAMOUL_NO_VOICE,
   TELUGU,
   THAILAND,
   TURC,
@@ -79,8 +79,14 @@ import {
 } from './sentence';
 import {environment} from '../../environments/environment';
 
+export const VOCABULARY_DEFAULT: Vocabulary = {
+  isoCode: 'default',
+  sentences: ENGLISH,
+  navbarTabs: NAVBAR_ENGLISH_TABS,
+};
+
 const COUNTRY_NAME_SUD_AFRICA = 'Afrique du Sud';
-export const VOCABULARY_AZURE: Vocabulary[] = [
+export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'af-ZA',
     audioVoiceCode: 'af-ZA-AdriNeural',
@@ -96,7 +102,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Albanie',
     languageNameRaw: 'Shqiptare',
     languageNameFr: 'Albanais',
-    sentences: ALBANIAN_NO_VOICE,
+    sentences: ALBANIAN,
   },
   {
     isoCode: 'am-ET',
@@ -121,7 +127,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Azerbaïjan',
     languageNameRaw: 'Azərbaycan',
     languageNameFr: 'Azerbaïdjan',
-    sentences: ENGLISH_DEFAULT_NO_VOICE,
+    sentences: ENGLISH_DEFAULT,
   },
   {
     isoCode: 'eu-ES',
@@ -283,7 +289,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Mongolie',
     languageNameFr: 'Mongol',
     languageNameRaw: 'Монгол',
-    sentences: MONGOL_NO_VOICE,
+    sentences: MONGOL,
   },
   {
     isoCode: 'ne-NP',
@@ -291,7 +297,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Népal',
     languageNameFr: 'Népalais',
     languageNameRaw: 'नेपाली',
-    sentences: NEPALESE_NO_VOICE,
+    sentences: NEPALESE,
   },
   {
     isoCode: 'sr-RS',
@@ -335,7 +341,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Malaisie',
     languageNameRaw: 'தமிழ்',
     languageNameFr: 'Tamoul',
-    sentences: TAMOUL_GCP,
+    sentences: TAMOUL_NO_VOICE,
   },
   {
     isoCode: 'ta-SG',
@@ -1278,7 +1284,7 @@ export const VOCABULARY_AZURE: Vocabulary[] = [
     countryNameFr: 'Inde',
     languageNameRaw: 'ਪੰਜਾਬੀ',
     languageNameFr: 'Pendjabi',
-    sentences: PENDJABI_AZURE,
+    sentences: PENDJABI,
   },
   {
     isoCode: 'et-EE',
