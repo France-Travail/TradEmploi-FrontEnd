@@ -682,7 +682,7 @@ export const MONGOL: Sentence = {
     rating: 'Та багажийг хэрхэн үнэлдэг вэ?',
     comment: 'Үнэгүй сэтгэгдэл',
     technical: 'Хэрэгслийг ашиглахад ямар нэгэн техникийн асуудал тулгарсан уу?',
-  },
+  }
 };
 
 export const NEPALESE: Sentence = {
@@ -882,7 +882,7 @@ export const ARMENIAN: Sentence = {
   readedWelcome: 'Ցանկանու՞մ եք շարունակել այս լեզվով:',
   translationH2: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
   translationH2Mobile: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
-  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
+  audioSupported: !environment.microsoftSpeechConfig.textToSpeechEnabled
 
 };
 
@@ -891,7 +891,7 @@ export const BASQUE: Sentence = {
   readedWelcome: 'Hizkuntza honetan jarraitu nahi duzu?',
   translationH2: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
   translationH2Mobile: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
-  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
+  audioSupported: !environment.microsoftSpeechConfig.textToSpeechEnabled
 };
 
 export const ICELAND: Sentence = {
@@ -933,7 +933,7 @@ export const BOSNIAN: Sentence = {
   audioSupported: false,
   readedWelcome: 'Želite li razmjenjivati ​​na ovom jeziku?',
   translationH2: 'Unesite tekst ili pritisnite i držite plavi mikrofon za govori\'',
-  translationH2Mobile: 'Unesite tekst ili dodirnite plavi mikrofon da govorite\'',
+  translationH2Mobile: 'Unesite tekst ili dodirnite plavi mikrofon da govorite\''
 };
 export const BIRMAN: Sentence = {
   ...ENGLISH,
