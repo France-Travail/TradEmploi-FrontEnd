@@ -8,7 +8,6 @@ import { ERROR_FUNC_UNAUTHORIZEDMICRO } from '../../../../models/error/errorFunc
 import { environment } from '../../../../../environments/environment';
 import { ERROR_TECH_UNAUTHORIZEDMICRO } from '../../../../models/error/errorTechnical';
 import { Vocabulary } from '../../../../models/vocabulary';
-import { VOCABULARY_AZURE } from '../../../../data/vocabulary-microsoft-azure';
 import { TranslationMode } from '../../../../models/kpis/translationMode';
 import { ToastService } from '../../../../services/toast.service';
 import { AdvisorDefaultName, SettingsService } from '../../../../services/settings.service';
@@ -20,7 +19,7 @@ import { Role } from '../../../../models/role';
 import { Stream } from '../../../../models/stream';
 import { User } from '../../../../models/user';
 import { Message } from '../../../../models/translate/message';
-import { VOCABULARY_GCP, VOCABULARY_DEFAULT } from '../../../../data/vocabulary-gcp';
+import { VOCABULARY, VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
 import { isIOS } from '../../../../utils/utils';
 import {params} from '../../../../../environments/params';
 
@@ -83,11 +82,9 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
     this.languageName = this.settingsService.user.value.language.languageName;
     this.useSpeechToTextMicrosoftApi = this.fromAzure(this.languageOrigin);
-    if (this.useSpeechToTextMicrosoftApi) {
-      this.vocabulary = VOCABULARY_AZURE;
-    } else {
-      this.vocabulary = VOCABULARY_GCP;
-    }
+
+    this.vocabulary = VOCABULARY;
+
     const isLanguageExist = this.vocabulary.some((item) => item.isoCode === this.settingsService.user.value.language.written);
     const data = isLanguageExist || this.role === Role.ADVISOR ? this.vocabulary.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     const translationPlaceHolderIos = this.role === Role.ADVISOR ? data.sentences.translationH2Ios : VOCABULARY_DEFAULT.sentences.translationH2Ios;
@@ -176,10 +173,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     });
   }
 
-  private streamWithMicrosoft() {
+  private async streamWithMicrosoft() {
     if (this.isMicrophoneGranted) {
       let saveText = '';
-      this.speechToTextMicrosoftService.recognize(this.transcodificationMicrosoft(this.languageOrigin)).subscribe((value: Stream) => {
+      const response = await this.speechToTextMicrosoftService.recognize(this.transcodificationMicrosoft(this.languageOrigin));
+      response.subscribe((value: Stream) => {
         if (value.interim !== '') {
           this.rawText = value.interim;
         } else if (value.final !== '') {

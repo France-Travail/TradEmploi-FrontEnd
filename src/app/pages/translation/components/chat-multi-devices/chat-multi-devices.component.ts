@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MessageWrapped} from '../../../../models/translate/message-wrapped';
 import {Language} from '../../../../models/language';
-import {VOCABULARY_GCP} from '../../../../data/vocabulary-gcp';
 import {SettingsService} from '../../../../services/settings.service';
 import {TranslateService} from '../../../../services/translate.service';
 import {Role} from '../../../../models/role';
 import {Message} from '../../../../models/translate/message';
 import {TextToSpeechService} from '../../../../services/text-to-speech.service';
+import {VOCABULARY} from '../../../../data/vocabulary';
 
 @Component({
   selector: 'app-chat-multi-devices',
@@ -27,7 +27,7 @@ export class ChatMultiDevicesComponent implements OnInit {
       if (user && user.firstname) {
         this.targetLanguage = user.language;
         if (user.role === Role.GUEST) {
-          this.isAudioSupported = VOCABULARY_GCP.some((item) =>
+          this.isAudioSupported = VOCABULARY.some((item) =>
             (item.isoCode === user.language.written && item.sentences.audioSupported));
           for (const message of this.messagesWrapped) {
             if (message.notification) {

@@ -4,11 +4,10 @@ import {Tooltip, Vocabulary} from './../../../../models/vocabulary';
 import {Observable} from 'rxjs';
 import {Language} from '../../../../models/db/language';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {VOCABULARY_AZURE} from '../../../../data/vocabulary-microsoft-azure';
+import {VOCABULARY} from '../../../../data/vocabulary';
 import {environment} from '../../../../../environments/environment';
 import {ToastService} from '../../../../services/toast.service';
 import {SettingsService} from '../../../../services/settings.service';
-import {VOCABULARY_GCP} from '../../../../data/vocabulary-gcp';
 import {ENGLISH, FRENCH} from '../../../../data/sentence';
 import {ERROR_FUNC_TTS} from '../../../../models/error/errorFunctionnal';
 import {params} from '../../../../../environments/params';
@@ -54,11 +53,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
               private readonly dialog: MatDialog) {
     const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as Observable<Language[]>;
     result.subscribe(languages => languages.forEach(language => {
-      if (this.fromAzure(language)) {
-        this.selectedCountries.push(...VOCABULARY_AZURE.filter((i) => this.isValidIsoCode(i, language)));
-      } else {
-        this.selectedCountries.push(...VOCABULARY_GCP.filter((i) => this.isValidIsoCode(i, language)));
-      }
+      this.selectedCountries.push(...VOCABULARY.filter((i) => this.isValidIsoCode(i, language)));
       this.mapLanguages.set(language.isoCode, language);
     }));
 
@@ -96,22 +91,10 @@ export class LanguageGridComponent implements OnChanges, OnInit {
 
   public getCountriesAll() {
     this.countries = [];
-    if (environment.microsoftSpeechConfig.speechToTextEnabled) {
-      for (const excludedLanguage of params.excludedLanguagesFromAzureSTT) {
-        const vocabulariesGcp = [...VOCABULARY_GCP].filter(language => language.isoCode === excludedLanguage);
-        this.countries.push(...vocabulariesGcp);
-      }
-    } else {
-      this.countries.push(...VOCABULARY_GCP);
-    }
-    const vocabulariesAzure = [...VOCABULARY_AZURE].filter(language => this.fromAzure(language) && language.isoCode !== 'fr-FR' && language.isoCode !== 'fr-CA');
-    this.countries.push(...vocabulariesAzure);
+    const vocabulary = [...VOCABULARY].filter(language => language.isoCode !== 'fr-FR' && language.isoCode !== 'fr-CA');
+    this.countries.push(...vocabulary);
 
     this.countries.sort((a, b) => a.languageNameFr.localeCompare(b.languageNameFr));
-  }
-
-  private fromAzure(language: Vocabulary | Language) {
-    return environment.microsoftSpeechConfig.speechToTextEnabled && !params.excludedLanguagesFromAzureSTT.includes(language.isoCode);
   }
 
   public isoCodeToFlag(isoCode: string) {
