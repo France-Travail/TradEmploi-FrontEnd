@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {ERROR_TECH_TTS} from '../models/error/errorTechnical';
 import {VOCABULARY_AZURE} from '../data/vocabulary-microsoft-azure';
 import {TextToSpeechService} from './text-to-speech.service';
+import {TokenAzureService} from './token-azure.service';
 
 
 @Injectable({
@@ -12,15 +13,16 @@ import {TextToSpeechService} from './text-to-speech.service';
 })
 export class TextToSpeechMicrosoftService extends TextToSpeechService {
 
-  constructor(private readonly errorService: ErrorService) {
+  constructor(private readonly errorService: ErrorService, private tokenAzureService: TokenAzureService) {
     super();
   }
 
   getSpeech = async (text: string, language: string): Promise<void> => {
+    this.audioSpeech = undefined;
+    const authorizationToken = await this.tokenAzureService.getToken();
+    const speechConfig = SpeechConfig.fromAuthorizationToken(authorizationToken, environment.microsoftSpeechConfig.region);
 
     return new Promise((resolve) => {
-      this.audioSpeech = undefined;
-      const speechConfig = SpeechConfig.fromSubscription(environment.microsoftSpeechConfig.key, environment.microsoftSpeechConfig.region);
       speechConfig.speechSynthesisLanguage = language;
       const synthesizer = new SpeechSynthesizer(speechConfig, null);
 
