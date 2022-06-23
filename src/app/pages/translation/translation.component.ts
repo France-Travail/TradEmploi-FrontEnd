@@ -249,7 +249,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (row.role === Role.ADVISOR) {
         const traduction = [];
         for (const language of languages) {
-          const translate = await this.translateService.translate(row.texte, language, row.langueDE);
+          const translate = await this.translateService.translate(row.texte, language, row.languageOrigin);
           traduction.push(translate);
         }
         row.traduction = traduction.join(',');

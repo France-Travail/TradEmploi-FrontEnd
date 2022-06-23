@@ -277,6 +277,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'mr-IN',
+    audioVoiceCode: 'mr-IN-AarohiNeural',
     countryNameRaw: 'भारत',
     countryNameFr: 'Inde',
     languageNameRaw: 'मराठी',
