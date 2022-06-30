@@ -2,17 +2,17 @@
   <h2><strong>Choix de langues </strong></h2>
   <mat-form-field class="search" appearance="outline">
     <mat-icon matPrefix>search</mat-icon>
-    <input type="search" placeholder="{{wordings.search}}" aria-label="Search" autocomplete="off" matInput (keyup)="applyFilter($event)" />
+    <input type="search" placeholder="{{ wordings.search }}" aria-label="Search" autocomplete="off" matInput (keyup)="applyFilter($event)" />
   </mat-form-field>
   <div class="option">
-    <button [ngClass]="{'no-clicked': optionAll, 'clicked': !optionAll}" (click)="getMost()">{{wordings.mostBtn}}</button>
-    <button [ngClass]="{'no-clicked': !optionAll, 'clicked': optionAll}" (click)="getMost()">
-      <img style="vertical-align:middle"  src="assets/icons/all-languages.svg" alt="Multi Language" />
-      <span class="description">{{wordings.allBtn}}</span>
+    <button [ngClass]="{ 'no-clicked': optionAll, clicked: !optionAll }" (click)="getMost()">{{ wordings.mostBtn }}</button>
+    <button [ngClass]="{ 'no-clicked': !optionAll, clicked: optionAll }" (click)="getMost()">
+      <img style="vertical-align: middle" src="assets/icons/all-languages.svg" alt="Multi Language" />
+      <span class="description">{{ wordings.allBtn }}</span>
     </button>
-    <button class="listgrid" (click)="getList()"><em [ngClass]="{'fas fa-th': optionList, 'fa fa-list': !optionList}"></em></button>
+    <button class="listgrid" (click)="getList()">
+      <mat-icon> {{ optionList ? 'view_comfy' : 'list' }}</mat-icon>
+    </button>
   </div>
-  <app-language-grid [optionAll]='optionAll' [optionList]='optionList' [search]='search' [isGuest]='isGuest'></app-language-grid>
+  <app-language-grid [optionAll]="optionAll" [optionList]="optionList" [search]="search" [isGuest]="isGuest"></app-language-grid>
 </div>
-
-

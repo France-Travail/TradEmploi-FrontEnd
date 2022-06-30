@@ -1,4 +1,8 @@
-import { NavbarTab, Sentence } from '../models/vocabulary';
+import {NavbarTab, Sentence} from '../models/vocabulary';
+import {params} from '../../environments/params';
+import {environment} from '../../environments/environment';
+
+const organization = params.organization.name;
 
 export const NAVBAR_ENGLISH_TABS: NavbarTab = {
   language: 'language',
@@ -13,7 +17,7 @@ export const HEBREW: Sentence = {
   translate: 'תרגום',
   translationH2: 'הזן טקסט, או לחץ לחיצה ארוכה על המיקרופון הכחול כדי לדבר',
   translationH2Mobile: 'הזן טקסט, או הקש על המיקרופון הכחול כדי לדבר',
-  thanks: 'Pôle Emploi תודה',
+  thanks: organization + ' תודה',
   listen: 'להקשיב',
   recordText: 'דבר עכשיו',
   displayedWelcome: 'אני המתרגם שלך להחליף בקלות עם היועץ שלך.',
@@ -25,7 +29,9 @@ export const HEBREW: Sentence = {
     comment: 'תגובה חינם',
     technical: 'האם נתקלת בבעיות טכניות כלשהן בשימוש בכלי?',
   },
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
 };
+
 export const ARAB: Sentence = {
   applicationName: 'الترجمة الفورية',
   displayedWelcome: 'مرحبا انا تفسيرك',
@@ -56,7 +62,7 @@ export const FRENCH: Sentence = {
   translationH2: 'Entrez du texte, ou maintenez le micro bleu enfoncé pour parler',
   translationH2Ios: 'Ecrire la phrase à traduire',
   translationH2Mobile: 'Entrez du texte, ou appuyez sur le micro bleu pour parler',
-  thanks: 'Pôle Emploi vous remercie',
+  thanks: organization + ' vous remercie',
   listen: 'Ecouter',
   recordText: 'Parlez maintenant',
   displayedWelcome: 'Je suis votre traducteur pour échanger facilement avec votre conseiller.',
@@ -71,7 +77,7 @@ export const FRENCH: Sentence = {
   gdpr: {
     title: 'Protection des données à caractère personnel',
     privacyText:
-      "Cet outil de traduction instantanée traite vos données dans le cadre de vos échanges avec votre conseiller et de votre accompagnement par Pôle emploi. La base légal de ce traitement est la mission de service public de Pôle emploi.\n\nVos données sont collectées et traitées par Pôle Emploi dans le cadre du suivi des demandeurs d’emploi.\n\nPôle emploi utilisera vos données de manière anonymisée, à des fins d’amélioration continue de ses services, sur la base de ses intérêts légitimes.\n\nVos données personnelles sont transférées vers des datacenters de Google pour la bon fonctionnement de l’outil.\n\nS’agissant de l’hébergement de vos données, Google a recours à différents datacenters présents au sein et en dehors de l’Union européenne. Compte tenu de la nature de cet hébergeur il convient de préciser que ce dernier est soumis au Cloud Act, loi américaine promulguée le 23 mars 2018, permettant aux forces de l'ordre ou aux agences de renseignement américaines d’obtenir des opérateurs télécoms et des fournisseurs de services de Cloud Computing des informations stockées sur leurs serveurs, que ces données soient situées aux États-Unis ou à l’étranger.\n\nVos données sont conservées le temps de la conversation. Elles sont ensuite entièrement anonymisées.\n\nToute personne peut exercer ses droits notamment d’accès et de rectification en adressant sa demande à la délégué à la protection des données de Pôle emploi par courrier à l’adresse suivante ;  1 avenue du Docteur Gley - 75987 Paris cedex 20, ou par courriel à l’adresse email suivante. contact-dpd@pole-emploi.fr.\n\nSi vous estimez que vos droits n’ont pas été respectés, vous pouvez introduire une réclamation auprès de la Commission Nationale Informatique et Libertés (CNIL).",
+    params.organization.cgus,
     closeBtn: 'FERMER',
   },
   logout: {
@@ -101,7 +107,7 @@ export const FRENCH: Sentence = {
     pronounce: 'Le DE peut parler dans cette langue',
     noPronounce: 'Je ne peux pas parler dans cette langue',
     listen: 'Le DE peut entendre la traduction dans cette langue',
-    noListen: 'Je ne peux pas entendre la traduction dans cette langue',
+    noListen: 'Le DE ne peut pas entendre la traduction dans cette langue',
     audio: 'Je peux entendre un échantillon vocal dans cette langue',
   },
 };
@@ -111,7 +117,7 @@ const QUALITY_TRANSLATE = 'What was the quality of the translations?';
 const COMMENT = 'Free Comment';
 const RATING = 'How do you rate this tool?';
 const TECHNICAL = 'Have you encountered any technical problems using the tool?';
-const THANKS_EN = 'Pôle Emploi thanks you.';
+const THANKS_EN = organization + ' thanks you.';
 export const ENGLISH: Sentence = {
   audioSupported: true,
   applicationName: APPLICATION_NAME,
@@ -137,7 +143,7 @@ export const ENGLISH: Sentence = {
   gdpr: {
     title: 'Protection of personal data',
     privacyText:
-      "This translation tool processes your data in the context of your exchanges with your advisor and your support by Pôle emploi. The legal basis for this\n processing is the public service mission of Pôle Emploi.\n\nYour data is collected and processed by Pôle Emploi as part of the follow-up of job seekers.\n\nPôle emploi will use your data in an anonymized way, for the purpose of continuous improvement of its services, on the basis of its legitimate interests.\n\nYour personal data is transferred to Google datacenters for the proper functioning of the tool.\n\nGoogle uses various data centers within and outside the European Union to host your data. Given the nature of this host, it should be noted that it is subject \nto the Cloud Act, an American law enacted on March 23, 2018, allowing law enforcement or American intelligence agencies to obtain information stored on their \nservers from telecom operators and cloud computing service providers, whether this data is located in the United States or abroad.\n\nYour data is kept for the duration of the conversation. It is then completely anonymized.\nAny person may exercise his or her rights of access and rectification by sending a request to Pôle emploi's Data Protection Officer by mail to the following \naddress: 1 avenue du Docteur Gley - 75987 Paris cedex 20, or by email to the following address: contact-dpd@pole-emploi.fr.)\n\nIf you feel that your rights have not been respected, you may file a complaint with the Commission Nationale Informatique et Libertés (CNIL).",
+    params.organization.cgusEnglish,
     closeBtn: 'CLOSE',
   },
   logout: {
@@ -166,7 +172,7 @@ export const ENGLISH: Sentence = {
     welcomeFR: 'Voici un traducteur automatique qui va traduire votre langue. Pour améliorer l’expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',
     welcomeRAW: 'Here is an automatic translator that will translate your language. To improve the translation experience, keep sentences short and simple and speak loudly enough.',
     notifMultiFR: 'L’espace de conversation a été créé en modalité multi-support.',
-    notifMultiRAW: "You've joined the conversation.",
+    notifMultiRAW: 'You\'ve joined the conversation.',
     voiceavailabilityFR: 'Saisie vocale indisponible pour la langue sélectionnée',
     voiceavailabilityRAW: 'Voice input is unavailable for this language',
   },
@@ -182,13 +188,15 @@ export const ENGLISH_DEFAULT_NO_VOICE: Sentence = {
 };
 export const PENDJABI = {
   ...ENGLISH,
-  audioSupported: true,
+  audioSupported: !environment.microsoftSpeechConfig.textToSpeechEnabled,
   readedWelcome: 'ਕੀ ਤੁਸੀਂ ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?',
 };
+
 export const ESTONIAN = {
-  ...ENGLISH_DEFAULT,
+  ...ENGLISH,
   readedWelcome: 'Kas soovite selles keeles vahetada ?',
 };
+
 export const DANISH: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Vil du udveksle på dette sprog?',
@@ -196,7 +204,9 @@ export const DANISH: Sentence = {
 
 export const KOREA: Sentence = {
   ...ENGLISH,
-  readedWelcome: '이 언어로 교환 하시겠습니까?',
+  readedWelcome: '이 언어로 계속하시겠습니까?',
+  translationH2: '텍스트를 입력하거나 파란색 마이크를 잡고 말하세요.',
+  translationH2Mobile: '텍스트를 입력하거나 파란색 마이크를 탭하여 말하세요.',
 };
 
 export const FINLAND: Sentence = {
@@ -207,6 +217,8 @@ export const FINLAND: Sentence = {
 export const GUJARATI: Sentence = {
   ...ENGLISH,
   readedWelcome: 'શું તમે આ ભાષામાં ચાલુ રાખવા માંગો છો?',
+  translationH2: 'ટેક્સ્ટ દાખલ કરો અથવા બોલવા માટે વાદળી માઈકને પકડી રાખો',
+  translationH2Mobile: 'ટેક્સ્ટ દાખલ કરો અથવા વાત કરવા માટે વાદળી માઈક પર ટેપ કરો',
 };
 
 export const HUNGARIAN: Sentence = {
@@ -260,9 +272,9 @@ export const CZECH: Sentence = {
 
 export const SLOVENIA: Sentence = {
   ...ENGLISH,
-  readedWelcome: 'Prajete si výmenu v tomto jazyku?',
-  translationH2: 'Ak chcete hovoriť, zadajte text alebo podržte modrý mikrofón',
-  translationH2Mobile: 'Ak chcete hovoriť, zadajte text alebo podržte modrý mikrofón',
+  readedWelcome: 'Bi radi izmenjali v tem jeziku?',
+  translationH2: 'Napišite stavek za prevod.',
+  translationH2Mobile: 'Vnesite besedilo ali tapnite modri mikrofon za govor.',
 };
 
 export const SWEDEN: Sentence = {
@@ -275,7 +287,6 @@ export const THAILAND: Sentence = {
   readedWelcome: 'คุณต้องการแลกเปลี่ยนเป็นภาษานี้หรือไม่?',
   translationH2: 'ป้อนข้อความหรือกดไมค์สีน้ำเงินค้างไว้เพื่อพูด',
   translationH2Mobile: 'ป้อนข้อความหรือกดไมค์สีน้ำเงินค้างไว้เพื่อพูด',
-
 };
 
 export const TELUGU: Sentence = {
@@ -306,7 +317,7 @@ export const SPANISH: Sentence = {
   languageButtonFR: 'langue espagnole',
   translationH2: 'Ingresa texto o mantén presionado el micrófono azul para hablar',
   translationH2Mobile: 'Ingresa texto o toca el micrófono azul para hablar',
-  thanks: 'Pôle Emploi te agradece',
+  thanks: organization + ' te agradece',
   listen: 'Escuchar',
   recordText: 'Habla ahora',
   displayedWelcome: 'Hola soy tu interprete',
@@ -328,7 +339,7 @@ export const ALBANIAN: Sentence = {
   languageButtonFR: 'langue albanaise',
   translationH2: 'Futni tekst ose shtypni dhe mbani mikrofonin blu për të folur',
   translationH2Mobile: 'Futni tekst ose prekni mikrofonin blu për të folur',
-  thanks: 'Pôle Emploi te agradece',
+  thanks: organization + ' te agradece',
   listen: 'Degjo',
   recordText: 'Fol tani',
   displayedWelcome: 'Përshëndetje, unë jam përkthyesi juaj',
@@ -341,10 +352,7 @@ export const ALBANIAN: Sentence = {
     technical: 'A keni hasur ndonjë problem teknik duke përdorur mjetin?',
   },
 };
-export const ALBANIAN_NO_VOICE: Sentence = {
-  ...ALBANIAN,
-  voiceNotSupported: true,
-};
+
 export const MANDARIN: Sentence = {
   audioSupported: true,
   applicationName: '即時翻譯',
@@ -366,12 +374,8 @@ export const MANDARIN: Sentence = {
     technical: '您在使用该工具时遇到任何技术问题吗？',
   },
 };
-export const MANDARIN_NO_VOICE: Sentence = {
-  ...MANDARIN,
-  voiceNotSupported: true,
-};
+
 export const BENGALI: Sentence = {
-  audioSupported: false,
   applicationName: 'তাত্ক্ষণিক অনুবাদ',
   send: 'পাঠান',
   translate: 'অনুবাদ',
@@ -391,19 +395,14 @@ export const BENGALI: Sentence = {
     comment: 'ফ্রি মন্তব্য',
     technical: 'আপনি কি সরঞ্জামটি ব্যবহার করে কোনও প্রযুক্তিগত সমস্যার সম্মুখীন হয়েছেন?',
   },
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
-export const BENGALI_NO_VOICE: Sentence = {
-  ...BENGALI,
-  voiceNotSupported: true,
-};
+
 export const BENGALI_INDIA: Sentence = {
   ...BENGALI,
   audioSupported: true,
 };
-export const BENGALI_INDIA_NO_VOICE: Sentence = {
-  ...BENGALI_NO_VOICE,
-  audioSupported: true,
-};
+
 const RECORD_TEXT_DARI = 'الان صحبت کن';
 const AUTO_LISTEN_DARI = 'پخپله غوږ شه';
 export const DARI: Sentence = {
@@ -411,7 +410,7 @@ export const DARI: Sentence = {
   send: 'ارسال',
   translate: 'ترجمه',
   translationH2: 'جمله را برای ترجمه بنویسید یا تلفظ کنید',
-  thanks: 'Pôle Emploi از شما متشکرم',
+  thanks: organization + ' از شما متشکرم',
   listen: 'گوش دادن',
   recordText: RECORD_TEXT_DARI,
   displayedWelcome: '.سلام ، من مترجم شما خواهم بود تا با مشاور شما به راحتی تبادل شوید',
@@ -468,11 +467,9 @@ export const OURDOU: Sentence = {
     comment: COMMENT,
     technical: TECHNICAL,
   },
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
-export const OURDOU_NO_VOICE: Sentence = {
-  ...OURDOU,
-  voiceNotSupported: true,
-};
+
 export const PORTUGUESE: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Olá eu sou sua interpretação.',
@@ -562,11 +559,9 @@ export const AMHARIC: Sentence = {
     comment: 'ነፃ አስተያየት',
     technical: 'መሣሪያውን በመጠቀም ማንኛውንም ቴክኒካዊ ችግሮች አጋጥመውዎታል?',
   },
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
-export const AMHARIC_NO_VOICE: Sentence = {
-  ...AMHARIC,
-  voiceNotSupported: true,
-};
+
 export const KHMER: Sentence = {
   displayedWelcome: 'ជំរាបសួរ, ខ្ញុំនឹងក្លាយជាអ្នកបកប្រែរបស់អ្នកដើម្បីផ្លាស់ប្តូរយ៉ាងងាយស្រួលជាមួយទីប្រឹក្សារបស់អ្នក។',
   readedWelcome: 'តើអ្នកចង់ផ្លាស់ប្តូរភាសានេះទេ?',
@@ -586,6 +581,7 @@ export const KHMER: Sentence = {
     comment: 'មតិយោបល់ដោយឥតគិតថ្លៃ',
     technical: 'តើអ្នកបានជួបប្រទះបញ្ហាបច្ចេកទេសណាមួយដោយប្រើឧបករណ៍នេះទេ?',
   },
+  audioSupported: true
 };
 export const KHMER_NO_VOICE: Sentence = {
   ...KHMER,
@@ -613,6 +609,7 @@ export const HINDI: Sentence = {
   },
 };
 
+
 export const TAMOUL: Sentence = {
   displayedWelcome: 'வணக்கம், உங்கள் ஆலோசகருடன் எளிதாக பரிமாறிக்கொள்ள உங்கள் மொழிபெயர்ப்பாளராக இருப்பேன்.',
   readedWelcome: 'இந்த மொழியில் பரிமாற விரும்புகிறீர்களா?',
@@ -632,10 +629,11 @@ export const TAMOUL: Sentence = {
     comment: COMMENT,
     technical: TECHNICAL,
   },
+  audioSupported: true
 };
 export const TAMOUL_NO_VOICE: Sentence = {
   ...TAMOUL,
-  voiceNotSupported: true,
+  audioSupported: false,
 };
 export const TAMOUL_INDIA: Sentence = {
   ...TAMOUL,
@@ -684,12 +682,9 @@ export const MONGOL: Sentence = {
     rating: 'Та багажийг хэрхэн үнэлдэг вэ?',
     comment: 'Үнэгүй сэтгэгдэл',
     technical: 'Хэрэгслийг ашиглахад ямар нэгэн техникийн асуудал тулгарсан уу?',
-  },
+  }
 };
-export const MONGOL_NO_VOICE: Sentence = {
-  ...MONGOL,
-  voiceNotSupported: true,
-};
+
 export const NEPALESE: Sentence = {
   displayedWelcome: 'नमस्कार, म तपाईको दोभाषे बन्ने छ तपाईंको सल्लाहकार संग सजिलै साटासाट गर्न।',
   readedWelcome: 'के तपाईं यस भाषामा आदान प्रदान गर्न चाहनुहुन्छ?',
@@ -710,10 +705,7 @@ export const NEPALESE: Sentence = {
     technical: 'के तपाईंले उपकरण प्रयोग गर्दा कुनै प्राविधिक समस्याहरू सामना गर्नु भएको छ?',
   },
 };
-export const NEPALESE_NO_VOICE: Sentence = {
-  ...NEPALESE,
-  voiceNotSupported: true,
-};
+
 export const RUSSIA: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Привет я твой переводчик',
@@ -723,7 +715,7 @@ export const RUSSIA: Sentence = {
   translate: 'перевод',
   translationH2: 'Введите текст или нажмите и удерживайте синий микрофон, чтобы говорить',
   translationH2Mobile: 'Введите текст или коснитесь синего микрофона, чтобы говорить',
-  thanks: 'Pôle emploi Спасибо вам.',
+  thanks: organization + ' Спасибо вам.',
   listen: 'Слушать',
   recordText: 'Говорите сейчас',
   gaugeText: 'Говорите сейчас',
@@ -739,13 +731,13 @@ export const RUSSIA: Sentence = {
 };
 
 export const OUZBEK: Sentence = {
-  displayedWelcome: "Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo'lardim.",
+  displayedWelcome: 'Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo\'lardim.',
   readedWelcome: 'Ushbu tilda almashishni xohlaysizmi?',
   applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
-  translationH2: "Matn kiriting yoki gapirish uchun ko'k mikrofonni bosib turing",
-  translationH2Mobile: "Matn kiriting yoki gapirish uchun ko'k mikrofonga teging",
+  translationH2: 'Matn kiriting yoki gapirish uchun ko\'k mikrofonni bosib turing',
+  translationH2Mobile: 'Matn kiriting yoki gapirish uchun ko\'k mikrofonga teging',
   thanks: THANKS_EN,
   listen: 'Listen',
   recordText: 'Hozir gapiring',
@@ -757,11 +749,9 @@ export const OUZBEK: Sentence = {
     comment: 'Bepul sharh',
     technical: 'Asbobni ishlatishda biron bir texnik muammoga duch keldingizmi?',
   },
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
-export const OUZBEK_NO_VOICE: Sentence = {
-  ...OUZBEK,
-  voiceNotSupported: true,
-};
+
 export const ROMANIAN: Sentence = {
   audioSupported: true,
   displayedWelcome: 'Buna ziua, eu as fi interpretul tau pentru a schimba usor cu consilierul tau.',
@@ -836,7 +826,7 @@ export const PERSAN: Sentence = {
   translate: 'ترجمه',
   translationH2: 'متن را وارد کنید ، یا میکروفون آبی را برای صحبت فشار داده و نگه دارید',
   translationH2Mobile: 'متن را وارد کنید یا برای صحبت روی میکروفن آبی ضربه بزنید',
-  thanks: 'Pôle Emploi از شما متشکرم',
+  thanks: organization + ' از شما متشکرم',
   listen: 'گوش دادن',
   recordText: RECORD_TEXT_DARI,
   gaugeText: RECORD_TEXT_DARI,
@@ -848,6 +838,7 @@ export const PERSAN: Sentence = {
     comment: 'نظر رایگان',
     technical: 'آیا با استفاده از این ابزار به مشکلات فنی برخورد کرده اید؟',
   },
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
 
 export const GREEK: Sentence = {
@@ -857,7 +848,7 @@ export const GREEK: Sentence = {
   translate: 'Μετάφραση',
   translationH2: 'Εισαγάγετε κείμενο ή πατήστε παρατεταμένα το μπλε μικρόφωνο για να μιλήσετε',
   translationH2Mobile: 'Εισαγάγετε κείμενο ή πατήστε το μπλε μικρόφωνο για να μιλήσετε',
-  thanks: 'Pôle Emploi σε ευχαριστώ',
+  thanks: organization + ' σε ευχαριστώ',
   listen: 'Άκου',
   recordText: 'Μίλα τώρα',
   displayedWelcome: 'Είμαι ο μεταφραστής σας για εύκολη ανταλλαγή με τον σύμβουλό σας.',
@@ -876,4 +867,178 @@ export const BULGARE: Sentence = {
   translationH2: 'Въведете текст или натиснете и задръжте син микрофон, за да говорите',
   translationH2Ios: 'Напишете изречението за превод',
   translationH2Mobile: 'Въведете текст или докоснете синия микрофон, за да говорите',
+};
+
+export const AFRIKAANS: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Wil jy in hierdie taal uitruil?',
+  translationH2: 'Skryf die sin om te vertaal.',
+  translationH2Mobile: 'Voer teks in, of hou die blou mikrofoon om te praat',
+
+};
+
+export const ARMENIAN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Ցանկանու՞մ եք շարունակել այս լեզվով:',
+  translationH2: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
+  translationH2Mobile: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
+  audioSupported: false
+
+};
+
+export const BASQUE: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Hizkuntza honetan jarraitu nahi duzu?',
+  translationH2: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
+  translationH2Mobile: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
+  audioSupported: !environment.microsoftSpeechConfig.textToSpeechEnabled
+};
+
+export const ICELAND: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Viltu halda áfram á þessu tungumáli?',
+  translationH2: 'Sláðu inn texta eða haltu bláa hljóðnemanum til að tala',
+  translationH2Mobile: 'Sláðu inn texta eða pikkaðu á bláa hljóðnemann til að tala',
+
+};
+
+export const SERBIAN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Да ли желите да наставите на овом језику?',
+  translationH2: 'Напиши реченицу за превод.',
+  translationH2Mobile: 'Унесите текст или додирните плави микрофон да бисте говорили.',
+
+};
+
+export const GEORGIAN: Sentence = {
+  ...ENGLISH_DEFAULT,
+  readedWelcome: 'გსურთ ამ ენაზე გაგრძელება?',
+  translationH2: 'შეიყვანეთ ტექსტი, ან გეჭიროთ ლურჯი მიკროფონი სალაპარაკოდ',
+  translationH2Mobile: 'შეიყვანეთ ტექსტი, ან შეეხეთ ლურჯ მიკროფონს სასაუბროდ',
+
+};
+
+
+export const CROATIAN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Želite li nastaviti na ovom jeziku?',
+  translationH2: 'Unesite tekst ili držite plavi mikrofon da biste govorili\'',
+  translationH2Mobile: 'Unesite tekst ili držite plavi mikrofon da biste govorili\'',
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
+
+};
+
+export const BOSNIAN: Sentence = {
+  ...ENGLISH,
+  audioSupported: false,
+  readedWelcome: 'Želite li razmjenjivati ​​na ovom jeziku?',
+  translationH2: 'Unesite tekst ili pritisnite i držite plavi mikrofon za govori\'',
+  translationH2Mobile: 'Unesite tekst ili dodirnite plavi mikrofon da govorite\''
+};
+export const BIRMAN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'ဤဘာသာစကားဖြင့် လဲလှယ်လိုပါသလား။',
+  translationH2: 'စာသားရိုက်ထည့်ပါ သို့မဟုတ် စကားပြောရန် အပြာရောင်မိုက်ခရိုဖုန်းကို နှိပ်ပြီး ဖိထားပါ။\'',
+  translationH2Mobile: 'စာသားရိုက်ထည့်ပါ သို့မဟုတ် စကားပြောရန် အပြာရောင်မိုက်ကို တို့ပါ။\'',
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled ,
+};
+
+export const TAGALOG: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Gusto mo bang makipagpalitan sa wikang ito?',
+  translationH2: 'Maglagay ng text, o pindutin nang matagal ang asul na mikropono upang magsalita\'',
+  translationH2Mobile: 'Maglagay ng text, o i-tap ang asul na mikropono para magsalita\'',
+};
+
+export const MALAIS: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Adakah anda ingin bertukar dalam bahasa ini?',
+  translationH2: 'Tulis ayat untuk diterjemahkan.',
+  translationH2Mobile: 'Masukkan teks atau ketik mikrofon biru untuk bercakap.',
+};
+export const CATALAN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'T\'agradaria intercanviar en aquest idioma?',
+  translationH2: 'Escriu la frase per traduir.',
+  translationH2Mobile: 'Introdueix text o toca el micròfon blau per parlar.',
+};
+export const CINGALAIS: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'ඔබ මෙම භාෂාවෙන් හුවමාරු කර ගැනීමට කැමතිද?',
+  translationH2: 'පරිවර්තනය කිරීමට වාක්‍යය ලියන්න.',
+  translationH2Mobile: 'කතා කිරීමට පෙළ ඇතුළු කරන්න, නැතහොත් නිල් මයික් එක තට්ටු කරන්න.',
+};
+
+export const GALICEIN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Gustaríache intercambiar neste idioma?',
+  translationH2: 'Escribe a frase para traducir.',
+  translationH2Mobile: 'Introduce texto ou toca o micrófono azul para falar.',
+};
+
+export const JAVANAIS: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Apa sampeyan pengin ijol-ijolan ing basa iki?',
+  translationH2: 'Tulisen ukara kanggo nerjemahake.',
+  translationH2Mobile: 'Ketik teks, utawa tutul mikrofon biru kanggo ngomong.',
+};
+export const KAZAKH: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Осы тілде алмасуды қалайсыз ба?',
+  translationH2: 'Аударылатын сөйлемді жазыңыз.',
+  translationH2Mobile: 'Мәтінді енгізіңіз немесе сөйлеу үшін көк микрофонды түртіңіз.',
+};
+export const LAO: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'ເຈົ້າຢາກແລກປ່ຽນໃນພາສານີ້ບໍ?',
+  translationH2: 'ຂຽນປະໂຫຍກທີ່ຈະແປ.',
+  translationH2Mobile: 'ປ້ອນຂໍ້ຄວາມ, ຫຼືແຕະໄມສີຟ້າເພື່ອເວົ້າ.',
+};
+export const LITUANIEN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Vai vēlaties apmainīties šajā valodā?',
+  translationH2: 'Uzrakstiet tulkojamo teikumu.',
+  translationH2Mobile: 'Ievadiet tekstu vai pieskarieties zilajam mikrofonam, lai runātu.',
+};
+export const MACEDONIEN: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Дали сакате да разменувате на овој јазик?',
+  translationH2: 'Напишете ја реченицата за преведување.',
+  translationH2Mobile: 'Внесете текст или допрете го синиот микрофон за да зборувате.',
+};
+export const MARATHI: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'तुम्ही या भाषेत देवाणघेवाण करू इच्छिता?',
+  translationH2: 'भाषांतर करण्यासाठी वाक्य लिहा.',
+  translationH2Mobile: 'मजकूर एंटर करा किंवा बोलण्यासाठी निळ्या माइकवर टॅप करा.',
+};
+export const SOUDNANAIS: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Naha anjeun badé tukeur dina basa ieu?',
+  translationH2: 'Tulis kalimah pikeun narjamahkeun.',
+  translationH2Mobile: 'Tulis teks, atawa ketok mikrofon biru pikeun nyarita.',
+};
+export const SWAHILI: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Je, ungependa kubadilishana katika lugha hii?',
+  translationH2: 'Andika sentensi ili kutafsiri.',
+  translationH2Mobile: 'Weka maandishi, au uguse maikrofoni ya bluu ili kuzungumza.',
+};
+export const ZOULOU: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Ungathanda ukushintshanisa ngalolu limi?',
+  translationH2: 'Bhala umusho ozowuhumusha.',
+  translationH2Mobile: 'Faka umbhalo, noma thepha imakrofoni eluhlaza ukuze ukhulume.',
+};
+export const LETTON: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Vai vēlaties apmainīties šajā valodā?',
+  translationH2: 'Uzrakstiet tulkojamo teikumu.',
+  translationH2Mobile: 'Ievadiet tekstu vai pieskarieties zilajam mikrofonam, lai runātu.',
+};
+export const SLOVAKIA: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Chceli by ste si vymeniť v tomto jazyku?',
+  translationH2: 'Napíšte vetu, ktorú chcete preložiť.',
+  translationH2Mobile: 'Zadajte text alebo hovorte klepnutím na modrý mikrofón.',
 };

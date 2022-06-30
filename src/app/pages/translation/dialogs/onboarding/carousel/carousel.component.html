@@ -9,16 +9,16 @@
 
   <div *ngIf="currentSlide === 1" class="slide">
     <div class="slide1">
-      <img width="270" height="200" class="column" src="../../../../../assets/images/pc.jpg" alt="pc" />
+      <img width="270" height="200" class="column" src="../../../../../assets/images/common/pc.jpg" alt="pc" />
       <span class="vertical-line"></span>
-      <img width="270" height="200" class="column" src="../../../../../assets/images/tablette.jpg" alt="tablette" />
+      <img width="270" height="200" class="column" src="../../../../../assets/images/common/tablette.jpg" alt="tablette" />
     </div>
 
     <div class="helpSentences">
       <ul class="helpFR">
         <li class="circle browser">
           <span>Navigateur chrome </span>
-          <img src="../../../../../assets/images/chrome-icon.png" alt="chrome icon" />
+          <img src="../../../../../assets/images/common/chrome-icon.png" alt="chrome icon" />
         </li>
         <li class="circle">Partage de l'ecran</li>
         <li class="circle">Micro et haut parleurs à proximité des participants</li>
@@ -27,7 +27,7 @@
       <ul class="helpEN">
         <li class="circle browser">
           <span>Navigateur chrome </span>
-          <img src="../../../../../assets/images/chrome-icon.png" alt="chrome icon" />
+          <img src="../../../../../assets/images/common/chrome-icon.png" alt="chrome icon" />
         </li>
         <li class="circle">Connexion wifi stable</li>
         <li class="circle">Attention aux nuisances sonores</li>
@@ -55,9 +55,9 @@
   </div>
 
   <button class="control prev" (click)="onPreviousClick()">
-    <img class="arrow left" src="../../../../../assets/icons/previous.svg" />
+    <img class="arrow left" src="../../../../../assets/icons/previous.svg" alt="previous"/>
   </button>
   <button class="control next" (click)="onNextClick()">
-    <img class="arrow right" src="../../../../../assets/icons/next.svg" />
+    <img class="arrow right" src="../../../../../assets/icons/next.svg" alt="next"/>
   </button>
 </div>

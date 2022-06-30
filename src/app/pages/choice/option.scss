@@ -39,10 +39,13 @@
     font-size: 25px;
     color: $primary-color;
     margin-right: 5px;
+    .mat-icon{
+      font-size: 38px;
+    }
   }
 }
 
-@media screen and (max-width: 1024px) { 
+@media screen and (max-width: 1024px) {
   .option{
     img{
       display: none;
@@ -50,7 +53,7 @@
   }
 }
 
-@media screen and (max-width: 576px) { 
+@media screen and (max-width: 576px) {
   .option{
     padding-left: 0px;
     button {

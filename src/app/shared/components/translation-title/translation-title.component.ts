@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SettingsService } from '../../../services/settings.service';
 import { Role } from '../../../models/role';
-import { VOCABULARY, VOCABULARY_DEFAULT } from '../../../data/vocabulary';
+import {VOCABULARY, VOCABULARY_DEFAULT} from '../../../data/vocabulary';
 
 @Component({
   selector: 'app-translation-title',

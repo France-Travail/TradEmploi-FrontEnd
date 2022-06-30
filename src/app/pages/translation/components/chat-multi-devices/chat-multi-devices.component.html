@@ -5,14 +5,15 @@
         <div *ngIf="input.message.role === 'DE'; then user; else advisor"></div>
         <ng-template #user>
           <div class="bubbleTitle">
-            <span *ngIf="input.message.flag !== 'xa'" class="flag-icon flag-icon-{{ input.message.flag }}"></span>
-            <img *ngIf="input.message.flag === 'xa'" class="flag-icon" src="assets/images/arab-flag.png" alt="drapeau" />
+            <span *ngIf="input.message.flag !== 'xa'" class="fi fi-{{ input.message.flag }}"></span>
+            <img *ngIf="input.message.flag === 'xa'" class="fi" src="../../../../../assets/images/common/arab-flag.png" alt="drapeau" />
             <span>&nbsp;{{ input.message.member }}</span>
           </div>
         </ng-template>
         <ng-template #advisor>
           <div class="bubbleTitle">
-            <img src="../../../../../assets/icons/logo-pe.svg" alt="pole emploi" class="logo" />
+            <img src="../../../../../assets/images/pe/logo-pe.svg" alt="pole emploi" class="logo" *ngIf="showPoleEmploiLogo" />
+            <span *ngIf="!showPoleEmploiLogo" class="fi fi-fr"></span>
             <span>&nbsp;{{ input.message.member}}</span>
           </div>
         </ng-template>

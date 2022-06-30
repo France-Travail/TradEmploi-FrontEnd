@@ -8,7 +8,6 @@ import { ERROR_FUNC_UNAUTHORIZEDMICRO } from '../../../../models/error/errorFunc
 import { environment } from '../../../../../environments/environment';
 import { ERROR_TECH_UNAUTHORIZEDMICRO } from '../../../../models/error/errorTechnical';
 import { Vocabulary } from '../../../../models/vocabulary';
-import { VOCABULARY_AZURE } from '../../../../data/vocabulary-microsoft-azure';
 import { TranslationMode } from '../../../../models/kpis/translationMode';
 import { ToastService } from '../../../../services/toast.service';
 import { AdvisorDefaultName, SettingsService } from '../../../../services/settings.service';
@@ -22,6 +21,7 @@ import { User } from '../../../../models/user';
 import { Message } from '../../../../models/translate/message';
 import { VOCABULARY, VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
 import { isIOS } from '../../../../utils/utils';
+import {params} from '../../../../../environments/params';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -29,6 +29,19 @@ import { isIOS } from '../../../../utils/utils';
   styleUrls: ['./message-wrapper.component.scss'],
 })
 export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit {
+
+
+  constructor(
+    private readonly toastService: ToastService,
+    private readonly settingsService: SettingsService,
+    private readonly audioRecordingService: AudioRecordingService,
+    private readonly router: Router,
+    private readonly breakpointObserver: BreakpointObserver,
+    private readonly speechRecognitionService: SpeechRecognitionService,
+    private readonly chatService: ChatService,
+    private readonly errorService: ErrorService,
+    private readonly speechToTextMicrosoftService: SpeechToTextMicrosoftService
+  ) {}
   @Input() role: string;
   @Input() originText: string;
 
@@ -54,35 +67,24 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public isIOS = false;
   public voiceNotSupported = false;
   public seconds: number;
+  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
   private isMobile = false;
   private isTablet = false;
   private recordingState = RecordingState.STOPPED;
   private useSpeechToTextMicrosoftApi: boolean;
   private vocabulary: Vocabulary[];
-  private isMicrophoneGranted: boolean = false;
+  private isMicrophoneGranted = false;
 
-  constructor(
-    private readonly toastService: ToastService,
-    private readonly settingsService: SettingsService,
-    private readonly audioRecordingService: AudioRecordingService,
-    private readonly router: Router,
-    private readonly breakpointObserver: BreakpointObserver,
-    private readonly speechRecognitionService: SpeechRecognitionService,
-    private readonly chatService: ChatService,
-    private readonly errorService: ErrorService,
-    private readonly speechToTextMicrosoftService: SpeechToTextMicrosoftService
-  ) {}
+  private readonly warningType = 'toast-warning';
 
   async ngOnInit(): Promise<void> {
     this.isIOS = isIOS();
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
     this.languageName = this.settingsService.user.value.language.languageName;
     this.useSpeechToTextMicrosoftApi = this.fromAzure(this.languageOrigin);
-    if (this.useSpeechToTextMicrosoftApi) {
-      this.vocabulary = VOCABULARY_AZURE;
-    } else {
-      this.vocabulary = VOCABULARY;
-    }
+
+    this.vocabulary = VOCABULARY;
+
     const isLanguageExist = this.vocabulary.some((item) => item.isoCode === this.settingsService.user.value.language.written);
     const data = isLanguageExist || this.role === Role.ADVISOR ? this.vocabulary.find((item) => item.isoCode === this.languageOrigin) : VOCABULARY_DEFAULT;
     const translationPlaceHolderIos = this.role === Role.ADVISOR ? data.sentences.translationH2Ios : VOCABULARY_DEFAULT.sentences.translationH2Ios;
@@ -95,7 +97,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     });
     this.isTablet = this.settingsService.isTablet;
     this.isMicrophoneGranted = await navigator.permissions.query({ name: 'microphone' }).then(function (result) {
-      return result.state == 'granted' || result.state == 'prompt';
+      return result.state === 'granted' || result.state === 'prompt';
     });
   }
 
@@ -136,11 +138,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
         this.translationMode = TranslationMode.VOCAL;
         this.speaking = true;
       } else {
-        this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
+        this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, this.warningType);
         this.errorService.save(ERROR_TECH_UNAUTHORIZEDMICRO);
       }
     } else {
-      this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
+      this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, this.warningType);
       this.requestPermission();
     }
   }
@@ -171,10 +173,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     });
   }
 
-  private streamWithMicrosoft() {
+  private async streamWithMicrosoft() {
     if (this.isMicrophoneGranted) {
       let saveText = '';
-      this.speechToTextMicrosoftService.recognize(this.transcodificationMicrosoft(this.languageOrigin)).subscribe((value: Stream) => {
+      const response = await this.speechToTextMicrosoftService.recognize(this.transcodificationMicrosoft(this.languageOrigin));
+      response.subscribe((value: Stream) => {
         if (value.interim !== '') {
           this.rawText = value.interim;
         } else if (value.final !== '') {
@@ -185,13 +188,13 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
         }
       });
     } else {
-      this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, 'toast-warning');
+      this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, this.warningType);
       this.requestPermission();
     }
   }
 
   private transcodificationMicrosoft(language: string): string {
-    if (environment.microsoftSpeechConfig.enabled) {
+    if (environment.microsoftSpeechConfig.speechToTextEnabled) {
       if (language === 'ar-XA') {
         return 'ar-EG';
       }
@@ -336,11 +339,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   private fromAzure(language: string) {
-    return environment.microsoftSpeechConfig.enabled && !environment.microsoftSpeechConfig.excludedLanguages.includes(language);
+    return environment.microsoftSpeechConfig.speechToTextEnabled && !params.excludedLanguagesFromAzureSTT.includes(language);
   }
 
   private async requestPermission() {
-    let permission = await navigator.mediaDevices
+    const permission = await navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then(function () {
         return true;

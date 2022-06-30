@@ -14,7 +14,7 @@
       <span class="fr">Language</span>
     </div>
     <div class="flag">
-      <span class="flag-icon" [ngStyle]="{ border: 0 }"></span>
+      <span class="fi" [ngStyle]="{ border: 0 }"></span>
     </div>
     <div class="option">
       <div class="option-col">{{ voiceTitle }}</div>
@@ -23,7 +23,7 @@
     </div>
     <div class="title">
       <span class="fr">Note</span>
-      <span class="raw">Nombre d'évaluation</span>
+      <span class="raw">Nombre d'évaluations</span>
     </div>
   </div>
   <div class="country" *ngFor="let item of countries" (click)="selectLanguage($event, item)">
@@ -32,10 +32,10 @@
       <span class="raw">{{ item.languageNameRaw }} <bdi>({{ item.countryNameRaw }})</bdi></span>
     </div>
     <div class="flag">
-      <span *ngIf="item.isoCode !== 'ar-XA'" class="flag-icon flag-icon-{{ isoCodeToFlag(item.isoCode) }}"></span>
-      <img *ngIf="item.isoCode === 'ar-XA'" class="flag-icon" src="assets/images/arab-flag.png" alt="flag" />
+      <span *ngIf="item.isoCode !== 'ar-XA'" class="fi fi-{{ isoCodeToFlag(item.isoCode) }}"></span>
+      <img *ngIf="item.isoCode === 'ar-XA'" class="fi" src="../../../../../assets/images/common/arab-flag.png" alt="flag" />
     </div>
-    <div class="option tanslation">
+    <div class="option translation">
       <div class="option-col">
         <img *ngIf="item.sentences.voiceNotSupported === undefined" src="assets/icons/pronounce.svg" alt="Pronounce" matTooltip="{{ tooltip.pronounce }}" matTooltipClass="tooltip-info" />
         <img

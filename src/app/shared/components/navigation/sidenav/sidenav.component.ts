@@ -33,7 +33,7 @@ export class SidenavComponent {
       this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'Guide de démarrage';
       this.gdprLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.gdpr : 'cgu';
       this.language = isGuest ? 'english' : 'french';
-      this.userName = user !== null ? [user.firstname, user.lastname].join('') : '';
+      this.userName = user !== null ? user.firstname : '';
     });
   }
 

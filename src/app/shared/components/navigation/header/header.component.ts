@@ -8,11 +8,11 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GdprComponent } from '../../../../pages/gdpr/gdpr.component';
-import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
 import { Role } from '../../../../models/role';
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 import { Router } from '@angular/router';
-import { ChatService } from 'src/app/services/chat.service';
+import {ChatService} from '../../../../services/chat.service';
+import {VOCABULARY_DEFAULT} from '../../../../data/vocabulary';
 
 @Component({
   selector: 'app-header',
@@ -114,5 +114,5 @@ export class HeaderComponent implements OnInit {
       });
       this.chatService.initChatMono(newRoomId, advisorRole);
     }
-  };
+  }
 }
