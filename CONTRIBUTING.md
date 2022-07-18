@@ -17,11 +17,7 @@ Contacts:
 
 ## Contributions
 
-We welcome community contributions aimed at improving the templates. To do so please go through a pull request: https://help.github.com/articles/about-pull-requests/.
+We welcome community contributions aimed at improving the templates. To do so please send us a patch to the following email: [oss.00619@pole-emploi.fr](mailto:oss.00619@pole-emploi.fr)
 
-Before submitting a pull request:
-- Please make sure the all tests are OK
-- If it is an addition of a module, function, functionality, and not a bug fix, please add a corresponding set of unit tests.
-- Please attach a concise explanation of the changes
 
 Improvements will be made continuously by the CORE TEAM.
