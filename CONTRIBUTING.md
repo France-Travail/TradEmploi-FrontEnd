@@ -19,8 +19,6 @@ Contacts:
 
 We welcome community contributions aimed at improving the templates. To do so please send us a patch to the following email: [oss.00619@pole-emploi.fr](mailto:oss.00619@pole-emploi.fr)
 
-Improvements will be made continuously by the CORE TEAM.
-
 Before submitting a patch:
 - Please make sure the all tests are OK
 - If it is an addition of a module, function, functionality, and not a bug fix, please add a corresponding set of unit tests.
