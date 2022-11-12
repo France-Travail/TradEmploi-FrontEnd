@@ -36,7 +36,6 @@ export interface Sentence {
   introMessage?: IntroMessage;
   translationH2Ios?: string;
   translationH2Mobile?: string;
-
 }
 export interface Tooltip {
   pronounce: string;
@@ -84,6 +83,7 @@ export interface NavbarTab {
   logout: string;
   help: string;
   gdpr: string;
+  tradtondoc?: string;
 }
 
 export interface Logout {

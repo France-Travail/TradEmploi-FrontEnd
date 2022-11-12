@@ -11,8 +11,8 @@ import { GdprComponent } from '../../../../pages/gdpr/gdpr.component';
 import { Role } from '../../../../models/role';
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 import { Router } from '@angular/router';
-import {ChatService} from '../../../../services/chat.service';
-import {VOCABULARY_DEFAULT} from '../../../../data/vocabulary';
+import { ChatService } from '../../../../services/chat.service';
+import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit {
   public logoutLink: string;
   public helpLink: string;
   public gdprLink: string;
+  public tradtondocLink:string;
   public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
   public language: string;
@@ -45,6 +46,7 @@ export class HeaderComponent implements OnInit {
     this.isSmallScreen = this.breakpointObserver.observe(['(max-width: 1050px)']).pipe(map(({ matches }) => matches));
     this.settingsService.user.subscribe((user) => {
       const isGuest = user !== null ? user.role === Role.GUEST : true;
+      this.tradtondocLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.tradtondoc : 'Traduire un document';
       this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
       this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
       this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'Guide de démarrage';
@@ -114,5 +116,5 @@ export class HeaderComponent implements OnInit {
       });
       this.chatService.initChatMono(newRoomId, advisorRole);
     }
-  }
+  };
 }

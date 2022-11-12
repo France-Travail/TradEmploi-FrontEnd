@@ -19,6 +19,7 @@ import { ModalityComponent } from './pages/modality/modality.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { CallbackComponent } from './pages/callback/callback.component';
 import { IndicatorsComponent } from './indicators/indicators.component';
+import { TradtondocComponent } from './pages/tradtondoc/tradtondoc.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
@@ -90,6 +91,11 @@ export const routes: Routes = [
   {
     path: 'indicators',
     component: IndicatorsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tradtondoc',
+    component: TradtondocComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -75,6 +75,7 @@ import {TextToSpeechMicrosoftService} from './services/text-to-speech-microsoft.
 import {TextToSpeechGcpService} from './services/text-to-speech-gcp.service';
 import {TextToSpeechService} from './services/text-to-speech.service';
 import {TokenAzureService} from './services/token-azure.service';
+import { TradtondocComponent } from './pages/tradtondoc/tradtondoc.component';
 
 
 @NgModule({
@@ -110,7 +111,8 @@ import {TokenAzureService} from './services/token-azure.service';
     OnboardingComponent,
     CallbackComponent,
     CarouselComponent,
-    IndicatorsComponent
+    IndicatorsComponent,
+    TradtondocComponent
   ],
   imports: [
     BrowserModule,
