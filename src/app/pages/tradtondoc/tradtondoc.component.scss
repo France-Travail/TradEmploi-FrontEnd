@@ -1,0 +1,8 @@
+@import 'styles';
+
+.end-btn {
+  @extend %option-btn;
+  background-color: $primary-color;
+  color: white;
+}
+

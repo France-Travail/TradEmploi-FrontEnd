@@ -29,7 +29,6 @@ export class RateService {
   }
 
   public saveRate(): Promise<void> {
-
     return this.afs
       .collection(this.db)
       .doc<Rate>(this.afs.createId())
@@ -67,6 +66,7 @@ export class RateService {
                 user
                 agency
                 typeSTT
+                isTradTonDoc
               }
             }`,
     };

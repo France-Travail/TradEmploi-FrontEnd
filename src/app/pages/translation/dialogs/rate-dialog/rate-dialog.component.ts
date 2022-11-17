@@ -11,7 +11,7 @@ import { ToastService } from '../../../../services/toast.service';
 import { ChatService } from '../../../../services/chat.service';
 import { VOCABULARY } from '../../../../data/vocabulary';
 import { ERROR_FUNC_SEND_STATS } from '../../../../models/error/errorFunctionnal';
-import {params} from '../../../../../environments/params';
+import { params } from '../../../../../environments/params';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -59,7 +59,7 @@ export class RateDialogComponent implements OnInit {
   public typeEntretien: string;
   public types = params.organization.entretiens;
   public autreType = '';
-
+  public isTradTonDoc: boolean;
   constructor(
     private readonly dialogRef: MatDialogRef<RateDialogComponent>,
     private readonly rateService: RateService,
@@ -67,8 +67,9 @@ export class RateDialogComponent implements OnInit {
     private readonly toastService: ToastService,
     private readonly router: Router,
     private readonly chatService: ChatService,
-    @Inject(MAT_DIALOG_DATA) public data: { guest: Array<string> }
+    @Inject(MAT_DIALOG_DATA) public data: { guest: Array<string>; tradtondoc?: boolean }
   ) {
+    this.isTradTonDoc = data.tradtondoc || false;
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         this.isMultiDevices = user.isMultiDevices;
@@ -80,6 +81,9 @@ export class RateDialogComponent implements OnInit {
 
   ngOnInit(): void {
     const rateFr = VOCABULARY.find((v) => v.isoCode === 'fr-FR').sentences.rate;
+    let languageNameFr = 'fr-FR';
+    let isoCodes;
+    const date = new Date();
     if (rateFr) {
       this.sentences.questionOne.french = rateFr.qualityTranslate;
       this.sentences.questionTwo.french = rateFr.rating;
@@ -87,7 +91,7 @@ export class RateDialogComponent implements OnInit {
       this.sentences.questionFour.french = rateFr.technical;
       this.sentences.questionFive.french = rateFr.typeInterview;
     }
-    let languageNameFr = 'fr-FR';
+
     if (this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA') {
       this.sentences.questionOne.foreign = '';
       this.sentences.questionTwo.foreign = '';
@@ -106,7 +110,7 @@ export class RateDialogComponent implements OnInit {
         languageNameFr = vocabularyForeign.isoCode;
       }
     }
-    let isoCodes;
+
     if (this.data.guest && this.data.guest.length > 0) {
       isoCodes = this.data.guest.filter((l, index) => l !== 'fr-FR' && this.data.guest.indexOf(l) === index).join(',');
       if (!isoCodes) {
@@ -116,7 +120,6 @@ export class RateDialogComponent implements OnInit {
       isoCodes = languageNameFr;
     }
 
-    const date = new Date();
     this.rate = {
       language: isoCodes,
       date,
@@ -131,6 +134,7 @@ export class RateDialogComponent implements OnInit {
       nbMessagesGuest: 0,
       nbMessagesAdvisor: 0,
       typeSTT: '',
+      isTradTonDoc: this.isTradTonDoc,
     };
     this.canSendRate = false;
   }
