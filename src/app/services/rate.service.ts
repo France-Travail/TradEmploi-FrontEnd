@@ -95,6 +95,7 @@ export class RateService {
             'identifiant utilisateur': element.user,
             'Identifiant agence': element.agency,
             'type STT': element.typeSTT,
+            'Traduction de document': element.isTradTonDoc,
           });
         });
         return rates;
