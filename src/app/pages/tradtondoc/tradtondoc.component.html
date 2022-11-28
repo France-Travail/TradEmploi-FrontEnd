@@ -1,6 +1,6 @@
-<!--
+
 <button class="end-btn" (click)="evaluate()">Evaluer</button>
--->
+
 <form class="container" [formGroup]="ocrForm" (ngSubmit)="onSubmit()">
   <label for="images" class="drop-container">
     <span class="drop-title">Déposer l'image ici</span>
@@ -10,7 +10,7 @@
 
   <div *ngIf="this.file" class="text-center">
     <h5>
-      Preview
+      Visualiser l'image
     </h5>
     <img [src]="croppedImage">
   </div>
@@ -18,7 +18,7 @@
   <h4>La langue cible</h4>
   <select class="select-items" formControlName="targetLanguageCode">
     <option [ngValue]="null" disabled>Choisir la langue</option>
-    <option *ngFor="let language of languages" [ngValue]="language.id">{{language.name}}></option>
+    <option *ngFor="let language of languages" [ngValue]="language.id">{{language.name}}</option>
   </select>
   <div *ngIf="!ocrForm.value.targetLanguageCode || ocrForm.value.targetLanguageCode.length < 1" class="error">
     Choisir une langue est obligatoire!

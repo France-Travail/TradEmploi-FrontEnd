@@ -23,21 +23,21 @@
   margin: 20px 0px;
   border-radius: 10px;
   border: 2px dashed #555;
-  color: #444;
+  color: $black;
   cursor: pointer;
   transition: background .2s ease-in-out, border .2s ease-in-out;
 }
 .drop-container:hover {
   background: #eee;
-  border-color: #111;
+  border-color: $black;
 }
 
 .drop-container:hover .drop-title {
-  color: #222;
+  color: $black;
 }
 
 .drop-title {
-  color: #444;
+  color: $black;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
@@ -47,10 +47,10 @@
 input[type=file]::file-selector-button {
   margin-right: 20px;
   border: none;
-  background: #135dfe;
+  background: $secondary-color;
   padding: 10px 8px;
   border-radius: 10px;
-  color: #fff;
+  color: $white;
   cursor: pointer;
   transition: background .2s ease-in-out;
 }
@@ -69,8 +69,8 @@ input[type=file]::file-selector-button:hover {
 }
 
 .btn-success {
-  background-color: #135dfe;
-  color: white;
+  background-color: $secondary-color;
+  color: $white;
   padding: 12px 20px;
   margin: 12px 0px;
   border: none;
@@ -80,11 +80,11 @@ input[type=file]::file-selector-button:hover {
 }
 
 .btn-success:hover {
-  background-color: #135dfe;
+  background-color: $secondary-color;
 }
 
 .error {
-  color: red;
+  color: $red-corail;
 }
 
 textarea:disabled {
@@ -95,6 +95,8 @@ textarea:disabled {
   overflow: hidden;
 
 }
-
-
-
+.end-btn {
+  @extend %option-btn;
+  background-color: $primary-color;
+  color: white;
+}
