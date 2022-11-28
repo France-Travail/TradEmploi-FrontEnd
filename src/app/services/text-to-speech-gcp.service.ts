@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import axios from 'axios';
-import {ErrorService} from './error.service';
-import {ERROR_TECH_TTS} from '../models/error/errorTechnical';
-import {Voice} from '../models/voice';
-import {VoicesService} from './voices.service';
-import {VOICES} from '../data/voices';
-import {TokenBrokerService} from './token-broker.service';
-import {TokenResponse} from '../models/token/tokensResponse';
-import {TextToSpeechService} from './text-to-speech.service';
+import { ErrorService } from './error.service';
+import { ERROR_TECH_TTS } from '../models/error/errorTechnical';
+import { Voice } from '../models/voice';
+import { VoicesService } from './voices.service';
+import { VOICES } from '../data/voices';
+import { TokenBrokerService } from './token-broker.service';
+import { TokenResponse } from '../models/token/tokensResponse';
+import { TextToSpeechService } from './text-to-speech.service';
 
 interface Body {
   audioConfig: {
@@ -32,8 +32,7 @@ interface Body {
 @Injectable({
   providedIn: 'root',
 })
-export class TextToSpeechGcpService extends TextToSpeechService{
-
+export class TextToSpeechGcpService extends TextToSpeechService {
   constructor(private readonly voicesService: VoicesService, private readonly errorService: ErrorService, private readonly tbs: TokenBrokerService) {
     super();
   }

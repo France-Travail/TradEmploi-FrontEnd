@@ -1,18 +1,33 @@
-<button class="end-btn" (click)="evaluate()">Evaluer</button>
+<div class="wrapper">
+  <div class="container">
+    <div class="header">
+      <button class="end-btn" (click)="evaluate()">Evaluer</button>
+    </div>
+    <form class="tradtondoc" [formGroup]="ocrForm" (ngSubmit)="onSubmit()">
+      <div class="drop-container">
+        <span class="drop-title">Déposer l'image ici</span>
+        ou
+        <input type="file" id="images" accept="image/*" required (change)="onChange($event)" />
+      </div>
 
-<form class="container" [formGroup]="ocrForm" (ngSubmit)="onSubmit()">
-  <label for="images" class="drop-container">
-    <span class="drop-title">Déposer l'image ici</span>
-    ou
-    <input type="file" id="images" accept="image/*" required (change)="onChange($event)">
-  </label>
-
-  <button class="btn-success" type="submit">Lancer la détection du texte et la traduction</button>
-  <div class="" *ngIf="loading">
-    <h3>Chargement en cours ...</h3>
+      <div class="vizualisation" *ngIf="file">
+        <p>Visualiser l'image</p>
+        <div class="img-container">
+          <img src="{{ file }}" />
+        </div>
+      </div>
+      <button class="end-btn submit-btn" type="submit" *ngIf="this.file && !this.translatedText">Lancer la détection du texte et la traduction</button>
+    </form>
+    <div class="translation" *ngIf="translatedText">
+      <p class="title">Texte traduit</p>
+      <div *ngIf="translatedText && translatedText.length > 0">
+        {{ translatedText }}
+      </div>
+      <div class="audio-controls">
+        <button class="play-btn end-btn" type="button" (click)="isPlaying ? pause() : play()">
+          <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
-  <h4 *ngIf="text && text.length>0">Contenu texte du fichier</h4>
-  <textarea *ngIf="text && text.length>0" autosize disabled [value]="text"></textarea>
-  <h4 *ngIf="translatedText && translatedText.length>0">Texte traduit</h4>
-  <textarea *ngIf="translatedText && translatedText.length>0" autosize disabled [value]="translatedText"></textarea>
-</form>
+</div>

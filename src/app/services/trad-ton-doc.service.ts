@@ -1,17 +1,16 @@
 import axios from 'axios';
-import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment';
-import {TokenBrokerService} from './token-broker.service';
-import {TokenResponse} from '../models/token/tokensResponse';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { TokenBrokerService } from './token-broker.service';
+import { TokenResponse } from '../models/token/tokensResponse';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TradTonDocService {
-  constructor(private readonly tbs: TokenBrokerService) {
-  }
+  constructor(private readonly tbs: TokenBrokerService) {}
 
-  detectText = async (fileName: any, content: any): Promise<any> => {
+  detectText = async (fileName: string, content: Blob): Promise<any> => {
     const data = {
       fileName: 'images/' + fileName,
       bucketName: environment.firebaseConfig.projectId,
@@ -22,7 +21,7 @@ export class TradTonDocService {
     const url = `${environment.gcp.gateWayUrl}/detect-text`;
     return axios({
       method: 'post',
-      headers: {Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8'},
+      headers: { Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8' },
       url,
       data,
     })
@@ -32,5 +31,5 @@ export class TradTonDocService {
       .catch((error) => {
         throw new Error(error);
       });
-  }
+  };
 }
