@@ -4,7 +4,7 @@ import {RateDialogComponent} from '../translation/dialogs/rate-dialog/rate-dialo
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TextToSpeechService} from '../../services/text-to-speech.service';
 import {TradTonDocService} from '../../services/trad-ton-doc.service';
-import {TranslateService} from "../../services/translate.service";
+import {TranslateService} from '../../services/translate.service';
 
 @Component({
   selector: 'app-tradtondoc',
@@ -20,11 +20,11 @@ export class TradtondocComponent implements OnInit {
   }
 
   ocrForm = new FormGroup({
-    targetLanguageCode: new FormControl(''),
     file: new FormControl([null, [Validators.required]])
   });
 
   sourceLanguageCode = 'fr-FR';
+  targetLanguageCode = 'en-GB';
 
   languages = [
     {id: 'en-GB', name: 'Anglais'},
@@ -47,23 +47,24 @@ export class TradtondocComponent implements OnInit {
     if (this.file && this.file.name) {
       this.loading = !this.loading;
       const fileName = this.file.name;
-      const result = await this.tradTonDocService.detectText(fileName, this.croppedImage);
-      this.text = result.text;
-      this.loading = false;
-      if (this.text && this.text.length > 0 && this.ocrForm.value.targetLanguageCode && this.ocrForm.value.targetLanguageCode.length > 0) {
-        this.translatedText = await this.translationService.translate(this.text, this.ocrForm.value.targetLanguageCode, this.sourceLanguageCode);
-        this.textToSpeechService.getSpeech(this.translatedText, this.ocrForm.value.targetLanguageCode);
-      }
+      const reader = new FileReader();
+      reader.readAsDataURL(this.file);
+      reader.onload = async () => {
+        const result = await this.tradTonDocService.detectText(fileName, reader.result);
+        this.text = result.text;
+        this.loading = false;
+        if (this.text && this.text.length > 0 && this.targetLanguageCode) {
+          this.translatedText = await this.translationService.translate(this.text, this.targetLanguageCode, this.sourceLanguageCode);
+          this.textToSpeechService.getSpeech(this.translatedText, this.targetLanguageCode);
+        }
+      };
+
     }
   }
 
   onChange(event: any) {
     this.file = event.target.files[0];
-    this.imageChangedEvent = event;
   }
-
-  imageChangedEvent: any = '';
-  croppedImage: any = '';
 
 
   public evaluate() {

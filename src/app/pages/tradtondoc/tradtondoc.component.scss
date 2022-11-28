@@ -1,7 +1,9 @@
 @import "styles";
-*{
+
+* {
   box-sizing: border-box;
 }
+
 .container {
   border-radius: 5px;
   background-color: #f2f2f2;
@@ -27,6 +29,7 @@
   cursor: pointer;
   transition: background .2s ease-in-out, border .2s ease-in-out;
 }
+
 .drop-container:hover {
   background: #eee;
   border-color: $black;
@@ -59,15 +62,6 @@ input[type=file]::file-selector-button:hover {
   background: #135dfe;
 }
 
-.select-items {
-  width: 100%;
-  padding: 12px;
-  margin: 12px 0px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-}
-
 .btn-success {
   background-color: $secondary-color;
   color: $white;
@@ -83,10 +77,6 @@ input[type=file]::file-selector-button:hover {
   background-color: $secondary-color;
 }
 
-.error {
-  color: $red-corail;
-}
-
 textarea:disabled {
   height: 100%;
   font-size: 13px;
@@ -95,6 +85,7 @@ textarea:disabled {
   overflow: hidden;
 
 }
+
 .end-btn {
   @extend %option-btn;
   background-color: $primary-color;
