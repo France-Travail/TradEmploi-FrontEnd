@@ -1,1 +1,34 @@
+<!--
 <button class="end-btn" (click)="evaluate()">Evaluer</button>
+-->
+<form class="container" [formGroup]="ocrForm" (ngSubmit)="onSubmit()">
+  <label for="images" class="drop-container">
+    <span class="drop-title">Déposer l'image ici</span>
+    ou
+    <input type="file" id="images" accept="image/*" required (change)="onChange($event)">
+  </label>
+
+  <div *ngIf="this.file" class="text-center">
+    <h5>
+      Preview
+    </h5>
+    <img [src]="croppedImage">
+  </div>
+
+  <h4>La langue cible</h4>
+  <select class="select-items" formControlName="targetLanguageCode">
+    <option [ngValue]="null" disabled>Choisir la langue</option>
+    <option *ngFor="let language of languages" [ngValue]="language.id">{{language.name}}></option>
+  </select>
+  <div *ngIf="!ocrForm.value.targetLanguageCode || ocrForm.value.targetLanguageCode.length < 1" class="error">
+    Choisir une langue est obligatoire!
+  </div>
+  <button class="btn-success" type="submit">Lancer la détection du texte et la traduction</button>
+  <div class="" *ngIf="loading">
+    <h3>Chargement en cours ...</h3>
+  </div>
+  <h4 *ngIf="text && text.length>0">Contenu texte du fichier</h4>
+  <textarea *ngIf="text && text.length>0" autosize disabled [value]="text"></textarea>
+  <h4 *ngIf="translatedText && translatedText.length>0">Texte traduit</h4>
+  <textarea *ngIf="translatedText && translatedText.length>0" autosize disabled [value]="translatedText"></textarea>
+</form>

@@ -1,8 +1,100 @@
-@import 'styles';
-
-.end-btn {
-  @extend %option-btn;
-  background-color: $primary-color;
-  color: white;
+@import "styles";
+*{
+  box-sizing: border-box;
 }
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.drop-container {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding: 20px 20px;
+  margin: 20px 0px;
+  border-radius: 10px;
+  border: 2px dashed #555;
+  color: #444;
+  cursor: pointer;
+  transition: background .2s ease-in-out, border .2s ease-in-out;
+}
+.drop-container:hover {
+  background: #eee;
+  border-color: #111;
+}
+
+.drop-container:hover .drop-title {
+  color: #222;
+}
+
+.drop-title {
+  color: #444;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: color .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #135dfe;
+  padding: 10px 8px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #135dfe;
+}
+
+.select-items {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.btn-success {
+  background-color: #135dfe;
+  color: white;
+  padding: 12px 20px;
+  margin: 12px 0px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+.btn-success:hover {
+  background-color: #135dfe;
+}
+
+.error {
+  color: red;
+}
+
+textarea:disabled {
+  height: 100%;
+  font-size: 13px;
+  text-align: justify;
+  resize: none;
+  overflow: hidden;
+
+}
+
+
 

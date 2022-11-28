@@ -64,7 +64,6 @@ import {OnboardingComponent} from './pages/translation/dialogs/onboarding/onboar
 import {OAuthModule} from 'angular-oauth2-oidc';
 import {CallbackComponent} from './pages/callback/callback.component';
 import {CommonModule} from '@angular/common';
-import {NgRatingBarModule} from 'ng-rating-bar';
 import {CarouselComponent} from './pages/translation/dialogs/onboarding/carousel/carousel.component';
 import {IndicatorsComponent} from './indicators/indicators.component';
 import {BarChartModule, PieChartModule} from '@swimlane/ngx-charts';
@@ -75,7 +74,8 @@ import {TextToSpeechMicrosoftService} from './services/text-to-speech-microsoft.
 import {TextToSpeechGcpService} from './services/text-to-speech-gcp.service';
 import {TextToSpeechService} from './services/text-to-speech.service';
 import {TokenAzureService} from './services/token-azure.service';
-import { TradtondocComponent } from './pages/tradtondoc/tradtondoc.component';
+import {TradtondocComponent} from './pages/tradtondoc/tradtondoc.component';
+
 
 
 @NgModule({
@@ -137,7 +137,6 @@ import { TradtondocComponent } from './pages/tradtondoc/tradtondoc.component';
     HttpClientModule,
     OAuthModule.forRoot(),
     CommonModule,
-    NgRatingBarModule,
     MatGridListModule,
     BarChartModule,
     PieChartModule,
