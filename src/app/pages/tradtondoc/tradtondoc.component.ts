@@ -1,12 +1,12 @@
-import { Component, HostListener } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
-import { TextToSpeechService } from '../../services/text-to-speech.service';
-import { TradTonDocService } from '../../services/trad-ton-doc.service';
-import { TranslateService } from '../../services/translate.service';
-import { LoaderComponent } from '../settings/loader/loader.component';
-import { RateDialogComponent } from '../translation/dialogs/rate-dialog/rate-dialog.component';
-import { SettingsService } from './../../services/settings.service';
+import {Component, HostListener} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material';
+import {TextToSpeechService} from '../../services/text-to-speech.service';
+import {TradTonDocService} from '../../services/trad-ton-doc.service';
+import {TranslateService} from '../../services/translate.service';
+import {LoaderComponent} from '../settings/loader/loader.component';
+import {RateDialogComponent} from '../translation/dialogs/rate-dialog/rate-dialog.component';
+import {SettingsService} from './../../services/settings.service';
 
 @Component({
   selector: 'app-tradtondoc',
@@ -20,12 +20,13 @@ export class TradtondocComponent {
   });
 
   imageChangedEvent: boolean;
-  private fileName: string;
-  public audioFile: any;
+  fileName: string;
+  audioFile: any;
   file: File;
   text: string;
   translatedText: string;
   isPlaying: boolean = false;
+
   constructor(
     private readonly dialog: MatDialog,
     private readonly translationService: TranslateService,
@@ -54,8 +55,8 @@ export class TradtondocComponent {
 
   async onSubmit() {
     if (this.file && this.fileName) {
-      const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
-      const result = await this.tradTonDocService.detectText(this.fileName, this.file);
+      const loaderDialog = this.dialog.open(LoaderComponent, {panelClass: 'loader', disableClose: true});
+      const result = await this.tradTonDocService.detectText(this.fileName, this.file).catch(e => loaderDialog.close());
       this.text = result.text;
       if (this.text.length > 0) {
         this.translatedText = await this.translationService.translate(this.text, this.targetLanguage);
@@ -67,8 +68,8 @@ export class TradtondocComponent {
           .catch((err) => {
             console.log(err);
           });
-        loaderDialog.close();
       }
+      loaderDialog.close();
     }
   }
 
@@ -79,6 +80,7 @@ export class TradtondocComponent {
     };
     this.isPlaying = true;
   }
+
   pause() {
     this.audioFile.pause();
     this.isPlaying = false;

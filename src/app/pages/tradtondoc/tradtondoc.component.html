@@ -7,10 +7,10 @@
       <div class="drop-container">
         <span class="drop-title">Déposer l'image ici</span>
         ou
-        <input type="file" id="images" accept="image/*" required (change)="onChange($event)" />
+        <input type="file" id="images" accept="image/*,application/pdf" required (change)="onChange($event)" />
       </div>
 
-      <div class="vizualisation" *ngIf="file">
+      <div class="vizualisation" *ngIf="file && !fileName.endsWith('.pdf')">
         <p>Visualiser l'image</p>
         <div class="img-container">
           <img src="{{ file }}" />

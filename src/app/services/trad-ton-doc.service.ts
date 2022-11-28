@@ -31,5 +31,5 @@ export class TradTonDocService {
       .catch((error) => {
         throw new Error(error);
       });
-  };
+  }
 }
