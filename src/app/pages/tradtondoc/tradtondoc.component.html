@@ -11,7 +11,7 @@
       </div>
 
       <div class="vizualisation" *ngIf="file && !fileName.endsWith('.pdf')">
-        <p>Visualiser l'image</p>
+        <p class="title">Visualiser l'image</p>
         <div class="img-container">
           <img src="{{ file }}" />
         </div>
@@ -20,13 +20,18 @@
     </form>
     <div class="translation" *ngIf="translatedText">
       <p class="title">Texte traduit</p>
-      <div *ngIf="translatedText && translatedText.length > 0">
-        {{ translatedText }}
-      </div>
-      <div class="audio-controls">
-        <button class="play-btn end-btn" type="button" (click)="isPlaying ? pause() : play()">
-          <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
-        </button>
+      <div class="text-container">
+        <div *ngIf="translatedText && translatedText.length > 0">
+          {{ translatedText }}
+        </div>
+        <div class="audio-controls">
+          <button *ngIf="showAudioControls" class="play-btn end-btn" type="button" (click)="isPlaying ? pause() : play()">
+            <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
+          </button>
+          <div *ngIf="!showAudioControls">
+            <app-loader></app-loader>
+          </div>
+        </div>
       </div>
     </div>
   </div>
