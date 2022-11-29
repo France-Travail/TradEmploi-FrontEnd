@@ -56,7 +56,7 @@ export class TradtondocComponent {
   async onSubmit() {
     if (this.file && this.fileName) {
       const loaderDialog = this.dialog.open(LoaderComponent, {panelClass: 'loader', disableClose: true});
-      const result = await this.tradTonDocService.detectText(this.fileName, this.file).catch(e => loaderDialog.close());
+      const result = await this.tradTonDocService.detectText(this.fileName, this.file).finally(() => loaderDialog.close());
       this.text = result.text;
       if (this.text.length > 0) {
         this.translatedText = await this.translationService.translate(this.text, this.targetLanguage);
