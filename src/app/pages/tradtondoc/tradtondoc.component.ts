@@ -68,8 +68,8 @@ export class TradtondocComponent {
           .catch((err) => {
             console.log(err);
           });
+        loaderDialog.close();
       }
-      loaderDialog.close();
     }
   }
 
