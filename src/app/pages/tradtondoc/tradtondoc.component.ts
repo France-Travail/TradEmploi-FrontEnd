@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { VOCABULARY } from 'src/app/data/vocabulary';
@@ -15,7 +15,7 @@ import { SettingsService } from './../../services/settings.service';
   templateUrl: './tradtondoc.component.html',
   styleUrls: ['./tradtondoc.component.scss'],
 })
-export class TradtondocComponent {
+export class TradtondocComponent implements OnDestroy {
   private targetLanguage: string;
   public ocrForm = new FormGroup({
     file: new FormControl([null, [Validators.required]]),
@@ -45,6 +45,11 @@ export class TradtondocComponent {
     });
     const language = VOCABULARY.find((i) => i.isoCode === this.targetLanguage || i.audioCode === this.targetLanguage);
     this.isAudioSupported = language.sentences.audioSupported !== undefined;
+  }
+
+  ngOnDestroy() {
+    this.audioFile.pause();
+    this.audioFile = null;
   }
 
   onChange(event: any) {
