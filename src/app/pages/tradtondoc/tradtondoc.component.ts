@@ -41,7 +41,6 @@ export class TradtondocComponent {
     this.settingsService.user.subscribe((user) => {
       if (user && user.language) {
         this.targetLanguage = user.language.written;
-        console.log(user);
       }
     });
     const language = VOCABULARY.find((i) => i.isoCode === this.targetLanguage || i.audioCode === this.targetLanguage);
