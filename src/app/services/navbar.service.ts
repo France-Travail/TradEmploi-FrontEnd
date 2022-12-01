@@ -23,6 +23,7 @@ export class NavbarService {
 
   public handleTabModality() {
     this.choiceTab = false;
+    this.tradDocTab = false;
     this.modalityTab = false;
     this.helpTab = true;
     this.endTab = false;
@@ -30,6 +31,7 @@ export class NavbarService {
 
   public handleTabGDPR() {
     this.choiceTab = false;
+    this.tradDocTab = false;
     this.modalityTab = this.settingsService.user.value && this.settingsService.user.value.role !== Role.GUEST;
     this.helpTab = true;
     this.endTab = false;
@@ -47,6 +49,7 @@ export class NavbarService {
 
   public handleTabsChoice() {
     this.choiceTab = false;
+    this.tradDocTab = false;
     this.modalityTab = this.settingsService.user.value.role !== Role.GUEST;
     this.helpTab = true;
     this.endTab = false;
@@ -54,6 +57,7 @@ export class NavbarService {
 
   public handleTabsSettings() {
     this.choiceTab = true;
+    this.tradDocTab = false;
     this.modalityTab = true;
     this.helpTab = true;
     this.endTab = false;

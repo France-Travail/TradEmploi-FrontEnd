@@ -10,11 +10,11 @@
     flex-direction: column;
     padding: 12px 20px;
     margin: 12px 0;
-    background-color: #ffffff;
+    background-color: $white;
     box-shadow: 0 0 3px #aaaaaa;
     color: #333333;
     border-radius: 5px;
-    height: 90%;
+    height: 95%;
     overflow: auto;
     .header {
       display: flex;
@@ -31,7 +31,7 @@
       align-items: center;
       margin: 16px auto;
       padding: 64px;
-      border: 2px dashed #000000;
+      border: 2px dashed $black;
       border-radius: 5px;
       cursor: pointer;
       &:hover {
@@ -58,15 +58,20 @@
     .translation {
       display: flex;
       flex-direction: column;
-      margin: auto;
-      .title {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 10px;
+      .text-container {
+        background-color: $white-smoke;
+        padding: 16px;
+        width: fit-content;
+        border-radius: 5px;
+        .audio-controls {
+          margin: 12px 0;
+        }
       }
-      .audio-controls {
-        margin: 12px 0;
-      }
+    }
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
   }
 
