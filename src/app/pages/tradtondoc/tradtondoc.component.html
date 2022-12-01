@@ -7,16 +7,25 @@
       <div class="drop-container">
         <span class="drop-title">Déposer l'image ici</span>
         ou
-        <input type="file" id="images" accept="image/*,application/pdf" required (change)="onChange($event)" />
+        <input type="file" id="images" accept="image/*,application/pdf" required (change)="onChange($event)"/>
       </div>
 
       <div class="vizualisation" *ngIf="file && !fileName.endsWith('.pdf')">
         <p>Visualiser l'image</p>
         <div class="img-container">
-          <img src="{{ file }}" />
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [aspectRatio]="1"
+            [resizeToWidth]="512"
+            [maintainAspectRatio]="false"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+          ></image-cropper>
         </div>
       </div>
-      <button class="end-btn submit-btn" type="submit" *ngIf="this.file && !this.translatedText">Lancer la détection du texte et la traduction</button>
+      <button class="end-btn submit-btn" type="submit" *ngIf="this.file && !this.translatedText">Lancer la détection du
+        texte et la traduction
+      </button>
     </form>
     <div class="translation" *ngIf="translatedText">
       <p class="title">Texte traduit</p>

@@ -7,6 +7,7 @@ import {TranslateService} from '../../services/translate.service';
 import {LoaderComponent} from '../settings/loader/loader.component';
 import {RateDialogComponent} from '../translation/dialogs/rate-dialog/rate-dialog.component';
 import {SettingsService} from './../../services/settings.service';
+import {ImageCroppedEvent} from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-tradtondoc',
@@ -26,6 +27,7 @@ export class TradtondocComponent {
   text: string;
   translatedText: string;
   isPlaying: boolean = false;
+  croppedImage: string;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -56,7 +58,7 @@ export class TradtondocComponent {
   async onSubmit() {
     if (this.file && this.fileName) {
       const loaderDialog = this.dialog.open(LoaderComponent, {panelClass: 'loader', disableClose: true});
-      const result = await this.tradTonDocService.detectText(this.fileName, this.file).finally(() => loaderDialog.close());
+      const result = await this.tradTonDocService.detectText(this.fileName, this.croppedImage ? this.croppedImage : this.file).finally(() => loaderDialog.close());
       this.text = result.text;
       if (this.text.length > 0) {
         this.translatedText = await this.translationService.translate(this.text, this.targetLanguage);
@@ -103,4 +105,9 @@ export class TradtondocComponent {
       },
     });
   }
+
+  imageCropped($event: ImageCroppedEvent) {
+    this.croppedImage = $event.base64;
+  }
+
 }

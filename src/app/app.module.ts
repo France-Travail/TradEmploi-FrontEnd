@@ -75,6 +75,7 @@ import {TextToSpeechGcpService} from './services/text-to-speech-gcp.service';
 import {TextToSpeechService} from './services/text-to-speech.service';
 import {TokenAzureService} from './services/token-azure.service';
 import {TradtondocComponent} from './pages/tradtondoc/tradtondoc.component';
+import {ImageCropperModule} from 'ngx-image-cropper';
 
 
 
@@ -140,6 +141,7 @@ import {TradtondocComponent} from './pages/tradtondoc/tradtondoc.component';
     MatGridListModule,
     BarChartModule,
     PieChartModule,
+    ImageCropperModule,
   ],
   providers: [
     NavbarService,

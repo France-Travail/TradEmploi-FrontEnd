@@ -11,7 +11,7 @@ export class TradTonDocService {
   constructor(private readonly tbs: TokenBrokerService) {
   }
 
-  detectText = async (fileName: string, content: Blob): Promise<any> => {
+  detectText = async (fileName: string, content: Blob | string): Promise<any> => {
     const data = {
       fileName,
       bucketName: environment.firebaseConfig.projectId,
