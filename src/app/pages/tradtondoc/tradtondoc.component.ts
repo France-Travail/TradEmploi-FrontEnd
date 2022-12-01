@@ -1,14 +1,15 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
-import { VOCABULARY } from 'src/app/data/vocabulary';
-import { ToastService } from 'src/app/services/toast.service';
-import { TextToSpeechService } from '../../services/text-to-speech.service';
-import { TradTonDocService } from '../../services/trad-ton-doc.service';
-import { TranslateService } from '../../services/translate.service';
-import { LoaderComponent } from '../settings/loader/loader.component';
-import { RateDialogComponent } from '../translation/dialogs/rate-dialog/rate-dialog.component';
-import { SettingsService } from './../../services/settings.service';
+import {Component, HostListener, OnDestroy} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material';
+import {VOCABULARY} from 'src/app/data/vocabulary';
+import {ToastService} from 'src/app/services/toast.service';
+import {TextToSpeechService} from '../../services/text-to-speech.service';
+import {TradTonDocService} from '../../services/trad-ton-doc.service';
+import {TranslateService} from '../../services/translate.service';
+import {LoaderComponent} from '../settings/loader/loader.component';
+import {RateDialogComponent} from '../translation/dialogs/rate-dialog/rate-dialog.component';
+import {SettingsService} from './../../services/settings.service';
+import {ImageCroppedEvent} from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-tradtondoc',
@@ -29,7 +30,9 @@ export class TradtondocComponent implements OnDestroy {
   translatedText: string;
   isPlaying: boolean = false;
   showAudioControls: boolean = false;
+  croppedImage: string;
   private isAudioSupported: boolean;
+
   constructor(
     private readonly dialog: MatDialog,
     private readonly translationService: TranslateService,
@@ -68,16 +71,17 @@ export class TradtondocComponent implements OnDestroy {
 
   async onSubmit() {
     if (this.file && this.fileName) {
-      const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
+      const loaderDialog = this.dialog.open(LoaderComponent, {panelClass: 'loader', disableClose: true});
       const result = await this.tradTonDocService
-        .detectText(this.fileName, this.file)
+        .detectText(this.fileName, this.croppedImage ? this.croppedImage : this.file)
         .catch((err) => {
           loaderDialog.close();
           this.toastService.showToast('Une erreur est survenue, veuillez réessayer plus tard', 'toast-error');
           console.log(err);
         })
         .finally(() => loaderDialog.close());
-      this.text = result.text;
+      this.croppedImage = null;
+      this.text = result ? result.text : '';
       if (this.text.length > 0) {
         this.translatedText = await this.translationService.translate(this.text, this.targetLanguage);
         if (this.isAudioSupported) {
@@ -127,5 +131,9 @@ export class TradtondocComponent implements OnDestroy {
         tradtondoc: true,
       },
     });
+  }
+
+  imageCropped($event: ImageCroppedEvent) {
+    this.croppedImage = $event.base64;
   }
 }
