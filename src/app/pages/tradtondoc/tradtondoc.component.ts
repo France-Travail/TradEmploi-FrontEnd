@@ -1,3 +1,4 @@
+import { NavbarService } from 'src/app/services/navbar.service';
 import { Component, HostListener, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
@@ -10,7 +11,6 @@ import { LoaderComponent } from '../settings/loader/loader.component';
 import { RateDialogComponent } from '../translation/dialogs/rate-dialog/rate-dialog.component';
 import { SettingsService } from './../../services/settings.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-tradtondoc',
@@ -54,10 +54,10 @@ export class TradtondocComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.audioFile) {
-      this.audioFile.pause();
-      this.audioFile = null;
-    }
+   if (this.audioFile) {
+     this.audioFile.pause();
+     this.audioFile = null;
+   }
   }
 
   onChange(event: any) {
@@ -71,6 +71,7 @@ export class TradtondocComponent implements OnDestroy {
       this.file = e.target.result;
     };
     reader.readAsDataURL(this.file);
+    this.imageChangedEvent = event;
   }
 
   async onSubmit() {

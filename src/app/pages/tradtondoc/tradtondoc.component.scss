@@ -5,21 +5,22 @@
   height: 100%;
   background-color: $light-blue;
   padding: 0 2%;
+  .header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 0;
+  }
   .container {
     display: flex;
     flex-direction: column;
     padding: 12px 20px;
-    margin: 12px 0;
+    margin-bottom: 12px;
     background-color: $white;
     box-shadow: 0 0 3px #aaaaaa;
     color: #333333;
     border-radius: 5px;
-    height: 95%;
     overflow: auto;
-    .header {
-      display: flex;
-      justify-content: flex-end;
-    }
+
     input[type='file']::file-selector-button {
       @extend %option-btn;
       background-color: $primary-color;
@@ -63,6 +64,7 @@
         padding: 16px;
         width: fit-content;
         border-radius: 5px;
+        margin: auto;
         .audio-controls {
           margin: 12px 0;
         }
