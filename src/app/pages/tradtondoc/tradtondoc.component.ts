@@ -129,23 +129,20 @@ export class TradtondocComponent implements OnDestroy {
   }
 
   onFileDropped($event) {
-    console.log('fileDropped: ');
-    console.log($event);
-    const files = $event.dataTransfer.files;
-    this.prepareFile(files);
-    this.imageChangedEvent = $event;
+    const file = $event;
+    this.prepareFile(file);
+    this.imageChangedEvent = {target: {files: [file]}};
   }
 
   fileBrowseHandler($event) {
     const files = $event.target.files;
-    this.prepareFile(files);
+    this.prepareFile(files[0]);
     this.imageChangedEvent = $event;
   }
 
 
-  prepareFile(files: Array<any>) {
-    const item = files[0];
-    this.file = item;
+  prepareFile(file: any) {
+    this.file = file;
     this.audioFile = null;
     this.showAudioControls = false;
     this.translatedText = null;
