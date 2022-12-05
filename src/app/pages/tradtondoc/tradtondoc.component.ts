@@ -1,15 +1,16 @@
-import {Component, HostListener, OnDestroy} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material';
-import {VOCABULARY} from 'src/app/data/vocabulary';
-import {ToastService} from 'src/app/services/toast.service';
-import {TextToSpeechService} from '../../services/text-to-speech.service';
-import {TradTonDocService} from '../../services/trad-ton-doc.service';
-import {TranslateService} from '../../services/translate.service';
-import {LoaderComponent} from '../settings/loader/loader.component';
-import {RateDialogComponent} from '../translation/dialogs/rate-dialog/rate-dialog.component';
-import {SettingsService} from './../../services/settings.service';
-import {ImageCroppedEvent} from 'ngx-image-cropper';
+import { NavbarService } from 'src/app/services/navbar.service';
+import { Component, HostListener, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { VOCABULARY } from 'src/app/data/vocabulary';
+import { ToastService } from 'src/app/services/toast.service';
+import { TextToSpeechService } from '../../services/text-to-speech.service';
+import { TradTonDocService } from '../../services/trad-ton-doc.service';
+import { TranslateService } from '../../services/translate.service';
+import { LoaderComponent } from '../settings/loader/loader.component';
+import { RateDialogComponent } from '../translation/dialogs/rate-dialog/rate-dialog.component';
+import { SettingsService } from './../../services/settings.service';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-tradtondoc',
@@ -39,8 +40,10 @@ export class TradtondocComponent implements OnDestroy {
     private readonly textToSpeechService: TextToSpeechService,
     private readonly tradTonDocService: TradTonDocService,
     private readonly settingsService: SettingsService,
-    private readonly toastService: ToastService
+    private readonly toastService: ToastService,
+    private readonly navService: NavbarService
   ) {
+    this.navService.handleTabsTradTonDoc();
     this.settingsService.user.subscribe((user) => {
       if (user && user.language) {
         this.targetLanguage = user.language.written;
@@ -51,13 +54,15 @@ export class TradtondocComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.audioFile.pause();
-    this.audioFile = null;
+   if (this.audioFile) {
+     this.audioFile.pause();
+     this.audioFile = null;
+   }
   }
 
   async onSubmit() {
     if (this.file && this.fileName) {
-      const loaderDialog = this.dialog.open(LoaderComponent, {panelClass: 'loader', disableClose: true});
+      const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
       const result = await this.tradTonDocService
         .detectText(this.fileName, this.croppedImage ? this.croppedImage : this.file)
         .catch((err) => {
