@@ -1,16 +1,16 @@
-import { NavbarService } from 'src/app/services/navbar.service';
-import { Component, HostListener, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
-import { VOCABULARY } from 'src/app/data/vocabulary';
-import { ToastService } from 'src/app/services/toast.service';
-import { TextToSpeechService } from '../../services/text-to-speech.service';
-import { TradTonDocService } from '../../services/trad-ton-doc.service';
-import { TranslateService } from '../../services/translate.service';
-import { LoaderComponent } from '../settings/loader/loader.component';
-import { RateDialogComponent } from '../translation/dialogs/rate-dialog/rate-dialog.component';
-import { SettingsService } from './../../services/settings.service';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import {NavbarService} from 'src/app/services/navbar.service';
+import {Component, HostListener, OnDestroy} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material';
+import {VOCABULARY} from 'src/app/data/vocabulary';
+import {ToastService} from 'src/app/services/toast.service';
+import {TextToSpeechService} from '../../services/text-to-speech.service';
+import {TradTonDocService} from '../../services/trad-ton-doc.service';
+import {TranslateService} from '../../services/translate.service';
+import {LoaderComponent} from '../settings/loader/loader.component';
+import {RateDialogComponent} from '../translation/dialogs/rate-dialog/rate-dialog.component';
+import {SettingsService} from './../../services/settings.service';
+import {ImageCroppedEvent} from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-tradtondoc',
@@ -54,15 +54,15 @@ export class TradtondocComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-   if (this.audioFile) {
-     this.audioFile.pause();
-     this.audioFile = null;
-   }
+    if (this.audioFile) {
+      this.audioFile.pause();
+      this.audioFile = null;
+    }
   }
 
   async onSubmit() {
     if (this.file && this.fileName) {
-      const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
+      const loaderDialog = this.dialog.open(LoaderComponent, {panelClass: 'loader', disableClose: true});
       const result = await this.tradTonDocService
         .detectText(this.fileName, this.croppedImage ? this.croppedImage : this.file)
         .catch((err) => {
@@ -129,7 +129,10 @@ export class TradtondocComponent implements OnDestroy {
   }
 
   onFileDropped($event) {
-    this.prepareFile($event);
+    console.log('fileDropped: ');
+    console.log($event);
+    const files = $event.dataTransfer.files;
+    this.prepareFile(files);
     this.imageChangedEvent = $event;
   }
 
