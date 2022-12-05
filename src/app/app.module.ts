@@ -76,7 +76,7 @@ import {TextToSpeechService} from './services/text-to-speech.service';
 import {TokenAzureService} from './services/token-azure.service';
 import {TradtondocComponent} from './pages/tradtondoc/tradtondoc.component';
 import {ImageCropperModule} from 'ngx-image-cropper';
-
+import {DndDirective} from "./pages/tradtondoc/dnd.directive";
 
 
 @NgModule({
@@ -113,7 +113,8 @@ import {ImageCropperModule} from 'ngx-image-cropper';
     CallbackComponent,
     CarouselComponent,
     IndicatorsComponent,
-    TradtondocComponent
+    TradtondocComponent,
+    DndDirective
   ],
   imports: [
     BrowserModule,

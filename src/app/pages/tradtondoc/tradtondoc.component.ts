@@ -22,7 +22,7 @@ export class TradtondocComponent implements OnDestroy {
     file: new FormControl([null, [Validators.required]]),
   });
 
-  imageChangedEvent: boolean;
+  imageChangedEvent: any;
   fileName: string;
   audioFile: any;
   file: File;
@@ -53,20 +53,6 @@ export class TradtondocComponent implements OnDestroy {
   ngOnDestroy() {
     this.audioFile.pause();
     this.audioFile = null;
-  }
-
-  onChange(event: any) {
-    this.audioFile = null;
-    this.showAudioControls = false;
-    this.translatedText = null;
-    this.file = event.target.files[0];
-    this.fileName = this.file.name;
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.file = e.target.result;
-    };
-    reader.readAsDataURL(this.file);
-    this.imageChangedEvent = event;
   }
 
   async onSubmit() {
@@ -136,4 +122,31 @@ export class TradtondocComponent implements OnDestroy {
   imageCropped($event: ImageCroppedEvent) {
     this.croppedImage = $event.base64;
   }
+
+  onFileDropped($event) {
+    this.prepareFile($event);
+    this.imageChangedEvent = $event;
+  }
+
+  fileBrowseHandler($event) {
+    const files = $event.target.files;
+    this.prepareFile(files);
+    this.imageChangedEvent = $event;
+  }
+
+
+  prepareFile(files: Array<any>) {
+    const item = files[0];
+    this.file = item;
+    this.audioFile = null;
+    this.showAudioControls = false;
+    this.translatedText = null;
+    this.fileName = this.file.name;
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.file = e.target.result;
+    };
+    reader.readAsDataURL(this.file);
+  }
+
 }
