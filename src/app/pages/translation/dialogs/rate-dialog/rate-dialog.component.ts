@@ -214,7 +214,7 @@ export class RateDialogComponent implements OnInit {
             });
             this.chatService.initChatMono(newRoomId, advisorRole);
           }
-          this.router.navigate(['choice']);
+          this.isTradTonDoc ? this.router.navigate(['/translation']) : this.router.navigate(['choice']);
         })
         .catch(() => {
           this.toastService.showToast(ERROR_FUNC_SEND_STATS.description, 'toast-error');
