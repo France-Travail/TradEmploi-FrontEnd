@@ -49,15 +49,6 @@ export class SidenavComponent {
     this.openModal(ShareComponent);
   }
 
-  public end() {
-    this.settingsService.user.subscribe((user) => {
-      if (user != null) {
-        this.language = user.isMultiDevices ? this.settingsService.defaultLanguage.written : user.language.written;
-        this.openModal(RateDialogComponent, [this.language]);
-      }
-    });
-  }
-
   public help() {
     this.openModal(OnboardingComponent);
   }
