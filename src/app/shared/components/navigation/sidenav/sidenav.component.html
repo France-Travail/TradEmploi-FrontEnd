@@ -23,10 +23,6 @@
     <img src="assets/icons/icon-help-black.svg" alt="help" />
     <span class="name">{{ helpLink | uppercase }}</span>
   </a>
-  <a mat-list-item (click)="end()" (click)="onSidenavClose()" *ngIf="navbarService.endTab">
-    <img src="assets/icons/icon-end-black.svg" alt="end" />
-    <span class="name">TERMINER LE CHAT</span>
-  </a>
   <a mat-list-item (click)="logout()" (click)="onSidenavClose()">
     <img src="assets/icons/icon-logout.svg" alt="logout" />
     <div>

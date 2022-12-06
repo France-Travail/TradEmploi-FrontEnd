@@ -9,7 +9,6 @@ export class NavbarService {
   public choiceTab = false;
   public modalityTab = false;
   public helpTab = false;
-  public endTab = false;
   public tradDocTab = false;
   constructor(private readonly settingsService: SettingsService, private readonly router: Router) {}
 
@@ -26,15 +25,6 @@ export class NavbarService {
     this.tradDocTab = false;
     this.modalityTab = false;
     this.helpTab = true;
-    this.endTab = false;
-  }
-
-  public handleTabGDPR() {
-    this.choiceTab = false;
-    this.tradDocTab = false;
-    this.modalityTab = this.settingsService.user.value && this.settingsService.user.value.role !== Role.GUEST;
-    this.helpTab = true;
-    this.endTab = false;
   }
 
   public handleTabsTranslation() {
@@ -42,9 +32,6 @@ export class NavbarService {
     this.modalityTab = this.settingsService.user.value.role !== Role.GUEST;
     this.helpTab = true;
     this.tradDocTab = this.settingsService.user.value.role !== Role.GUEST;
-    const isOnTranslation = this.router.url.indexOf('translation') > 0;
-    const isNotGuest = this.settingsService.user.value.role !== Role.GUEST;
-    this.endTab = isOnTranslation && isNotGuest;
   }
 
   public handleTabsChoice() {
@@ -52,7 +39,6 @@ export class NavbarService {
     this.tradDocTab = false;
     this.modalityTab = this.settingsService.user.value.role !== Role.GUEST;
     this.helpTab = true;
-    this.endTab = false;
   }
 
   public handleTabsSettings() {
@@ -60,7 +46,6 @@ export class NavbarService {
     this.tradDocTab = false;
     this.modalityTab = true;
     this.helpTab = true;
-    this.endTab = false;
   }
 
   public handleTabsTradTonDoc() {
@@ -68,6 +53,5 @@ export class NavbarService {
     this.tradDocTab = false;
     this.modalityTab = true;
     this.helpTab = true;
-    this.endTab = false;
   }
 }
