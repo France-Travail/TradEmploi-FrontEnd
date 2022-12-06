@@ -4,18 +4,14 @@
       <button class="end-btn" (click)="evaluate()">TERMINER LA TRADUCTION</button>
     </div>
     <form class="tradtondoc" [formGroup]="ocrForm" (ngSubmit)="onSubmit()">
-      <div class="drop-container" appDnd (fileDropped)="onFileDropped($event)">
-        <input
-          type="file"
-          #fileDropRef
-          id="fileDropRef"
-          accept="image/*,application/pdf"
-          (change)="fileBrowseHandler($event)"
-        />
-        <h3>Déposer l'image ici</h3>
-        <h3>ou</h3>
-        <label for="fileDropRef">Rechercher un fichier</label>
-        <span>{{fileName}}</span>
+      <div class="drop-container" (fileDropped)="onFileDropped($event)" DragAndDropDirective>
+        <input type="file" #fileDropRef id="fileDropRef" accept="image/*,application/pdf" (change)="fileBrowseHandler($event)" />
+        <div class="file-input-container">
+          <span>Déposer le fichier ici</span>
+          <p>ou</p>
+          <label class="end-btn" for="fileDropRef">Rechercher un fichier</label>
+          <p>{{ file ? fileName : 'Aucun fichier sélectionné' }}</p>
+        </div>
       </div>
 
       <div class="vizualisation" *ngIf="file && !fileName.endsWith('.pdf')">
@@ -40,8 +36,7 @@
           {{ translatedText }}
         </div>
         <div class="audio-controls">
-          <button *ngIf="showAudioControls" class="play-btn end-btn" type="button"
-                  (click)="isPlaying ? pause() : play()">
+          <button *ngIf="showAudioControls" class="play-btn end-btn" type="button" (click)="isPlaying ? pause() : play()">
             <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
           </button>
           <div *ngIf="!showAudioControls">
