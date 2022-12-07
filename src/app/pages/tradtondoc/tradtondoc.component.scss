@@ -22,7 +22,9 @@
     border-radius: 5px;
     height: 95%;
     overflow: auto;
-
+    .fileover {
+      background-color: $white-smoke;
+    }
     .drop-container {
       display: flex;
       flex-direction: column;
@@ -31,13 +33,6 @@
       padding: 64px;
       border: 2px dashed $black;
       border-radius: 5px;
-      cursor: pointer;
-      &:hover {
-        background: #eee;
-      }
-      &:-moz-drag-over {
-        background: #eee;
-      }
       #fileDropRef {
         display: none;
       }
@@ -67,7 +62,6 @@
     .translation {
       display: flex;
       flex-direction: column;
-
       .text-container {
         background-color: $white-smoke;
         padding: 16px;
@@ -79,14 +73,12 @@
         }
       }
     }
-
     .title {
       font-size: 20px;
       font-weight: bold;
       margin-bottom: 10px;
     }
   }
-
   .end-btn {
     @extend %option-btn;
     background-color: $primary-color;
