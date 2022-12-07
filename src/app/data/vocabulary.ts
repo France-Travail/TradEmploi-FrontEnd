@@ -98,6 +98,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'sq-AL',
+    audioVoiceCode: 'sq-AL-IlirNeural',
     countryNameRaw: 'Shqiperia',
     countryNameFr: 'Albanie',
     languageNameRaw: 'Shqiptare',
@@ -115,6 +116,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'hy-AM',
+    audioVoiceCode: 'hy-AM-HaykNeural',
     countryNameRaw: 'Հայաստան',
     countryNameFr: 'Arménie',
     languageNameRaw: 'Հայ',
@@ -123,6 +125,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'az-AZ',
+    audioVoiceCode: 'az-AZ-BanuNeural',
     countryNameRaw: 'Azərbaycan',
     countryNameFr: 'Azerbaïjan',
     languageNameRaw: 'Azərbaycan',
@@ -131,6 +134,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'eu-ES',
+    audioVoiceCode: 'eu-ES-AnderNeural',
     countryNameRaw: 'Espainia',
     countryNameFr: 'Espagne',
     languageNameFr: 'Basque',
@@ -206,6 +210,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ka-GE',
+    audioVoiceCode: 'ka-GE-GiorgiNeural',
     countryNameRaw: 'საქართველო',
     countryNameFr: 'Géorgie',
     languageNameRaw: 'ქართული',
@@ -286,6 +291,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'mn-MN',
+    audioVoiceCode: 'mn-MN-YesuiNeural',
     countryNameRaw: 'Монгол Улс',
     countryNameFr: 'Mongolie',
     languageNameFr: 'Mongol',
@@ -294,6 +300,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ne-NP',
+    audioVoiceCode: 'ne-NP-SagarNeural',
     countryNameRaw: 'नेपाल',
     countryNameFr: 'Népal',
     languageNameFr: 'Népalais',
@@ -748,6 +755,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'fa-AF',
+    audioVoiceCode: 'fa-IR-FaridNeural',
     countryNameRaw: 'افغانستان',
     countryNameFr: 'Afghanistan',
     languageNameFr: 'Dari',
@@ -1298,6 +1306,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'bs-BA',
+    audioVoiceCode: 'bs-BA-VesnaNeural',
     countryNameRaw: 'Bosna i Hercegovina',
     countryNameFr: 'Bosnie-Herzégovine',
     languageNameRaw: 'Bosanski',

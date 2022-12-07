@@ -333,6 +333,7 @@ export const SPANISH: Sentence = {
 
 export const ALBANIAN: Sentence = {
   applicationName: 'Përkthim i menjëhershëm',
+  audioSupported: true,
   send: 'Dërgoni te',
   translate: 'Përkthimi',
   languageButtonRAW: 'Gjuhë shqipe',
@@ -416,6 +417,7 @@ export const DARI: Sentence = {
   displayedWelcome: '.سلام ، من مترجم شما خواهم بود تا با مشاور شما به راحتی تبادل شوید',
   readedWelcome: 'آیا می خواهید به این زبان ادامه دهید؟',
   autoListen: AUTO_LISTEN_DARI,
+  audioSupported: true,
   rate: {
     qualityTranslate: 'کیفیت ترجمه ها چگونه بود؟',
     rating: 'ابزار را چگونه ارزیابی می کنید؟',
@@ -440,6 +442,7 @@ export const PACHTO: Sentence = {
   autoListen: AUTO_LISTEN_DARI,
   languageButtonRAW: 'پښتو ژبه',
   languageButtonFR: 'langue pachto',
+  audioSupported: true,
   rate: {
     qualityTranslate: 'د ژباړې کیفیت څه و؟',
     rating: 'تاسو د وسیلې درجه څنګه کوئ؟',
@@ -677,6 +680,7 @@ export const MONGOL: Sentence = {
   recordText: 'Одоо ярь',
   gaugeText: 'Speak now',
   autoListen: 'Автоматаар сонс',
+  audioSupported: true,
   rate: {
     qualityTranslate: 'Орчуулгын чанар ямар байв?',
     rating: 'Та багажийг хэрхэн үнэлдэг вэ?',
@@ -698,6 +702,7 @@ export const NEPALESE: Sentence = {
   recordText: 'अहिले बोल्नुस्',
   gaugeText: 'Speak now',
   autoListen: 'स्वचालित रूपमा सुन्नुहोस्',
+  audioSupported: true,
   rate: {
     qualityTranslate: 'अनुवादको गुणस्तर के थियो?',
     rating: 'तपाईं कसरी उपकरण मूल्या rate्कन गर्नुहुन्छ?',
@@ -882,7 +887,7 @@ export const ARMENIAN: Sentence = {
   readedWelcome: 'Ցանկանու՞մ եք շարունակել այս լեզվով:',
   translationH2: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
   translationH2Mobile: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
-  audioSupported: false
+  audioSupported: true
 
 };
 
@@ -891,7 +896,7 @@ export const BASQUE: Sentence = {
   readedWelcome: 'Hizkuntza honetan jarraitu nahi duzu?',
   translationH2: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
   translationH2Mobile: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
-  audioSupported: !environment.microsoftSpeechConfig.textToSpeechEnabled
+  audioSupported: true
 };
 
 export const ICELAND: Sentence = {
@@ -915,6 +920,7 @@ export const GEORGIAN: Sentence = {
   readedWelcome: 'გსურთ ამ ენაზე გაგრძელება?',
   translationH2: 'შეიყვანეთ ტექსტი, ან გეჭიროთ ლურჯი მიკროფონი სალაპარაკოდ',
   translationH2Mobile: 'შეიყვანეთ ტექსტი, ან შეეხეთ ლურჯ მიკროფონს სასაუბროდ',
+  audioSupported: true,
 
 };
 
@@ -930,7 +936,7 @@ export const CROATIAN: Sentence = {
 
 export const BOSNIAN: Sentence = {
   ...ENGLISH,
-  audioSupported: false,
+  audioSupported: true,
   readedWelcome: 'Želite li razmjenjivati ​​na ovom jeziku?',
   translationH2: 'Unesite tekst ili pritisnite i držite plavi mikrofon za govori\'',
   translationH2Mobile: 'Unesite tekst ili dodirnite plavi mikrofon da govorite\''

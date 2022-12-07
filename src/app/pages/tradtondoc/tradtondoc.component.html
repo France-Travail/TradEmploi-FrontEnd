@@ -5,7 +5,7 @@
   <div class="container">
     <form class="tradtondoc" [formGroup]="ocrForm" (ngSubmit)="onSubmit()">
       <div class="drop-container" (fileDropped)="onFileDropped($event)" DragAndDropDirective>
-        <input type="file" #fileDropRef id="fileDropRef" accept="image/*,application/pdf" (change)="fileBrowseHandler($event)" />
+        <input type="file" name="Upload" #fileDropRef id="fileDropRef" accept="*image/*,application/pdf" (change)="fileBrowseHandler($event)" />
         <div class="file-input-container">
           <span>Déposer le fichier ici</span>
           <p>ou</p>
