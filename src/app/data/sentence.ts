@@ -425,7 +425,6 @@ export const DARI: Sentence = {
 };
 
 export const PACHTO: Sentence = {
-  voiceNotSupported: true,
   displayedWelcome: 'سلام زه ستاسو تفسیر یم',
   readedWelcome: 'ایا تاسو غواړئ پدې ژبه کې تبادله وکړئ؟',
   applicationName: 'فوري ژباړه',
