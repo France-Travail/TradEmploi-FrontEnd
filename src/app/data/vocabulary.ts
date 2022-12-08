@@ -1,10 +1,11 @@
-import {Vocabulary} from '../models/vocabulary';
+import { Vocabulary } from '../models/vocabulary';
 import {
   AFRIKAANS,
   ALBANIAN,
   AMHARIC,
   ARAB,
   ARMENIAN,
+  AZERBAIJANI,
   BASQUE,
   BENGALI,
   BENGALI_INDIA,
@@ -47,12 +48,14 @@ import {
   MALAIS,
   MALAYALAM,
   MANDARIN,
-  MARATHI, MONGOL,
+  MARATHI,
+  MONGOL,
   NAVBAR_ENGLISH_TABS,
   NEPALESE,
   NORWAY,
   OURDOU,
   OUZBEK,
+  PACHTO,
   PENDJABI,
   PERSAN,
   POLAND,
@@ -77,7 +80,7 @@ import {
   VIETNAMESE,
   ZOULOU,
 } from './sentence';
-import {environment} from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 export const VOCABULARY_DEFAULT: Vocabulary = {
   isoCode: 'default',
@@ -130,7 +133,7 @@ export const VOCABULARY: Vocabulary[] = [
     countryNameFr: 'Azerbaïjan',
     languageNameRaw: 'Azərbaycan',
     languageNameFr: 'Azerbaïdjan',
-    sentences: ENGLISH_DEFAULT,
+    sentences: AZERBAIJANI,
   },
   {
     isoCode: 'eu-ES',
@@ -763,6 +766,15 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: DARI,
   },
   {
+    isoCode: 'ps-AF',
+    audioVoiceCode: 'ps-AF-GulNawazNeural',
+    countryNameRaw: 'افغانستان',
+    countryNameFr: 'Afghanistan',
+    languageNameFr: 'Pashto',
+    languageNameRaw: 'دري',
+    sentences: PACHTO,
+  },
+  {
     isoCode: 'pt-PT',
     audioVoiceCode: 'pt-PT-FernandaNeural',
     countryNameRaw: 'Portugal',
@@ -1240,7 +1252,6 @@ export const VOCABULARY: Vocabulary[] = [
     languageNameRaw: 'עברית',
     languageNameFr: 'Hébreu',
     sentences: HEBREW,
-
   },
   {
     isoCode: 'da-DK',
@@ -1330,5 +1341,5 @@ export const VOCABULARY: Vocabulary[] = [
     languageNameRaw: 'Tagalog',
     languageNameFr: 'Tagalog',
     sentences: TAGALOG,
-  }
+  },
 ];
