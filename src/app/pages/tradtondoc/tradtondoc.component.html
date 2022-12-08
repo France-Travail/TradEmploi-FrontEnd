@@ -3,19 +3,22 @@
     <button class="end-btn" (click)="evaluate()">TERMINER LA TRADUCTION</button>
   </div>
   <div class="container">
+    <span class="title">1 - Déposer le fichier</span>
     <form class="tradtondoc" [formGroup]="ocrForm" (ngSubmit)="onSubmit()">
       <div class="drop-container" (fileDropped)="onFileDropped($event)" DragAndDropDirective>
         <input type="file" #fileDropRef id="fileDropRef" accept="image/*,application/pdf" (change)="fileBrowseHandler($event)" />
         <div class="file-input-container">
-          <span>Déposer le fichier ici</span>
-          <p>ou</p>
-          <label class="end-btn" for="fileDropRef">Rechercher un fichier</label>
-          <p>{{ file ? fileName : 'Aucun fichier sélectionné' }}</p>
+          <label class="end-btn" for="fileDropRef">Nouveau fichier</label>
+          <p class="text-selected-file">{{ file ? fileName : 'Aucun fichier sélectionné' }}</p>
+          <div>
+            <p>Formats acceptés : PDF (1 seule page), JPG, JPEG, PNG</p>
+            <p>Taille maximum : 10 Mo</p>
+            <p>Nombre de caractères max. : 10 000 caractères</p>
+          </div>
         </div>
       </div>
-
       <div class="vizualisation" *ngIf="file && !fileName.endsWith('.pdf')">
-        <p class="title">Visualiser l'image</p>
+        <span class="title">2 - Sélectionner la zone à traduire</span>
         <div class="img-container">
           <image-cropper
             [imageChangedEvent]="imageChangedEvent"
@@ -27,10 +30,10 @@
           ></image-cropper>
         </div>
       </div>
-      <button class="end-btn submit-btn" type="submit" *ngIf="this.file && !this.translatedText">Lancer la détection du texte et la traduction</button>
+      <button class="end-btn submit-btn" type="submit" *ngIf="this.file && !this.translatedText && isConformed">Lancer la détection du texte et la traduction</button>
     </form>
     <div class="translation" *ngIf="translatedText">
-      <p class="title">Texte traduit</p>
+      <span class="title">3 - Lire le texte traduit</span>
       <div class="text-container">
         <div *ngIf="translatedText && translatedText.length > 0">
           {{ translatedText }}
@@ -38,6 +41,7 @@
         <div class="audio-controls">
           <button *ngIf="showAudioControls" class="play-btn end-btn" type="button" (click)="isPlaying ? pause() : play()">
             <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
+            Lire vocalement le texte
           </button>
           <div *ngIf="!showAudioControls">
             <app-loader></app-loader>

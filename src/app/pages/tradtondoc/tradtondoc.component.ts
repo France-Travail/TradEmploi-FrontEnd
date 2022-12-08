@@ -28,6 +28,7 @@ export class TradtondocComponent implements OnDestroy {
   audioFile: any;
   file: File;
   text: string;
+  isConformed: boolean;
   translatedText: string;
   isPlaying: boolean = false;
   showAudioControls: boolean = false;
@@ -136,6 +137,13 @@ export class TradtondocComponent implements OnDestroy {
 
   fileBrowseHandler($event) {
     const files = $event.target.files;
+    const sizeFile = Math.trunc(files[0].size / 1024 / 1024);
+    if (sizeFile > 10) {
+      this.isConformed = false;
+      this.toastService.showToast('Fichier non conforme. Merci de vérifier le format et la taille du fichier.', 'toast-error');
+    } else {
+      this.isConformed = true;
+    }
     this.prepareFile(files[0]);
     this.imageChangedEvent = $event;
   }
@@ -153,5 +161,4 @@ export class TradtondocComponent implements OnDestroy {
     };
     reader.readAsDataURL(this.file);
   }
-
 }
