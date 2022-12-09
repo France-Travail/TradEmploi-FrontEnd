@@ -49,7 +49,7 @@
     "jwt-decode": "^3.1.2",
     "libflacjs": "^5.0.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.22.0",
-    "ng-rating-bar": "^1.0.2",
+    "ng-rating-bar": "~1.0.2",
     "ngx-device-detector": "^1.4.5",
     "ngx-image-cropper": "^3.3.5",
     "recordrtc": "^5.5.8",
