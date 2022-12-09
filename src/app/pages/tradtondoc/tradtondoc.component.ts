@@ -136,18 +136,52 @@ export class TradtondocComponent implements OnDestroy {
   }
 
   fileBrowseHandler($event) {
-    const files = $event.target.files;
-    const sizeFile = Math.trunc(files[0].size / 1024 / 1024);
+    const files = $event.target.files[0];
+    this.getTypeFile(files);
+    this.getSizeFile(files);
+    if (files.name.endsWith('.pdf')) {
+      this.getNumberPages(files);
+    }
+    this.prepareFile(files);
+    this.imageChangedEvent = $event;
+  }
+
+  getTypeFile(file) {
+    const fileName = file.name;
+    const allowedTypes = /(\.pdf|\.png|\.jpg|\.jpeg)$/i;
+    if (!allowedTypes.exec(fileName)) {
+      this.isConformed = false;
+      this.toastService.showToast('Fichier non conforme. Merci de vérifier le format et la taille du fichier.', 'toast-error');
+    } else {
+      this.isConformed = true;
+    }
+  }
+
+  getSizeFile(file) {
+    const sizeFile = Math.trunc(file.size / 1024 / 1024);
     if (sizeFile > 10) {
       this.isConformed = false;
       this.toastService.showToast('Fichier non conforme. Merci de vérifier le format et la taille du fichier.', 'toast-error');
     } else {
       this.isConformed = true;
     }
-    this.prepareFile(files[0]);
-    this.imageChangedEvent = $event;
   }
 
+  getNumberPages(file) {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsBinaryString(file);
+      reader.onloadend = () => {
+        const numberPages = (reader.result as string).match(/\/Type[\s]*\/Page[^s]/g).length;
+        if (numberPages > 1) {
+          this.isConformed = false;
+          this.toastService.showToast('Fichier non conforme. Merci de vérifier le format et la taille du fichier.', 'toast-error');
+        } else {
+          this.isConformed = true;
+        }
+      };
+    }
+  }
 
   prepareFile(file: any) {
     this.file = file;

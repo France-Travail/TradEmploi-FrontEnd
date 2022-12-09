@@ -6,7 +6,7 @@
     <span class="title">1 - Déposer le fichier</span>
     <form class="tradtondoc" [formGroup]="ocrForm" (ngSubmit)="onSubmit()">
       <div class="drop-container" (fileDropped)="onFileDropped($event)" DragAndDropDirective>
-        <input type="file" #fileDropRef id="fileDropRef" accept="image/*,application/pdf" (change)="fileBrowseHandler($event)" />
+        <input type="file" #fileDropRef id="fileDropRef" accept="image/png, image/jpeg, image/jpg ,application/pdf" (change)="fileBrowseHandler($event)" />
         <div class="file-input-container">
           <label class="end-btn" for="fileDropRef">Nouveau fichier</label>
           <p class="text-selected-file">{{ file ? fileName : 'Aucun fichier sélectionné' }}</p>
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="vizualisation" *ngIf="file && !fileName.endsWith('.pdf')">
-        <span class="title">2 - Sélectionner la zone à traduire</span>
+        <span class="title" *ngIf="isConformed">2 - Sélectionner la zone à traduire</span>
         <div class="img-container">
           <image-cropper
             [imageChangedEvent]="imageChangedEvent"
