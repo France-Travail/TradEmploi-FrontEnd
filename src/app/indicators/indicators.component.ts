@@ -22,6 +22,8 @@ export class IndicatorsComponent implements OnInit {
   public blueScheme;
   public view = [1200, 500];
 
+  private readonly MIN_OCCURENCES = 20;
+
   ngOnInit(): void {
     this.setColorScheme();
     const dataThreshold = moment().subtract(1, 'month').toDate();
@@ -52,7 +54,7 @@ export class IndicatorsComponent implements OnInit {
   private fillLanguages(languages: Language[]) {
     languages.sort((a, b) => b.occurrences - a.occurrences);
     for (const language of languages) {
-      if (language.isoCode.includes('-')) {
+      if (language.isoCode.includes('-') && language.occurrences >= this.MIN_OCCURENCES) {
         const lang = VOCABULARY.find((v) => v.isoCode === language.isoCode);
         if (lang) {
           const name = `${lang.languageNameFr} (${lang.countryNameFr}) `;
