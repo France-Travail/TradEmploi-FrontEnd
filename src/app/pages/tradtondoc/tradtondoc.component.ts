@@ -1,16 +1,16 @@
-import {NavbarService} from 'src/app/services/navbar.service';
-import {Component, HostListener, OnDestroy} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material';
-import {VOCABULARY} from 'src/app/data/vocabulary';
-import {ToastService} from 'src/app/services/toast.service';
-import {TextToSpeechService} from '../../services/text-to-speech.service';
-import {TradTonDocService} from '../../services/trad-ton-doc.service';
-import {TranslateService} from '../../services/translate.service';
-import {LoaderComponent} from '../settings/loader/loader.component';
-import {RateDialogComponent} from '../translation/dialogs/rate-dialog/rate-dialog.component';
-import {SettingsService} from './../../services/settings.service';
-import {ImageCroppedEvent} from 'ngx-image-cropper';
+import { NavbarService } from 'src/app/services/navbar.service';
+import { Component, HostListener, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { VOCABULARY } from 'src/app/data/vocabulary';
+import { ToastService } from 'src/app/services/toast.service';
+import { TextToSpeechService } from '../../services/text-to-speech.service';
+import { TradTonDocService } from '../../services/trad-ton-doc.service';
+import { TranslateService } from '../../services/translate.service';
+import { LoaderComponent } from '../settings/loader/loader.component';
+import { RateDialogComponent } from '../translation/dialogs/rate-dialog/rate-dialog.component';
+import { SettingsService } from './../../services/settings.service';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-tradtondoc',
@@ -28,11 +28,12 @@ export class TradtondocComponent implements OnDestroy {
   audioFile: any;
   file: File;
   text: string;
-  isConformed: boolean;
+  isConform: boolean;
   translatedText: string;
   isPlaying: boolean = false;
   showAudioControls: boolean = false;
   croppedImage: string;
+  isPdf: boolean = false;
   private isAudioSupported: boolean;
 
   constructor(
@@ -63,7 +64,7 @@ export class TradtondocComponent implements OnDestroy {
 
   async onSubmit() {
     if (this.file && this.fileName) {
-      const loaderDialog = this.dialog.open(LoaderComponent, {panelClass: 'loader', disableClose: true});
+      const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
       const result = await this.tradTonDocService
         .detectText(this.fileName, this.croppedImage ? this.croppedImage : this.file)
         .catch((err) => {
@@ -85,7 +86,7 @@ export class TradtondocComponent implements OnDestroy {
             })
             .catch((err) => {
               this.audioFile = null;
-              this.toastService.showToast('L\'audio n\'a pas pu être generé.', 'toast-error');
+              this.toastService.showToast("L'audio n'a pas pu être generé.", 'toast-error');
               console.log(err);
             });
         }
@@ -131,9 +132,11 @@ export class TradtondocComponent implements OnDestroy {
 
   onFileDropped($event) {
     const file = $event;
-    this.applyControls(file);
+    this.isConform = false;
+    this.isPdf = false;
     this.prepareFile(file);
-    this.imageChangedEvent = {target: {files: [file]}};
+    this.applyControls(file);
+    this.imageChangedEvent = { target: { files: [file] } };
   }
 
   fileBrowseHandler($event) {
@@ -144,48 +147,43 @@ export class TradtondocComponent implements OnDestroy {
   }
 
   applyControls(file) {
-    this.getTypeFile(file);
-    this.getSizeFile(file);
-    if (file.name.endsWith('.pdf')) {
-      this.getNumberPages(file);
-    }
-  }
-
-  getTypeFile(file) {
-    const fileName = file.name;
-    const allowedTypes = /(\.pdf|\.png|\.jpg|\.jpeg)$/i;
-    if (!allowedTypes.exec(fileName)) {
-      this.isConformed = false;
-      this.toastService.showToast('Fichier non conforme. Merci de vérifier le format et la taille du fichier.', 'toast-error');
+    if (file.type === 'application/pdf') {
+      this.isPdf = true;
+      this.isConform = this.assertOnePage() && this.checkFileSize(file) && this.checkTypeFile(file.type);
     } else {
-      this.isConformed = true;
+      this.isConform = this.checkFileSize(file) && this.checkTypeFile(file.type);
     }
   }
 
-  getSizeFile(file) {
-    const sizeFile = Math.trunc(file.size / 1024 / 1024);
-    if (sizeFile > 10) {
-      this.isConformed = false;
-      this.toastService.showToast('Fichier non conforme. Merci de vérifier le format et la taille du fichier.', 'toast-error');
-    } else {
-      this.isConformed = true;
+  checkTypeFile(type) {
+    const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
+    if (!allowedTypes.includes(type)) {
+      this.toastService.showToast("Fichier non conforme. Ce type de fichier n'est pas pris en charge", 'toast-error');
+      return false;
     }
+    return true;
   }
 
-  getNumberPages(file) {
+  checkFileSize(size) {
+    if (size > 10485760) {
+      //10Mo
+      this.toastService.showToast('Fichier non conforme. Le fichier est trop lourd !', 'toast-error');
+      return false;
+    }
+    return true;
+  }
+
+  assertOnePage() {
     const reader = new FileReader();
-    if (file) {
-      reader.readAsBinaryString(file);
-      reader.onloadend = () => {
-        const numberPages = (reader.result as string).match(/\/Type[\s]*\/Page[^s]/g).length;
-        if (numberPages > 1) {
-          this.isConformed = false;
-          this.toastService.showToast('Fichier non conforme. Merci de vérifier le format et la taille du fichier.', 'toast-error');
-        } else {
-          this.isConformed = true;
-        }
-      };
-    }
+    reader.readAsBinaryString(this.file);
+    reader.onloadend = () => {
+      const numberPages = (reader.result as string).match(/\/Type[\s]*\/Page[^s]/g).length;
+      if (numberPages > 1) {
+        this.toastService.showToast("Fichier non conforme. Le PDF fourni contient plus d'une page ", 'toast-error');
+        return false;
+      }
+    };
+    return true;
   }
 
   prepareFile(file: any) {
