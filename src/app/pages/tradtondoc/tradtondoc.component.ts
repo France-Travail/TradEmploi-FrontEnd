@@ -85,7 +85,7 @@ export class TradtondocComponent implements OnDestroy {
             })
             .catch((err) => {
               this.audioFile = null;
-              this.toastService.showToast("L'audio n'a pas pu être generé.", 'toast-error');
+              this.toastService.showToast('L\'audio n\'a pas pu être generé.', 'toast-error');
               console.log(err);
             });
         }
@@ -131,19 +131,24 @@ export class TradtondocComponent implements OnDestroy {
 
   onFileDropped($event) {
     const file = $event;
+    this.applyControls(file);
     this.prepareFile(file);
     this.imageChangedEvent = {target: {files: [file]}};
   }
 
   fileBrowseHandler($event) {
     const files = $event.target.files[0];
-    this.getTypeFile(files);
-    this.getSizeFile(files);
-    if (files.name.endsWith('.pdf')) {
-      this.getNumberPages(files);
-    }
+    this.applyControls(files);
     this.prepareFile(files);
     this.imageChangedEvent = $event;
+  }
+
+  applyControls(file) {
+    this.getTypeFile(file);
+    this.getSizeFile(file);
+    if (file.name.endsWith('.pdf')) {
+      this.getNumberPages(file);
+    }
   }
 
   getTypeFile(file) {

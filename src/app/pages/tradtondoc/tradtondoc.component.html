@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="vizualisation" *ngIf="file && !fileName.endsWith('.pdf')">
-        <span class="title" *ngIf="isConformed">2 - Sélectionner la zone à traduire</span>
+        <span class="title">2 - Sélectionner la zone à traduire</span>
         <div class="img-container">
           <image-cropper
             [imageChangedEvent]="imageChangedEvent"
@@ -30,7 +30,7 @@
           ></image-cropper>
         </div>
       </div>
-      <button class="end-btn submit-btn" type="submit" *ngIf="this.file && !this.translatedText && isConformed">Lancer la détection du texte et la traduction</button>
+      <button class="end-btn submit-btn" type="submit" *ngIf="this.file && !this.translatedText">Lancer la détection du texte et la traduction</button>
     </form>
     <div class="translation" *ngIf="translatedText">
       <span class="title">3 - Lire le texte traduit</span>
