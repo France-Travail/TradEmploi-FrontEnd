@@ -41,7 +41,6 @@
         <div class="audio-controls">
           <button *ngIf="showAudioControls" class="play-btn end-btn" type="button" (click)="isPlaying ? pause() : play()">
             <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
-            Lire vocalement le texte
           </button>
           <div *ngIf="!showAudioControls">
             <app-loader></app-loader>
