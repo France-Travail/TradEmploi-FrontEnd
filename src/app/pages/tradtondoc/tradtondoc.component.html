@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="vizualisation" *ngIf="file && !fileName.endsWith('.pdf')">
+      <div class="vizualisation" *ngIf="file && !fileName.endsWith('.pdf') && isConformed">
         <span class="title">2 - Sélectionner la zone à traduire</span>
         <div class="img-container">
           <image-cropper
@@ -30,7 +30,7 @@
           ></image-cropper>
         </div>
       </div>
-      <button class="end-btn submit-btn" type="submit" *ngIf="this.file && !this.translatedText">Lancer la détection du texte et la traduction</button>
+      <button class="end-btn submit-btn" type="submit" *ngIf="this.file && !this.translatedText && isConformed">Lancer la détection du texte et la traduction</button>
     </form>
     <div class="translation" *ngIf="translatedText">
       <span class="title">3 - Lire le texte traduit</span>
@@ -41,7 +41,6 @@
         <div class="audio-controls">
           <button *ngIf="showAudioControls" class="play-btn end-btn" type="button" (click)="isPlaying ? pause() : play()">
             <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
-            Lire vocalement le texte
           </button>
           <div *ngIf="!showAudioControls">
             <app-loader></app-loader>
