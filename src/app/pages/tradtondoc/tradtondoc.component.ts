@@ -86,7 +86,7 @@ export class TradtondocComponent implements OnDestroy {
             })
             .catch((err) => {
               this.audioFile = null;
-              this.toastService.showToast("L'audio n'a pas pu être generé.", 'toast-error');
+              this.toastService.showToast('L\'audio n\'a pas pu être generé.', 'toast-error');
               console.log(err);
             });
         }
@@ -141,24 +141,24 @@ export class TradtondocComponent implements OnDestroy {
 
   fileBrowseHandler($event) {
     const files = $event.target.files[0];
-    this.applyControls(files);
     this.prepareFile(files);
+    this.applyControls(files);
     this.imageChangedEvent = $event;
   }
 
   applyControls(file) {
     if (file.type === 'application/pdf') {
       this.isPdf = true;
-      this.isConform = this.assertOnePage() && this.checkFileSize(file) && this.checkTypeFile(file.type);
+      this.isConform = this.assertOnePage() && this.checkFileSize(file.size) && this.checkTypeFile(file.type);
     } else {
-      this.isConform = this.checkFileSize(file) && this.checkTypeFile(file.type);
+      this.isConform = this.checkFileSize(file.size) && this.checkTypeFile(file.type);
     }
   }
 
   checkTypeFile(type) {
     const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
     if (!allowedTypes.includes(type)) {
-      this.toastService.showToast("Fichier non conforme. Ce type de fichier n'est pas pris en charge", 'toast-error');
+      this.toastService.showToast('Fichier non conforme. Ce type de fichier n\'est pas pris en charge', 'toast-error');
       return false;
     }
     return true;
@@ -166,7 +166,7 @@ export class TradtondocComponent implements OnDestroy {
 
   checkFileSize(size) {
     if (size > 10485760) {
-      //10Mo
+      // 10Mo
       this.toastService.showToast('Fichier non conforme. Le fichier est trop lourd !', 'toast-error');
       return false;
     }
@@ -179,7 +179,7 @@ export class TradtondocComponent implements OnDestroy {
     reader.onloadend = () => {
       const numberPages = (reader.result as string).match(/\/Type[\s]*\/Page[^s]/g).length;
       if (numberPages > 1) {
-        this.toastService.showToast("Fichier non conforme. Le PDF fourni contient plus d'une page ", 'toast-error');
+        this.toastService.showToast('Fichier non conforme. Le PDF fourni contient plus d\'une page ', 'toast-error');
         return false;
       }
     };
