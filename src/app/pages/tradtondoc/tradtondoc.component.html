@@ -3,19 +3,22 @@
     <button class="end-btn" (click)="evaluate()">TERMINER LA TRADUCTION</button>
   </div>
   <div class="container">
+    <span class="title">Déposer le fichier</span>
     <form class="tradtondoc" [formGroup]="ocrForm" (ngSubmit)="onSubmit()">
       <div class="drop-container" (fileDropped)="onFileDropped($event)" DragAndDropDirective>
-        <input type="file" id="fileDropRef" accept="image/*,application/pdf" (change)="fileBrowseHandler($event)" />
+        <input type="file" #fileDropRef id="fileDropRef" accept="image/png, image/jpeg, image/jpg ,application/pdf" (change)="fileBrowseHandler($event)" />
         <div class="file-input-container">
-          <span>Déposer le fichier ici</span>
-          <p>ou</p>
-          <label class="end-btn" for="fileDropRef">Rechercher un fichier</label>
-          <p>{{ file ? fileName : 'Aucun fichier sélectionné' }}</p>
+          <label class="end-btn" for="fileDropRef">Nouveau fichier</label>
+          <p class="text-selected-file">{{ file ? fileName : 'Aucun fichier sélectionné' }}</p>
+          <div>
+            <p>Formats acceptés : PDF (1 seule page), JPG, JPEG, PNG</p>
+            <p>Taille maximum : 10 Mo</p>
+            <p>Nombre de caractères max. : 10 000 caractères</p>
+          </div>
         </div>
       </div>
-
-      <div class="vizualisation" *ngIf="file && !fileName.endsWith('.pdf')">
-        <p class="title">Visualiser l'image</p>
+      <div class="vizualisation" *ngIf="!this.isPdf && this.isConform">
+        <span class="title">Sélectionner la zone à traduire</span>
         <div class="img-container">
           <image-cropper
             [imageChangedEvent]="imageChangedEvent"
@@ -27,10 +30,10 @@
           ></image-cropper>
         </div>
       </div>
-      <button class="end-btn submit-btn" type="submit" *ngIf="this.file && !this.translatedText">Lancer la détection du texte et la traduction</button>
+      <button class="end-btn submit-btn" type="submit" *ngIf="isConform">Lancer la détection du texte et la traduction</button>
     </form>
     <div class="translation" *ngIf="translatedText">
-      <p class="title">Texte traduit</p>
+      <span class="title">Lire le texte traduit</span>
       <div class="text-container">
         <div *ngIf="translatedText && translatedText.length > 0">
           {{ translatedText }}
