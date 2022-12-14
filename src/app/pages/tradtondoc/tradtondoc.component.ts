@@ -1,5 +1,5 @@
 import { NavbarService } from 'src/app/services/navbar.service';
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { VOCABULARY } from 'src/app/data/vocabulary';
@@ -35,6 +35,8 @@ export class TradtondocComponent implements OnDestroy {
   croppedImage: string;
   isPdf: boolean = false;
   private isAudioSupported: boolean;
+  // originCountry: string;
+  targetCountry: string;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -49,6 +51,7 @@ export class TradtondocComponent implements OnDestroy {
     this.settingsService.user.subscribe((user) => {
       if (user && user.language) {
         this.targetLanguage = user.language.written;
+        this.targetCountry = user.language.written.split('-')[1].toLowerCase();
       }
     });
     const language = VOCABULARY.find((i) => i.isoCode === this.targetLanguage || i.audioCode === this.targetLanguage);
