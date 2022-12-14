@@ -8,13 +8,15 @@
   padding: 0 2%;
   .header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 12px 0;
   }
-  .flag {
-    cursor: default;
+  .flags {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    min-width: 200px;
     .fi {
       width: 50px;
       height: 100%;
@@ -22,13 +24,6 @@
       border-radius: 5px;
       background-size: cover;
     }
-  }
-  .arrow-icon {
-    filter: invert(12%) sepia(63%) saturate(6234%) hue-rotate(246deg) brightness(87%) contrast(156%);
-  }
-  .cross-icon {
-    filter: invert(12%) sepia(63%) saturate(6234%) hue-rotate(246deg) brightness(87%) contrast(156%);
-    margin-left: 5px;
   }
   .container {
     display: flex;
@@ -41,9 +36,6 @@
     border-radius: 5px;
     height: 95%;
     overflow: auto;
-    .fileover {
-      background-color: $white-smoke;
-    }
     .drop-container {
       display: flex;
       flex-direction: column;
@@ -65,6 +57,12 @@
         .text-controls {
           font-size: small;
         }
+        .upload-btn {
+          display: flex;
+          align-items: center;
+          font-size: large;
+          border-radius: 30px;
+        }
       }
     }
     .vizualisation {
@@ -74,13 +72,6 @@
       .text-area {
         display: flex;
         align-items: center;
-        .fi {
-          width: 50px;
-          height: 100%;
-          box-sizing: border-box;
-          border-radius: 5px;
-          background-size: cover;
-        }
       }
       .img-container {
         display: flex;
@@ -99,15 +90,8 @@
       display: flex;
       flex-direction: column;
       .text-translated-area {
-          display: flex;
-          align-items: center;
-          .fi {
-            width: 50px;
-            height: 100%;
-            box-sizing: border-box;
-            border-radius: 5px;
-            background-size: cover;
-          }
+        display: flex;
+        align-items: center;
       }
       .text-container {
         background-color: $white-smoke;
@@ -131,16 +115,24 @@
     background-color: $primary-color;
     color: white;
   }
-  .upload-btn {
+
+  .audio-controls {
     display: flex;
-    align-items: center;
-    font-size: large;
-    border-radius: 30px;
+    justify-content: flex-end;
+    .listening-btn {
+      display: flex;
+      align-items: center;
+    }
   }
-  .listening-btn {
-    display: flex;
-    align-items: center;
-    float: right;
-    margin-top: 15px;
+  .text-translated-area,
+  .text-area {
+    .fi {
+      width: 90px;
+      height: 70px;
+      border: 1px solid #bdbdbd;
+      box-sizing: border-box;
+      border-radius: 5px;
+      background-size: cover;
+    }
   }
 }

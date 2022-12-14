@@ -1,8 +1,8 @@
 <div class="wrapper">
   <div class="header">
-    <div class="flag">
+    <div class="flags">
       <span class="fi fi-fr"></span>
-      <img class="arrow-icon" src="./assets/icons/icon-arrow-right.svg" alt="arrow icon"/>
+      <img class="arrow-icon" src="./assets/icons/icon-arrow-right.svg" />
       <span *ngIf="this.targetCountry !== 'xa'" class="fi fi-{{ this.targetCountry }}"></span>
       <img *ngIf="this.targetCountry === 'xa'" class="fi" src="../../../../../assets/images/common/arab-flag.png" alt="flag" />
     </div>
@@ -15,7 +15,7 @@
         <input type="file" #fileDropRef id="fileDropRef" accept="image/png, image/jpeg, image/jpg ,application/pdf" (change)="fileBrowseHandler($event)" />
         <div class="file-input-container">
           <label class="end-btn upload-btn" for="fileDropRef">
-            <img class="cross-icon" src="./assets/icons/icon-cross.svg" alt="cross icon"/>
+            <img class="cross-icon" src="./assets/icons/icon-cross.svg" alt="cross icon" />
             Nouveau fichier
           </label>
           <p class="text-selected-file">{{ file ? fileName : 'Aucun fichier sélectionné' }}</p>
