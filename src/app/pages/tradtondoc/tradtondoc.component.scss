@@ -11,6 +11,7 @@
     justify-content: space-between;
     padding: 12px 0;
   }
+
   .flags {
     display: flex;
     align-items: center;
@@ -36,6 +37,9 @@
     border-radius: 5px;
     height: 95%;
     overflow: auto;
+    .fileover {
+      background-color: $white-smoke;
+    }
     .drop-container {
       display: flex;
       flex-direction: column;
@@ -44,6 +48,7 @@
       padding: 64px;
       border: 2px dashed $black;
       border-radius: 5px;
+
       #fileDropRef {
         display: none;
       }
