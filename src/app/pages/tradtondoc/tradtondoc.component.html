@@ -1,16 +1,25 @@
 <div class="wrapper">
   <div class="header">
+    <div class="flags">
+      <span class="fi fi-fr"></span>
+      <img class="arrow-icon" src="./assets/icons/icon-arrow-right.svg" />
+      <span *ngIf="this.targetCountry !== 'xa'" class="fi fi-{{ this.targetCountry }}"></span>
+      <img *ngIf="this.targetCountry === 'xa'" class="fi" src="../../../../../assets/images/common/arab-flag.png" alt="flag" />
+    </div>
     <button class="end-btn" (click)="evaluate()">TERMINER LA TRADUCTION</button>
   </div>
   <div class="container">
-    <span class="title">Déposer le fichier</span>
+    <span class="title">1 - Déposer le fichier</span>
     <form class="tradtondoc" [formGroup]="ocrForm" (ngSubmit)="onSubmit()">
       <div class="drop-container" (fileDropped)="onFileDropped($event)" DragAndDropDirective>
         <input type="file" #fileDropRef id="fileDropRef" accept="image/png, image/jpeg, image/jpg ,application/pdf" (change)="fileBrowseHandler($event)" />
         <div class="file-input-container">
-          <label class="end-btn" for="fileDropRef">Nouveau fichier</label>
+          <label class="end-btn upload-btn" for="fileDropRef">
+            <img class="cross-icon" src="./assets/icons/icon-cross.svg" alt="cross icon" />
+            Nouveau fichier
+          </label>
           <p class="text-selected-file">{{ file ? fileName : 'Aucun fichier sélectionné' }}</p>
-          <div>
+          <div class="text-controls">
             <p>Formats acceptés : PDF (1 seule page), JPG, JPEG, PNG</p>
             <p>Taille maximum : 10 Mo</p>
             <p>Nombre de caractères max. : 10 000 caractères</p>
@@ -18,33 +27,43 @@
         </div>
       </div>
       <div class="vizualisation" *ngIf="!this.isPdf && this.isConform">
-        <span class="title">Sélectionner la zone à traduire</span>
-        <div class="img-container">
-          <image-cropper
-            [imageChangedEvent]="imageChangedEvent"
-            [aspectRatio]="1"
-            [resizeToWidth]="512"
-            [maintainAspectRatio]="false"
-            format="png"
-            (imageCropped)="imageCropped($event)"
-          ></image-cropper>
+        <span class="title">2 - Sélectionner la zone à traduire</span>
+        <div class="text-area">
+          <span class="fi fi-fr"></span>
+          <div class="img-container">
+            <image-cropper
+              [imageChangedEvent]="imageChangedEvent"
+              [aspectRatio]="1"
+              [resizeToWidth]="512"
+              [maintainAspectRatio]="false"
+              format="png"
+              (imageCropped)="imageCropped($event)"
+            ></image-cropper>
+          </div>
         </div>
       </div>
       <button class="end-btn submit-btn" type="submit" *ngIf="isConform">Lancer la détection du texte et la traduction</button>
     </form>
     <div class="translation" *ngIf="translatedText">
-      <span class="title">Lire le texte traduit</span>
-      <div class="text-container">
-        <div *ngIf="translatedText && translatedText.length > 0">
-          {{ translatedText }}
+      <span class="title">3 - Lire le texte traduit</span>
+      <div class="text-translated-area">
+        <div class="flag">
+          <span *ngIf="this.targetCountry !== 'xa'" class="fi fi-{{ this.targetCountry }}"></span>
+          <img *ngIf="this.targetCountry === 'xa'" class="fi" src="../../../../../assets/images/common/arab-flag.png" alt="flag" />
         </div>
-        <div class="audio-controls">
-          <button *ngIf="showAudioControls" class="play-btn end-btn" type="button" (click)="isPlaying ? pause() : play()">
-            <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
-          </button>
-          <div *ngIf="!showAudioControls">
-            <app-loader></app-loader>
+        <div class="text-container">
+          <div *ngIf="translatedText && translatedText.length > 0">
+            {{ translatedText }}
           </div>
+        </div>
+      </div>
+      <div class="audio-controls">
+        <button *ngIf="showAudioControls" class="end-btn listening-btn" type="button" (click)="isPlaying ? pause() : play()">
+          <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
+          Lire vocalement
+        </button>
+        <div *ngIf="!showAudioControls">
+          <app-loader></app-loader>
         </div>
       </div>
     </div>

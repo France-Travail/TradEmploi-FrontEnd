@@ -8,8 +8,23 @@
   padding: 0 2%;
   .header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 12px 0;
+  }
+
+  .flags {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    min-width: 200px;
+    .fi {
+      width: 50px;
+      height: 100%;
+      box-sizing: border-box;
+      border-radius: 5px;
+      background-size: cover;
+    }
   }
   .container {
     display: flex;
@@ -33,6 +48,7 @@
       padding: 64px;
       border: 2px dashed $black;
       border-radius: 5px;
+
       #fileDropRef {
         display: none;
       }
@@ -40,9 +56,17 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-
         .text-selected-file {
           font-size: small;
+        }
+        .text-controls {
+          font-size: small;
+        }
+        .upload-btn {
+          display: flex;
+          align-items: center;
+          font-size: large;
+          border-radius: 30px;
         }
       }
     }
@@ -50,6 +74,10 @@
       display: flex;
       flex-direction: column;
       margin: 20px 0;
+      .text-area {
+        display: flex;
+        align-items: center;
+      }
       .img-container {
         display: flex;
         justify-content: center;
@@ -66,6 +94,10 @@
     .translation {
       display: flex;
       flex-direction: column;
+      .text-translated-area {
+        display: flex;
+        align-items: center;
+      }
       .text-container {
         background-color: $white-smoke;
         padding: 16px;
@@ -87,5 +119,25 @@
     @extend %option-btn;
     background-color: $primary-color;
     color: white;
+  }
+
+  .audio-controls {
+    display: flex;
+    justify-content: flex-end;
+    .listening-btn {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .text-translated-area,
+  .text-area {
+    .fi {
+      width: 90px;
+      height: 70px;
+      border: 1px solid #bdbdbd;
+      box-sizing: border-box;
+      border-radius: 5px;
+      background-size: cover;
+    }
   }
 }
