@@ -130,8 +130,8 @@ export class TradtondocComponent implements OnDestroy {
 
   imageCropped($event: ImageCroppedEvent) {
     this.croppedImage = $event.base64;
+    this.translatedText = null;
   }
-
   onFileDropped($event) {
     const file = $event;
     this.isConform = false;
