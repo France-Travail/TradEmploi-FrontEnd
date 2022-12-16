@@ -46,7 +46,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   public isMultiDevices = false;
   public roomId: string;
   public isAudioSupported = false;
-  private isAudioPlay: boolean;
+  private playAuto: boolean;
   private user: User;
   private readonly endIdDialogRef: MatDialogRef<any>;
   private support: Support;
@@ -95,7 +95,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const language = VOCABULARY.find((i) => i.isoCode === this.user.language.audio || i.audioCode === this.user.language.audio);
     this.isAudioSupported = language.sentences.audioSupported !== undefined;
     this.vocalSupported = language.sentences.voiceNotSupported === undefined;
-    this.isAudioPlay = true;
+    this.playAuto = true;
     this.scrollToBottom();
     this.selectStartNotifications();
     if (this.isGuest) {
@@ -106,12 +106,14 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   ngAfterViewChecked() {
     this.scrollToBottom();
     this.navbarService.show();
-    this.playAudioSpeech();
   }
 
   ngOnDestroy() {
     if (this.isMultiDevices) {
-      this.isAudioPlay = false;
+      this.playAuto = false;
+    }
+    if (this.textToSpeechService.audioSpeech) {
+      this.textToSpeechService.stop();
     }
     this.toastService.closeToast();
   }
@@ -258,7 +260,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   public switchAudio() {
-    this.isAudioPlay = !this.isAudioPlay;
+    this.playAuto = !this.playAuto;
   }
 
   public share() {
@@ -308,7 +310,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         const isNewAuthorization = chat.guests.filter((g) => this.authorizationHandled.indexOf(g.id) === -1).length > 0 && !this.isGuest;
         isNewAuthorization ? this.authorizeGuest(chat.guests) : this.addMultiMessageToChat(chat, roomId);
       } else {
-        this.isAudioPlay = false;
+        this.playAuto = false;
         if (this.isGuest) {
           this.openModal(EndComponent, '300px', true);
           this.settingsService.reset();
@@ -371,26 +373,24 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const listenMulti = !this.isSender(message.member, message.languageOrigin) && this.isAudioSupported;
     const listenMono = this.isAudioSupported || message.role === Role.GUEST;
     const listen = this.isMultiDevices ? listenMulti : listenMono;
-
     if (listen) {
-      // remove words start with *
       translate = translate.replace(/\*/g, '');
       this.textToSpeechService
-        .getSpeech(translate, languageTarget)
+        .play(translate, languageTarget, this.playAuto && message.time > this.settingsService.user.value.connectionTime)
         .then((_) => {
           const audioSpeech = this.textToSpeechService.audioSpeech;
           if (audioSpeech) {
-            if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
+            if (message.time > this.settingsService.user.value.connectionTime && this.playAuto) {
               this.audioSpeechToPlay.push(audioSpeech);
             }
             message.audioHtml = audioSpeech;
           }
         })
         .catch((_) => {
+          console.log('error', _);
           this.toastService.showToast(ERROR_FUNC_TTS.description, toastError);
         });
     }
-    this.textToSpeechService.audioSpeech = undefined;
     this.sendMessage(message);
   }
 
