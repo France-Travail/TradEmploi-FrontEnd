@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SettingsService} from '../../../../services/settings.service';
-import {Language} from '../../../../models/language';
-import {MessageWrapped} from '../../../../models/translate/message-wrapped';
-import {Message} from '../../../../models/translate/message';
-import {TextToSpeechService} from '../../../../services/text-to-speech.service';
-import {params} from '../../../../../environments/params';
-import {VOCABULARY} from '../../../../data/vocabulary';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { SettingsService } from '../../../../services/settings.service';
+import { Language } from '../../../../models/language';
+import { MessageWrapped } from '../../../../models/translate/message-wrapped';
+import { Message } from '../../../../models/translate/message';
+import { TextToSpeechService } from '../../../../services/text-to-speech.service';
+import { params } from '../../../../../environments/params';
+import { VOCABULARY } from '../../../../data/vocabulary';
 
 @Component({
   selector: 'app-chat',
@@ -21,8 +21,7 @@ export class ChatComponent implements OnInit {
   public isAudioSupported: boolean;
   public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
 
-  constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService) {
-  }
+  constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService) {}
 
   ngOnInit(): void {
     this.settingsService.user.subscribe(async (user) => {
@@ -37,20 +36,12 @@ export class ChatComponent implements OnInit {
   public listen(index: number) {
     const sentMessage: Message = this.messagesWrapped[index].message;
     if (sentMessage && sentMessage.audioHtml) {
-     sentMessage.audioHtml.play();
+      sentMessage.audioHtml.play();
     }
   }
 
   public async listenToMessage(index: number) {
-    this.textToSpeechService
-      .getSpeech(this.messagesWrapped[index].notification, this.targetLanguage.audio)
-      .then((_) => {
-        this.textToSpeechService.audioSpeech.play();
-        this.textToSpeechService.audioSpeech = undefined;
-      })
-      .catch((_) => {
-        this.textToSpeechService.audioSpeech = undefined;
-      });
+    this.textToSpeechService.play(this.messagesWrapped[index].notification, this.targetLanguage.audio);
   }
 
   public unFold(messageIndex: number) {

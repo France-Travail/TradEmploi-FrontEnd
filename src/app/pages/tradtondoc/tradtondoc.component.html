@@ -45,25 +45,18 @@
       <button class="end-btn submit-btn" type="submit" *ngIf="isConform">Lancer la détection du texte et la traduction</button>
     </form>
     <div class="translation" *ngIf="translatedText">
-      <span class="title">3 - Lire le texte traduit</span>
-      <div class="text-translated-area">
-        <div class="flag">
-          <span *ngIf="this.targetCountry !== 'xa'" class="fi fi-{{ this.targetCountry }}"></span>
-          <img *ngIf="this.targetCountry === 'xa'" class="fi" src="../../../../../assets/images/common/arab-flag.png" alt="flag" />
+      <span class="title">Lire le texte traduit</span>
+      <div class="text-container">
+        <div *ngIf="translatedText && translatedText.length > 0">
+          {{ translatedText }}
         </div>
-        <div class="text-container">
-          <div *ngIf="translatedText && translatedText.length > 0">
-            {{ translatedText }}
-          </div>
-        </div>
-      </div>
-      <div class="audio-controls">
-        <button *ngIf="showAudioControls" class="end-btn listening-btn" type="button" (click)="isPlaying ? pause() : play()">
+        <div class="audio-controls">
+          <button *ngIf="showAudioControls" class="play-btn end-btn" type="button" (click)="isPlaying ? pause() : resume()">
           <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
-          Lire vocalement
-        </button>
-        <div *ngIf="!showAudioControls">
-          <app-loader></app-loader>
+          </button>
+          <div *ngIf="!showAudioControls">
+            <app-loader></app-loader>
+          </div>
         </div>
       </div>
     </div>

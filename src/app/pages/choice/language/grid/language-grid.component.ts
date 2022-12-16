@@ -29,7 +29,6 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   public voiceTitle: string;
 
   private audioClick = false;
-  private audioEnabled = true;
   private readonly selectedCountries: Vocabulary[] = [];
   public mapLanguages: Map<string, Language> = new Map();
 
@@ -114,28 +113,19 @@ export class LanguageGridComponent implements OnChanges, OnInit {
 
   public audioDescription(item: Vocabulary) {
     this.audioClick = true;
-    if (this.audioEnabled) {
-      this.audioEnabled = false;
-      const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-      const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
+    const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
+    const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
 
-      this.textToSpeechService
-        .getSpeech(item.sentences.readedWelcome, audioLanguage)
-        .then((_) => {
-          this.textToSpeechService.audioSpeech.play();
-          this.textToSpeechService.audioSpeech = undefined;
-          setTimeout(() => {
-            this.audioEnabled = true;
-          }, 2000);
-          loaderDialog.close();
-        })
-        .catch((_) => {
-          this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
-          this.audioEnabled = true;
-          this.textToSpeechService.audioSpeech = undefined;
-          loaderDialog.close();
-        });
-    }
+    this.textToSpeechService
+      .play(item.sentences.readedWelcome, audioLanguage)
+      .then((_) => {
+        loaderDialog.close();
+      })
+      .catch((err) => {
+        console.log('error', err);
+        this.toastService.showToast(ERROR_FUNC_TTS.description, 'toast-error');
+        loaderDialog.close();
+      });
   }
 
   public selectLanguage(event: any, item: Vocabulary): void {

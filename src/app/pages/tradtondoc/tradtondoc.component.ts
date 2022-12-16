@@ -25,11 +25,12 @@ export class TradtondocComponent implements OnDestroy {
 
   imageChangedEvent: any;
   fileName: string;
-  audioFile: any;
+
   file: File;
   text: string;
   isConform: boolean;
   translatedText: string;
+  audioFile: HTMLAudioElement;
   isPlaying: boolean = false;
   showAudioControls: boolean = false;
   croppedImage: string;
@@ -59,9 +60,8 @@ export class TradtondocComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.audioFile) {
-      this.audioFile.pause();
-      this.audioFile = null;
+    if (this.textToSpeechService.audioSpeech) {
+      this.textToSpeechService.stop();
     }
   }
 
@@ -82,14 +82,13 @@ export class TradtondocComponent implements OnDestroy {
         this.translatedText = await this.translationService.translate(this.text, this.targetLanguage);
         if (this.isAudioSupported) {
           await this.textToSpeechService
-            .getSpeech(this.translatedText, this.targetLanguage)
+            .play(this.translatedText, this.targetLanguage, false)
             .then((_) => {
-              this.showAudioControls = true;
               this.audioFile = this.textToSpeechService.audioSpeech;
+              this.showAudioControls = true;
             })
             .catch((err) => {
-              this.audioFile = null;
-              this.toastService.showToast('L\'audio n\'a pas pu être generé.', 'toast-error');
+              this.toastService.showToast("L'audio n'a pas pu être generé.", 'toast-error');
               console.log(err);
             });
         }
@@ -98,17 +97,17 @@ export class TradtondocComponent implements OnDestroy {
     }
   }
 
-  play() {
+  resume() {
+    this.isPlaying = !this.isPlaying;
     this.audioFile.play();
     this.audioFile.onended = () => {
       this.isPlaying = false;
     };
-    this.isPlaying = true;
   }
 
   pause() {
+    this.isPlaying = !this.isPlaying;
     this.audioFile.pause();
-    this.isPlaying = false;
   }
 
   @HostListener('window:unload')
@@ -161,7 +160,7 @@ export class TradtondocComponent implements OnDestroy {
   checkTypeFile(type) {
     const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
     if (!allowedTypes.includes(type)) {
-      this.toastService.showToast('Fichier non conforme. Ce type de fichier n\'est pas pris en charge', 'toast-error');
+      this.toastService.showToast("Fichier non conforme. Ce type de fichier n'est pas pris en charge", 'toast-error');
       return false;
     }
     return true;
@@ -182,7 +181,7 @@ export class TradtondocComponent implements OnDestroy {
     reader.onloadend = () => {
       const numberPages = (reader.result as string).match(/\/Type[\s]*\/Page[^s]/g).length;
       if (numberPages > 1) {
-        this.toastService.showToast('Fichier non conforme. Le PDF fourni contient plus d\'une page ', 'toast-error');
+        this.toastService.showToast("Fichier non conforme. Le PDF fourni contient plus d'une page ", 'toast-error');
         return false;
       }
     };
@@ -191,7 +190,6 @@ export class TradtondocComponent implements OnDestroy {
 
   prepareFile(file: any) {
     this.file = file;
-    this.audioFile = null;
     this.showAudioControls = false;
     this.translatedText = null;
     this.fileName = this.file.name;
