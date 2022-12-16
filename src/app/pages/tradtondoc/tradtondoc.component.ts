@@ -25,7 +25,6 @@ export class TradtondocComponent implements OnDestroy {
 
   imageChangedEvent: any;
   fileName: string;
-
   file: File;
   text: string;
   isConform: boolean;
@@ -35,9 +34,10 @@ export class TradtondocComponent implements OnDestroy {
   showAudioControls: boolean = false;
   croppedImage: string;
   isPdf: boolean = false;
+  numberPagesDoc: number;
   private isAudioSupported: boolean;
-  // originCountry: string;
   targetCountry: string;
+  numberCharacters: number;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -78,6 +78,8 @@ export class TradtondocComponent implements OnDestroy {
         .finally(() => loaderDialog.close());
       this.croppedImage = null;
       this.text = result ? result.text : '';
+      this.numberCharacters = result ? result.numberCharactersInText : 0;
+      this.isConform = this.checkNumberCharacters(this.numberCharacters);
       if (this.text.length > 0) {
         this.translatedText = await this.translationService.translate(this.text, this.targetLanguage);
         if (this.isAudioSupported) {
@@ -151,8 +153,10 @@ export class TradtondocComponent implements OnDestroy {
   applyControls(file) {
     if (file.type === 'application/pdf') {
       this.isPdf = true;
-      this.isConform = this.assertOnePage() && this.checkFileSize(file.size) && this.checkTypeFile(file.type);
+      this.isConform = this.checkFileSize(file.size) && this.checkTypeFile(file.type);
+      this.assertOnePage();
     } else {
+      this.isPdf = false;
       this.isConform = this.checkFileSize(file.size) && this.checkTypeFile(file.type);
     }
   }
@@ -160,7 +164,7 @@ export class TradtondocComponent implements OnDestroy {
   checkTypeFile(type) {
     const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
     if (!allowedTypes.includes(type)) {
-      this.toastService.showToast("Fichier non conforme. Ce type de fichier n'est pas pris en charge", 'toast-error');
+      this.toastService.showToast('Fichier non conforme. Ce type de fichier n\'est pas pris en charge', 'toast-warning');
       return false;
     }
     return true;
@@ -169,7 +173,7 @@ export class TradtondocComponent implements OnDestroy {
   checkFileSize(size) {
     if (size > 10485760) {
       // 10Mo
-      this.toastService.showToast('Fichier non conforme. Le fichier est trop lourd !', 'toast-error');
+      this.toastService.showToast('Fichier non conforme. Le fichier est trop lourd !', 'toast-warning');
       return false;
     }
     return true;
@@ -179,12 +183,21 @@ export class TradtondocComponent implements OnDestroy {
     const reader = new FileReader();
     reader.readAsBinaryString(this.file);
     reader.onloadend = () => {
-      const numberPages = (reader.result as string).match(/\/Type[\s]*\/Page[^s]/g).length;
-      if (numberPages > 1) {
-        this.toastService.showToast("Fichier non conforme. Le PDF fourni contient plus d'une page ", 'toast-error');
-        return false;
+      this.numberPagesDoc = (reader.result as string).match(/\/Type[\s]*\/Page[^s]/g).length;
+      if (this.numberPagesDoc > 1) {
+        this.toastService.showToast('Fichier non conforme. Le PDF fourni contient plus d\'une page ', 'toast-warning');
+        this.isConform = false;
+      } else {
+        this.isConform = true;
       }
     };
+  }
+
+  checkNumberCharacters(numberCharacters) {
+    if (numberCharacters > 10000) {
+      this.toastService.showToast('Fichier non conforme. Le fichier contient trop de caractères !', 'toast-warning');
+      return false;
+    }
     return true;
   }
 
