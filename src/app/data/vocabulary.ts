@@ -89,6 +89,7 @@ export const VOCABULARY_DEFAULT: Vocabulary = {
 };
 
 const COUNTRY_NAME_SUD_AFRICA = 'Afrique du Sud';
+// @ts-ignore
 export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'af-ZA',
@@ -584,7 +585,8 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'fr-FR',
-    audioVoiceCode: 'fr-FR-DeniseNeural',
+    audioVoiceCodeMale: 'fr-FR-AlainNeural',
+    audioVoiceCodeFemale: 'fr-FR-CoralieNeural',
     countryNameRaw: 'France',
     countryNameFr: 'France',
     languageNameRaw: 'Français',
