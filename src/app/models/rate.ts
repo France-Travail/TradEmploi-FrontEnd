@@ -13,4 +13,5 @@ export interface Rate {
   agency: string;
   typeSTT: string;
   isTradTonDoc: boolean;
+  nbTranslatedCharacters: number;
 }
