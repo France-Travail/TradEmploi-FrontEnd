@@ -67,6 +67,7 @@ export class RateService {
                 agency
                 typeSTT
                 isTradTonDoc
+                nbTranslatedCharacters
               }
             }`,
     };
@@ -86,7 +87,7 @@ export class RateService {
             Langage: element.language,
             conversationDuration: element.conversationDuration,
             'Qualité des traductions': element.facilityGrade,
-            "Note de l'outil": element.efficientGrade,
+            'Note de l\'outil': element.efficientGrade,
             'Problème technique': element.offerLinked,
             'Commentaire libre': element.comment,
             'Type entretien': element.typeEntretien,
@@ -96,6 +97,7 @@ export class RateService {
             'Identifiant agence': element.agency,
             'type STT': element.typeSTT,
             'Traduction de document': element.isTradTonDoc,
+            'Nombre caractères traduits': element.nbTranslatedCharacters
           });
         });
         return rates;

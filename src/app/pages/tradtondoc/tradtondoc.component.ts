@@ -34,10 +34,9 @@ export class TradtondocComponent implements OnDestroy {
   showAudioControls: boolean = false;
   croppedImage: string;
   isPdf: boolean = false;
-  numberPagesDoc: number;
   private isAudioSupported: boolean;
   targetCountry: string;
-  numberCharacters: number;
+  nbTranslatedCharacters: number = 0;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -78,8 +77,8 @@ export class TradtondocComponent implements OnDestroy {
         .finally(() => loaderDialog.close());
       this.croppedImage = null;
       this.text = result ? result.text : '';
-      this.numberCharacters = result ? result.numberCharactersInText : 0;
-      this.isConform = this.checkNumberCharacters(this.numberCharacters);
+      this.nbTranslatedCharacters += result ? result.numberCharactersInText : 0;
+      this.isConform = this.checkNumberTranslatedCharacters(this.nbTranslatedCharacters);
       if (this.text.length > 0) {
         this.translatedText = await this.translationService.translate(this.text, this.targetLanguage);
         if (this.isAudioSupported) {
@@ -90,7 +89,7 @@ export class TradtondocComponent implements OnDestroy {
               this.showAudioControls = true;
             })
             .catch((err) => {
-              this.toastService.showToast("L'audio n'a pas pu être generé.", 'toast-error');
+              this.toastService.showToast('L\'audio n\'a pas pu être generé.', 'toast-error');
               console.log(err);
             });
         }
@@ -126,6 +125,7 @@ export class TradtondocComponent implements OnDestroy {
       disableClose: false,
       data: {
         tradtondoc: true,
+        nbTranslatedCharacters: this.nbTranslatedCharacters
       },
     });
   }
@@ -183,8 +183,8 @@ export class TradtondocComponent implements OnDestroy {
     const reader = new FileReader();
     reader.readAsBinaryString(this.file);
     reader.onloadend = () => {
-      this.numberPagesDoc = (reader.result as string).match(/\/Type[\s]*\/Page[^s]/g).length;
-      if (this.numberPagesDoc > 1) {
+      const numberPagesDoc = (reader.result as string).match(/\/Type[\s]*\/Page[^s]/g).length;
+      if (numberPagesDoc > 1) {
         this.toastService.showToast('Fichier non conforme. Le PDF fourni contient plus d\'une page ', 'toast-warning');
         this.isConform = false;
       } else {
@@ -193,8 +193,8 @@ export class TradtondocComponent implements OnDestroy {
     };
   }
 
-  checkNumberCharacters(numberCharacters) {
-    if (numberCharacters > 10000) {
+  checkNumberTranslatedCharacters(numberTranslatedCharacters) {
+    if (numberTranslatedCharacters > 10000) {
       this.toastService.showToast('Fichier non conforme. Le fichier contient trop de caractères !', 'toast-warning');
       return false;
     }
