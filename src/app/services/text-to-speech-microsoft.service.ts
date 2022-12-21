@@ -17,7 +17,7 @@ export class TextToSpeechMicrosoftService extends TextToSpeechService {
     super();
   }
 
-  getSpeech = async (text: string, language: string): Promise<void> => {
+  getSpeech = async (text: string, language: string, isFemaleSpeech: boolean): Promise<void> => {
     this.audioSpeech = undefined;
     const authorizationToken = await this.tokenAzureService.getToken();
     const speechConfig = SpeechConfig.fromAuthorizationToken(authorizationToken, environment.microsoftSpeechConfig.region);
@@ -29,7 +29,7 @@ export class TextToSpeechMicrosoftService extends TextToSpeechService {
       const vacabulary = VOCABULARY.find(value => value.isoCode === language);
       if (vacabulary && vacabulary.audioVoiceCode) {
         const speed = '-10.00%';
-        const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${vacabulary.isoCode}"><voice name="${vacabulary.audioVoiceCode}"><prosody rate="${speed}">${text}</prosody></voice></speak>`;
+        const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${vacabulary.isoCode}"><voice name="${vacabulary.audioVoiceCode && vacabulary.audioVoiceCodeMale}"><prosody rate="${speed}">${text}</prosody></voice></speak>`;
 
         synthesizer.speakSsmlAsync(
           ssml,

@@ -2,13 +2,13 @@ export abstract class TextToSpeechService {
   public audioSpeech: HTMLAudioElement = undefined;
   public isPlaying: boolean = false;
   private sentence: string = undefined;
-  abstract getSpeech(text: string, language: string): Promise<void>;
+  abstract getSpeech(text: string, language: string, isFemaleSpeech: boolean): Promise<void>;
 
-  public play = async (sentence: string, audioCode: string, playAuto: boolean = true) => {
+  public play = async (sentence: string, audioCode: string, playAuto: boolean = true, isFemaleSpeech: boolean = false) => {
     if (!this.isPlaying) {
       if (this.sentence !== sentence) {
         this.sentence = sentence;
-        await this.getSpeech(sentence, audioCode).then(
+        await this.getSpeech(sentence, audioCode, isFemaleSpeech).then(
           () => {
             if (playAuto) {
               this.audioSpeech.play();
@@ -31,7 +31,7 @@ export abstract class TextToSpeechService {
       }
     }
     return this.audioSpeech;
-  };
+  }
 
   public stop = () => {
     if (this.audioSpeech) {
@@ -39,5 +39,5 @@ export abstract class TextToSpeechService {
       this.audioSpeech.currentTime = 0;
       this.isPlaying = false;
     }
-  };
+  }
 }

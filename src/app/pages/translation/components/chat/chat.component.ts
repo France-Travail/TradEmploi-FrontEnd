@@ -41,7 +41,8 @@ export class ChatComponent implements OnInit {
   }
 
   public async listenToMessage(index: number) {
-    this.textToSpeechService.play(this.messagesWrapped[index].notification, this.targetLanguage.audio);
+    this.textToSpeechService.play(this.messagesWrapped[index].notification, this.targetLanguage.audio,
+     false, false);
   }
 
   public unFold(messageIndex: number) {

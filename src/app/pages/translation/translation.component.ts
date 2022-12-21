@@ -376,7 +376,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (listen) {
       translate = translate.replace(/\*/g, '');
       this.textToSpeechService
-        .play(translate, languageTarget, this.playAuto && message.time > this.settingsService.user.value.connectionTime)
+        .play(translate, languageTarget, this.playAuto && message.time > this.settingsService.user.value.connectionTime,
+          message.isFemaleVoice)
         .then((_) => {
           const audioSpeech = this.textToSpeechService.audioSpeech;
           if (audioSpeech) {

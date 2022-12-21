@@ -4,6 +4,7 @@ export interface Message {
   hour: string;
   text: string;
   languageOrigin: string;
+  isFemaleVoice: boolean;
   flag: string;
   translation?: string;
   role?: string;
