@@ -62,7 +62,6 @@ export class TextToSpeechGcpService extends TextToSpeechService {
     if (voiceSelected.length >= 1) {
       const voice: Voice = isFemaleSpeech ? voiceSelected.find((v) => v.ssmlGender === 'FEMALE')
         : voiceSelected.find((v) => v.ssmlGender === 'MALE');
-      //const voice: Voice = voiceSelected.find((v) => v.ssmlGender === 'MALE');
       data.voice.name = voice === undefined ? isFemaleSpeech ?
           voiceSelected.find((v) => v.ssmlGender === 'MALE').name :
           voiceSelected.find((v) => v.ssmlGender === 'FEMALE').name
@@ -83,5 +82,5 @@ export class TextToSpeechGcpService extends TextToSpeechService {
           throw new Error(error);
         });
     }
-  };
+  }
 }
