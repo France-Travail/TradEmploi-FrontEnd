@@ -60,6 +60,7 @@ export class RateDialogComponent implements OnInit {
   public types = params.organization.entretiens;
   public autreType = '';
   public isTradTonDoc: boolean;
+  public nbTranslatedCharacters: number;
   constructor(
     private readonly dialogRef: MatDialogRef<RateDialogComponent>,
     private readonly rateService: RateService,
@@ -67,9 +68,10 @@ export class RateDialogComponent implements OnInit {
     private readonly toastService: ToastService,
     private readonly router: Router,
     private readonly chatService: ChatService,
-    @Inject(MAT_DIALOG_DATA) public data: { guest: Array<string>; tradtondoc?: boolean }
+    @Inject(MAT_DIALOG_DATA) public data: { guest: Array<string>; tradtondoc?: boolean; nbTranslatedCharacters?: number }
   ) {
     this.isTradTonDoc = data.tradtondoc || false;
+    this.nbTranslatedCharacters = data.nbTranslatedCharacters || 0;
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         this.isMultiDevices = user.isMultiDevices;
@@ -135,6 +137,7 @@ export class RateDialogComponent implements OnInit {
       nbMessagesAdvisor: 0,
       typeSTT: '',
       isTradTonDoc: this.isTradTonDoc,
+      nbTranslatedCharacters: this.nbTranslatedCharacters
     };
     this.canSendRate = false;
   }
