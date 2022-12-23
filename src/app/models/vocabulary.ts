@@ -2,7 +2,6 @@ import { Gdpr } from './gdpr';
 
 export interface Vocabulary {
   audioCode?: string;
-  audioVoiceCode?: string;
   audioVoiceCodeMale?: string;
   audioVoiceCodeFemale?: string;
   countryNameFr?: string;

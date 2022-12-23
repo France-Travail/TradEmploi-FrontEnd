@@ -31,12 +31,12 @@
             </button>
         </ng-template>
     </div>
-    <div class="choice-gender">
+    <div *ngIf="role=='DE'"  class="choice-gender" >
       <mat-slide-toggle
         class="auto-listen-btn"
         checked="{{ isFemaleSpeaking }}"
         [(ngModel)]="isFemaleSpeaking"
-        color="primary">{{ isFemaleSpeaking? 'Femme': 'Homme' }}</mat-slide-toggle>
+        color="primary">{{ isFemaleSpeaking? 'Femme':'Homme' }}</mat-slide-toggle>
     </div>
     <app-record class="record" *ngIf="recordMode" duration="50" [role]="role" [language]="languageOrigin" [flag]="flag" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
 </div>

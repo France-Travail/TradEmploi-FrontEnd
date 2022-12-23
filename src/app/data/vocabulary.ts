@@ -93,7 +93,7 @@ const COUNTRY_NAME_SUD_AFRICA = 'Afrique du Sud';
 export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'af-ZA',
-    audioVoiceCode: 'af-ZA-AdriNeural',
+    audioVoiceCodeMale: 'af-ZA-AdriNeural',
     countryNameRaw: 'Suid-Afrika',
     countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'Afrikaans',
@@ -102,7 +102,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'sq-AL',
-    audioVoiceCode: 'sq-AL-IlirNeural',
+    audioVoiceCodeMale: 'sq-AL-IlirNeural',
     countryNameRaw: 'Shqiperia',
     countryNameFr: 'Albanie',
     languageNameRaw: 'Shqiptare',
@@ -111,7 +111,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'am-ET',
-    audioVoiceCode: 'am-ET-MekdesNeural',
+    audioVoiceCodeMale: 'am-ET-MekdesNeural',
     countryNameRaw: 'ኢትዮጵያ',
     countryNameFr: 'Éthiopie',
     languageNameFr: 'Amharique',
@@ -120,7 +120,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'hy-AM',
-    audioVoiceCode: 'hy-AM-HaykNeural',
+    audioVoiceCodeMale: 'hy-AM-HaykNeural',
     countryNameRaw: 'Հայաստան',
     countryNameFr: 'Arménie',
     languageNameRaw: 'Հայ',
@@ -129,7 +129,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'az-AZ',
-    audioVoiceCode: 'az-AZ-BanuNeural',
+    audioVoiceCodeMale: 'az-AZ-BanuNeural',
     countryNameRaw: 'Azərbaycan',
     countryNameFr: 'Azerbaïjan',
     languageNameRaw: 'Azərbaycan',
@@ -138,7 +138,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'eu-ES',
-    audioVoiceCode: 'eu-ES-AnderNeural',
+    audioVoiceCodeMale: 'eu-ES-AnderNeural',
     countryNameRaw: 'Espainia',
     countryNameFr: 'Espagne',
     languageNameFr: 'Basque',
@@ -147,7 +147,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'bn-BD',
-    audioVoiceCode: 'bn-BD-NabanitaNeural',
+    audioVoiceCodeMale: 'bn-BD-NabanitaNeural',
     countryNameRaw: 'বাংলাদেশ',
     countryNameFr: 'Bangladesh',
     languageNameRaw: 'বাংলা',
@@ -156,7 +156,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'bn-IN',
-    audioVoiceCode: 'bn-IN-TanishaaNeural',
+    audioVoiceCodeMale: 'bn-IN-TanishaaNeural',
     countryNameRaw: 'ভারত',
     countryNameFr: 'Inde',
     languageNameRaw: 'বাংলা',
@@ -166,7 +166,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'zh-CN',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'zh-CN' : 'cmn-CN',
-    audioVoiceCode: 'zh-CN-XiaochenNeural',
+    audioVoiceCodeMale: 'zh-CN-XiaochenNeural',
     countryNameRaw: '中国大陆',
     countryNameFr: 'Chine',
     languageNameRaw: '普通话',
@@ -175,7 +175,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'zh-HK',
-    audioVoiceCode: 'zh-HK-HiuGaaiNeural',
+    audioVoiceCodeMale: 'zh-HK-HiuGaaiNeural',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'zh-HK' : 'yue-HK',
     countryNameRaw: '香港',
     countryNameFr: 'Hong Kong',
@@ -186,7 +186,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'zh-TW',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'zh-TW' : 'cmn-TW',
-    audioVoiceCode: 'zh-TW-HsiaoChenNeural',
+    audioVoiceCodeMale: 'zh-TW-HsiaoChenNeural',
     countryNameRaw: '台湾',
     countryNameFr: 'Taïwan',
     languageNameRaw: '普通话',
@@ -205,7 +205,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'gl-ES',
     audioCode: 'gl-ES',
-    audioVoiceCode: 'gl-ES-SabelaNeural',
+    audioVoiceCodeMale: 'gl-ES-SabelaNeural',
     countryNameRaw: 'España',
     countryNameFr: 'Espagne',
     languageNameRaw: 'Galego',
@@ -214,7 +214,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ka-GE',
-    audioVoiceCode: 'ka-GE-GiorgiNeural',
+    audioVoiceCodeMale: 'ka-GE-GiorgiNeural',
     countryNameRaw: 'საქართველო',
     countryNameFr: 'Géorgie',
     languageNameRaw: 'ქართული',
@@ -223,7 +223,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'is-IS',
-    audioVoiceCode: 'is-IS-GudrunNeural',
+    audioVoiceCodeMale: 'is-IS-GudrunNeural',
     countryNameRaw: 'Ísland',
     countryNameFr: 'Islande',
     languageNameRaw: 'Íslenska',
@@ -232,7 +232,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'jv-ID',
-    audioVoiceCode: 'jv-ID-SitiNeural',
+    audioVoiceCodeMale: 'jv-ID-SitiNeural',
     countryNameRaw: 'Indonesia',
     countryNameFr: 'Indonésie',
     languageNameRaw: 'Jawa',
@@ -241,7 +241,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'kk-KZ',
-    audioVoiceCode: 'kk-KZ-AigulNeural',
+    audioVoiceCodeMale: 'kk-KZ-AigulNeural',
     countryNameRaw: `Қазақстан`,
     countryNameFr: 'Kazakhstan',
     languageNameRaw: `Қазақша`,
@@ -250,7 +250,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'km-KH',
-    audioVoiceCode: 'km-KH-SreymomNeural',
+    audioVoiceCodeMale: 'km-KH-SreymomNeural',
     countryNameRaw: 'កម្ពុជា',
     countryNameFr: 'Cambodge',
     languageNameFr: 'Khmer',
@@ -259,7 +259,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'lo-LA',
-    audioVoiceCode: 'lo-LA-KeomanyNeural',
+    audioVoiceCodeMale: 'lo-LA-KeomanyNeural',
     countryNameRaw: 'ລາວ',
     countryNameFr: 'Laos',
     languageNameRaw: 'ລາວ',
@@ -268,7 +268,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'mk-MK',
-    audioVoiceCode: 'mk-MK-MarijaNeural',
+    audioVoiceCodeMale: 'mk-MK-MarijaNeural',
     countryNameRaw: `Македонија`,
     countryNameFr: 'Macédoine',
     languageNameRaw: `Македонски`,
@@ -277,7 +277,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ml-IN',
-    audioVoiceCode: 'ml-IN-SobhanaNeural',
+    audioVoiceCodeMale: 'ml-IN-SobhanaNeural',
     countryNameRaw: 'ഇന്ത്യ',
     countryNameFr: 'Inde',
     languageNameRaw: 'മലയാളം',
@@ -286,7 +286,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'mr-IN',
-    audioVoiceCode: 'mr-IN-AarohiNeural',
+    audioVoiceCodeMale: 'mr-IN-AarohiNeural',
     countryNameRaw: 'भारत',
     countryNameFr: 'Inde',
     languageNameRaw: 'मराठी',
@@ -295,7 +295,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'mn-MN',
-    audioVoiceCode: 'mn-MN-YesuiNeural',
+    audioVoiceCodeMale: 'mn-MN-YesuiNeural',
     countryNameRaw: 'Монгол Улс',
     countryNameFr: 'Mongolie',
     languageNameFr: 'Mongol',
@@ -304,7 +304,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ne-NP',
-    audioVoiceCode: 'ne-NP-SagarNeural',
+    audioVoiceCodeMale: 'ne-NP-SagarNeural',
     countryNameRaw: 'नेपाल',
     countryNameFr: 'Népal',
     languageNameFr: 'Népalais',
@@ -313,7 +313,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'sr-RS',
-    audioVoiceCode: 'sr-RS-SophieNeural',
+    audioVoiceCodeMale: 'sr-RS-SophieNeural',
     countryNameRaw: 'Србија',
     countryNameFr: 'Serbie',
     languageNameRaw: 'Српски',
@@ -322,7 +322,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'si-LK',
-    audioVoiceCode: 'si-LK-ThiliniNeural',
+    audioVoiceCodeMale: 'si-LK-ThiliniNeural',
     countryNameRaw: 'ශ්රී ලංකාව',
     countryNameFr: 'Sri Lanka',
     languageNameRaw: 'සිංහල',
@@ -331,7 +331,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'su-ID',
-    audioVoiceCode: 'su-ID-TutiNeural',
+    audioVoiceCodeMale: 'su-ID-TutiNeural',
     countryNameRaw: 'Indonesia',
     countryNameFr: 'Indonésie',
     languageNameRaw: 'Sundanese',
@@ -340,7 +340,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'sw-TZ',
-    audioVoiceCode: 'sw-TZ-RehemaNeural',
+    audioVoiceCodeMale: 'sw-TZ-RehemaNeural',
     countryNameRaw: 'Tanzania',
     countryNameFr: 'Tanzanie',
     languageNameRaw: 'Swahili',
@@ -357,7 +357,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ta-SG',
-    audioVoiceCode: 'ta-SG-VenbaNeural',
+    audioVoiceCodeMale: 'ta-SG-VenbaNeural',
     countryNameRaw: 'சிங்கப்பூர்',
     countryNameFr: 'Singapour',
     languageNameRaw: 'தமிழ்',
@@ -366,7 +366,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ta-LK',
-    audioVoiceCode: 'ta-LK-SaranyaNeural',
+    audioVoiceCodeMale: 'ta-LK-SaranyaNeural',
     countryNameRaw: 'இலங்கை',
     countryNameFr: 'Sri Lanka',
     languageNameRaw: 'தமிழ்',
@@ -375,7 +375,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'uk-UA',
-    audioVoiceCode: 'uk-UA-PolinaNeural',
+    audioVoiceCodeMale: 'uk-UA-PolinaNeural',
     countryNameRaw: 'Україна',
     countryNameFr: 'Ukraine',
     languageNameRaw: 'Українська',
@@ -384,7 +384,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ur-IN',
-    audioVoiceCode: 'ur-IN-GulNeural',
+    audioVoiceCodeMale: 'ur-IN-GulNeural',
     countryNameRaw: 'بھارت',
     countryNameFr: 'Inde',
     languageNameRaw: 'اردو',
@@ -393,7 +393,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ur-PK',
-    audioVoiceCode: 'ur-PK-UzmaNeural',
+    audioVoiceCodeMale: 'ur-PK-UzmaNeural',
     countryNameRaw: 'پاکستان',
     countryNameFr: 'Pakistan',
     languageNameFr: 'Ourdou',
@@ -402,7 +402,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'uz-UZ',
-    audioVoiceCode: 'uz-UZ-MadinaNeural',
+    audioVoiceCodeMale: 'uz-UZ-MadinaNeural',
     countryNameRaw: 'Ўзбекистон',
     countryNameFr: 'Ouzbékistan',
     languageNameFr: 'Ouzbek',
@@ -411,7 +411,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'zu-ZA',
-    audioVoiceCode: 'zu-ZA-ThandoNeural',
+    audioVoiceCodeMale: 'zu-ZA-ThandoNeural',
     countryNameRaw: 'Ningizimu Afrika',
     countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'IsiZulu',
@@ -430,7 +430,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'ar-DZ',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-DZ' : 'ar-XA',
-    audioVoiceCode: 'ar-DZ-IsmaelNeural',
+    audioVoiceCodeMale: 'ar-DZ-IsmaelNeural',
     countryNameRaw: 'الجزائر',
     countryNameFr: 'Algérie',
     languageNameRaw: 'العربية',
@@ -439,7 +439,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-JO',
-    audioVoiceCode: 'ar-JO-SanaNeural',
+    audioVoiceCodeMale: 'ar-JO-SanaNeural',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-JO' : 'ar-XA',
     countryNameRaw: 'الأردن',
     countryNameFr: 'Jordanie',
@@ -449,7 +449,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-AE',
-    audioVoiceCode: 'ar-AE-FatimaNeural',
+    audioVoiceCodeMale: 'ar-AE-FatimaNeural',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-AE' : 'ar-XA',
     countryNameRaw: 'الإمارات',
     countryNameFr: 'Emirats Arabes Unis',
@@ -459,7 +459,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-BH',
-    audioVoiceCode: 'ar-BH-LailaNeural',
+    audioVoiceCodeMale: 'ar-BH-LailaNeural',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-BH' : 'ar-XA',
     countryNameRaw: 'البحرين',
     countryNameFr: 'Bahreïn',
@@ -470,7 +470,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'ar-XA',
     audioCode: 'ar-XA',
-    audioVoiceCode: 'ar-SA-ZariyahNeural',
+    audioVoiceCodeMale: 'ar-SA-ZariyahNeural',
     countryNameRaw: 'الدول العربية',
     countryNameFr: 'Pays arabes',
     languageNameRaw: 'العربية',
@@ -479,7 +479,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-SA',
-    audioVoiceCode: 'ar-SA-ZariyahNeural',
+    audioVoiceCodeMale: 'ar-SA-ZariyahNeural',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-SA' : 'ar-XA',
     countryNameRaw: 'السعودية',
     countryNameFr: 'Arabie Saoudite',
@@ -489,7 +489,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-IQ',
-    audioVoiceCode: 'ar-IQ-RanaNeural',
+    audioVoiceCodeMale: 'ar-IQ-RanaNeural',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-IQ' : 'ar-XA',
     countryNameRaw: 'العراق',
     countryNameFr: 'Irak',
@@ -499,7 +499,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-KW',
-    audioVoiceCode: 'ar-KW-NouraNeural',
+    audioVoiceCodeMale: 'ar-KW-NouraNeural',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-KW' : 'ar-XA',
     countryNameRaw: 'الكويت',
     countryNameFr: 'Koweït',
@@ -509,7 +509,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-MA',
-    audioVoiceCode: 'ar-MA-MounaNeural',
+    audioVoiceCodeMale: 'ar-MA-MounaNeural',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-MA' : 'ar-XA',
     countryNameRaw: 'المغرب',
     countryNameFr: 'Maroc',
@@ -520,7 +520,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'ar-TN',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-TN' : 'ar-XA',
-    audioVoiceCode: 'ar-TN-ReemNeural',
+    audioVoiceCodeMale: 'ar-TN-ReemNeural',
     countryNameRaw: 'تونس',
     countryNameFr: 'Tunisie',
     languageNameRaw: 'العربية',
@@ -547,7 +547,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ar-QA',
-    audioVoiceCode: 'ar-QA-AmalNeural',
+    audioVoiceCodeMale: 'ar-QA-AmalNeural',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-QA' : 'ar-XA',
     countryNameRaw: 'قطر',
     countryNameFr: 'Qatar',
@@ -567,7 +567,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'ar-EG',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-EG' : 'ar-XA',
-    audioVoiceCode: 'ar-EG-ShakirNeural',
+    audioVoiceCodeMale: 'ar-EG-ShakirNeural',
     countryNameRaw: 'مصر',
     countryNameFr: 'Égypte',
     languageNameRaw: 'العربية',
@@ -576,7 +576,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'fa-IR',
-    audioVoiceCode: 'fa-IR-DilaraNeural',
+    audioVoiceCodeMale: 'fa-IR-DilaraNeural',
     countryNameRaw: 'ایران',
     countryNameFr: 'Iran',
     languageNameRaw: 'فارسی',
@@ -585,7 +585,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'fr-FR',
-    audioVoiceCodeMale: 'fr-FR-AlainNeural',
+    audioVoiceCodeMale: 'fr-FR-DeniseNeural',
     audioVoiceCodeFemale: 'fr-FR-CoralieNeural',
     countryNameRaw: 'France',
     countryNameFr: 'France',
@@ -595,7 +595,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-GB',
-    audioVoiceCode: 'en-GB-LibbyNeural',
+    audioVoiceCodeMale: 'en-GB-LibbyNeural',
     countryNameRaw: 'United Kingdom',
     countryNameFr: 'Royaume-Uni',
     languageNameRaw: 'English',
@@ -604,7 +604,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'es-ES',
-    audioVoiceCode: 'es-ES-ElviraNeural',
+    audioVoiceCodeMale: 'es-ES-ElviraNeural',
     countryNameRaw: 'España',
     countryNameFr: 'Espagne',
     languageNameRaw: 'Español',
@@ -614,7 +614,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-AR',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-AR' : 'es-ES',
-    audioVoiceCode: 'es-AR-ElenaNeural',
+    audioVoiceCodeMale: 'es-AR-ElenaNeural',
     countryNameRaw: 'Argentina',
     countryNameFr: 'Argentine',
     languageNameRaw: 'Español',
@@ -624,7 +624,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'en-AU',
     audioCode: 'en-AU',
-    audioVoiceCode: 'en-AU-NatashaNeural',
+    audioVoiceCodeMale: 'en-AU-NatashaNeural',
     countryNameRaw: 'Australia',
     countryNameFr: 'Australie',
     languageNameRaw: 'English',
@@ -643,7 +643,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'en-CA',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-CA' : 'en-US',
-    audioVoiceCode: 'en-CA-ClaraNeural',
+    audioVoiceCodeMale: 'en-CA-ClaraNeural',
     countryNameRaw: 'Canada',
     countryNameFr: 'Canada',
     languageNameRaw: 'English',
@@ -653,7 +653,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'fr-CA',
     audioCode: 'fr-CA',
-    audioVoiceCode: 'fr-CA-SylvieNeural',
+    audioVoiceCodeMale: 'fr-CA-SylvieNeural',
     countryNameRaw: 'Canada',
     countryNameFr: 'Canada',
     languageNameRaw: 'Français',
@@ -662,7 +662,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-IN',
-    audioVoiceCode: 'en-IN-NeerjaNeural',
+    audioVoiceCodeMale: 'en-IN-NeerjaNeural',
     countryNameRaw: 'India',
     countryNameFr: 'Inde',
     languageNameRaw: 'English',
@@ -672,7 +672,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'en-ZA',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-ZA' : 'en-GB',
-    audioVoiceCode: 'en-ZA-LeahNeural',
+    audioVoiceCodeMale: 'en-ZA-LeahNeural',
     countryNameRaw: 'South Africa',
     countryNameFr: COUNTRY_NAME_SUD_AFRICA,
     languageNameRaw: 'English',
@@ -682,7 +682,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'en-IE',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-IE' : 'en-GB',
-    audioVoiceCode: 'en-IE-EmilyNeural',
+    audioVoiceCodeMale: 'en-IE-EmilyNeural',
     countryNameRaw: 'Ireland',
     countryNameFr: 'Irlande',
     languageNameRaw: 'English',
@@ -692,7 +692,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'en-KE',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-KE' : 'en-GB',
-    audioVoiceCode: 'en-KE-AsiliaNeural',
+    audioVoiceCodeMale: 'en-KE-AsiliaNeural',
     countryNameRaw: 'Kenya',
     countryNameFr: 'Kenya',
     languageNameRaw: 'English',
@@ -702,7 +702,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'en-NZ',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-NZ' : 'en-GB',
-    audioVoiceCode: 'en-NZ-MollyNeural',
+    audioVoiceCodeMale: 'en-NZ-MollyNeural',
     countryNameRaw: 'New Zealand',
     countryNameFr: 'Nouvelle-Zélande',
     languageNameRaw: 'English',
@@ -712,7 +712,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'en-SG',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-SG' : 'en-GB',
-    audioVoiceCode: 'en-SG-LunaNeural',
+    audioVoiceCodeMale: 'en-SG-LunaNeural',
     countryNameRaw: 'Singapore',
     countryNameFr: 'Singapour',
     languageNameRaw: 'English',
@@ -722,7 +722,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'en-PH',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-PH' : 'en-GB',
-    audioVoiceCode: 'en-PH-RosaNeural',
+    audioVoiceCodeMale: 'en-PH-RosaNeural',
     countryNameRaw: 'Philippines',
     countryNameFr: 'Philippines',
     languageNameRaw: 'English',
@@ -732,7 +732,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'en-NG',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-NG' : 'en-GB',
-    audioVoiceCode: 'en-NG-EzinneNeural',
+    audioVoiceCodeMale: 'en-NG-EzinneNeural',
     countryNameRaw: 'Nigeria',
     countryNameFr: 'Nigeria',
     languageNameRaw: 'English',
@@ -742,7 +742,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'en-TZ',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-TZ' : 'en-GB',
-    audioVoiceCode: 'en-TZ-ImaniNeural',
+    audioVoiceCodeMale: 'en-TZ-ImaniNeural',
     countryNameRaw: 'Tanzania',
     countryNameFr: 'Tanzanie',
     languageNameRaw: 'English',
@@ -751,7 +751,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'en-US',
-    audioVoiceCode: 'en-US-ChristopherNeural',
+    audioVoiceCodeMale: 'en-US-ChristopherNeural',
     countryNameRaw: 'United-States',
     countryNameFr: 'États-Unis',
     languageNameRaw: 'English',
@@ -760,7 +760,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'fa-AF',
-    audioVoiceCode: 'fa-IR-FaridNeural',
+    audioVoiceCodeMale: 'fa-IR-FaridNeural',
     countryNameRaw: 'افغانستان',
     countryNameFr: 'Afghanistan',
     languageNameFr: 'Dari',
@@ -769,7 +769,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ps-AF',
-    audioVoiceCode: 'ps-AF-GulNawazNeural',
+    audioVoiceCodeMale: 'ps-AF-GulNawazNeural',
     countryNameRaw: 'افغانستان',
     countryNameFr: 'Afghanistan',
     languageNameFr: 'Pashto',
@@ -778,7 +778,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'pt-PT',
-    audioVoiceCode: 'pt-PT-FernandaNeural',
+    audioVoiceCodeMale: 'pt-PT-FernandaNeural',
     countryNameRaw: 'Portugal',
     countryNameFr: 'Portugal',
     languageNameFr: 'Portugais',
@@ -787,7 +787,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'tr-TR',
-    audioVoiceCode: 'tr-TR-EmelNeural',
+    audioVoiceCodeMale: 'tr-TR-EmelNeural',
     countryNameRaw: 'Türkiye',
     countryNameFr: 'Turquie',
     languageNameFr: 'Turc',
@@ -796,7 +796,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'de-DE',
-    audioVoiceCode: 'de-DE-KatjaNeural',
+    audioVoiceCodeMale: 'de-DE-KatjaNeural',
     countryNameRaw: 'Deutschland',
     countryNameFr: 'Allemagne',
     languageNameFr: 'Allemand',
@@ -805,7 +805,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'hi-IN',
-    audioVoiceCode: 'hi-IN-SwaraNeural',
+    audioVoiceCodeMale: 'hi-IN-SwaraNeural',
     countryNameRaw: 'भारत',
     countryNameFr: 'Inde',
     languageNameFr: 'Hindi',
@@ -814,7 +814,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ta-IN',
-    audioVoiceCode: 'ta-IN-PallaviNeural',
+    audioVoiceCodeMale: 'ta-IN-PallaviNeural',
     countryNameRaw: 'இந்தியா',
     countryNameFr: 'Inde',
     languageNameFr: 'Tamoul',
@@ -823,7 +823,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'it-IT',
-    audioVoiceCode: 'it-IT-ElsaNeural',
+    audioVoiceCodeMale: 'it-IT-ElsaNeural',
     countryNameRaw: 'Italia',
     countryNameFr: 'Italie',
     languageNameFr: 'Italien',
@@ -832,7 +832,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ru-RU',
-    audioVoiceCode: 'ru-RU-DariyaNeural',
+    audioVoiceCodeMale: 'ru-RU-DariyaNeural',
     countryNameRaw: 'Россия',
     countryNameFr: 'Russie',
     languageNameFr: 'Russe',
@@ -841,7 +841,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ro-RO',
-    audioVoiceCode: 'ro-RO-AlinaNeural',
+    audioVoiceCodeMale: 'ro-RO-AlinaNeural',
     countryNameRaw: 'România',
     countryNameFr: 'Roumanie',
     languageNameFr: 'Roumain',
@@ -850,7 +850,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'vi-VN',
-    audioVoiceCode: 'vi-VN-HoaiMyNeural',
+    audioVoiceCodeMale: 'vi-VN-HoaiMyNeural',
     countryNameRaw: 'Việt Nam',
     countryNameFr: 'Vietnam',
     languageNameFr: 'Vietnamien',
@@ -859,7 +859,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'el-GR',
-    audioVoiceCode: 'el-GR-AthinaNeural',
+    audioVoiceCodeMale: 'el-GR-AthinaNeural',
     countryNameRaw: 'Ελλάδα',
     countryNameFr: 'Grèce',
     languageNameFr: 'Grec',
@@ -869,7 +869,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-BO',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-BO' : 'es-ES',
-    audioVoiceCode: 'es-BO-SofiaNeural',
+    audioVoiceCodeMale: 'es-BO-SofiaNeural',
     countryNameRaw: 'Bolivia',
     countryNameFr: 'Bolivie',
     languageNameRaw: 'Español',
@@ -879,7 +879,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-CL',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-CL' : 'es-ES',
-    audioVoiceCode: 'es-CL-CatalinaNeural',
+    audioVoiceCodeMale: 'es-CL-CatalinaNeural',
     countryNameRaw: 'Chile',
     countryNameFr: 'Chili',
     languageNameRaw: 'Español',
@@ -889,7 +889,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-CO',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-CO' : 'es-ES',
-    audioVoiceCode: 'es-CO-SalomeNeural',
+    audioVoiceCodeMale: 'es-CO-SalomeNeural',
     countryNameRaw: 'Colombia',
     countryNameFr: 'Colombie',
     languageNameRaw: 'Español',
@@ -899,7 +899,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-CR',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-CR' : 'es-ES',
-    audioVoiceCode: 'es-CR-MariaNeural',
+    audioVoiceCodeMale: 'es-CR-MariaNeural',
     countryNameRaw: 'Costa Rica',
     countryNameFr: 'Costa Rica',
     languageNameRaw: 'Español',
@@ -909,7 +909,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-EC',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-EC' : 'es-ES',
-    audioVoiceCode: 'es-EC-AndreaNeural',
+    audioVoiceCodeMale: 'es-EC-AndreaNeural',
     countryNameRaw: 'Ecuador',
     countryNameFr: 'Equateur',
     languageNameRaw: 'Español',
@@ -919,7 +919,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-SV',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-SV' : 'es-ES',
-    audioVoiceCode: 'es-SV-LorenaNeural',
+    audioVoiceCodeMale: 'es-SV-LorenaNeural',
     countryNameRaw: 'El Salvador',
     countryNameFr: 'Salvador',
     languageNameRaw: 'Español',
@@ -929,7 +929,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-US',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-US' : 'es-ES',
-    audioVoiceCode: 'es-US-PalomaNeural',
+    audioVoiceCodeMale: 'es-US-PalomaNeural',
     countryNameRaw: 'Estados Unidos',
     countryNameFr: 'États-Unis',
     languageNameRaw: 'Español',
@@ -939,7 +939,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-GT',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-GT' : 'es-ES',
-    audioVoiceCode: 'es-GT-MartaNeural',
+    audioVoiceCodeMale: 'es-GT-MartaNeural',
     countryNameRaw: 'Guatemala',
     countryNameFr: 'Guatemala',
     languageNameRaw: 'Español',
@@ -949,7 +949,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-HN',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-HN' : 'es-ES',
-    audioVoiceCode: 'es-HN-KarlaNeural',
+    audioVoiceCodeMale: 'es-HN-KarlaNeural',
     countryNameRaw: 'Honduras',
     countryNameFr: 'Honduras',
     languageNameRaw: 'Español',
@@ -959,7 +959,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-MX',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-MX' : 'es-ES',
-    audioVoiceCode: 'es-MX-DaliaNeural',
+    audioVoiceCodeMale: 'es-MX-DaliaNeural',
     countryNameRaw: 'México',
     countryNameFr: 'Mexique',
     languageNameRaw: 'Español',
@@ -969,7 +969,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-NI',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-NI' : 'es-ES',
-    audioVoiceCode: 'es-NI-YolandaNeural',
+    audioVoiceCodeMale: 'es-NI-YolandaNeural',
     countryNameRaw: 'Nicaragua',
     countryNameFr: 'Nicaragua',
     languageNameRaw: 'Español',
@@ -979,7 +979,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-PA',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-PA' : 'es-ES',
-    audioVoiceCode: 'es-PA-MargaritaNeural',
+    audioVoiceCodeMale: 'es-PA-MargaritaNeural',
     countryNameRaw: 'Panamà',
     countryNameFr: 'Panama',
     languageNameRaw: 'Español',
@@ -989,7 +989,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-PY',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-PY' : 'es-ES',
-    audioVoiceCode: 'es-PY-TaniaNeural',
+    audioVoiceCodeMale: 'es-PY-TaniaNeural',
     countryNameRaw: 'Paraguay',
     countryNameFr: 'Paraguay',
     languageNameRaw: 'Español',
@@ -999,7 +999,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-PE',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-PE' : 'es-ES',
-    audioVoiceCode: 'es-PE-CamilaNeural',
+    audioVoiceCodeMale: 'es-PE-CamilaNeural',
     countryNameRaw: 'Perù',
     countryNameFr: 'Pérou',
     languageNameRaw: 'Español',
@@ -1009,7 +1009,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-PR',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-PR' : 'es-ES',
-    audioVoiceCode: 'es-PR-KarinaNeural',
+    audioVoiceCodeMale: 'es-PR-KarinaNeural',
     countryNameRaw: 'Puerto Rico',
     countryNameFr: 'Porto Rico',
     languageNameRaw: 'Español',
@@ -1019,7 +1019,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-DO',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-DO' : 'es-ES',
-    audioVoiceCode: 'es-DO-RamonaNeural',
+    audioVoiceCodeMale: 'es-DO-RamonaNeural',
     countryNameRaw: 'República Dominicana',
     countryNameFr: 'République Dominicaine',
     languageNameRaw: 'Español',
@@ -1029,7 +1029,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-UY',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-UY' : 'es-ES',
-    audioVoiceCode: 'es-UY-ValentinaNeural',
+    audioVoiceCodeMale: 'es-UY-ValentinaNeural',
     countryNameRaw: 'Uruguay',
     countryNameFr: 'Uruguay',
     languageNameRaw: 'Español',
@@ -1039,7 +1039,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'es-VE',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'es-VE' : 'es-ES',
-    audioVoiceCode: 'es-VE-PaolaNeural',
+    audioVoiceCodeMale: 'es-VE-PaolaNeural',
     countryNameRaw: 'Venezuela',
     countryNameFr: 'Vénézuéla',
     languageNameRaw: 'Español',
@@ -1048,7 +1048,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'th-TH',
-    audioVoiceCode: 'th-TH-AcharaNeural',
+    audioVoiceCodeMale: 'th-TH-AcharaNeural',
     countryNameRaw: 'ประเทศไทย',
     countryNameFr: 'Thaïlande',
     languageNameRaw: 'ไทย',
@@ -1057,7 +1057,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ko-KR',
-    audioVoiceCode: 'ko-KR-SunHiNeural',
+    audioVoiceCodeMale: 'ko-KR-SunHiNeural',
     countryNameRaw: '대한민국',
     countryNameFr: 'Corée du Sud',
     languageNameRaw: '한국어',
@@ -1066,7 +1066,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ja-JP',
-    audioVoiceCode: 'ja-JP-NanamiNeural',
+    audioVoiceCodeMale: 'ja-JP-NanamiNeural',
     countryNameRaw: '日本',
     countryNameFr: 'Japon',
     languageNameRaw: '日本語',
@@ -1076,7 +1076,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'en-HK',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'en-HK' : 'en-GB',
-    audioVoiceCode: 'en-HK-YanNeural',
+    audioVoiceCodeMale: 'en-HK-YanNeural',
     countryNameRaw: 'Hong Kong',
     countryNameFr: 'Hong Kong',
     languageNameRaw: 'English',
@@ -1086,7 +1086,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'ar-YE',
     audioCode: environment.microsoftSpeechConfig.textToSpeechEnabled ? 'ar-YE' : 'ar-XA',
-    audioVoiceCode: 'ar-YE-MaryamNeural',
+    audioVoiceCodeMale: 'ar-YE-MaryamNeural',
     countryNameRaw: 'اليمن',
     countryNameFr: 'Yémen',
     languageNameRaw: 'العربية',
@@ -1095,7 +1095,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'gu-IN',
-    audioVoiceCode: 'gu-IN-DhwaniNeural',
+    audioVoiceCodeMale: 'gu-IN-DhwaniNeural',
     countryNameRaw: 'ભારત',
     countryNameFr: 'Inde',
     languageNameRaw: 'ગુજરાતી',
@@ -1104,7 +1104,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'hr-HR',
-    audioVoiceCode: 'hr-HR-GabrijelaNeural',
+    audioVoiceCodeMale: 'hr-HR-GabrijelaNeural',
     countryNameRaw: 'Hrvatska',
     countryNameFr: 'Croatie',
     languageNameRaw: 'Hrvatski',
@@ -1113,7 +1113,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'kn-IN',
-    audioVoiceCode: 'kn-IN-SapnaNeural',
+    audioVoiceCodeMale: 'kn-IN-SapnaNeural',
     countryNameRaw: 'ಭಾರತ',
     countryNameFr: 'Inde',
     languageNameRaw: 'ಕನ್ನಡ',
@@ -1122,7 +1122,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'lv-LV',
-    audioVoiceCode: 'lv-LV-EveritaNeural',
+    audioVoiceCodeMale: 'lv-LV-EveritaNeural',
     countryNameRaw: 'latviešu',
     countryNameFr: 'Lettonie',
     languageNameRaw: 'Latviešu',
@@ -1131,7 +1131,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'lt-LT',
-    audioVoiceCode: 'lt-LT-OnaNeural',
+    audioVoiceCodeMale: 'lt-LT-OnaNeural',
     countryNameRaw: 'Lietuva',
     countryNameFr: 'Lituanie',
     languageNameRaw: 'Lietuvių',
@@ -1140,7 +1140,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'hu-HU',
-    audioVoiceCode: 'hu-HU-NoemiNeural',
+    audioVoiceCodeMale: 'hu-HU-NoemiNeural',
     countryNameRaw: 'Magyarország',
     countryNameFr: 'Hongrie',
     languageNameRaw: 'Magyar',
@@ -1149,7 +1149,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'nl-NL',
-    audioVoiceCode: 'nl-NL-ColetteNeural',
+    audioVoiceCodeMale: 'nl-NL-ColetteNeural',
     countryNameRaw: 'Nederlands',
     countryNameFr: 'Pays-Bas',
     languageNameRaw: 'Nederlands',
@@ -1158,7 +1158,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'nb-NO',
-    audioVoiceCode: 'nb-NO-IselinNeural',
+    audioVoiceCodeMale: 'nb-NO-IselinNeural',
     countryNameRaw: 'Norge',
     countryNameFr: 'Norvège',
     languageNameRaw: 'Norsk bokmål',
@@ -1167,7 +1167,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'pl-PL',
-    audioVoiceCode: 'pl-PL-AgnieszkaNeural',
+    audioVoiceCodeMale: 'pl-PL-AgnieszkaNeural',
     countryNameRaw: 'Polska',
     countryNameFr: 'Pologne',
     languageNameRaw: 'Polski',
@@ -1176,7 +1176,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'pt-BR',
-    audioVoiceCode: 'pt-BR-FranciscaNeural',
+    audioVoiceCodeMale: 'pt-BR-FranciscaNeural',
     countryNameRaw: 'Brasil',
     countryNameFr: 'Brésil',
     languageNameRaw: 'Português',
@@ -1185,7 +1185,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'sk-SK',
-    audioVoiceCode: 'sk-SK-ViktoriaNeural',
+    audioVoiceCodeMale: 'sk-SK-ViktoriaNeural',
     countryNameRaw: 'Slovensko',
     countryNameFr: 'Slovaquie',
     languageNameRaw: 'Slovenčina',
@@ -1194,7 +1194,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'sl-SI',
-    audioVoiceCode: 'sl-SI-PetraNeural',
+    audioVoiceCodeMale: 'sl-SI-PetraNeural',
     countryNameRaw: 'Slovenija',
     countryNameFr: 'Slovénie',
     languageNameRaw: 'Slovenščina',
@@ -1203,7 +1203,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'sw-KE',
-    audioVoiceCode: 'sw-KE-ZuriNeural',
+    audioVoiceCodeMale: 'sw-KE-ZuriNeural',
     countryNameRaw: 'Kenya',
     countryNameFr: 'Kenya',
     languageNameRaw: 'Swahili',
@@ -1212,7 +1212,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'fi-FI',
-    audioVoiceCode: 'fi-FI-NooraNeural',
+    audioVoiceCodeMale: 'fi-FI-NooraNeural',
     countryNameRaw: 'Suomi',
     countryNameFr: 'Finlande',
     languageNameRaw: 'Suomalainen',
@@ -1221,7 +1221,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'sv-SE',
-    audioVoiceCode: 'sv-SE-HilleviNeural',
+    audioVoiceCodeMale: 'sv-SE-HilleviNeural',
     countryNameRaw: 'Sverige',
     countryNameFr: 'Suède',
     languageNameRaw: 'Svenska',
@@ -1230,7 +1230,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'te-IN',
-    audioVoiceCode: 'te-IN-ShrutiNeural',
+    audioVoiceCodeMale: 'te-IN-ShrutiNeural',
     countryNameRaw: 'భారతదేశం',
     countryNameFr: 'Inde',
     languageNameRaw: 'తెలుగు',
@@ -1239,7 +1239,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'bg-BG',
-    audioVoiceCode: 'bg-BG-KalinaNeural',
+    audioVoiceCodeMale: 'bg-BG-KalinaNeural',
     countryNameRaw: 'България',
     countryNameFr: 'Bulgarie',
     languageNameRaw: 'Български',
@@ -1248,7 +1248,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'he-IL',
-    audioVoiceCode: 'he-IL-HilaNeural',
+    audioVoiceCodeMale: 'he-IL-HilaNeural',
     countryNameRaw: 'ישראל',
     countryNameFr: 'Israël',
     languageNameRaw: 'עברית',
@@ -1257,7 +1257,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'da-DK',
-    audioVoiceCode: 'da-DK-ChristelNeural',
+    audioVoiceCodeMale: 'da-DK-ChristelNeural',
     countryNameRaw: 'Danmark',
     countryNameFr: 'Danemark',
     languageNameRaw: 'Dansk',
@@ -1266,7 +1266,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ca-ES',
-    audioVoiceCode: 'ca-ES-AlbaNeural',
+    audioVoiceCodeMale: 'ca-ES-AlbaNeural',
     countryNameRaw: 'Espanya',
     countryNameFr: 'Espagne',
     languageNameRaw: 'Català',
@@ -1275,7 +1275,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'id-ID',
-    audioVoiceCode: 'id-ID-GadisNeural',
+    audioVoiceCodeMale: 'id-ID-GadisNeural',
     countryNameRaw: 'Indonesia',
     countryNameFr: 'Indonésie',
     languageNameRaw: 'Bahasa Indonesia',
@@ -1284,7 +1284,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ms-MY',
-    audioVoiceCode: 'ms-MY-YasminNeural',
+    audioVoiceCodeMale: 'ms-MY-YasminNeural',
     countryNameRaw: 'Malaysia',
     countryNameFr: 'Malaisie',
     languageNameRaw: 'Bahasa Melayu',
@@ -1293,7 +1293,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'cs-CZ',
-    audioVoiceCode: 'cs-CZ-VlastaNeural',
+    audioVoiceCodeMale: 'cs-CZ-VlastaNeural',
     countryNameRaw: 'Česká republika',
     countryNameFr: 'République Tchèque',
     languageNameRaw: 'Čeština',
@@ -1310,7 +1310,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'et-EE',
-    audioVoiceCode: 'et-EE-AnuNeural',
+    audioVoiceCodeMale: 'et-EE-AnuNeural',
     countryNameRaw: 'Eesti',
     countryNameFr: 'Estonie',
     languageNameRaw: 'Eestlane',
@@ -1319,7 +1319,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'bs-BA',
-    audioVoiceCode: 'bs-BA-VesnaNeural',
+    audioVoiceCodeMale: 'bs-BA-VesnaNeural',
     countryNameRaw: 'Bosna i Hercegovina',
     countryNameFr: 'Bosnie-Herzégovine',
     languageNameRaw: 'Bosanski',
@@ -1328,7 +1328,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'my-MM',
-    audioVoiceCode: 'my-MM-NilarNeural',
+    audioVoiceCodeMale: 'my-MM-NilarNeural',
     countryNameRaw: 'မြန်မာပြည်',
     countryNameFr: 'Birmanie',
     languageNameRaw: 'မြန်မာ',
@@ -1337,7 +1337,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'fil-PH',
-    audioVoiceCode: 'fil-PH-BlessicaNeural',
+    audioVoiceCodeMale: 'fil-PH-BlessicaNeural',
     countryNameRaw: 'Pilipinas',
     countryNameFr: 'Philippines',
     languageNameRaw: 'Tagalog',

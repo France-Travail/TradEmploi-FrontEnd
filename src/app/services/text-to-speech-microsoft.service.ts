@@ -27,9 +27,9 @@ export class TextToSpeechMicrosoftService extends TextToSpeechService {
       const synthesizer = new SpeechSynthesizer(speechConfig, null);
 
       const vacabulary = VOCABULARY.find(value => value.isoCode === language);
-      if (vacabulary && vacabulary.audioVoiceCode) {
+      if (vacabulary && vacabulary.audioVoiceCodeMale && vacabulary.audioVoiceCodeFemale) {
         const speed = '-10.00%';
-        const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${vacabulary.isoCode}"><voice name="${vacabulary.audioVoiceCode}"><prosody rate="${speed}">${text}</prosody></voice></speak>`;
+        const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${vacabulary.isoCode}"><voice name="${vacabulary.audioVoiceCodeMale && vacabulary.audioVoiceCodeFemale}"><prosody rate="${speed}">${text}</prosody></voice></speak>`;
 
         synthesizer.speakSsmlAsync(
           ssml,
