@@ -61,6 +61,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public interim = '';
   public recordMode = false;
   public speaking = false;
+  public isFemaleSpeaking = false;
   public canSend = false;
   public translationMode = TranslationMode.TEXT;
   public languageName: string;
@@ -335,6 +336,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       role: this.role,
       text,
       translationMode: this.translationMode,
+      isFemaleVoice: this.isFemaleSpeaking
     };
   }
 

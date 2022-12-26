@@ -1,35 +1,50 @@
 <div class="container">
-    <div class="field" *ngIf="!micro || !recordMode">
-      <div class="flag">
-        <ng-template [ngIf]="role !== 'DE'">
-          <img *ngIf="showPoleEmploiLogo" class="fi" src="../../../../../assets/images/pe/logo-pe.svg" alt="pole emploi" />
-          <span *ngIf="!showPoleEmploiLogo" class="fi fi-fr"></span>
-        </ng-template>
-        <ng-template [ngIf]="role === 'DE'">
-          <span *ngIf="flag !== 'xa'" class="fi fi-{{ flag }}"></span>
-          <img *ngIf="flag === 'xa'" class="fi" src="../../../../../assets/images/common/arab-flag.png" alt="flag" />
-        </ng-template>
-      </div>
-      <textarea id="msg-wrapper-advisor" [class]="this.settingsService.isMobile?'textForMobile':''" [placeholder]="interim" *ngIf="role == 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()" (keypress)="displaySendOnKeyPress()" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
-      <textarea id="msg-wrapper-guest" [class]="this.settingsService.isMobile?'textForMobile':''" [placeholder]="interim" *ngIf="role != 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()" [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
-      <div class="buttons">
-        <img class="delete" *ngIf="rawText" src="./assets/icons/icon-remove-blue.svg" alt="delete text" (click)="delete()" />
-      </div>
-      <span *ngIf="speaking" class="counter">{{seconds}}</span>
+  <div class="field" *ngIf="!micro || !recordMode">
+    <div class="flag">
+      <ng-template [ngIf]="role !== 'DE'">
+        <img *ngIf="showPoleEmploiLogo" class="fi" src="../../../../../assets/images/pe/logo-pe.svg" alt="pole emploi"/>
+        <span *ngIf="!showPoleEmploiLogo" class="fi fi-fr"></span>
+      </ng-template>
+      <ng-template [ngIf]="role === 'DE'">
+        <span *ngIf="flag !== 'xa'" class="fi fi-{{ flag }}"></span>
+        <img *ngIf="flag === 'xa'" class="fi" src="../../../../../assets/images/common/arab-flag.png" alt="flag"/>
+      </ng-template>
     </div>
-    <div class="actions record-container" *ngIf="!micro || !recordMode">
-        <ng-template [ngIf]="isIOS || voiceNotSupported">
-          <img src="./assets/icons/icon-send-white.svg" alt="send text"  (click)="send(false)"/>
-        </ng-template>
-        <ng-template [ngIf]="!isIOS && !voiceNotSupported">
-          <img *ngIf="canSend" src="./assets/icons/icon-send-white.svg" alt="send text" (click)="send(false)"/>
-            <button *ngIf="!canSend" [className]="speaking ? 'Rec':'notRec' "
-                holdable style="{{speaking ? 'background-image: url(\'./assets/icons/icon-micro-red.svg\');' : 'background-image: url(\'./assets/icons/icon-micro-white.svg\');'}}"
-                (holdTime)="onHold($event)"
-                (start)="onStart()"
-                (stop)="onStop()">
-            </button>
-        </ng-template>
+    <textarea id="msg-wrapper-advisor" [class]="this.settingsService.isMobile?'textForMobile':''"
+              [placeholder]="interim" *ngIf="role == 'AGENT'" [(ngModel)]="rawText"
+              (keydown.enter)="send(true); (false)" (blur)="displaySendOnBlur()" (click)="displaySendOnClick()"
+              (keypress)="displaySendOnKeyPress()"
+              [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
+    <textarea id="msg-wrapper-guest" [class]="this.settingsService.isMobile?'textForMobile':''" [placeholder]="interim"
+              *ngIf="role != 'AGENT'" [(ngModel)]="rawText" (keydown.enter)="send(true); (false)"
+              (blur)="displaySendOnBlur()" (click)="displaySendOnClick()"
+              [ngStyle]="{ 'text-align': flag == 'xa' ? 'end' : 'start' }"></textarea>
+    <div class="buttons">
+      <img class="delete" *ngIf="rawText" src="./assets/icons/icon-remove-blue.svg" alt="delete text"
+           (click)="delete()"/>
     </div>
-    <app-record class="record" *ngIf="recordMode" duration="50" [role]="role" [language]="languageOrigin" [flag]="flag" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
+    <span *ngIf="speaking" class="counter">{{seconds}}</span>
+  </div>
+  <div class="actions record-container" *ngIf="!micro || !recordMode">
+    <ng-template [ngIf]="isIOS || voiceNotSupported">
+      <img src="./assets/icons/icon-send-white.svg" alt="send text" (click)="send(false)"/>
+    </ng-template>
+    <ng-template [ngIf]="!isIOS && !voiceNotSupported">
+      <img *ngIf="canSend" src="./assets/icons/icon-send-white.svg" alt="send text" (click)="send(false)"/>
+      <button *ngIf="!canSend" [className]="speaking ? 'Rec':'notRec' "
+              holdable
+              style="{{speaking ? 'background-image: url(\'./assets/icons/icon-micro-red.svg\');' : 'background-image: url(\'./assets/icons/icon-micro-white.svg\');'}}"
+              (holdTime)="onHold($event)"
+              (start)="onStart()"
+              (stop)="onStop()">
+      </button>
+    </ng-template>
+  </div>
+
+  <mat-slide-toggle class="choice-voice-gender"
+                    checked="{{ isFemaleSpeaking }}"
+                    [(ngModel)]="isFemaleSpeaking"
+                    color="primary">{{ isFemaleSpeaking ? 'Femme' : 'Homme' }}</mat-slide-toggle>
+  <app-record class="record" *ngIf="recordMode" duration="50" [role]="role" [language]="languageOrigin" [flag]="flag"
+              (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
 </div>
