@@ -1,16 +1,18 @@
 import { Gdpr } from './gdpr';
 
 export interface Vocabulary {
-  isoCode: string;
-  countryNameRaw?: any;
-  countryNameFr?: string;
-  languageNameRaw?: string;
-  languageNameFr?: string;
-  sentences: Sentence;
-  navbarTabs?: NavbarTab;
   audioCode?: string;
-  audioVoiceCode?: string;
+  audioVoiceCodeMale?: string;
+  audioVoiceCodeFemale?: string;
+  countryNameFr?: string;
+  countryNameRaw?: any;
+  isoCode: string;
+  languageNameFr?: string;
+  languageNameRaw?: string;
+  navbarTabs?: NavbarTab;
+  sentences: Sentence;
 }
+
 export interface Sentence {
   applicationName: string;
   send: string;
