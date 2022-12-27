@@ -1,5 +1,5 @@
 import { NavbarService } from 'src/app/services/navbar.service';
-import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { VOCABULARY } from 'src/app/data/vocabulary';
@@ -89,7 +89,7 @@ export class TradtondocComponent implements OnDestroy {
               this.showAudioControls = true;
             })
             .catch((err) => {
-              this.toastService.showToast('L\'audio n\'a pas pu être generé.', 'toast-error');
+              this.toastService.showToast("L'audio n'a pas pu être generé.", 'toast-error');
               console.log(err);
             });
         }
@@ -125,7 +125,7 @@ export class TradtondocComponent implements OnDestroy {
       disableClose: false,
       data: {
         tradtondoc: true,
-        nbTranslatedCharacters: this.nbTranslatedCharacters
+        nbTranslatedCharacters: this.nbTranslatedCharacters,
       },
     });
   }
@@ -134,13 +134,14 @@ export class TradtondocComponent implements OnDestroy {
     this.croppedImage = $event.base64;
     this.translatedText = null;
   }
-  onFileDropped($event) {
+  async onFileDropped($event) {
     const file = $event;
     this.isConform = false;
     this.isPdf = false;
     this.prepareFile(file);
     this.applyControls(file);
     this.imageChangedEvent = { target: { files: [file] } };
+    await this.scrollDown();
   }
 
   fileBrowseHandler($event) {
@@ -164,7 +165,7 @@ export class TradtondocComponent implements OnDestroy {
   checkTypeFile(type) {
     const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
     if (!allowedTypes.includes(type)) {
-      this.toastService.showToast('Fichier non conforme. Ce type de fichier n\'est pas pris en charge', 'toast-warning');
+      this.toastService.showToast("Fichier non conforme. Ce type de fichier n'est pas pris en charge", 'toast-warning');
       return false;
     }
     return true;
@@ -185,7 +186,7 @@ export class TradtondocComponent implements OnDestroy {
     reader.onloadend = () => {
       const numberPagesDoc = (reader.result as string).match(/\/Type[\s]*\/Page[^s]/g).length;
       if (numberPagesDoc > 1) {
-        this.toastService.showToast('Fichier non conforme. Le PDF fourni contient plus d\'une page ', 'toast-warning');
+        this.toastService.showToast("Fichier non conforme. Le PDF fourni contient plus d'une page ", 'toast-warning');
         this.isConform = false;
       } else {
         this.isConform = true;
@@ -211,5 +212,12 @@ export class TradtondocComponent implements OnDestroy {
       this.file = e.target.result;
     };
     reader.readAsDataURL(this.file);
+  }
+
+  private async scrollDown() {
+    setTimeout(() => {
+      const element = document.getElementsByClassName('presentation')[0];
+      element.scrollIntoView({ behavior: 'smooth' });
+    }, 200);
   }
 }

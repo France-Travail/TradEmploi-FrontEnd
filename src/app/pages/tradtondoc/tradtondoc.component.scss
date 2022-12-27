@@ -33,7 +33,8 @@
     box-shadow: 0 0 3px #aaaaaa;
     color: #333333;
     border-radius: 5px;
-    overflow: auto;
+    overflow: scroll;
+    overflow-x: hidden;
     margin-bottom: 16px;
     .fileover {
       background-color: $white-smoke;
@@ -63,22 +64,7 @@
     .presentation {
       display: flex;
       justify-content: space-between;
-      .title {
-        display: flex;
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 10px;
-        align-items: center;
-        .fi {
-          width: 50px;
-          height: 36px;
-          border: 1px solid #bdbdbd;
-          box-sizing: border-box;
-          border-radius: 5px;
-          background-size: cover;
-          margin-right: 10px;
-        }
-      }
+
       .vizualisation {
         flex-direction: column;
         width: 50%;
@@ -124,6 +110,21 @@
     .listening-btn {
       display: flex;
       align-items: center;
+    }
+  }
+  .title {
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    align-items: center;
+    .fi {
+      width: 50px;
+      height: 36px;
+      border: 1px solid #bdbdbd;
+      box-sizing: border-box;
+      border-radius: 5px;
+      background-size: cover;
+      margin-right: 10px;
     }
   }
 }
