@@ -37,6 +37,8 @@ export class ChatComponent implements OnInit {
     const sentMessage: Message = this.messagesWrapped[index].message;
     if (sentMessage && sentMessage.audioHtml) {
       sentMessage.audioHtml.play();
+    }else{
+      this.listenToMessage(index);
     }
   }
 
