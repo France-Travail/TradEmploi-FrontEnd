@@ -7,8 +7,7 @@ export abstract class TextToSpeechService {
 
   public play = async (sentence: string, audioCode: string, playAuto: boolean = true, isFemaleSpeech: boolean = false) => {
     if (!this.isPlaying) {
-      // if (this.sentence !== sentence || this.isFemaleSpeech !== isFemaleSpeech) {
-        if (this.sentence !== sentence ) {
+      if (this.sentence !== sentence || this.isFemaleSpeech !== isFemaleSpeech) {
           this.sentence = sentence;
           this.isFemaleSpeech = isFemaleSpeech;
           await this.getSpeech(sentence, audioCode, isFemaleSpeech).then(

@@ -684,7 +684,7 @@ export const VOCABULARY: Vocabulary[] = [
   {
     isoCode: 'en-AU',
     audioCode: 'en-AU',
-    audioVoiceCodeMale: 'en-AU-DarrenNeural',
+    audioVoiceCodeMale: 'en-AU-WilliamNeural',
     audioVoiceCodeFemale: 'en-AU-NatashaNeural',
     countryNameRaw: 'Australia',
     countryNameFr: 'Australie',
