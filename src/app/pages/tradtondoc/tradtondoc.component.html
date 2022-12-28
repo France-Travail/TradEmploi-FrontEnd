@@ -1,15 +1,9 @@
 <div class="wrapper">
   <div class="header">
-    <div class="flags">
-      <span class="fi fi-fr"></span>
-      <img class="arrow-icon" src="./assets/icons/icon-arrow-right.svg" />
-      <span *ngIf="this.targetCountry !== 'xa'" class="fi fi-{{ this.targetCountry }}"></span>
-      <img *ngIf="this.targetCountry === 'xa'" class="fi" src="../../../../../assets/images/common/arab-flag.png" alt="flag" />
-    </div>
     <button class="end-btn" (click)="evaluate()">TERMINER LA TRADUCTION</button>
   </div>
   <div class="container">
-    <p class="title">1 - Déposer le fichier</p>
+    <span class="title">1 - Déposer le fichier</span>
     <form class="tradtondoc" [formGroup]="ocrForm" (ngSubmit)="onSubmit()">
       <div class="drop-container" (fileDropped)="onFileDropped($event)" DragAndDropDirective>
         <input type="file" #fileDropRef id="fileDropRef" accept="image/png, image/jpeg, image/jpg ,application/pdf" (change)="fileBrowseHandler($event)" />
@@ -22,24 +16,24 @@
         </div>
         <div class="text-controls">
           <span>Formats acceptés : PDF (1 seule page), JPG, JPEG, PNG</span>
-          <p>Taille maximum : 10 Mo</p>
-          <p>Nombre de caractères max. : 10 000 caractères</p>
+          <span>Taille maximum : 10 Mo</span>
+          <span>Nombre de caractères max. : 10 000 caractères</span>
         </div>
       </div>
       <div class="presentation">
         <div class="vizualisation" *ngIf="!this.isPdf && this.isConform">
           <p class="title"><span class="fi fi-fr"></span> 2 - Sélectionner la zone à traduire</p>
-
-          <image-cropper
-            [imageChangedEvent]="imageChangedEvent"
-            [aspectRatio]="1"
-            [resizeToWidth]="512"
-            [maintainAspectRatio]="false"
-            format="png"
-            (imageCropped)="imageCropped($event)"
-          ></image-cropper>
-
-          <button class="end-btn submit-btn" type="submit" *ngIf="isConform">Lancer la détection du texte et la traduction</button>
+          <div class="cropper">
+            <image-cropper
+              [imageChangedEvent]="imageChangedEvent"
+              [aspectRatio]="1"
+              [resizeToWidth]="512"
+              [maintainAspectRatio]="false"
+              format="png"
+              (imageCropped)="imageCropped($event)"
+            ></image-cropper>
+          </div>
+          <button class="end-btn submit-btn" type="submit" *ngIf="isConform">Lancer la traduction</button>
         </div>
         <div class="translation" *ngIf="translatedText">
           <p class="title">
@@ -48,10 +42,8 @@
             3 - Lire le texte traduit
           </p>
           <div class="text-translated-area">
-            <div class="text-container">
-              <div *ngIf="translatedText && translatedText.length > 0">
-                {{ translatedText }}
-              </div>
+            <div *ngIf="translatedText && translatedText.length > 0" class="text-container">
+              {{ translatedText }}
             </div>
           </div>
           <div class="audio-controls">

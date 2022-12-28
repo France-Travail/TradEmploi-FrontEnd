@@ -141,7 +141,6 @@ export class TradtondocComponent implements OnDestroy {
     this.prepareFile(file);
     this.applyControls(file);
     this.imageChangedEvent = { target: { files: [file] } };
-    await this.scrollDown();
   }
 
   fileBrowseHandler($event) {
@@ -212,12 +211,5 @@ export class TradtondocComponent implements OnDestroy {
       this.file = e.target.result;
     };
     reader.readAsDataURL(this.file);
-  }
-
-  private async scrollDown() {
-    setTimeout(() => {
-      const element = document.getElementsByClassName('presentation')[0];
-      element.scrollIntoView({ behavior: 'smooth' });
-    }, 200);
   }
 }
