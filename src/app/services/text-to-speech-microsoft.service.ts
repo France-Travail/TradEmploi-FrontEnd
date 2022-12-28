@@ -26,11 +26,11 @@ export class TextToSpeechMicrosoftService extends TextToSpeechService {
       speechConfig.speechSynthesisLanguage = language;
       const synthesizer = new SpeechSynthesizer(speechConfig, null);
 
-      const vacabulary = VOCABULARY.find(value => value.isoCode === language);
-      if (vacabulary && vacabulary.audioVoiceCodeFemale && vacabulary.audioVoiceCodeMale) {
-        const audioVoiceCode = isFemaleSpeech ? vacabulary.audioVoiceCodeFemale : vacabulary.audioVoiceCodeMale;
+      const vocabulary = VOCABULARY.find(value => value.isoCode === language);
+      if (vocabulary && vocabulary.audioVoiceCodeFemale && vocabulary.audioVoiceCodeMale) {
+        const audioVoiceCode = isFemaleSpeech ? vocabulary.audioVoiceCodeFemale : vocabulary.audioVoiceCodeMale;
         const speed = '-10.00%';
-        const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${vacabulary.isoCode}"><voice name="${audioVoiceCode}"><prosody rate="${speed}">${text}</prosody></voice></speak>`;
+        const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${vocabulary.isoCode}"><voice name="${audioVoiceCode}"><prosody rate="${speed}">${text}</prosody></voice></speak>`;
 
         synthesizer.speakSsmlAsync(
           ssml,
