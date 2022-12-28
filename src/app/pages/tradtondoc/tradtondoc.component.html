@@ -3,7 +3,7 @@
     <button class="end-btn" (click)="evaluate()">TERMINER LA TRADUCTION</button>
   </div>
   <div class="container">
-    <p class="title">1 - Déposer le fichier</p>
+    <span class="title">1 - Déposer le fichier</span>
     <form class="tradtondoc" [formGroup]="ocrForm" (ngSubmit)="onSubmit()">
       <div class="drop-container" (fileDropped)="onFileDropped($event)" DragAndDropDirective>
         <input type="file" #fileDropRef id="fileDropRef" accept="image/png, image/jpeg, image/jpg ,application/pdf" (change)="fileBrowseHandler($event)" />
