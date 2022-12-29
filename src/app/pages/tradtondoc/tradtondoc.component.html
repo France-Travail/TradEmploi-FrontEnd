@@ -21,15 +21,25 @@
         </div>
       </div>
       <div class="presentation">
-        <div class="vizualisation" *ngIf="!this.isPdf && this.isConform">
+        <div class="vizualisation" *ngIf="this.isConform">
           <p class="title"><span class="fi fi-fr"></span> 2 - Sélectionner la zone à traduire</p>
           <div class="cropper">
             <image-cropper
+              *ngIf="!this.isPdf"
               [imageChangedEvent]="imageChangedEvent"
               [aspectRatio]="1"
               [resizeToWidth]="512"
               [maintainAspectRatio]="false"
               format="png"
+              (imageCropped)="imageCropped($event)"
+            ></image-cropper>
+            <image-cropper
+              *ngIf="this.isPdf"
+              [aspectRatio]="1"
+              [resizeToWidth]="512"
+              [maintainAspectRatio]="false"
+              format="png"
+              [imageBase64]="imageBase64String"
               (imageCropped)="imageCropped($event)"
             ></image-cropper>
           </div>
