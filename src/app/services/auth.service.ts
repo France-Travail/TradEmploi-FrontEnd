@@ -1,4 +1,4 @@
-import {Role} from './../models/role';
+import {Role} from '../models/role';
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {FbAuthSingleton} from '../models/token/FbAuthSingleton';
