@@ -12,7 +12,6 @@ import { LoaderComponent } from '../settings/loader/loader.component';
 import { RateDialogComponent } from '../translation/dialogs/rate-dialog/rate-dialog.component';
 import { SettingsService } from './../../services/settings.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { img } from './test';
 
 @Component({
   selector: 'app-tradtondoc',
@@ -39,7 +38,7 @@ export class TradtondocComponent implements OnDestroy {
   private isAudioSupported: boolean;
   targetCountry: string;
   nbTranslatedCharacters: number = 0;
-  imageBase64String: string = img;
+  imageBase64String: string;
 
   constructor(
     private readonly dialog: MatDialog,
