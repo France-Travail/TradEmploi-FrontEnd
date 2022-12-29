@@ -1,3 +1,4 @@
+import { PdfConvertService } from './../../services/pdf-convert.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +12,7 @@ import { LoaderComponent } from '../settings/loader/loader.component';
 import { RateDialogComponent } from '../translation/dialogs/rate-dialog/rate-dialog.component';
 import { SettingsService } from './../../services/settings.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { img } from './test';
 
 @Component({
   selector: 'app-tradtondoc',
@@ -37,6 +39,7 @@ export class TradtondocComponent implements OnDestroy {
   private isAudioSupported: boolean;
   targetCountry: string;
   nbTranslatedCharacters: number = 0;
+  imageBase64String: string = img;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -45,7 +48,8 @@ export class TradtondocComponent implements OnDestroy {
     private readonly tradTonDocService: TradTonDocService,
     private readonly settingsService: SettingsService,
     private readonly toastService: ToastService,
-    private readonly navService: NavbarService
+    private readonly navService: NavbarService,
+    private readonly pdfConvertService: PdfConvertService
   ) {
     this.navService.handleTabsTradTonDoc();
     this.settingsService.user.subscribe((user) => {
@@ -67,12 +71,12 @@ export class TradtondocComponent implements OnDestroy {
   async onSubmit() {
     if (this.file && this.fileName) {
       const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
+
       const result = await this.tradTonDocService
         .detectText(this.fileName, this.croppedImage ? this.croppedImage : this.file)
         .catch((err) => {
           loaderDialog.close();
           this.toastService.showToast('Une erreur est survenue, veuillez réessayer plus tard', 'toast-error');
-          console.log(err);
         })
         .finally(() => loaderDialog.close());
       this.croppedImage = null;
@@ -141,6 +145,7 @@ export class TradtondocComponent implements OnDestroy {
     this.prepareFile(file);
     this.applyControls(file);
     this.imageChangedEvent = { target: { files: [file] } };
+    this.imageBase64String = '';
   }
 
   fileBrowseHandler($event) {
@@ -149,14 +154,29 @@ export class TradtondocComponent implements OnDestroy {
     this.applyControls(files);
     this.imageChangedEvent = $event;
   }
-
-  applyControls(file) {
+  public convertPdf() {
+    this.isPdf = true;
+    this.fileName = this.fileName.replace('.pdf', '.png');
+    const reader = new FileReader();
+    reader.readAsDataURL(this.file);
+    reader.onloadend = async () => {
+      await this.pdfConvertService
+        .convert(reader.result.toString(), this.fileName)
+        .then((res) => {
+          this.imageBase64String = 'data:image/png;base64,' + res.data;
+        })
+        .catch((err) => {
+          console.log('error', err.message);
+        });
+    };
+  }
+  async applyControls(file) {
     if (file.type === 'application/pdf') {
-      this.isPdf = true;
+      this.fileName = file.name;
+      this.convertPdf();
       this.isConform = this.checkFileSize(file.size) && this.checkTypeFile(file.type);
       this.assertOnePage();
     } else {
-      this.isPdf = false;
       this.isConform = this.checkFileSize(file.size) && this.checkTypeFile(file.type);
     }
   }
