@@ -1,19 +1,13 @@
-import { JwtGwSingleton } from './../models/token/JwtGwSingleton';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import * as moment from 'moment';
-import axios, { AxiosResponse } from 'axios';
-import { JwtGcpSingleton } from '../models/token/JwtGcpSingleton';
+import axios from 'axios';
 import { TokenResponse } from '../models/token/tokensResponse';
-import { Role } from '../models/role';
-import { SettingsService } from './settings.service';
-import { TokenFbService } from './token-fb.service';
-import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
 import { TokenBrokerService } from './token-broker.service';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class PdfConvertService {
   constructor(private readonly tbs: TokenBrokerService) {}
 

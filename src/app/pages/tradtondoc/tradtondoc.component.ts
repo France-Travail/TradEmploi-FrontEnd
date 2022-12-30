@@ -1,6 +1,6 @@
-import { PdfConvertService } from './../../services/pdf-convert.service';
+import { PdfConvertService } from '../../services/pdf-convert.service';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { VOCABULARY } from 'src/app/data/vocabulary';
@@ -10,7 +10,7 @@ import { TradTonDocService } from '../../services/trad-ton-doc.service';
 import { TranslateService } from '../../services/translate.service';
 import { LoaderComponent } from '../settings/loader/loader.component';
 import { RateDialogComponent } from '../translation/dialogs/rate-dialog/rate-dialog.component';
-import { SettingsService } from './../../services/settings.service';
+import { SettingsService } from '../../services/settings.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
@@ -70,12 +70,12 @@ export class TradtondocComponent implements OnDestroy {
   async onSubmit() {
     if (this.file && this.fileName) {
       const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
-
       const result = await this.tradTonDocService
-        .detectText(this.fileName, this.croppedImage ? this.croppedImage : this.file)
+        .detectText(this.fileName.replace('.pdf', '.png'), this.croppedImage ? this.croppedImage : this.file)
         .catch((err) => {
           loaderDialog.close();
           this.toastService.showToast('Une erreur est survenue, veuillez réessayer plus tard', 'toast-error');
+          console.log(err);
         })
         .finally(() => loaderDialog.close());
       this.croppedImage = null;
@@ -92,7 +92,7 @@ export class TradtondocComponent implements OnDestroy {
               this.showAudioControls = true;
             })
             .catch((err) => {
-              this.toastService.showToast("L'audio n'a pas pu être generé.", 'toast-error');
+              this.toastService.showToast('L\'audio n\'a pas pu être generé.', 'toast-error');
               console.log(err);
             });
         }
@@ -137,6 +137,7 @@ export class TradtondocComponent implements OnDestroy {
     this.croppedImage = $event.base64;
     this.translatedText = null;
   }
+
   async onFileDropped($event) {
     const file = $event;
     this.isConform = false;
@@ -149,27 +150,35 @@ export class TradtondocComponent implements OnDestroy {
 
   fileBrowseHandler($event) {
     const files = $event.target.files[0];
+    this.isConform = false;
+    this.isPdf = false;
     this.prepareFile(files);
     this.applyControls(files);
     this.imageChangedEvent = $event;
+    this.imageBase64String = '';
   }
+
   public convertPdf() {
     this.isPdf = true;
-    this.fileName = this.fileName.replace('.pdf', '.png');
     const reader = new FileReader();
     reader.readAsDataURL(this.file);
     reader.onloadend = async () => {
+      const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
       await this.pdfConvertService
         .convert(reader.result.toString(), this.fileName)
         .then((res) => {
           this.imageBase64String = 'data:image/png;base64,' + res.data;
         })
         .catch((err) => {
+          loaderDialog.close();
+          this.toastService.showToast('Une erreur est survenue, veuillez réessayer plus tard', 'toast-error');
           console.log('error', err.message);
-        });
+        })
+        .finally(() => loaderDialog.close());
     };
   }
-  async applyControls(file) {
+
+  applyControls(file) {
     if (file.type === 'application/pdf') {
       this.fileName = file.name;
       this.convertPdf();
@@ -178,15 +187,6 @@ export class TradtondocComponent implements OnDestroy {
     } else {
       this.isConform = this.checkFileSize(file.size) && this.checkTypeFile(file.type);
     }
-  }
-
-  checkTypeFile(type) {
-    const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
-    if (!allowedTypes.includes(type)) {
-      this.toastService.showToast("Fichier non conforme. Ce type de fichier n'est pas pris en charge", 'toast-warning');
-      return false;
-    }
-    return true;
   }
 
   checkFileSize(size) {
@@ -198,13 +198,22 @@ export class TradtondocComponent implements OnDestroy {
     return true;
   }
 
+  checkTypeFile(type) {
+    const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
+    if (!allowedTypes.includes(type)) {
+      this.toastService.showToast('Fichier non conforme. Ce type de fichier n\'est pas pris en charge', 'toast-warning');
+      return false;
+    }
+    return true;
+  }
+
   assertOnePage() {
     const reader = new FileReader();
     reader.readAsBinaryString(this.file);
     reader.onloadend = () => {
       const numberPagesDoc = (reader.result as string).match(/\/Type[\s]*\/Page[^s]/g).length;
       if (numberPagesDoc > 1) {
-        this.toastService.showToast("Fichier non conforme. Le PDF fourni contient plus d'une page ", 'toast-warning');
+        this.toastService.showToast('Fichier non conforme. Le PDF fourni contient plus d\'une page ', 'toast-warning');
         this.isConform = false;
       } else {
         this.isConform = true;
