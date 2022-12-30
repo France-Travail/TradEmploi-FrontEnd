@@ -20,6 +20,7 @@
     color: #333333;
     border-radius: 5px;
     margin-bottom: 16px;
+    overflow-y: auto;
     .fileover {
       background-color: $white-smoke;
     }
@@ -60,6 +61,11 @@
           margin: 12px 0;
           max-height: 430px;
           overflow-y: auto;
+        }
+         @media screen and (orientation: portrait) {
+          .cropper {
+            max-height: 530px;
+          }
         }
         .text-area {
           display: flex;
