@@ -78,7 +78,6 @@ export class TradtondocComponent implements OnDestroy {
           this.toastService.showToast('Une erreur est survenue, veuillez réessayer plus tard', 'toast-error');
         })
         .finally(() => loaderDialog.close());
-      this.croppedImage = null;
       this.text = result ? result.text : '';
       this.nbTranslatedCharacters += result ? result.numberCharactersInText : 0;
       this.isConform = this.checkNumberTranslatedCharacters(this.nbTranslatedCharacters);
@@ -92,7 +91,7 @@ export class TradtondocComponent implements OnDestroy {
               this.showAudioControls = true;
             })
             .catch((err) => {
-              this.toastService.showToast("L'audio n'a pas pu être generé.", 'toast-error');
+              this.toastService.showToast('L\'audio n\'a pas pu être generé.', 'toast-error');
               console.log(err);
             });
         }
@@ -183,7 +182,7 @@ export class TradtondocComponent implements OnDestroy {
   checkTypeFile(type) {
     const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
     if (!allowedTypes.includes(type)) {
-      this.toastService.showToast("Fichier non conforme. Ce type de fichier n'est pas pris en charge", 'toast-warning');
+      this.toastService.showToast('Fichier non conforme. Ce type de fichier n\'est pas pris en charge', 'toast-warning');
       return false;
     }
     return true;
@@ -204,7 +203,7 @@ export class TradtondocComponent implements OnDestroy {
     reader.onloadend = () => {
       const numberPagesDoc = (reader.result as string).match(/\/Type[\s]*\/Page[^s]/g).length;
       if (numberPagesDoc > 1) {
-        this.toastService.showToast("Fichier non conforme. Le PDF fourni contient plus d'une page ", 'toast-warning');
+        this.toastService.showToast('Fichier non conforme. Le PDF fourni contient plus d\'une page ', 'toast-warning');
         this.isConform = false;
       } else {
         this.isConform = true;
