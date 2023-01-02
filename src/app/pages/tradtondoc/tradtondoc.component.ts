@@ -78,7 +78,6 @@ export class TradtondocComponent implements OnDestroy {
           console.log(err);
         })
         .finally(() => loaderDialog.close());
-      this.croppedImage = null;
       this.text = result ? result.text : '';
       this.nbTranslatedCharacters += result ? result.numberCharactersInText : 0;
       this.isConform = this.checkNumberTranslatedCharacters(this.nbTranslatedCharacters);
@@ -158,6 +157,28 @@ export class TradtondocComponent implements OnDestroy {
     this.imageBase64String = '';
   }
 
+  prepareFile(file: any) {
+    this.file = file;
+    this.showAudioControls = false;
+    this.translatedText = null;
+    this.fileName = this.file.name;
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.file = e.target.result;
+    };
+    reader.readAsDataURL(this.file);
+  }
+
+  applyControls(file) {
+    if (file.type === 'application/pdf') {
+      this.convertPdf();
+      this.isConform = this.checkFileSize(file.size) && this.checkTypeFile(file.type);
+      this.assertOnePage();
+    } else {
+      this.isConform = this.checkFileSize(file.size) && this.checkTypeFile(file.type);
+    }
+  }
+
   public convertPdf() {
     this.isPdf = true;
     const reader = new FileReader();
@@ -176,17 +197,6 @@ export class TradtondocComponent implements OnDestroy {
         })
         .finally(() => loaderDialog.close());
     };
-  }
-
-  applyControls(file) {
-    if (file.type === 'application/pdf') {
-      this.fileName = file.name;
-      this.convertPdf();
-      this.isConform = this.checkFileSize(file.size) && this.checkTypeFile(file.type);
-      this.assertOnePage();
-    } else {
-      this.isConform = this.checkFileSize(file.size) && this.checkTypeFile(file.type);
-    }
   }
 
   checkFileSize(size) {
@@ -227,17 +237,5 @@ export class TradtondocComponent implements OnDestroy {
       return false;
     }
     return true;
-  }
-
-  prepareFile(file: any) {
-    this.file = file;
-    this.showAudioControls = false;
-    this.translatedText = null;
-    this.fileName = this.file.name;
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.file = e.target.result;
-    };
-    reader.readAsDataURL(this.file);
   }
 }
