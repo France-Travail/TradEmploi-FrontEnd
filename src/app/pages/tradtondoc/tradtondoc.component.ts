@@ -191,6 +191,7 @@ export class TradtondocComponent implements OnDestroy {
           this.imageBase64String = 'data:image/png;base64,' + res.data;
         })
         .catch((err) => {
+          this.isConform = false;
           loaderDialog.close();
           this.toastService.showToast('Une erreur est survenue, veuillez réessayer plus tard', 'toast-error');
           console.log('error', err.message);
