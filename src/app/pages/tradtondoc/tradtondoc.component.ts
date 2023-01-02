@@ -70,6 +70,7 @@ export class TradtondocComponent implements OnDestroy {
   async onSubmit() {
     if (this.file && this.fileName) {
       const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
+
       const result = await this.tradTonDocService
         .detectText(this.fileName.replace('.pdf', '.png'), this.croppedImage ? this.croppedImage : this.file)
         .catch((err) => {
@@ -198,6 +199,25 @@ export class TradtondocComponent implements OnDestroy {
         })
         .finally(() => loaderDialog.close());
     };
+  }
+  async applyControls(file) {
+    if (file.type === 'application/pdf') {
+      this.fileName = file.name;
+      this.convertPdf();
+      this.isConform = this.checkFileSize(file.size) && this.checkTypeFile(file.type);
+      this.assertOnePage();
+    } else {
+      this.isConform = this.checkFileSize(file.size) && this.checkTypeFile(file.type);
+    }
+  }
+
+  checkTypeFile(type) {
+    const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
+    if (!allowedTypes.includes(type)) {
+      this.toastService.showToast("Fichier non conforme. Ce type de fichier n'est pas pris en charge", 'toast-warning');
+      return false;
+    }
+    return true;
   }
 
   checkFileSize(size) {
