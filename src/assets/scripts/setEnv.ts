@@ -11,6 +11,7 @@ function writeFileUsingFS(targetPath, fileContent) {
       console.log(err);
     }
     if (fileContent !== '') {
+      console.log(`fileContent =  ${fileContent}`);
       console.log(`wrote variables to ${targetPath}`);
     }
   });
