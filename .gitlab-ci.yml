@@ -1,7 +1,7 @@
-image: node:14.18.0-alpine
+image: node:12.18-stretch-slim
 
 before_script:
-  - npm i -g firebase-tools @angular/cli@10.1.3
+  - npm i -g firebase-tools@10.6.0 @angular/cli@10.1.3
 
 variables:
   ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE_PROD
