@@ -47,11 +47,4 @@ export class NavbarService {
     this.modalityTab = true;
     this.helpTab = true;
   }
-
-  public handleTabsTradTonDoc() {
-    this.choiceTab = true;
-    this.tradDocTab = false;
-    this.modalityTab = true;
-    this.helpTab = true;
-  }
 }

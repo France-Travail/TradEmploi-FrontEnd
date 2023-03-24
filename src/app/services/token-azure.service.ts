@@ -6,9 +6,6 @@ import {environment} from '../../environments/environment';
   providedIn: 'root',
 })
 export class TokenAzureService {
-  constructor() {
-  }
-
   private tokenKey = 'TOKEN_AZURE';
   private delayToken = 540000; // 9 minutes
 

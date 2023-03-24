@@ -1,4 +1,4 @@
-import { Vocabulary } from '../models/vocabulary';
+import {Vocabulary} from '../models/vocabulary';
 import {
   AFRIKAANS,
   ALBANIAN,
@@ -19,7 +19,6 @@ import {
   DANISH,
   DARI,
   ENGLISH,
-  ENGLISH_DEFAULT,
   ESTONIAN,
   FINLAND,
   FRENCH,
@@ -80,7 +79,7 @@ import {
   VIETNAMESE,
   ZOULOU,
 } from './sentence';
-import { environment } from '../../environments/environment';
+import {environment} from '../../environments/environment';
 
 export const VOCABULARY_DEFAULT: Vocabulary = {
   isoCode: 'default',

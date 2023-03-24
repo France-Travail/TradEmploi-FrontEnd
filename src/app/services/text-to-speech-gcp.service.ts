@@ -62,11 +62,7 @@ export class TextToSpeechGcpService extends TextToSpeechService {
     if (voiceSelected.length >= 1) {
       const voice: Voice = isFemaleSpeech ? voiceSelected.find((v) => v.ssmlGender === 'FEMALE')
         : voiceSelected.find((v) => v.ssmlGender === 'MALE');
-      data.voice.name = voice === undefined ? isFemaleSpeech ?
-          voiceSelected.find((v) => v.ssmlGender === 'MALE').name :
-          voiceSelected.find((v) => v.ssmlGender === 'FEMALE').name
-
-        : voice.name;
+      data.voice.name = voice === undefined ? this.getVoice(isFemaleSpeech, voiceSelected) : voice.name;
       return axios({
         method: 'post',
         headers: {Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8'},
@@ -82,5 +78,11 @@ export class TextToSpeechGcpService extends TextToSpeechService {
           throw new Error(error);
         });
     }
+  }
+
+  private getVoice(isFemaleSpeech: boolean, voiceSelected: Voice[]) {
+    return isFemaleSpeech ?
+      voiceSelected.find((v) => v.ssmlGender === 'MALE').name :
+      voiceSelected.find((v) => v.ssmlGender === 'FEMALE').name;
   }
 }

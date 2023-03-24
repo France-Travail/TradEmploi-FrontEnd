@@ -1,14 +1,13 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { LogoutComponent } from '../../logout/logout.component';
-import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
-import { GdprComponent } from '../../../../pages/gdpr/gdpr.component';
-import { SettingsService } from '../../../../services/settings.service';
-import { NavbarService } from '../../../../services/navbar.service';
-import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
-import { Role } from '../../../../models/role';
-import { RateDialogComponent } from '../../../../pages/translation/dialogs/rate-dialog/rate-dialog.component';
-import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
+import {Component, EventEmitter, Output} from '@angular/core';
+import {MatDialog} from '@angular/material';
+import {LogoutComponent} from '../../logout/logout.component';
+import {ShareComponent} from '../../../../pages/translation/dialogs/share/share.component';
+import {GdprComponent} from '../../../../pages/gdpr/gdpr.component';
+import {SettingsService} from '../../../../services/settings.service';
+import {NavbarService} from '../../../../services/navbar.service';
+import {VOCABULARY_DEFAULT} from '../../../../data/vocabulary';
+import {Role} from '../../../../models/role';
+import {OnboardingComponent} from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 
 @Component({
   selector: 'app-sidenav',

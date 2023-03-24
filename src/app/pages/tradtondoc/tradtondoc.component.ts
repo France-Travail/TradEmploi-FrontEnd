@@ -50,7 +50,7 @@ export class TradtondocComponent implements OnDestroy {
     private readonly navService: NavbarService,
     private readonly pdfConvertService: PdfConvertService
   ) {
-    this.navService.handleTabsTradTonDoc();
+    this.navService.handleTabsSettings();
     this.settingsService.user.subscribe((user) => {
       if (user && user.language) {
         this.targetLanguage = user.language.written;
