@@ -5,6 +5,7 @@ import {
   AMHARIC,
   ARAB,
   ARMENIAN,
+  AZERBAIDJANAIS,
   BASQUE,
   BENGALI,
   BENGALI_INDIA,
@@ -16,7 +17,6 @@ import {
   CROATIAN,
   CZECH,
   DANISH,
-  DARI,
   ENGLISH,
   ENGLISH_DEFAULT,
   ESTONIAN,
@@ -57,6 +57,7 @@ import {
   PERSAN,
   POLAND,
   PORTUGUESE,
+  PACHTO,
   ROMANIAN,
   RUSSIA,
   SERBIAN,
@@ -69,7 +70,7 @@ import {
   TAGALOG,
   TAMOUL,
   TAMOUL_INDIA,
-  TAMOUL_NO_VOICE,
+  TAMOUL_MALAISIA,
   TELUGU,
   THAILAND,
   TURC,
@@ -98,6 +99,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'sq-AL',
+    audioVoiceCode:"sq-AL-IlirNeural",
     countryNameRaw: 'Shqiperia',
     countryNameFr: 'Albanie',
     languageNameRaw: 'Shqiptare',
@@ -115,6 +117,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'hy-AM',
+    audioVoiceCode:"hy-AM-HaykNeural",
     countryNameRaw: 'Հայաստան',
     countryNameFr: 'Arménie',
     languageNameRaw: 'Հայ',
@@ -123,14 +126,16 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'az-AZ',
+    audioVoiceCode: 'az-AZ-BabekNeural',
     countryNameRaw: 'Azərbaycan',
     countryNameFr: 'Azerbaïjan',
     languageNameRaw: 'Azərbaycan',
     languageNameFr: 'Azerbaïdjan',
-    sentences: ENGLISH_DEFAULT,
+    sentences: AZERBAIDJANAIS,
   },
   {
     isoCode: 'eu-ES',
+    audioVoiceCode : environment.microsoftSpeechConfig.textToSpeechEnabled ? 'eu-ES-AnderNeural' : 'eu-ES-Standard-A',
     countryNameRaw: 'Espainia',
     countryNameFr: 'Espagne',
     languageNameFr: 'Basque',
@@ -206,6 +211,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ka-GE',
+    audioVoiceCode:'ka-GE-EkaNeural',
     countryNameRaw: 'საქართველო',
     countryNameFr: 'Géorgie',
     languageNameRaw: 'ქართული',
@@ -286,6 +292,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'mn-MN',
+    audioVoiceCode: 'mn-MN-BataaNeural',
     countryNameRaw: 'Монгол Улс',
     countryNameFr: 'Mongolie',
     languageNameFr: 'Mongol',
@@ -294,6 +301,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ne-NP',
+    audioVoiceCode: 'ne-NP-SagarNeural',
     countryNameRaw: 'नेपाल',
     countryNameFr: 'Népal',
     languageNameFr: 'Népalais',
@@ -338,11 +346,12 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'ta-MY',
+    audioVoiceCode: 'ta-MY-SuryaNeural',
     countryNameRaw: 'மலேசியா',
     countryNameFr: 'Malaisie',
     languageNameRaw: 'தமிழ்',
     languageNameFr: 'Tamoul',
-    sentences: TAMOUL_NO_VOICE,
+    sentences: TAMOUL_MALAISIA,
   },
   {
     isoCode: 'ta-SG',
@@ -747,12 +756,12 @@ export const VOCABULARY: Vocabulary[] = [
     sentences: ENGLISH,
   },
   {
-    isoCode: 'fa-AF',
+    isoCode: 'ps-AF',
     countryNameRaw: 'افغانستان',
     countryNameFr: 'Afghanistan',
-    languageNameFr: 'Dari',
+    languageNameFr: 'Pachto',
     languageNameRaw: 'دري',
-    sentences: DARI,
+    sentences: PACHTO,
   },
   {
     isoCode: 'pt-PT',
@@ -1298,6 +1307,7 @@ export const VOCABULARY: Vocabulary[] = [
   },
   {
     isoCode: 'bs-BA',
+    audioVoiceCode: 'bs-BA-GoranNeural',
     countryNameRaw: 'Bosna i Hercegovina',
     countryNameFr: 'Bosnie-Herzégovine',
     languageNameRaw: 'Bosanski',
