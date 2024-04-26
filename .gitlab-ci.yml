@@ -21,9 +21,13 @@ build:
   environment:
     name: production
   script:
+    - echo test
     - npm i
+    - echo test2
     - npm run config "--environment=production"
+    - echo test3
     - ng build "--configuration=production"
+    - echo test4
   only:
     refs:
       - master
