@@ -24,7 +24,7 @@ export class AnonymousComponent implements OnInit {
   public form: FormGroup;
   public inProgress = false;
   private readonly roomId: string;
-  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
+  public showFranceTravailLogo = this.settingsService.showFranceTravailLogo;
 
   constructor(
     private readonly authService: AuthService,

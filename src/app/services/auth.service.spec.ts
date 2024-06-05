@@ -85,7 +85,7 @@ describe('AuthService', () => {
       });
     });
     mock.auth = authStub.auth;
-    const result = await service.login('jane@gmail.com', 'abcderfs', 'jane@gmail.com');
+    const result = await service.login('jane@gmail.com', 'abcderfs', false);
     expect(result).toEqual({ isAuth: true, message: 'Authentification réussie' });
     expect(authSpy).toHaveBeenCalledWith('jane@gmail.com', 'abcderfs');
   }));
@@ -99,7 +99,7 @@ describe('AuthService', () => {
       });
     });
     mock.auth = authStub.auth;
-    await service.login('jane@gmail.com', 'abcderfs', 'jane@gmail.com').catch(error => {
+    await service.login('jane@gmail.com', 'abcderfs', false).catch(error => {
       expect(error).toEqual({
         isAuth: false,
         message: 'There is no user record corresponding to this identifier. The user may have been deleted.'

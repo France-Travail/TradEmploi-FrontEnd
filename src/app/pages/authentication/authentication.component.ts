@@ -3,7 +3,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {Router} from '@angular/router';
 import {OAuthService} from 'angular-oauth2-oidc';
 import {JwksValidationHandler} from 'angular-oauth2-oidc-jwks';
-import {authCodeFlowConfig} from '../../../environments/authflow';
+import { authCodeFlowConfigIC, authCodeFlowConfigPE } from '../../../environments/authflow';
 import {params} from '../../../environments/params';
 import {ERROR_FUNC_LOGIN_OR_PASSWORD} from '../../models/error/errorFunctionnal';
 import {AuthService} from '../../services/auth.service';
@@ -18,9 +18,7 @@ import {SettingsService} from '../../services/settings.service';
 })
 export class AuthenticationComponent implements OnInit {
   public form: FormGroup;
-  public isOauthLogin: boolean = authCodeFlowConfig.loginUrl !== undefined;
-  public oAuthProvider: string = params.organization.name;
-
+  public isOauthLogin: boolean = authCodeFlowConfigPE.loginUrl !== undefined || authCodeFlowConfigIC.loginUrl !== undefined;
   constructor(
     private readonly oauthService: OAuthService,
     private readonly router: Router,
@@ -30,7 +28,6 @@ export class AuthenticationComponent implements OnInit {
     private readonly toastService: ToastService,
     private readonly settingsService: SettingsService
   ) {
-    this.configureSSO();
   }
 
   ngOnInit(): void {
@@ -74,13 +71,19 @@ export class AuthenticationComponent implements OnInit {
     }
   }
 
-  configureSSO() {
-    this.oauthService.configure(authCodeFlowConfig);
+  configureSSO(config: any) {
+    this.oauthService.configure(config);
     this.oauthService.oidc = true;
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();
   }
 
-  login() {
+  loginPE() {
+    this.configureSSO(authCodeFlowConfigPE);
+    this.oauthService.initCodeFlow();
+  }
+
+  loginIC() {
+    this.configureSSO(authCodeFlowConfigIC);
     this.oauthService.initCodeFlow();
   }
 }

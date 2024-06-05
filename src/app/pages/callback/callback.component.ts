@@ -6,14 +6,16 @@ import {SettingsService} from '../../services/settings.service';
 import {ChatService} from '../../services/chat.service';
 import axios from 'axios';
 import {params} from '../../../environments/params';
-import {authCodeFlowConfig} from '../../../environments/authflow';
+import { authCodeFlowConfigIC, authCodeFlowConfigPE } from '../../../environments/authflow';
+import { AuthConfig } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-callback',
   templateUrl: './callback.component.html',
 })
 export class CallbackComponent implements OnInit {
-  private user;
+  private user: any;
+  private authCodeFlowConfig: AuthConfig;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -29,41 +31,42 @@ export class CallbackComponent implements OnInit {
     const nonce = sessionStorage.getItem('nonce');
 
     this.activatedRoute.queryParams.subscribe(async (parameters) => {
+      parameters.provider === 'PE' ? this.authCodeFlowConfig = authCodeFlowConfigPE : this.authCodeFlowConfig = authCodeFlowConfigIC;
       if (parameters.state === nonce) {
         const userinfo = await this.getUserInfo(parameters.access_token);
         this.user = {
-          given_name: userinfo.name,
+          given_name: parameters.provider === 'PE' ? userinfo.name : userinfo.given_name,
           family_name: userinfo.family_name,
           email: userinfo.email,
           sub: userinfo.sub,
           state: userinfo.state,
         };
         try {
-          await this.loginAuthentificated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
+          await this.loginAuthenticated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
         } catch (error) {
-          this.router.navigateByUrl('/start');
+          await this.router.navigateByUrl('/start');
         }
       } else {
-        this.router.navigateByUrl('/start');
+        await this.router.navigateByUrl('/start');
       }
     });
   }
 
-  private readonly getUserInfo = async (access_token: string) => {
-    return axios
-      .get(authCodeFlowConfig.userinfoEndpoint + access_token)
-      .then((response) => {
-        return response.data;
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+  private readonly getUserInfo = async (accesstoken: string) => {
+      return axios
+        .get(this.authCodeFlowConfig.userinfoEndpoint + accesstoken)
+        .then((response) => {
+          return response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
   }
 
-  private async loginAuthentificated(email: string, firstname: string, lastname: string, idDGASI: string) {
+  private async loginAuthenticated(email: string, firstname: string, lastname: string, idDGASI: string) {
     try {
       await this.authService.login(email, params.defaultPassword, false);
-      await this.telemetryService.logUser(idDGASI);
+      await this.telemetryService.logUser(idDGASI + email.substring(email.indexOf('@')));
       const roomId = this.chatService.createRoomId();
       localStorage.setItem('isLogged', 'true');
       this.settingsService.user.next({
@@ -81,6 +84,7 @@ export class CallbackComponent implements OnInit {
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.router.navigateByUrl('choice');
     } catch (error) {
+      console.log(error);
     }
   }
 }

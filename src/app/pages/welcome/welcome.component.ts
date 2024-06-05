@@ -14,7 +14,7 @@ export class WelcomeComponent {
   public isMobile = false;
   public roomId: string;
 
-  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
+  public showFranceTravailLogo = this.settingsService.showFranceTravailLogo;
 
   constructor(private readonly deviceService: DeviceDetectorService, private readonly router: Router, private readonly dialog: MatDialog, public readonly settingsService: SettingsService) {
     this.isMobile = this.deviceService.isMobile();

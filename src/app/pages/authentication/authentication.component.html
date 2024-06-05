@@ -19,5 +19,17 @@
 
   <button type="submit" *ngIf="!isOauthLogin" [disabled]="form.invalid">Se connecter</button>
 
-  <button *ngIf="isOauthLogin" (click)="login()">Se connecter avec {{ oAuthProvider }}</button>
+  <div class="btn-ft">
+    <a *ngIf="isOauthLogin" (click)="loginPE()" class="btn-france-travail" target="_blank">
+      <!--<img class="me-2" height="30" src="../assets/images/common/logo-france-travail-bg.svg" alt="">-->
+      <span style="font-weight: bold;"> &nbsp; Connexion agents France Travail</span>
+    </a>
+  </div>
+
+  <span class="ou-word">ou</span>
+
+  <a *ngIf="isOauthLogin" (click)="loginIC()" class="btn-inclusion-connect" target="_blank">
+    <span>Se connecter avec <span style="font-weight:bold;">&nbsp;Inclusion Connect</span></span>
+  </a>
+
 </form>
