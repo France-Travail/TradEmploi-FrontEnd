@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
   private firstName: string;
   private targetLanguage: Language;
   public isAudioSupported: boolean;
-  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
+  public showFranceTravailLogo = this.settingsService.showFranceTravailLogo;
 
   constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService) {
   }
@@ -27,7 +27,7 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.settingsService.user.subscribe(async (user) => {
       if (user && user.firstname) {
-        this.firstName = user.firstname.split(' ')[1] || params.organization.organizationUser;
+        this.firstName = user.firstname.split(' ')[1] || user.firstname.split(' ')[0] || params.organization.organizationUser;
         this.targetLanguage = user.language;
         this.isAudioSupported = VOCABULARY.some((item) => item.isoCode === user.language.written && item.sentences.audioSupported);
       }

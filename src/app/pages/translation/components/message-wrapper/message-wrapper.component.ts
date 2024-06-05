@@ -67,7 +67,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public isIOS = false;
   public voiceNotSupported = false;
   public seconds: number;
-  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
+  public showFranceTravailLogo = this.settingsService.showFranceTravailLogo;
   private isMobile = false;
   private isTablet = false;
   private recordingState = RecordingState.STOPPED;

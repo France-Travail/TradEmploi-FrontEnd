@@ -14,7 +14,7 @@ export class GdprComponent {
   public selected = 'english';
   public isSmallScreen = false;
   public gdprWording: Gdpr = ENGLISH.gdpr;
-  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
+  public showFranceTravailLogo = this.settingsService.showFranceTravailLogo;
 
   constructor(
     private readonly dialogRef: MatDialogRef<GdprComponent>,

@@ -154,7 +154,7 @@ export class RateDialogComponent implements OnInit {
         this.fillNbMessages();
       }
     }
-    this.rate.user = this.settingsService.user.value.idDGASI || 'Firebase User';
+    this.rate.user = this.settingsService.user.value.idDGASI + this.settingsService.user.value.email.substring(this.settingsService.user.value.email.indexOf('@')) || 'Firebase User';
     this.rate.agency = this.settingsService.user.value.agency || 'None';
     this.rate.typeSTT = 'GCP';
     if (this.rate.language && this.fromAzure(this.rate.language)) {
