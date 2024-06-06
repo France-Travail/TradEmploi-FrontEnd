@@ -4,7 +4,7 @@ import {TelemetryService} from '../../services/telemetry.service';
 import {AuthService} from '../../services/auth.service';
 import {SettingsService} from '../../services/settings.service';
 import {ChatService} from '../../services/chat.service';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import {params} from '../../../environments/params';
 import { authCodeFlowConfigIC, authCodeFlowConfigPE } from '../../../environments/authflow';
 import { AuthConfig } from 'angular-oauth2-oidc';
@@ -16,6 +16,7 @@ import { AuthConfig } from 'angular-oauth2-oidc';
 export class CallbackComponent implements OnInit {
   private user: any;
   private authCodeFlowConfig: AuthConfig;
+  private config: AxiosRequestConfig<any>;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -29,6 +30,11 @@ export class CallbackComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const nonce = sessionStorage.getItem('nonce');
+    this.config = {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    };
 
     this.activatedRoute.queryParams.subscribe(async (parameters) => {
       parameters.provider === 'PE' ? this.authCodeFlowConfig = authCodeFlowConfigPE : this.authCodeFlowConfig = authCodeFlowConfigIC;
@@ -53,8 +59,9 @@ export class CallbackComponent implements OnInit {
   }
 
   private readonly getUserInfo = async (accesstoken: string) => {
+
       return axios
-        .get(this.authCodeFlowConfig.userinfoEndpoint + accesstoken)
+        .get(this.authCodeFlowConfig.userinfoEndpoint + accesstoken, this.config)
         .then((response) => {
           return response.data;
         })
