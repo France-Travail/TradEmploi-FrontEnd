@@ -30,11 +30,6 @@ export class CallbackComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const nonce = sessionStorage.getItem('nonce');
-    this.config = {
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    };
 
     this.activatedRoute.queryParams.subscribe(async (parameters) => {
       parameters.provider === 'PE' ? this.authCodeFlowConfig = authCodeFlowConfigPE : this.authCodeFlowConfig = authCodeFlowConfigIC;
