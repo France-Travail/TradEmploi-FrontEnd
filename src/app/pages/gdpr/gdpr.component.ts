@@ -13,8 +13,8 @@ import {SettingsService} from '../../services/settings.service';
 export class GdprComponent {
   public selected = 'english';
   public isSmallScreen = false;
-  public gdprWording: Gdpr = ENGLISH.gdpr;
-  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
+  public gdprWording: Gdpr = FRENCH.gdpr;
+  public showTraductionLogo = this.settingsService.showTraductionLogo;
 
   constructor(
     private readonly dialogRef: MatDialogRef<GdprComponent>,
@@ -26,12 +26,6 @@ export class GdprComponent {
       this.isSmallScreen = result.matches;
     });
     this.selected = this.data.language;
-    this.gdprWording = this.selected === 'english' ? ENGLISH.gdpr : FRENCH.gdpr;
-
-  }
-
-  public chooseLanguage(option) {
-    this.gdprWording = option.value === 'english' ? ENGLISH.gdpr : FRENCH.gdpr;
   }
 
   public closeDialog() {
