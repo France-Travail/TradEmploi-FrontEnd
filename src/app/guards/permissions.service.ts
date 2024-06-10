@@ -1,34 +1,41 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, CanActivateFn } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ChatService } from '../services/chat.service';
 import { SettingsService } from '../services/settings.service';
+import { inject } from '@angular/core';
 
 type CanActivateType = Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree;
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class PermissionsService {
   constructor(private readonly settingsService: SettingsService, private readonly chatService: ChatService, private readonly router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): CanActivateType {
     return new Promise((resolve) => {
       if ((!localStorage.getItem('user') || localStorage.getItem('user') == null) && (!sessionStorage.getItem('user') || sessionStorage.getItem('user') == null)) {
         this.settingsService.user.next(null);
-        this.router.navigate(['/start']);
+        this.navigateToStartWithAuth(state.url);
       } else {
-        if (!this.settingsService.user.value || this.settingsService.user.value == null) {
+        if (!this.settingsService.user.value) {
           if (localStorage.getItem('user') !== null) {
-            this.whenUserItemInLocalStorageIsNull();
-          } else { this.whenUserItemInLocalStorageIsNotNull(); }
+            this.whenUserItemInLocalStorageIsNull(state.url);
+          } else { this.whenUserItemInLocalStorageIsNotNull(state.url); }
         } else { this.whenRoomIdIsUndefined(); }
         resolve(true);
       }
     });
   }
 
-  private whenUserItemInLocalStorageIsNull() {
+  private navigateToStartWithAuth(url: string) {
+    // this.router.
+    sessionStorage.setItem('redirectUrl', url);
+    this.router.navigate(['/start']);
+  }
+
+  private whenUserItemInLocalStorageIsNull(url: string) {
     const user = JSON.parse(localStorage.getItem('user'));
     try {
       const roomId = this.chatService.createRoomId();
@@ -41,11 +48,11 @@ export class AuthGuard implements CanActivate {
         connectionTime: user.connectionTime
       });
     } catch (error) {
-      this.router.navigate(['/start']);
+      this.navigateToStartWithAuth(url);
     }
   }
 
-  private whenUserItemInLocalStorageIsNotNull() {
+  private whenUserItemInLocalStorageIsNotNull(url: string) {
     if (sessionStorage.getItem('user') !== null) {
       const user = JSON.parse(sessionStorage.getItem('user'));
       try {
@@ -58,10 +65,10 @@ export class AuthGuard implements CanActivate {
           connectionTime: user.connectionTime
         });
       } catch (error) {
-        this.router.navigate(['/start']);
+        this.navigateToStartWithAuth(url);
       }
     } else {
-      this.router.navigate(['/start']);
+      this.navigateToStartWithAuth(url);
     }
   }
 
@@ -81,4 +88,8 @@ export class AuthGuard implements CanActivate {
       }
     }
   }
+}
+
+export const AuthGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
+  return <boolean>inject(PermissionsService).canActivate(next, state);
 }
