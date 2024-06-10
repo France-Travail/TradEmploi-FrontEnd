@@ -1,8 +1,6 @@
-import {MatDialog} from '@angular/material';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {WelcomeDeComponent} from '../translation/dialogs/welcome-de/welcome-de.component';
 import {AuthService} from '../../services/auth.service';
 import {ToastService} from '../../services/toast.service';
@@ -14,6 +12,10 @@ import {Support} from '../../models/kpis/support';
 import {Role} from '../../models/role';
 import {Member} from '../../models/db/member';
 import {NavbarService} from '../../services/navbar.service';
+import { MatDialog } from '@angular/material/dialog';
+import firebase from 'firebase/compat/app';
+import {ErrorService} from "../../services/error.service";
+
 
 @Component({
   selector: 'app-anonymous',
@@ -21,19 +23,19 @@ import {NavbarService} from '../../services/navbar.service';
   styleUrls: ['./anonymous.component.scss'],
 })
 export class AnonymousComponent implements OnInit {
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public inProgress = false;
   private readonly roomId: string;
-  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
+  public showTraductionLogo = this.settingsService.showTraductionLogo;
 
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
-    private readonly formBuilder: FormBuilder,
+    private readonly formBuilder: UntypedFormBuilder,
     private readonly toastService: ToastService,
+    private readonly errorService: ErrorService,
     private readonly chatService: ChatService,
     private readonly settingsService: SettingsService,
-    private readonly afAuth: AngularFireAuth,
     private readonly deviceService: DeviceService,
     private readonly navbarService: NavbarService,
     private readonly tbs: TokenBrokerService,
@@ -73,7 +75,7 @@ export class AnonymousComponent implements OnInit {
               await this.addMember(auth.id);
               end = true;
             }
-          });
+          }, this.errorService.handleAfsError);
         }
         timer++;
       }, 1000);
@@ -83,7 +85,7 @@ export class AnonymousComponent implements OnInit {
   }
 
   private disconnect() {
-    this.afAuth.auth.currentUser.delete();
+    firebase.auth().currentUser.delete();
     this.openModal(WelcomeDeComponent, '200px', true, true);
   }
 
