@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BehaviorSubject, of } from 'rxjs';
@@ -29,14 +29,14 @@ describe('ModalityComponent', () => {
     id: '123',
     roomId: '1345',
     role: Role.GUEST,
-    firstname: 'Pôle emploi',
+    firstname: 'SNCF',
     isMultiDevices: true,
     email: 'test@gmail.com',
     idDGASI: '1',
     language: { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' }
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     mockChatService = jasmine.createSpyObj(['messagesStored', 'initChatMulti']);
     mockBreakpointService = jasmine.createSpyObj(['observe']);
     mockTagService = jasmine.createSpyObj(['click']);
