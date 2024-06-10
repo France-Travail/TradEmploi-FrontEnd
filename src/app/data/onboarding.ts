@@ -15,7 +15,7 @@ export const onboardingTabs: Onboarding[] = [
   {
     image: 'illu-qrcode.png',
     indicationEN: 'How to scan a QR code',
-    textEN: `Use the camera application on your phone to scan the QR code. 
+    textEN: `Use the camera application on your phone to scan the QR code.
     If your device supports QR codes, a link to the website will appear on your screen.`,
   },
   {
@@ -45,7 +45,7 @@ export const onboardingTabsAdvisor: Onboarding[] = [
   {
     ...onboardingTabs[2],
     indicationFR: 'Comment scanner un QR code / ',
-    textFR: `Utiliser l\'application photo de votre mobile pour scanner le QR code. 
+    textFR: `Utiliser l'application photo de votre mobile pour scanner le QR code.
     Si votre téléphone supporte la lecture de QR code, un lien vers ce site apparaîtra sur votre écran.`,
   },
   {
