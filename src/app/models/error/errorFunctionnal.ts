@@ -49,3 +49,8 @@ export const ERROR_FUNC_LOGIN_OR_PASSWORD: ErrorDetail  = {
   code: '409',
   description: 'Le login ou le mot de passe sont invalides'
 };
+
+export const ERROR_FUNC_OAUTH: ErrorDetail  = {
+  code: '409',
+  description: 'Une erreur est survenue dans la procédure de connexion, veuillez réessayer en rechargeant la page'
+};

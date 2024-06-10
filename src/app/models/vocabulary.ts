@@ -1,4 +1,5 @@
 import { Gdpr } from './gdpr';
+import { Pdata } from './pdata';
 
 export interface Vocabulary {
   isoCode: string;
@@ -29,6 +30,7 @@ export interface Sentence {
   gaugeText?: string;
   rate?: Rate;
   gdpr?: Gdpr;
+  pdata?: Pdata;
   logout?: Logout;
   modality?: Modality;
   choice?: Choice;
@@ -55,6 +57,7 @@ export interface IntroMessage {
 }
 export interface Choice {
   mostBtn: string;
+  mostUsedBtn: string;
   allBtn: string;
   listBtn: string;
   gridBtn: string;
