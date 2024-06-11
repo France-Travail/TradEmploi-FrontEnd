@@ -15,7 +15,7 @@ export class TelemetryService {
 
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const gwToken = tokenResponse ? tokenResponse.tokenGW : '';
-    const url = `http://localhost:8082/`;
+    const url = `${environment.gcp.gateWayUrl}/telemetry`;
 
     const params = {
       idDGASI

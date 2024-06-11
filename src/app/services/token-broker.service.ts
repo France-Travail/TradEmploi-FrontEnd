@@ -43,7 +43,7 @@ export class TokenBrokerService {
   }
 
   public addGuest(fbToken: string, roomId: string, firstname: string) {
-    const url = `http://localhost:8080/`;
+    const url = `${environment.gcp.gateWayUrl}/token`;
     const data = {
       roomId,
       firstname
@@ -58,7 +58,7 @@ export class TokenBrokerService {
     if (this.getHasJwtGwOnTime(jwtGwSingleton) || this.getHasJwtGcpOnTime(jwtGcpSingleton)) {
       return Promise.resolve({ tokenGCP: jwtGcpSingleton.getToken().token, tokenGW: jwtGwSingleton.getToken().token });
     }
-    const url = `http://localhost:8080/`;
+    const url = `${environment.gcp.gateWayUrl}/token`;
     return axios({
       method: 'POST',
       withCredentials: true,
@@ -87,7 +87,7 @@ export class TokenBrokerService {
     if (this.getHasJwtGwOnTime(jwtGwSingleton) || this.getHasJwtGcpOnTime(jwtGcpSingleton)) {
       return Promise.resolve({ tokenGCP: jwtGcpSingleton.getToken().token, tokenGW: jwtGwSingleton.getToken().token });
     }
-    const url = `http://localhost:8080/`;
+    const url = `${environment.gcp.gateWayUrl}/token`;
     const data = {
       roomId
     };
