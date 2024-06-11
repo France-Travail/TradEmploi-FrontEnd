@@ -11,10 +11,10 @@ import { Device } from '../models/kpis/device';
 import { AdvisorDefaultName, GuestDefaultName } from './settings.service';
 import { ErrorService } from './error.service';
 import { ERROR_FUNC_UNKNOWCHAT } from '../models/error/errorFunctionnal';
-import { AngularFirestore } from '@angular/fire/firestore';
-import * as firebase from 'firebase';
-import * as moment from 'moment';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import moment from 'moment';
 import { Guest } from '../models/db/guest';
+import firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root',
@@ -149,7 +149,7 @@ export class ChatService {
   }
 
   getChat(roomId: string): Observable<Chat> {
-    return this.db.doc(`chats/${roomId}`).valueChanges() as Observable<Chat>;
+    return this.db.doc(`chats/${roomId}`).valueChanges() as unknown as Observable<Chat>;
   }
 
   updateChatStatus(roomId: string, active: boolean): Promise<boolean> {

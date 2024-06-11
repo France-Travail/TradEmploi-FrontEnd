@@ -15,16 +15,15 @@ export class TelemetryService {
 
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const gwToken = tokenResponse ? tokenResponse.tokenGW : '';
-    const url = `${environment.gcp.gateWayUrl}/telemetry`;
+    const url = `http://localhost:8082/`;
 
     const params = {
       idDGASI
     };
-    return axios({
-      method: 'GET',
+    return axios.get(url, {
       params,
+      withCredentials: true,
       headers: { Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8' },
-      url
     }).catch((error) => {
       throw new Error(error);
     });

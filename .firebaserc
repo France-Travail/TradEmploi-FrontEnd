@@ -1,7 +1,7 @@
 {
   "projects": {
-    "prod": "pole-emploi-trad-prod",
-    "dev": "pole-emploi-trad-dev",
-    "qa": "pole-emploi-trad-recette"
+    "master": "fr-ssg-gcp-trad-prd",
+    "dev": "fr-ssg-gcp-trad-dev",
+    "uat": "fr-ssg-gcp-trad-uat"
   }
 }

@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import * as moment from 'moment';
 import {JwtFbSingleton} from '../models/token/JwtFbSingleton';
 import {FbAuthSingleton} from '../models/token/FbAuthSingleton';
 import {SettingsService} from './settings.service';
 import {AuthService} from './auth.service';
 import {params} from '../../environments/params';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root',

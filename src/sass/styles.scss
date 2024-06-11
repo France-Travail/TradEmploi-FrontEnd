@@ -1,13 +1,18 @@
+@use '@angular/material' as mat;
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import "bootstrap/scss/bootstrap";
+$bootstrap-icons-font-dir: "../font/fonts";
+@import "bootstrap-icons/font/bootstrap-icons";
 
 @import 'colors';
-@import 'reset';
-@import 'media';
+@import 'reset';  @import 'media';
 @import 'fonts';
 
-.mat-progress-spinner circle,
-.mat-spinner circle {
+
+
+.mat-mdc-progress-spinner circle,
+.mat-mdc-progress-spinner circle {
   stroke: $primary-color !important;
 }
 
@@ -15,20 +20,20 @@
   max-width: 100vw !important;
 }
 
-.customDialog > .mat-dialog-container {
+.customDialog > .mat-mdc-dialog-container {
   padding: 0;
   border-radius: 0;
 }
 
-.mat-accent .mat-input-element {
+.mat-accent .mat-mdc-input-element {
   caret-color: $primary-color !important;
 }
 
-.mat-form-field.mat-focused .mat-form-field-ripple.mat-accent {
+.mat-mdc-form-field.mat-focused .mat-form-field-ripple.mat-accent {
   background-color: $primary-color !important;
 }
 
-.mat-form-field.mat-focused .mat-form-field-label.mat-accent {
+.mat-mdc-form-field.mat-focused .mat-form-field-label.mat-accent {
   color: $primary-color !important;
 }
 
@@ -64,8 +69,8 @@
   }
 }
 
-.loader .mat-dialog-container {
-  background: none;
+.loader .mat-mdc-dialog-container .mdc-dialog__container .mat-mdc-dialog-surface {
+  background-color:  transparent !important;;
   box-shadow: none;
 }
 
@@ -91,9 +96,17 @@
   }
 }
 
-@media screen and (max-width: 576px) { 
+@media screen and (max-width: 576px) {
   .qrcode{
     margin-left: 60px;
   }
-  
+
 }
+
+.density{
+  @include mat.all-component-densities(-4);
+}
+
+$custom-typography: mat.define-typography-config($font-family: 'Roboto, "Helvetica Neue", sans-serif !important;');
+$my-theme: mat.define-light-theme((typography: $custom-typography));
+@include mat.all-component-themes($my-theme);

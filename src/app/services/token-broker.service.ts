@@ -1,7 +1,6 @@
-import { JwtGwSingleton } from './../models/token/JwtGwSingleton';
+import { JwtGwSingleton } from '../models/token/JwtGwSingleton';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import * as moment from 'moment';
 import axios, { AxiosResponse } from 'axios';
 import { JwtGcpSingleton } from '../models/token/JwtGcpSingleton';
 import { TokenResponse } from '../models/token/tokensResponse';
@@ -9,35 +8,48 @@ import { Role } from '../models/role';
 import { SettingsService } from './settings.service';
 import { TokenFbService } from './token-fb.service';
 import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
+import moment from 'moment';
+import {Router} from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenBrokerService {
-  constructor(private readonly settingService: SettingsService, private readonly tbFbs: TokenFbService) {
+  constructor(private readonly settingService: SettingsService, private readonly tbFbs: TokenFbService, private readonly router: Router, private readonly cookieService: CookieService) {
   }
 
   public async getTokenGcp(): Promise<TokenResponse> {
     const user = this.settingService.user.value;
-    const fbToken = await this.tbFbs.getTokenFb();
-    return (user && user.role === Role.GUEST) ? this.getTokenGuest(fbToken, user.roomId) : this.getTokenAdmin(fbToken);
+    let fbToken;
+    try {
+       fbToken = await this.tbFbs.getTokenFb();
+    } catch (reason) {
+      this.handleConnexionError(reason);
+    }
+
+    const tokenResponsePromise = (user && user.role === Role.GUEST) ? this.getTokenGuest(fbToken, user.roomId) : this.getTokenAdmin(fbToken);
+    return tokenResponsePromise
+          .catch(reason => {
+            this.handleConnexionError(reason);
+            throw new Error(reason);
+          });
+  }
+
+  private handleConnexionError(reason) {
+    console.error(reason);
+    sessionStorage.setItem('redirectUrl', this.router.routerState.snapshot.url);
+    this.router.navigate(['auth']);
   }
 
   public addGuest(fbToken: string, roomId: string, firstname: string) {
-    const url = `${environment.gcp.gateWayUrl}/token`;
+    const url = `http://localhost:8080/`;
     const data = {
       roomId,
       firstname
     };
-    return axios({
-      method: 'POST',
-      headers: { Authorization: `Bearer ${fbToken}` },
-      data,
-      url
-    })
-      .catch((error) => {
-        throw new Error(error);
-      });
+    return axios.post(url, data, {
+      headers: { Authorization: `Bearer ${fbToken}` }});
   }
 
   getTokenAdmin(firebaseToken: string): Promise<TokenResponse> {
@@ -46,11 +58,12 @@ export class TokenBrokerService {
     if (this.getHasJwtGwOnTime(jwtGwSingleton) || this.getHasJwtGcpOnTime(jwtGcpSingleton)) {
       return Promise.resolve({ tokenGCP: jwtGcpSingleton.getToken().token, tokenGW: jwtGwSingleton.getToken().token });
     }
-    const url = `${environment.gcp.gateWayUrl}/token`;
+    const url = `http://localhost:8080/`;
     return axios({
       method: 'POST',
-      headers: { Authorization: `Bearer ${firebaseToken}` },
-      url
+      withCredentials: true,
+      headers: { Authorization: `Bearer ${firebaseToken}`, 'Content-Type': 'text/plain' },
+      url: url,
     })
       .then((response) => {
         return this.getToken(response, jwtGwSingleton, jwtGcpSingleton);
@@ -74,26 +87,22 @@ export class TokenBrokerService {
     if (this.getHasJwtGwOnTime(jwtGwSingleton) || this.getHasJwtGcpOnTime(jwtGcpSingleton)) {
       return Promise.resolve({ tokenGCP: jwtGcpSingleton.getToken().token, tokenGW: jwtGwSingleton.getToken().token });
     }
-    const url = `${environment.gcp.gateWayUrl}/token`;
+    const url = `http://localhost:8080/`;
     const data = {
       roomId
     };
-    return axios({
-      method: 'POST',
+    return axios.post(url, data, {
+      withCredentials: true,
       headers: { Authorization: `Bearer ${firebaseToken}` },
-      data,
-      url
     })
       .then((response) => {
         return this.getToken(response, jwtGwSingleton, jwtGcpSingleton);
-      })
-      .catch((error) => {
-        throw new Error(error);
       });
   }
 
   private getToken(response: AxiosResponse, jwtGwSingleton: JwtGwSingleton, jwtGcpSingleton: JwtGcpSingleton) {
     const d = response.data;
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = this.cookieService.get('csrfToken');
     const expireTime = JwtFbSingleton.getInstance().getToken().expireTime;
     const tokenGW = { token: d.apiGateway.token, expireTime };
     jwtGwSingleton.setToken(tokenGW);
@@ -101,7 +110,7 @@ export class TokenBrokerService {
     jwtGcpSingleton.setToken(tokenGCP);
     return {
       tokenGCP: JwtGcpSingleton.getInstance().getToken().token,
-      tokenGW: JwtGwSingleton.getInstance().getToken().token
+      tokenGW: JwtGwSingleton.getInstance().getToken().token,
     };
   }
 }
