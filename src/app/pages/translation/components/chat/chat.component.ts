@@ -19,7 +19,8 @@ export class ChatComponent implements OnInit {
   private firstName: string;
   private targetLanguage: Language;
   public isAudioSupported: boolean;
-  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
+  public showTraductionLogo = this.settingsService.showTraductionLogo;
+  private audio = new Audio();
 
   constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService) {
   }
@@ -37,21 +38,28 @@ export class ChatComponent implements OnInit {
   public listen(index: number) {
     const sentMessage: Message = this.messagesWrapped[index].message;
     if (sentMessage && sentMessage.audioHtml) {
-     sentMessage.audioHtml.play();
+      const audio = sentMessage.audioHtml;
+      audio.play();
     }
   }
 
   public async listenToMessage(index: number) {
-    this.textToSpeechService
-      .getSpeech(this.messagesWrapped[index].notification, this.targetLanguage.audio)
-      .then((_) => {
-        this.textToSpeechService.audioSpeech.play();
-        this.textToSpeechService.audioSpeech = undefined;
-      })
-      .catch((_) => {
-        this.textToSpeechService.audioSpeech = undefined;
-      });
+    if (!this.messagesWrapped[index].information) {
+      this.audio.play();
+      await this.textToSpeechService
+        .getSpeech(this.messagesWrapped[index].notification, this.targetLanguage.audio)
+        .then((_) => {
+          this.messagesWrapped[index].information = this.textToSpeechService.audioSpeech;
+        })
+        .catch((_) => {
+          console.log(_);
+        });
+    }
+    this.audio.src = this.messagesWrapped[index].information.src;
+    this.audio.load();
+    await this.audio.play();
   }
+
 
   public unFold(messageIndex: number) {
     if (messageIndex === this.messageNumberToFold) {

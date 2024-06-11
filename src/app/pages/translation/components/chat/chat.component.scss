@@ -1,4 +1,4 @@
-@import 'styles';
+@import 'colors';
 
 .notification {
   font-size: 13px;
@@ -9,6 +9,7 @@
   .notificationText {
     vertical-align: super;
     text-align: end;
+    line-height: 10px;
   }
 }
 .bubble-area-advisor {
