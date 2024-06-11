@@ -30,7 +30,7 @@ export interface Sentence {
   gaugeText?: string;
   rate?: Rate;
   gdpr?: Gdpr;
-  pdata?: Pdata;
+  pdata?: string;
   logout?: Logout;
   modality?: Modality;
   choice?: Choice;
