@@ -8,7 +8,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class CarouselComponent implements OnInit {
 
-  slides = [0, 1, 2];
+  slides = [0, 1];
   currentSlide = 0;
   public title: string;
   constructor(private readonly dialogRef: MatDialogRef<CarouselComponent>){}
@@ -31,12 +31,9 @@ export class CarouselComponent implements OnInit {
   private setTitle() {
     switch (this.currentSlide) {
       case 0:
-        this.title = 'Video d\'explication';
-        break;
-      case 1:
         this.title = 'Maitriser son environnement';
         break;
-      case 2:
+      case 1:
         this.title = 'Adapter son discours';
         break;
     }
