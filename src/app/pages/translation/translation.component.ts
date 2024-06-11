@@ -1,13 +1,20 @@
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {Router} from '@angular/router';
 import {RateDialogComponent} from './dialogs/rate-dialog/rate-dialog.component';
 import {EndComponent} from './dialogs/end/end.component';
-import {SettingsService} from './../../services/settings.service';
+import {SettingsService} from '../../services/settings.service';
 import {ShareComponent} from './dialogs/share/share.component';
 import {AuthorizeComponent} from './dialogs/authorize/authorize.component';
-import {exportCsv} from '../../utils/utils';
+import { exportCsv, isIOS } from '../../utils/utils';
 import {ComponentCanDeactivate} from '../../guards/pending-changes.guard';
 import {MessageWrapped} from '../../models/translate/message-wrapped';
 import {ToastService} from '../../services/toast.service';
@@ -26,7 +33,10 @@ import {Language} from '../../models/language';
 import {ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS} from '../../models/error/errorFunctionnal';
 import {User} from '../../models/user';
 import {TextToSpeechService} from '../../services/text-to-speech.service';
-import {VOCABULARY} from "../../data/vocabulary";
+import {VOCABULARY} from '../../data/vocabulary';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {ErrorService} from '../../services/error.service';
+import { Subject } from 'rxjs';
 
 const toastError = 'toast-error';
 
@@ -55,12 +65,16 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private isScrollingToUp = false;
   private readonly audioSpeechToPlay = [];
   private audioSpeechIsPlaying = false;
+  protected microAdmin = new Subject<boolean>();
+  protected microGuest = new Subject<boolean>();
+  public ios: boolean;
 
   constructor(
     private readonly dialog: MatDialog,
     private readonly router: Router,
     private readonly breakpointObserver: BreakpointObserver,
     private readonly toastService: ToastService,
+    private readonly errorService: ErrorService,
     private readonly settingsService: SettingsService,
     private readonly chatService: ChatService,
     private readonly textToSpeechService: TextToSpeechService,
@@ -70,7 +84,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
-        if (user.language !== undefined && user.language.audio === undefined) {
+        if (user.language === undefined || user.language.audio === undefined) {
           this.goto('choice');
         }
         this.isGuest = user.role === Role.GUEST;
@@ -101,6 +115,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.isGuest) {
       this.autoListenValue = this.isAudioSupported ? 'Listen automatically' : 'Audio unavailable';
     }
+    this.ios = isIOS();
   }
 
   ngAfterViewChecked() {
@@ -206,7 +221,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   public closeConversation() {
     const languages = this.messagesWrapped.filter((m) => m.message !== undefined).map((m) => m.message.languageOrigin);
-    this.openModal(RateDialogComponent, '750px', false, languages);
+    this.openModal(RateDialogComponent, '500px', false, languages);
   }
 
   public async exportConversation() {
@@ -315,8 +330,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
           this.settingsService.reset();
         }
       }
-    });
-  };
+    }, this.errorService.handleAfsError);
+  }
 
   private authorizeGuest(guests) {
     const lastAuthorization = guests[guests.length - 1];
@@ -479,5 +494,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     audioSpeech.onended = () => {
       this.audioSpeechIsPlaying = false;
     };
+  }
+
+  public microAdminToGuest() {
+    this.microGuest.next(true);
+  }
+
+  public microGuestToAdmin() {
+    this.microAdmin.next(true);
   }
 }
