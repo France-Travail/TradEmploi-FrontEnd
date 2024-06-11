@@ -33,7 +33,7 @@ describe('MessageWrapperComponent', () => {
     id: '123',
     roomId: '1345',
     role: Role.GUEST,
-    firstname: 'Pôle emploi',
+    firstname: 'SNCF',
     isMultiDevices: true,
     email: 'test@gmail.com',
     idDGASI: '1',
