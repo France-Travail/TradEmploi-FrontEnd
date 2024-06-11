@@ -1,9 +1,9 @@
 // Angular
 import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
 import { ToastService } from '../../../../services/toast.service';
 import { HistoryService } from '../../../../services/history.service';
 import { SettingsService } from '../../../../services/settings.service';
+import { MatDialogRef } from '@angular/material/dialog';
 // Services
 
 @Component({

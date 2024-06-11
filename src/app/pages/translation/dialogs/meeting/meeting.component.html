@@ -18,19 +18,19 @@
         </div>
       </ng-container>
       <ng-template #elseTemplate>
-        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 1) == '', 'today': isTodayFromWeek(week, 1)}">
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 1) === '', 'today': isTodayFromWeek(week, 1)}">
           {{ getDay(week, 1) }}</div>
-        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 2) == '', 'today': isTodayFromWeek(week, 2)}">
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 2) === '', 'today': isTodayFromWeek(week, 2)}">
           {{ getDay(week, 2) }}</div>
-        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 3) == '', 'today': isTodayFromWeek(week, 3)}">
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 3) === '', 'today': isTodayFromWeek(week, 3)}">
           {{ getDay(week, 3) }}</div>
-        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 4) == '', 'today': isTodayFromWeek(week, 4)}">
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 4) === '', 'today': isTodayFromWeek(week, 4)}">
           {{ getDay(week, 4) }}</div>
-        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 5) == '', 'today': isTodayFromWeek(week, 5)}">
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 5) === '', 'today': isTodayFromWeek(week, 5)}">
           {{ getDay(week, 5) }}</div>
-        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 6) == '', 'today': isTodayFromWeek(week, 6)}">
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 6) === '', 'today': isTodayFromWeek(week, 6)}">
           {{ getDay(week, 6) }}</div>
-        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 0) == '', 'today': isTodayFromWeek(week, 0)}">
+        <div class="day" (click)="saveConversation()" [ngClass]="{'noBorder': getDay(week, 0) === '', 'today': isTodayFromWeek(week, 0)}">
           {{ getDay(week, 0) }}</div>
       </ng-template>
     </div>
