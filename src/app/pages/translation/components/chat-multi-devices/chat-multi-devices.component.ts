@@ -17,7 +17,7 @@ export class ChatMultiDevicesComponent implements OnInit {
   @Input() messagesWrapped: MessageWrapped[];
   private targetLanguage: Language;
   public isAudioSupported: boolean;
-  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
+  public showTraductionLogo = this.settingsService.showTraductionLogo;
 
   constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService, private readonly translateServce: TranslateService) {
   }
