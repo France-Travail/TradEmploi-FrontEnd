@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <button *ngIf="!authPending && (params.authType == AuthType.both || params.authType == AuthType.SSO)" type="button" (click)="connexionTraduction()">Connexion avec votre Login/Mdp SNCF (SSO)</button>
+  <button *ngIf="!authPending && (params.authType == AuthType.both || params.authType == AuthType.SSO)" type="button" (click)="connexionTraduction()">Connexion avec votre Login/Mdp Traduction (SSO)</button>
 
   <div *ngIf="showOauthLoginError" class="loading" style="color: red">
     Une erreur est survenue dans la procédure de connexion
