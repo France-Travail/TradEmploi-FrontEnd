@@ -68,7 +68,7 @@ export class SettingsComponent implements OnInit {
     this.rateService
       .getRates()
       .then((rates) => {
-        exportCsv(rates, 'TradSNCF_Evaluation_');
+        exportCsv(rates, 'Traduction_Evaluation_');
         this.dialog.closeAll();
       })
       .catch(async (_) => {
