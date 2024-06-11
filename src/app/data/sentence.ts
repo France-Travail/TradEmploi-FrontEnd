@@ -80,42 +80,84 @@ export const FRENCH: Sentence = {
     params.organization.cgus,
     closeBtn: 'FERMER',
   },
-  pdata: {
-    //title: 'Notice d\'information sur l\'utilisation de vos données personnelles',
-    title: 'Traduction',
-    intro: 'SNCF Voyageurs a mis en place une application de traduction instantanée qui permet de faciliter les échanges entre les agents du service ferroviaire et les voyageurs ne parlant pas français (ci-après le « Service »). Des données personnelles sont utilisées pour le fonctionnement de cet outil de traduction (ci-après le « Traitement »).\n\n',
-    resptitle: 'RESPONSABLE DU TRAITEMENT\n\n',
-    resp: 'Le traitement est mis en œuvre par SNCF VOYAGEURS, Société Anonyme dont le siège est situé à Saint-Denis (Seine-Saint-Denis), 4, rue André Campra, 93210, en tant que responsable de traitement.\n' +
-      'SNCF Voyageurs a désigné un délégué à la protection des données (DPO) que vous pouvez contacter à l’adresse suivante :',
-    objtitle: '\n\nOBJECTIF DU TRAITEMENT\n\n',
-    obj: 'Le traitement a pour objectif de fournir aux clients internationaux ne pouvant s’exprimer en français un service de traduction instantanée leur permettant d’échanger à l’écrit et à l’oral dans leur langue maternelle avec les agents de la SNCF.\n\n',
-    lawtitle: 'BASE LEGALE\n\n',
-    law: 'La base légale du Service est l’intérêt légitime de SNCF Voyageurs à mettre à disposition de ses clients et de ses agents un outil conversationnel permettant d’assurer la correcte information des voyageurs internationaux.\n\n',
-    datatitle: 'NATURE DES DONNEES TRAITEES\n\n',
-    dataintro: 'Lors de l’utilisation du Service, les informations suivantes sont traitées :\n',
-    dataint: 'Pour les clients internationaux :\n',
-    datalistint: ['le choix du pays dans la langue duquel le Client souhaite effectuer la conversation ;', 'la voix et la retranscription écrite de la voix.'],
-    datasncf: 'Pour les agents du Groupe SNCF :',
-    datalistsncf: ['Les identifiants de connexion au Service,', 'Des cookies techniques', 'La voix et la retranscription écrite de la voix.'],
-    data: 'Les données sont fournies par le Client qui choisit le pays de la langue désirée pour effectuer la conversation et dicte sa demande sur le smartphone de l’agent SNCF qui la retranscrit par écrit et en français, et inversement.\n' +
-      'Dans le cadre de l’échange avec les agents SNCF, il est recommandé aux Clients de ne pas communiquer de données sensibles telles que des données de santé ou des informations médicales.\n' +
-      'Une enquête de satisfaction pourra être soumise aux Clients et aux agents ayant utilisé le Service. Les réponses seront traitées de manière anonyme.\n\n',
-    lengthtitle: 'DUREE DE CONSERVATION\n\n',
-    length: 'Les Données sont traitées durant le temps de la conversation et sont automatiquement effacées dès la fin de la conversation.\n\n',
-    memberstitle: 'DESTINATAIRES DES DONNEES PERSONNELLES\n\n',
-    membersintro: 'Les Données sont réservées à l’usage des catégories de destinataires suivants :\n',
-    memberslist: ['les agents du Groupe SNCF en relation avec les clients,\n',
-      'les équipes informatiques SNCF en charge de la sécurisation des accès au Service,\n',
-      'Les prestataires de services informatiques intervenant en tant que sous-traitants pour la fourniture du Service,\n',
-      'les éditeurs des solutions logicielles effectuant la retranscription de la conversation.\n\n'],
-    transfertitle: 'TRANSFERT DES DONNEES\n\n',
-    transfer: 'Afin de fournir le Service, SNCF Voyageurs a recours à des éditeurs de logiciels qui peuvent effectuer certaines opérations (hébergement, maintenance, …) aux Etats-Unis. \n' +
-      'Ces éditeurs se sont engagés à se conformer aux principes du cadre de protection des données Union Européenne-États-Unis que la Commission européenne a reconnu comme apportant un niveau de protection adéquat des Données dans sa décision en date du 10 juillet 2023\n\n',
-    righttitle: 'DROITS SUR VOS DONNEES PERSONNELLES\n\n',
-    right: 'Vous disposez, dans les conditions et limites prévues par la réglementation, d\'un droit d\'accès, de suppression, de rectification des Données vous concernant et d’opposition ou de limitation à leur traitement. Vous disposez également du droit de définir les directives concernant le sort de vos Données après votre décès dans les conditions définies à l’article 40.1 de la Loi informatique et Libertés. Enfin, vous disposez du droit d’introduire une réclamation auprès de l’autorité de contrôle compétente (CNIL, www.cnil.fr/fr).\n' +
-      'Vous pouvez exercer ces droits par courriel à  ',
-    closeBtn: 'FERMER'
-  },
+  pdata: '<div>' +
+    '      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur convallis felis et odio facilisis, eu sagittis libero vehicula. Integer id neque vitae eros mollis malesuada non ut nunc.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>RESPONSABLE DU TRAITEMENT</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Nam non sem vitae lectus pretium gravida. Nulla facilisi. Aliquam erat volutpat. Donec mollis ligula in sapien fermentum, eget accumsan tortor faucibus. Curabitur in turpis id est scelerisque eleifend.<a href="https://www.gnu.org/licenses/gpl-3.0.fr.html">Aperta fons est futura</a></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>OBJECTIF DU TRAITEMENT</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Praesent ac nisl nec justo laoreet scelerisque. Mauris varius sem sed nulla vestibulum, at vehicula ligula scelerisque. Integer sit amet neque a ligula tincidunt fermentum.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>BASE LEGALE</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Morbi ac libero quis purus malesuada posuere ut a velit. Nam ac sapien vitae nulla ullamcorper laoreet ut at justo. Curabitur ut mauris convallis, vehicula justo in, convallis risus.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>NATURE DES DONNEES TRAITEES</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Sed sit amet nulla vitae libero ornare vestibulum. Ut vestibulum sem sit amet nunc vehicula, id consequat tortor pellentesque.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '    <span>Pour les clients internationaux :</span>' +
+    '  </div>' +
+    '    <div>' +
+    '      <ul>' +
+    '        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>' +
+    '        <li>Vestibulum consequat, tortor in scelerisque tincidunt, justo augue condimentum dolor, a tincidunt ipsum turpis sit amet justo.</li>' +
+    '      </ul>' +
+    '    </div>' +
+    '    <div>' +
+    '      <ul>' +
+    '        <li>Praesent nec risus nec tortor consequat tincidunt.</li>' +
+    '        <li>Donec vehicula dolor et sapien ornare varius.</li>' +
+    '        <li>Sed lacinia quam at dui malesuada, vel ultricies est cursus.</li>' +
+    '      </ul>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus convallis sem at augue ultricies, id vehicula mauris malesuada. Curabitur vehicula semper arcu, vitae cursus purus vehicula nec.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>DUREE DE CONSERVATION</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Quisque a sapien sed dui fermentum luctus. Duis in lorem ut nisl consectetur lacinia. Fusce luctus libero sit amet arcu luctus, in facilisis eros volutpat.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>DESTINATAIRES DES DONNEES PERSONNELLES</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Vivamus at ex sed mauris aliquam pharetra. Fusce posuere eros in quam sollicitudin scelerisque.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <ul>' +
+    '        <li>Sed ac eros ac neque fringilla fermentum.</li>' +
+    '        <li>Nullam ut nisl a risus dignissim varius.</li>' +
+    '        <li>Ut eu lacus ac orci vehicula cursus.</li>' +
+    '        <li>Integer nec nisi at ligula dapibus commodo.</li>' +
+    '      </ul>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>TRANSFERT DES DONNEES</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Morbi in dolor et velit sollicitudin sollicitudin. Sed suscipit, nulla nec fermentum ullamcorper, nulla nisi pulvinar arcu, ac tincidunt sem arcu at augue.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>DROITS SUR VOS DONNEES PERSONNELLES</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Fusce volutpat, purus a elementum sollicitudin, augue arcu vehicula nulla, at consectetur sapien risus in odio. Donec luctus, sem ut aliquet vehicula, justo est placerat erat, at efficitur neque libero a libero.</span>' +
+    '    </div>',
   logout: {
     title: 'Déconnexion',
     question: 'Voulez-vous vous déconnecter?',
@@ -183,38 +225,18 @@ export const ENGLISH: Sentence = {
     params.organization.cgusEnglish,
     closeBtn: 'CLOSE',
   },
-  pdata: {
-    title: 'Information notice on the use of your personal data',
-    intro: 'SNCF Voyageurs has set up an instantaneous translation application to facilitate exchanges between rail service agents and passengers who do not speak French (hereinafter the "Service"). Personal data is used to operate this translation tool (hereinafter the "Processing").\n\n',
-    resptitle: 'DATA CONTROLLER\n\n',
-    resp: 'The Processing is implemented by SNCF VOYAGEURS, a public limited company whose registered office is located at Saint-Denis (Seine-Saint-Denis), 4, rue André Campra, 93210, as the Data Controller.\n' +
-      'SNCF Voyageurs has appointed a Data Protection Officer (DPO) whom you may contact at the following address:',
-    objtitle: '\n\nPURPOSE OF PROCESSING\n\n',
-    obj: 'The purpose of the processing is to provide international customers who are unable to speak French with an instantaneous translation service enabling them to exchange written and spoken information in their mother tongue with SNCF staff.\n\n',
-    lawtitle: 'LEGAL BASIS\n\n',
-    law: 'The legal basis of the Service is the legitimate interest of SNCF Voyageurs in providing its customers and agents with a conversational tool to ensure that international travellers are properly informed.\n\n',
-    datatitle: 'NATURE OF THE DATA PROCESSED\n\n',
-    dataintro: 'When using the Service, the following information is processed:\n',
-    dataint: 'For international customers :',
-    datalistint: ['the choice of country in whose language the Customer wishes to carry out the conversation;', 'the voice and the written transcription of the voice.'],
-    datasncf: 'For SNCF Group agents :\n',
-    datalistsncf: ['Service connection identifiers,', 'Technical cookies', 'Voice and written voice transcription.'],
-    data: 'The data is provided by the Customer who chooses the country of the desired language to carry out the conversation and dictates his request on the smartphone of the SNCF agent who transcribes it in writing and in French, and vice versa.\n' +
-      'As part of the exchange with SNCF agents, Customers are advised not to communicate sensitive data such as health data or medical information.\n' +
-      'A satisfaction survey may be submitted to Customers and agents who have used the Service. Responses will be processed anonymously.\n\n',
-    lengthtitle: 'RETENTION PERIOD\n\n',
-    length: 'Data is processed for the duration of the conversation and is automatically deleted at the end of the conversation.\n\n',
-    memberstitle: 'RECIPIENTS OF PERSONAL DATA\n\n',
-    membersintro: 'The Data is reserved for use by the following categories of recipients:\n',
-    memberslist: ['SNCF Group staff in contact with customers,', 'SNCF IT teams in charge of securing access to the Service,', 'IT service providers acting as sub-contractors for the provision of the Service,', 'software solution publishers who transcribe the conversation.\n\n'],
-    transfertitle: 'TRANSFER OF DATA\n\n',
-    transfer: 'In order to provide the Service, SNCF Voyageurs uses software publishers who may carry out certain operations (hosting, maintenance, etc.) in the United States. \n' +
-      'These software publishers have undertaken to comply with the principles of the European Union-United States data protection framework, which the European Commission recognised as providing an adequate level of Data protection in its decision dated 10 July 2023.\n\n',
-    righttitle: 'RIGHTS REGARDING YOUR PERSONAL DATA\n\n',
-    right: 'You have the right, under the conditions and within the limits laid down by the regulations, to access, delete and rectify any Data concerning you and to oppose or limit the processing of such Data. You also have the right to define directives concerning the fate of your Data after your death under the conditions defined in article 40.1 of the French Data Protection Act. Finally, you have the right to lodge a complaint with the competent supervisory authority (CNIL, www.cnil.fr/fr).\n' +
-      'You can exercise these rights by sending an e-mail to ',
-    closeBtn: 'CLOSE'
-  },
+  pdata: '<div>' +
+        '      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur convallis felis et odio facilisis, eu sagittis libero vehicula. Integer id neque vitae eros mollis malesuada non ut nunc.</span>' +
+      '    </div>' +
+      '    <div>' +
+      '      <span><b>DATA CONTROLLER</b></span>' +
+      '    </div>' +
+      '    <div>' +
+      '      <span>Nam non sem vitae lectus pretium gravida. Nulla facilisi. Aliquam erat volutpat. Donec mollis ligula in sapien fermentum, eget accumsan tortor faucibus. Curabitur in turpis id est scelerisque eleifend.<a href="https://www.gnu.org/licenses/gpl-3.0.fr.html">Aperta fons est futura</a></span>' +
+      '    </div>' +
+      '    <div>' +
+      '      <span><b>TREATMENT OBJECTIVE</b></span>' +
+      '    </div>',
   logout: {
     title: 'Logout',
     question: 'Would you like to log out ?',
