@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BehaviorSubject, of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,13 +29,13 @@ describe('RateDialogComponent', () => {
     id: '123',
     roomId: '1345',
     role: Role.GUEST,
-    firstname: 'Pôle emploi',
+    firstname: 'TRADUCTION',
     isMultiDevices: true,
     email: 'test@gmail.com',
     idDGASI: '1',
     language: { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' }
   };
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     mockChatService = jasmine.createSpyObj(['getChat', 'messagesStored']);
     mockChatService.getChat.and.returnValue(of({}));
     mockChatService.messagesStored.and.returnValue([]);

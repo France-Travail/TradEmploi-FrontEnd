@@ -1,22 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { BehaviorSubject, of } from 'rxjs';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ChatService } from '../../services/chat.service';
-import { Router } from '@angular/router';
-import { Role } from '../../models/role';
-import { User } from '../../models/user';
-import { GdprComponent } from '../gdpr/gdpr.component';
-import { NavbarService } from '../../services/navbar.service';
-import { SettingsService } from '../../services/settings.service';
-import { TranslationComponent } from './translation.component';
-import { ToastService } from '../../services/toast.service';
-import { TextToSpeechGcpService } from '../../services/text-to-speech-gcp.service';
-import { TranslateService } from '../../services/translate.service';
-import { CryptService } from '../../services/crypt.service';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {BreakpointObserver} from '@angular/cdk/layout';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {BehaviorSubject, of} from 'rxjs';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterTestingModule} from '@angular/router/testing';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {ChatService} from '../../services/chat.service';
+import {Router} from '@angular/router';
+import {Role} from '../../models/role';
+import {User} from '../../models/user';
+import {GdprComponent} from '../gdpr/gdpr.component';
+import {NavbarService} from '../../services/navbar.service';
+import {SettingsService} from '../../services/settings.service';
+import {TranslationComponent} from './translation.component';
+import {ToastService} from '../../services/toast.service';
+import {TranslateService} from '../../services/translate.service';
+import {CryptService} from '../../services/crypt.service';
+import {TextToSpeechService} from "../../services/text-to-speech.service";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 describe('TranslationComponent', () => {
   let component: TranslationComponent;
@@ -37,14 +38,14 @@ describe('TranslationComponent', () => {
     id: '123',
     roomId: '1345',
     role: Role.GUEST,
-    firstname: 'Pôle emploi',
+    firstname: 'TRADUCTION',
     isMultiDevices: true,
     email: 'test@gmail.com',
     idDGASI: '1',
     language: { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' }
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     mockChatService = jasmine.createSpyObj(['getChat', 'messagesStored']);
     mockChatService.getChat.and.returnValue(of({}));
     mockChatService.messagesStored.and.returnValue([]);
@@ -62,19 +63,26 @@ describe('TranslationComponent', () => {
     mockTranslateService = jasmine.createSpyObj(['navigateByUrl']);
     mockCryptService = jasmine.createSpyObj(['navigateByUrl']);
 
+    const collectionStub = {
+      valueChanges: jasmine.createSpy('valueChanges').and.returnValue(of())
+    };
+    const mockAngularFirestore = {
+      collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
+    };
     TestBed.configureTestingModule({
       imports: [MatDialogModule, BrowserAnimationsModule, RouterTestingModule],
       declarations: [GdprComponent],
       providers: [
         MatDialog,
         NavbarService,
+        { provide: AngularFirestore, useValue: mockAngularFirestore },
         { provide: Router, useValue: mockRouter },
         { provide: ChatService, useValue: mockChatService },
         { provide: SettingsService, useValue: mockSettingsService },
         { provide: BreakpointObserver, useValue: mockBreakpointService },
 
         { provide: ToastService, useValue: mockToastService },
-        { provide: TextToSpeechGcpService, useValue: mockTextToSpeechService },
+        { provide: TextToSpeechService, useValue: mockTextToSpeechService },
         { provide: NavbarService, useValue: mockNavbarService },
         { provide: TranslateService, useValue: mockTranslateService },
         { provide: CryptService, useValue: mockCryptService }

@@ -1,14 +1,13 @@
 // Angular
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-
-// Firebase
-import { AngularFirestore } from '@angular/fire/firestore';
 
 // Models
 import { Conversation } from '../models/history/conversation';
 import { User } from '../models/user';
 import { Message } from '../models/history/message';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
+import {ErrorService} from "./error.service";
 
 
 @Injectable({
@@ -19,7 +18,7 @@ export class HistoryService {
   private readonly db = 'conversations'; // The collection's name
   private messageId = 1;
 
-  constructor(private readonly afs: AngularFirestore) {}
+  constructor(private readonly afs: AngularFirestore, private readonly errorService: ErrorService) {}
 
   /**
    * Add the message into the conversation for the speaker
@@ -70,7 +69,8 @@ export class HistoryService {
     return this.afs
       .collection(this.db)
       .doc<Conversation>(this.conversation.id)
-      .set(this.conversation);
+      .set(this.conversation)
+      .catch(this.errorService.handleAfsError);
   }
 
   /**
@@ -99,6 +99,7 @@ export class HistoryService {
     return this.afs
       .collection(this.db)
       .doc<Conversation>(id)
-      .delete();
+      .delete()
+      .catch(this.errorService.handleAfsError);
   }
 }

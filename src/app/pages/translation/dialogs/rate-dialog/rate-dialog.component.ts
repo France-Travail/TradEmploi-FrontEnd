@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { getDuration } from '../../../../utils/utils';
 import { Role } from '../../../../models/role';
 import { environment } from '../../../../../environments/environment';
@@ -12,13 +11,11 @@ import { ChatService } from '../../../../services/chat.service';
 import { VOCABULARY } from '../../../../data/vocabulary';
 import { ERROR_FUNC_SEND_STATS } from '../../../../models/error/errorFunctionnal';
 import {params} from '../../../../../environments/params';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
-  questionTwo: { french: string; foreign: string };
   questionThree: { french: string; foreign: string };
-  questionFour: { french: string; foreign: string };
-  questionFive: { french: string; foreign: string };
 }
 
 @Component({
@@ -37,27 +34,13 @@ export class RateDialogComponent implements OnInit {
       french: '',
       foreign: '',
     },
-    questionTwo: {
-      french: '',
-      foreign: '',
-    },
     questionThree: {
       french: '',
       foreign: '',
-    },
-    questionFour: {
-      french: '',
-      foreign: '',
-    },
-    questionFive: {
-      french: '',
-      foreign: '',
-    },
+    }
   };
   public canSendRate: boolean;
   private isMultiDevices: boolean;
-  public typeEntretien: string;
-  public types = params.organization.entretiens;
   public autreType = '';
 
   constructor(
@@ -82,27 +65,18 @@ export class RateDialogComponent implements OnInit {
     const rateFr = VOCABULARY.find((v) => v.isoCode === 'fr-FR').sentences.rate;
     if (rateFr) {
       this.sentences.questionOne.french = rateFr.qualityTranslate;
-      this.sentences.questionTwo.french = rateFr.rating;
       this.sentences.questionThree.french = rateFr.comment;
-      this.sentences.questionFour.french = rateFr.technical;
-      this.sentences.questionFive.french = rateFr.typeInterview;
     }
     let languageNameFr = 'fr-FR';
     if (this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA') {
       this.sentences.questionOne.foreign = '';
-      this.sentences.questionTwo.foreign = '';
       this.sentences.questionThree.foreign = '';
-      this.sentences.questionFour.foreign = '';
-      this.sentences.questionFive.foreign = '';
     } else {
       const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.user.value.language.written);
       const rateForeign = vocabularyForeign.sentences.rate;
       if (rateForeign) {
         this.sentences.questionOne.foreign = rateForeign.qualityTranslate;
-        this.sentences.questionTwo.foreign = rateForeign.rating;
         this.sentences.questionThree.foreign = rateForeign.comment;
-        this.sentences.questionFour.foreign = rateForeign.technical;
-        this.sentences.questionFive.foreign = rateForeign.typeInterview;
         languageNameFr = vocabularyForeign.isoCode;
       }
     }
@@ -121,11 +95,11 @@ export class RateDialogComponent implements OnInit {
       language: isoCodes,
       date,
       hour: `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`,
-      grades: [undefined, undefined],
+      grades: [undefined],
       comment: '',
       offerLinked: 'non',
       conversationDuration: '',
-      typeEntretien: this.typeEntretien,
+      typeEntretien: '',
       user: '',
       agency: '',
       nbMessagesGuest: 0,
@@ -161,7 +135,7 @@ export class RateDialogComponent implements OnInit {
       this.rate.typeSTT = 'Azure';
     }
     this.rate.conversationDuration = getDuration(lastMessageTime, firstMessageTime);
-    this.rate.typeEntretien = this.getInterviewType();
+    this.rate.typeEntretien = '';
     this.rateService.rateConversation(this.rate);
 
     this.rates[question].forEach((r, i) => {
@@ -184,8 +158,7 @@ export class RateDialogComponent implements OnInit {
   }
 
   public setCanSendRate() {
-    this.rate.typeEntretien = this.getInterviewType();
-    this.canSendRate = this.rate && this.rate.grades && this.rate.grades[0] && this.rate.grades[1] && this.rate.typeEntretien && !!this.rate.offerLinked;
+    this.canSendRate = this.rate && this.rate.grades && this.rate.grades[0] && !!this.rate.offerLinked;
   }
 
   public confirm() {
@@ -220,18 +193,6 @@ export class RateDialogComponent implements OnInit {
           }, 3500);
         });
     }
-  }
-
-  onItemChange(value) {
-    this.rate.offerLinked = value;
-    this.setCanSendRate();
-  }
-
-  private getInterviewType(): string {
-    if (this.typeEntretien === 'Autres') {
-      return this.autreType;
-    }
-    return this.typeEntretien;
   }
 
   private fromAzure(language: string) {

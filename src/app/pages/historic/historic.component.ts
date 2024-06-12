@@ -1,6 +1,5 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
 // Dialogs
 import { ShowComponent } from './dialogs/show/show.component';
 import { RemoveComponent } from './dialogs/remove/remove.component';
@@ -9,6 +8,8 @@ import { Rate } from '../../models/rate';
 import { ToastService } from '../../services/toast.service';
 import { HistoryService } from '../../services/history.service';
 import { RateService } from '../../services/rate.service';
+import { MatDialog } from '@angular/material/dialog';
+import {ErrorService} from "../../services/error.service";
 
 
 @Component({
@@ -22,7 +23,7 @@ export class HistoricComponent implements OnInit {
 
   constructor(private readonly toastService: ToastService,
               private readonly historyService: HistoryService,
-              private readonly rateService: RateService, private readonly dialog: MatDialog) {
+              private readonly rateService: RateService, private readonly dialog: MatDialog, private readonly errorService: ErrorService) {
   }
 
   ngOnInit() {
@@ -35,9 +36,7 @@ export class HistoricComponent implements OnInit {
           });
         }
       },
-      (error) => {
-        this.toastService.showToast('Une erreur a eu lieu. Merci de réessayer plus tard.', 'toast-error');
-      }
+      this.errorService.handleAfsError
     );
   }
 

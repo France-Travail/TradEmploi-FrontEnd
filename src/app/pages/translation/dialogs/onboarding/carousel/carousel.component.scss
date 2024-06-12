@@ -40,7 +40,7 @@
 }
 
 .control {
-  top: 30%;
+  top: 36%;
   border: none;
   background-color: transparent;
   outline: 0;
@@ -77,12 +77,10 @@
   .helpEN {
     flex-grow: 1;
     white-space: pre-line;
-    text-align: justify;
     .helpText {
       height: fit-content;
     }
     .browser {
-      margin-top: 15px;
       img {
         margin-right: 10px;
         vertical-align: middle;
@@ -101,6 +99,11 @@
   justify-content: space-between;
   margin: 15px 0;
   padding: 20px;
+
+  .centerPhone {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .helpFigures {
@@ -111,10 +114,6 @@
   .helpImage {
     width: 50%;
     height: auto;
-  }
-
-  .column {
-    display: inline-block;
   }
 }
 

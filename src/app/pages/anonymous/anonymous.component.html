@@ -1,8 +1,8 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="title">
-    <img src="../../../assets/images/common/logo_full_france_travail.svg" alt="Logo France Travail" *ngIf="showFranceTravailLogo" />
+    <img style="width: 80%; padding-bottom: 5%;" src="../../../assets/images/pe/logo-working.png" alt="Logo TRAD" *ngIf="showTraductionLogo" />
     <h1 class="t2">Login</h1>
-    <p class="t3">Access to France travail <span class="text-app">translation service</span></p>
+    <p class="t3">Access to Traduction <span class="text-app">translation service</span></p>
   </div>
   <mat-form-field [color]="username.valid && 'accent'" class="input">
     <mat-label>

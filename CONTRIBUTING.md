@@ -6,7 +6,7 @@ This project is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE V3.0. Re
 
 ## CORE TEAM
 
-This project is developed by "Innovation" departement of the "DSI Pôle Emploi".
+This project is developed by "Innovation" departement of the "DSI".
 
 Contacts:
 - [DAUDIN Yann](mailto:yann.daudin@pole-emploi.fr): "Innovation" departement chief officer

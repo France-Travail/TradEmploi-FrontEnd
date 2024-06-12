@@ -26,12 +26,9 @@ export class SpeechToTextSyncService {
           content: audioBytes,
         },
       };
-      return axios({
-        method: 'post',
+      return axios.post(urlRecognize, data, {
         headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
-        url: urlRecognize,
         timeout: 60000,
-        data,
       })
         .then((response) => {
           if (response.data.results !== undefined) {

@@ -4,6 +4,7 @@ mat-toolbar {
   justify-content: space-between;
   background: white !important;
   position: fixed;
+  padding: 0 !important;
   z-index: 99;
   #logo {
     cursor: pointer;
@@ -17,6 +18,11 @@ mat-toolbar {
       font-size: 14px;
       font-weight: bold;
       color: $red-corail;
+      line-height: normal;
+    }
+    .subtitle {
+      font-size: 12px;
+      line-height: normal;
     }
   }
   .tabs {
@@ -42,6 +48,7 @@ mat-toolbar {
         color: $button-black;
         font-size: 14px;
         margin-left: 10px;
+        line-height: normal;
       }
       &:last-child {
         margin-right: 0;

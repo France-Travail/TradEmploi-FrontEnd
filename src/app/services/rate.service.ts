@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Rate } from '../models/rate';
 import { environment } from '../../environments/environment';
 import { ErrorService } from './error.service';
@@ -9,6 +8,7 @@ import { ERROR_TECH_EXPORT_STATS } from '../models/error/errorTechnical';
 import { AuthService } from './auth.service';
 import { TokenBrokerService } from './token-broker.service';
 import { params } from '../../environments/params';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -37,16 +37,10 @@ export class RateService {
       .then((res) => {
         console.log(res);
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch(this.errorService.handleAfsError);
   }
 
-  public async getRates(isNotLogged: boolean) {
-    if (isNotLogged) {
-      const user = JSON.parse(localStorage.getItem('user'));
-      await this.authService.login(user.email, params.defaultPassword);
-    }
+  public async getRates() {
     const gwToken = (await this.tokenBrokerService.getTokenGcp()).tokenGW;
     const url = `${environment.gcp.gateWayUrl}/reporting`;
     const data = {
@@ -70,11 +64,10 @@ export class RateService {
               }
             }`,
     };
-    return axios({
-      method: 'POST',
+    return axios.post(url, data, {
+      // Reactiver probleme CORS
+      // withCredentials: true,
       headers: { Authorization: `Bearer ${gwToken}` },
-      data,
-      url,
     })
       .then((response) => {
         const dataRates = response.data.data.rates;
@@ -86,12 +79,12 @@ export class RateService {
             Langage: element.language,
             conversationDuration: element.conversationDuration,
             'Qualité des traductions': element.facilityGrade,
-            "Note de l'outil": element.efficientGrade,
+            'Note de l\'outil': element.efficientGrade,
             'Problème technique': element.offerLinked,
             'Commentaire libre': element.comment,
             'Type entretien': element.typeEntretien,
             'Nombre message conseiller': element.nbMessagesAdvisor,
-            'Nombre message DE': element.nbMessagesGuest,
+            'Nombre message Client': element.nbMessagesGuest,
             'identifiant utilisateur': element.user,
             'Identifiant agence': element.agency,
             'type STT': element.typeSTT,
@@ -106,6 +99,8 @@ export class RateService {
   }
 
   public getRateByHistoricId(id: string): Observable<Rate[]> {
-    return this.afs.collection<Rate>(this.db, (rf) => rf.where('historyId', '==', id)).valueChanges();
+    return this.afs
+      .collection<Rate>(this.db, (rf) => rf.where('historyId', '==', id))
+      .valueChanges();
   }
 }

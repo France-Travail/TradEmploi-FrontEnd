@@ -1,18 +1,19 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { LogoutComponent } from '../../logout/logout.component';
-import { MatDialog } from '@angular/material';
 import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
 import { NavbarService } from '../../../../services/navbar.service';
 import { SettingsService } from '../../../../services/settings.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, map } from 'rxjs';
 import { GdprComponent } from '../../../../pages/gdpr/gdpr.component';
 import { Role } from '../../../../models/role';
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 import { Router } from '@angular/router';
 import {ChatService} from '../../../../services/chat.service';
 import {VOCABULARY_DEFAULT} from '../../../../data/vocabulary';
+import { MatDialog } from '@angular/material/dialog';
+import { params } from '../../../../../environments/params';
+import { PdataComponent } from '../../../../pages/pdata/pdata.component';
 
 @Component({
   selector: 'app-header',
@@ -22,6 +23,9 @@ import {VOCABULARY_DEFAULT} from '../../../../data/vocabulary';
 export class HeaderComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
 
+  protected readonly params = params;
+  @Input() showCreateShortcut = false;
+  @Input() deferredPrompt: any;
   public choiceLink: string;
   public logoutLink: string;
   public helpLink: string;
@@ -74,6 +78,10 @@ export class HeaderComponent implements OnInit {
     this.openGdprModal(GdprComponent);
   }
 
+  public pdata() {
+    this.openGdprModal(PdataComponent);
+  }
+
   public choice() {
     if (this.settingsService.user.value.role === Role.ADVISOR) {
       this.partialReset();
@@ -114,5 +122,10 @@ export class HeaderComponent implements OnInit {
       });
       this.chatService.initChatMono(newRoomId, advisorRole);
     }
+  }
+
+  public createShortcut() {
+    this.showCreateShortcut = false;
+    this.deferredPrompt.prompt();
   }
 }

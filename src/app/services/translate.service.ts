@@ -12,6 +12,7 @@ export class TranslateService {
   constructor(private readonly errorService: ErrorService, private readonly tbs: TokenBrokerService) {}
 
   public async translate(text: string, targetLanguageCode: string, sourceLanguageCode?: string): Promise<string> {
+    sourceLanguageCode = this.mapLanguage(sourceLanguageCode);
     targetLanguageCode = this.mapLanguage(targetLanguageCode);
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const gwToken = tokenResponse.tokenGW;
@@ -23,11 +24,9 @@ export class TranslateService {
       projectId: environment.firebaseConfig.projectId,
     };
 
-    return axios({
-      method: 'POST',
-      headers: { Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8' },
-      data,
-      url,
+    return axios.post(url, data, {
+      headers: { Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8'},
+      withCredentials: true,
     })
       .then((response) => {
         return response.data.translatedText;

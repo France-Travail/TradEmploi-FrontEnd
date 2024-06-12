@@ -42,11 +42,6 @@
 }
 
 @media screen and (max-width: 576px) {
-  .title{
-    img{
-      width: 30%;
-    }
-  }
   .description {
     .img {
       width: 50%;
@@ -72,4 +67,9 @@
       width: 105px;
     }
   }
+}
+
+.logo-trad {
+  width: 80%;
+  padding-bottom: 5%
 }

@@ -1,18 +1,6 @@
----
-TradEmploi: an instantaneous translation application between two people, one of whom is allophone
+# Traduction
 
-Copyright (C) <2022>  <Innovation Department, DSI Pôle Emploi>
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details.
-You should have received a copy of the GNU Affero General Public License along with this program.  If not, see https://www.gnu.org/licenses/.
-
----
-
-# PE TRANSLATE
-
-# Licence
-This project is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE V3.0. Please check the LICENSE file.
+an instantaneous translation application between two people, one of whom is allophone, for Androïd and MacOS smartphone or tablet
 
 # Table of contents
 [[_TOC_]]
@@ -26,7 +14,6 @@ This project is the frontend of the application. The backend is **petranslate-ba
 # Installation
 
 ## Requirements
-
 Node, Angular | Version
 --- | --- 
 Node | 12.18
@@ -40,7 +27,6 @@ firebase tools | 10.6.0
 * fill the environment.ts and authflow.ts files with setting data, example:
 
 **environement.ts**
-
 ```
 export const environment = {
   name: 'os',
@@ -60,66 +46,56 @@ export const environment = {
     speechToTextEnabled: false,
     textToSpeechEnabled: false,
     key: 'XXXX',
+    defaultEndpoint: 'XXXX',
+    endpoints: {
+      'XXXX': 'XXXX'
+      'XXXX': 'XXXX'
+    },
     region: 'XXXX',
   }
 };
-
 ```
 
 **authflow.ts**
-
 ```
 import { AuthConfig } from 'angular-oauth2-oidc';
 export const authCodeFlowConfig: AuthConfig = {
 };
 ```
 
-
 **params.ts**
-
 ```
 export const params = {
   defaultPassword: 'XXXX',
   excludedLanguagesFromAzureSTT: [
-    'zh-CN',
-    'zh-HK',
     'en-PK',
-    'af-ZA',
-    'sq-AL',
-    'am-ET',
-    'hy-AM',
-    'az-AZ',
-    'eu-ES',
     'bn-BD',
-    'bn-IN',
-    'bs-BA',
-    'my-MM',
-    'zh-TW',
-    'gl-ES',
-    'ka-GE',
-    'is-IS',
-    'jv-ID',
-    'kk-KZ',
-    'km-KH',
-    'lo-LA',
-    'mk-MK',
-    'ml-IN',
-    'mr-IN',
-    'mn-MN',
-    'ne-NP',
-    'sr-RS',
-    'si-LK',
-    'su-ID',
-    'sw-TZ',
     'ta-MY',
     'ta-SG',
     'ta-LK',
-    'uk-UA',
-    'ur-IN',
     'ur-PK',
-    'uz-UZ',
-    'zu-ZA',
   ],
+  languesPrioritaires: [
+    'en-GB',
+    'es-ES',
+    'de-DE',
+    'it-IT',
+    'nl-NL',
+    'pt-PT',
+    'ja-JP',
+    'ar-XA',
+    'zh-CN',
+    'jv-ID',
+  ]
+  // Use Login/Password Authentification
+  oauthIdProvider: '',
+  // Use google authent (for test)
+  // oauthIdProvider: 'google.com',
+  // Use OIDC authent
+  // oauthIdProvider: 'oidc.idp-provider',
+  oauthIdProvider: '',
+  doubleAuth: false,
+  authType: AuthType.loginPassword,
   organization: {
     name: 'XXXX',
     organizationUser: 'Conseiller',
@@ -127,14 +103,12 @@ export const params = {
     officalDomain: ' ',
     cgus: "Nous utilisons des cookies pour nous assurer de votre sécurité. Nous n'utilisons pas de cookies pour vous conseiller et nous ne vendons pas vos données à des tiers.",
     cgusEnglish: `We use cookies to ensure your security. We do not use cookies to advise you and we do not sell your data to third parties.`,
-    entretiens: ['Accueil', 'Inscription', 'Indemnisation', 'Accompagnement', 'Autres'],
   },
+  subtitle: 'XXXX',
 };
-
 ```
 
 ## List of mandatory parameters in the environment.ts file
-
 Name | Description
 --- | --- 
 firebaseConfig | your app's Firebase project configuration
@@ -144,23 +118,32 @@ microsoftSpeechConfig | settings for the microsoft azure speech to text api even
 microsoftSpeechConfig.speechToTextEnabled | converting voice to text will use the azure speech to text api if true, false otherwise
 microsoftSpeechConfig.textToSpeechEnabled | converting text to voice will use the azure text to speech api if true, false otherwise
 microsoftSpeechConfig.key | the microsoft azure speech to text api key
+microsoftSpeechConfig.defaultEndpoint | default endpoint for microsoft azure speech to text api
+microsoftSpeechConfig.endpoints | endpoint of a specific language for microsoft azure speech to text api
 microsoftSpeechConfig.region | the microsoft azure speech to text api region
 
-
 ## List of optional parameters in the params.ts file
-
 Name | Description
 --- | --- 
 defaultPassword | the default password used to create a new firebase user account **Not needed if firebase login is activated**
 excludedLanguagesFromAzureSTT | the excludedLanguages will continue to use the google api for the speech to text api even if the microsoft azure api is enabled
+languesPrioritaires | list of languages on home page
+oauthIdProvider | OAuth Provider ID used for authentication (let empty for login/password)
+authType | Enum which define if we use authentication via login/password, via SSO, or both of them
+headerButtons.indicators | Display indicators button in the header page
+headerButtons.choice | Display indicators choice in the header page
+headerButtons.CGU | Display CGU button in the header page
+headerButtons.modality | Display modality button in the header page
+headerButtons.personalData | Display personalData button in the header page
+headerButtons.startGuide | Display startGuide button in the header page
 organization.name | your organization name
 organization.organizationUser | Main user of your app
 organization.cgus | your organisation's General Conditions of Use (GCU) in french
 organization.cgusEnglish | your organisation's General Conditions of Use (GCU) in english
-organization.entretiens | type of interviews
+subtitle | your subtitle in the header
 
 ## Authentication mode
-the default authentication mode is the firebase authentication with firestore.
+The default authentication mode is the firebase authentication with firestore.
 
 This mode is enabled when the authCodeFlowConfig.loginUrl param in the authflow.ts file is not defined.
 
@@ -168,23 +151,18 @@ Otherwise,when authCodeFlowConfig.loginUrl is defined, it means that authenticat
 
 So you need to have an authentication server,set the loginUrl
 and others settings in authCodeFlowConfig to setup your sso environment and initialise the authentication code flow.
-## Development server
 
+## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
-
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-
 ## Further help
-
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## Deploy on your environment [dev|uat|prod]
-
 1 - Build
-
 ```
 $ npm run build:[dev|uat|prod]
 ```
@@ -192,16 +170,13 @@ $ npm run build:[dev|uat|prod]
 2 - TEST on local
 
 3 - Deploy
-
 ```
 $ firebase deploy --project [dev|uat|prod]
 ```
 
 4 - TEST
-
 ```
 $ https://$GCP_PROJECT.firebaseapp.com
 ```
 
 5 - TEST with Product owner
-

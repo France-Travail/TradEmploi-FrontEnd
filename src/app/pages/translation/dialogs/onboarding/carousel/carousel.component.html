@@ -3,15 +3,10 @@
   <span class="close" (click)="closeModal()"  aria-hidden="true">&times;</span>
 </div>
 <div class="carousel">
-  <div *ngIf="currentSlide === 0" class="slide">
-    <iframe title="video trade emploi" width="685" height="500" src="https://www.youtube.com/embed/aRF_eJWPfeY" class="video" allowfullscreen></iframe>
-  </div>
 
-  <div *ngIf="currentSlide === 1" class="slide">
+  <div *ngIf="currentSlide === 0" class="slide">
     <div class="slide1">
-      <img width="270" height="200" class="column" src="../../../../../assets/images/common/pc.jpg" alt="pc" />
-      <span class="vertical-line"></span>
-      <img width="270" height="200" class="column" src="../../../../../assets/images/common/tablette.jpg" alt="tablette" />
+      <img height="200" class="centerPhone" src="../../../../../assets/images/common/phone.png" alt="phone" />
     </div>
 
     <div class="helpSentences">
@@ -25,17 +20,13 @@
       </ul>
 
       <ul class="helpEN">
-        <li class="circle browser">
-          <span>Navigateur chrome </span>
-          <img src="../../../../../assets/images/common/chrome-icon.png" alt="chrome icon" />
-        </li>
         <li class="circle">Connexion wifi stable</li>
         <li class="circle">Attention aux nuisances sonores</li>
       </ul>
     </div>
   </div>
 
-  <div *ngIf="currentSlide === 2" class="slide">
+  <div *ngIf="currentSlide === 1" class="slide">
     <div class="helpFigures">
       <ul class="helpFR discoursPoints">
         <li class="point">

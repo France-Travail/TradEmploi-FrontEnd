@@ -14,11 +14,7 @@ export class KpiService {
   constructor(private readonly errorService: ErrorService, private readonly authService: AuthService, private readonly tokenBrokerService: TokenBrokerService) {
   }
 
-  public async getkpi(isNotLogged: boolean) {
-    if (isNotLogged) {
-      const user = JSON.parse(localStorage.getItem('user'));
-      await this.authService.login( user.email, params.defaultPassword);
-    }
+  public async getkpi() {
     const gwToken = (await this.tokenBrokerService.getTokenGcp()).tokenGW;
     const url = `${environment.gcp.gateWayUrl}/reporting`;
     const data = {
@@ -67,11 +63,10 @@ export class KpiService {
                 }
             }`
     };
-    return axios({
-      method: 'POST',
-      headers: { Authorization: `Bearer ${gwToken}` },
-      data,
-      url
+    return axios.post(url, data, {
+      // Reactiver probleme CORS
+      // withCredentials: true,
+      headers: { Authorization: `Bearer ${gwToken}` }
     })
       .then((response) => {
         const dataKpi = response.data.data.kpi;
@@ -87,15 +82,15 @@ export class KpiService {
             'Mode traduction': this.getValue(element.conversation.translationMode),
             'Support traduction': this.getValue(element.device.support),
             'Conseiller : Device': this.getValue(element.device.advisor.equipment),
-            'DE(s) : Device': this.getValue(element.device.guest.equipment),
+            'Client(s) : Device': this.getValue(element.device.guest.equipment),
             'Conseiller : Système d\'exploitation (OS)': this.getValue(element.device.advisor.os.name),
             'Conseiller : Version OS': this.getValue(element.device.advisor.os.version),
             'Conseiller : Navigateur': this.getValue(element.device.advisor.browser.name),
             'Conseiller : Version Navigateur': this.getValue(element.device.advisor.browser.version),
-            'DE(s) : Système d\'exploitation (OS)': this.getValue(element.device.guest.os.name),
-            'DE(s)  : Version OS': this.getValue(element.device.guest.os.version),
-            'DE(s): Navigateur': this.getValue(element.device.guest.browser.name),
-            'DE : Version Navigateur': this.getValue(element.device.guest.browser.version),
+            'Client(s) : Système d\'exploitation (OS)': this.getValue(element.device.guest.os.name),
+            'Client(s)  : Version OS': this.getValue(element.device.guest.os.version),
+            'Client(s): Navigateur': this.getValue(element.device.guest.browser.name),
+            'Client : Version Navigateur': this.getValue(element.device.guest.browser.version),
             'Date erreur': element.error && element.error != null ? element.error.day : '',
             'Heure erreur': element.error && element.error != null ? element.error.hours : '',
             'Erreur technique': element.error && element.error != null ? element.error.descriptions : ''
