@@ -72,7 +72,6 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public showTraductionLogo = this.settingsService.showTraductionLogo;
   private isMobile = false;
   private isTablet = false;
-  public isFemaleSpeaking = false;
   private recordingState = RecordingState.STOPPED;
   private useSpeechToTextMicrosoftApi: boolean;
   private vocabulary: Vocabulary[];
