@@ -1,8 +1,8 @@
 import {Role} from '../models/role';
 import {Injectable} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
 import {FbAuthSingleton} from '../models/token/FbAuthSingleton';
 import {SettingsService} from './settings.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -15,13 +15,12 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         let auth;
-        const signInMethodsForEmail = await this.afAuth.auth.fetchSignInMethodsForEmail(email);
-
+        const signInMethodsForEmail = await this.afAuth.fetchSignInMethodsForEmail(email);
         if (signInMethodsForEmail.length > 0 && signInMethodsForEmail.includes('password')) {
-          auth = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+          auth = await this.afAuth.signInWithEmailAndPassword(email, password);
         } else {
           if (firebaseLogin === false) {
-            auth = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+            auth = await this.afAuth.createUserWithEmailAndPassword(email, password);
           }
         }
         if (auth && auth.user != null) {
@@ -39,7 +38,7 @@ export class AuthService {
   public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string; token: string; expirationTime: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        const auth = await this.afAuth.auth.signInAnonymously();
+        const auth = await this.afAuth.signInAnonymously();
         if (auth.user != null) {
           this.setRoleAndToken();
           const token = await auth.user.getIdTokenResult();
@@ -67,9 +66,9 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         if (this.settingsService.user.value.role === Role.GUEST) {
-          await this.afAuth.auth.currentUser.delete();
+          await (await this.afAuth.currentUser).delete();
         }
-        await this.afAuth.auth.signOut();
+        await this.afAuth.signOut();
         this.settingsService.reset();
         resolve({isAuth: false, message: 'Déconnexion réussie'});
       } catch (error) {

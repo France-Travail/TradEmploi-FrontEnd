@@ -25,17 +25,17 @@ export class TokenAzureService {
 
   private refreshToken = async (): Promise<string> => {
     return new Promise((resolve) => {
-      return axios(
+      return axios.post(
+        `https://${environment.microsoftSpeechConfig.region}.api.cognitive.microsoft.com/sts/v1.0/issueToken`,
+        undefined,
         {
-          method: 'post',
           headers: {
             'Ocp-Apim-Subscription-Key': `${environment.microsoftSpeechConfig.key}`,
             'content-type': 'application/x-www-form-urlencoded'
           },
-          url: `https://${environment.microsoftSpeechConfig.region}.api.cognitive.microsoft.com/sts/v1.0/issueToken`,
         }).then((response) => {
         resolve(response.data);
-      }).catch(function (error) {
+      }).catch(function(error) {
         console.error(error);
       });
     });

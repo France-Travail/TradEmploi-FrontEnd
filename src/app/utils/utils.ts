@@ -1,4 +1,5 @@
-import { Parser } from 'json2csv';
+import { Parser } from '@json2csv/plainjs';
+import { DatePipe } from '@angular/common';
 
 export const isIOS = () => {
     return [
@@ -30,15 +31,17 @@ export const getDuration = (lastMessageTime: string, firstMessageTime: string) =
 
 export const exportCsv = (data: any[], name: string) => {
 
-  const json2csvParser = new Parser({ delimiter: ';', encoding: 'utf8' });
+  const json2csvParser = new Parser({ delimiter: ';', withBOM: true });
   const csv = (data && data.length > 0) ? json2csvParser.parse(data) : '';
   const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv' });
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.setAttribute('hidden', '');
   a.setAttribute('href', url);
-  const date = new Date().toLocaleDateString('ko-KR').replace(/. /g, '');
-  a.setAttribute('download', `${name}${date}.csv`);
+  const date = new Date();
+  const datepipe: DatePipe = new DatePipe('en-US');
+  const formattedDate = datepipe.transform(date, 'YYYYMMdd');
+  a.setAttribute('download', `${name}${formattedDate}.csv`);
   document.body.append(a);
   a.click();
   document.body.removeChild(a);

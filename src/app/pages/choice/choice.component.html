@@ -1,18 +1,20 @@
 <div class="choice">
-  <h2><strong>Choix de langues </strong></h2>
-  <mat-form-field class="search" appearance="outline">
+  <h2><strong>Choix de la langue </strong></h2>
+  <mat-form-field class="search density" appearance="outline">
     <mat-icon matPrefix>search</mat-icon>
     <input type="search" placeholder="{{ wordings.search }}" aria-label="Search" autocomplete="off" matInput (keyup)="applyFilter($event)" />
   </mat-form-field>
   <div class="option">
-    <button [ngClass]="{ 'no-clicked': optionAll, clicked: !optionAll }" (click)="getMost()">{{ wordings.mostBtn }}</button>
+    <button [ngClass]="{ 'no-clicked': optionAll, clicked: !optionAll }" (click)="getMost()">{{ params.languesPrioritairesActif ? wordings.mostBtn : wordings.mostUsedBtn }}</button>
     <button [ngClass]="{ 'no-clicked': !optionAll, clicked: optionAll }" (click)="getMost()">
       <img style="vertical-align: middle" src="assets/icons/all-languages.svg" alt="Multi Language" />
       <span class="description">{{ wordings.allBtn }}</span>
     </button>
     <button class="listgrid" (click)="getList()">
-      <mat-icon> {{ optionList ? 'view_comfy' : 'list' }}</mat-icon>
+      <mat-icon class="taille-icon"> {{ optionList ? 'view_comfy' : 'list' }}</mat-icon>
     </button>
   </div>
   <app-language-grid [optionAll]="optionAll" [optionList]="optionList" [search]="search" [isGuest]="isGuest"></app-language-grid>
+  <p class="footercgu">En poursuivant la navigation sur l’Application de traduction instantanée, je reconnais avoir lu et accepté les CGU</p>
 </div>
+w

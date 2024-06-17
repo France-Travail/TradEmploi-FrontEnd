@@ -1,8 +1,9 @@
+import firebase from 'firebase/compat';
 
 export class FbAuthSingleton {
   private static instance: FbAuthSingleton;
 
-  private _auth: firebase.auth.UserCredential = null;
+  private auth: firebase.auth.UserCredential = null;
 
 
   /**
@@ -19,10 +20,10 @@ export class FbAuthSingleton {
   }
 
   public setFbAuth(value: firebase.auth.UserCredential): void {
-    this._auth = value;
+    this.auth = value;
   }
 
   public getFbAuth(): firebase.auth.UserCredential {
-    return this._auth;
+    return this.auth;
   }
 }

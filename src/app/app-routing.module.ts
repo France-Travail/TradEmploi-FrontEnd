@@ -5,14 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 // Components
 import { HistoricComponent } from './pages/historic/historic.component';
 import { TranslationComponent } from './pages/translation/translation.component';
-import { StartComponent } from './pages/start/start.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { AnonymousComponent } from './pages/anonymous/anonymous.component';
 import { GdprComponent } from './pages/gdpr/gdpr.component';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './guards/permissions.service';
 import { PendingChangesGuard } from './guards/pending-changes.guard';
 import { ChoiceComponent } from './pages/choice/choice.component';
 import { ModalityComponent } from './pages/modality/modality.component';
@@ -22,11 +21,7 @@ import { IndicatorsComponent } from './indicators/indicators.component';
 import { TradtondocComponent } from './pages/tradtondoc/tradtondoc.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'start', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
-  {
-    path: 'start',
-    component: StartComponent,
-  },
+  { path: '', redirectTo: 'auth', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
   {
     path: 'callback',
     component: CallbackComponent,
@@ -100,14 +95,19 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'start',
+    redirectTo: 'auth',
     pathMatch: 'full',
   },
+  {
+    path: 'start',
+    redirectTo: 'auth',
+    pathMatch: 'full',
+  }
 ];
 
 @NgModule({
   providers: [PendingChangesGuard],
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {})],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

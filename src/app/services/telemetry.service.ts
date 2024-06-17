@@ -20,11 +20,10 @@ export class TelemetryService {
     const params = {
       idDGASI
     };
-    return axios({
-      method: 'GET',
+    return axios.get(url, {
       params,
+      withCredentials: true,
       headers: { Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8' },
-      url
     }).catch((error) => {
       throw new Error(error);
     });

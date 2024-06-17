@@ -1,17 +1,14 @@
-image: node:12.18-stretch-slim
-
-before_script:
-  - npm i -g firebase-tools@10.6.0 @angular/cli@10.1.3
+image:
+  name: node:20.9-alpine
 
 variables:
-  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE_DEV
-  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE_DEV
-  PARAMS_FILE_CONTENT: $PARAMS_FILE_DEV
+  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE
+  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE
+  PARAMS_FILE_CONTENT: $PARAMS_FILE
 
 stages:
   - build
   - deploy
-
 
 build:
   stage: build
@@ -20,14 +17,14 @@ build:
       - node_modules/
       - dist/
   environment:
-    name: staging
+    name: production
   script:
     - npm i
-    - npm run config "--environment=dev"
-    - ng build "--configuration=dev"
+    - npm run config "--environment=production"
+    - ng build "--configuration=production"
   only:
     refs:
-      - develop
+      - master
 
 deploy:
   stage: deploy
@@ -35,9 +32,9 @@ deploy:
     paths:
       - dist/
   environment:
-    name: staging
+    name: production
   script:
-    - firebase deploy --project dev --token $FIREBASE_TOKEN
+    - firebase deploy --project prod --token $FIREBASE_TOKEN
   only:
     refs:
-      - develop
+      - master

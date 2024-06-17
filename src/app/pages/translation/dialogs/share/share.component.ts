@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
 import { ChatService } from '../../../../services/chat.service';
 import { SettingsService } from '../../../../services/settings.service';
 import { ToastService } from '../../../../services/toast.service';
 import { Role } from '../../../../models/role';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-share',

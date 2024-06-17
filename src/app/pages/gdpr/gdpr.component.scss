@@ -3,15 +3,11 @@
 .title {
     margin-bottom: 0 !important;
 }
-.language{
-    display: flex;
-    justify-content: center;
-}
 
 .privacy{
     overflow-y: auto;
     overflow-x: hidden;
-    height: 150px;
+    height: 250px;
     font-size: 15px;
     white-space: pre-line;
 }
@@ -55,14 +51,14 @@
     }
 }
 
-@media screen and (max-width: 576px) { 
+@media screen and (max-width: 576px) {
     .action{
         button {
             width: 120px;
         }
     }
 }
-@media screen and (max-width: 375px) { 
+@media screen and (max-width: 375px) {
     .action{
         button {
             width: 80px;

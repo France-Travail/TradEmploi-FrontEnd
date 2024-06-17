@@ -2,7 +2,7 @@ import { PdfConvertService } from '../../services/pdf-convert.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { Component, HostListener, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { VOCABULARY } from 'src/app/data/vocabulary';
 import { ToastService } from 'src/app/services/toast.service';
 import { TextToSpeechService } from '../../services/text-to-speech.service';
@@ -33,7 +33,7 @@ export class TradtondocComponent implements OnDestroy {
   audioFile: HTMLAudioElement;
   isPlaying: boolean = false;
   showAudioControls: boolean = false;
-  croppedImage: string;
+  croppedImage: string ;
   isPdf: boolean = false;
   private isAudioSupported: boolean;
   targetCountry: string;
@@ -48,7 +48,7 @@ export class TradtondocComponent implements OnDestroy {
     private readonly settingsService: SettingsService,
     private readonly toastService: ToastService,
     private readonly navService: NavbarService,
-    private readonly pdfConvertService: PdfConvertService
+    private readonly pdfConvertService: PdfConvertService,
   ) {
     this.navService.handleTabsSettings();
     this.settingsService.user.subscribe((user) => {
@@ -70,9 +70,8 @@ export class TradtondocComponent implements OnDestroy {
   async onSubmit() {
     if (this.file && this.fileName) {
       const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
-
       const result = await this.tradTonDocService
-        .detectText(this.fileName.replace('.pdf', '.png'), this.croppedImage ? this.croppedImage : this.file)
+        .detectText(this.fileName.replace('.pdf', '.png'), this.croppedImage ? this.croppedImage : this.imageBase64String)
         .catch((err) => {
           loaderDialog.close();
           this.toastService.showToast('Une erreur est survenue, veuillez réessayer plus tard', 'toast-error');
@@ -80,9 +79,11 @@ export class TradtondocComponent implements OnDestroy {
         })
         .finally(() => loaderDialog.close());
       this.text = result ? result.text : '';
+      console.log(this.text);
       this.nbTranslatedCharacters += result ? result.numberCharactersInText : 0;
       this.isConform = this.checkNumberTranslatedCharacters(this.nbTranslatedCharacters);
       if (this.text.length > 0) {
+        console.log(this.targetLanguage);
         this.translatedText = await this.translationService.translate(this.text, this.targetLanguage);
         if (this.isAudioSupported) {
           await this.textToSpeechService
@@ -134,8 +135,9 @@ export class TradtondocComponent implements OnDestroy {
   }
 
   imageCropped($event: ImageCroppedEvent) {
-    this.croppedImage = $event.base64;
-    this.translatedText = null;
+    this.blobToBase64($event.blob).then(base64 => {
+      this.croppedImage = base64 as string;
+    });
   }
 
   async onFileDropped($event) {
@@ -189,7 +191,17 @@ export class TradtondocComponent implements OnDestroy {
       await this.pdfConvertService
         .convert(reader.result.toString(), this.fileName)
         .then((res) => {
-          this.imageBase64String = 'data:image/png;base64,' + res.data;
+
+          this.imageBase64String = res.data;
+
+          // Convertir la chaîne Base64 en Blob
+          const blob = this.base64ToBlob(res.data, 'data:image/png;base64');
+
+          // Créer un fichier à partir du Blob
+          // Attribuer le nouveau fichier
+          this.file = new File([blob], 'converted-image.png', { type: 'image/png' });
+
+
         })
         .catch((err) => {
           this.isConform = false;
@@ -239,5 +251,27 @@ export class TradtondocComponent implements OnDestroy {
       return false;
     }
     return true;
+  }
+
+  private base64ToBlob(base64: string, contentType: string): Blob {
+    const byteCharacters = atob(base64);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: contentType });
+  }
+
+  blobToBase64(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64data = reader.result as string;
+        resolve(base64data);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
   }
 }

@@ -1,13 +1,15 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {MatDialog} from '@angular/material';
-import {LogoutComponent} from '../../logout/logout.component';
-import {ShareComponent} from '../../../../pages/translation/dialogs/share/share.component';
-import {GdprComponent} from '../../../../pages/gdpr/gdpr.component';
-import {SettingsService} from '../../../../services/settings.service';
-import {NavbarService} from '../../../../services/navbar.service';
-import {VOCABULARY_DEFAULT} from '../../../../data/vocabulary';
-import {Role} from '../../../../models/role';
-import {OnboardingComponent} from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LogoutComponent } from '../../logout/logout.component';
+import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
+import { GdprComponent } from '../../../../pages/gdpr/gdpr.component';
+import { SettingsService } from '../../../../services/settings.service';
+import { NavbarService } from '../../../../services/navbar.service';
+import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
+import { Role } from '../../../../models/role';
+import { RateDialogComponent } from '../../../../pages/translation/dialogs/rate-dialog/rate-dialog.component';
+import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
+import { MatDialog } from '@angular/material/dialog';
+import { PdataComponent } from '../../../../pages/pdata/pdata.component';
 
 @Component({
   selector: 'app-sidenav',
@@ -17,6 +19,8 @@ import {OnboardingComponent} from '../../../../pages/translation/dialogs/onboard
 export class SidenavComponent {
   @Output() sidenavClose = new EventEmitter();
 
+  @Input() showCreateShortcut = false;
+  @Input() deferredPrompt: any;
   public choiceLink: string;
   public logoutLink: string;
   public helpLink: string;
@@ -48,12 +52,32 @@ export class SidenavComponent {
     this.openModal(ShareComponent);
   }
 
+  public end() {
+    this.settingsService.user.subscribe((user) => {
+      if (user != null) {
+        this.language = user.isMultiDevices ? this.settingsService.defaultLanguage.written : user.language.written;
+        this.openModal(RateDialogComponent, [this.language]);
+      }
+    });
+  }
+
   public help() {
     this.openModal(OnboardingComponent);
   }
 
   public gdpr() {
     this.dialog.open(GdprComponent, {
+      panelClass: 'customDialog',
+      width: '90%',
+      height: '90%',
+      data: {
+        language: this.language
+      }
+    });
+  }
+
+  public pdata() {
+    this.dialog.open(PdataComponent, {
       panelClass: 'customDialog',
       width: '90%',
       height: '90%',
@@ -72,5 +96,10 @@ export class SidenavComponent {
         guest
       }
     });
+  }
+
+  public createShortcut() {
+    this.showCreateShortcut = false;
+    this.deferredPrompt.prompt();
   }
 }

@@ -1,6 +1,6 @@
-import { NavbarTab, Sentence } from '../models/vocabulary';
-import { params } from '../../environments/params';
-import { environment } from '../../environments/environment';
+import {NavbarTab, Sentence} from '../models/vocabulary';
+import {params} from '../../environments/params';
+import {environment} from '../../environments/environment';
 
 const organization = params.organization.name;
 
@@ -75,10 +75,89 @@ export const FRENCH: Sentence = {
     typeInterview: 'Type entretien',
   },
   gdpr: {
-    title: 'Protection des données à caractère personnel',
-    privacyText: params.organization.cgus,
+    title: 'Conditions générales d\'utilisation',
+    privacyText:
+    params.organization.cgus,
     closeBtn: 'FERMER',
   },
+  pdata: '<div>' +
+    '      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur convallis felis et odio facilisis, eu sagittis libero vehicula. Integer id neque vitae eros mollis malesuada non ut nunc.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>RESPONSABLE DU TRAITEMENT</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Nam non sem vitae lectus pretium gravida. Nulla facilisi. Aliquam erat volutpat. Donec mollis ligula in sapien fermentum, eget accumsan tortor faucibus. Curabitur in turpis id est scelerisque eleifend.<a href="https://www.gnu.org/licenses/gpl-3.0.fr.html">Aperta fons est futura</a></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>OBJECTIF DU TRAITEMENT</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Praesent ac nisl nec justo laoreet scelerisque. Mauris varius sem sed nulla vestibulum, at vehicula ligula scelerisque. Integer sit amet neque a ligula tincidunt fermentum.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>BASE LEGALE</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Morbi ac libero quis purus malesuada posuere ut a velit. Nam ac sapien vitae nulla ullamcorper laoreet ut at justo. Curabitur ut mauris convallis, vehicula justo in, convallis risus.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>NATURE DES DONNEES TRAITEES</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Sed sit amet nulla vitae libero ornare vestibulum. Ut vestibulum sem sit amet nunc vehicula, id consequat tortor pellentesque.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '    <span>Pour les clients internationaux :</span>' +
+    '  </div>' +
+    '    <div>' +
+    '      <ul>' +
+    '        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>' +
+    '        <li>Vestibulum consequat, tortor in scelerisque tincidunt, justo augue condimentum dolor, a tincidunt ipsum turpis sit amet justo.</li>' +
+    '      </ul>' +
+    '    </div>' +
+    '    <div>' +
+    '      <ul>' +
+    '        <li>Praesent nec risus nec tortor consequat tincidunt.</li>' +
+    '        <li>Donec vehicula dolor et sapien ornare varius.</li>' +
+    '        <li>Sed lacinia quam at dui malesuada, vel ultricies est cursus.</li>' +
+    '      </ul>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus convallis sem at augue ultricies, id vehicula mauris malesuada. Curabitur vehicula semper arcu, vitae cursus purus vehicula nec.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>DUREE DE CONSERVATION</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Quisque a sapien sed dui fermentum luctus. Duis in lorem ut nisl consectetur lacinia. Fusce luctus libero sit amet arcu luctus, in facilisis eros volutpat.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>DESTINATAIRES DES DONNEES PERSONNELLES</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Vivamus at ex sed mauris aliquam pharetra. Fusce posuere eros in quam sollicitudin scelerisque.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <ul>' +
+    '        <li>Sed ac eros ac neque fringilla fermentum.</li>' +
+    '        <li>Nullam ut nisl a risus dignissim varius.</li>' +
+    '        <li>Ut eu lacus ac orci vehicula cursus.</li>' +
+    '        <li>Integer nec nisi at ligula dapibus commodo.</li>' +
+    '      </ul>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>TRANSFERT DES DONNEES</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Morbi in dolor et velit sollicitudin sollicitudin. Sed suscipit, nulla nec fermentum ullamcorper, nulla nisi pulvinar arcu, ac tincidunt sem arcu at augue.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>DROITS SUR VOS DONNEES PERSONNELLES</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Fusce volutpat, purus a elementum sollicitudin, augue arcu vehicula nulla, at consectetur sapien risus in odio. Donec luctus, sem ut aliquet vehicula, justo est placerat erat, at efficitur neque libero a libero.</span>' +
+    '    </div>',
   logout: {
     title: 'Déconnexion',
     question: 'Voulez-vous vous déconnecter?',
@@ -94,7 +173,8 @@ export const FRENCH: Sentence = {
     confirm: 'CONFIRMER',
   },
   choice: {
-    mostBtn: 'Langues les plus utilisées',
+    mostBtn: 'Langues prioritaires',
+    mostUsedBtn: 'Langues les plus utilisées',
     allBtn: 'Toutes les langues',
     listBtn: 'Liste',
     gridBtn: 'Grille',
@@ -103,10 +183,10 @@ export const FRENCH: Sentence = {
     voice: 'Voix',
   },
   tooltip: {
-    pronounce: 'Le DE peut parler dans cette langue',
+    pronounce: 'Le client peut parler dans cette langue',
     noPronounce: 'Je ne peux pas parler dans cette langue',
-    listen: 'Le DE peut entendre la traduction dans cette langue',
-    noListen: 'Le DE ne peut pas entendre la traduction dans cette langue',
+    listen: 'Le client peut entendre la traduction dans cette langue',
+    noListen: 'Le client ne peut pas entendre la traduction dans cette langue',
     audio: 'Je peux entendre un échantillon vocal dans cette langue',
   },
 };
@@ -140,10 +220,23 @@ export const ENGLISH: Sentence = {
     typeInterview: 'Interview type',
   },
   gdpr: {
-    title: 'Protection of personal data',
-    privacyText: params.organization.cgusEnglish,
+    title: 'General terms of use',
+    privacyText:
+    params.organization.cgusEnglish,
     closeBtn: 'CLOSE',
   },
+  pdata: '<div>' +
+        '      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur convallis felis et odio facilisis, eu sagittis libero vehicula. Integer id neque vitae eros mollis malesuada non ut nunc.</span>' +
+      '    </div>' +
+      '    <div>' +
+      '      <span><b>DATA CONTROLLER</b></span>' +
+      '    </div>' +
+      '    <div>' +
+      '      <span>Nam non sem vitae lectus pretium gravida. Nulla facilisi. Aliquam erat volutpat. Donec mollis ligula in sapien fermentum, eget accumsan tortor faucibus. Curabitur in turpis id est scelerisque eleifend.<a href="https://www.gnu.org/licenses/gpl-3.0.fr.html">Aperta fons est futura</a></span>' +
+      '    </div>' +
+      '    <div>' +
+      '      <span><b>TREATMENT OBJECTIVE</b></span>' +
+      '    </div>',
   logout: {
     title: 'Logout',
     question: 'Would you like to log out ?',
@@ -151,7 +244,8 @@ export const ENGLISH: Sentence = {
     confirm: 'Logout',
   },
   choice: {
-    mostBtn: 'Most used languages',
+    mostBtn: 'Priority language',
+    mostUsedBtn: 'Most used languages',
     allBtn: 'All languages',
     listBtn: 'List',
     gridBtn: 'Grid',
@@ -167,8 +261,8 @@ export const ENGLISH: Sentence = {
     audio: 'I can hear a voice sample in this language',
   },
   introMessage: {
-    welcomeFR: 'Voici un traducteur automatique qui va traduire votre langue. Pour améliorer l’expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',
-    welcomeRAW: 'Here is an automatic translator that will translate your language. To improve the translation experience, keep sentences short and simple and speak loudly enough.',
+    welcomeFR: 'Voici un traducteur automatique qui va traduire votre langue. Pour améliorer l\'expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',
+    welcomeRAW: 'Here\'s an automatic translator that will translate your language. To improve the translation experience, keep your sentences short and simple, and speak loudly enough.',
     notifMultiFR: 'L’espace de conversation a été créé en modalité multi-support.',
     notifMultiRAW: 'You\'ve joined the conversation.',
     voiceavailabilityFR: 'Saisie vocale indisponible pour la langue sélectionnée',
@@ -252,6 +346,7 @@ export const HOLLAND: Sentence = {
   readedWelcome: 'Wilt u uitwisselen in deze taal?',
   translationH2: 'Voer tekst in of houd de blauwe microfoon ingedrukt om te spreken',
   translationH2Mobile: 'Voer tekst in of houd de blauwe microfoon ingedrukt om te spreken',
+
 };
 
 export const POLAND: Sentence = {
@@ -330,7 +425,6 @@ export const SPANISH: Sentence = {
 
 export const ALBANIAN: Sentence = {
   applicationName: 'Përkthim i menjëhershëm',
-  audioSupported: true,
   send: 'Dërgoni te',
   translate: 'Përkthimi',
   languageButtonRAW: 'Gjuhë shqipe',
@@ -349,6 +443,7 @@ export const ALBANIAN: Sentence = {
     comment: 'Koment falas',
     technical: 'A keni hasur ndonjë problem teknik duke përdorur mjetin?',
   },
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
 
 export const MANDARIN: Sentence = {
@@ -393,7 +488,7 @@ export const BENGALI: Sentence = {
     comment: 'ফ্রি মন্তব্য',
     technical: 'আপনি কি সরঞ্জামটি ব্যবহার করে কোনও প্রযুক্তিগত সমস্যার সম্মুখীন হয়েছেন?',
   },
-  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
 
 export const BENGALI_INDIA: Sentence = {
@@ -425,6 +520,7 @@ export const DARI: Sentence = {
 };
 
 export const PACHTO: Sentence = {
+  /*voiceNotSupported: true,*/
   displayedWelcome: 'سلام زه ستاسو تفسیر یم',
   readedWelcome: 'ایا تاسو غواړئ پدې ژبه کې تبادله وکړئ؟',
   applicationName: 'فوري ژباړه',
@@ -436,16 +532,16 @@ export const PACHTO: Sentence = {
   listen: 'واورئ',
   recordText: 'اوس خبره وکړه',
   gaugeText: 'Speak now',
-  autoListen: 'په خپله کړنه کې واورئ',
+  autoListen: 'په اتوماتيک ډول واورئ',
   languageButtonRAW: 'پښتو ژبه',
   languageButtonFR: 'langue pachto',
-  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
   rate: {
     qualityTranslate: 'د ژباړې کیفیت څه و؟',
     rating: 'تاسو د وسیلې درجه څنګه کوئ؟',
     comment: 'وړیا نظر',
     technical: 'ایا تاسو د وسیلې په کارولو سره کوم تخنیکي ستونزې سره مخ شوي یاست؟',
   },
+  audioSupported: true
 };
 
 export const OURDOU: Sentence = {
@@ -467,7 +563,7 @@ export const OURDOU: Sentence = {
     comment: COMMENT,
     technical: TECHNICAL,
   },
-  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
 
 export const PORTUGUESE: Sentence = {
@@ -559,7 +655,7 @@ export const AMHARIC: Sentence = {
     comment: 'ነፃ አስተያየት',
     technical: 'መሣሪያውን በመጠቀም ማንኛውንም ቴክኒካዊ ችግሮች አጋጥመውዎታል?',
   },
-  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
 
 export const KHMER: Sentence = {
@@ -581,7 +677,7 @@ export const KHMER: Sentence = {
     comment: 'មតិយោបល់ដោយឥតគិតថ្លៃ',
     technical: 'តើអ្នកបានជួបប្រទះបញ្ហាបច្ចេកទេសណាមួយដោយប្រើឧបករណ៍នេះទេ?',
   },
-  audioSupported: true,
+  audioSupported: true
 };
 export const KHMER_NO_VOICE: Sentence = {
   ...KHMER,
@@ -609,6 +705,7 @@ export const HINDI: Sentence = {
   },
 };
 
+
 export const TAMOUL: Sentence = {
   displayedWelcome: 'வணக்கம், உங்கள் ஆலோசகருடன் எளிதாக பரிமாறிக்கொள்ள உங்கள் மொழிபெயர்ப்பாளராக இருப்பேன்.',
   readedWelcome: 'இந்த மொழியில் பரிமாற விரும்புகிறீர்களா?',
@@ -628,7 +725,11 @@ export const TAMOUL: Sentence = {
     comment: COMMENT,
     technical: TECHNICAL,
   },
-  audioSupported: true,
+  audioSupported: true
+};
+export const TAMOUL_MALAISIA: Sentence = {
+  ...TAMOUL,
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
 };
 export const TAMOUL_NO_VOICE: Sentence = {
   ...TAMOUL,
@@ -664,6 +765,7 @@ export const ITALIAN: Sentence = {
 };
 
 export const MONGOL: Sentence = {
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
   displayedWelcome: 'Сайн байна уу, би зөвлөхтэйгээ хялбархан солилцох орчуулагч болно.',
   readedWelcome: 'Та энэ хэлээр солилцохыг хүсч байна уу?',
   applicationName: APPLICATION_NAME,
@@ -676,16 +778,16 @@ export const MONGOL: Sentence = {
   recordText: 'Одоо ярь',
   gaugeText: 'Speak now',
   autoListen: 'Автоматаар сонс',
-  audioSupported: true,
   rate: {
     qualityTranslate: 'Орчуулгын чанар ямар байв?',
     rating: 'Та багажийг хэрхэн үнэлдэг вэ?',
     comment: 'Үнэгүй сэтгэгдэл',
     technical: 'Хэрэгслийг ашиглахад ямар нэгэн техникийн асуудал тулгарсан уу?',
-  },
+  }
 };
 
 export const NEPALESE: Sentence = {
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
   displayedWelcome: 'नमस्कार, म तपाईको दोभाषे बन्ने छ तपाईंको सल्लाहकार संग सजिलै साटासाट गर्न।',
   readedWelcome: 'के तपाईं यस भाषामा आदान प्रदान गर्न चाहनुहुन्छ?',
   applicationName: APPLICATION_NAME,
@@ -698,7 +800,6 @@ export const NEPALESE: Sentence = {
   recordText: 'अहिले बोल्नुस्',
   gaugeText: 'Speak now',
   autoListen: 'स्वचालित रूपमा सुन्नुहोस्',
-  audioSupported: true,
   rate: {
     qualityTranslate: 'अनुवादको गुणस्तर के थियो?',
     rating: 'तपाईं कसरी उपकरण मूल्या rate्कन गर्नुहुन्छ?',
@@ -732,13 +833,13 @@ export const RUSSIA: Sentence = {
 };
 
 export const OUZBEK: Sentence = {
-  displayedWelcome: "Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo'lardim.",
+  displayedWelcome: 'Assalomu alaykum, maslahatchingiz bilan osonlikcha almashish uchun sizning tarjimoningiz bo\'lardim.',
   readedWelcome: 'Ushbu tilda almashishni xohlaysizmi?',
   applicationName: APPLICATION_NAME,
   send: 'Send',
   translate: 'Translate',
-  translationH2: "Matn kiriting yoki gapirish uchun ko'k mikrofonni bosib turing",
-  translationH2Mobile: "Matn kiriting yoki gapirish uchun ko'k mikrofonga teging",
+  translationH2: 'Matn kiriting yoki gapirish uchun ko\'k mikrofonni bosib turing',
+  translationH2Mobile: 'Matn kiriting yoki gapirish uchun ko\'k mikrofonga teging',
   thanks: THANKS_EN,
   listen: 'Listen',
   recordText: 'Hozir gapiring',
@@ -750,7 +851,7 @@ export const OUZBEK: Sentence = {
     comment: 'Bepul sharh',
     technical: 'Asbobni ishlatishda biron bir texnik muammoga duch keldingizmi?',
   },
-  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
 
 export const ROMANIAN: Sentence = {
@@ -839,7 +940,7 @@ export const PERSAN: Sentence = {
     comment: 'نظر رایگان',
     technical: 'آیا با استفاده از این ابزار به مشکلات فنی برخورد کرده اید؟',
   },
-  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
 
 export const GREEK: Sentence = {
@@ -875,6 +976,7 @@ export const AFRIKAANS: Sentence = {
   readedWelcome: 'Wil jy in hierdie taal uitruil?',
   translationH2: 'Skryf die sin om te vertaal.',
   translationH2Mobile: 'Voer teks in, of hou die blou mikrofoon om te praat',
+
 };
 
 export const ARMENIAN: Sentence = {
@@ -882,7 +984,15 @@ export const ARMENIAN: Sentence = {
   readedWelcome: 'Ցանկանու՞մ եք շարունակել այս լեզվով:',
   translationH2: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
   translationH2Mobile: 'Մուտքագրեք տեքստ կամ հպեք կապույտ խոսափողին՝ խոսելու համար',
-  audioSupported: true,
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
+};
+
+export const AZERBAIDJANAIS: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Bu dildə mübadilə etmək istərdinizmi?',
+  translationH2: 'Mətni daxil edin və ya danışmaq üçün mavi mikrofonu basıb saxlayın',
+  translationH2Mobile: 'Mətn daxil edin və ya danışmaq üçün mavi mikrofona toxunun',
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
 
 export const BASQUE: Sentence = {
@@ -890,7 +1000,7 @@ export const BASQUE: Sentence = {
   readedWelcome: 'Hizkuntza honetan jarraitu nahi duzu?',
   translationH2: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
   translationH2Mobile: 'Idatzi testua edo sakatu mikro urdina hitz egiteko',
-  audioSupported: true,
+  audioSupported: true
 };
 
 export const ICELAND: Sentence = {
@@ -898,6 +1008,7 @@ export const ICELAND: Sentence = {
   readedWelcome: 'Viltu halda áfram á þessu tungumáli?',
   translationH2: 'Sláðu inn texta eða haltu bláa hljóðnemanum til að tala',
   translationH2Mobile: 'Sláðu inn texta eða pikkaðu á bláa hljóðnemann til að tala',
+
 };
 
 export const SERBIAN: Sentence = {
@@ -905,6 +1016,7 @@ export const SERBIAN: Sentence = {
   readedWelcome: 'Да ли желите да наставите на овом језику?',
   translationH2: 'Напиши реченицу за превод.',
   translationH2Mobile: 'Унесите текст или додирните плави микрофон да бисте говорили.',
+
 };
 
 export const GEORGIAN: Sentence = {
@@ -912,37 +1024,40 @@ export const GEORGIAN: Sentence = {
   readedWelcome: 'გსურთ ამ ენაზე გაგრძელება?',
   translationH2: 'შეიყვანეთ ტექსტი, ან გეჭიროთ ლურჯი მიკროფონი სალაპარაკოდ',
   translationH2Mobile: 'შეიყვანეთ ტექსტი, ან შეეხეთ ლურჯ მიკროფონს სასაუბროდ',
-  audioSupported: true,
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
+
 
 export const CROATIAN: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Želite li nastaviti na ovom jeziku?',
-  translationH2: "Unesite tekst ili držite plavi mikrofon da biste govorili'",
-  translationH2Mobile: "Unesite tekst ili držite plavi mikrofon da biste govorili'",
-  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
+  translationH2: 'Unesite tekst ili držite plavi mikrofon da biste govorili\'',
+  translationH2Mobile: 'Unesite tekst ili držite plavi mikrofon da biste govorili\'',
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
+
 };
 
 export const BOSNIAN: Sentence = {
   ...ENGLISH,
-  audioSupported: true,
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
   readedWelcome: 'Želite li razmjenjivati ​​na ovom jeziku?',
-  translationH2: "Unesite tekst ili pritisnite i držite plavi mikrofon za govori'",
-  translationH2Mobile: "Unesite tekst ili dodirnite plavi mikrofon da govorite'",
+  translationH2: 'Unesite tekst ili pritisnite i držite plavi mikrofon za govori\'',
+  translationH2Mobile: 'Unesite tekst ili dodirnite plavi mikrofon da govorite\''
 };
+
 export const BIRMAN: Sentence = {
   ...ENGLISH,
   readedWelcome: 'ဤဘာသာစကားဖြင့် လဲလှယ်လိုပါသလား။',
-  translationH2: "စာသားရိုက်ထည့်ပါ သို့မဟုတ် စကားပြောရန် အပြာရောင်မိုက်ခရိုဖုန်းကို နှိပ်ပြီး ဖိထားပါ။'",
-  translationH2Mobile: "စာသားရိုက်ထည့်ပါ သို့မဟုတ် စကားပြောရန် အပြာရောင်မိုက်ကို တို့ပါ။'",
+  translationH2: 'စာသားရိုက်ထည့်ပါ သို့မဟုတ် စကားပြောရန် အပြာရောင်မိုက်ခရိုဖုန်းကို နှိပ်ပြီး ဖိထားပါ။\'',
+  translationH2Mobile: 'စာသားရိုက်ထည့်ပါ သို့မဟုတ် စကားပြောရန် အပြာရောင်မိုက်ကို တို့ပါ။\'',
   audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
 };
 
 export const TAGALOG: Sentence = {
   ...ENGLISH,
   readedWelcome: 'Gusto mo bang makipagpalitan sa wikang ito?',
-  translationH2: "Maglagay ng text, o pindutin nang matagal ang asul na mikropono upang magsalita'",
-  translationH2Mobile: "Maglagay ng text, o i-tap ang asul na mikropono para magsalita'",
+  translationH2: 'Maglagay ng text, o pindutin nang matagal ang asul na mikropono upang magsalita\'',
+  translationH2Mobile: 'Maglagay ng text, o i-tap ang asul na mikropono para magsalita\'',
 };
 
 export const MALAIS: Sentence = {
@@ -953,7 +1068,7 @@ export const MALAIS: Sentence = {
 };
 export const CATALAN: Sentence = {
   ...ENGLISH,
-  readedWelcome: "T'agradaria intercanviar en aquest idioma?",
+  readedWelcome: 'T\'agradaria intercanviar en aquest idioma?',
   translationH2: 'Escriu la frase per traduir.',
   translationH2Mobile: 'Introdueix text o toca el micròfon blau per parlar.',
 };

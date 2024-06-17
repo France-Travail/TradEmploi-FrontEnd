@@ -6,24 +6,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {
-  MatInputModule,
-  MatButtonModule,
-  MatSnackBarModule,
-  MatTabsModule,
-  MatTableModule,
-  MatProgressSpinnerModule,
-  MatPaginatorModule,
-  MatDialogModule,
-  MatSelectModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-  MatSlideToggleModule,
-  MatIconModule,
-  MatTooltipModule,
-  MatListModule,
-  MatMenuModule,
-} from '@angular/material';
+
 
 // Custom Components
 import { AudioAnimationComponent } from './components/audio-animation/audio-animation.component';
@@ -32,6 +15,22 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/navigation/header/header.component';
 import { SidenavComponent } from './components/navigation/sidenav/sidenav.component';
 import {HoldableDirective} from '../pages/translation/components/message-wrapper/holdable.directive';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 
 const COMPONENTS = [AudioAnimationComponent, TranslationTitleComponent, HeaderComponent, SidenavComponent, HoldableDirective];
 

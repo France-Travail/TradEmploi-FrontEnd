@@ -1,18 +1,18 @@
 import { Gdpr } from './gdpr';
+import { Pdata } from './pdata';
 
 export interface Vocabulary {
+  isoCode: string;
+  countryNameRaw?: any;
+  countryNameFr?: string;
+  languageNameRaw?: string;
+  languageNameFr?: string;
+  sentences: Sentence;
+  navbarTabs?: NavbarTab;
   audioCode?: string;
   audioVoiceCodeMale?: string;
   audioVoiceCodeFemale?: string;
-  countryNameFr?: string;
-  countryNameRaw?: any;
-  isoCode: string;
-  languageNameFr?: string;
-  languageNameRaw?: string;
-  navbarTabs?: NavbarTab;
-  sentences: Sentence;
 }
-
 export interface Sentence {
   applicationName: string;
   send: string;
@@ -31,6 +31,7 @@ export interface Sentence {
   gaugeText?: string;
   rate?: Rate;
   gdpr?: Gdpr;
+  pdata?: string;
   logout?: Logout;
   modality?: Modality;
   choice?: Choice;
@@ -38,6 +39,7 @@ export interface Sentence {
   introMessage?: IntroMessage;
   translationH2Ios?: string;
   translationH2Mobile?: string;
+
 }
 export interface Tooltip {
   pronounce: string;
@@ -56,6 +58,7 @@ export interface IntroMessage {
 }
 export interface Choice {
   mostBtn: string;
+  mostUsedBtn: string;
   allBtn: string;
   listBtn: string;
   gridBtn: string;
@@ -85,7 +88,6 @@ export interface NavbarTab {
   logout: string;
   help: string;
   gdpr: string;
-  tradtondoc?: string;
 }
 
 export interface Logout {

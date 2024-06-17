@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { getDuration } from '../../../../utils/utils';
 import { Role } from '../../../../models/role';
 import { environment } from '../../../../../environments/environment';
@@ -11,14 +10,12 @@ import { ToastService } from '../../../../services/toast.service';
 import { ChatService } from '../../../../services/chat.service';
 import { VOCABULARY } from '../../../../data/vocabulary';
 import { ERROR_FUNC_SEND_STATS } from '../../../../models/error/errorFunctionnal';
-import { params } from '../../../../../environments/params';
+import {params} from '../../../../../environments/params';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
-  questionTwo: { french: string; foreign: string };
   questionThree: { french: string; foreign: string };
-  questionFour: { french: string; foreign: string };
-  questionFive: { french: string; foreign: string };
 }
 
 @Component({
@@ -37,30 +34,15 @@ export class RateDialogComponent implements OnInit {
       french: '',
       foreign: '',
     },
-    questionTwo: {
-      french: '',
-      foreign: '',
-    },
     questionThree: {
       french: '',
       foreign: '',
-    },
-    questionFour: {
-      french: '',
-      foreign: '',
-    },
-    questionFive: {
-      french: '',
-      foreign: '',
-    },
+    }
   };
   public canSendRate: boolean;
   private isMultiDevices: boolean;
-  public typeEntretien: string;
-  public types = params.organization.entretiens;
   public autreType = '';
-  public isTradTonDoc: boolean;
-  public nbTranslatedCharacters: number;
+
   constructor(
     private readonly dialogRef: MatDialogRef<RateDialogComponent>,
     private readonly rateService: RateService,
@@ -68,10 +50,8 @@ export class RateDialogComponent implements OnInit {
     private readonly toastService: ToastService,
     private readonly router: Router,
     private readonly chatService: ChatService,
-    @Inject(MAT_DIALOG_DATA) public data: { guest: Array<string>; tradtondoc?: boolean; nbTranslatedCharacters?: number }
+    @Inject(MAT_DIALOG_DATA) public data: { guest: Array<string> }
   ) {
-    this.isTradTonDoc = data.tradtondoc || false;
-    this.nbTranslatedCharacters = data.nbTranslatedCharacters || 0;
     this.settingsService.user.subscribe((user) => {
       if (user !== null) {
         this.isMultiDevices = user.isMultiDevices;
@@ -83,36 +63,24 @@ export class RateDialogComponent implements OnInit {
 
   ngOnInit(): void {
     const rateFr = VOCABULARY.find((v) => v.isoCode === 'fr-FR').sentences.rate;
-    let languageNameFr = 'fr-FR';
-    let isoCodes;
-    const date = new Date();
     if (rateFr) {
       this.sentences.questionOne.french = rateFr.qualityTranslate;
-      this.sentences.questionTwo.french = rateFr.rating;
       this.sentences.questionThree.french = rateFr.comment;
-      this.sentences.questionFour.french = rateFr.technical;
-      this.sentences.questionFive.french = rateFr.typeInterview;
     }
-
+    let languageNameFr = 'fr-FR';
     if (this.settingsService.user.value.language.written === 'fr-FR' || this.settingsService.user.value.language.written === 'fr-CA') {
       this.sentences.questionOne.foreign = '';
-      this.sentences.questionTwo.foreign = '';
       this.sentences.questionThree.foreign = '';
-      this.sentences.questionFour.foreign = '';
-      this.sentences.questionFive.foreign = '';
     } else {
       const vocabularyForeign = VOCABULARY.find((v) => v.isoCode === this.settingsService.user.value.language.written);
       const rateForeign = vocabularyForeign.sentences.rate;
       if (rateForeign) {
         this.sentences.questionOne.foreign = rateForeign.qualityTranslate;
-        this.sentences.questionTwo.foreign = rateForeign.rating;
         this.sentences.questionThree.foreign = rateForeign.comment;
-        this.sentences.questionFour.foreign = rateForeign.technical;
-        this.sentences.questionFive.foreign = rateForeign.typeInterview;
         languageNameFr = vocabularyForeign.isoCode;
       }
     }
-
+    let isoCodes;
     if (this.data.guest && this.data.guest.length > 0) {
       isoCodes = this.data.guest.filter((l, index) => l !== 'fr-FR' && this.data.guest.indexOf(l) === index).join(',');
       if (!isoCodes) {
@@ -122,22 +90,21 @@ export class RateDialogComponent implements OnInit {
       isoCodes = languageNameFr;
     }
 
+    const date = new Date();
     this.rate = {
       language: isoCodes,
       date,
       hour: `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`,
-      grades: [undefined, undefined],
+      grades: [undefined],
       comment: '',
       offerLinked: 'non',
       conversationDuration: '',
-      typeEntretien: this.typeEntretien,
+      typeEntretien: '',
       user: '',
       agency: '',
       nbMessagesGuest: 0,
       nbMessagesAdvisor: 0,
       typeSTT: '',
-      isTradTonDoc: this.isTradTonDoc,
-      nbTranslatedCharacters: this.nbTranslatedCharacters
     };
     this.canSendRate = false;
   }
@@ -161,14 +128,14 @@ export class RateDialogComponent implements OnInit {
         this.fillNbMessages();
       }
     }
-    this.rate.user = this.settingsService.user.value.idDGASI || 'Firebase User';
+    this.rate.user = this.settingsService.user.value.idDGASI + this.settingsService.user.value.email.substring(this.settingsService.user.value.email.indexOf('@')) || 'Firebase User';
     this.rate.agency = this.settingsService.user.value.agency || 'None';
     this.rate.typeSTT = 'GCP';
     if (this.rate.language && this.fromAzure(this.rate.language)) {
       this.rate.typeSTT = 'Azure';
     }
     this.rate.conversationDuration = getDuration(lastMessageTime, firstMessageTime);
-    this.rate.typeEntretien = this.getInterviewType();
+    this.rate.typeEntretien = '';
     this.rateService.rateConversation(this.rate);
 
     this.rates[question].forEach((r, i) => {
@@ -191,8 +158,7 @@ export class RateDialogComponent implements OnInit {
   }
 
   public setCanSendRate() {
-    this.rate.typeEntretien = this.getInterviewType();
-    this.canSendRate = this.rate && this.rate.grades && this.rate.grades[0] && this.rate.grades[1] && this.rate.typeEntretien && !!this.rate.offerLinked;
+    this.canSendRate = this.rate && this.rate.grades && this.rate.grades[0] && !!this.rate.offerLinked;
   }
 
   public confirm() {
@@ -217,7 +183,7 @@ export class RateDialogComponent implements OnInit {
             });
             this.chatService.initChatMono(newRoomId, advisorRole);
           }
-          this.isTradTonDoc ? this.router.navigate(['/translation']) : this.router.navigate(['choice']);
+          this.router.navigate(['choice']);
         })
         .catch(() => {
           this.toastService.showToast(ERROR_FUNC_SEND_STATS.description, 'toast-error');
@@ -227,18 +193,6 @@ export class RateDialogComponent implements OnInit {
           }, 3500);
         });
     }
-  }
-
-  onItemChange(value) {
-    this.rate.offerLinked = value;
-    this.setCanSendRate();
-  }
-
-  private getInterviewType(): string {
-    if (this.typeEntretien === 'Autres') {
-      return this.autreType;
-    }
-    return this.typeEntretien;
   }
 
   private fromAzure(language: string) {

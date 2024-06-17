@@ -18,28 +18,44 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-                "crypto-js",
-                "qrcode",
-                "firebase/app",
-                "@firebase/database",
-                "axios",
-                "@firebase/firestore",
-                "@firebase/functions",
-                "hammerjs"
+              "crypto-js",
+              "qrcode",
+              "firebase/app",
+              "@firebase/database",
+              "axios",
+              "@firebase/firestore",
+              "@firebase/functions",
+              "hammerjs"
             ],
             "outputPath": "dist/translation",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["node_modules/flag-icons/sass/flag-icons.scss", "src/sass/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest"
+            ],
+            "styles": [
+              "node_modules/flag-icons/sass/flag-icons.scss",
+              "src/sass/styles.scss"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/sass"]
+              "includePaths": [
+                "src/sass"
+              ]
             },
             "scripts": [],
-            "webWorkerTsConfig": "tsconfig.worker.json"
+            "webWorkerTsConfig": "tsconfig.worker.json",
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true,
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -50,7 +66,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -59,7 +74,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "2mb",
-                  "maximumError": "6mb"
+                  "maximumError": "30mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -67,11 +82,10 @@
                 }
               ]
             },
-            "qa": {
+            "uat": {
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -82,30 +96,13 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
               "fileReplacements": []
             },
-            "summer": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.summer.ts"
-                }
-              ]
-            },
-            "audit": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.audit.ts"
-                }
-              ]
-            },
-            "prod": {
+            "master": {
               "fileReplacements": [
                 {
                   "replace": "src/index.html",
@@ -113,16 +110,17 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "translation:build"
+            "buildTarget": "translation:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "translation:build:production"
+              "buildTarget": "translation:build:production"
             }
           },
           "sourceMap": true
@@ -130,7 +128,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "translation:build"
+            "buildTarget": "translation:build"
           }
         },
         "test": {
@@ -140,20 +138,21 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/sass/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest"
+            ],
+            "styles": [
+              "src/sass/styles.scss"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/sass"]
+              "includePaths": [
+                "src/sass"
+              ]
             },
             "codeCoverage": true,
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json", "tsconfig.worker.json"],
-            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -167,12 +166,23 @@
               "devServerTarget": "translation:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "translation",
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

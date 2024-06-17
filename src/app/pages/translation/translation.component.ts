@@ -1,32 +1,42 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { Router } from '@angular/router';
-import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
-import { EndComponent } from './dialogs/end/end.component';
-import { SettingsService } from './../../services/settings.service';
-import { ShareComponent } from './dialogs/share/share.component';
-import { AuthorizeComponent } from './dialogs/authorize/authorize.component';
-import { exportCsv } from '../../utils/utils';
-import { ComponentCanDeactivate } from '../../guards/pending-changes.guard';
-import { MessageWrapped } from '../../models/translate/message-wrapped';
-import { ToastService } from '../../services/toast.service';
-import { ChatService } from '../../services/chat.service';
-import { NavbarService } from '../../services/navbar.service';
-import { TranslateService } from '../../services/translate.service';
-import { CryptService } from '../../services/crypt.service';
-import { Role } from '../../models/role';
-import { ENGLISH } from '../../data/sentence';
-import { IntroMessage } from '../../models/vocabulary';
-import { Message } from '../../models/translate/message';
-import { MessageSingleton } from '../../models/MessageSingleton';
-import { Chat } from '../../models/db/chat';
-import { Support } from '../../models/kpis/support';
-import { Language } from '../../models/language';
-import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from '../../models/error/errorFunctionnal';
-import { User } from '../../models/user';
-import { TextToSpeechService } from '../../services/text-to-speech.service';
-import { VOCABULARY } from '../../data/vocabulary';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import {Router} from '@angular/router';
+import {RateDialogComponent} from './dialogs/rate-dialog/rate-dialog.component';
+import {EndComponent} from './dialogs/end/end.component';
+import {SettingsService} from '../../services/settings.service';
+import {ShareComponent} from './dialogs/share/share.component';
+import {AuthorizeComponent} from './dialogs/authorize/authorize.component';
+import { exportCsv, isIOS } from '../../utils/utils';
+import {ComponentCanDeactivate} from '../../guards/pending-changes.guard';
+import {MessageWrapped} from '../../models/translate/message-wrapped';
+import {ToastService} from '../../services/toast.service';
+import {ChatService} from '../../services/chat.service';
+import {NavbarService} from '../../services/navbar.service';
+import {TranslateService} from '../../services/translate.service';
+import {CryptService} from '../../services/crypt.service';
+import {Role} from '../../models/role';
+import {ENGLISH} from '../../data/sentence';
+import {IntroMessage} from '../../models/vocabulary';
+import {Message} from '../../models/translate/message';
+import {MessageSingleton} from '../../models/MessageSingleton';
+import {Chat} from '../../models/db/chat';
+import {Support} from '../../models/kpis/support';
+import {Language} from '../../models/language';
+import {ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS} from '../../models/error/errorFunctionnal';
+import {User} from '../../models/user';
+import {TextToSpeechService} from '../../services/text-to-speech.service';
+import {VOCABULARY} from '../../data/vocabulary';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {ErrorService} from '../../services/error.service';
+import { Subject } from 'rxjs';
 
 const toastError = 'toast-error';
 
@@ -46,7 +56,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   public isMultiDevices = false;
   public roomId: string;
   public isAudioSupported = false;
-  private playAuto: boolean;
+  private isAudioPlay: boolean;
   private user: User;
   private readonly endIdDialogRef: MatDialogRef<any>;
   private support: Support;
@@ -55,12 +65,16 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   private isScrollingToUp = false;
   private readonly audioSpeechToPlay = [];
   private audioSpeechIsPlaying = false;
+  protected microAdmin = new Subject<boolean>();
+  protected microGuest = new Subject<boolean>();
+  public ios: boolean;
 
   constructor(
     private readonly dialog: MatDialog,
     private readonly router: Router,
     private readonly breakpointObserver: BreakpointObserver,
     private readonly toastService: ToastService,
+    private readonly errorService: ErrorService,
     private readonly settingsService: SettingsService,
     private readonly chatService: ChatService,
     private readonly textToSpeechService: TextToSpeechService,
@@ -70,7 +84,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
-        if (user.language !== undefined && user.language.audio === undefined) {
+        if (user.language === undefined || user.language.audio === undefined) {
           this.goto('choice');
         }
         this.isGuest = user.role === Role.GUEST;
@@ -95,25 +109,24 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const language = VOCABULARY.find((i) => i.isoCode === this.user.language.audio || i.audioCode === this.user.language.audio);
     this.isAudioSupported = language.sentences.audioSupported !== undefined;
     this.vocalSupported = language.sentences.voiceNotSupported === undefined;
-    this.playAuto = true;
+    this.isAudioPlay = true;
     this.scrollToBottom();
     this.selectStartNotifications();
     if (this.isGuest) {
       this.autoListenValue = this.isAudioSupported ? 'Listen automatically' : 'Audio unavailable';
     }
+    this.ios = isIOS();
   }
 
   ngAfterViewChecked() {
     this.scrollToBottom();
     this.navbarService.show();
+    this.playAudioSpeech();
   }
 
   ngOnDestroy() {
     if (this.isMultiDevices) {
-      this.playAuto = false;
-    }
-    if (this.textToSpeechService.audioSpeech) {
-      this.textToSpeechService.stop();
+      this.isAudioPlay = false;
     }
     this.toastService.closeToast();
   }
@@ -123,29 +136,29 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.isMultiDevices) {
       this.isGuest ? this.introMessageGuest(introMessage) : this.introMessageAdmin(introMessage);
     } else {
-      this.sendNotification({ notification: introMessage.welcomeFR, time: Date.now() });
+      this.sendNotification({notification: introMessage.welcomeFR, time: Date.now()});
       const welcomeRAW = await this.translateService.translate(introMessage.welcomeFR, this.getLanguageTargetDe());
-      this.sendNotification({ notification: welcomeRAW, time: Date.now() });
+      this.sendNotification({notification: welcomeRAW, time: Date.now()});
       if (!this.vocalSupported) {
-        this.sendNotification({ notification: introMessage.voiceavailabilityFR, time: Date.now() });
-        this.sendNotification({ notification: introMessage.voiceavailabilityRAW, time: Date.now() });
+        this.sendNotification({notification: introMessage.voiceavailabilityFR, time: Date.now()});
+        this.sendNotification({notification: introMessage.voiceavailabilityRAW, time: Date.now()});
       }
     }
   }
 
   private introMessageGuest(notification: IntroMessage) {
-    this.sendNotification({ notification: notification.notifMultiRAW, time: Date.now() });
-    this.sendNotification({ notification: notification.welcomeRAW, time: Date.now() });
+    this.sendNotification({notification: notification.notifMultiRAW, time: Date.now()});
+    this.sendNotification({notification: notification.welcomeRAW, time: Date.now()});
     if (!this.vocalSupported) {
-      this.sendNotification({ notification: notification.voiceavailabilityRAW, time: Date.now() });
+      this.sendNotification({notification: notification.voiceavailabilityRAW, time: Date.now()});
     }
   }
 
   private introMessageAdmin(notification: IntroMessage) {
-    this.sendNotification({ notification: notification.notifMultiFR, time: Date.now() });
-    this.sendNotification({ notification: notification.welcomeFR, time: Date.now() });
+    this.sendNotification({notification: notification.notifMultiFR, time: Date.now()});
+    this.sendNotification({notification: notification.welcomeFR, time: Date.now()});
     if (!this.vocalSupported) {
-      this.sendNotification({ notification: notification.voiceavailabilityFR, time: Date.now() });
+      this.sendNotification({notification: notification.voiceavailabilityFR, time: Date.now()});
     }
   }
 
@@ -158,7 +171,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (!this.isScrollingToUp) {
         this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
       }
-    } catch (err) {}
+    } catch (err) {
+    }
   }
 
   public goto(where: string): void {
@@ -207,7 +221,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   public closeConversation() {
     const languages = this.messagesWrapped.filter((m) => m.message !== undefined).map((m) => m.message.languageOrigin);
-    this.openModal(RateDialogComponent, '750px', false, languages);
+    this.openModal(RateDialogComponent, '500px', false, languages);
   }
 
   public async exportConversation() {
@@ -260,7 +274,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
   }
 
   public switchAudio() {
-    this.playAuto = !this.playAuto;
+    this.isAudioPlay = !this.isAudioPlay;
   }
 
   public share() {
@@ -310,14 +324,14 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         const isNewAuthorization = chat.guests.filter((g) => this.authorizationHandled.indexOf(g.id) === -1).length > 0 && !this.isGuest;
         isNewAuthorization ? this.authorizeGuest(chat.guests) : this.addMultiMessageToChat(chat, roomId);
       } else {
-        this.playAuto = false;
+        this.isAudioPlay = false;
         if (this.isGuest) {
           this.openModal(EndComponent, '300px', true);
           this.settingsService.reset();
         }
       }
-    });
-  };
+    }, this.errorService.handleAfsError);
+  }
 
   private authorizeGuest(guests) {
     const lastAuthorization = guests[guests.length - 1];
@@ -373,25 +387,26 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     const listenMulti = !this.isSender(message.member, message.languageOrigin) && this.isAudioSupported;
     const listenMono = this.isAudioSupported || message.role === Role.GUEST;
     const listen = this.isMultiDevices ? listenMulti : listenMono;
+
     if (listen) {
+      // remove words start with *
       translate = translate.replace(/\*/g, '');
       this.textToSpeechService
-        .play(translate, languageTarget, this.playAuto && message.time > this.settingsService.user.value.connectionTime,
-          message.isFemaleVoice)
+        .getSpeech(translate, languageTarget, message.isFemaleVoice)
         .then((_) => {
           const audioSpeech = this.textToSpeechService.audioSpeech;
           if (audioSpeech) {
-            if (message.time > this.settingsService.user.value.connectionTime && this.playAuto) {
+            if (message.time > this.settingsService.user.value.connectionTime && this.isAudioPlay) {
               this.audioSpeechToPlay.push(audioSpeech);
             }
             message.audioHtml = audioSpeech;
           }
         })
         .catch((_) => {
-          console.log('error', _);
           this.toastService.showToast(ERROR_FUNC_TTS.description, toastError);
         });
     }
+    this.textToSpeechService.audioSpeech = undefined;
     this.sendMessage(message);
   }
 
@@ -406,10 +421,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
     if (hasMessage.length === 0) {
       const isSender: boolean = this.isSender(message.member, message.languageOrigin);
-      const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
+      const messageWrapped: MessageWrapped = {message, isSender, time: message.time};
       this.messagesWrapped.push(messageWrapped);
       this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
-      this.chatService.messagesStored.push({ message, time: message.time });
+      this.chatService.messagesStored.push({message, time: message.time});
     } else {
       MessageSingleton.getInstance().setAlreadyPlay(true);
     }
@@ -479,5 +494,13 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     audioSpeech.onended = () => {
       this.audioSpeechIsPlaying = false;
     };
+  }
+
+  public microAdminToGuest() {
+    this.microGuest.next(true);
+  }
+
+  public microGuestToAdmin() {
+    this.microAdmin.next(true);
   }
 }

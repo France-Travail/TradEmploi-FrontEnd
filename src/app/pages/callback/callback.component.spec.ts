@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CallbackComponent } from './callback.component';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { SettingsService } from '../../services/settings.service';
 import { ChatService } from '../../services/chat.service';
@@ -21,7 +21,7 @@ describe('CallbackComponent', () => {
     id: '123',
     roomId: '1345',
     role: Role.GUEST,
-    firstname: 'Pôle emploi',
+    firstname: 'TRADUCTION',
     isMultiDevices: true,
     email: 'test@gmail.com',
     idDGASI: '1',
@@ -46,6 +46,10 @@ describe('CallbackComponent', () => {
         { provide: SettingsService, useValue: mockSettingsService },
         { provide: ChatService, useValue: mockChatService },
         { provide: TelemetryService, useValue: mockTelemetryService },
+        {
+          provide: ActivatedRoute,
+          useValue: {}
+        }
       ],
     }).compileComponents();
   }));

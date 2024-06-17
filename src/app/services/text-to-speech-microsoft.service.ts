@@ -37,7 +37,7 @@ export class TextToSpeechMicrosoftService extends TextToSpeechService {
           result => {
             synthesizer.close();
             if (result && result.audioData) {
-              this.audioSpeech = new Audio(URL.createObjectURL(new Blob([result.audioData])));
+              this.audioSpeech = new Audio(URL.createObjectURL(new Blob([result.audioData], { type: 'audio/mpeg' })));
               resolve();
             }
           },
@@ -53,7 +53,7 @@ export class TextToSpeechMicrosoftService extends TextToSpeechService {
           result => {
             synthesizer.close();
             if (result && result.audioData) {
-              this.audioSpeech = new Audio(URL.createObjectURL(new Blob([result.audioData])));
+              this.audioSpeech = new Audio(URL.createObjectURL(new Blob([result.audioData], { type: 'audio/mpeg' })));
               resolve();
             }
           },

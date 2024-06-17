@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialogRef } from '@angular/material';
 import { ChatService } from '../../../services/chat.service';
 import { SettingsService } from '../../../services/settings.service';
 import { Logout } from '../../../models/vocabulary';
@@ -8,6 +7,8 @@ import { User } from '../../../models/user';
 import { AuthService } from '../../../services/auth.service';
 import { Role } from '../../../models/role';
 import { ENGLISH, FRENCH } from '../../../data/sentence';
+import { MatDialogRef } from '@angular/material/dialog';
+import { NavbarService } from '../../../services/navbar.service';
 
 @Component({
   selector: 'app-logout',
@@ -24,7 +25,8 @@ export class LogoutComponent  {
     private readonly router: Router,
     private readonly chatService: ChatService,
     private readonly settingsService: SettingsService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly navbarService: NavbarService
   ) {
     this.settingsService.user.subscribe((user: User) => {
       if (user !== null) {
@@ -43,11 +45,12 @@ export class LogoutComponent  {
     } else {
       await this.handleMono();
     }
-    this.authService.logout();
+    await this.authService.logout();
     this.settingsService.reset();
     sessionStorage.clear();
     localStorage.clear();
-    this.router.navigateByUrl('/');
+    this.navbarService.hide();
+    await this.router.navigateByUrl('/auth?disconnected=true');
   }
 
   private async handleMono() {

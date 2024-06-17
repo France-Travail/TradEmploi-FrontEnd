@@ -1,18 +1,19 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { LogoutComponent } from '../../logout/logout.component';
-import { MatDialog } from '@angular/material';
 import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
 import { NavbarService } from '../../../../services/navbar.service';
 import { SettingsService } from '../../../../services/settings.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, map } from 'rxjs';
 import { GdprComponent } from '../../../../pages/gdpr/gdpr.component';
 import { Role } from '../../../../models/role';
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 import { Router } from '@angular/router';
-import { ChatService } from '../../../../services/chat.service';
-import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
+import {ChatService} from '../../../../services/chat.service';
+import {VOCABULARY_DEFAULT} from '../../../../data/vocabulary';
+import { MatDialog } from '@angular/material/dialog';
+import { params } from '../../../../../environments/params';
+import { PdataComponent } from '../../../../pages/pdata/pdata.component';
 
 @Component({
   selector: 'app-header',
@@ -22,11 +23,13 @@ import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
 export class HeaderComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
 
+  protected readonly params = params;
+  @Input() showCreateShortcut = false;
+  @Input() deferredPrompt: any;
   public choiceLink: string;
   public logoutLink: string;
   public helpLink: string;
   public gdprLink: string;
-  public tradtondocLink:string;
   public isSmallScreen: Observable<boolean>;
   public isWideScreen: Observable<boolean>;
   public language: string;
@@ -46,7 +49,6 @@ export class HeaderComponent implements OnInit {
     this.isSmallScreen = this.breakpointObserver.observe(['(max-width: 1050px)']).pipe(map(({ matches }) => matches));
     this.settingsService.user.subscribe((user) => {
       const isGuest = user !== null ? user.role === Role.GUEST : true;
-      this.tradtondocLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.tradtondoc : 'Traduire un document';
       this.choiceLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.language : 'langues';
       this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
       this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'Guide de démarrage';
@@ -74,6 +76,10 @@ export class HeaderComponent implements OnInit {
 
   public gdpr() {
     this.openGdprModal(GdprComponent);
+  }
+
+  public pdata() {
+    this.openGdprModal(PdataComponent);
   }
 
   public choice() {
@@ -116,5 +122,10 @@ export class HeaderComponent implements OnInit {
       });
       this.chatService.initChatMono(newRoomId, advisorRole);
     }
-  };
+  }
+
+  public createShortcut() {
+    this.showCreateShortcut = false;
+    this.deferredPrompt.prompt();
+  }
 }

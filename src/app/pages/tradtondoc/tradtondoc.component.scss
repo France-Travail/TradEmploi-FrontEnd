@@ -62,7 +62,7 @@
           max-height: 430px;
           overflow-y: auto;
         }
-         @media screen and (orientation: portrait) {
+        @media screen and (orientation: portrait) {
           .cropper {
             max-height: 530px;
           }

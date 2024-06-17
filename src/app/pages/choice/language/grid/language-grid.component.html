@@ -1,5 +1,5 @@
 <div class="order">
-  <mat-form-field >
+  <mat-form-field class="density" >
     <mat-select placeholder="Trier la grille" (selectionChange)="gridSortingHandler($event.value)">
       <mat-option *ngFor="let type of countriesSort" [value]="type.value">
         {{ type.viewValue }}
@@ -55,7 +55,17 @@
       </div>
     </div>
     <div class="title rate" >
-      <ng-rating-bar class="fr" *ngIf="mapLanguages.get(item.isoCode) && mapLanguages.get(item.isoCode).average" [styles]="styles"  [value]="mapLanguages.get(item.isoCode).average" [ratingCount]="5" [disabled]="true"></ng-rating-bar>
+      <!--Création du template avec les étoiles-->
+      <ng-template #t let-fill="fill">
+        <i class="bi bi-star-fill">
+          <!--Remplissage des étoiles en fonction de la valeur fill-->
+          @if (fill > 0) {
+            <i class="bi bi-star-fill filled" [style.width.%]="fill"></i>
+          }
+        </i>
+      </ng-template>
+      <!--Utilisation du template pour remplacer celui de base du ngb-rating-->
+      <ngb-rating *ngIf="mapLanguages.get(item.isoCode) && mapLanguages.get(item.isoCode).average" [starTemplate]="t" [style]="styles" [(rate)]="mapLanguages.get(item.isoCode).average" [max]="5" [disabled]="true" class="fr"></ngb-rating>
       <span class="raw" *ngIf="mapLanguages.get(item.isoCode) && mapLanguages.get(item.isoCode).average">({{mapLanguages.get(item.isoCode).occurrences}})</span>
     </div>
   </div>

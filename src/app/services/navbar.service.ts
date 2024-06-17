@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { SettingsService } from './settings.service';
-import { Role } from '../models/role';
-import { Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {SettingsService} from './settings.service';
+import {Role} from '../models/role';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class NavbarService {
@@ -10,7 +10,10 @@ export class NavbarService {
   public modalityTab = false;
   public helpTab = false;
   public tradDocTab = false;
-  constructor(private readonly settingsService: SettingsService, private readonly router: Router) {}
+  public endTab = false;
+
+  constructor(private readonly settingsService: SettingsService, private readonly router: Router) {
+  }
 
   public hide() {
     this.visible = false;
@@ -22,29 +25,43 @@ export class NavbarService {
 
   public handleTabModality() {
     this.choiceTab = false;
-    this.tradDocTab = false;
     this.modalityTab = false;
+    this.tradDocTab = false;
     this.helpTab = true;
+    this.endTab = false;
+  }
+
+  public handleTabGDPR() {
+    this.choiceTab = false;
+    this.modalityTab = this.settingsService.user.value && this.settingsService.user.value.role !== Role.GUEST;
+    this.helpTab = true;
+    this.endTab = false;
   }
 
   public handleTabsTranslation() {
-    this.choiceTab = !this.settingsService.user.value.isMultiDevices || this.settingsService.user.value.role === Role.GUEST;
+    this.choiceTab = !this.settingsService.user.value.isMultiDevices
+      || this.settingsService.user.value.role === Role.GUEST;
     this.modalityTab = this.settingsService.user.value.role !== Role.GUEST;
     this.helpTab = true;
+    const isOnTranslation = this.router.url.indexOf('translation') > 0;
+    const isNotGuest = this.settingsService.user.value.role !== Role.GUEST;
+    this.endTab = isOnTranslation && isNotGuest;
     this.tradDocTab = this.settingsService.user.value.role !== Role.GUEST;
   }
 
   public handleTabsChoice() {
     this.choiceTab = false;
-    this.tradDocTab = false;
     this.modalityTab = this.settingsService.user.value.role !== Role.GUEST;
     this.helpTab = true;
+    this.endTab = false;
+    this.tradDocTab = false;
   }
 
   public handleTabsSettings() {
     this.choiceTab = true;
-    this.tradDocTab = false;
     this.modalityTab = true;
     this.helpTab = true;
+    this.endTab = false;
+    this.tradDocTab = false;
   }
 }

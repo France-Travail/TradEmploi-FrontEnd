@@ -8,29 +8,29 @@ export abstract class TextToSpeechService {
   public play = async (sentence: string, audioCode: string, playAuto: boolean = true, isFemaleSpeech: boolean = false) => {
     if (!this.isPlaying) {
       if (this.sentence !== sentence || this.isFemaleSpeech !== isFemaleSpeech) {
-          this.sentence = sentence;
-          this.isFemaleSpeech = isFemaleSpeech;
-          await this.getSpeech(sentence, audioCode, isFemaleSpeech).then(
-            () => {
-              if (playAuto) {
-                this.audioSpeech.play();
-                this.audioSpeech.onplay = () => {
-                  this.isPlaying = true;
-                };
-                this.audioSpeech.onended = () => {
-                  this.isPlaying = false;
-                };
-              }
-            },
-            (error) => {
-              console.log(error);
+        this.sentence = sentence;
+        this.isFemaleSpeech = isFemaleSpeech;
+        await this.getSpeech(sentence, audioCode, isFemaleSpeech).then(
+          () => {
+            if (playAuto) {
+              this.audioSpeech.play();
+              this.audioSpeech.onplay = () => {
+                this.isPlaying = true;
+              };
+              this.audioSpeech.onended = () => {
+                this.isPlaying = false;
+              };
             }
-          );
-        } else {
-          if (playAuto) {
-            this.audioSpeech.play();
+          },
+          (error) => {
+            console.log(error);
           }
+        );
+      } else {
+        if (playAuto) {
+          this.audioSpeech.play();
         }
+      }
     }
     return this.audioSpeech;
   };

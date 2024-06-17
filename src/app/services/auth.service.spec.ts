@@ -1,17 +1,18 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { MatSnackBarModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { AuthService } from './auth.service';
-import { SettingsService } from './settings.service';
-import { ToastService } from './toast.service';
-import { Role } from '../models/role';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {inject, TestBed, waitForAsync} from '@angular/core/testing';
+import {AngularFireModule} from '@angular/fire/compat';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {AngularFireDatabaseModule} from '@angular/fire/compat/database';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {of} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {AuthService} from './auth.service';
+import {SettingsService} from './settings.service';
+import {ToastService} from './toast.service';
+import {Role} from '../models/role';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import firebase from 'firebase/compat/app';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -22,19 +23,20 @@ describe('AuthService', () => {
   } as firebase.User;
   const authStub: any = {
     authState: of(authState),
-    auth: {
-      signInAnonymously() {
-        return Promise.resolve();
-      },
-      signInWithEmailAndPassword() {
-        return Promise.resolve();
-      },
-      signOut() {
-        return Promise.resolve();
-      },
-      currentUser: {
-        delete() {
-        }
+    signInAnonymously() {
+      return Promise.resolve();
+    },
+    signInWithEmailAndPassword() {
+      return Promise.resolve();
+    },
+    signOut() {
+      return Promise.resolve();
+    },
+    fetchSignInMethodsForEmail(email) {
+      return Promise.resolve(['password']);
+    },
+    currentUser: {
+      delete() {
       }
     }
   };
@@ -75,7 +77,7 @@ describe('AuthService', () => {
 
   it('should successfully login', inject([SettingsService, AngularFireAuth], async () => {
     const mock = TestBed.get(AngularFireAuth);
-    const authSpy = spyOn(authStub.auth, 'signInWithEmailAndPassword').and.callFake(() => {
+    const authSpy = spyOn(authStub, 'signInWithEmailAndPassword').and.callFake(() => {
       return Promise.resolve({
         user: {
           uid: '4Tl6gGYIVMeTVLPPtfMDRrkGmNd2', getIdTokenResult() {
@@ -84,22 +86,22 @@ describe('AuthService', () => {
         }
       });
     });
-    mock.auth = authStub.auth;
-    const result = await service.login('jane@gmail.com', 'abcderfs', 'jane@gmail.com');
+    mock.auth = authStub;
+    const result = await service.login('jane@gmail.com', 'abcderfs', true);
     expect(result).toEqual({ isAuth: true, message: 'Authentification réussie' });
     expect(authSpy).toHaveBeenCalledWith('jane@gmail.com', 'abcderfs');
   }));
 
   it('should fail login', async () => {
     const mock = TestBed.get(AngularFireAuth);
-    const authSpy = spyOn(authStub.auth, 'signInWithEmailAndPassword').and.callFake(() => {
+    const authSpy = spyOn(authStub, 'signInWithEmailAndPassword').and.callFake(() => {
       return Promise.reject({
         isAuth: false,
         message: 'There is no user record corresponding to this identifier. The user may have been deleted.'
       });
     });
-    mock.auth = authStub.auth;
-    await service.login('jane@gmail.com', 'abcderfs', 'jane@gmail.com').catch(error => {
+    mock.auth = authStub;
+    await service.login('jane@gmail.com', 'abcderfs', false).catch(error => {
       expect(error).toEqual({
         isAuth: false,
         message: 'There is no user record corresponding to this identifier. The user may have been deleted.'
@@ -111,7 +113,7 @@ describe('AuthService', () => {
 
   it('should successfully login anonymously ', inject([SettingsService], async () => {
     const mock = TestBed.get(AngularFireAuth);
-    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
+    const authSpy = spyOn(authStub, 'signInAnonymously').and.callFake(() => {
       return Promise.resolve({
         user: {
           uid: '12345677', getIdTokenResult() {
@@ -120,7 +122,7 @@ describe('AuthService', () => {
         }
       });
     });
-    mock.auth = authStub.auth;
+    mock.auth = authStub;
     const result = await service.loginAnonymous();
     expect(result).toEqual({
       id: '12345677',
@@ -134,7 +136,7 @@ describe('AuthService', () => {
 
   it('should successfully login anonymously with admin config ', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
-    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
+    const authSpy = spyOn(authStub, 'signInAnonymously').and.callFake(() => {
       return Promise.resolve({
         user: {
           uid: '12345677', getIdTokenResult() {
@@ -146,9 +148,9 @@ describe('AuthService', () => {
     settingsService.user.next({
       email: '',
       idDGASI: '',
-      connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi', isMultiDevices: false
+      connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'TRADUCTION', isMultiDevices: false
     });
-    mock.auth = authStub.auth;
+    mock.auth = authStub;
     const result = await service.loginAnonymous();
     expect(result).toEqual({
       id: '12345677',
@@ -162,7 +164,7 @@ describe('AuthService', () => {
 
   it('should successfully login anonymously with advisor config ', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
-    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
+    const authSpy = spyOn(authStub, 'signInAnonymously').and.callFake(() => {
       return Promise.resolve({
         user: {
           uid: '12345677', getIdTokenResult() {
@@ -174,12 +176,12 @@ describe('AuthService', () => {
     settingsService.user.next({
       email: '',
       idDGASI: '',
-      connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi', isMultiDevices: true
+      connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'TRADUCTION', isMultiDevices: true
     });
     collectionStub.valueChanges.and.callFake(() => {
       return of([{ adminList: [], advisors: ['jane@gmail.com'] }]);
     });
-    mock.auth = authStub.auth;
+    mock.auth = authStub;
     const result = await service.loginAnonymous();
     expect(result).toEqual({
       id: '12345677',
@@ -193,7 +195,7 @@ describe('AuthService', () => {
 
   it('should successfully login anonymously with guest config ', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
-    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and.callFake(() => {
+    const authSpy = spyOn(authStub, 'signInAnonymously').and.callFake(() => {
       return Promise.resolve({
         user: {
           uid: '12345677', getIdTokenResult() {
@@ -205,12 +207,12 @@ describe('AuthService', () => {
     settingsService.user.next({
       email: 'test@gmail.com',
       idDGASI: '1',
-      connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'Pôle emploi', isMultiDevices: true
+      connectionTime: 1, id: '123', roomId: '1345', role: Role.GUEST, firstname: 'TRADUCTION', isMultiDevices: true
     });
     collectionStub.valueChanges.and.callFake(() => {
       return of([{ adminList: [], advisors: [] }]);
     });
-    mock.auth = authStub.auth;
+    mock.auth = authStub;
     const result = await service.loginAnonymous();
     expect(result).toEqual({
       id: '12345677',
@@ -225,14 +227,14 @@ describe('AuthService', () => {
 
   it('should fail login anonymously', async () => {
     const mock = TestBed.get(AngularFireAuth);
-    const authSpy = spyOn(authStub.auth, 'signInAnonymously').and
+    const authSpy = spyOn(authStub, 'signInAnonymously').and
       .callFake(() => {
         return Promise.reject({
           isAuth: false,
           message: 'There is no user record corresponding to this identifier. The user may have been deleted.'
         });
       });
-    mock.auth = authStub.auth;
+    mock.auth = authStub;
     await service.loginAnonymous().catch(error => {
       expect(authSpy).toHaveBeenCalled();
       expect(error).toEqual({
@@ -248,16 +250,16 @@ describe('AuthService', () => {
     settingsService.user.next({
       ...settingsService.user.value,
       role: Role.GUEST,
-      firstname: 'Pôle emploi',
+      firstname: 'TRADUCTION',
       isMultiDevices: true
     });
-    spyOn(authStub.auth.currentUser, 'delete').and.callFake(() => {
+    spyOn(authStub.currentUser, 'delete').and.callFake(() => {
       return Promise.resolve();
     });
-    const authSpy = spyOn(authStub.auth, 'signOut').and.callFake(() => {
+    const authSpy = spyOn(authStub, 'signOut').and.callFake(() => {
       return Promise.resolve();
     });
-    mock.auth = authStub.auth;
+    mock.auth = authStub;
     const result = await service.logout();
     expect(result).toEqual({ isAuth: false, message: 'Déconnexion réussie' });
     expect(authSpy).toHaveBeenCalled();
@@ -265,14 +267,14 @@ describe('AuthService', () => {
 
   it('should fail logout', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
-    mock.auth = authStub.auth;
+    mock.auth = authStub;
     settingsService.user.next({
       ...settingsService.user.value,
       role: Role.GUEST,
-      firstname: 'Pôle emploi',
+      firstname: 'TRADUCTION',
       isMultiDevices: true
     });
-    const authSpy = spyOn(authStub.auth, 'signOut').and.callFake(() => {
+    const authSpy = spyOn(authStub, 'signOut').and.callFake(() => {
       return Promise.reject({ isAuth: false, message: 'Déconnexion échouée' });
     });
     await service.logout().catch(err => {
@@ -283,14 +285,14 @@ describe('AuthService', () => {
 
   it('should fail user delete ', inject([SettingsService], async (settingsService: SettingsService) => {
     const mock = TestBed.get(AngularFireAuth);
-    mock.auth = authStub.auth;
+    mock.auth = authStub;
     settingsService.user.next({
       ...settingsService.user.value,
       role: Role.GUEST,
-      firstname: 'Pôle emploi',
+      firstname: 'TRADUCTION',
       isMultiDevices: true
     });
-    const authSpy = spyOn(authStub.auth.currentUser, 'delete').and.callFake(() => {
+    const authSpy = spyOn(authStub.currentUser, 'delete').and.callFake(() => {
       return Promise.reject({ isAuth: false, message: 'Déconnexion échouée' });
     });
     await service.logout().catch(err => {

@@ -6,7 +6,7 @@ This project is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE V3.0. Re
 
 ## CORE TEAM
 
-This project is developed by "Innovation" departement of the "DSI Pôle Emploi".
+This project is developed by "Innovation" departement of the "DSI".
 
 Contacts:
 - [DAUDIN Yann](mailto:yann.daudin@pole-emploi.fr): "Innovation" departement chief officer
@@ -19,9 +19,5 @@ Contacts:
 
 We welcome community contributions aimed at improving the templates. To do so please send us a patch to the following email: [oss.00619@pole-emploi.fr](mailto:oss.00619@pole-emploi.fr)
 
-Before submitting a patch:
-- Please make sure the all tests are OK
-- If it is an addition of a module, function, functionality, and not a bug fix, please add a corresponding set of unit tests.
-- Please attach a concise explanation of the changes
 
 Improvements will be made continuously by the CORE TEAM.

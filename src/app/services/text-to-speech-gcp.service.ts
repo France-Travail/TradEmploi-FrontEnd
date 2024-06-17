@@ -32,12 +32,13 @@ interface Body {
 @Injectable({
   providedIn: 'root',
 })
-export class TextToSpeechGcpService extends TextToSpeechService {
+export class TextToSpeechGcpService extends TextToSpeechService{
+
   constructor(private readonly voicesService: VoicesService, private readonly errorService: ErrorService, private readonly tbs: TokenBrokerService) {
     super();
   }
 
-  getSpeech = async (text: string, language: string, isFemaleSpeech: boolean): Promise<void> => {
+  getSpeech = async (text: string, language: string, isFemaleSpeech: boolean ): Promise<void> => {
     this.audioSpeech = undefined;
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const urlRecognize = 'https://eu-texttospeech.googleapis.com/v1/text:synthesize';
@@ -63,12 +64,9 @@ export class TextToSpeechGcpService extends TextToSpeechService {
       const voice: Voice = isFemaleSpeech ? voiceSelected.find((v) => v.ssmlGender === 'FEMALE')
         : voiceSelected.find((v) => v.ssmlGender === 'MALE');
       data.voice.name = voice === undefined ? this.getVoice(isFemaleSpeech, voiceSelected) : voice.name;
-      return axios({
-        method: 'post',
-        headers: {Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8'},
-        url: urlRecognize,
+      return axios.post(urlRecognize, data, {
+        headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
         timeout: 60000,
-        data,
       })
         .then((response: any) => {
           this.audioSpeech = new Audio('data:audio/mp3;base64,' + response.data.audioContent);

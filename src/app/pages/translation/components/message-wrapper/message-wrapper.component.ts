@@ -20,8 +20,8 @@ import { Stream } from '../../../../models/stream';
 import { User } from '../../../../models/user';
 import { Message } from '../../../../models/translate/message';
 import { VOCABULARY, VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
-import { isIOS } from '../../../../utils/utils';
 import {params} from '../../../../../environments/params';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -29,7 +29,7 @@ import {params} from '../../../../../environments/params';
   styleUrls: ['./message-wrapper.component.scss'],
 })
 export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit {
-
+  private track: MediaStream;
 
   constructor(
     private readonly toastService: ToastService,
@@ -40,12 +40,14 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     private readonly speechRecognitionService: SpeechRecognitionService,
     private readonly chatService: ChatService,
     private readonly errorService: ErrorService,
-    private readonly speechToTextMicrosoftService: SpeechToTextMicrosoftService
+    private readonly speechToTextMicrosoftService: SpeechToTextMicrosoftService,
   ) {}
   @Input() role: string;
   @Input() originText: string;
 
   @Output() messagesToEmit = new EventEmitter<MessageWrapped>();
+  @Output() microChange = new EventEmitter<boolean>();
+  @Input() altMicro: Observable<boolean>;
 
   public rawText = '';
   public sendBtnValue: string;
@@ -59,27 +61,28 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     listenSpeech: false,
   };
   public interim = '';
-  public recordMode = false;
+  public recordMode = false  ;
   public speaking = false;
   public isFemaleSpeaking = false;
   public canSend = false;
   public translationMode = TranslationMode.TEXT;
   public languageName: string;
-  public isIOS = false;
   public voiceNotSupported = false;
   public seconds: number;
-  public showPoleEmploiLogo = this.settingsService.showPoleEmploiLogo;
+  public showTraductionLogo = this.settingsService.showTraductionLogo;
   private isMobile = false;
   private isTablet = false;
+  public isFemaleSpeaking = false;
   private recordingState = RecordingState.STOPPED;
   private useSpeechToTextMicrosoftApi: boolean;
   private vocabulary: Vocabulary[];
   private isMicrophoneGranted = false;
+  protected altMicroActif = false;
+  public erase = new EventEmitter<any>();
 
   private readonly warningType = 'toast-warning';
 
   async ngOnInit(): Promise<void> {
-    this.isIOS = isIOS();
     this.languageOrigin = this.role === Role.ADVISOR ? this.settingsService.defaultLanguage.written : this.settingsService.user.value.language.written;
     this.languageName = this.settingsService.user.value.language.languageName;
     this.useSpeechToTextMicrosoftApi = this.fromAzure(this.languageOrigin);
@@ -97,20 +100,18 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       this.isMobile = result.matches;
     });
     this.isTablet = this.settingsService.isTablet;
-    this.isMicrophoneGranted = await navigator.permissions.query({ name: 'microphone' }).then(function (result) {
-      return result.state === 'granted' || result.state === 'prompt';
+    this.altMicro.subscribe(() => {
+      this.altMicroActif = !this.altMicroActif;
     });
+    await this.requestPermission();
+    this.stopMicrophone();
   }
 
   private getInterim(data: Vocabulary, translationPlaceHolderIos: string) {
     if (this.settingsService.recordMode) {
       return data.sentences.translationH2Mobile;
     } else {
-      if (this.isIOS) {
-        return translationPlaceHolderIos;
-      } else {
-        return data.sentences.translationH2;
-      }
+      return data.sentences.translationH2;
     }
   }
 
@@ -144,13 +145,14 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
       }
     } else {
       this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, this.warningType);
-      this.requestPermission();
+      await this.requestPermission();
+      this.stopMicrophone();
     }
   }
 
   public async talkWithMicrosoft(): Promise<void> {
     this.micro = true;
-    this.rawText = '';
+    this.rawText = undefined;
     this.isMobile = false;
     this.streamWithMicrosoft();
 
@@ -184,13 +186,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
         } else if (value.final !== '') {
           this.rawText = saveText + value.final;
           saveText = this.rawText;
-        } else if (value.interim === '' && value.final === '') {
-          this.onStop();
         }
       });
     } else {
       this.toastService.showToast(ERROR_FUNC_UNAUTHORIZEDMICRO.description, this.warningType);
-      this.requestPermission();
+      await this.requestPermission();
     }
   }
 
@@ -204,32 +204,26 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   public delete(): void {
-    this.rawText = '';
+    this.rawText = undefined;
     this.canSend = false;
-    this.speaking = false;
+    if (this.recordingState === RecordingState.RECORDING) {
+      this.erase.emit();
+    }
   }
 
   public async send(fromKeyBoard = false, messageAudio?: string): Promise<void> {
     if (this.rawText !== '') {
       const user = this.settingsService.user.value;
-      const message = messageAudio === undefined ? this.rawText : messageAudio;
+      const message = messageAudio === undefined || messageAudio === null ? this.rawText : messageAudio;
       if (user.isMultiDevices) {
         this.sendToMultiDevices(user, message);
       } else {
         this.sendToOneDevice(message);
       }
-      this.rawText = '';
+      this.rawText = undefined;
       this.translationMode = TranslationMode.TEXT;
       this.canSend = false;
       this.speaking = false;
-    }
-  }
-
-  public listen(value: 'translation' | 'speech'): void {
-    if (value === 'speech') {
-      this.audioRecordingService.audioSpeech.play();
-    } else {
-      this.translatedSpeech.play();
     }
   }
 
@@ -270,9 +264,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   onStart() {
+    this.requestPermission();
     if (this.recordingState === RecordingState.RECORDING) {
       return;
     }
+    this.microChange.emit();
     this.recordingState = RecordingState.RECORDING;
     if (this.useSpeechToTextMicrosoftApi) {
       this.talkWithMicrosoft();
@@ -281,15 +277,9 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     }
   }
 
-  @HostListener('window:mouseup', ['$event'])
-  mouseUp(event) {
-    if (!this.isMobile && !this.isTablet && this.recordingState === RecordingState.RECORDING) {
-      this.onStop();
-    }
-  }
-
   onStop() {
     this.recordingState = RecordingState.STOPPED;
+    this.microChange.emit();
     if (this.rawText) {
       this.canSend = true;
     }
@@ -301,6 +291,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     }
     this.speaking = false;
     this.seconds = 0;
+    this.stopMicrophone();
   }
 
   private async sendToOneDevice(text: string) {
@@ -345,16 +336,12 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   private async requestPermission() {
-    const permission = await navigator.mediaDevices
-      .getUserMedia({ audio: true })
-      .then(function () {
-        return true;
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
-    if (permission === true) {
-      this.isMicrophoneGranted = true;
-    }
+    this.track = await navigator.mediaDevices
+      .getUserMedia({ audio: true });
+    this.isMicrophoneGranted = true;
+  }
+
+  private stopMicrophone() {
+    this.track.getTracks().forEach((track) => track.stop());
   }
 }

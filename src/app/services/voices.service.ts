@@ -16,10 +16,8 @@ export class VoicesService {
   async getVoices(): Promise<Array<Voice>> {
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const urlVoice = `https://texttospeech.googleapis.com/v1/voices`;
-    return axios({
-      method: 'get',
+    return axios.get(urlVoice, {
       headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
-      url: urlVoice
     })
       .then((response: any) => {
         return response.data.voices;

@@ -1,5 +1,13 @@
 @import 'styles';
 
+@font-face {
+  font-family: 'Marianne';
+  src: url('../../fonts/Marianne-Medium.woff2') format('woff2'),
+  url('../../fonts/Marianne-Medium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :host {
   width: 100%;
   min-height: 100%;
@@ -77,4 +85,67 @@ form,
   .panel {
     width: 90%;
   }
+}
+
+.btn-france-travail {
+  display: inline-flex;
+  align-items: center;
+  height: 58px;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  padding: 8px 16px 8px 62px;
+  cursor: pointer;
+  box-shadow: none;
+  user-select: none;
+  transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
+  color: #000091;
+  background-repeat: no-repeat;
+  background-image: url(../assets/images/common/logo-france-travail-bg-centre.svg);
+  background-position: center left -3px;
+  margin: 0 auto;
+  font-family: Marianne, serif;
+}
+
+.btn-ft{
+  margin: 0 auto;
+  border: 2px solid #000091;
+  padding-left: 10px;
+  border-radius: 50rem;
+  background-color: #F7F7F7;
+
+}
+
+.btn-inclusion-connect {
+  display: inline-flex;
+  align-items: center;
+  height: 58px;
+  font-size: 16px;
+  max-width: 80%;
+  line-height: 22px;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  padding: 8px 16px 8px 62px;
+  border-radius: 50rem;
+  cursor: pointer;
+  box-shadow: none;
+  user-select: none;
+  transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
+  color: #fff;
+  border: 4px solid #000091;
+  background-color: #000091;
+  background-image: url(../assets/images/common/logo-inclusion-connect-bg.svg);
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  font-family: Marianne, serif;
+}
+
+.ou-word {
+  padding: 8px 16px 8px 0px;
+  margin: 0 auto;
 }
