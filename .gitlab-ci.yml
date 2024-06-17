@@ -1,6 +1,9 @@
 image:
   name: node:20.9-alpine
 
+before_script:
+  - npm i -g firebase-tools@10.6.0 @angular/cli@17.3.1
+
 variables:
   ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE_DEV
   AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE_DEV
@@ -20,7 +23,7 @@ build:
   environment:
     name: staging
   script:
-    - npm i
+    - npm i --force
     - npm run config "--environment=dev"
     - ng build "--configuration=dev"
   only:
