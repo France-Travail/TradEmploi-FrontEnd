@@ -27,7 +27,7 @@ build:
     - ng build "--configuration=dev"
   only:
     refs:
-      - develop
+      - open-source
 
 deploy:
   stage: deploy
@@ -40,4 +40,4 @@ deploy:
     - firebase deploy --project dev --token $FIREBASE_TOKEN
   only:
     refs:
-      - develop
+      - open-source
