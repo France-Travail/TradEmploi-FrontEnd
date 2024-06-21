@@ -1,5 +1,4 @@
 import { Gdpr } from './gdpr';
-import { Pdata } from './pdata';
 
 export interface Vocabulary {
   isoCode: string;

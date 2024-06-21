@@ -58,7 +58,7 @@ const MATERIAL_MODULES = [
 const MODULES = [RouterModule, CommonModule, ReactiveFormsModule, FormsModule, ...MATERIAL_MODULES];
 
 @NgModule({
-  declarations: [...COMPONENTS, HeaderComponent, SidenavComponent],
+  declarations: [...COMPONENTS],
   imports: [...MODULES],
   exports: [...COMPONENTS, ...MODULES],
 })
