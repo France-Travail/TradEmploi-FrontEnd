@@ -75,11 +75,89 @@ export const FRENCH: Sentence = {
     typeInterview: 'Type entretien',
   },
   gdpr: {
-    title: 'Protection des données à caractère personnel',
+    title: 'Conditions générales d\'utilisation',
     privacyText:
     params.organization.cgus,
     closeBtn: 'FERMER',
   },
+  pdata: '<div>' +
+    '      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur convallis felis et odio facilisis, eu sagittis libero vehicula. Integer id neque vitae eros mollis malesuada non ut nunc.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>RESPONSABLE DU TRAITEMENT</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Nam non sem vitae lectus pretium gravida. Nulla facilisi. Aliquam erat volutpat. Donec mollis ligula in sapien fermentum, eget accumsan tortor faucibus. Curabitur in turpis id est scelerisque eleifend.<a href="https://www.gnu.org/licenses/gpl-3.0.fr.html">Aperta fons est futura</a></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>OBJECTIF DU TRAITEMENT</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Praesent ac nisl nec justo laoreet scelerisque. Mauris varius sem sed nulla vestibulum, at vehicula ligula scelerisque. Integer sit amet neque a ligula tincidunt fermentum.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>BASE LEGALE</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Morbi ac libero quis purus malesuada posuere ut a velit. Nam ac sapien vitae nulla ullamcorper laoreet ut at justo. Curabitur ut mauris convallis, vehicula justo in, convallis risus.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>NATURE DES DONNEES TRAITEES</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Sed sit amet nulla vitae libero ornare vestibulum. Ut vestibulum sem sit amet nunc vehicula, id consequat tortor pellentesque.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '    <span>Pour les clients internationaux :</span>' +
+    '  </div>' +
+    '    <div>' +
+    '      <ul>' +
+    '        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>' +
+    '        <li>Vestibulum consequat, tortor in scelerisque tincidunt, justo augue condimentum dolor, a tincidunt ipsum turpis sit amet justo.</li>' +
+    '      </ul>' +
+    '    </div>' +
+    '    <div>' +
+    '      <ul>' +
+    '        <li>Praesent nec risus nec tortor consequat tincidunt.</li>' +
+    '        <li>Donec vehicula dolor et sapien ornare varius.</li>' +
+    '        <li>Sed lacinia quam at dui malesuada, vel ultricies est cursus.</li>' +
+    '      </ul>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus convallis sem at augue ultricies, id vehicula mauris malesuada. Curabitur vehicula semper arcu, vitae cursus purus vehicula nec.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>DUREE DE CONSERVATION</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Quisque a sapien sed dui fermentum luctus. Duis in lorem ut nisl consectetur lacinia. Fusce luctus libero sit amet arcu luctus, in facilisis eros volutpat.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>DESTINATAIRES DES DONNEES PERSONNELLES</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Vivamus at ex sed mauris aliquam pharetra. Fusce posuere eros in quam sollicitudin scelerisque.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <ul>' +
+    '        <li>Sed ac eros ac neque fringilla fermentum.</li>' +
+    '        <li>Nullam ut nisl a risus dignissim varius.</li>' +
+    '        <li>Ut eu lacus ac orci vehicula cursus.</li>' +
+    '        <li>Integer nec nisi at ligula dapibus commodo.</li>' +
+    '      </ul>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>TRANSFERT DES DONNEES</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Morbi in dolor et velit sollicitudin sollicitudin. Sed suscipit, nulla nec fermentum ullamcorper, nulla nisi pulvinar arcu, ac tincidunt sem arcu at augue.</span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span><b>DROITS SUR VOS DONNEES PERSONNELLES</b></span>' +
+    '    </div>' +
+    '    <div>' +
+    '      <span>Fusce volutpat, purus a elementum sollicitudin, augue arcu vehicula nulla, at consectetur sapien risus in odio. Donec luctus, sem ut aliquet vehicula, justo est placerat erat, at efficitur neque libero a libero.</span>' +
+    '    </div>',
   logout: {
     title: 'Déconnexion',
     question: 'Voulez-vous vous déconnecter?',
@@ -95,7 +173,8 @@ export const FRENCH: Sentence = {
     confirm: 'CONFIRMER',
   },
   choice: {
-    mostBtn: 'Langues les plus utilisées',
+    mostBtn: 'Langues prioritaires',
+    mostUsedBtn: 'Langues les plus utilisées',
     allBtn: 'Toutes les langues',
     listBtn: 'Liste',
     gridBtn: 'Grille',
@@ -104,10 +183,10 @@ export const FRENCH: Sentence = {
     voice: 'Voix',
   },
   tooltip: {
-    pronounce: 'Le DE peut parler dans cette langue',
+    pronounce: 'Le client peut parler dans cette langue',
     noPronounce: 'Je ne peux pas parler dans cette langue',
-    listen: 'Le DE peut entendre la traduction dans cette langue',
-    noListen: 'Le DE ne peut pas entendre la traduction dans cette langue',
+    listen: 'Le client peut entendre la traduction dans cette langue',
+    noListen: 'Le client ne peut pas entendre la traduction dans cette langue',
     audio: 'Je peux entendre un échantillon vocal dans cette langue',
   },
 };
@@ -141,11 +220,23 @@ export const ENGLISH: Sentence = {
     typeInterview: 'Interview type',
   },
   gdpr: {
-    title: 'Protection of personal data',
+    title: 'General terms of use',
     privacyText:
     params.organization.cgusEnglish,
     closeBtn: 'CLOSE',
   },
+  pdata: '<div>' +
+        '      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur convallis felis et odio facilisis, eu sagittis libero vehicula. Integer id neque vitae eros mollis malesuada non ut nunc.</span>' +
+      '    </div>' +
+      '    <div>' +
+      '      <span><b>DATA CONTROLLER</b></span>' +
+      '    </div>' +
+      '    <div>' +
+      '      <span>Nam non sem vitae lectus pretium gravida. Nulla facilisi. Aliquam erat volutpat. Donec mollis ligula in sapien fermentum, eget accumsan tortor faucibus. Curabitur in turpis id est scelerisque eleifend.<a href="https://www.gnu.org/licenses/gpl-3.0.fr.html">Aperta fons est futura</a></span>' +
+      '    </div>' +
+      '    <div>' +
+      '      <span><b>TREATMENT OBJECTIVE</b></span>' +
+      '    </div>',
   logout: {
     title: 'Logout',
     question: 'Would you like to log out ?',
@@ -153,7 +244,8 @@ export const ENGLISH: Sentence = {
     confirm: 'Logout',
   },
   choice: {
-    mostBtn: 'Most used languages',
+    mostBtn: 'Priority language',
+    mostUsedBtn: 'Most used languages',
     allBtn: 'All languages',
     listBtn: 'List',
     gridBtn: 'Grid',
@@ -169,8 +261,8 @@ export const ENGLISH: Sentence = {
     audio: 'I can hear a voice sample in this language',
   },
   introMessage: {
-    welcomeFR: 'Voici un traducteur automatique qui va traduire votre langue. Pour améliorer l’expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',
-    welcomeRAW: 'Here is an automatic translator that will translate your language. To improve the translation experience, keep sentences short and simple and speak loudly enough.',
+    welcomeFR: 'Voici un traducteur automatique qui va traduire votre langue. Pour améliorer l\'expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',
+    welcomeRAW: 'Here\'s an automatic translator that will translate your language. To improve the translation experience, keep your sentences short and simple, and speak loudly enough.',
     notifMultiFR: 'L’espace de conversation a été créé en modalité multi-support.',
     notifMultiRAW: 'You\'ve joined the conversation.',
     voiceavailabilityFR: 'Saisie vocale indisponible pour la langue sélectionnée',
@@ -908,7 +1000,7 @@ export const GEORGIAN: Sentence = {
   readedWelcome: 'გსურთ ამ ენაზე გაგრძელება?',
   translationH2: 'შეიყვანეთ ტექსტი, ან გეჭიროთ ლურჯი მიკროფონი სალაპარაკოდ',
   translationH2Mobile: 'შეიყვანეთ ტექსტი, ან შეეხეთ ლურჯ მიკროფონს სასაუბროდ',
-  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled 
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled
 };
 
 

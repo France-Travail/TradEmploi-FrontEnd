@@ -24,20 +24,15 @@ export class SpeechToTextService {
       },
     };
     return new Observable((observer) => {
-      axios({
-        method: 'post',
+      axios.post(urlRecognize, data, {
         headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
-        url: urlRecognize,
-        data,
       })
         .then((operation) => {
           const urlOperation = `https://speech.googleapis.com/v1/operations/${operation.data.name}`;
           const wait = this.getWaitTime(time);
           setTimeout(() => {
-            axios({
-              method: 'get',
+            axios.get(urlOperation, {
               headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
-              url: urlOperation,
             })
               .then((res) => {
                 const transcription =
@@ -56,9 +51,9 @@ export class SpeechToTextService {
           throw new Error(error);
         });
     });
-  };
+  }
 
   private readonly getWaitTime = (time: number): number => {
     return (time / 2) * 1000;
-  };
+  }
 }

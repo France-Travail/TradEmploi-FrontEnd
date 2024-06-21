@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Language } from '../models/db/language';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { VOCABULARY } from '../data/vocabulary';
 import { CSS_COLOR_NAMES } from './colors';
-import * as moment from 'moment';
+import moment from 'moment';
+import {NavbarService} from "../services/navbar.service";
+import {ErrorService} from "../services/error.service";
 
 @Component({
   selector: 'app-indicators',
@@ -11,7 +13,9 @@ import * as moment from 'moment';
   styleUrls: ['./indicators.component.scss'],
 })
 export class IndicatorsComponent implements OnInit {
-  constructor(private readonly afs: AngularFirestore) {}
+  constructor(private readonly afs: AngularFirestore,
+              private readonly errorService: ErrorService,
+              private readonly navbarService: NavbarService) {}
 
   public languagesByAverage = [];
   public languagesByOccurences = [];
@@ -23,6 +27,9 @@ export class IndicatorsComponent implements OnInit {
   public view = [1200, 500];
 
   ngOnInit(): void {
+
+    this.navbarService.handleTabsChoice();
+    this.navbarService.show();
     this.setColorScheme();
     const dataThreshold = moment().subtract(1, 'month').toDate();
     const rateObs = this.afs.collection<any>('rates', (rf) => rf.where('date', '>=', dataThreshold).orderBy('date', 'asc')).valueChanges();
@@ -30,13 +37,13 @@ export class IndicatorsComponent implements OnInit {
       const rateMap = this.buildRateMap(rates);
       this.fillLanguagesByTime(rateMap);
       this.refreshLanguagesByTime();
-    });
+    }, this.errorService.handleAfsError);
 
     const langObs = this.afs.collection<Language>('languages').valueChanges();
     langObs.subscribe((languages) => {
       this.fillLanguages(languages);
       this.refreshLanguages();
-    });
+    }, this.errorService.handleAfsError);
   }
 
   private setColorScheme() {

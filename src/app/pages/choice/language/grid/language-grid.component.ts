@@ -1,19 +1,19 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Tooltip, Vocabulary} from './../../../../models/vocabulary';
+import {Tooltip, Vocabulary} from '../../../../models/vocabulary';
 import {Observable} from 'rxjs';
 import {Language} from '../../../../models/db/language';
-import {AngularFirestore} from '@angular/fire/firestore';
 import {VOCABULARY} from '../../../../data/vocabulary';
-import {environment} from '../../../../../environments/environment';
 import {ToastService} from '../../../../services/toast.service';
 import {SettingsService} from '../../../../services/settings.service';
 import {ENGLISH, FRENCH} from '../../../../data/sentence';
 import {ERROR_FUNC_TTS} from '../../../../models/error/errorFunctionnal';
-import {params} from '../../../../../environments/params';
 import {TextToSpeechService} from '../../../../services/text-to-speech.service';
 import {LoaderComponent} from '../../../settings/loader/loader.component';
 import {MatDialog} from '@angular/material/dialog';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import {ErrorService} from '../../../../services/error.service';
+import { params } from '../../../../../environments/params';
 
 
 @Component({
@@ -33,8 +33,9 @@ export class LanguageGridComponent implements OnChanges, OnInit {
 
   private audioClick = false;
   private audioEnabled = true;
-  private readonly selectedCountries: Vocabulary[] = [];
+  private selectedCountries: Vocabulary[] = [];
   public mapLanguages: Map<string, Language> = new Map();
+  private audio = new Audio();
 
   public countriesSort = [
     {value: ['langue', true], viewValue: 'Langue (asc)'},
@@ -48,15 +49,31 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   constructor(private readonly textToSpeechService: TextToSpeechService,
               private readonly toastService: ToastService,
               private readonly settingsService: SettingsService,
+              private readonly errorService: ErrorService,
               private readonly db: AngularFirestore,
               private readonly router: Router,
               private readonly dialog: MatDialog) {
-    const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as Observable<Language[]>;
-    result.subscribe(languages => languages.forEach(language => {
-      this.selectedCountries.push(...VOCABULARY.filter((i) => this.isValidIsoCode(i, language)));
-      this.mapLanguages.set(language.isoCode, language);
-    }));
-
+    this.selectedCountries = [];
+    if(params.languesPrioritairesActif) params.languesPrioritaires.forEach((langue) => {
+      this.selectedCountries.push(VOCABULARY.find((v) => v.isoCode === langue));
+    });
+    if(params.languesPrioritairesActif){
+      const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as unknown as Observable<Language[]>;
+      result.subscribe({next: languages => {
+          languages.forEach(language => {
+            this.mapLanguages.set(language.isoCode, language);
+            this.setCountriesSelected();
+          });
+        },
+        error: this.errorService.handleAfsError
+      });
+    } else {
+      const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as Observable<Language[]>;
+      result.subscribe(languages => languages.forEach(language => {
+        this.selectedCountries.push(...VOCABULARY.filter((i) => this.isValidIsoCode(i, language)));
+        this.mapLanguages.set(language.isoCode, language);
+      }));
+    }
   }
 
   private isValidIsoCode(i: Vocabulary, language: Language) {
@@ -113,17 +130,19 @@ export class LanguageGridComponent implements OnChanges, OnInit {
     this.countries.sort((a, b) => asc ? a.languageNameFr.localeCompare(b.languageNameFr) : b.languageNameFr.localeCompare(a.languageNameFr));
   }
 
-  public audioDescription(item: Vocabulary) {
+  public async audioDescription(item: Vocabulary) {
     this.audioClick = true;
+    if (!this.audio.src){
+      this.audio.play();
+    }
     if (this.audioEnabled) {
       this.audioEnabled = false;
       const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
-      const loaderDialog = this.dialog.open(LoaderComponent, {panelClass: 'loader', disableClose: true});
-
-      this.textToSpeechService
+      const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
+      await this.textToSpeechService
         .getSpeech(item.sentences.readedWelcome, audioLanguage)
         .then((_) => {
-          this.textToSpeechService.audioSpeech.play();
+          this.audio.src = this.textToSpeechService.audioSpeech.src;
           this.textToSpeechService.audioSpeech = undefined;
           setTimeout(() => {
             this.audioEnabled = true;
@@ -136,6 +155,8 @@ export class LanguageGridComponent implements OnChanges, OnInit {
           this.textToSpeechService.audioSpeech = undefined;
           loaderDialog.close();
         });
+      this.audio.load();
+      await this.audio.play();
     }
   }
 

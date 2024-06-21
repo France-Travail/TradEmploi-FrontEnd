@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {HeaderComponent} from './header.component';
 import {NavbarService} from '../../../../services/navbar.service';
 import {SettingsService} from '../../../../services/settings.service';
@@ -11,26 +11,29 @@ import {GdprComponent} from '../../../../pages/gdpr/gdpr.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {ChatService} from "../../../../services/chat.service";
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let mockBreakpointService;
   let mockSettingsService;
+  let mockChatService;
 
   const user = {
     connectionTime: 1,
     id: '123',
     roomId: '1345',
     role: Role.GUEST,
-    firstname: 'Pôle emploi',
+    firstname: 'TRADUCTION',
     isMultiDevices: true,
     email: 'test@gmail.com',
     idDGASI: '1'
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     mockBreakpointService = jasmine.createSpyObj(['observe']);
+    mockChatService = jasmine.createSpyObj(['initChatMono', 'updateChatStatus']);
     mockBreakpointService.observe.and.returnValue(of(true));
     mockSettingsService = {
       user: new BehaviorSubject<User>(user)
@@ -43,6 +46,7 @@ describe('HeaderComponent', () => {
         MatDialog,
         NavbarService,
         {provide: SettingsService, useValue: mockSettingsService},
+        {provide: ChatService, useValue: mockChatService},
         {provide: BreakpointObserver, useValue: mockBreakpointService}
       ],
       schemas: [NO_ERRORS_SCHEMA]

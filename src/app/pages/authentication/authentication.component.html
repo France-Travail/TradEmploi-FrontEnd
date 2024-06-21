@@ -1,35 +1,40 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="title">
-    <img src="../../../assets/images/pe/logo-working.png" alt="Logo Pôle Emploi" style="width: 50%" />
-    <h1 class="t2">Connexion</h1>
-    <p class="t3">Accédez au service de <span class="text-app">traduction instantanée</span></p>
+    <img src="../../../assets/images/pe/logo-working.png" alt="Logo Trad" style="width: 50%" />
+    <div style="padding-top: 5%">
+      <h1 class="t2">Connexion</h1>
+      <p class="t3">Accédez au service de <span class="text-app">traduction instantanée</span></p>
+    </div>
   </div>
 
-  <mat-form-field *ngIf="!isOauthLogin" [color]="email.valid && 'accent'" class="input">
+  <button *ngIf="!authPending && (params.authType == AuthType.both || params.authType == AuthType.SSO)" type="button" (click)="connexionTraduction()">Connexion avec votre Login/Mdp Traduction (SSO)</button>
+
+  <div *ngIf="showOauthLoginError" class="loading" style="color: red">
+    Une erreur est survenue dans la procédure de connexion
+    <button (click)="oauthLogin()">Réessayer de se connecter</button>
+  </div>
+
+  <p *ngIf="params.authType == AuthType.both && !authPending" class="separation">ou</p>
+
+  <mat-form-field *ngIf="(!isOauthLogin && (params.authType == AuthType.both || params.authType == AuthType.loginPassword )) && !authPending" [color]="email.valid && 'accent'" class="input density">
     <input id="email" matInput class="text" type="email" formControlName="email" placeholder="Identifiant" autocomplete="off" />
     <mat-error *ngIf="email.hasError('required')">L'adresse email est requise.</mat-error>
     <mat-error *ngIf="email.invalid && email.dirty">Vous devez entrer une adresse email valide.</mat-error>
   </mat-form-field>
 
-  <mat-form-field *ngIf="!isOauthLogin" [color]="password.valid && 'accent'" class="input">
+  <mat-form-field *ngIf="(!isOauthLogin && (params.authType == AuthType.both || params.authType == AuthType.loginPassword )) && !authPending" [color]="password.valid && 'accent'" class="input density">
     <input id="password" matInput type="password" formControlName="password" placeholder="Mot de passe" autocomplete="off" />
     <mat-error *ngIf="password.hasError('required')">Le mot de passe est requis.</mat-error>
     <mat-error *ngIf="password.invalid && password.dirty">Le mot de passe doit faire au moins 6 caractères.</mat-error>
   </mat-form-field>
 
-  <button type="submit" *ngIf="!isOauthLogin" [disabled]="form.invalid">Se connecter</button>
+  <button type="submit" *ngIf="(!isOauthLogin && (params.authType == AuthType.both || params.authType == AuthType.loginPassword )) && !authPending" [disabled]="form.invalid">Se connecter</button>
 
-  <div class="btn-ft">
-    <a *ngIf="isOauthLogin" (click)="loginPE()" class="btn-france-travail" target="_blank">
-      <!--<img class="me-2" height="30" src="../assets/images/common/logo-france-travail-bg.svg" alt="">-->
-      <span style="font-weight: bold;"> &nbsp; Connexion agents France Travail</span>
-    </a>
+  <div *ngIf="authPending" class="loading">
+    <div class="loading">
+      Connexion en cours
+    </div>
+    <mat-spinner class="loading"></mat-spinner>
   </div>
-
-  <span class="ou-word">ou</span>
-
-  <a *ngIf="isOauthLogin" (click)="loginIC()" class="btn-inclusion-connect" target="_blank">
-    <span>Se connecter avec <span style="font-weight:bold;">&nbsp;Inclusion Connect</span></span>
-  </a>
 
 </form>

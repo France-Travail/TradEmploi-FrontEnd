@@ -1,9 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ChatService } from '../../../../services/chat.service';
 import { Guest } from '../../../../models/db/guest';
 import { LoaderComponent } from '../../../settings/loader/loader.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-authorize',

@@ -16,7 +16,7 @@ export class SettingsService {
   public defaultLanguage = {audio: 'fr-FR', written: 'fr-FR', languageName: 'Français'};
   public isMobile: boolean;
   public isTablet: boolean;
-  public showFranceTravailLogo = params.organization.name === 'France Travail';
+  public showTraductionLogo = params.organization.name === 'Traduction';
 
   constructor(private readonly deviceService: DeviceDetectorService) {
     this.isMobile = this.deviceService.isMobile();
@@ -33,7 +33,7 @@ export class SettingsService {
     JwtFbSingleton.getInstance().setToken(null);
     JwtGcpSingleton.getInstance().setToken(null);
     JwtGwSingleton.getInstance().setToken(null);
-  };
+  }
 }
 
 export const AdvisorDefaultName = params.organization.name;

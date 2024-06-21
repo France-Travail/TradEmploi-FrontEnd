@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {MatDialog} from '@angular/material';
 import {Router} from '@angular/router';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {OnboardingComponent} from '../translation/dialogs/onboarding/onboarding.component';
 import {SettingsService} from '../../services/settings.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-welcome',
@@ -14,7 +14,7 @@ export class WelcomeComponent {
   public isMobile = false;
   public roomId: string;
 
-  public showFranceTravailLogo = this.settingsService.showFranceTravailLogo;
+  public showTraductionLogo = this.settingsService.showTraductionLogo;
 
   constructor(private readonly deviceService: DeviceDetectorService, private readonly router: Router, private readonly dialog: MatDialog, public readonly settingsService: SettingsService) {
     this.isMobile = this.deviceService.isMobile();

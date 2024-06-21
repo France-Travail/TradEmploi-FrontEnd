@@ -1,5 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { BehaviorSubject, of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,8 +11,9 @@ import { User } from '../../../../models/user';
 import { Role } from '../../../../models/role';
 import { LanguageGridComponent } from './language-grid.component';
 import { TextToSpeechGcpService } from '../../../../services/text-to-speech-gcp.service';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import {TextToSpeechService} from "../../../../services/text-to-speech.service";
 
 describe('LanguageGridComponent', () => {
   let component: LanguageGridComponent;
@@ -35,13 +36,13 @@ describe('LanguageGridComponent', () => {
     id: '123',
     roomId: '1345',
     role: Role.GUEST,
-    firstname: 'Pôle emploi',
+    firstname: 'TRADUCTION',
     isMultiDevices: true,
     email: 'test@gmail.com',
     idDGASI: '1',
     language: { audio: 'fr-FR', written: 'fr-FR', languageName: 'Français' }
   };
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     mockRouter = jasmine.createSpyObj(['navigateByUrl']);
     mockToastService = jasmine.createSpyObj(['test']);
     mockTextToSpeechService = jasmine.createSpyObj(['test']);
@@ -52,13 +53,12 @@ describe('LanguageGridComponent', () => {
       }
     };
     TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, RouterTestingModule, AngularFireDatabaseModule],
+      imports: [BrowserAnimationsModule, RouterTestingModule, AngularFireDatabaseModule, MatDialogModule],
       declarations: [],
       providers: [
         { provide: AngularFirestore, useValue: angularFirestoreStub },
-        { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: Router, useValue: mockRouter },
-        { provide: TextToSpeechGcpService, useValue: mockTextToSpeechService },
+        { provide: TextToSpeechService, useValue: mockTextToSpeechService },
         { provide: SettingsService, useValue: mockSettingsService },
         { provide: ToastService, useValue: mockToastService }
       ],

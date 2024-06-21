@@ -63,12 +63,9 @@ export class TextToSpeechGcpService extends TextToSpeechService{
     if (voiceSelected.length >= 1) {
       const voice: Voice = voiceSelected.find((v) => v.ssmlGender === 'MALE');
       data.voice.name = voice === undefined ? voiceSelected.find((v) => v.ssmlGender === 'FEMALE').name : voice.name;
-      return axios({
-        method: 'post',
+      return axios.post(urlRecognize, data, {
         headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
-        url: urlRecognize,
         timeout: 60000,
-        data,
       })
         .then((response: any) => {
           this.audioSpeech = new Audio('data:audio/mp3;base64,' + response.data.audioContent);
@@ -78,5 +75,5 @@ export class TextToSpeechGcpService extends TextToSpeechService{
           throw new Error(error);
         });
     }
-  };
+  }
 }

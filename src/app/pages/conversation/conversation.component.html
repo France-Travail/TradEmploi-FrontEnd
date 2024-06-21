@@ -11,7 +11,7 @@
         <div class="time">
           <span *ngIf="i.isAdvisorMessage">Conseiller - </span>
           <span *ngIf="!i.isAdvisorMessage">
-            <ng-container *ngIf="conversation.guest.firstname == ''; else name">
+            <ng-container *ngIf="conversation.guest.firstname === ''; else name">
               Demandeur d'emploi -
             </ng-container>
             <ng-template #name> {{ conversation.guest.firstname }} {{ conversation.guest.lastname }} - </ng-template>

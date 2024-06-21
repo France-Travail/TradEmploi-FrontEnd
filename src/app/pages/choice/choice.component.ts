@@ -1,6 +1,5 @@
 import { AfterContentInit, Component, HostListener, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialogRef } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Choice } from '../../models/vocabulary';
 import { User } from '../../models/user';
@@ -10,13 +9,15 @@ import { ChatService } from '../../services/chat.service';
 import { ToastService } from '../../services/toast.service';
 import { Role } from '../../models/role';
 import { ENGLISH, FRENCH } from '../../data/sentence';
+import { MatDialogRef } from '@angular/material/dialog';
+import { params } from '../../../environments/params';
 
 @Component({
   selector: 'app-choice',
   templateUrl: './choice.component.html',
   styleUrls: ['./choice.component.scss']
 })
-export class ChoiceComponent implements AfterContentInit, OnDestroy {
+export class ChoiceComponent implements OnDestroy {
   public search: string;
 
   public optionAll = false;
@@ -50,9 +51,6 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
         this.router.navigate(['/auth']);
       }
     });
-  }
-
-  ngAfterContentInit(): void {
     this.navService.show();
   }
 
@@ -109,4 +107,6 @@ export class ChoiceComponent implements AfterContentInit, OnDestroy {
   private async deactivateMono() {
     await this.chatService.initChatMono(this.user.roomId, this.user.role);
   }
+
+  protected readonly params = params;
 }

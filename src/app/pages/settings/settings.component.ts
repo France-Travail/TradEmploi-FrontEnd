@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { LoaderComponent } from './loader/loader.component';
 import { Router } from '@angular/router';
 import { exportCsv } from '../../utils/utils';
@@ -10,6 +9,7 @@ import { KpiService } from '../../services/kpi.service';
 import { ToastService } from '../../services/toast.service';
 import { Role } from '../../models/role';
 import { ERROR_FUNC_EXPORT_KPI, ERROR_FUNC_EXPORT_STATS } from '../../models/error/errorFunctionnal';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-settings',
@@ -45,9 +45,9 @@ export class SettingsComponent implements OnInit {
       this.dialog.open(LoaderComponent, { panelClass: 'loader' });
     }
     this.kpiService
-      .getkpi(true)
+      .getkpi()
       .then((kpi) => {
-        exportCsv(kpi, 'PE_Outil_Traduction_KPIs_');
+        exportCsv(kpi, 'Traduction_KPIs_');
         this.dialog.closeAll();
       })
       .catch(async (_) => {
@@ -66,9 +66,9 @@ export class SettingsComponent implements OnInit {
       this.dialog.open(LoaderComponent, { panelClass: 'loader' });
     }
     this.rateService
-      .getRates(true)
+      .getRates()
       .then((rates) => {
-        exportCsv(rates, 'PE_Outil_Traduction_Evaluation_');
+        exportCsv(rates, 'Traduction_Evaluation_');
         this.dialog.closeAll();
       })
       .catch(async (_) => {

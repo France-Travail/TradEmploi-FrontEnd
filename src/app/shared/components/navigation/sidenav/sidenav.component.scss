@@ -43,9 +43,18 @@ mat-nav-list {
       padding-left: 6px;
   }
 }
+
 mat-list-item {
   color: $button-black;
   a {
     color: $button-black;
   }
+}
+
+.name-placement{
+  float: left;
+}
+
+.img-placement{
+  transform: translateY(50%);
 }

@@ -1,11 +1,13 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IndicatorsComponent } from './indicators.component';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { of } from 'rxjs';
+import {NavbarService} from "../services/navbar.service";
 
 describe('IndicatorsComponent', () => {
   let component: IndicatorsComponent;
   let fixture: ComponentFixture<IndicatorsComponent>;
+  let mockNavbarService;
 
   beforeEach(waitForAsync(() => {
     const data = of();
@@ -18,11 +20,13 @@ describe('IndicatorsComponent', () => {
       collection: jasmine.createSpy('collection').and.returnValue(collectionStub)
     };
 
+    mockNavbarService = jasmine.createSpyObj(['handleTabsChoice', 'show']);
 
     TestBed.configureTestingModule({
       declarations: [IndicatorsComponent],
       providers: [
-        { provide: AngularFirestore, useValue: mockAngularFirestore }
+        { provide: AngularFirestore, useValue: mockAngularFirestore },
+        { provide: NavbarService, useValue: mockNavbarService }
       ]
     }).compileComponents();
 
@@ -32,6 +36,9 @@ describe('IndicatorsComponent', () => {
     fixture = TestBed.createComponent(IndicatorsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    expect(mockNavbarService.show).toHaveBeenCalled();
+    expect(mockNavbarService.handleTabsChoice).toHaveBeenCalled();
+
   });
 
   it('should create', () => {

@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-welcome-de',
@@ -13,7 +13,7 @@ export class WelcomeDeComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { error: boolean }
   ) {
-    this.error = this.data.error
+    this.error = this.data.error;
   }
 
 }

@@ -20,7 +20,7 @@ export class AudioRecordingService {
 
 
   constructor(private readonly errorService: ErrorService, private readonly speechToTextService: SpeechToTextSyncService) {
-    this.worker = new Worker('../worker/flac.worker', { type: 'module' });
+    this.worker = new Worker(new URL('../worker/flac.worker', import.meta.url), { type: 'module' });
   }
 
   public start() {
