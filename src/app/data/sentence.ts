@@ -183,10 +183,10 @@ export const FRENCH: Sentence = {
     voice: 'Voix',
   },
   tooltip: {
-    pronounce: 'Le client peut parler dans cette langue',
+    pronounce: 'L\'usager peut parler dans cette langue',
     noPronounce: 'Je ne peux pas parler dans cette langue',
-    listen: 'Le client peut entendre la traduction dans cette langue',
-    noListen: 'Le client ne peut pas entendre la traduction dans cette langue',
+    listen: 'L\'usager peut entendre la traduction dans cette langue',
+    noListen: 'L\'usager ne peut pas entendre la traduction dans cette langue',
     audio: 'Je peux entendre un échantillon vocal dans cette langue',
   },
 };

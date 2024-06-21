@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 import { RecordingState } from '../../../../models/RecordingState';
@@ -48,6 +48,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   @Output() messagesToEmit = new EventEmitter<MessageWrapped>();
   @Output() microChange = new EventEmitter<boolean>();
   @Input() altMicro: Observable<boolean>;
+  @ViewChild('customslide', { read: ElementRef }) element: ElementRef | undefined;
 
   public rawText = '';
   public sendBtnValue: string;
@@ -124,6 +125,9 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     const textArea = document.getElementById('msg-wrapper-advisor');
     if (!this.isTablet && !this.isMobile && textArea) {
       textArea.focus();
+    }
+    if (this.element){
+      this.element.nativeElement.querySelector('.mdc-switch__icon--on').firstChild.setAttribute('d', 'M20 13H4v-2h16v2z');
     }
   }
 
