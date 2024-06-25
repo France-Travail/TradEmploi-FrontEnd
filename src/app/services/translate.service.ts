@@ -16,8 +16,7 @@ export class TranslateService {
     targetLanguageCode = this.mapLanguage(targetLanguageCode);
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const gwToken = tokenResponse.tokenGW;
-    // const url = `${environment.gcp.gateWayUrl}/translation`;
-    const url = `http://localhost:8082`;
+    const url = `${environment.gcp.gateWayUrl}/translation`;
     const data = {
       text,
       sourceLanguageCode: sourceLanguageCode ? sourceLanguageCode : 'fr-FR',
