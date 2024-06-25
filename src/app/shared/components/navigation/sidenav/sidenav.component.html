@@ -15,6 +15,10 @@
     <img src="assets/icons/icon-help-black.svg" alt="help"/>
     <span class="name">{{ helpLink | uppercase }}</span>
   </a>
+  <a mat-list-item routerLink="tradtondoc" (click)="onSidenavClose()" *ngIf="navbarService.tradDocTab">
+    <img src="assets/icons/document.svg" alt="TradTonDoc" />
+    <span class="name">TRADUIRE UN DOCUMENT</span>
+  </a>
   <a mat-list-item (click)="createShortcut()">
     <img src="assets/icons/icon-export-black.svg" alt="Shortcut" class="name-placement img-placement"/>
     <div class="name-placement">

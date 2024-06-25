@@ -47,7 +47,7 @@ export class ChatComponent implements OnInit {
     if (!this.messagesWrapped[index].information) {
       this.audio.play();
       await this.textToSpeechService
-        .getSpeech(this.messagesWrapped[index].notification, this.targetLanguage.audio)
+        .getSpeech(this.messagesWrapped[index].notification, this.targetLanguage.audio, false)
         .then((_) => {
           this.messagesWrapped[index].information = this.textToSpeechService.audioSpeech;
         })

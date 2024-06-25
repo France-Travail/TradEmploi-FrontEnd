@@ -140,7 +140,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
       const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
       const loaderDialog = this.dialog.open(LoaderComponent, { panelClass: 'loader', disableClose: true });
       await this.textToSpeechService
-        .getSpeech(item.sentences.readedWelcome, audioLanguage)
+        .getSpeech(item.sentences.readedWelcome, audioLanguage, false)
         .then((_) => {
           this.audio.src = this.textToSpeechService.audioSpeech.src;
           this.textToSpeechService.audioSpeech = undefined;

@@ -2,7 +2,7 @@
 
   <div *ngIf="messageWrapped.notification && (i == 0 || i == 1) " class="notification ">
     <span class="notificationText">{{ messageWrapped.notification }}</span>
-    <button *ngIf="i!=0 && isAudioSupported" class="listen" (click)="listenToMessage(i)"></button>
+    <button *ngIf="i!=0 && isAudioSupported" class="listen" (click)="listen(i)"></button>
   </div>
 
   <div *ngIf="messageWrapped.message" [ngClass]="messageWrapped.message.role === 'DE' ? 'bubble-area-user' : 'bubble-area-advisor'">

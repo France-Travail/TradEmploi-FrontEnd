@@ -76,6 +76,8 @@ import { OAuthModule} from 'angular-oauth2-oidc';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { PdataComponent } from './pages/pdata/pdata.component';
+import { TradtondocComponent } from './pages/tradtondoc/tradtondoc.component';
+import { ImageCropperComponent } from 'ngx-image-cropper';
 
 if (!environment.firebaseConfig.authDomain) {
   environment.firebaseConfig.authDomain = window.location.host;
@@ -114,7 +116,8 @@ if (!environment.firebaseConfig.authDomain) {
         OnboardingComponent,
         CallbackComponent,
         CarouselComponent,
-        IndicatorsComponent
+        IndicatorsComponent,
+        TradtondocComponent
     ],
   imports: [
     BrowserModule,
@@ -147,7 +150,8 @@ if (!environment.firebaseConfig.authDomain) {
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    ImageCropperComponent
   ],
     providers: [
         NavbarService,

@@ -38,7 +38,7 @@ export class TextToSpeechGcpService extends TextToSpeechService{
     super();
   }
 
-  getSpeech = async (text: string, language: string): Promise<void> => {
+  getSpeech = async (text: string, language: string, isFemaleSpeech: boolean ): Promise<void> => {
     this.audioSpeech = undefined;
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const urlRecognize = 'https://eu-texttospeech.googleapis.com/v1/text:synthesize';
@@ -61,8 +61,9 @@ export class TextToSpeechGcpService extends TextToSpeechService{
       },
     };
     if (voiceSelected.length >= 1) {
-      const voice: Voice = voiceSelected.find((v) => v.ssmlGender === 'MALE');
-      data.voice.name = voice === undefined ? voiceSelected.find((v) => v.ssmlGender === 'FEMALE').name : voice.name;
+      const voice: Voice = isFemaleSpeech ? voiceSelected.find((v) => v.ssmlGender === 'FEMALE')
+        : voiceSelected.find((v) => v.ssmlGender === 'MALE');
+      data.voice.name = voice === undefined ? this.getVoice(isFemaleSpeech, voiceSelected) : voice.name;
       return axios.post(urlRecognize, data, {
         headers: { Authorization: `Bearer ${tokenResponse.tokenGCP}`, 'content-type': 'application/json; charset=utf-8' },
         timeout: 60000,
@@ -75,5 +76,11 @@ export class TextToSpeechGcpService extends TextToSpeechService{
           throw new Error(error);
         });
     }
+  }
+
+  private getVoice(isFemaleSpeech: boolean, voiceSelected: Voice[]) {
+    return isFemaleSpeech ?
+      voiceSelected.find((v) => v.ssmlGender === 'MALE').name :
+      voiceSelected.find((v) => v.ssmlGender === 'FEMALE').name;
   }
 }

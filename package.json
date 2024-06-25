@@ -57,6 +57,7 @@
     "microsoft-cognitiveservices-speech-sdk": "^1.34.0",
     "ngx-cookie-service": "^18.0.0",
     "ngx-device-detector": "^7.0.0",
+    "ngx-image-cropper": "^8.0.0",
     "recordrtc": "^5.5.8",
     "rxfire": "^6.0.0",
     "rxjs": "^7.4.0",

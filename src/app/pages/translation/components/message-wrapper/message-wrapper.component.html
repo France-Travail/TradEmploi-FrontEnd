@@ -33,5 +33,13 @@
             </button>
         </ng-template>
     </div>
+
+  <mat-slide-toggle #customslide
+                    class="choice-voice-gender"
+                    checked="{{ isFemaleSpeaking }}"
+                    [(ngModel)]="isFemaleSpeaking"
+                    matTooltip="{{role == 'DE'?'Type de voix pour l\'usager':'Type de voix pour l\'agent''}}"
+                    matTooltipClass="tooltip-info"
+                    color="primary">{{ isFemaleSpeaking ? 'Femme' : 'Homme' }}</mat-slide-toggle>
     <app-record class="record" *ngIf="recordMode" duration="50" [role]="role" [language]="languageOrigin" [flag]="flag" (send)="audioSending($event)" (exit)="exitRecord($event)"></app-record>
 </div>

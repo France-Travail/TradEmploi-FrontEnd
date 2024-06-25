@@ -1,0 +1,140 @@
+@import 'styles';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: $light-blue;
+  padding: 0 16px;
+  .header {
+    display: flex;
+    justify-content: flex-end;
+    margin: 12px 0;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 32px;
+    background-color: #ffffff;
+    box-shadow: 0 0 3px #aaaaaa;
+    color: #333333;
+    border-radius: 5px;
+    margin-bottom: 16px;
+    overflow-y: auto;
+    .fileover {
+      background-color: $white-smoke;
+    }
+    .drop-container {
+      display: flex;
+      padding: 16px;
+      border: 2px dashed #000000;
+      border-radius: 5px;
+      height: fit-content;
+      #fileDropRef {
+        display: none;
+      }
+      .file-input-container {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-right: 16px;
+        .upload-btn {
+          display: flex;
+          align-items: center;
+          font-size: large;
+          border-radius: 30px;
+        }
+      }
+      .text-controls {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+    .presentation {
+      display: flex;
+      justify-content: space-between;
+      .vizualisation {
+        flex-direction: column;
+        width: 50%;
+        .cropper {
+          margin: 12px 0;
+          max-height: 430px;
+          overflow-y: auto;
+        }
+        @media screen and (orientation: portrait) {
+          .cropper {
+            max-height: 530px;
+          }
+        }
+        .text-area {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+      }
+      .submit-btn {
+        float: right;
+        height: 46px !important;
+      }
+      .translation {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 50%;
+        padding: 0 12px;
+        .text-translated-area {
+          display: flex;
+          align-items: center;
+          margin: 12px 0;
+          .text-container {
+            background-color: $white-smoke;
+            padding: 16px;
+            width: fit-content;
+            border-radius: 5px;
+            margin: auto;
+          }
+        }
+      }
+    }
+  }
+  .end-btn {
+    @extend %option-btn;
+    background-color: $primary-color;
+    color: white;
+  }
+  .audio-controls {
+    display: flex;
+    justify-content: flex-end;
+    .listening-btn {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .title {
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    align-items: center;
+    margin-bottom: 12px;
+    .fi {
+      width: 50px;
+      height: 36px;
+      border: 1px solid #bdbdbd;
+      box-sizing: border-box;
+      border-radius: 5px;
+      background-size: cover;
+      margin-right: 10px;
+    }
+  }
+}
+
+::ng-deep .square {
+  width: 12px !important;
+  height: 12px !important;
+  background: $primary-color !important;
+  box-sizing: unset;
+}
+::ng-deep .cropper {
+  color: $primary-color !important;
+}

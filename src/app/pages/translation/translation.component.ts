@@ -392,7 +392,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       // remove words start with *
       translate = translate.replace(/\*/g, '');
       this.textToSpeechService
-        .getSpeech(translate, languageTarget)
+        .getSpeech(translate, languageTarget, message.isFemaleVoice)
         .then((_) => {
           const audioSpeech = this.textToSpeechService.audioSpeech;
           if (audioSpeech) {

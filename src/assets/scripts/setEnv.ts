@@ -1,6 +1,6 @@
 /* tslint:disable */
 // @ts-nocheck
-const { writeFile, existsSync, mkdirSync } = require('fs');
+const {writeFile, existsSync, mkdirSync} = require('fs');
 
 require('dotenv').config();
 
@@ -11,6 +11,7 @@ function writeFileUsingFS(targetPath, fileContent) {
       console.log(err);
     }
     if (fileContent !== '') {
+      console.log(`fileContent is not empty:  ${fileContent ? true : false}`);
       console.log(`wrote variables to ${targetPath}`);
     }
   });

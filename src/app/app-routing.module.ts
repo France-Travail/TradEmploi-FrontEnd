@@ -11,13 +11,14 @@ import { ConversationComponent } from './pages/conversation/conversation.compone
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { AnonymousComponent } from './pages/anonymous/anonymous.component';
 import { GdprComponent } from './pages/gdpr/gdpr.component';
-import { AuthGuard, PermissionsService } from './guards/permissions.service';
+import { AuthGuard } from './guards/permissions.service';
 import { PendingChangesGuard } from './guards/pending-changes.guard';
 import { ChoiceComponent } from './pages/choice/choice.component';
 import { ModalityComponent } from './pages/modality/modality.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { CallbackComponent } from './pages/callback/callback.component';
 import { IndicatorsComponent } from './indicators/indicators.component';
+import { TradtondocComponent } from './pages/tradtondoc/tradtondoc.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
@@ -85,6 +86,11 @@ export const routes: Routes = [
   {
     path: 'indicators',
     component: IndicatorsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tradtondoc',
+    component: TradtondocComponent,
     canActivate: [AuthGuard],
   },
   {

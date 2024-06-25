@@ -47,7 +47,7 @@ export class ChatMultiDevicesComponent implements OnInit {
   }
 
   public async listenToNotification(index: number) {
-    this.textToSpeechService.getSpeech(this.messagesWrapped[index].notification, this.targetLanguage.audio).then((_) => {
+    this.textToSpeechService.getSpeech(this.messagesWrapped[index].notification, this.targetLanguage.audio, false).then((_) => {
       this.textToSpeechService.audioSpeech.play();
       this.textToSpeechService.audioSpeech = undefined;
     }).catch((_) => {

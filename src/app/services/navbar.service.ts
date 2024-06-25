@@ -9,6 +9,7 @@ export class NavbarService {
   public choiceTab = false;
   public modalityTab = false;
   public helpTab = false;
+  public tradDocTab = false;
   public endTab = false;
 
   constructor(private readonly settingsService: SettingsService, private readonly router: Router) {
@@ -25,6 +26,7 @@ export class NavbarService {
   public handleTabModality() {
     this.choiceTab = false;
     this.modalityTab = false;
+    this.tradDocTab = false;
     this.helpTab = true;
     this.endTab = false;
   }
@@ -44,6 +46,7 @@ export class NavbarService {
     const isOnTranslation = this.router.url.indexOf('translation') > 0;
     const isNotGuest = this.settingsService.user.value.role !== Role.GUEST;
     this.endTab = isOnTranslation && isNotGuest;
+    this.tradDocTab = this.settingsService.user.value.role !== Role.GUEST;
   }
 
   public handleTabsChoice() {
@@ -51,6 +54,7 @@ export class NavbarService {
     this.modalityTab = this.settingsService.user.value.role !== Role.GUEST;
     this.helpTab = true;
     this.endTab = false;
+    this.tradDocTab = false;
   }
 
   public handleTabsSettings() {
@@ -58,5 +62,6 @@ export class NavbarService {
     this.modalityTab = true;
     this.helpTab = true;
     this.endTab = false;
+    this.tradDocTab = false;
   }
 }

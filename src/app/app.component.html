@@ -3,7 +3,7 @@
   <mat-sidenav #sidenav role="navigation">
     <app-sidenav (sidenavClose)="sidenav.close()" [deferredPrompt]="deferredPrompt" [showCreateShortcut]="showCreateShortcut"></app-sidenav>
   </mat-sidenav>
-  <mat-sidenav-content [ngClass]="{'content' : navbarService.visible}">
+  <mat-sidenav-content [ngClass]="{ content: navbarService.visible }">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

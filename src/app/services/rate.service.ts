@@ -29,7 +29,6 @@ export class RateService {
   }
 
   public saveRate(): Promise<void> {
-
     return this.afs
       .collection(this.db)
       .doc<Rate>(this.afs.createId())
@@ -61,6 +60,8 @@ export class RateService {
                 user
                 agency
                 typeSTT
+                isTradTonDoc
+                nbTranslatedCharacters
               }
             }`,
     };
@@ -88,6 +89,8 @@ export class RateService {
             'identifiant utilisateur': element.user,
             'Identifiant agence': element.agency,
             'type STT': element.typeSTT,
+            'Traduction de document': element.isTradTonDoc,
+            'Nombre caractères traduits': element.nbTranslatedCharacters
           });
         });
         return rates;

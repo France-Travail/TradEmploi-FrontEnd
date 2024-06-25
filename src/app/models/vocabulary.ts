@@ -1,4 +1,5 @@
 import { Gdpr } from './gdpr';
+import { Pdata } from './pdata';
 
 export interface Vocabulary {
   isoCode: string;
@@ -9,7 +10,8 @@ export interface Vocabulary {
   sentences: Sentence;
   navbarTabs?: NavbarTab;
   audioCode?: string;
-  audioVoiceCode?: string;
+  audioVoiceCodeMale?: string;
+  audioVoiceCodeFemale?: string;
 }
 export interface Sentence {
   applicationName: string;

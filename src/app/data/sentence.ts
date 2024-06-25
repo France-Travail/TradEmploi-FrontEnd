@@ -499,6 +499,26 @@ export const BENGALI_INDIA: Sentence = {
 const RECORD_TEXT_DARI = 'الان صحبت کن';
 const AUTO_LISTEN_DARI = 'پخپله غوږ شه';
 
+export const DARI: Sentence = {
+  applicationName: 'ترجمه فوری',
+  send: 'ارسال',
+  translate: 'ترجمه',
+  translationH2: 'جمله را برای ترجمه بنویسید یا تلفظ کنید',
+  thanks: organization + ' از شما متشکرم',
+  listen: 'گوش دادن',
+  recordText: RECORD_TEXT_DARI,
+  displayedWelcome: '.سلام ، من مترجم شما خواهم بود تا با مشاور شما به راحتی تبادل شوید',
+  readedWelcome: 'آیا می خواهید به این زبان ادامه دهید؟',
+  autoListen: AUTO_LISTEN_DARI,
+  audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
+  rate: {
+    qualityTranslate: 'کیفیت ترجمه ها چگونه بود؟',
+    rating: 'ابزار را چگونه ارزیابی می کنید؟',
+    comment: 'نظر رایگان',
+    technical: 'آیا با استفاده از این ابزار به مشکلات فنی برخورد کرده اید؟',
+  },
+};
+
 export const PACHTO: Sentence = {
   /*voiceNotSupported: true,*/
   displayedWelcome: 'سلام زه ستاسو تفسیر یم',
@@ -710,6 +730,10 @@ export const TAMOUL: Sentence = {
 export const TAMOUL_MALAISIA: Sentence = {
   ...TAMOUL,
   audioSupported: environment.microsoftSpeechConfig.textToSpeechEnabled,
+};
+export const TAMOUL_NO_VOICE: Sentence = {
+  ...TAMOUL,
+  audioSupported: false,
 };
 export const TAMOUL_INDIA: Sentence = {
   ...TAMOUL,
@@ -1127,4 +1151,12 @@ export const SLOVAKIA: Sentence = {
   readedWelcome: 'Chceli by ste si vymeniť v tomto jazyku?',
   translationH2: 'Napíšte vetu, ktorú chcete preložiť.',
   translationH2Mobile: 'Zadajte text alebo hovorte klepnutím na modrý mikrofón.',
+};
+
+export const AZERBAIJANI: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Bu dilde dəyişmək istəyirsiniz?',
+  translationH2: 'Tərcümə ediləcək cümləni yazın.',
+  translationH2Mobile: 'Mətn daxil edin və ya mavi mikrofona toxunaraq danışın.',
+  audioSupported: true,
 };
