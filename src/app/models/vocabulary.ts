@@ -47,6 +47,8 @@ export interface Tooltip {
   listen: string;
   noListen: string;
   audio: string;
+  voiceTypeDE: string;
+  voiceTypeNormal: string;
 }
 export interface IntroMessage {
   welcomeFR: string;

@@ -54,6 +54,7 @@
     .presentation {
       display: flex;
       justify-content: space-between;
+      padding-top: 2%;
       .vizualisation {
         flex-direction: column;
         width: 50%;
@@ -129,12 +130,12 @@
   }
 }
 
-::ng-deep .square {
+::ng-deep .ngx-ic-cropper {
+  color: blue !important;
+}
+
+::ng-deep .ngx-ic-square {
+  background: blue !important;
   width: 12px !important;
   height: 12px !important;
-  background: $primary-color !important;
-  box-sizing: unset;
-}
-::ng-deep .cropper {
-  color: $primary-color !important;
 }

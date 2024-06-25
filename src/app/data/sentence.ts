@@ -188,6 +188,8 @@ export const FRENCH: Sentence = {
     listen: 'L\'usager peut entendre la traduction dans cette langue',
     noListen: 'L\'usager ne peut pas entendre la traduction dans cette langue',
     audio: 'Je peux entendre un échantillon vocal dans cette langue',
+    voiceTypeDE: 'Type de voix pour l\'usager',
+    voiceTypeNormal :'Type de voix pour l\'agent'
   },
 };
 
@@ -259,6 +261,8 @@ export const ENGLISH: Sentence = {
     listen: 'I can hear the translation in this language ',
     noListen: 'I cannot hear the translation in this language ',
     audio: 'I can hear a voice sample in this language',
+    voiceTypeDE: 'Voice type for the user',
+    voiceTypeNormal: 'Voice type for the agent'
   },
   introMessage: {
     welcomeFR: 'Voici un traducteur automatique qui va traduire votre langue. Pour améliorer l\'expérience de traduction, faites des phrases courtes et simples et parlez suffisamment fort.',

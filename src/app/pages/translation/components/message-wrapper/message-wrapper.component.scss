@@ -19,7 +19,8 @@
   border-radius: 5px;
   border: 1px solid #bdbdbd;
   background-color: #ffffff;
-  flex-grow:2;
+  width: 80%;
+  flex-grow: 0;
 
   textarea {
     width: 100%;
@@ -221,8 +222,8 @@
   background: #212121;
 }
 
-.field {
-  width: 80%;
-  flex-grow: 0;
+::ng-deep .choice-voice-gender .mdc-label {
+  max-width: 5px;
 }
+
 

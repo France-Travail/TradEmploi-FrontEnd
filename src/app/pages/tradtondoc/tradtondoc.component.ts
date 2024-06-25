@@ -79,7 +79,6 @@ export class TradtondocComponent implements OnDestroy {
         })
         .finally(() => loaderDialog.close());
       this.text = result ? result.text : '';
-      console.log(this.text);
       this.nbTranslatedCharacters += result ? result.numberCharactersInText : 0;
       this.isConform = this.checkNumberTranslatedCharacters(this.nbTranslatedCharacters);
       if (this.text.length > 0) {
