@@ -14,7 +14,7 @@ export class PdfConvertService {
   public async convert(pdfData: string, filename: string) {
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const gwToken = tokenResponse.tokenGW;
-    const url = `${environment.gcp.gateWayUrl}/pdf-to-image`;
+    const url = `${environment.gcp.gateWayUrl}/pdf-image`;
     const data = {
       data: pdfData,
       fileName: filename,
