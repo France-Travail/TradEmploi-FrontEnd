@@ -6,7 +6,7 @@ import {SettingsService} from '../../services/settings.service';
 import {ChatService} from '../../services/chat.service';
 import axios, { AxiosRequestConfig } from 'axios';
 import {params} from '../../../environments/params';
-import { authCodeFlowConfigIC, authCodeFlowConfigPE } from '../../../environments/authflow';
+import { authCodeFlowConfig } from '../../../environments/authflow';
 import { AuthConfig } from 'angular-oauth2-oidc';
 
 @Component({
@@ -32,8 +32,8 @@ export class CallbackComponent implements OnInit {
     const nonce = sessionStorage.getItem('nonce');
 
     this.activatedRoute.queryParams.subscribe(async (parameters) => {
-      parameters.provider === 'PE' ? this.authCodeFlowConfig = authCodeFlowConfigPE : this.authCodeFlowConfig = authCodeFlowConfigIC;
-      if (parameters.state === nonce) {
+     this.authCodeFlowConfig = authCodeFlowConfig;
+     if (parameters.state === nonce) {
         const userinfo = await this.getUserInfo(parameters.access_token);
         this.user = {
           given_name: parameters.provider === 'PE' ? userinfo.name : userinfo.given_name,
