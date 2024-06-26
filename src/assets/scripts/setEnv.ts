@@ -37,8 +37,7 @@ const authflowFileContent = `
 import {AuthConfig} from 'angular-oauth2-oidc';
 import {environment} from './environment';
 const url = 'https://authentification-agent-tis.pe.intra/connexion/oauth2/agent/authorize';
-export const authCodeFlowConfigPE: AuthConfig = ${process.env.AUTHFLOW_FILE_CONTENT_PE};
-export const authCodeFlowConfigIC: AuthConfig = ${process.env.AUTHFLOW_FILE_CONTENT_IC};
+export const authCodeFlowConfig: AuthConfig = ${process.env.AUTHFLOW_FILE_CONTENT};
 `;
 
 const paramsFileContent = `
