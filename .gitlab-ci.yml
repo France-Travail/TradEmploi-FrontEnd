@@ -20,8 +20,8 @@ build:
     name: production
   script:
     - npm i
-    - npm run config "--environment=production"
-    - ng build "--configuration=production"
+    - npm run config "--environment=open-source"
+    - ng build "--configuration=open-source"
   only:
     refs:
       - master
@@ -32,7 +32,7 @@ deploy:
     paths:
       - dist/
   environment:
-    name: production
+    name: open-source
   script:
     - firebase deploy --project prod --token $FIREBASE_TOKEN
   only:
