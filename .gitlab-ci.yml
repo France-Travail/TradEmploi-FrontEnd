@@ -2,9 +2,9 @@ image:
   name: node:20.9-alpine
 
 variables:
-  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE
-  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE
-  PARAMS_FILE_CONTENT: $PARAMS_FILE
+  ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE_OPEN_SOURCE
+  AUTHFLOW_FILE_CONTENT: $AUTHFLOW_FILE_OPEN_SOURCE
+  PARAMS_FILE_CONTENT: $PARAMS_FILE_OPEN_SOURCE
 
 stages:
   - build
@@ -34,7 +34,7 @@ deploy:
   environment:
     name: open-source
   script:
-    - firebase deploy --project prod --token $FIREBASE_TOKEN
+    - firebase deploy --project pole-emploi-trad-open --token $FIREBASE_TOKEN
   only:
     refs:
       - master
