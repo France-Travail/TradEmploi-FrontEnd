@@ -20,9 +20,9 @@ build:
       - node_modules/
       - dist/
   environment:
-    name: production
+    name: open-source
   script:
-    - echo $ENVIRONMENT_FILE_OPEN_SOURCE
+    - echo "$ENVIRONMENT_FILE_OPEN_SOURCE"
     - npm i --force
     - npm run config "--environment=open-source"
     - ng build "--configuration=open-source"
