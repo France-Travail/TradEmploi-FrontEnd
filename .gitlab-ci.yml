@@ -3,7 +3,6 @@ image:
 
 before_script:
   - npm i -g firebase-tools@10.6.0 @angular/cli@10.1.3
-  - echo $ENVIRONMENT_FILE_OPEN_SOURCE
 
 variables:
   ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE_OPEN_SOURCE
@@ -23,6 +22,7 @@ build:
   environment:
     name: production
   script:
+    - echo $ENVIRONMENT_FILE_OPEN_SOURCE
     - npm i --force
     - npm run config "--environment=open-source"
     - ng build "--configuration=open-source"
