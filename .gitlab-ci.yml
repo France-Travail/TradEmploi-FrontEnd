@@ -19,7 +19,7 @@ build:
   environment:
     name: production
   script:
-    - npm i
+    - npm i --legacy-peer-deps
     - npm run config "--environment=open-source"
     - ng build "--configuration=open-source"
   only:
