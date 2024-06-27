@@ -22,7 +22,6 @@ build:
   environment:
     name: open-source
   script:
-    - echo "$ENVIRONMENT_FILE_OPEN_SOURCE"
     - npm i --force
     - npm run config "--environment=open-source"
     - ng build "--configuration=open-source"
