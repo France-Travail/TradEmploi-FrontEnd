@@ -10,13 +10,14 @@ import { RateDialogComponent } from '../../../../pages/translation/dialogs/rate-
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PdataComponent } from '../../../../pages/pdata/pdata.component';
+import { isIOS } from '../../../../utils/utils';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent {
+export class SidenavComponent implements OnInit {
   @Output() sidenavClose = new EventEmitter();
 
   @Input() showCreateShortcut = false;
@@ -27,6 +28,7 @@ export class SidenavComponent {
   public gdprLink: string;
   public language: string;
   public userName: string;
+  public ios: boolean;
 
   constructor(private readonly dialog: MatDialog, private readonly settingsService: SettingsService, public readonly navbarService: NavbarService) {
     this.settingsService.user.subscribe((user) => {
@@ -38,6 +40,10 @@ export class SidenavComponent {
       this.language = isGuest ? 'english' : 'french';
       this.userName = user !== null ? user.firstname : '';
     });
+  }
+
+  ngOnInit(): void {
+    this.ios = isIOS();
   }
 
   public onSidenavClose() {

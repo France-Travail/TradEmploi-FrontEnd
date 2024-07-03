@@ -43,7 +43,7 @@
         <img src="assets/icons/icon-help-black.svg" alt="Help" />
         <span class="name">{{ helpLink | uppercase }}</span>
       </button>
-      <button id="add-shortcut-header" (click)="createShortcut()" *ngIf="showCreateShortcut">
+      <button id="add-shortcut-header" (click)="createShortcut()" *ngIf="showCreateShortcut && !this.ios">
         <img src="assets/icons/icon-export-black.svg" alt="Shortcut" />
         <span class="name">CREER UN RACCOURCI</span>
       </button>
