@@ -36,6 +36,6 @@ jobs:
           git config --global user.name "Maxime Alza"
           git add .
           git commit -m "Sync from source repo: ${{ steps.get_commit.outputs.commit_hash }}"
-          git push origin main
+          git push origin master
         env:
           token: ${{ secrets.GITLAB_TOKEN }}
