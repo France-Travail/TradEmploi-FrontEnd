@@ -1,6 +1,6 @@
 # Traduction
 
-an instantaneous translation application between two people, one of whom is allophone, for Androïd and MacOS smartphone or tablet,,
+an instantaneous translation application between two people, one of whom is allophone, for Android and MacOS smartphone or tablet.
 
 # Table of contents
 [[_TOC_]]
@@ -16,9 +16,9 @@ This project is the frontend of the application. The backend is **petranslate-ba
 ## Requirements
 Node, Angular | Version
 --- | --- 
-Node | 12.18
-angular/cli | 10.1.3
-firebase tools | 10.6.0
+Node | 20.9
+angular/cli | 17.3.1
+firebase tools | 13.0.3
 
 
 ## Create setting files
