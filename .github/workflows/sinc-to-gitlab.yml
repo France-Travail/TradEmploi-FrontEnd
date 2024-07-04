@@ -3,7 +3,7 @@ name: Sync to Private Repo
 on:
   push:
     branches:
-      - master  # Change this to the branch you want to monitor
+      - feature_test  # Change this to the branch you want to monitor
 
 jobs:
   sync:
@@ -21,7 +21,7 @@ jobs:
           cd trademploi-front
           git remote add source https://github.com/France-Travail/TradEmploi-FrontEnd.git
           git fetch source
-          git merge source/master
-          git push origin master
+          git merge source/feature_test
+          git push origin feature_test
         env:
           token: ${{ secrets.GITLAB_TOKEN }}
