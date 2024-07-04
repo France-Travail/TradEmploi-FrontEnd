@@ -29,14 +29,14 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          ls
+          pwd
           cd trademploi-front
           ls
-          git config --global user.email "maxime.alza-ext@pole-emploi.fr"
-          git config --global user.name "Maxime Alza"
-          git add .
-          git commit -m "Sync from source repo: ${{ steps.get_commit.outputs.commit_hash }}"
-          git remote get-url origin
-          git push origin master
+#          git config --global user.email "maxime.alza-ext@pole-emploi.fr"
+#          git config --global user.name "Maxime Alza"
+#          git add .
+#          git commit -m "Sync from source repo: ${{ steps.get_commit.outputs.commit_hash }}"
+#          git remote get-url origin
+#          git push origin master
         env:
           token: ${{ secrets.GITLAB_TOKEN }}
