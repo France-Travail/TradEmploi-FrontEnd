@@ -20,7 +20,7 @@ jobs:
 
       - name: Push to gitlab repository
         run: |
-          git pull tradEmploi-front master
+          git pull tradEmploi-front master --rebase
           git push tradEmploi-front master
         env:
           token: ${{ secrets.GITLAB_TOKEN }}
