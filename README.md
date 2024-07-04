@@ -1,6 +1,6 @@
 # Traduction
 
-an instantaneous translation application between two people, one of whom is allophone, for Androïd and MacOS smartphone or tablet
+an instantaneous translation application between two people, one of whom is allophone, for Androïd and MacOS smartphone or tablet !
 
 # Table of contents
 [[_TOC_]]
