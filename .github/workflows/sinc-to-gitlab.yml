@@ -19,7 +19,7 @@ jobs:
         run: |
           git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/petranslate/trademploi-front.git
           cd trademploi-front
-          git remote add source https://github.com/username/repoA.git
+          git remote add source https://github.com/France-Travail/TradEmploi-FrontEnd.git
           git fetch source
           git merge source/master
           git push origin master
