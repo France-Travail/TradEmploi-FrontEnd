@@ -23,7 +23,7 @@ jobs:
         run: |
           git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/petranslate/trademploi-front.git
         env:
-          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          token: ${{ secrets.GITLAB_TOKEN }}
  
       - name: Copy files to target repository
         run: |
