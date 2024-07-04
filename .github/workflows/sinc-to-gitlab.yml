@@ -13,26 +13,12 @@ jobs:
       - name: Checkout source repository
         uses: actions/checkout@v2
         with:
-            fetch-depth: 1
+          fetch-depth: 1
 
-      - name: Clone the target repository
-        run: |
-          git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/petranslate/trademploi-front.git toto
-        env:
-          token: ${{ secrets.GITLAB_TOKEN }}
+      - name: Add gitlab repository as remote
+        run: git remote add tradEmploi-front https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/petranslate/trademploi-front.git
 
-      - name: Copy files to target repository
-        run: |
-          rsync -av --exclude='.git' . toto/
-
-      - name: Commit and push changes
-        run: |
-          cd toto
-          git config --global user.email "maxime.alza-ext@pole-emploi.fr"
-          git config --global user.name "Maxime Alza"
-          git add .
-          git commit -m "Sync from source repo: ${{ steps.get_commit.outputs.commit_hash }}"
-          git remote get-url origin
-          git status
+      - name: Push to gitlab repository
+        run: git push tradEmploi-front master
         env:
           token: ${{ secrets.GITLAB_TOKEN }}
