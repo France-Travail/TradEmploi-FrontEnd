@@ -19,6 +19,8 @@ jobs:
         run: git remote add tradEmploi-front https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/petranslate/trademploi-front.git
 
       - name: Push to gitlab repository
-        run: git push tradEmploi-front master
+        run: |
+          git pull tradEmploi-front master
+          git push tradEmploi-front master
         env:
           token: ${{ secrets.GITLAB_TOKEN }}
