@@ -15,6 +15,14 @@ jobs:
         id: get_commit
         run: echo "::set-output name=commit_hash::$(git rev-parse HEAD)"
 
+      - name: test pwd before clone
+        run: |
+          pwd
+
+      - name: test ls before clone
+        run: |
+          ls
+
       - name: Clone the target repository
         run: |
           git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/petranslate/trademploi-front.git toto
