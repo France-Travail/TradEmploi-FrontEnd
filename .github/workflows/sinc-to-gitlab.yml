@@ -17,7 +17,7 @@ jobs:
 
       - name: Clone the target repository
         run: |
-          git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/petranslate/trademploi-front.git
+          git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/petranslate/trademploi-front.git toto
         env:
           token: ${{ secrets.GITLAB_TOKEN }}
 
