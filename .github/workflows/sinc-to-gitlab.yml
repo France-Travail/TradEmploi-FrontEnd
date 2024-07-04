@@ -21,6 +21,6 @@ jobs:
           cd trademploi-front
           git remote add source https://github.com/France-Travail/TradEmploi-FrontEnd.git
           git checkout -b feature_test
-          git push source feature_test
+          git push feature_test
         env:
           token: ${{ secrets.GITLAB_TOKEN }}
