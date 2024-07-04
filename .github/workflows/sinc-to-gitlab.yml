@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v2
+        with:
+            fetch-depth: 1
 
       - name: Get the last commit hash
         id: get_commit
