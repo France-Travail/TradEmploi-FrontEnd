@@ -23,13 +23,14 @@ jobs:
 
       - name: Copy files to target repository
         run: |
-          ls
-          pwd
           rsync -av --exclude='.git' . trademploi-front/
 
-      - name: Commit and push changes
+      - name: Check pwd
         run: |
           pwd
+
+      - name: Check files in trademploi-front
+        run: |
           cd trademploi-front
           ls
 #          git config --global user.email "maxime.alza-ext@pole-emploi.fr"
