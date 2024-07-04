@@ -33,7 +33,7 @@ jobs:
  
       - name: Commit and push changes
         run: |
-          cd target_repo
+          cd trademploi-front
           git config --global user.email "maxime.alza-ext@pole-emploi.fr"
           git config --global user.name "Maxime Alza"
           git add .
