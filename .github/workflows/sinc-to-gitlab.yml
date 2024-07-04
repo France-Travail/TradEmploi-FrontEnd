@@ -27,7 +27,9 @@ jobs:
  
       - name: Copy files to target repository
         run: |
-          rsync -av --exclude='.git' . target_repo/
+          ls
+          pwd
+          rsync -av --exclude='.git' . trademploi-front/
  
       - name: Commit and push changes
         run: |
