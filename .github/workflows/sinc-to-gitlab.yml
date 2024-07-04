@@ -15,12 +15,13 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Add gitlab repository as remote
-        run: git remote add tradEmploi-front https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/petranslate/trademploi-front.git
-
-      - name: Push to gitlab repository
+      - name: Clone the target repository
         run: |
-          git pull tradEmploi-front master --rebase
-          git push tradEmploi-front master
+          git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/petranslate/trademploi-front.git
+          cd trademploi-front
+          git remote add source https://github.com/username/repoA.git
+          git fetch source
+          git merge source/master
+          git push origin master
         env:
           token: ${{ secrets.GITLAB_TOKEN }}
