@@ -181,6 +181,12 @@ $ https://$GCP_PROJECT.firebaseapp.com
 
 5 - TEST with Product owner
 
+## Contribute to this project
+
+For active contributors who want to use this repository as their main one, we have an active push functionality on our [internal repository](https://gitlab.com/petranslate/trademploi-front) which contains our CI/CD to directly deploy the application on our [open-source domain](https://pole-emploi-trad-open.firebaseapp.com/).
+
+If you want to participate, please follow the next steps. For security, pushing on master is disallowed.
+
 
 ## Create a feature branch
 
