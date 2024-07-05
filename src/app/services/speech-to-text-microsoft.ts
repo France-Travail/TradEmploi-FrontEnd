@@ -35,7 +35,7 @@ export class SpeechToTextMicrosoftService {
       speechConfig.speechRecognitionLanguage = language;
       speechConfig.enableDictation();
       speechConfig.setProfanity(ProfanityOption.Raw);
-      speechConfig.endpointId = this.setEndpoint(language);
+      speechConfig.endpointId = environment.microsoftSpeechConfig.endpoints[language];
       this.recognizer = new SpeechRecognizer(speechConfig, audioConfig);
       let interimTranscript = '';
       let finalTranscript = '';
@@ -85,13 +85,5 @@ export class SpeechToTextMicrosoftService {
     } else if (this.starting) {
       this.preventStart = true;
     }
-  }
-
-  setEndpoint(language: string) {
-    const endpoint = environment.microsoftSpeechConfig.endpoints[language];
-    if (endpoint){
-      return endpoint;
-    }
-    return environment.microsoftSpeechConfig.defaultEndpoint;
   }
 }

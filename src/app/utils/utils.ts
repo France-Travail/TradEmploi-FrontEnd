@@ -14,6 +14,13 @@ export const isIOS = () => {
     || (navigator.userAgent.includes('Mac') && 'ontouchend' in document);
 };
 
+export const isAndroid = () => {
+  const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+
+  // Vérifier les user agents des appareils mobiles
+  return /android/i.test(userAgent);
+}
+
 const formatNumber = (n: any) => {
   return (n < 10 ? '0' : '') + n;
 };

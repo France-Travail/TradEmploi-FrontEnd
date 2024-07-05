@@ -14,7 +14,7 @@ import {VOCABULARY_DEFAULT} from '../../../../data/vocabulary';
 import { MatDialog } from '@angular/material/dialog';
 import { params } from '../../../../../environments/params';
 import { PdataComponent } from '../../../../pages/pdata/pdata.component';
-import { isIOS } from '../../../../utils/utils';
+import { isAndroid } from '../../../../utils/utils';
 
 @Component({
   selector: 'app-header',
@@ -36,6 +36,8 @@ export class HeaderComponent implements OnInit {
   public language: string;
   public userName: string;
   public ios: boolean;
+  public tablet: boolean;
+  public android: boolean;
 
   constructor(
     public readonly dialog: MatDialog,
@@ -58,7 +60,7 @@ export class HeaderComponent implements OnInit {
       this.language = isGuest ? 'english' : 'french';
       this.userName = user !== null ? user.firstname : '';
     });
-    this.ios = isIOS();
+    this.android = isAndroid();
   }
 
   public onToggleSidenav() {
