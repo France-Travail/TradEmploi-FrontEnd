@@ -22,9 +22,10 @@ jobs:
           git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/petranslate/trademploi-front.git
           cd trademploi-front
           git remote add source https://github.com/France-Travail/TradEmploi-FrontEnd.git
-          echo "README.md merge=ours" >> .git/info/attributes
           git fetch source
-          git merge source/master
+          git checkout -b source-master source/master
+          git checkout master
+          git merge -X theirs source-master --allow-unrelated-histories -m "Merge source into master"
           git push origin master
         env:
           token: ${{ secrets.GITLAB_TOKEN }}
