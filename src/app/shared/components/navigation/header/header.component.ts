@@ -35,8 +35,6 @@ export class HeaderComponent implements OnInit {
   public isWideScreen: Observable<boolean>;
   public language: string;
   public userName: string;
-  public ios: boolean;
-  public tablet: boolean;
   public android: boolean;
 
   constructor(

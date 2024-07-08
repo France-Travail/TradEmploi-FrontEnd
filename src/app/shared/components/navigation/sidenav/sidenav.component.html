@@ -19,7 +19,7 @@
     <img src="assets/icons/document.svg" alt="TradTonDoc" />
     <span class="name">TRADUIRE UN DOCUMENT</span>
   </a>
-  <a mat-list-item (click)="createShortcut()" *ngIf="!this.ios">
+  <a mat-list-item (click)="createShortcut()" *ngIf="this.android">
     <img src="assets/icons/icon-export-black.svg" alt="Shortcut" class="name-placement img-placement"/>
     <div class="name-placement">
       <div class="name">CREER UN</div>

@@ -10,7 +10,7 @@ import { RateDialogComponent } from '../../../../pages/translation/dialogs/rate-
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PdataComponent } from '../../../../pages/pdata/pdata.component';
-import { isIOS } from '../../../../utils/utils';
+import { isAndroid, isIOS } from '../../../../utils/utils';
 
 @Component({
   selector: 'app-sidenav',
@@ -28,7 +28,7 @@ export class SidenavComponent implements OnInit {
   public gdprLink: string;
   public language: string;
   public userName: string;
-  public ios: boolean;
+  public android: boolean
 
   constructor(private readonly dialog: MatDialog, private readonly settingsService: SettingsService, public readonly navbarService: NavbarService) {
     this.settingsService.user.subscribe((user) => {
@@ -43,7 +43,7 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ios = isIOS();
+    this.android = isAndroid();
   }
 
   public onSidenavClose() {
