@@ -58,8 +58,7 @@ export class TokenBrokerService {
     if (this.getHasJwtGwOnTime(jwtGwSingleton) || this.getHasJwtGcpOnTime(jwtGcpSingleton)) {
       return Promise.resolve({ tokenGCP: jwtGcpSingleton.getToken().token, tokenGW: jwtGwSingleton.getToken().token });
     }
-    // const url = `${environment.gcp.gateWayUrl}/token`;
-    const url = `http://localhost:8080`;
+    const url = `${environment.gcp.gateWayUrl}/token`;
     return axios({
       method: 'POST',
       withCredentials: true,
