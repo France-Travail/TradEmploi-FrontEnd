@@ -2,7 +2,7 @@ image:
   name: node:20.9-alpine
 
 before_script:
-  - npm i -g firebase-tools@10.6.0 @angular/cli@10.1.3
+  - npm i -g firebase-tools@13.0.3 @angular/cli@17.3.1
 
 variables:
   ENVIRONMENT_FILE_CONTENT: $ENVIRONMENT_FILE_OPEN_SOURCE
@@ -22,7 +22,7 @@ build:
   environment:
     name: open-source
   script:
-    - npm i --force
+    - npm i
     - npm run config "--environment=open-source"
     - ng build "--configuration=open-source"
   only:
