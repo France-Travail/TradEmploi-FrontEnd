@@ -102,7 +102,6 @@ export class TokenBrokerService {
 
   private getToken(response: AxiosResponse, jwtGwSingleton: JwtGwSingleton, jwtGcpSingleton: JwtGcpSingleton) {
     const d = response.data;
-    //axios.defaults.headers.common['X-CSRF-TOKEN'] = this.cookieService.get('csrfToken');
     const expireTime = JwtFbSingleton.getInstance().getToken().expireTime;
     const tokenGW = { token: d.apiGateway.token, expireTime };
     jwtGwSingleton.setToken(tokenGW);
