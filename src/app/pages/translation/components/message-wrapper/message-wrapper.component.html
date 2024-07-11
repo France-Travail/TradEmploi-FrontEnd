@@ -2,7 +2,7 @@
     <div class="field" *ngIf="!micro || !recordMode">
       <div class="flag">
         <ng-template [ngIf]="role !== 'DE'">
-          <img *ngIf="showTraductionLogo" class="fi logoTraduction" src="../../../../../assets/images/pe/logo-chat.svg" alt="TRADUCTION" />
+          <img *ngIf="showTraductionLogo" class="fi logoTraduction" src="../../../../../assets/images/common/logo-chat.svg" alt="TRADUCTION" />
           <span *ngIf="!showTraductionLogo" class="fi fi-fr"></span>
         </ng-template>
         <ng-template [ngIf]="role === 'DE'">
