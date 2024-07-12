@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {SettingsService} from './settings.service';
 import {Role} from '../models/role';
 import {Router} from '@angular/router';
+import { params } from '../../environments/params';
 
 @Injectable()
 export class NavbarService {
@@ -46,7 +47,7 @@ export class NavbarService {
     const isOnTranslation = this.router.url.indexOf('translation') > 0;
     const isNotGuest = this.settingsService.user.value.role !== Role.GUEST;
     this.endTab = isOnTranslation && isNotGuest;
-    this.tradDocTab = this.settingsService.user.value.role !== Role.GUEST;
+    this.tradDocTab = this.settingsService.user.value.role !== Role.GUEST && params.tradTonDocActif;
   }
 
   public handleTabsChoice() {
