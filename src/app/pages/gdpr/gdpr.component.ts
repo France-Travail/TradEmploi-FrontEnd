@@ -26,6 +26,11 @@ export class GdprComponent {
       this.isSmallScreen = result.matches;
     });
     this.selected = this.data.language;
+    this.gdprWording = this.selected === 'english' ? ENGLISH.gdpr : FRENCH.gdpr;
+  }
+
+  public chooseLanguage(option) {
+    this.gdprWording = option.value === 'english' ? ENGLISH.gdpr : FRENCH.gdpr;
   }
 
   public closeDialog() {

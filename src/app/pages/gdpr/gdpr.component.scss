@@ -1,67 +1,71 @@
 @import 'panel';
 
 .title {
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+.language{
+  display: flex;
+  justify-content: center;
 }
 
 .privacy{
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 250px;
-    font-size: 15px;
-    white-space: pre-line;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 150px;
+  font-size: 15px;
+  white-space: pre-line;
 }
 .action{
-    display: flex;
-    button {
-        width: 170px;
-    }
-    .options {
-        background-color: $white-smoke;
-        color: black;
-    }
+  display: flex;
+  button {
+    width: 170px;
+  }
+  .options {
+    background-color: $white-smoke;
+    color: black;
+  }
 }
 
 .confirm{
-    display: flex;
+  display: flex;
 }
 
 ::ng-deep .mat-select-value-text{
-    font-size:15px;
-    color:$primary-color;
+  font-size:15px;
+  color:$primary-color;
 }
 
 ::ng-deep .mat-form-field-infix{
-    width: 80px !important;
+  width: 80px !important;
 }
 
 ::ng-deep .mat-select-arrow {
-    color:$primary-color;
+  color:$primary-color;
 }
 
 .mobileBtn{
-    width: 80px !important;
+  width: 80px !important;
 }
 
 @media (max-width: 768px) {
-    .action{
-        button {
-            width: 150px;
-        }
+  .action{
+    button {
+      width: 150px;
     }
+  }
 }
 
 @media screen and (max-width: 576px) {
-    .action{
-        button {
-            width: 120px;
-        }
+  .action{
+    button {
+      width: 120px;
     }
+  }
 }
 @media screen and (max-width: 375px) {
-    .action{
-        button {
-            width: 80px;
-        }
+  .action{
+    button {
+      width: 80px;
     }
+  }
 }

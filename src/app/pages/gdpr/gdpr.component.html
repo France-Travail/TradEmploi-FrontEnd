@@ -5,10 +5,18 @@
     </ng-template>
     <h1 class="t2"> {{ gdprWording.title }}</h1>
   </div>
+  <div class="language">
+    <mat-form-field>
+      <mat-select [(value)]="selected" (selectionChange)="chooseLanguage($event)">
+        <mat-option value="english">English</mat-option>
+        <mat-option value="french">Français</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <div class="privacy">
-        {{ gdprWording.privacyText }}
+    {{ gdprWording.privacyText }}
   </div>
   <div class="action">
-      <button class="options" (click)="closeDialog()">{{ gdprWording.closeBtn }} </button>
+    <button class="options" (click)="closeDialog()">{{ gdprWording.closeBtn }} </button>
   </div>
 </div>
