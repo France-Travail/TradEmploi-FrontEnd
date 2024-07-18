@@ -37,6 +37,7 @@ import {VOCABULARY} from '../../data/vocabulary';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {ErrorService} from '../../services/error.service';
 import { Subject } from 'rxjs';
+import { GlobalService } from '../../services/global.service';
 
 const toastError = 'toast-error';
 
@@ -80,7 +81,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     private readonly textToSpeechService: TextToSpeechService,
     private readonly navbarService: NavbarService,
     private readonly translateService: TranslateService,
-    private readonly cryptService: CryptService
+    private readonly cryptService: CryptService,
+    private readonly globalService: GlobalService
   ) {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
@@ -137,7 +139,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       this.isGuest ? this.introMessageGuest(introMessage) : this.introMessageAdmin(introMessage);
     } else {
       this.sendNotification({notification: introMessage.welcomeFR, time: Date.now()});
-      const welcomeRAW = await this.translateService.translate(introMessage.welcomeFR, this.getLanguageTargetDe());
+      const welcomeRAW = await this.translateService.translate(introMessage.welcomeFR, this.getLanguageTargetDe(), this.globalService.currentUserDomain, false );
       this.sendNotification({notification: welcomeRAW, time: Date.now()});
       if (!this.vocalSupported) {
         this.sendNotification({notification: introMessage.voiceavailabilityFR, time: Date.now()});
@@ -264,7 +266,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       if (row.role === Role.ADVISOR) {
         const traduction = [];
         for (const language of languages) {
-          const translate = await this.translateService.translate(row.texte, language, row.languageOrigin);
+          const translate = await this.translateService.translate(row.texte, language, this.globalService.currentUserDomain, false, row.languageOrigin);
           traduction.push(translate);
         }
         row.traduction = traduction.join(',');
@@ -373,7 +375,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
 
   private callTranslateApi(message: Message, languageTarget: any) {
     this.translateService
-      .translate(message.text, languageTarget.written, message.languageOrigin)
+      .translate(message.text, languageTarget.written, this.globalService.currentUserDomain, false, message.languageOrigin)
       .then((translate) => {
         this.setTranslateMessage(message, translate, languageTarget.audio);
       })

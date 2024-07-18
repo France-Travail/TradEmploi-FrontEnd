@@ -7,6 +7,7 @@ import {Role} from '../../../../models/role';
 import {Message} from '../../../../models/translate/message';
 import {TextToSpeechService} from '../../../../services/text-to-speech.service';
 import {VOCABULARY} from '../../../../data/vocabulary';
+import { GlobalService } from '../../../../services/global.service';
 
 @Component({
   selector: 'app-chat-multi-devices',
@@ -19,8 +20,12 @@ export class ChatMultiDevicesComponent implements OnInit {
   public isAudioSupported: boolean;
   public showTraductionLogo = this.settingsService.showTraductionLogo;
 
-  constructor(private readonly settingsService: SettingsService, private readonly textToSpeechService: TextToSpeechService, private readonly translateServce: TranslateService) {
-  }
+  constructor(
+    private readonly settingsService: SettingsService,
+    private readonly textToSpeechService: TextToSpeechService,
+    private readonly translateService: TranslateService,
+    private readonly globalService: GlobalService
+  ) {}
 
   ngOnInit(): void {
     this.settingsService.user.subscribe(async user => {
@@ -31,7 +36,7 @@ export class ChatMultiDevicesComponent implements OnInit {
             (item.isoCode === user.language.written && item.sentences.audioSupported));
           for (const message of this.messagesWrapped) {
             if (message.notification) {
-              message.notification = await this.translateServce.translate(message.notification, this.targetLanguage.written);
+              message.notification = await this.translateService.translate(message.notification, this.targetLanguage.written, this.globalService.currentUserDomain, false );
             }
           }
         }
