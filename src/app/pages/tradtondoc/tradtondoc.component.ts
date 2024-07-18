@@ -12,6 +12,7 @@ import { LoaderComponent } from '../settings/loader/loader.component';
 import { RateDialogComponent } from '../translation/dialogs/rate-dialog/rate-dialog.component';
 import { SettingsService } from '../../services/settings.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { GlobalService } from '../../services/global.service';
 
 @Component({
   selector: 'app-tradtondoc',
@@ -49,6 +50,7 @@ export class TradtondocComponent implements OnDestroy {
     private readonly toastService: ToastService,
     private readonly navService: NavbarService,
     private readonly pdfConvertService: PdfConvertService,
+    private readonly globalService: GlobalService
   ) {
     this.navService.handleTabsSettings();
     this.settingsService.user.subscribe((user) => {
@@ -82,8 +84,7 @@ export class TradtondocComponent implements OnDestroy {
       this.nbTranslatedCharacters += result ? result.numberCharactersInText : 0;
       this.isConform = this.checkNumberTranslatedCharacters(this.nbTranslatedCharacters);
       if (this.text.length > 0) {
-        console.log(this.targetLanguage);
-        this.translatedText = await this.translationService.translate(this.text, this.targetLanguage);
+        this.translatedText = await this.translationService.translate(this.text, this.targetLanguage, this.globalService.currentUserDomain, true);
         if (this.isAudioSupported) {
           await this.textToSpeechService
             .play(this.translatedText, this.targetLanguage, false)

@@ -11,6 +11,8 @@ import {FbAuthSingleton} from '../../models/token/FbAuthSingleton';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { AuthType } from '../../models/AuthType';
+import { extractDomain } from '../../utils/utils';
+import { GlobalService } from '../../services/global.service';
 
 @Component({
   selector: 'app-authentication',
@@ -28,7 +30,8 @@ export class AuthenticationComponent implements OnInit {
     private readonly toastService: ToastService,
     private readonly settingsService: SettingsService,
     private readonly cd: ChangeDetectorRef,
-    private readonly zone: NgZone
+    private readonly zone: NgZone,
+    private readonly globalService: GlobalService
   ) { }
 
   get email(): AbstractControl {
@@ -75,6 +78,7 @@ export class AuthenticationComponent implements OnInit {
             roomId,
             isMultiDevices: false,
           });
+          this.globalService.currentUserDomain = extractDomain(this.email.value);
           localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
           this.redirectPostAuth();
         }
@@ -94,6 +98,7 @@ export class AuthenticationComponent implements OnInit {
             const roomId = this.chatService.createRoomId();
             localStorage.setItem('isLogged', 'true');
             const userEmail = value.additionalUserInfo.profile["Mail"];
+            this.globalService.currentUserDomain = extractDomain(userEmail);
             this.settingsService.user.next({
               ...this.settingsService.user.value,
               role: this.authService.getRole(userEmail),

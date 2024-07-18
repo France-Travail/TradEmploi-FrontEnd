@@ -36,6 +36,15 @@ export const getDuration = (lastMessageTime: string, firstMessageTime: string) =
 
 };
 
+// Fonction pour extraire le domaine de l'e-mail
+export const extractDomain = (email: string) => {
+  const atIndex = email.lastIndexOf('@');
+  if (atIndex === -1) {
+    return null;
+  }
+  return email.slice(atIndex + 1);
+}
+
 export const exportCsv = (data: any[], name: string) => {
 
   const json2csvParser = new Parser({ delimiter: ';', withBOM: true });

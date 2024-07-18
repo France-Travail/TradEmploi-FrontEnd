@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 export class TranslateService {
   constructor(private readonly errorService: ErrorService, private readonly tbs: TokenBrokerService) {}
 
-  public async translate(text: string, targetLanguageCode: string, sourceLanguageCode?: string): Promise<string> {
+  public async translate(text: string, targetLanguageCode: string, userDomain: string, isTradTonDoc: boolean, sourceLanguageCode?: string): Promise<string> {
     sourceLanguageCode = this.mapLanguage(sourceLanguageCode);
     targetLanguageCode = this.mapLanguage(targetLanguageCode);
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
@@ -22,6 +22,8 @@ export class TranslateService {
       sourceLanguageCode: sourceLanguageCode ? sourceLanguageCode : 'fr-FR',
       targetLanguageCode,
       projectId: environment.firebaseConfig.projectId,
+      currentUserDomain: userDomain,
+      isTradTonDoc: isTradTonDoc
     };
 
     return axios.post(url, data, {
