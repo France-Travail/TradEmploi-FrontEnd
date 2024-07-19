@@ -11,6 +11,7 @@ import {FbAuthSingleton} from '../../models/token/FbAuthSingleton';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { AuthType } from '../../models/AuthType';
+import { extractDomain } from '../../utils/utils'
 
 @Component({
   selector: 'app-authentication',

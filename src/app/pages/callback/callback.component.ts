@@ -8,6 +8,9 @@ import axios, { AxiosRequestConfig } from 'axios';
 import {params} from '../../../environments/params';
 import { authCodeFlowConfig } from '../../../environments/authflow';
 import { AuthConfig } from 'angular-oauth2-oidc';
+import { GlobalService } from '../../services/global.service';
+import { extractDomain } from '../../utils/utils'
+
 
 @Component({
   selector: 'app-callback',
@@ -24,7 +27,8 @@ export class CallbackComponent implements OnInit {
     private readonly settingsService: SettingsService,
     private readonly router: Router,
     private readonly chatService: ChatService,
-    private readonly telemetryService: TelemetryService
+    private readonly telemetryService: TelemetryService,
+    private readonly globalService: GlobalService,
   ) {
   }
 
@@ -42,6 +46,7 @@ export class CallbackComponent implements OnInit {
           sub: userinfo.sub,
           state: userinfo.state,
         };
+        this.globalService.currentUserDomain = extractDomain(this.user.email);
         try {
           await this.loginAuthenticated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
         } catch (error) {
