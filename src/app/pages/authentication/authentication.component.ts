@@ -11,8 +11,6 @@ import {FbAuthSingleton} from '../../models/token/FbAuthSingleton';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { AuthType } from '../../models/AuthType';
-import { extractDomain } from '../../utils/utils';
-import { GlobalService } from '../../services/global.service';
 
 @Component({
   selector: 'app-authentication',
@@ -98,7 +96,6 @@ export class AuthenticationComponent implements OnInit {
             const roomId = this.chatService.createRoomId();
             localStorage.setItem('isLogged', 'true');
             const userEmail = value.additionalUserInfo.profile["Mail"];
-            this.globalService.currentUserDomain = extractDomain(userEmail);
             this.settingsService.user.next({
               ...this.settingsService.user.value,
               role: this.authService.getRole(userEmail),
