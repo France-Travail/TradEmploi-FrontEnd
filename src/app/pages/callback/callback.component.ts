@@ -46,7 +46,6 @@ export class CallbackComponent implements OnInit {
           sub: userinfo.sub,
           state: userinfo.state,
         };
-        this.globalService.currentUserDomain = extractDomain(this.user.email);
         try {
           await this.loginAuthenticated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
         } catch (error) {
@@ -88,8 +87,9 @@ export class CallbackComponent implements OnInit {
         roomId,
         isMultiDevices: false,
       });
+      this.globalService.currentUserDomain = extractDomain(email);
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
-      this.router.navigateByUrl('choice');
+      this.router.navigateByUrl(this.globalService.currentUserDomain = extractDomain(email);'choice');
     } catch (error) {
       console.log(error);
     }
