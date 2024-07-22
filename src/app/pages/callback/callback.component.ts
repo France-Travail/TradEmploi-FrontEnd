@@ -89,7 +89,7 @@ export class CallbackComponent implements OnInit {
       });
       this.globalService.currentUserDomain = extractDomain(email);
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
-      this.router.navigateByUrl(this.globalService.currentUserDomain = extractDomain(email);'choice');
+      this.router.navigateByUrl('choice');
     } catch (error) {
       console.log(error);
     }
