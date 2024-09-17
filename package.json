@@ -82,6 +82,7 @@
     "@types/node": "^12.12.54",
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "6.19.0",
+    "replace-in-file": "8.1.0",
     "codelyzer": "^6.0.0",
     "dotenv": "^10.0.0",
     "eslint": "^8.56.0",

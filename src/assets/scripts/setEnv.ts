@@ -1,6 +1,7 @@
 /* tslint:disable */
 // @ts-nocheck
-const {writeFile, existsSync, mkdirSync} = require('fs');
+const { writeFile, existsSync, mkdirSync } = require('fs');
+const { replaceInFile } = require('replace-in-file');
 
 require('dotenv').config();
 
@@ -48,3 +49,20 @@ export const params = ${process.env.PARAMS_FILE_CONTENT};
 writeFileUsingFS('./src/environments/environment.ts', environmentFileContent);
 writeFileUsingFS('./src/environments/authflow.ts', authflowFileContent);
 writeFileUsingFS('./src/environments/params.ts', paramsFileContent);
+
+
+
+// partie sécurité et firebase.config
+
+const backendGateway = process.env.CSP_VARIABLES;
+const firebaseJsonPath = './firebase.json';
+
+replaceInFile({
+  files: firebaseJsonPath,
+  from: /{{BACKEND_GATEWAY}}/g,  // placeholder to be replaced
+  to: backendGateway,
+}).then(results => {
+  console.log('Replaced backend gateway in firebase.json:', results);
+}).catch(error => {
+  console.error('Error occurred:', error);
+});
