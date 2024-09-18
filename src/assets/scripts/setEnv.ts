@@ -49,25 +49,3 @@ export const params = ${process.env.PARAMS_FILE_CONTENT};
 writeFileUsingFS('./src/environments/environment.ts', environmentFileContent);
 writeFileUsingFS('./src/environments/authflow.ts', authflowFileContent);
 writeFileUsingFS('./src/environments/params.ts', paramsFileContent);
-
-
-
-// // partie sécurité et firebase.config
-
-// const backendGateway = process.env.CSP_VARIABLES;
-// console.log('The CSP_VARIABLE in env is : ', backendGateway);
-
-// const firebaseJsonPath = './firebase.json';
-
-// replaceInFile({
-//   files: firebaseJsonPath,
-//   from: /\{\{BACKEND_GATEWAY\}\}/g,  // placeholder to be replaced
-//   to: backendGateway,
-// }).then(results => {
-//   console.log('Replaced backend gateway in firebase.json:', results);
-//   // Read the content of the firebase.json to verify the change
-//   const updatedFirebaseJson = readFileSync(firebaseJsonPath, 'utf-8');
-//   console.log('Updated firebase.json content:\n', updatedFirebaseJson);
-// }).catch(error => {
-//   console.error('Error occurred:', error);
-// });

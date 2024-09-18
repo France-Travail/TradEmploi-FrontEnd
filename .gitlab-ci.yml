@@ -39,6 +39,7 @@ deploy:
   environment:
     name: open-source
   script:
+    - sed -i "s|{{BACKEND_GATEWAY}}|$CSP_VARIABLES|g" firebase.json # Replace placeholder with actual URL
     - cat firebase.json
     - firebase deploy --project pole-emploi-trad-open --token $FIREBASE_TOKEN
   only:
