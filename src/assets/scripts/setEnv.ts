@@ -65,6 +65,9 @@ replaceInFile({
   to: backendGateway,
 }).then(results => {
   console.log('Replaced backend gateway in firebase.json:', results);
+  // Read the content of the firebase.json to verify the change
+  const updatedFirebaseJson = readFileSync(firebaseJsonPath, 'utf-8');
+  console.log('Updated firebase.json content:\n', updatedFirebaseJson);
 }).catch(error => {
   console.error('Error occurred:', error);
 });
