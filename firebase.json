@@ -18,7 +18,7 @@
         "headers": [
           {
             "key": "Content-Security-Policy",
-            "value": "default-src 'self'; script-src 'self' blob: data: https://securetoken.googleapis.com https://www.gstatic.com https://www.googleapis.com https://trusted.cdn.com; style-src 'self' https://fonts.googleapis.com; img-src 'self' data: https://www.google.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' data: https://westeurope.api.cognitive.microsoft.com wss://westeurope.tts.speech.microsoft.com wss://westeurope.stt.speech.microsoft.com https://firestore.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com https://identitytoolkit.googleapis.com {{BACKEND_GATEWAY}}; frame-ancestors 'none'; base-uri 'self'; media-src 'self' blob: https://www.youtube.com;"
+            "value": "default-src 'self'; script-src 'self' blob: data: https://securetoken.googleapis.com https://www.gstatic.com https://www.googleapis.com https://trusted.cdn.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://www.google.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' data: https://westeurope.api.cognitive.microsoft.com wss://westeurope.tts.speech.microsoft.com wss://westeurope.stt.speech.microsoft.com https://firestore.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com https://identitytoolkit.googleapis.com {{BACKEND_GATEWAY}}; frame-ancestors 'none'; base-uri 'self'; media-src 'self' blob: https://www.youtube.com;"
           },
           {
             "key": "X-Frame-Options",
