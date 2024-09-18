@@ -22,8 +22,6 @@ build:
   environment:
     name: open-source
   script:
-    - sed -i "s|{{BACKEND_GATEWAY}}|$CSP_VARIABLES|g" firebase.json # Replace placeholder with actual URL
-    - cat firebase.json
     - npm i
     - npm run config "--environment=open-source"
     - ng build "--configuration=open-source"
