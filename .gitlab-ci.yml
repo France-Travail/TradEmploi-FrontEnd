@@ -22,6 +22,8 @@ build:
   environment:
     name: open-source
   script:
+    - sed -i "s|{{BACKEND_GATEWAY}}|$CSP_VARIABLES|g" firebase.json # Replace placeholder with actual URL
+    - cat firebase.json
     - npm i
     - npm run config "--environment=open-source"
     - ng build "--configuration=open-source"
@@ -37,6 +39,7 @@ deploy:
   environment:
     name: open-source
   script:
+    - cat firebase.json
     - firebase deploy --project pole-emploi-trad-open --token $FIREBASE_TOKEN
   only:
     refs:
