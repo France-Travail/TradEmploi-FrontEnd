@@ -59,7 +59,7 @@ const firebaseJsonPath = './firebase.json';
 
 replaceInFile({
   files: firebaseJsonPath,
-  from: /{{BACKEND_GATEWAY}}/g,  // placeholder to be replaced
+  from: /\{\{BACKEND_GATEWAY\}\}/g,  // placeholder to be replaced
   to: backendGateway,
 }).then(results => {
   console.log('Replaced backend gateway in firebase.json:', results);
