@@ -55,6 +55,8 @@ writeFileUsingFS('./src/environments/params.ts', paramsFileContent);
 // partie sécurité et firebase.config
 
 const backendGateway = process.env.CSP_VARIABLES;
+console.log('The CSP_VARIABLE in env is : ', backendGateway);
+
 const firebaseJsonPath = './firebase.json';
 
 replaceInFile({
