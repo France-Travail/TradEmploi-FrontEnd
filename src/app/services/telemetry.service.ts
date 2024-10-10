@@ -11,19 +11,19 @@ export class TelemetryService {
   constructor(private readonly tbs: TokenBrokerService) {
   }
 
-  public async logUser(idDGASI: string) {
+  public async logUser(hashedEmail: string) {
 
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const gwToken = tokenResponse ? tokenResponse.tokenGW : '';
     const url = `${environment.gcp.gateWayUrl}/telemetry`;
 
     const params = {
-      idDGASI
+      hashedEmail
     };
     return axios.get(url, {
       params,
       withCredentials: true,
-      headers: { Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8' },
+      headers: { Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8' }
     }).catch((error) => {
       throw new Error(error);
     });

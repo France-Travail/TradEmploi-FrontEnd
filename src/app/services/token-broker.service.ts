@@ -9,31 +9,31 @@ import { SettingsService } from './settings.service';
 import { TokenFbService } from './token-fb.service';
 import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
 import moment from 'moment';
-import {Router} from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenBrokerService {
-  constructor(private readonly settingService: SettingsService, private readonly tbFbs: TokenFbService, private readonly router: Router, private readonly cookieService: CookieService) {
+  constructor(private readonly settingService: SettingsService, private readonly tbFbs: TokenFbService, private readonly router: Router, private readonly errorService: ErrorService) {
   }
 
   public async getTokenGcp(): Promise<TokenResponse> {
     const user = this.settingService.user.value;
     let fbToken;
     try {
-       fbToken = await this.tbFbs.getTokenFb();
+      fbToken = await this.tbFbs.getTokenFb();
     } catch (reason) {
       this.handleConnexionError(reason);
     }
 
     const tokenResponsePromise = (user && user.role === Role.GUEST) ? this.getTokenGuest(fbToken, user.roomId) : this.getTokenAdmin(fbToken);
     return tokenResponsePromise
-          .catch(reason => {
-            this.handleConnexionError(reason);
-            throw new Error(reason);
-          });
+      .catch(reason => {
+        this.handleConnexionError(reason);
+        throw new Error(reason);
+      });
   }
 
   private handleConnexionError(reason) {
@@ -49,7 +49,8 @@ export class TokenBrokerService {
       firstname
     };
     return axios.post(url, data, {
-      headers: { Authorization: `Bearer ${fbToken}` }});
+      headers: { Authorization: `Bearer ${fbToken}` }
+    });
   }
 
   getTokenAdmin(firebaseToken: string): Promise<TokenResponse> {
@@ -63,12 +64,16 @@ export class TokenBrokerService {
       method: 'POST',
       withCredentials: true,
       headers: { Authorization: `Bearer ${firebaseToken}`, 'Content-Type': 'text/plain' },
-      url: url,
+      url
     })
       .then((response) => {
         return this.getToken(response, jwtGwSingleton, jwtGcpSingleton);
       })
       .catch((error) => {
+        if (error.response && error.response.status === 403 && error.response.data.includes('Please connect with an available domain')) {
+          this.errorService.handleUnavailableDomainError();
+        }
+
         throw new Error(error);
       });
   }
@@ -93,7 +98,7 @@ export class TokenBrokerService {
     };
     return axios.post(url, data, {
       withCredentials: true,
-      headers: { Authorization: `Bearer ${firebaseToken}` },
+      headers: { Authorization: `Bearer ${firebaseToken}` }
     })
       .then((response) => {
         return this.getToken(response, jwtGwSingleton, jwtGcpSingleton);
@@ -109,7 +114,7 @@ export class TokenBrokerService {
     jwtGcpSingleton.setToken(tokenGCP);
     return {
       tokenGCP: JwtGcpSingleton.getInstance().getToken().token,
-      tokenGW: JwtGwSingleton.getInstance().getToken().token,
+      tokenGW: JwtGwSingleton.getInstance().getToken().token
     };
   }
 }

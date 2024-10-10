@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {JwtFbSingleton} from '../models/token/JwtFbSingleton';
-import {FbAuthSingleton} from '../models/token/FbAuthSingleton';
-import {SettingsService} from './settings.service';
-import {AuthService} from './auth.service';
-import {params} from '../../environments/params';
+import { Injectable } from '@angular/core';
+import { JwtFbSingleton } from '../models/token/JwtFbSingleton';
+import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
+import { SettingsService } from './settings.service';
+import { AuthService } from './auth.service';
+import { params } from '../../environments/params';
 import moment from 'moment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TokenFbService {
   constructor(private readonly settingService: SettingsService, private readonly authService: AuthService) {
@@ -23,11 +23,11 @@ export class TokenFbService {
     let auth = FbAuthSingleton.getInstance().getFbAuth();
     if (!auth) {
       const user = this.settingService.user.value;
-      await this.authService.login(user.email, params.defaultPassword);
+      await this.authService.login(user.hashedEmail, params.defaultPassword);
       auth = FbAuthSingleton.getInstance().getFbAuth();
     }
     const token = await auth.user.getIdTokenResult(true);
-    jwtFbSingleton.setToken({token: token.token, expireTime: moment(token.expirationTime)});
+    jwtFbSingleton.setToken({ token: token.token, expireTime: moment(token.expirationTime) });
     return token.token;
   }
 }

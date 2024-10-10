@@ -5,13 +5,11 @@ import { Rate } from '../models/rate';
 import { environment } from '../../environments/environment';
 import { ErrorService } from './error.service';
 import { ERROR_TECH_EXPORT_STATS } from '../models/error/errorTechnical';
-import { AuthService } from './auth.service';
 import { TokenBrokerService } from './token-broker.service';
-import { params } from '../../environments/params';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class RateService {
   private rate: Rate;
@@ -20,9 +18,9 @@ export class RateService {
   constructor(
     private readonly afs: AngularFirestore,
     private readonly errorService: ErrorService,
-    private readonly authService: AuthService,
     private readonly tokenBrokerService: TokenBrokerService
-  ) {}
+  ) {
+  }
 
   public rateConversation(rate: Rate): void {
     this.rate = rate;
@@ -63,12 +61,12 @@ export class RateService {
                 isTradTonDoc
                 nbTranslatedCharacters
               }
-            }`,
+            }`
     };
     return axios.post(url, data, {
       // Reactiver probleme CORS
       // withCredentials: true,
-      headers: { Authorization: `Bearer ${gwToken}` },
+      headers: { Authorization: `Bearer ${gwToken}` }
     })
       .then((response) => {
         const dataRates = response.data.data.rates;

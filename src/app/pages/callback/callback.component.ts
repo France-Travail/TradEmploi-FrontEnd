@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {TelemetryService} from '../../services/telemetry.service';
-import {AuthService} from '../../services/auth.service';
-import {SettingsService} from '../../services/settings.service';
-import {ChatService} from '../../services/chat.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TelemetryService } from '../../services/telemetry.service';
+import { AuthService } from '../../services/auth.service';
+import { SettingsService } from '../../services/settings.service';
+import { ChatService } from '../../services/chat.service';
 import axios, { AxiosRequestConfig } from 'axios';
-import {params} from '../../../environments/params';
+import { params } from '../../../environments/params';
 import { authCodeFlowConfig } from '../../../environments/authflow';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { GlobalService } from '../../services/global.service';
-import { extractDomain } from '../../utils/utils'
+import { extractDomain, getHashedEmail } from '../../utils/utils'
 
 
 @Component({
@@ -47,7 +47,7 @@ export class CallbackComponent implements OnInit {
           state: userinfo.state,
         };
         try {
-          await this.loginAuthenticated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
+          await this.loginAuthenticated(getHashedEmail(this.user.email), this.user.given_name, this.user.family_name, this.user.sub);
         } catch (error) {
           await this.router.navigateByUrl('/start');
         }
@@ -69,25 +69,25 @@ export class CallbackComponent implements OnInit {
         });
   }
 
-  private async loginAuthenticated(email: string, firstname: string, lastname: string, idDGASI: string) {
+  private async loginAuthenticated(hashedEmail: string, firstname: string, lastname: string, idDGASI: string) {
     try {
-      await this.authService.login(email, params.defaultPassword, false);
-      await this.telemetryService.logUser(idDGASI + email.substring(email.indexOf('@')));
+      await this.authService.login(hashedEmail, params.defaultPassword, false);
+      await this.telemetryService.logUser(hashedEmail);
       const roomId = this.chatService.createRoomId();
       localStorage.setItem('isLogged', 'true');
       this.settingsService.user.next({
         ...this.settingsService.user.value,
-        role: this.authService.getRole(email),
+        role: this.authService.getRole(hashedEmail),
         firstname,
         lastname,
-        email,
+        hashedEmail,
         idDGASI,
         agency: '',
         connectionTime: Date.now(),
         roomId,
         isMultiDevices: false,
       });
-      this.globalService.currentUserDomain = extractDomain(email);
+      this.globalService.currentUserDomain = extractDomain(hashedEmail);
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
       this.router.navigateByUrl('choice');
     } catch (error) {

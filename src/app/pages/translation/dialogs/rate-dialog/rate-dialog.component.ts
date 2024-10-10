@@ -10,8 +10,10 @@ import { ToastService } from '../../../../services/toast.service';
 import { ChatService } from '../../../../services/chat.service';
 import { VOCABULARY } from '../../../../data/vocabulary';
 import { ERROR_FUNC_SEND_STATS } from '../../../../models/error/errorFunctionnal';
-import {params} from '../../../../../environments/params';
+import { params } from '../../../../../environments/params';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { GlobalService } from '../../../../services/global.service';
+
 
 interface Sentences {
   questionOne: { french: string; foreign: string };
@@ -21,22 +23,22 @@ interface Sentences {
 @Component({
   selector: 'app-rate-dialog',
   templateUrl: './rate-dialog.component.html',
-  styleUrls: ['./rate-dialog.component.scss'],
+  styleUrls: ['./rate-dialog.component.scss']
 })
 export class RateDialogComponent implements OnInit {
   public rate: Rate;
   public rates: boolean[][] = [
     [false, false, false, false, false],
-    [false, false, false, false, false],
+    [false, false, false, false, false]
   ];
   public sentences: Sentences = {
     questionOne: {
       french: '',
-      foreign: '',
+      foreign: ''
     },
     questionThree: {
       french: '',
-      foreign: '',
+      foreign: ''
     }
   };
   public canSendRate: boolean;
@@ -51,7 +53,12 @@ export class RateDialogComponent implements OnInit {
     private readonly toastService: ToastService,
     private readonly router: Router,
     private readonly chatService: ChatService,
-    @Inject(MAT_DIALOG_DATA) public data: { guest: Array<string>; tradtondoc?: boolean; nbTranslatedCharacters?: number }
+    private readonly globalService: GlobalService,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      guest: Array<string>;
+      tradtondoc?: boolean;
+      nbTranslatedCharacters?: number
+    }
   ) {
     this.isTradTonDoc = data.tradtondoc || false;
     this.nbTranslatedCharacters = data.nbTranslatedCharacters || 0;
@@ -133,7 +140,7 @@ export class RateDialogComponent implements OnInit {
         this.fillNbMessages();
       }
     }
-    this.rate.user = this.settingsService.user.value.idDGASI + this.settingsService.user.value.email.substring(this.settingsService.user.value.email.indexOf('@')) || 'Firebase User';
+    this.rate.user = this.globalService.currentUserHash;
     this.rate.agency = this.settingsService.user.value.agency || 'None';
     this.rate.typeSTT = 'GCP';
     if (this.rate.language && this.fromAzure(this.rate.language)) {
@@ -184,7 +191,7 @@ export class RateDialogComponent implements OnInit {
             this.settingsService.user.next({
               ...this.settingsService.user.value,
               isMultiDevices: false,
-              roomId: newRoomId,
+              roomId: newRoomId
             });
             this.chatService.initChatMono(newRoomId, advisorRole);
           }
@@ -203,6 +210,7 @@ export class RateDialogComponent implements OnInit {
   private fromAzure(language: string) {
     return environment.microsoftSpeechConfig.speechToTextEnabled && !params.excludedLanguagesFromAzureSTT.includes(language);
   }
+
   public closeModal() {
     this.dialogRef.close();
   }

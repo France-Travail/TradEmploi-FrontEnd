@@ -1,17 +1,17 @@
-import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
-import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {params} from '../../../environments/params';
-import {ERROR_FUNC_LOGIN_OR_PASSWORD, ERROR_FUNC_OAUTH} from '../../models/error/errorFunctionnal';
-import {AuthService} from '../../services/auth.service';
-import {ChatService} from '../../services/chat.service';
-import {ToastService} from '../../services/toast.service';
-import {SettingsService} from '../../services/settings.service';
-import {FbAuthSingleton} from '../../models/token/FbAuthSingleton';
+import { params } from '../../../environments/params';
+import { ERROR_FUNC_LOGIN_OR_PASSWORD, ERROR_FUNC_OAUTH } from '../../models/error/errorFunctionnal';
+import { AuthService } from '../../services/auth.service';
+import { ChatService } from '../../services/chat.service';
+import { ToastService } from '../../services/toast.service';
+import { SettingsService } from '../../services/settings.service';
+import { FbAuthSingleton } from '../../models/token/FbAuthSingleton';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { AuthType } from '../../models/AuthType';
-import { extractDomain } from '../../utils/utils'
+import { extractDomain, getHashedEmail } from '../../utils/utils'
 import { GlobalService } from '../../services/global.service';
 
 @Component({
@@ -64,7 +64,7 @@ export class AuthenticationComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     if (!this.isOauthLogin || params.authType === AuthType.both || params.authType === AuthType.loginPassword) {
       try {
-        const auth = await this.authService.login(this.email.value, this.password.value, true);
+        const auth = await this.authService.login(getHashedEmail(this.email.value), this.password.value, true);
         if (auth.isAuth) {
           const roomId = this.chatService.createRoomId();
           localStorage.setItem('isLogged', 'true');
@@ -73,7 +73,7 @@ export class AuthenticationComponent implements OnInit {
             role: this.authService.getRole(this.email.value),
             firstname: params.organization.organizationUser,
             lastname: params.organization.name,
-            email: this.email.value,
+            hashedEmail: this.email.value,
             connectionTime: Date.now(),
             roomId,
             isMultiDevices: false,
@@ -97,13 +97,13 @@ export class AuthenticationComponent implements OnInit {
           try {
             const roomId = this.chatService.createRoomId();
             localStorage.setItem('isLogged', 'true');
-            const userEmail = value.additionalUserInfo.profile["Mail"];
+            const userHashedEmail = getHashedEmail(value.additionalUserInfo.profile["Mail"]);
             this.settingsService.user.next({
               ...this.settingsService.user.value,
-              role: this.authService.getRole(userEmail),
+              role: this.authService.getRole(userHashedEmail),
               firstname: params.organization.organizationUser,
               lastname: params.organization.name,
-              email: userEmail,
+              hashedEmail: userHashedEmail,
               connectionTime: Date.now(),
               roomId,
               isMultiDevices: false,
@@ -116,7 +116,7 @@ export class AuthenticationComponent implements OnInit {
           }
         } else {
           this.authPending = false;
-          if (params.authType == AuthType.SSO && !this.disconnected) {
+          if (params.authType === AuthType.SSO && !this.disconnected) {
             const provider = new firebase.auth.OAuthProvider(this.oauthIdProvider);
             firebase.auth().signInWithRedirect(provider);
           }

@@ -5,7 +5,7 @@ export interface User {
   id: string;
   firstname: string;
   lastname?: string;
-  email: string;
+  hashedEmail: string;
   idDGASI?: string;
   agency?: string;
   language?: Language;

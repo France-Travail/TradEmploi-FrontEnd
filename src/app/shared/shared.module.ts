@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Angular Material
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -14,7 +14,7 @@ import { TranslationTitleComponent } from './components/translation-title/transl
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/navigation/header/header.component';
 import { SidenavComponent } from './components/navigation/sidenav/sidenav.component';
-import {HoldableDirective} from '../pages/translation/components/message-wrapper/holdable.directive';
+import { HoldableDirective } from '../pages/translation/components/message-wrapper/holdable.directive';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -31,8 +31,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component';
 
-const COMPONENTS = [AudioAnimationComponent, TranslationTitleComponent, HeaderComponent, SidenavComponent, HoldableDirective];
+const COMPONENTS = [AudioAnimationComponent, TranslationTitleComponent, HeaderComponent, SidenavComponent, HoldableDirective, CustomSnackbarComponent];
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -52,7 +53,7 @@ const MATERIAL_MODULES = [
   MatSidenavModule,
   MatToolbarModule,
   MatListModule,
-  MatMenuModule,
+  MatMenuModule
 ];
 
 const MODULES = [RouterModule, CommonModule, ReactiveFormsModule, FormsModule, ...MATERIAL_MODULES];
@@ -60,6 +61,7 @@ const MODULES = [RouterModule, CommonModule, ReactiveFormsModule, FormsModule, .
 @NgModule({
   declarations: [...COMPONENTS],
   imports: [...MODULES],
-  exports: [...COMPONENTS, ...MODULES],
+  exports: [...COMPONENTS, ...MODULES]
 })
-export class SharedModule {}
+export class SharedModule {
+}

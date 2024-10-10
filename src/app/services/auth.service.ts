@@ -1,41 +1,52 @@
-import {Role} from '../models/role';
-import {Injectable} from '@angular/core';
-import {FbAuthSingleton} from '../models/token/FbAuthSingleton';
-import {SettingsService} from './settings.service';
+import { Role } from '../models/role';
+import { Injectable } from '@angular/core';
+import { FbAuthSingleton } from '../models/token/FbAuthSingleton';
+import { SettingsService } from './settings.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { GlobalService } from './global.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-  constructor(private readonly afAuth: AngularFireAuth, private readonly settingsService: SettingsService) {
+  constructor(private readonly afAuth: AngularFireAuth, private readonly settingsService: SettingsService, private readonly globalService: GlobalService) {
   }
 
-  public login(email: string, password: string, firebaseLogin = false): Promise<{ isAuth: boolean; message: string }> {
+  public login(hashedEmail: string, password: string, firebaseLogin = false): Promise<{
+    isAuth: boolean;
+    message: string
+  }> {
     return new Promise(async (resolve, reject) => {
       try {
         let auth;
-        const signInMethodsForEmail = await this.afAuth.fetchSignInMethodsForEmail(email);
+        const signInMethodsForEmail = await this.afAuth.fetchSignInMethodsForEmail(hashedEmail);
         if (signInMethodsForEmail.length > 0 && signInMethodsForEmail.includes('password')) {
-          auth = await this.afAuth.signInWithEmailAndPassword(email, password);
+          auth = await this.afAuth.signInWithEmailAndPassword(hashedEmail, password);
         } else {
           if (firebaseLogin === false) {
-            auth = await this.afAuth.createUserWithEmailAndPassword(email, password);
+            auth = await this.afAuth.createUserWithEmailAndPassword(hashedEmail, password);
           }
         }
         if (auth && auth.user != null) {
-          this.setRoleAndToken(email);
+          this.globalService.currentUserHash = hashedEmail;
+          this.setRoleAndToken(hashedEmail);
           FbAuthSingleton.getInstance().setFbAuth(auth);
-          resolve({isAuth: true, message: 'Authentification réussie'});
+          resolve({ isAuth: true, message: 'Authentification réussie' });
         }
       } catch (error) {
         console.log('Error', error);
-        reject({isAuth: false, message: error.message});
+        reject({ isAuth: false, message: error.message });
       }
     });
   }
 
-  public async loginAnonymous(): Promise<{ id: string; isAuth: boolean; message: string; token: string; expirationTime: string }> {
+  public async loginAnonymous(): Promise<{
+    id: string;
+    isAuth: boolean;
+    message: string;
+    token: string;
+    expirationTime: string
+  }> {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.afAuth.signInAnonymously();
@@ -46,18 +57,18 @@ export class AuthService {
           this.settingsService.user.next({
             ...this.settingsService.user.value,
             role: Role.GUEST,
-            connectionTime: Date.now(),
+            connectionTime: Date.now()
           });
           resolve({
             id: auth.user.uid,
             isAuth: true,
             message: 'Authentification réussie',
             token: token.token,
-            expirationTime: token.expirationTime,
+            expirationTime: token.expirationTime
           });
         }
       } catch (error) {
-        reject({id: '', isAuth: false, message: error.message});
+        reject({ id: '', isAuth: false, message: error.message });
       }
     });
   }
@@ -70,9 +81,9 @@ export class AuthService {
         }
         await this.afAuth.signOut();
         this.settingsService.reset();
-        resolve({isAuth: false, message: 'Déconnexion réussie'});
+        resolve({ isAuth: false, message: 'Déconnexion réussie' });
       } catch (error) {
-        reject({isAuth: true, message: error.message});
+        reject({ isAuth: true, message: error.message });
       }
     });
   }
@@ -84,10 +95,14 @@ export class AuthService {
     return Role.GUEST;
   }
 
-  private setRoleAndToken(email?: string) {
+  private setRoleAndToken(hashedEmail?: string) {
     this.afAuth.authState.subscribe(async (state) => {
       if (state !== null) {
-        this.settingsService.user.next({...this.settingsService.user.value, role: this.getRole(email), email});
+        this.settingsService.user.next({
+          ...this.settingsService.user.value,
+          role: this.getRole(hashedEmail),
+          hashedEmail
+        });
       }
     });
   }

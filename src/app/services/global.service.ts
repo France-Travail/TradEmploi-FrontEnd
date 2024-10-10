@@ -5,8 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalService {
   public currentUserDomain: string;
+  public currentUserHash: string;
 
   constructor() {
     this.currentUserDomain = '';
+    this.currentUserHash = '';
   }
 }

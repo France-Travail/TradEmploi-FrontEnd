@@ -1,14 +1,15 @@
 import { Parser } from '@json2csv/plainjs';
 import { DatePipe } from '@angular/common';
+import CryptoJS from 'crypto-js';
 
 export const isIOS = () => {
-    return [
-        'iPad Simulator',
-        'iPhone Simulator',
-        'iPod Simulator',
-        'iPad',
-        'iPhone',
-        'iPod'
+  return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
     ].includes(navigator.platform)
     // iPad on iOS 13 detection
     || (navigator.userAgent.includes('Mac') && 'ontouchend' in document);
@@ -19,7 +20,7 @@ export const isAndroid = () => {
 
   // Vérifier les user agents des appareils mobiles
   return /android/i.test(userAgent);
-}
+};
 
 const formatNumber = (n: any) => {
   return (n < 10 ? '0' : '') + n;
@@ -43,7 +44,19 @@ export const extractDomain = (email: string) => {
     return null;
   }
   return email.slice(atIndex + 1);
-}
+};
+
+export const extractUsername = (email: string) => {
+  return email.split('@')[0];
+};
+
+export const getHashedEmail = (email: string) => {
+  const username = extractUsername(email);
+  const domain = extractDomain(email);
+  const hashedUsername = CryptoJS.SHA256(username).toString(CryptoJS.enc.Hex);
+  return `${hashedUsername}@${domain}`;
+};
+
 
 export const exportCsv = (data: any[], name: string) => {
 
