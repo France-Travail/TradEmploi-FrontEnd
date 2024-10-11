@@ -1,18 +1,18 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Tooltip, Vocabulary} from '../../../../models/vocabulary';
-import {Observable} from 'rxjs';
-import {Language} from '../../../../models/db/language';
-import {VOCABULARY} from '../../../../data/vocabulary';
-import {ToastService} from '../../../../services/toast.service';
-import {SettingsService} from '../../../../services/settings.service';
-import {ENGLISH, FRENCH} from '../../../../data/sentence';
-import {ERROR_FUNC_TTS} from '../../../../models/error/errorFunctionnal';
-import {TextToSpeechService} from '../../../../services/text-to-speech.service';
-import {LoaderComponent} from '../../../settings/loader/loader.component';
-import {MatDialog} from '@angular/material/dialog';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Tooltip, Vocabulary } from '../../../../models/vocabulary';
+import { Observable } from 'rxjs';
+import { Language } from '../../../../models/db/language';
+import { VOCABULARY } from '../../../../data/vocabulary';
+import { ToastService } from '../../../../services/toast.service';
+import { SettingsService } from '../../../../services/settings.service';
+import { ENGLISH, FRENCH } from '../../../../data/sentence';
+import { ERROR_FUNC_TTS } from '../../../../models/error/errorFunctionnal';
+import { TextToSpeechService } from '../../../../services/text-to-speech.service';
+import { LoaderComponent } from '../../../loader/loader.component';
+import { MatDialog } from '@angular/material/dialog';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import {ErrorService} from '../../../../services/error.service';
+import { ErrorService } from '../../../../services/error.service';
 import { params } from '../../../../../environments/params';
 
 
@@ -38,12 +38,12 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   private audio = new Audio();
 
   public countriesSort = [
-    {value: ['langue', true], viewValue: 'Langue (asc)'},
-    {value: ['langue', false], viewValue: 'Langue (desc)'},
-    {value: ['pays', true], viewValue: 'Pays (asc)'},
-    {value: ['pays', false], viewValue: 'Pays (desc)'}
+    { value: ['langue', true], viewValue: 'Langue (asc)' },
+    { value: ['langue', false], viewValue: 'Langue (desc)' },
+    { value: ['pays', true], viewValue: 'Pays (asc)' },
+    { value: ['pays', false], viewValue: 'Pays (desc)' }
   ];
-  public styles = {margin: '0px', padding: '0px', fontSize: '20px'};
+  public styles = { margin: '0px', padding: '0px', fontSize: '20px' };
 
 
   constructor(private readonly textToSpeechService: TextToSpeechService,
@@ -54,12 +54,13 @@ export class LanguageGridComponent implements OnChanges, OnInit {
               private readonly router: Router,
               private readonly dialog: MatDialog) {
     this.selectedCountries = [];
-    if(params.languesPrioritairesActif) params.languesPrioritaires.forEach((langue) => {
+    if (params.languesPrioritairesActif) params.languesPrioritaires.forEach((langue) => {
       this.selectedCountries.push(VOCABULARY.find((v) => v.isoCode === langue));
     });
-    if(params.languesPrioritairesActif){
+    if (params.languesPrioritairesActif) {
       const result = this.db.collection(`languages`, ref => ref.orderBy('occurrences', 'desc')).valueChanges() as unknown as Observable<Language[]>;
-      result.subscribe({next: languages => {
+      result.subscribe({
+        next: languages => {
           languages.forEach(language => {
             this.mapLanguages.set(language.isoCode, language);
             this.setCountriesSelected();
@@ -82,7 +83,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
 
   ngOnInit() {
     if (this.settingsService.isMobile) {
-      this.styles = {margin: '0px', padding: '0px', fontSize: '10px'};
+      this.styles = { margin: '0px', padding: '0px', fontSize: '10px' };
     }
   }
 
@@ -132,7 +133,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
 
   public async audioDescription(item: Vocabulary) {
     this.audioClick = true;
-    if (!this.audio.src){
+    if (!this.audio.src) {
       this.audio.play();
     }
     if (this.audioEnabled) {
@@ -172,7 +173,7 @@ export class LanguageGridComponent implements OnChanges, OnInit {
     const audioLanguage = item.audioCode ? item.audioCode : item.isoCode;
     this.settingsService.user.next({
       ...this.settingsService.user.value,
-      language: {audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr},
+      language: { audio: audioLanguage, written: item.isoCode, languageName: item.languageNameFr },
       connectionTime: Date.now()
     });
     this.isGuest ? this.onSessionStorage(audioLanguage, item.isoCode, item.languageNameFr) : this.onLocalStorage(audioLanguage, item.isoCode, item.languageNameFr);
@@ -181,14 +182,14 @@ export class LanguageGridComponent implements OnChanges, OnInit {
 
   private onSessionStorage(audioLanguage: string, isoCode: string, languageNameFr: string) {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    user.language = {audio: audioLanguage, written: isoCode, languageName: languageNameFr};
+    user.language = { audio: audioLanguage, written: isoCode, languageName: languageNameFr };
     user.connectionTime = Date.now();
     sessionStorage.setItem('user', JSON.stringify(user));
   }
 
   private onLocalStorage(audioLanguage: string, isoCode: string, languageNameFr: string) {
     const user = JSON.parse(localStorage.getItem('user'));
-    user.language = {audio: audioLanguage, written: isoCode, languageName: languageNameFr};
+    user.language = { audio: audioLanguage, written: isoCode, languageName: languageNameFr };
     user.connectionTime = Date.now();
     localStorage.setItem('user', JSON.stringify(user));
   }

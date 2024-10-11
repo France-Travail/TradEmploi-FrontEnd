@@ -1,11 +1,10 @@
 // Angular
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 // Components
 import { HistoricComponent } from './pages/historic/historic.component';
 import { TranslationComponent } from './pages/translation/translation.component';
-import { SettingsComponent } from './pages/settings/settings.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
@@ -24,90 +23,86 @@ export const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
   {
     path: 'callback',
-    component: CallbackComponent,
+    component: CallbackComponent
   },
   {
     path: 'invite/:id',
-    component: WelcomeComponent,
+    component: WelcomeComponent
   },
   {
     path: 'auth',
-    component: AuthenticationComponent,
+    component: AuthenticationComponent
   },
   {
     path: 'modality',
     component: ModalityComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'gdpr/mono',
     component: GdprComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'auth/:id',
-    component: AnonymousComponent,
+    component: AnonymousComponent
   },
   {
     path: 'gdpr/:id',
     component: GdprComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'choice',
     component: ChoiceComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'history',
     component: HistoricComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'conversation',
     component: ConversationComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'translation',
     component: TranslationComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'thanks',
     component: ThanksComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'settings',
-    component: SettingsComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'indicators',
     component: IndicatorsComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'tradtondoc',
     component: TradtondocComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
     redirectTo: 'auth',
-    pathMatch: 'full',
+    pathMatch: 'full'
   },
   {
     path: 'start',
     redirectTo: 'auth',
-    pathMatch: 'full',
+    pathMatch: 'full'
   }
 ];
 
 @NgModule({
   providers: [PendingChangesGuard],
   imports: [RouterModule.forRoot(routes, {})],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

@@ -1,13 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { ChatService } from '../../../../services/chat.service';
 import { Guest } from '../../../../models/db/guest';
-import { LoaderComponent } from '../../../settings/loader/loader.component';
+import { LoaderComponent } from '../../../loader/loader.component';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-authorize',
   templateUrl: './authorize.component.html',
-  styleUrls: ['./authorize.component.scss'],
+  styleUrls: ['./authorize.component.scss']
 })
 export class AuthorizeComponent {
   public name = '';

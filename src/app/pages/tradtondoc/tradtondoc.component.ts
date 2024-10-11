@@ -8,7 +8,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { TextToSpeechService } from '../../services/text-to-speech.service';
 import { TradTonDocService } from '../../services/trad-ton-doc.service';
 import { TranslateService } from '../../services/translate.service';
-import { LoaderComponent } from '../settings/loader/loader.component';
+import { LoaderComponent } from '../loader/loader.component';
 import { RateDialogComponent } from '../translation/dialogs/rate-dialog/rate-dialog.component';
 import { SettingsService } from '../../services/settings.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
@@ -17,12 +17,12 @@ import { GlobalService } from '../../services/global.service';
 @Component({
   selector: 'app-tradtondoc',
   templateUrl: './tradtondoc.component.html',
-  styleUrls: ['./tradtondoc.component.scss'],
+  styleUrls: ['./tradtondoc.component.scss']
 })
 export class TradtondocComponent implements OnDestroy {
   private targetLanguage: string;
   public ocrForm = new FormGroup({
-    file: new FormControl([null, [Validators.required]]),
+    file: new FormControl([null, [Validators.required]])
   });
 
   imageChangedEvent: any;
@@ -34,7 +34,7 @@ export class TradtondocComponent implements OnDestroy {
   audioFile: HTMLAudioElement;
   isPlaying: boolean = false;
   showAudioControls: boolean = false;
-  croppedImage: string ;
+  croppedImage: string;
   isPdf: boolean = false;
   private isAudioSupported: boolean;
   targetCountry: string;
@@ -129,8 +129,8 @@ export class TradtondocComponent implements OnDestroy {
       disableClose: false,
       data: {
         tradtondoc: true,
-        nbTranslatedCharacters: this.nbTranslatedCharacters,
-      },
+        nbTranslatedCharacters: this.nbTranslatedCharacters
+      }
     });
   }
 
