@@ -9,12 +9,12 @@ import { params } from '../../../environments/params';
 import { authCodeFlowConfig } from '../../../environments/authflow';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { GlobalService } from '../../services/global.service';
-import { extractDomain, getHashedEmail } from '../../utils/utils'
+import { extractDomain } from '../../utils/utils';
 
 
 @Component({
   selector: 'app-callback',
-  templateUrl: './callback.component.html',
+  templateUrl: './callback.component.html'
 })
 export class CallbackComponent implements OnInit {
   private user: any;
@@ -28,7 +28,7 @@ export class CallbackComponent implements OnInit {
     private readonly router: Router,
     private readonly chatService: ChatService,
     private readonly telemetryService: TelemetryService,
-    private readonly globalService: GlobalService,
+    private readonly globalService: GlobalService
   ) {
   }
 
@@ -36,18 +36,18 @@ export class CallbackComponent implements OnInit {
     const nonce = sessionStorage.getItem('nonce');
 
     this.activatedRoute.queryParams.subscribe(async (parameters) => {
-     this.authCodeFlowConfig = authCodeFlowConfig;
-     if (parameters.state === nonce) {
+      this.authCodeFlowConfig = authCodeFlowConfig;
+      if (parameters.state === nonce) {
         const userinfo = await this.getUserInfo(parameters.access_token);
         this.user = {
           given_name: parameters.provider === 'PE' ? userinfo.name : userinfo.given_name,
           family_name: userinfo.family_name,
           email: userinfo.email,
           sub: userinfo.sub,
-          state: userinfo.state,
+          state: userinfo.state
         };
         try {
-          await this.loginAuthenticated(getHashedEmail(this.user.email), this.user.given_name, this.user.family_name, this.user.sub);
+          await this.loginAuthenticated(this.user.email, this.user.given_name, this.user.family_name, this.user.sub);
         } catch (error) {
           await this.router.navigateByUrl('/start');
         }
@@ -59,15 +59,15 @@ export class CallbackComponent implements OnInit {
 
   private readonly getUserInfo = async (accesstoken: string) => {
 
-      return axios
-        .get(this.authCodeFlowConfig.userinfoEndpoint + accesstoken, this.config)
-        .then((response) => {
-          return response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-  }
+    return axios
+      .get(this.authCodeFlowConfig.userinfoEndpoint + accesstoken, this.config)
+      .then((response) => {
+        return response.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   private async loginAuthenticated(hashedEmail: string, firstname: string, lastname: string, idDGASI: string) {
     try {
@@ -85,7 +85,7 @@ export class CallbackComponent implements OnInit {
         agency: '',
         connectionTime: Date.now(),
         roomId,
-        isMultiDevices: false,
+        isMultiDevices: false
       });
       this.globalService.currentUserDomain = extractDomain(hashedEmail);
       localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));

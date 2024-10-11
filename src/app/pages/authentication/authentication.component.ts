@@ -11,13 +11,13 @@ import { FbAuthSingleton } from '../../models/token/FbAuthSingleton';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { AuthType } from '../../models/AuthType';
-import { extractDomain, getHashedEmail } from '../../utils/utils'
+import { extractDomain, getHashedEmail } from '../../utils/utils';
 import { GlobalService } from '../../services/global.service';
 
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
-  styleUrls: ['./authentication.component.scss', '../../../sass/panel.scss'],
+  styleUrls: ['./authentication.component.scss', '../../../sass/panel.scss']
 })
 export class AuthenticationComponent implements OnInit {
 
@@ -32,7 +32,8 @@ export class AuthenticationComponent implements OnInit {
     private readonly cd: ChangeDetectorRef,
     private readonly zone: NgZone,
     private readonly globalService: GlobalService
-  ) { }
+  ) {
+  }
 
   get email(): AbstractControl {
     return this.form.get('email');
@@ -44,7 +45,7 @@ export class AuthenticationComponent implements OnInit {
 
   public form: UntypedFormGroup;
   public isOauthLogin: boolean = Boolean(params.oauthIdProvider);
-  public showOauthLoginError: boolean ;
+  public showOauthLoginError: boolean;
   public oauthIdProvider: string = params.oauthIdProvider;
   public authPending = false;
   private disconnected = false;
@@ -57,14 +58,14 @@ export class AuthenticationComponent implements OnInit {
     });
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.minLength(6), Validators.required]],
+      password: ['', [Validators.minLength(6), Validators.required]]
     });
   }
 
   public async onSubmit(): Promise<void> {
     if (!this.isOauthLogin || params.authType === AuthType.both || params.authType === AuthType.loginPassword) {
       try {
-        const auth = await this.authService.login(getHashedEmail(this.email.value), this.password.value, true);
+        const auth = await this.authService.login(this.email.value, this.password.value, true);
         if (auth.isAuth) {
           const roomId = this.chatService.createRoomId();
           localStorage.setItem('isLogged', 'true');
@@ -76,7 +77,7 @@ export class AuthenticationComponent implements OnInit {
             hashedEmail: this.email.value,
             connectionTime: Date.now(),
             roomId,
-            isMultiDevices: false,
+            isMultiDevices: false
           });
           this.globalService.currentUserDomain = extractDomain(this.email.value);
           localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
@@ -97,7 +98,7 @@ export class AuthenticationComponent implements OnInit {
           try {
             const roomId = this.chatService.createRoomId();
             localStorage.setItem('isLogged', 'true');
-            const userHashedEmail = getHashedEmail(value.additionalUserInfo.profile["Mail"]);
+            const userHashedEmail = getHashedEmail(value.additionalUserInfo.profile['Mail']);
             this.settingsService.user.next({
               ...this.settingsService.user.value,
               role: this.authService.getRole(userHashedEmail),
@@ -106,7 +107,7 @@ export class AuthenticationComponent implements OnInit {
               hashedEmail: userHashedEmail,
               connectionTime: Date.now(),
               roomId,
-              isMultiDevices: false,
+              isMultiDevices: false
             });
             FbAuthSingleton.getInstance().setFbAuth(value);
             localStorage.setItem('user', JSON.stringify(this.settingsService.user.value));
@@ -121,7 +122,7 @@ export class AuthenticationComponent implements OnInit {
             firebase.auth().signInWithRedirect(provider);
           }
         }
-      }, reason => this.oauthLoginHandleError());
+      }, () => this.oauthLoginHandleError());
   }
 
   oauthLoginHandleError(): void {
