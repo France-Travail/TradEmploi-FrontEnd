@@ -40,7 +40,7 @@ export class CallbackComponent implements OnInit {
       if (parameters.state === nonce) {
         const userinfo = await this.getUserInfo(parameters.access_token);
         this.user = {
-          given_name: parameters.provider === 'PE' ? userinfo.name : userinfo.given_name,
+          given_name: userinfo.given_name,
           family_name: userinfo.family_name,
           email: userinfo.email,
           sub: userinfo.sub,
