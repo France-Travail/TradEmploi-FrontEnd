@@ -136,6 +136,7 @@ headerButtons.CGU | Display CGU button in the header page
 headerButtons.modality | Display modality button in the header page
 headerButtons.personalData | Display personalData button in the header page
 headerButtons.startGuide | Display startGuide button in the header page
+headerButtons.contact | Display contact button in the header page
 organization.name | your organization name
 organization.organizationUser | Main user of your app
 organization.cgus | your organisation's General Conditions of Use (GCU) in french
