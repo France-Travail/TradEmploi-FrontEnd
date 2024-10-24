@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {SettingsService} from './settings.service';
-import {Role} from '../models/role';
-import {Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { SettingsService } from './settings.service';
+import { Role } from '../models/role';
+import { Router } from '@angular/router';
 import { params } from '../../environments/params';
 
 @Injectable()
@@ -10,6 +10,8 @@ export class NavbarService {
   public choiceTab = false;
   public modalityTab = false;
   public helpTab = false;
+  public cguTab = false;
+  public contactTab = false;
   public tradDocTab = false;
   public endTab = false;
 
@@ -28,6 +30,8 @@ export class NavbarService {
     this.choiceTab = false;
     this.modalityTab = false;
     this.tradDocTab = false;
+    this.cguTab = false;
+    this.contactTab = false;
     this.helpTab = true;
     this.endTab = false;
   }
@@ -56,6 +60,8 @@ export class NavbarService {
     this.helpTab = true;
     this.endTab = false;
     this.tradDocTab = false;
+    this.cguTab = true;
+    this.contactTab = true;
   }
 
   public handleTabsSettings() {

@@ -32,8 +32,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component';
+import { ContactComponent } from '../pages/contact/contact.component';
 
-const COMPONENTS = [AudioAnimationComponent, TranslationTitleComponent, HeaderComponent, SidenavComponent, HoldableDirective, CustomSnackbarComponent];
+const COMPONENTS = [AudioAnimationComponent, TranslationTitleComponent, HeaderComponent, SidenavComponent, HoldableDirective, CustomSnackbarComponent, ContactComponent];
 
 const MATERIAL_MODULES = [
   MatInputModule,

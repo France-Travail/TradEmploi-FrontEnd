@@ -1,25 +1,26 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LogoutComponent } from '../../logout/logout.component';
 import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
 import { NavbarService } from '../../../../services/navbar.service';
 import { SettingsService } from '../../../../services/settings.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Observable, map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { GdprComponent } from '../../../../pages/gdpr/gdpr.component';
 import { Role } from '../../../../models/role';
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 import { Router } from '@angular/router';
-import {ChatService} from '../../../../services/chat.service';
-import {VOCABULARY_DEFAULT} from '../../../../data/vocabulary';
+import { ChatService } from '../../../../services/chat.service';
+import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
 import { MatDialog } from '@angular/material/dialog';
 import { params } from '../../../../../environments/params';
 import { PdataComponent } from '../../../../pages/pdata/pdata.component';
 import { isAndroid } from '../../../../utils/utils';
+import { ContactComponent } from '../../../../pages/contact/contact.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
@@ -44,7 +45,8 @@ export class HeaderComponent implements OnInit {
     private readonly breakpointObserver: BreakpointObserver,
     private readonly chatService: ChatService,
     private readonly router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.isWideScreen = this.breakpointObserver.observe(['(min-width: 1051px)']).pipe(map(({ matches }) => matches));
@@ -81,6 +83,10 @@ export class HeaderComponent implements OnInit {
     this.openGdprModal(GdprComponent);
   }
 
+  public contact() {
+    this.openContactModal(ContactComponent);
+  }
+
   public pdata() {
     this.openGdprModal(PdataComponent);
   }
@@ -96,8 +102,17 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(component, {
       panelClass: 'customDialog',
       data: {
-        language: this.language,
-      },
+        language: this.language
+      }
+    });
+  }
+
+  private openContactModal(component) {
+    this.dialog.open(component, {
+      panelClass: 'customDialog',
+      data: {
+        language: this.language
+      }
     });
   }
 
@@ -105,7 +120,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(component, {
       width: '800px',
       height,
-      panelClass: 'customDialog',
+      panelClass: 'customDialog'
     });
   }
 
@@ -121,11 +136,11 @@ export class HeaderComponent implements OnInit {
       this.settingsService.user.next({
         ...this.settingsService.user.value,
         isMultiDevices: false,
-        roomId: newRoomId,
+        roomId: newRoomId
       });
       this.chatService.initChatMono(newRoomId, advisorRole);
     }
-  }
+  };
 
   public createShortcut() {
     this.showCreateShortcut = false;

@@ -7,7 +7,7 @@
         </button>
       </div>
       <img src="../../../../../assets/images/common/logo-working.png" alt="Logo Trad" (click)="choice()" />
-      <div (click)="choice()" >
+      <div (click)="choice()">
         <div class="title">Traduction Instantanée</div>
         <div class="subtitle">{{ params.subtitle }}</div>
       </div>
@@ -19,7 +19,8 @@
         <img src="assets/icons/document.svg" alt="Traduire un document" />
         <span class="name">TRADUIRE UN DOCUMENT</span>
       </button>
-      <button id="indicators-header" routerLink="indicators" *ngIf="navbarService.modalityTab && params.headerButtons.indicators">
+      <button id="indicators-header" routerLink="indicators"
+              *ngIf="navbarService.modalityTab && params.headerButtons.indicators">
         <img src="assets/icons/icon-chart.svg" alt="Indicateurs" />
         <span class="name">INDICATEURS</span>
       </button>
@@ -31,7 +32,8 @@
         <img src="assets/icons/icon-policies-black.svg" alt="gdpr" />
         <span class="name">{{ gdprLink | uppercase }}</span>
       </button>
-      <button id="modality-header" routerLink="modality" *ngIf="navbarService.modalityTab && params.headerButtons.modality">
+      <button id="modality-header" routerLink="modality"
+              *ngIf="navbarService.modalityTab && params.headerButtons.modality">
         <img src="assets/icons/icon-modality-black.svg" alt="modality" />
         <span class="name">MODALITÉ</span>
       </button>
@@ -46,6 +48,11 @@
       <button id="add-shortcut-header" (click)="createShortcut()" *ngIf="showCreateShortcut && this.android">
         <img src="assets/icons/icon-export-black.svg" alt="Shortcut" />
         <span class="name">CREER UN RACCOURCI</span>
+      </button>
+      <button id="contact-header" (click)="contact()"
+              *ngIf="navbarService.modalityTab && params.headerButtons.contact">
+        <img src="assets/icons/icon-email.svg" alt="Contact" />
+        <span class="name">CONTACT</span>
       </button>
       <button id="logout-header" class="density" (click)="logout()">
         <img src="assets/icons/icon-logout.svg" alt="Logout" />

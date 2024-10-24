@@ -15,6 +15,14 @@
     <img src="assets/icons/icon-help-black.svg" alt="help" />
     <span class="name">{{ helpLink | uppercase }}</span>
   </a>
+  <a mat-list-item (click)="onSidenavClose()" (click)="gdpr()" *ngIf="navbarService.cguTab">
+    <img src="assets/icons/icon-policies-black.svg" alt="help" />
+    <span class="name">{{ gdprLink | uppercase }}</span>
+  </a>
+  <a mat-list-item (click)="onSidenavClose()" (click)="contact()" *ngIf="navbarService.contactTab">
+    <img src="assets/icons/icon-email.svg" alt="help" />
+    <span class="name">{{ contactLink | uppercase }}</span>
+  </a>
   <a mat-list-item routerLink="tradtondoc" (click)="onSidenavClose()" *ngIf="navbarService.tradDocTab">
     <img src="assets/icons/document.svg" alt="TradTonDoc" />
     <span class="name">TRADUIRE UN DOCUMENT</span>

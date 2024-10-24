@@ -18,6 +18,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { CallbackComponent } from './pages/callback/callback.component';
 import { IndicatorsComponent } from './indicators/indicators.component';
 import { TradtondocComponent } from './pages/tradtondoc/tradtondoc.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full', canDeactivate: [PendingChangesGuard] },
@@ -85,6 +86,11 @@ export const routes: Routes = [
   {
     path: 'tradtondoc',
     component: TradtondocComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'contact',
+    component: ContactComponent,
     canActivate: [AuthGuard]
   },
   {

@@ -1,0 +1,23 @@
+<div class="panel">
+  <div class="title">
+    <ng-template [ngIf]="!isSmallScreen">
+      <img style="width: 80%;padding-bottom: 2%;" src="../../../assets/images/common/logo-working.png" alt="Logo Trad"
+           *ngIf="showTraductionLogo" />
+    </ng-template>
+    <h1 class="t2"> {{ contactWording.title }}</h1>
+  </div>
+  <div class="language">
+    <mat-form-field>
+      <mat-select [(value)]="selected" (selectionChange)="chooseLanguage($event)">
+        <mat-option value="english">English</mat-option>
+        <mat-option value="french">Français</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="privacy">
+    {{ contactWording.message }}
+  </div>
+  <div class="action">
+    <button class="options" (click)="closeDialog()">{{ contactWording.closeBtn }}</button>
+  </div>
+</div>

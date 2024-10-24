@@ -1,5 +1,5 @@
 import { Gdpr } from './gdpr';
-import { Pdata } from './pdata';
+import { Contact } from './contact';
 
 export interface Vocabulary {
   isoCode: string;
@@ -13,6 +13,7 @@ export interface Vocabulary {
   audioVoiceCodeMale?: string;
   audioVoiceCodeFemale?: string;
 }
+
 export interface Sentence {
   applicationName: string;
   send: string;
@@ -31,6 +32,7 @@ export interface Sentence {
   gaugeText?: string;
   rate?: Rate;
   gdpr?: Gdpr;
+  contact?: Contact;
   pdata?: string;
   logout?: Logout;
   modality?: Modality;
@@ -41,6 +43,7 @@ export interface Sentence {
   translationH2Mobile?: string;
 
 }
+
 export interface Tooltip {
   pronounce: string;
   noPronounce: string;
@@ -50,6 +53,7 @@ export interface Tooltip {
   voiceTypeDE: string;
   voiceTypeNormal: string;
 }
+
 export interface IntroMessage {
   welcomeFR: string;
   welcomeRAW: string;
@@ -58,6 +62,7 @@ export interface IntroMessage {
   voiceavailabilityRAW: string;
   voiceavailabilityFR: string;
 }
+
 export interface Choice {
   mostBtn: string;
   mostUsedBtn: string;
@@ -77,6 +82,7 @@ export interface Modality {
   multiSentenceFR: string;
   confirm: string;
 }
+
 export interface Rate {
   qualityTranslate: string;
   rating: string;
@@ -90,6 +96,7 @@ export interface NavbarTab {
   logout: string;
   help: string;
   gdpr: string;
+  contact: string;
 }
 
 export interface Logout {
@@ -98,6 +105,7 @@ export interface Logout {
   cancel: string;
   confirm: string;
 }
+
 export interface Onboarding {
   image: string;
   indicationFR?: string;
@@ -107,6 +115,7 @@ export interface Onboarding {
   browserFR?: string;
   browserEN?: string;
 }
+
 export interface OnboardingTitle {
   helpFR?: string;
   helpEN: string;

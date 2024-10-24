@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PdataComponent } from '../../../../pages/pdata/pdata.component';
 import { isAndroid } from '../../../../utils/utils';
 import { params } from '../../../../../environments/params';
+import { ContactComponent } from '../../../../pages/contact/contact.component';
 
 @Component({
   selector: 'app-sidenav',
@@ -27,6 +28,7 @@ export class SidenavComponent implements OnInit {
   public logoutLink: string;
   public helpLink: string;
   public gdprLink: string;
+  public contactLink: string;
   public language: string;
   public userName: string;
   public android: boolean;
@@ -39,6 +41,7 @@ export class SidenavComponent implements OnInit {
       this.logoutLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.logout : 'deconnexion';
       this.helpLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.help : 'Guide de démarrage';
       this.gdprLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.gdpr : 'cgu';
+      this.contactLink = isGuest ? VOCABULARY_DEFAULT.navbarTabs.contact : 'contact';
       this.language = isGuest ? 'english' : 'french';
       this.userName = user !== null ? user.firstname : '';
     });
@@ -75,6 +78,17 @@ export class SidenavComponent implements OnInit {
 
   public gdpr() {
     this.dialog.open(GdprComponent, {
+      panelClass: 'customDialog',
+      width: '90%',
+      height: '90%',
+      data: {
+        language: this.language
+      }
+    });
+  }
+
+  public contact() {
+    this.dialog.open(ContactComponent, {
       panelClass: 'customDialog',
       width: '90%',
       height: '90%',
