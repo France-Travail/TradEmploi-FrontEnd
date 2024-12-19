@@ -1,13 +1,12 @@
 /* tslint:disable */
 // @ts-nocheck
 const { writeFile, existsSync, mkdirSync, readFileSync } = require('fs');
-const { replaceInFile } = require('replace-in-file');
 
 require('dotenv').config();
 
 
 function writeFileUsingFS(targetPath, fileContent) {
-  writeFile(targetPath, fileContent, function (err) {
+  writeFile(targetPath, fileContent, function(err) {
     if (err) {
       console.log(err);
     }
