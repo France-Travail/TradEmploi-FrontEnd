@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from './services/navbar.service';
+import { VersionCheckService } from './services/version-check.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit {
   protected showCreateShortcut = false;
   protected deferredPrompt: any;
 
-  constructor(private readonly router: Router, public readonly navbarService: NavbarService) {
+  constructor(private readonly router: Router, public readonly navbarService: NavbarService, private versionCheckService: VersionCheckService) {
     addEventListener('storage', this.storageChange.bind(this));
   }
 
@@ -28,5 +29,6 @@ export class AppComponent implements OnInit {
       this.deferredPrompt = e;
       this.showCreateShortcut = true;
     });
+    this.versionCheckService.checkVersion('/assets/version.json');
   }
 }
