@@ -30,5 +30,6 @@ export class AppComponent implements OnInit {
       this.showCreateShortcut = true;
     });
     this.versionCheckService.checkVersion('/assets/version.json');
+    console.log('test');
   }
 }
