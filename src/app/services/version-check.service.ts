@@ -7,7 +7,7 @@ import { map, startWith, switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class VersionCheckService {
-  private currentVersion = '';
+  private currentVersion = '1.0.2';
 
   constructor(private http: HttpClient) {
   }
