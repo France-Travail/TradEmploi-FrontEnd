@@ -7,7 +7,7 @@ import { map, startWith, switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class VersionCheckService {
-  private currentVersion = '1.0.3';
+  private currentVersion = '1.0.0';
 
   constructor(private http: HttpClient) {
   }
@@ -22,8 +22,6 @@ export class VersionCheckService {
         switchMap(() => this.getVersion(url))
       )
       .subscribe((latestVersion) => {
-        console.log(latestVersion);
-        console.log(this.currentVersion);
         if (this.currentVersion && this.currentVersion !== latestVersion) {
           this.promptUserToReload();
         }
