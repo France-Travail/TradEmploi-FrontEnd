@@ -11,7 +11,7 @@ import { Contact } from '../../models/contact';
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent {
-  public selected = 'english';
+  public selected = 'french';
   public isSmallScreen = false;
   public contactWording: Contact = FRENCH.contact;
   public showTraductionLogo = this.settingsService.showTraductionLogo;
