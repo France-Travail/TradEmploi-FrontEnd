@@ -14,9 +14,7 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="privacy">
-    {{ contactWording.message }}
-  </div>
+  <div class="privacy" [innerHTML]="contactWording.message"></div>
   <div class="action">
     <button class="options" (click)="closeDialog()">{{ contactWording.closeBtn }}</button>
   </div>

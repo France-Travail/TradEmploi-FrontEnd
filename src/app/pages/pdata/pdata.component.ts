@@ -3,7 +3,6 @@ import { ENGLISH, FRENCH } from '../../data/sentence';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { SettingsService } from '../../services/settings.service';
-import { Pdata } from '../../models/pdata';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -12,10 +11,11 @@ import { environment } from '../../../environments/environment';
   styleUrl: './pdata.component.scss'
 })
 export class PdataComponent {
-  public selected = 'english';
+  public selected = 'french';
   public isSmallScreen = false;
   public pdataWording: String = ENGLISH.pdata;
   public showTraductionLogo = this.settingsService.showTraductionLogo;
+  public pdataTitle: string = 'Données personnelles / Cookies';
 
   constructor(
     private readonly dialogRef: MatDialogRef<PdataComponent>,
@@ -33,6 +33,7 @@ export class PdataComponent {
 
   public chooseLanguage(option) {
     this.pdataWording = option.value === 'english' ? ENGLISH.pdata : FRENCH.pdata;
+    this.pdataTitle = option.value === 'english' ? 'Personal Data / Cookies' : 'Données personnelles / Cookies';
   }
 
   public closeDialog() {

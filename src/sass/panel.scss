@@ -1,12 +1,12 @@
 @import 'styles';
 
-@font-face {
-  font-family: 'Marianne';
-  src: url('../../fonts/Marianne-Medium.woff2') format('woff2'),
-  url('../../fonts/Marianne-Medium.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
+//@font-face {
+//  font-family: 'Marianne';
+//  src: url('../../fonts/Marianne-Medium.woff2') format('woff2'),
+//  url('../../fonts/Marianne-Medium.woff') format('woff');
+//  font-weight: normal;
+//  font-style: normal;
+//}
 
 :host {
   width: 100%;
@@ -30,6 +30,7 @@ form,
   box-shadow: 0 0 3px #aaaaaa;
   color: #333333;
   border-radius: 5px;
+
   .title {
     margin-bottom: 20px;
     text-align: center;
@@ -41,11 +42,13 @@ form,
       letter-spacing: 0.05em;
       color: #666;
     }
+
     .t3 {
       font-size: 16px;
       line-height: 19px;
       text-align: center;
     }
+
     .text-app {
       color: #ff5950;
     }
@@ -53,6 +56,7 @@ form,
 
   .input {
     margin: 10px;
+
     .text {
       color: red;
     }
@@ -74,6 +78,7 @@ form,
     cursor: pointer;
     font-size: 12px;
     font-family: Roboto, sans-serif;
+
     &:disabled {
       cursor: not-allowed;
     }

@@ -77,7 +77,7 @@ export const FRENCH: Sentence = {
   },
   contact: {
     title: 'Nous contacter',
-    message: 'Pour toute question en lien avec l\'outil Traduction vous pouvez contacter l\'équipe en charge de l\'outil ainsi que regarder la documentation via ce dépot Github : https://github.com/France-Travail/TradEmploi-FrontEnd.',
+    message: 'Pour toute question en lien avec l\'outil Traduction vous pouvez contacter l\'équipe en charge de l\'outil ainsi que regarder la documentation via ce dépot Github : <a href="https://github.com/France-Travail/TradEmploi" target="_blank">Trad Emploi</a>\',',
     closeBtn: 'FERMER'
   },
   gdpr: {
