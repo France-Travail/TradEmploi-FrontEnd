@@ -1,18 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MessageWrapped} from '../../../../models/translate/message-wrapped';
-import {Language} from '../../../../models/language';
-import {SettingsService} from '../../../../services/settings.service';
-import {TranslateService} from '../../../../services/translate.service';
-import {Role} from '../../../../models/role';
-import {Message} from '../../../../models/translate/message';
-import {TextToSpeechService} from '../../../../services/text-to-speech.service';
-import {VOCABULARY} from '../../../../data/vocabulary';
+import { Component, Input, OnInit } from '@angular/core';
+import { MessageWrapped } from '../../../../models/translate/message-wrapped';
+import { Language } from '../../../../models/language';
+import { SettingsService } from '../../../../services/settings.service';
+import { TranslateService } from '../../../../services/translate.service';
+import { Role } from '../../../../models/role';
+import { Message } from '../../../../models/translate/message';
+import { TextToSpeechService } from '../../../../services/text-to-speech.service';
+import { VOCABULARY } from '../../../../data/vocabulary';
 import { GlobalService } from '../../../../services/global.service';
 
 @Component({
   selector: 'app-chat-multi-devices',
   templateUrl: './chat-multi-devices.component.html',
-  styleUrls: ['./chat-multi-devices.component.scss'],
+  styleUrls: ['./chat-multi-devices.component.scss']
 })
 export class ChatMultiDevicesComponent implements OnInit {
   @Input() messagesWrapped: MessageWrapped[];
@@ -25,7 +25,8 @@ export class ChatMultiDevicesComponent implements OnInit {
     private readonly textToSpeechService: TextToSpeechService,
     private readonly translateService: TranslateService,
     private readonly globalService: GlobalService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.settingsService.user.subscribe(async user => {
@@ -36,7 +37,7 @@ export class ChatMultiDevicesComponent implements OnInit {
             (item.isoCode === user.language.written && item.sentences.audioSupported));
           for (const message of this.messagesWrapped) {
             if (message.notification) {
-              message.notification = await this.translateService.translate(message.notification, this.targetLanguage.written, this.globalService.currentUserDomain, false );
+              message.notification = await this.translateService.translate(message.notification, this.targetLanguage.written, this.globalService.currentUserDomain, false);
             }
           }
         }

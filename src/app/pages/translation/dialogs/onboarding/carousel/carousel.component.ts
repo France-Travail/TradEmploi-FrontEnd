@@ -11,7 +11,10 @@ export class CarouselComponent implements OnInit {
   slides = [0, 1];
   currentSlide = 0;
   public title: string;
-  constructor(private readonly dialogRef: MatDialogRef<CarouselComponent>){}
+
+  constructor(private readonly dialogRef: MatDialogRef<CarouselComponent>) {
+  }
+
   ngOnInit(): void {
     this.setTitle();
   }
@@ -38,6 +41,7 @@ export class CarouselComponent implements OnInit {
         break;
     }
   }
+
   public closeModal() {
     this.dialogRef.close();
   }

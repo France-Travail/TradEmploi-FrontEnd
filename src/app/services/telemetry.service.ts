@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { TokenBrokerService } from './token-broker.service';
 import { TokenResponse } from '../models/token/tokensResponse';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,6 @@ export class TelemetryService {
     const tokenResponse: TokenResponse = await this.tbs.getTokenGcp();
     const gwToken = tokenResponse ? tokenResponse.tokenGW : '';
     const url = `${environment.gcp.gateWayUrl}/telemetry`;
-
     const params = {
       hashedEmail
     };

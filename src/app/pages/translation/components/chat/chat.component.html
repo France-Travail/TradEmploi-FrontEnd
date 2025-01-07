@@ -5,14 +5,16 @@
     <button *ngIf="i!=0 && isAudioSupported" class="listen" (click)="listenToMessage(i)"></button>
   </div>
 
-  <div *ngIf="messageWrapped.message" [ngClass]="messageWrapped.message.role === 'DE' ? 'bubble-area-user' : 'bubble-area-advisor'">
+  <div *ngIf="messageWrapped.message"
+       [ngClass]="messageWrapped.message.role === 'DE' ? 'bubble-area-user' : 'bubble-area-advisor'">
     <div [ngClass]="messageWrapped.message.role === 'DE' ? 'user' : 'advisor'">
       <div *ngIf="messageWrapped.message && messageWrapped.message.role === 'DE'; then user; else advisor"></div>
       <ng-template #user>
         <div class="bubbleTitle">
           <div>
             <span *ngIf="messageWrapped.message.flag !== 'xa'" class="fi fi-{{ messageWrapped.message.flag }}"></span>
-            <img *ngIf="messageWrapped.message.flag === 'xa'" class="fi" src="../../../../../assets/images/common/arab-flag.png" alt="drapeau" />
+            <img *ngIf="messageWrapped.message.flag === 'xa'" class="fi"
+                 src="../../../../../assets/images/common/arab-flag.png" alt="drapeau" />
             <span>&nbsp;Participant</span>
           </div>
         </div>
@@ -20,9 +22,10 @@
       <ng-template #advisor>
         <div class="bubbleTitle">
           <div>
-            <img *ngIf="showTraductionLogo" src="../../../../../assets/images/common/logo-chat.svg" alt="TRADUCTION" class="logo" />
+            <img *ngIf="showTraductionLogo" src="../../../../../assets/images/common/logo-chat.svg" alt="TRADUCTION"
+                 class="logo" />
             <span *ngIf="!showTraductionLogo" class="fi fi-fr"></span>
-            <span>&nbsp;{{firstName}}</span>
+            <span>&nbsp;{{ firstName }}</span>
           </div>
         </div>
       </ng-template>

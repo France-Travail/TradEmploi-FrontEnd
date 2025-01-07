@@ -23,7 +23,7 @@ export class PdataComponent {
     private readonly settingsService: SettingsService,
     @Inject(MAT_DIALOG_DATA) public data: { language: string }
   ) {
-    this.breakpointObserver.observe(['(max-width: 1050px)']).subscribe((result) => {
+    this.breakpointObserver.observe(['(max-width: 1500px)']).subscribe((result) => {
       this.isSmallScreen = result.matches;
     });
     this.selected = this.data.language;

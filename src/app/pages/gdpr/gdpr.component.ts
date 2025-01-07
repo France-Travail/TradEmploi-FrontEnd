@@ -1,17 +1,17 @@
-import {Component, Inject} from '@angular/core';
-import {ENGLISH, FRENCH} from '../../data/sentence';
-import {BreakpointObserver} from '@angular/cdk/layout';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Gdpr} from '../../models/gdpr';
-import {SettingsService} from '../../services/settings.service';
+import { Component, Inject } from '@angular/core';
+import { ENGLISH, FRENCH } from '../../data/sentence';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Gdpr } from '../../models/gdpr';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-gdpr',
   templateUrl: './gdpr.component.html',
-  styleUrls: ['./gdpr.component.scss'],
+  styleUrls: ['./gdpr.component.scss']
 })
 export class GdprComponent {
-  public selected = 'english';
+  public selected = 'french';
   public isSmallScreen = false;
   public gdprWording: Gdpr = FRENCH.gdpr;
   public showTraductionLogo = this.settingsService.showTraductionLogo;

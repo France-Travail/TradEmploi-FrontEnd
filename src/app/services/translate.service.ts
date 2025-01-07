@@ -6,10 +6,11 @@ import { TokenBrokerService } from './token-broker.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TranslateService {
-  constructor(private readonly errorService: ErrorService, private readonly tbs: TokenBrokerService) {}
+  constructor(private readonly errorService: ErrorService, private readonly tbs: TokenBrokerService) {
+  }
 
   public async translate(text: string, targetLanguageCode: string, userDomain: string, isTradTonDoc: boolean, sourceLanguageCode?: string): Promise<string> {
     sourceLanguageCode = this.mapLanguage(sourceLanguageCode);
@@ -27,8 +28,8 @@ export class TranslateService {
     };
 
     return axios.post(url, data, {
-      headers: { Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8'},
-      withCredentials: true,
+      headers: { Authorization: `Bearer ${gwToken}`, 'content-type': 'application/json; charset=utf-8' },
+      withCredentials: true
     })
       .then((response) => {
         return response.data.translatedText;

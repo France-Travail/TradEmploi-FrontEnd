@@ -1,16 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SettingsService} from '../../../../services/settings.service';
-import {Language} from '../../../../models/language';
-import {MessageWrapped} from '../../../../models/translate/message-wrapped';
-import {Message} from '../../../../models/translate/message';
-import {TextToSpeechService} from '../../../../services/text-to-speech.service';
-import {params} from '../../../../../environments/params';
-import {VOCABULARY} from '../../../../data/vocabulary';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { SettingsService } from '../../../../services/settings.service';
+import { Language } from '../../../../models/language';
+import { MessageWrapped } from '../../../../models/translate/message-wrapped';
+import { Message } from '../../../../models/translate/message';
+import { TextToSpeechService } from '../../../../services/text-to-speech.service';
+import { params } from '../../../../../environments/params';
+import { VOCABULARY } from '../../../../data/vocabulary';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss'],
+  styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
   @Input() messagesWrapped: MessageWrapped[];
@@ -31,6 +31,8 @@ export class ChatComponent implements OnInit {
         this.firstName = user.firstname.split(' ')[1] || user.firstname.split(' ')[0] || params.organization.organizationUser;
         this.targetLanguage = user.language;
         this.isAudioSupported = VOCABULARY.some((item) => item.isoCode === user.language.written && item.sentences.audioSupported);
+      } else {
+        this.firstName = params.organization.organizationUser;
       }
     });
   }
