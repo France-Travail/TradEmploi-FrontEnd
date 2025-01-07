@@ -53,3 +53,6 @@ report.xml
 
 #gitlab
 .gitlab-ci.yml
+
+package-lock.json
+.nx
