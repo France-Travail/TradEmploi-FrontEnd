@@ -1,6 +1,6 @@
 /* tslint:disable */
 // @ts-nocheck
-const { writeFile, existsSync, mkdirSync, readFileSync } = require('fs');
+const { writeFile, existsSync, mkdirSync } = require('fs');
 
 require('dotenv').config();
 
