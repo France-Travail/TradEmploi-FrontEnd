@@ -1,52 +1,46 @@
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {
-  AfterViewChecked,
-  Component,
-  ElementRef,
-  HostListener,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
-import {Router} from '@angular/router';
-import {RateDialogComponent} from './dialogs/rate-dialog/rate-dialog.component';
-import {EndComponent} from './dialogs/end/end.component';
-import {SettingsService} from '../../services/settings.service';
-import {ShareComponent} from './dialogs/share/share.component';
-import {AuthorizeComponent} from './dialogs/authorize/authorize.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
+import { EndComponent } from './dialogs/end/end.component';
+import { SettingsService } from '../../services/settings.service';
+import { ShareComponent } from './dialogs/share/share.component';
+import { AuthorizeComponent } from './dialogs/authorize/authorize.component';
 import { exportCsv, isIOS } from '../../utils/utils';
-import {ComponentCanDeactivate} from '../../guards/pending-changes.guard';
-import {MessageWrapped} from '../../models/translate/message-wrapped';
-import {ToastService} from '../../services/toast.service';
-import {ChatService} from '../../services/chat.service';
-import {NavbarService} from '../../services/navbar.service';
-import {TranslateService} from '../../services/translate.service';
-import {CryptService} from '../../services/crypt.service';
-import {Role} from '../../models/role';
-import {ENGLISH} from '../../data/sentence';
-import {IntroMessage} from '../../models/vocabulary';
-import {Message} from '../../models/translate/message';
-import {MessageSingleton} from '../../models/MessageSingleton';
-import {Chat} from '../../models/db/chat';
-import {Support} from '../../models/kpis/support';
-import {Language} from '../../models/language';
-import {ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS} from '../../models/error/errorFunctionnal';
-import {User} from '../../models/user';
-import {TextToSpeechService} from '../../services/text-to-speech.service';
-import {VOCABULARY} from '../../data/vocabulary';
+import { ComponentCanDeactivate } from '../../guards/pending-changes.guard';
+import { MessageWrapped } from '../../models/translate/message-wrapped';
+import { ToastService } from '../../services/toast.service';
+import { ChatService } from '../../services/chat.service';
+import { NavbarService } from '../../services/navbar.service';
+import { TranslateService } from '../../services/translate.service';
+import { CryptService } from '../../services/crypt.service';
+import { Role } from '../../models/role';
+import { ENGLISH } from '../../data/sentence';
+import { IntroMessage } from '../../models/vocabulary';
+import { Message } from '../../models/translate/message';
+import { MessageSingleton } from '../../models/MessageSingleton';
+import { Chat } from '../../models/db/chat';
+import { Support } from '../../models/kpis/support';
+import { Language } from '../../models/language';
+import { ERROR_FUNC_TRANSLATION, ERROR_FUNC_TTS } from '../../models/error/errorFunctionnal';
+import { User } from '../../models/user';
+import { TextToSpeechService } from '../../services/text-to-speech.service';
+import { VOCABULARY } from '../../data/vocabulary';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import {ErrorService} from '../../services/error.service';
+import { ErrorService } from '../../services/error.service';
 import { Subject } from 'rxjs';
 import { GlobalService } from '../../services/global.service';
+import { params } from '../../../environments/params';
 
 const toastError = 'toast-error';
 
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
-  styleUrls: ['./translation.component.scss'],
+  styleUrls: ['./translation.component.scss']
 })
 export class TranslationComponent implements OnInit, AfterViewChecked, ComponentCanDeactivate, OnDestroy {
+  protected readonly params = params;
   @ViewChild('scrollMe') private readonly chatScroll: ElementRef;
   public messagesWrapped = [];
   public guestTextToEdit: string;
@@ -138,29 +132,29 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     if (this.isMultiDevices) {
       this.isGuest ? this.introMessageGuest(introMessage) : this.introMessageAdmin(introMessage);
     } else {
-      this.sendNotification({notification: introMessage.welcomeFR, time: Date.now()});
-      const welcomeRAW = await this.translateService.translate(introMessage.welcomeFR, this.getLanguageTargetDe(), this.globalService.currentUserDomain, false );
-      this.sendNotification({notification: welcomeRAW, time: Date.now()});
+      this.sendNotification({ notification: introMessage.welcomeFR, time: Date.now() });
+      const welcomeRAW = await this.translateService.translate(introMessage.welcomeFR, this.getLanguageTargetDe(), this.globalService.currentUserDomain, false);
+      this.sendNotification({ notification: welcomeRAW, time: Date.now() });
       if (!this.vocalSupported) {
-        this.sendNotification({notification: introMessage.voiceavailabilityFR, time: Date.now()});
-        this.sendNotification({notification: introMessage.voiceavailabilityRAW, time: Date.now()});
+        this.sendNotification({ notification: introMessage.voiceavailabilityFR, time: Date.now() });
+        this.sendNotification({ notification: introMessage.voiceavailabilityRAW, time: Date.now() });
       }
     }
   }
 
   private introMessageGuest(notification: IntroMessage) {
-    this.sendNotification({notification: notification.notifMultiRAW, time: Date.now()});
-    this.sendNotification({notification: notification.welcomeRAW, time: Date.now()});
+    this.sendNotification({ notification: notification.notifMultiRAW, time: Date.now() });
+    this.sendNotification({ notification: notification.welcomeRAW, time: Date.now() });
     if (!this.vocalSupported) {
-      this.sendNotification({notification: notification.voiceavailabilityRAW, time: Date.now()});
+      this.sendNotification({ notification: notification.voiceavailabilityRAW, time: Date.now() });
     }
   }
 
   private introMessageAdmin(notification: IntroMessage) {
-    this.sendNotification({notification: notification.notifMultiFR, time: Date.now()});
-    this.sendNotification({notification: notification.welcomeFR, time: Date.now()});
+    this.sendNotification({ notification: notification.notifMultiFR, time: Date.now() });
+    this.sendNotification({ notification: notification.welcomeFR, time: Date.now() });
     if (!this.vocalSupported) {
-      this.sendNotification({notification: notification.voiceavailabilityFR, time: Date.now()});
+      this.sendNotification({ notification: notification.voiceavailabilityFR, time: Date.now() });
     }
   }
 
@@ -333,7 +327,7 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
         }
       }
     }, this.errorService.handleAfsError);
-  }
+  };
 
   private authorizeGuest(guests) {
     const lastAuthorization = guests[guests.length - 1];
@@ -423,10 +417,10 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
     }
     if (hasMessage.length === 0) {
       const isSender: boolean = this.isSender(message.member, message.languageOrigin);
-      const messageWrapped: MessageWrapped = {message, isSender, time: message.time};
+      const messageWrapped: MessageWrapped = { message, isSender, time: message.time };
       this.messagesWrapped.push(messageWrapped);
       this.messagesWrapped.sort((msg1, msg2) => msg1.time - msg2.time);
-      this.chatService.messagesStored.push({message, time: message.time});
+      this.chatService.messagesStored.push({ message, time: message.time });
     } else {
       MessageSingleton.getInstance().setAlreadyPlay(true);
     }
@@ -474,8 +468,8 @@ export class TranslationComponent implements OnInit, AfterViewChecked, Component
       data: {
         languages,
         roomId: this.roomId,
-        guest,
-      },
+        guest
+      }
     });
   }
 

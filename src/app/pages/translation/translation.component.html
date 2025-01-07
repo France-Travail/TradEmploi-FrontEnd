@@ -6,16 +6,16 @@
           <span class="roomId">{{ roomId }}</span>
           <button class="share-btn" (click)="share()">INVITER</button>
         </ng-template>
-        <button class="end-btn " (click)="exportConversation()">
+        <button class="end-btn " (click)="exportConversation()" *ngIf="params.displayExportButton">
           EXPORTER
         </button>
         <button class="end-btn" (click)="closeConversation()">TERMINER LA CONVERSATION</button>
 
       </li>
-      <li *ngIf="!ios" >
+      <li *ngIf="!ios">
         <span *ngIf="isGuest" class="roomId">{{ roomId }}</span>
         <img class="listen-icon" alt="listen icon"
-             src="{{ this.isGuest && !isAudioSupported ? 'assets/icons/icon-listen-blue-low-opacity.svg' : 'assets/icons/icon-listen-blue.svg' }}"/>
+             src="{{ this.isGuest && !isAudioSupported ? 'assets/icons/icon-listen-blue-low-opacity.svg' : 'assets/icons/icon-listen-blue.svg' }}" />
         <mat-slide-toggle
           class="auto-listen-btn"
           checked="{{ !isMultiDevices || isAudioSupported }}"
@@ -23,7 +23,8 @@
           (click)="switchAudio()"
           labelPosition="before"
           color="primary"
-        >{{ autoListenValue }}</mat-slide-toggle>
+        >{{ autoListenValue }}
+        </mat-slide-toggle>
       </li>
     </ul>
   </header>
@@ -33,16 +34,22 @@
   </div>
   <footer class="footer">
     <ng-template [ngIf]="!isMultiDevices">
-      <app-message-wrapper role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)" (microChange)="microAdminToGuest()"
-                           [originText]="advisorTextToEdit" [altMicro] = "microAdmin.asObservable()" id="advisor-wrapper"></app-message-wrapper>
-      <app-message-wrapper role="DE" class="no-margin" (messagesToEmit)="addToChat($event)" (microChange)="microGuestToAdmin()"
-                           [originText]="guestTextToEdit" [altMicro] = "microGuest.asObservable()"></app-message-wrapper>
+      <app-message-wrapper role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)"
+                           (microChange)="microAdminToGuest()"
+                           [originText]="advisorTextToEdit" [altMicro]="microAdmin.asObservable()"
+                           id="advisor-wrapper"></app-message-wrapper>
+      <app-message-wrapper role="DE" class="no-margin" (messagesToEmit)="addToChat($event)"
+                           (microChange)="microGuestToAdmin()"
+                           [originText]="guestTextToEdit" [altMicro]="microGuest.asObservable()"></app-message-wrapper>
     </ng-template>
     <ng-template [ngIf]="isMultiDevices">
-      <app-message-wrapper *ngIf="isGuest" role="DE" class="no-margin" (messagesToEmit)="addToChat($event)" (microChange)="microGuestToAdmin()"
-                           [originText]="guestTextToEdit" [altMicro] = "microGuest.asObservable()"></app-message-wrapper>
-      <app-message-wrapper *ngIf="!isGuest" role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)" (microChange)="microAdminToGuest()"
-                           [originText]="advisorTextToEdit" [altMicro] = "microAdmin.asObservable()" id="advisor-wrapper"></app-message-wrapper>
+      <app-message-wrapper *ngIf="isGuest" role="DE" class="no-margin" (messagesToEmit)="addToChat($event)"
+                           (microChange)="microGuestToAdmin()"
+                           [originText]="guestTextToEdit" [altMicro]="microGuest.asObservable()"></app-message-wrapper>
+      <app-message-wrapper *ngIf="!isGuest" role="AGENT" class="no-margin" (messagesToEmit)="addToChat($event)"
+                           (microChange)="microAdminToGuest()"
+                           [originText]="advisorTextToEdit" [altMicro]="microAdmin.asObservable()"
+                           id="advisor-wrapper"></app-message-wrapper>
     </ng-template>
   </footer>
 </div>
