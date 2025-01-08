@@ -3,52 +3,56 @@
 .title {
   margin-bottom: 0 !important;
 }
-.language{
+
+.language {
   display: flex;
   justify-content: center;
 }
 
-.privacy{
+.privacy {
   overflow-y: auto;
   overflow-x: hidden;
-  height: 250px;
+  height: 350px;
   font-size: 15px;
   white-space: pre-line;
 }
-.action{
+
+.action {
   display: flex;
+
   button {
     width: 170px;
   }
+
   .options {
     background-color: $white-smoke;
     color: black;
   }
 }
 
-.confirm{
+.confirm {
   display: flex;
 }
 
-::ng-deep .mat-select-value-text{
-  font-size:15px;
-  color:$primary-color;
+::ng-deep .mat-select-value-text {
+  font-size: 15px;
+  color: $primary-color;
 }
 
-::ng-deep .mat-form-field-infix{
+::ng-deep .mat-form-field-infix {
   width: 80px !important;
 }
 
 ::ng-deep .mat-select-arrow {
-  color:$primary-color;
+  color: $primary-color;
 }
 
-.mobileBtn{
+.mobileBtn {
   width: 80px !important;
 }
 
 @media (max-width: 768px) {
-  .action{
+  .action {
     button {
       width: 150px;
     }
@@ -56,14 +60,15 @@
 }
 
 @media screen and (max-width: 576px) {
-  .action{
+  .action {
     button {
       width: 120px;
     }
   }
 }
+
 @media screen and (max-width: 375px) {
-  .action{
+  .action {
     button {
       width: 80px;
     }
