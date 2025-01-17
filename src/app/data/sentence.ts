@@ -1098,3 +1098,51 @@ export const AZERBAIJANI: Sentence = {
   translationH2Mobile: 'Mətn daxil edin və ya mavi mikrofona toxunaraq danışın.',
   audioSupported: true
 };
+
+export const KINYARWANDA: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Urashaka guhana muri uru rurimi?',
+  translationH2: 'Injira inyandiko, cyangwa ukande hanyuma ufate mikoro yubururu kugirango uvuge',
+  translationH2Mobile: 'Injira inyandiko, cyangwa ukande mic ubururu kugirango uvuge',
+  audioSupported: false
+};
+
+export const SOUTH_SOTHO: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'A na u ka rata ho fapanyetsana ka puo ee?',
+  translationH2: 'Kenya mongolo, kapa tobetsa le ho tšoara maekrofounu e putsoa ho bua',
+  translationH2Mobile: 'Kenya mongolo, kapa u tobetse maeke o moputsoa ho bua',
+  audioSupported: false
+};
+
+export const TSONGA: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Xana u nga tsakela ku cincana hi ririmi leri?',
+  translationH2: 'Nghenisa tsalwa, kutani u tshikilela u khoma microphone ya wasi leswaku u vulavula',
+  translationH2Mobile: 'Nghenisa tsalwa, kutani u khoma mic ya wasi leswaku u vulavula',
+  audioSupported: false
+};
+
+export const TSWANA: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'A o ka rata go ananya ka puo eno?',
+  translationH2: 'Tsenya mafoko, kgotsa tobetsa maekerofouno o o pududu o bo o tshwarelela gore o bue',
+  translationH2Mobile: 'Tsenya mafoko, kgotsa tobetsa maekerofouno e e pududu go bua',
+  audioSupported: false
+};
+
+export const VENDA: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Naa ni nga takalela u tshintshana nga lwonolu luambo?',
+  translationH2: 'Ṅwalani maṅwalo, kana ni tsitse na fara maikrofoni ya lutombo u itela u amba',
+  translationH2Mobile: 'Ṅwalani maṅwalo, kana ni ṋaṋise kha mic ya lutombo u itela u amba',
+  audioSupported: false
+};
+
+export const XHOSA: Sentence = {
+  ...ENGLISH,
+  readedWelcome: 'Ngaba ungathanda ukutshintshana ngolu lwimi?',
+  translationH2: 'Faka umbhalo, okanye ucinezele kwaye ubambe imakrofoni eluhlaza ukuze uthethe',
+  translationH2Mobile: 'Faka umbhalo, okanye ucofe imakrofoni eluhlaza ukuze uthethe',
+  audioSupported: false
+};
