@@ -116,7 +116,8 @@ export class LanguageGridComponent implements OnChanges, OnInit {
   }
 
   public isoCodeToFlag(isoCode: string) {
-    return isoCode.split('-')[1].toLowerCase();
+    const parts = isoCode.split('-');
+    return parts.length > 2 ? parts[2].toLowerCase() : parts[1].toLowerCase();
   }
 
   public gridSortingHandler(sortType) {
