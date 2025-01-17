@@ -1,16 +1,15 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {
   AfterViewInit,
-  Component, ElementRef,
+  Component,
+  ElementRef,
   EventEmitter,
-  HostListener,
   Input,
   OnChanges,
   OnInit,
   Output,
   ViewChild
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { MessageWrapped } from '../../../../models/translate/message-wrapped';
 import { RecordingState } from '../../../../models/RecordingState';
 import { SpeechToTextMicrosoftService } from '../../../../services/speech-to-text-microsoft';
@@ -21,7 +20,6 @@ import { Tooltip, Vocabulary } from '../../../../models/vocabulary';
 import { TranslationMode } from '../../../../models/kpis/translationMode';
 import { ToastService } from '../../../../services/toast.service';
 import { AdvisorDefaultName, SettingsService } from '../../../../services/settings.service';
-import { AudioRecordingService } from '../../../../services/audio-recording.service';
 import { SpeechRecognitionService } from '../../../../services/speech-recognition.service';
 import { ChatService } from '../../../../services/chat.service';
 import { ErrorService } from '../../../../services/error.service';
@@ -30,14 +28,14 @@ import { Stream } from '../../../../models/stream';
 import { User } from '../../../../models/user';
 import { Message } from '../../../../models/translate/message';
 import { VOCABULARY, VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
-import {params} from '../../../../../environments/params';
-import { Observable, Subject } from 'rxjs';
-import { ENGLISH, FRENCH } from '../../../../data/sentence';
+import { params } from '../../../../../environments/params';
+import { Observable } from 'rxjs';
+import { FRENCH } from '../../../../data/sentence';
 
 @Component({
   selector: 'app-message-wrapper',
   templateUrl: './message-wrapper.component.html',
-  styleUrls: ['./message-wrapper.component.scss'],
+  styleUrls: ['./message-wrapper.component.scss']
 })
 export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit {
   private track: MediaStream;
@@ -45,14 +43,14 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   constructor(
     private readonly toastService: ToastService,
     private readonly settingsService: SettingsService,
-    private readonly audioRecordingService: AudioRecordingService,
-    private readonly router: Router,
     private readonly breakpointObserver: BreakpointObserver,
     private readonly speechRecognitionService: SpeechRecognitionService,
     private readonly chatService: ChatService,
     private readonly errorService: ErrorService,
-    private readonly speechToTextMicrosoftService: SpeechToTextMicrosoftService,
-  ) {}
+    private readonly speechToTextMicrosoftService: SpeechToTextMicrosoftService
+  ) {
+  }
+
   @Input() role: string;
   @Input() originText: string;
 
@@ -70,10 +68,10 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   public error = false;
   public isReady: { listenTranslation: boolean; listenSpeech: boolean } = {
     listenTranslation: false,
-    listenSpeech: false,
+    listenSpeech: false
   };
   public interim = '';
-  public recordMode = false  ;
+  public recordMode = false;
   public speaking = false;
   public isFemaleSpeaking = false;
   public canSend = false;
@@ -90,7 +88,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   private isMicrophoneGranted = false;
   protected altMicroActif = false;
   public erase = new EventEmitter<any>();
-  public tooltip: Tooltip =  FRENCH.tooltip;
+  public tooltip: Tooltip = FRENCH.tooltip;
 
   private readonly warningType = 'toast-warning';
 
@@ -107,7 +105,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     this.interim = this.getInterim(data, translationPlaceHolderIos);
     this.sendBtnValue = data.sentences.send;
     this.voiceNotSupported = data.sentences.voiceNotSupported ? data.sentences.voiceNotSupported : false;
-    this.flag = data.isoCode.split('-')[1].toLowerCase();
+    data.isoCode.length > 2 ? this.flag = data.isoCode.split('-')[2].toLowerCase() : this.flag = data.isoCode.split('-')[1].toLowerCase();
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
     });
@@ -138,7 +136,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     if (!this.isTablet && !this.isMobile && textArea) {
       textArea.focus();
     }
-    if (this.element){
+    if (this.element) {
       this.element.nativeElement.querySelector('.mdc-switch__icon--on').firstChild.setAttribute('d', '');
       this.element.nativeElement.querySelector('.mdc-switch__icon--off').firstChild.setAttribute('d', '');
     }
@@ -314,7 +312,7 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
     const message = this.buildMessage(text);
     const messageWrapped: MessageWrapped = {
       message,
-      time: Date.now(),
+      time: Date.now()
     };
     this.messagesToEmit.emit(messageWrapped);
   }
@@ -322,11 +320,11 @@ export class MessageWrapperComponent implements OnInit, OnChanges, AfterViewInit
   private async sendToMultiDevices(user: User, text: string) {
     const message: Message = {
       ...this.buildMessage(text),
-      member: user.firstname ? user.firstname : AdvisorDefaultName,
+      member: user.firstname ? user.firstname : AdvisorDefaultName
     };
     const messageWrapped: MessageWrapped = {
       message,
-      time: Date.now(),
+      time: Date.now()
     };
     await this.chatService.sendMessageWrapped(user.roomId, messageWrapped);
   }
