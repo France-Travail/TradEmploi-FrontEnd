@@ -82,11 +82,15 @@ export const FRENCH: Sentence = {
   },
   gdpr: {
     title: 'Conditions générales d\'utilisation',
-    privacyText:
+    message:
     params.organization.cgus,
     closeBtn: 'FERMER'
   },
-  pdata: params.organization.pdata,
+  pdata: {
+    title: 'Conditions générales d\'utilisation',
+    message: params.organization.pdata,
+    closeBtn: 'FERMER'
+  },
   logout: {
     title: 'Déconnexion',
     question: 'Voulez-vous vous déconnecter?',
@@ -157,22 +161,15 @@ export const ENGLISH: Sentence = {
   },
   gdpr: {
     title: 'General terms of use',
-    privacyText:
+    message:
     params.organization.cgusEnglish,
     closeBtn: 'CLOSE'
   },
-  pdata: '<div>' +
-    '      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur convallis felis et odio facilisis, eu sagittis libero vehicula. Integer id neque vitae eros mollis malesuada non ut nunc.</span>' +
-    '    </div>' +
-    '    <div>' +
-    '      <span><b>DATA CONTROLLER</b></span>' +
-    '    </div>' +
-    '    <div>' +
-    '      <span>Nam non sem vitae lectus pretium gravida. Nulla facilisi. Aliquam erat volutpat. Donec mollis ligula in sapien fermentum, eget accumsan tortor faucibus. Curabitur in turpis id est scelerisque eleifend.<a href="https://www.gnu.org/licenses/gpl-3.0.fr.html">Aperta fons est futura</a></span>' +
-    '    </div>' +
-    '    <div>' +
-    '      <span><b>TREATMENT OBJECTIVE</b></span>' +
-    '    </div>',
+  pdata: {
+    title: 'Personal Data / Cookies',
+    message: params.organization.pdataEnglish,
+    closeBtn: 'FERMER'
+  },
   logout: {
     title: 'Logout',
     question: 'Would you like to log out ?',

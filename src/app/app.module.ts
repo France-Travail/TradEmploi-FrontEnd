@@ -1,6 +1,6 @@
 // Angular
 import { BrowserModule } from '@angular/platform-browser';
-import { isDevMode, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 // Keyboard
@@ -73,10 +73,10 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { QRCodeModule } from 'angularx-qrcode';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { PdataComponent } from './pages/pdata/pdata.component';
 import { TradtondocComponent } from './pages/tradtondoc/tradtondoc.component';
 import { ImageCropperComponent } from 'ngx-image-cropper';
+import { ModalComponent } from './pages/modal/modal.component';
 
 if (!environment.firebaseConfig.authDomain) {
   environment.firebaseConfig.authDomain = window.location.host;
@@ -115,7 +115,8 @@ if (!environment.firebaseConfig.authDomain) {
     CallbackComponent,
     CarouselComponent,
     IndicatorsComponent,
-    TradtondocComponent
+    TradtondocComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -143,12 +144,12 @@ if (!environment.firebaseConfig.authDomain) {
     QRCodeModule,
     OAuthModule.forRoot(),
     NgbModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
+    /*ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    }),
+    }),*/
     ImageCropperComponent
   ],
   providers: [

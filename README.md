@@ -151,6 +151,31 @@ export const params = {
  subtitle                      | your subtitle in the header                                                                                                     
  displayExportButton           | Display or not the button export conversation (option added due to RGPD contraints)                                             
 
+## Creating modals
+
+To create a modal, you must use the modalComponent.
+
+There is a specific model : Modal.
+
+Each modal must have the following properties : title, message, closeBtn. Each one of them is of type string and defines some information inside the modal.
+
+Please refer to the headerComponent, where there is a complete example of how to create a modal.
+
+You must use this method :
+
+```
+public openModal(frenchData, englishData) {
+    this.dialog.open(ModalComponent, {
+      panelClass: 'customDialog',
+      data: {
+        frenchData,
+        englishData
+      }
+    });
+  }
+
+```
+
 ## Authentication mode
 
 The default authentication mode is the firebase authentication with firestore.

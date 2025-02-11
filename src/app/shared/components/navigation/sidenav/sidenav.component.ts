@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LogoutComponent } from '../../logout/logout.component';
-import { ShareComponent } from '../../../../pages/translation/dialogs/share/share.component';
-import { GdprComponent } from '../../../../pages/gdpr/gdpr.component';
 import { SettingsService } from '../../../../services/settings.service';
 import { NavbarService } from '../../../../services/navbar.service';
 import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
@@ -9,10 +7,11 @@ import { Role } from '../../../../models/role';
 import { RateDialogComponent } from '../../../../pages/translation/dialogs/rate-dialog/rate-dialog.component';
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 import { MatDialog } from '@angular/material/dialog';
-import { PdataComponent } from '../../../../pages/pdata/pdata.component';
 import { isAndroid } from '../../../../utils/utils';
 import { params } from '../../../../../environments/params';
-import { ContactComponent } from '../../../../pages/contact/contact.component';
+import { ModalComponent } from '../../../../pages/modal/modal.component';
+import { Modal } from '../../../../models/modal';
+import { ENGLISH, FRENCH } from '../../../../data/sentence';
 
 @Component({
   selector: 'app-sidenav',
@@ -32,6 +31,12 @@ export class SidenavComponent implements OnInit {
   public language: string;
   public userName: string;
   public android: boolean;
+  public pdataFrench: Modal = FRENCH.pdata;
+  public pdataEnglish: Modal = ENGLISH.pdata;
+  public contactFrench: Modal = FRENCH.contact;
+  public contactEnglish: Modal = ENGLISH.contact;
+  public gdprFrench: Modal = FRENCH.gdpr;
+  public gdprEnglish: Modal = FRENCH.gdpr;
   protected readonly params = params;
 
   constructor(private readonly dialog: MatDialog, private readonly settingsService: SettingsService, public readonly navbarService: NavbarService) {
@@ -59,10 +64,6 @@ export class SidenavComponent implements OnInit {
     this.openModal(LogoutComponent);
   }
 
-  public share() {
-    this.openModal(ShareComponent);
-  }
-
   public end() {
     this.settingsService.user.subscribe((user) => {
       if (user != null) {
@@ -76,35 +77,14 @@ export class SidenavComponent implements OnInit {
     this.openModal(OnboardingComponent);
   }
 
-  public gdpr() {
-    this.dialog.open(GdprComponent, {
+  public openGenericModal(frenchData, englishData) {
+    this.dialog.open(ModalComponent, {
       panelClass: 'customDialog',
       width: '90%',
       height: '90%',
       data: {
-        language: this.language
-      }
-    });
-  }
-
-  public contact() {
-    this.dialog.open(ContactComponent, {
-      panelClass: 'customDialog',
-      width: '90%',
-      height: '90%',
-      data: {
-        language: this.language
-      }
-    });
-  }
-
-  public pdata() {
-    this.dialog.open(PdataComponent, {
-      panelClass: 'customDialog',
-      width: '90%',
-      height: '90%',
-      data: {
-        language: this.language
+        frenchData,
+        englishData
       }
     });
   }

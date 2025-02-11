@@ -5,7 +5,6 @@ import { NavbarService } from '../../../../services/navbar.service';
 import { SettingsService } from '../../../../services/settings.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { map, Observable } from 'rxjs';
-import { GdprComponent } from '../../../../pages/gdpr/gdpr.component';
 import { Role } from '../../../../models/role';
 import { OnboardingComponent } from '../../../../pages/translation/dialogs/onboarding/onboarding.component';
 import { Router } from '@angular/router';
@@ -13,9 +12,10 @@ import { ChatService } from '../../../../services/chat.service';
 import { VOCABULARY_DEFAULT } from '../../../../data/vocabulary';
 import { MatDialog } from '@angular/material/dialog';
 import { params } from '../../../../../environments/params';
-import { PdataComponent } from '../../../../pages/pdata/pdata.component';
 import { isAndroid } from '../../../../utils/utils';
-import { ContactComponent } from '../../../../pages/contact/contact.component';
+import { ModalComponent } from '../../../../pages/modal/modal.component';
+import { ENGLISH, FRENCH } from '../../../../data/sentence';
+import { Modal } from '../../../../models/modal';
 
 @Component({
   selector: 'app-header',
@@ -37,6 +37,12 @@ export class HeaderComponent implements OnInit {
   public language: string;
   public userName: string;
   public android: boolean;
+  public pdataFrench: Modal = FRENCH.pdata;
+  public pdataEnglish: Modal = ENGLISH.pdata;
+  public contactFrench: Modal = FRENCH.contact;
+  public contactEnglish: Modal = ENGLISH.contact;
+  public gdprFrench: Modal = FRENCH.gdpr;
+  public gdprEnglish: Modal = FRENCH.gdpr;
 
   constructor(
     public readonly dialog: MatDialog,
@@ -79,16 +85,14 @@ export class HeaderComponent implements OnInit {
     this.openModal(OnboardingComponent, '680px');
   }
 
-  public gdpr() {
-    this.openGdprModal(GdprComponent);
-  }
-
-  public contact() {
-    this.openContactModal(ContactComponent);
-  }
-
-  public pdata() {
-    this.openGdprModal(PdataComponent);
+  public openModal(frenchData, englishData) {
+    this.dialog.open(ModalComponent, {
+      panelClass: 'customDialog',
+      data: {
+        frenchData,
+        englishData
+      }
+    });
   }
 
   public choice() {
@@ -98,29 +102,12 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/choice']);
   }
 
-  private openGdprModal(component) {
-    this.dialog.open(component, {
-      panelClass: 'customDialog',
-      data: {
-        language: this.language
-      }
-    });
-  }
-
   private openContactModal(component) {
     this.dialog.open(component, {
       panelClass: 'customDialog',
       data: {
         language: this.language
       }
-    });
-  }
-
-  private openModal(component, height) {
-    this.dialog.open(component, {
-      width: '800px',
-      height,
-      panelClass: 'customDialog'
     });
   }
 

@@ -4,7 +4,7 @@
       <img style="width: 80%;padding-bottom: 2%;" src="../../../assets/images/common/logo-working.png" alt="Logo Trad"
            *ngIf="showTraductionLogo" />
     </ng-template>
-    <h1 class="t2"> {{ contactWording.title }}</h1>
+    <h1 class="t2"> {{ this.title }}</h1>
   </div>
   <div class="language">
     <mat-form-field>
@@ -14,8 +14,8 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="privacy" [innerHTML]="contactWording.message"></div>
+  <div class="privacy" [innerHTML]="this.message"></div>
   <div class="action">
-    <button class="options" (click)="closeDialog()">{{ contactWording.closeBtn }}</button>
+    <button class="options" (click)="closeDialog()">{{ this.close }}</button>
   </div>
 </div>

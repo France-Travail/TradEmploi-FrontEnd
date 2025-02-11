@@ -1,5 +1,4 @@
-import { Gdpr } from './gdpr';
-import { Contact } from './contact';
+import { Modal } from './modal';
 
 export interface Vocabulary {
   isoCode: string;
@@ -31,9 +30,9 @@ export interface Sentence {
   languageButtonFR?: string;
   gaugeText?: string;
   rate?: Rate;
-  gdpr?: Gdpr;
-  contact?: Contact;
-  pdata?: string;
+  gdpr?: Modal;
+  contact?: Modal;
+  pdata?: Modal;
   logout?: Logout;
   modality?: Modality;
   choice?: Choice;

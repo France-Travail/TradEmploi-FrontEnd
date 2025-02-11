@@ -3,11 +3,12 @@
     <img src="assets/icons/icon-languages-black.svg" alt="Choix" />
     <span class="name">{{ choiceLink | uppercase }}</span>
   </a>
-  <a mat-list-item (click)="gdpr()">
+  <a mat-list-item (click)="openGenericModal(this.gdprFrench, this.gdprEnglish)">
     <img src="assets/icons/icon-policies-black.svg" alt="gdpr" />
     <span class="name">{{ gdprLink | uppercase }}</span>
   </a>
-  <a mat-list-item (click)="pdata()" *ngIf="params.headerButtons.personalData">
+  <a mat-list-item (click)="openGenericModal(this.pdataFrench, this.pdataEnglish)"
+     *ngIf="params.headerButtons.personalData">
     <img src="assets/icons/icon-person.svg" alt="gdpr" />
     <span class="name">{{ 'Données personnelles' | uppercase }}</span>
   </a>
@@ -15,11 +16,13 @@
     <img src="assets/icons/icon-help-black.svg" alt="help" />
     <span class="name">{{ helpLink | uppercase }}</span>
   </a>
-  <a mat-list-item (click)="onSidenavClose()" (click)="gdpr()" *ngIf="navbarService.cguTab">
+  <a mat-list-item (click)="onSidenavClose()" (click)="openGenericModal(this.gdprFrench, this.gdprEnglish)"
+     *ngIf="navbarService.cguTab">
     <img src="assets/icons/icon-policies-black.svg" alt="help" />
     <span class="name">{{ gdprLink | uppercase }}</span>
   </a>
-  <a mat-list-item (click)="onSidenavClose()" (click)="contact()" *ngIf="navbarService.contactTab">
+  <a mat-list-item (click)="onSidenavClose()" (click)="openGenericModal(this.contactFrench, this.contactEnglish)"
+     *ngIf="navbarService.contactTab">
     <img src="assets/icons/icon-email.svg" alt="help" />
     <span class="name">{{ contactLink | uppercase }}</span>
   </a>

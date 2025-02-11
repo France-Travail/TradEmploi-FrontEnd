@@ -28,7 +28,8 @@
         <img src="assets/icons/icon-languages-black.svg" alt="Languages" />
         <span class="name">{{ choiceLink | uppercase }}</span>
       </button>
-      <button id="gdpr-header" (click)="gdpr()" *ngIf="params.headerButtons.CGU">
+      <button id="gdpr-header" (click)="this.openModal(this.gdprFrench, this.gdprEnglish)"
+              *ngIf="params.headerButtons.CGU">
         <img src="assets/icons/icon-policies-black.svg" alt="gdpr" />
         <span class="name">{{ gdprLink | uppercase }}</span>
       </button>
@@ -37,7 +38,8 @@
         <img src="assets/icons/icon-modality-black.svg" alt="modality" />
         <span class="name">MODALITÉ</span>
       </button>
-      <button id="pdata-header" (click)="pdata()" *ngIf="params.headerButtons.personalData">
+      <button id="pdata-header" (click)="this.openModal(this.pdataFrench, this.pdataEnglish)"
+              *ngIf="params.headerButtons.personalData">
         <img src="assets/icons/icon-person.svg" alt="gdpr" />
         <span class="name">{{ 'Données personnelles' | uppercase }}</span>
       </button>
@@ -49,7 +51,7 @@
         <img src="assets/icons/icon-export-black.svg" alt="Shortcut" />
         <span class="name">CREER UN RACCOURCI</span>
       </button>
-      <button id="contact-header" (click)="contact()"
+      <button id="contact-header" (click)="this.openModal(this.contactFrench, this.contactEnglish)"
               *ngIf="navbarService.modalityTab && params.headerButtons.contact">
         <img src="assets/icons/icon-email.svg" alt="Contact" />
         <span class="name">CONTACT</span>
