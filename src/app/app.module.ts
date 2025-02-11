@@ -38,7 +38,6 @@ import { ChatComponent } from './pages/translation/components/chat/chat.componen
 import { RateDialogComponent } from './pages/translation/dialogs/rate-dialog/rate-dialog.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { AnonymousComponent } from './pages/anonymous/anonymous.component';
-import { GdprComponent } from './pages/gdpr/gdpr.component';
 import { NavbarService } from './services/navbar.service';
 import {
   ChatMultiDevicesComponent
@@ -73,7 +72,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { QRCodeModule } from 'angularx-qrcode';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { PdataComponent } from './pages/pdata/pdata.component';
 import { TradtondocComponent } from './pages/tradtondoc/tradtondoc.component';
 import { ImageCropperComponent } from 'ngx-image-cropper';
 import { ModalComponent } from './pages/modal/modal.component';
@@ -100,8 +98,6 @@ if (!environment.firebaseConfig.authDomain) {
     LogoutComponent,
     AuthenticationComponent,
     AnonymousComponent,
-    GdprComponent,
-    PdataComponent,
     ChatComponent,
     ChatMultiDevicesComponent,
     ShareComponent,
