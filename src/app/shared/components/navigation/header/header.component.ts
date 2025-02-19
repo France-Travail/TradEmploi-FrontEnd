@@ -74,7 +74,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public logout() {
-    this.openModal(LogoutComponent, '300px');
+    this.openLogoutModal(LogoutComponent, '300px');
   }
 
   public share() {
@@ -92,6 +92,14 @@ export class HeaderComponent implements OnInit {
         frenchData,
         englishData
       }
+    });
+  }
+
+  private openLogoutModal(component, height) {
+    this.dialog.open(component, {
+      width: '800px',
+      height,
+      panelClass: 'customDialog'
     });
   }
 
